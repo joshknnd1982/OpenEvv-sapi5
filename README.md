@@ -6,7 +6,8 @@ The OpenEVV text-to-speech engine as SAPI 5 voices for Windows, in both 32-bit a
 
 ## What you get
 
-- **Ten languages, eight voices each, 80 SAPI voices:** US English, British English, German, Castilian Spanish, Latin American Spanish, French, Canadian French, Italian, Japanese and Polish. Polish is marked experimental because upstream is still turning Italian rules into Polish ones.
+- **155 languages, eight voices each, 1,240 SAPI voices.** openevv's own ten: US English, British English, German, Castilian Spanish, Latin American Spanish, French, Canadian French, Italian, Japanese and Polish (experimental, because upstream is still turning Italian rules into Polish ones).
+- **And 145 more, read by eSpeak NG:** every language and dialect [eSpeak NG](https://github.com/espeak-ng/espeak-ng) has that openevv does not, from Afrikaans to Yue Chinese, New York City English and Swiss French among them. eSpeak NG reads the text -- its spelling, dictionary, numbers and stress -- and one of openevv's own modules speaks it in the Eloquence voice, chosen for the accent: Irish, Scottish Gaelic and Welsh with British English, the Germanic languages with German, Brazilian Portuguese with Latin American Spanish, each dialect with its own language. Numbers are read in the language itself. `docs/LANGUAGES.md` says how, and what cannot be brought across (tone, and sounds none of the modules has).
 - **The eight classic presets in every language:** Adult Male 1 (Reed), Adult Female 1 (Shelley), Child 1, Adult Male 2, Adult Male 3, Adult Female 2, Elderly Female 1 and Elderly Male 1. Voices are named "OpenEVV US English Adult Male 1" and so on.
 - **Low latency.** The engine synthesises about 600 times faster than real time. From a program's `Speak()` call to the first audio handed to SAPI takes about 1.5 ms on a warm voice. A cancel returns in well under a millisecond, and the next utterance never waits for the one it replaced.
 - **Everything adjustable, live.** OpenEVV Configuration adjusts all eight parameters of every voice in every language: gender, head size, pitch, inflection, roughness, breathiness, speed and volume. It also sets the sample rate (8 to 48 kHz), the resampler, the speed range for SAPI's rate, the pitch step, abbreviation expansion, how numbers are read, the spelling modes, backquote annotations, English heteronym fixes and user dictionaries. Each change is saved at once and heard on the next thing any program says, a screen reader already speaking included.
@@ -16,7 +17,7 @@ The OpenEVV text-to-speech engine as SAPI 5 voices for Windows, in both 32-bit a
 
 ## Installing
 
-Download `OpenEVV-SAPI5-Setup-<version>.exe` from the [Releases](../../releases) page and run it. It installs both SAPI interfaces, all ten languages, OpenEVV Configuration (with a desktop shortcut, and in the Start menu) and the documentation. It then tests every voice in 32-bit and 64-bit programs and states the result on its last page. The wizard is Inno Setup's standard one and works with screen readers.
+Download `OpenEVV-SAPI5-Setup-<version>.exe` from the [Releases](../../releases) page and run it. It installs both SAPI interfaces, all 155 languages, OpenEVV Configuration (with a desktop shortcut, and in the Start menu) and the documentation. It then tests every voice in 32-bit and 64-bit programs and states the result on its last page. The wizard is Inno Setup's standard one and works with screen readers.
 
 Windows may say "Windows protected your PC" first. That is SmartScreen noting a new, unsigned download, not a detection: choose More info, then Run anyway.
 
@@ -114,6 +115,8 @@ Then run:
 
 This builds x86 and x64, runs the test suites, stages `dist\` and writes `output\OpenEVV-SAPI5-Setup-<version>.exe`. `build_all.bat notest` skips the tests.
 
+The eSpeak NG front-end is built too, with eSpeak NG fetched from [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng) (so the first build wants the internet and Git), or from a local checkout with `set ESPEAK_NG_SOURCE_DIR=C:\path\to\espeak-ng`. With a 64-bit Python on the PATH, every eSpeak NG pack is also checked against its template's module. `build_all.bat packs` writes the 145 eSpeak NG packs in `languages\` again from eSpeak NG's sources, choosing each template and translating each phoneme table.
+
 Rebuilding the language modules from `openevv/` also needs [MSYS2](https://www.msys2.org/) with GNU make, Python and the two mingw-w64 GCCs:
 
     pacman -S --needed make python mingw-w64-x86_64-gcc mingw-w64-i686-gcc
@@ -129,12 +132,13 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 | `src/common/` | shared by all of them: the host protocol and pool, settings, language packs, logging |
 | `src/config/` | OpenEVV Configuration and its self-test |
 | `src/tools/` | test tools: `sapi_test` (the SAPI engine through a mock site), `a11y_check` and `installer_a11y` (what a screen reader sees), `evv_probe` and `evv_chars` (measure a module directly) |
-| `languages/` | the ten language packs, prebuilt |
-| `dist/` | the built SAPI wrapper, host and utility, both bitnesses, in the installed layout |
+| `languages/` | the 155 language packs: openevv's ten, prebuilt, and the 145 read by eSpeak NG |
+| `frontend/` | `OpenEvvFrontend.exe`, which reads those 145 with eSpeak NG (GPL v3; see its README) |
+| `dist/` | the built SAPI wrapper, host, utility and eSpeak NG front-end, both bitnesses, and eSpeak NG's compiled data, in the installed layout |
 | `openevv/` | the openevv engine source, a snapshot of [joshknnd1982/openevv](https://github.com/joshknnd1982/openevv) at 7148737 (= [Mudb0y/openevv](https://github.com/Mudb0y/openevv) main, 28 September 2026) |
-| `engine/` | building the modules and packs from `openevv/` |
+| `engine/` | building the modules and packs from `openevv/`, and the eSpeak NG packs from eSpeak NG (`make_espeak_packs.py`, `espeak_phonemes.py`, `check_espeak_packs.py`, `espeak_templates.txt`) |
 | `installer/` | the Inno Setup script |
-| `samples/` | every voice of every language, rendered straight from the engine modules |
+| `samples/` | every voice of openevv's own ten languages, rendered straight from the engine modules; the 145 eSpeak NG languages' samples are a download on the Releases page (`engine/render_espeak_samples.py`) |
 
 ## Testing
 
@@ -150,7 +154,8 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
   - all seven sample rates
   - that a settings change is heard on the next utterance
   - recovery from a killed host
-- **`sapi_test --all-voices`:** all 80 voices through SAPI.
+- **`sapi_test --all-voices`:** all 1,240 voices through SAPI.
+- **`engine\check_espeak_packs.py`:** every eSpeak NG pack's sample, numbers and punctuation read and handed to its template's module, which must take every word as a pronunciation.
 - **`a11y_check`:** walks every page of OpenEVV Configuration through MSAA on a private desktop. It fails on an unlabelled control or a duplicated access key, and checks that edits reach the settings file at once.
 - **`installer_a11y`:** walks every page of the installer the same way, then installs and uninstalls a non-elevated probe build.
 - **`OpenEvvConfig.exe --selftest`:** every voice of every language in both bitnesses, plus one through SAPI itself. The installer runs this too.
@@ -161,7 +166,8 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 
 ## Licence and provenance
 
-- **The wrapper** (everything outside `openevv/` and `languages/`) is under the GNU General Public License version 2; see `LICENSE`. Its COM and SAPI scaffolding comes from the BestSpeech SAPI5 wrapper.
+- **The wrapper** (everything outside `openevv/`, `frontend/` and `languages/`) is under the GNU General Public License version 2; see `LICENSE`. Its COM and SAPI scaffolding comes from the BestSpeech SAPI5 wrapper.
+- **The eSpeak NG front-end** (`frontend/`, `OpenEvvFrontend.exe`), the eSpeak NG data installed with it and the eSpeak NG packs' phoneme maps are under the GNU General Public License version 3 or later, as eSpeak NG is; see `frontend/COPYING`. The front-end is a separate program the wrapper talks to over pipes.
 - **The openevv engine** is under the MIT licence; see `openevv/LICENSE`.
 - **The language data inside each language module** was transcribed from IBM's Embedded ViaVoice objects, and is IBM's work. Neither licence covers it, and nobody here can license it to anyone. `NOTICE.md` and `openevv/NOTICE` say whose it is and who the rights may belong to today.
 

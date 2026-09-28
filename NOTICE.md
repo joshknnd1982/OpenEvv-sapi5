@@ -1,10 +1,16 @@
 # Notice: whose is whose
 
-Three different things are in this repository and its installer, under three different sets of terms.
+Four different things are in this repository and its installer, under four different sets of terms.
 
 ## The SAPI 5 wrapper: GNU GPL version 2
 
-Everything outside `openevv/` and `languages/` is the wrapper: the SAPI 5 engine and voice enumerator, the engine host, OpenEVV Configuration, the tools, the build scripts and the installer script. It is under the GNU General Public License version 2, in `LICENSE`. Its COM and SAPI scaffolding descends from the BestSpeech SAPI5 wrapper; see `CREDITS.md`.
+Everything outside `openevv/`, `frontend/` and `languages/` is the wrapper: the SAPI 5 engine and voice enumerator, the engine host, OpenEVV Configuration, the tools, the build scripts and the installer script. It is under the GNU General Public License version 2, in `LICENSE`. Its COM and SAPI scaffolding descends from the BestSpeech SAPI5 wrapper; see `CREDITS.md`.
+
+## eSpeak NG and the front-end: GNU GPL version 3 or later
+
+`frontend/` is `OpenEvvFrontend.exe`, which reads the 145 languages made from [eSpeak NG](https://github.com/espeak-ng/espeak-ng). It links eSpeak NG and is under the GNU General Public License version 3 or later, in `frontend/COPYING`, as eSpeak NG is. So is the eSpeak NG data installed with it in `espeak-ng-data\`, and so are the `phonemes.map` files in the eSpeak NG language packs, which are written from eSpeak NG's phoneme tables. The front-end is a program of its own: the wrapper starts it and talks to it over pipes, and does not link it. `src/common/frontend_proto.h`, the description of those pipes, is under the MIT licence so that both sides may include it.
+
+The eSpeak NG it is built from is [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng) at the tag `frontend/CMakeLists.txt` names, which is eSpeak NG with the changes made for OpenEVV (number reading for more languages among them); its complete source is there. eSpeak NG is Copyright (C) 2005 to 2013 Jonathan Duddington, and from 2013 Reece H. Dunn and the eSpeak NG contributors.
 
 ## The openevv engine: MIT
 

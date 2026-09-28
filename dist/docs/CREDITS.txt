@@ -10,6 +10,10 @@ Upstream's documentation also shaped the wrapper directly. `docs/quirks.md` expl
 
 The engine code is MIT-licensed; the language data is IBM's. See `NOTICE.md`.
 
+## 145 more languages: eSpeak NG
+
+[eSpeak NG](https://github.com/espeak-ng/espeak-ng), by Jonathan Duddington, Reece H. Dunn and hundreds of contributors, reads the 145 languages openevv has no module for: their spelling rules, dictionaries, numbers, letter names and stress are eSpeak NG's, and so are the phoneme tables `phonemes.map` is translated from. The language maintainers named in eSpeak NG's `espeak-ng-data/lang` files and dictionary sources did the work of each language. eSpeak NG is under the GNU GPL version 3 or later; see `NOTICE.md`.
+
 ## The speech engine underneath: Eloquence and IBM
 
 Eloquence was created by Eloquent Technology, Inc., and IBM licensed it as the formant engine of ViaVoice and Embedded ViaVoice. The language data in every module is IBM's work, transcribed from the Embedded ViaVoice 4.3 SDK that IBM still serves from its public download site. No licence here covers it. See `NOTICE.md`.
