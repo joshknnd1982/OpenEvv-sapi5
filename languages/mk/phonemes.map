@@ -1,0 +1,702 @@
+# OpenEVV phoneme map: Macedonian (eSpeak NG voice zls/mk), said with openevv's Italian.
+# Written by engine/espeak_phonemes.py; OpenEvvFrontend reads it.
+#
+# Each line is an eSpeak NG phoneme and the Italian phones that say it.
+# `@table:name' is a phoneme by its eSpeak NG name in that phoneme table,
+# and a line that starts with IPA is used for any phoneme with that IPA,
+# from any table -- a word eSpeak NG reads in another language, say.
+# A phoneme with nothing after it is not said. Edit freely: the file is
+# read each time a voice starts.
+
+template itit
+style standard
+vowels i e E a o c u
+glides r l L y w
+schwa e
+secondary 0
+
+# eSpeak NG phoneme table mk
+@mk::            -               # ː
+@mk:@            e               # ə
+@mk:@-           e               # ə
+@mk:*            r               # ɾ
+@mk:#X1          k               # ʰχ
+@mk:?            -               # ʔ
+@mk:-            -               # -
+@mk:#@           e               # ʰə
+@mk:#a           a               # ʰa
+@mk:#e           e               # ʰe
+@mk:#i           i               # ʰi
+@mk:#o           o               # ʰo
+@mk:#u           u               # ʰu
+@mk:r            r               # ɹ
+@mk:a            a               # a
+@mk:e            e               # e
+@mk:i            i               # i
+@mk:;            -               # ʲ
+@mk:o            o               # o
+@mk:u            u               # u
+@mk:m-           m               # m̩
+@mk:n-           n               # n̩
+@mk:N-           n               # ŋ̩
+@mk:r-           r               # r̩
+@mk:l-           l               # l̩
+@mk:r            r               # r
+@mk:t            t               # t
+@mk:p            p               # p
+@mk:k            k               # k
+@mk:n            n               # n
+@mk:R            r               # r
+@mk:R2           r               # r
+@mk:R3           r               # r
+@mk:r"           r               # ʀ
+@mk:l            l               # l
+@mk:l            l               # l
+@mk:j            y               # j
+@mk:w            w               # w
+@mk:l            l               # l
+@mk:l            l               # l
+@mk:l^           L               # ʎ
+@mk:l.           l               # ɭ
+@mk:L            l               # ɫ
+@mk:L            l               # ɫ
+@mk:h            -               # h
+@mk:m            m               # m
+@mk:n.           n               # ɳ
+@mk:n^           N               # ɲ
+@mk:N            n               # ŋ
+@mk:**           r               # ɾ
+@mk:r.           r               # r.
+@mk:b            b               # b
+@mk:d            d               # d
+@mk:d[           d               # d̪
+@mk:t[           t               # t̪
+@mk:dZ           J               # dʒ
+@mk:tS           C               # tʃ
+@mk:dZ;          J               # dʑ
+@mk:tS;          C               # tɕ
+@mk:J            J               # ɟ
+@mk:c            C               # c
+@mk:g            g               # ɡ
+@mk:B            v               # β
+@mk:f            f               # f
+@mk:v            v               # v
+@mk:v#           v               # ʋ
+@mk:D            d               # ð
+@mk:T            t               # θ
+@mk:z            z               # z
+@mk:s            s               # s
+@mk:Z            Z               # ʒ
+@mk:S            S               # ʃ
+@mk:z.           Z               # ʐ
+@mk:s.           S               # ʂ
+@mk:z;           Z               # ʑ
+@mk:s;           S               # ʂ
+@mk:Z;           Z               # ʑ
+@mk:S;           S               # ɕ
+@mk:J^           y               # ʝ
+@mk:C            C               # ç
+@mk:Q            g               # ɣ
+@mk:x            k               # x
+@mk:Q^           g               # ɣ^
+@mk:Q"           r               # ʁ
+@mk:q            k               # q
+@mk:l#           S               # ɬ
+@mk:X            k               # χ
+@mk:a#           a               # a
+@mk:E            E               # ɛ
+@mk:E#           E               # ɛ
+@mk:O            c               # ɔ
+@mk:y            i               # ɨ
+@mk:E~           E               # ɛ̃
+@mk:O~           c               # ɔ̃
+@mk:t;           t               # tʲ
+@mk:d;           d               # dʲ
+@mk:ts           T               # ts
+@mk:dz           J               # dʑ
+@mk:ts;          C               # tɕ
+@mk:dz;          J               # dʑ
+@mk:i:           i               # iː
+@mk:&            E               # æ
+@mk:e:           e               # eː
+@mk:a:           a               # aː
+@mk:o:           o               # oː
+@mk:u:           u               # uː
+@mk:aU           a w             # aʊ
+@mk:eU           e w             # eʊ
+@mk:oU           o w             # oʊ
+@mk:aI           a y             # aɪ
+@mk:eI           e y             # eɪ
+@mk:r:           r               # r̩ː
+@mk:R^           r               # r̝
+@mk:R^           r               # r̝̊
+@mk:l:           l               # l̩ː
+@mk:@2           e               # ə
+@mk:A            a               # ɑ
+@mk:I            i               # ɪ
+@mk:U            o               # ʊ
+@mk:r*           -               # 
+@mk:k^           k               # k^
+
+# by IPA, for phonemes from any other table
+ə                e
+a                a
+b                b
+v                v
+ɡ                g
+gʲ               g
+gʷ               g
+ʁ                r
+ʁʲ               r
+ʁʷ               r
+d                d
+dʷ               d
+e                e
+ʐ                Z
+ʒ                Z
+ʒʷ               Z
+z                z
+dz               D
+dʑʷ              J
+i                i
+k                k
+kʲ               k
+kʷ               k
+kʰ               k
+kʲʰ              k
+kʷʰ              k
+q                k
+qʲ               k
+qʷ               k
+l                l
+m                m
+n                n
+o                o
+p_               p
+p                p
+r                r
+s                s
+t_               t
+tʷ               t
+t                t
+tʷʰ              t
+u                u
+f                f
+χ                k
+χʲ               k
+χʷ               k
+ħ                -
+ħʷ               -
+tsʰ              T
+tɕʷʰ             C
+ts               T
+tɕʷ              C
+tʃʰ              C
+tʃ               C
+ʈʂʰ              C
+ʈʂ               C
+ʂ                S
+ʃ                S
+ʃʷ               S
+ɥ                y
+ɖʐ               J
+ʤ                J
+ː                -
+ɾ                r
+ʰχ               k
+ʔ                -
+-                -
+ʰə               e
+ʰa               a
+ʰe               e
+ʰi               i
+ʰo               o
+ʰu               u
+ɐ                a
+ʲ                -
+m̩               m
+n̩               n
+ŋ̩               n
+r̩               r
+l̩               l
+ʀ                r
+j                y
+w                w
+ʎ                L
+ɭ                l
+ɫ                l
+h                -
+ɳ                n
+ɲ                N
+ŋ                n
+r.               r
+d̪               d
+t̪               t
+dʒ               J
+dʑ               J
+tɕ               C
+ɟ                J
+c                C
+β                v
+ʋ                v
+ð                d
+θ                t
+ʑ                Z
+ɕ                S
+ʝ                y
+ç                C
+ɣ                g
+x                k
+ɣ^               g
+ɬ                S
+ɛ                E
+ɔ                c
+œ                E
+æ                E
+æː               E
+əl               e l
+ɑː               a
+iə               y e
+ʊə               w e
+y                i
+iu               i w
+əʊ               e w
+aɪ               a y
+ɑɪ               a y
+ɛɪ               E y
+ɔɪ               c y
+ʊɪ               o y
+uɪ               w i
+øy               e y
+øə               y e
+aʊ               a w
+eː               e
+ɔː               c
+ɜː               E
+ɑ̃               a
+ẽ               e
+õ               o
+ɨ                i
+p`               p
+t`               t
+tʃ`              C
+k`               k
+tʰ               t
+ʊ                o
+ø                e
+eʊ               e w
+iʊ               y o
+eɪ               e y
+oɪ               o y
+ɹ                r
+ʰr               r
+ʕ                -
+dˤ               d
+s̪               s
+a.               a
+i.               i
+u.               u
+ʌ                c
+iː               i
+ɪ                i
+ɛː               E
+aː               a
+oː               o
+uː               u
+ĩ               i
+ɪ̃               i
+ɛ̃               E
+ã               a
+ʌ̃               c
+ɔ̃               c
+ʊ̃               o
+ũ               u
+pʰ               p
+bʰ               b
+dʰ               d
+ʈ                t
+ɖ                d
+ʈʰ               t
+ɖʰ               d
+cʰ               C
+ɟʰ               J
+ɡʰ               g
+̃                -
+ɯ                u
+ɢ                g
+ɑ                a
+ɒ                c
+zʲ               z
+sʲ               s
+t͡s              T
+d͡z              D
+t͡sʲ             T
+d͡zʲ             D
+ʈ͡ʂ              C
+ɖ͡ʐ              J
+tʲ               t
+dʲ               d
+                -
+ɡʲ               g
+ɱ                m
+dZ               J
+ɒ`               c
+ɒ̃               c
+ɒ̃`              c
+e`               e
+ẽ`              e
+i`               i
+ĩ`              i
+o`               o
+õ`              o
+u`               u
+ũ`              u
+ɐ̃               a
+ʌ̃`              c
+ŋ-               n
+s.               S
+ph               p
+th               t
+kh               k
+tɕh              C
+tsh              T
+ts.              C
+ts.h             C
+ai               a y
+ɑu               a w
+ər               e r
+ei               e y
+i̪               i
+iɑ               y a
+iɑu              y a w
+iɛ               y E
+io               y o
+iou              y o w
+o-               o
+ou               o w
+onɡ              o n g
+uɑ               w a
+ua               w a
+uai              w a y
+uə               w e
+uei              w e y
+uo               w o
+yu               i w
+yæ               y E
+yɛ               y E
+yə               y e
+yi               i y
+p-               p
+t-               t
+k-               k
+g                g
+oʊ               o w
+r̩ː              r
+r̝               r
+r̝̊              r
+l̩ː              l
+ɵ                o
+ɨː               i
+ɑɨ               a y
+aɨ               a y
+əɪ               e y
+əɨ               e y
+ɪu               i w
+ɨu               i w
+ɔɨ               c y
+uɨ               u y
+ɐ̯               a
+ʔʌ               c
+ʔi               i
+ɜ                E
+ʔe               e
+ε                E
+?a               a
+?ɑ               a
+ʔu               u
+ʔo               o
+ʔy               i
+ʔœ               E
+ɪː               i
+ʊɐ               w a
+ɔø               c y
+yː               i
+ʏ                i
+øː               e
+pf               p f
+iɐ               y a
+œ̃               E
+zʰ               z
+ʍ                k
+eə               y e
+aɪə              a y e
+aʊə              a w e
+əɹ               e r
+ʌɹ               c r
+æʊ               E w
+ʉ                u
+a:               a
+ʉː               u
+ʌʉ               c w
+ʉɹ               u r
+ɚ                e r
+ᵻ                i
+ɑːɹ              a r
+ɔːɹ              c r
+ɛɹ               E r
+ɪɹ               i r
+ʊɹ               o r
+aɪɚ              a y e r
+aɪʊɹ             a y w r
+aa               a
+ɑə               a e
+ɔə               c e
+oə               w e
+əu               e w
+ʌʊ               c w
+ɵː               o
+æi               E y
+øi               e y
+s^               s
+t^               t
+d^               d
+s̻               s
+s̺               s
+ts̺              T
+ts̻              T
+oi               o y
+ui               u y
+au               a w
+eu               e w
+æy               E y
+ey               e y
+iy               i y
+ie               y e
+yø               y e
+l#               l
+2                e
+2ː               e
+4                a
+4ː               a
+5                l
+5ː               l
+9                E
+9ː               E
+œː               E
+aɪː              a y
+eɪː              e y
+aʊː              a w
+oʊː              o w
+øyː              e y
+yɪ               y i
+m#               m
+n#               n
+ɲ#               N
+ŋ#               n
+tl#              t l
+r#               r
+ə-               e
+ʰl               l
+ʰcFʀ             C r
+a-               a
+e-               e
+ɛ-               E
+y-               i
+i̯               i
+ŭ               u
+A                a
+ɤ                o
+ia               y a
+ɯɪ               w i
+ɔʊ               c w
+n̪               n
+ɾʲ               r
+ʰ                -
+hʰ               -
+ɨ̃               i
+ɛʊ               E w
+aɪ̃              a y
+aʊ̃              a w
+n^               n
+iau              y a w
+ue               w e
+ss               s s
+k̃               k
+tʃ̃              C
+dʒ̃              J
+ɡ̃               g
+ɣ̃               g
+ʃ̃               S
+ä                a
+e̞               e
+o̞               o
+ɯᵝ               u
+ĩ                i
+ũ                u
+ɴ                N
+ɸ                f
+ɽ                r
+s-               s
+q-               k
+tɕ-              C
+d-               d
+wʰ               w
+t[               t
+l-               l
+N                n
+d[               d
+tS               C
+S                S
+X                k
+oe               o y
+ɑ:               a
+e:               e
+i:               i
+o:               o
+u:               u
+ɯ:               u
+y:               i
+oe:              o y
+ɑ̃ː              a
+ɛ̃ː              E
+õː               o
+æːɪ              E y
+ɑʊ               a w
+æːʊ              E w
+ɜɪ               E y
+ʦ                T
+ee               e
+eɑ               y a
+nʲ               N
+t͡ʃ              C
+a`               a
+z-               z
+u"               u
+u"ː              u
+k^               k
+O                c
+8                o
+U                o
+O:               c
+8:               o
+U:               o
+Oi               c y
+Ui               o y
+ɘ                e
+nɡ               n g
+hs               s
+ht               t
+ky               k i
+ʌɪ               c y
+œy               E y
+yʊ               y o
+ʉɪ               w i
+K                S
+?                -
+Φ                f
+iːɐ̯             y a
+æːɐ̯             E a
+ɑːɐ̯             a a
+ɔːɐ̯             c a
+oːɐ̯             w a
+uːɐ̯             w a
+eːɐ̯             y a
+eɐ̯              y a
+ɛɐ̯              E a
+r̥               r
+l̥               l
+d͡ʒ              J
+lʰ               l
+ɐ̃ʊ̃             a w
+õɪ̃             o y
+ũɪ̃             w i
+sʰ               s
+ʀʰ               r
+rʰ               r
+q`               k
+ʒʲ               Z
+ʃʲ               S
+lʲ               L
+mʲ               m
+iɪ               y i
+ea               y a
+eo               e w
+e̪u              e w
+ɔa               c a
+pʲ               p
+tsʲ              T
+fʲ               f
+bʲ               b
+vʲ               v
+dʒʲ              J
+tʃʲ              C
+ɪ^               i
+ja               y a
+ɛ%               E
+ju               y u
+gˈ               g
+kˈ               k
+e̯a              y a
+o̯a              w a
+ou̯              o w
+ij               i y
+p_h              p
+t_h              t
+k_h              k
+ɛu               E w
+aːu              a w
+ɯi               u y
+əi               e y
+aːi              a y
+ɔi               c y
+aɯ               a w
+ᵐ                -
+ⁿ                -
+ᵑ                -
+aɛ               a E
+e+               e
+o+               o
+ll               l l
+xʰ               k
+ɧ                S
+ɻ                r
+ʊː               o
+ɔ+               c
+əː               e
+aːɪ              a y
+əːɪ              e y
+aːʊ              a w
+əːʊ              e w
+oæ               w E
+ɔ-               c
+u-               u
+cr               C r
+ɗ                d
+aai              a y
+aau              a w
+anɡ              a n g
+aanɡ             a n g
+enɡ              e n g
+inɡ              i n g
+oenɡ             o y n g
+unɡ              u n g
+eoi              e w y
+ʙ                r
+ⱱ                r
+ɺ                r
+ɦ                -
+ɮ                z
+ɰ                w
+ʟ                L
+ʘ                p
+ǀ                t
+ǃ                t
+ǂ                k
+ǁ                t
+ɓ                b
+ʄ                g
+ɠ                g
+ʛ                g
+ɞ                c
+ɶ                a
+ɝ                E r
