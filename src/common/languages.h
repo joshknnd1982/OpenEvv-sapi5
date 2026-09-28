@@ -7,6 +7,14 @@
 //   languages\enus\openevv-enus-x64.dll
 //   languages\enus\dict\main.dic, root.dic, abbr.dic   (optional)
 //
+// A pack made from an eSpeak NG language has no modules of its own. It names
+// another pack as its template, whose modules speak it, and the eSpeak NG
+// voice that reads its text; OpenEvvFrontend.exe turns the text into the
+// template's phonemes with the pack's phonemes.map:
+//
+//   languages\sw\language.ini     Template=eses, [Frontend] Voice=bnt/sw
+//   languages\sw\phonemes.map
+//
 // Adding a language is dropping a folder in, removing one is deleting it: the
 // SAPI voice list is built from whatever packs are present each time an
 // application asks for it, so nothing has to be registered. docs/LANGUAGES.md
@@ -40,6 +48,12 @@ struct LanguageInfo
     std::wstring dir;            // the pack folder
     std::wstring module32, module64; // full paths ("" if the pack lacks one)
     std::vector<PresetVoice> voices; // the eight presets
+    std::wstring template_tag;   // "eses": the pack whose modules speak this one
+    std::wstring fe_voice;       // the eSpeak NG voice that reads the text, "bnt/sw"
+    std::wstring fe_map;         // full path of the pack's phonemes.map
+
+    // True for a pack read by eSpeak NG and spoken by its template's modules.
+    bool has_frontend() const { return !fe_voice.empty(); }
 
     // The module this process would load a host for.
     const std::wstring& module_for_this_bitness() const;
@@ -55,8 +69,22 @@ std::vector<LanguageInfo> scan_languages(std::vector<std::wstring>* problems = n
 // One pack by tag, from a fresh scan.
 bool find_language(const std::wstring& tag, LanguageInfo& out);
 
-// Reads one pack folder.
+// Reads one pack folder. A pack with a template is read without its modules,
+// which scan_languages() takes from the template.
 bool read_language_pack(const std::wstring& dir, LanguageInfo& out, std::wstring& problem);
+
+// The identity of the engine host a language needs: its module, its ECI
+// language and, for a pack read by eSpeak NG, its own tag, since packs sharing
+// a template's module cannot share a host.
+std::wstring host_key(const LanguageInfo& lang, bool x64);
+
+// A pack's own sample sentence (sample.txt beside language.ini, UTF-8), or
+// an empty string when it has none.
+std::wstring pack_sample_text(const LanguageInfo& lang);
+
+// OpenEvvFrontend.exe for a bitness, and the eSpeak NG data it reads.
+std::wstring frontend_exe_for(bool x64);
+std::wstring espeak_data_dir();
 
 // The standard preset names, genders and ages, used when a pack lists none.
 PresetVoice default_preset(int number);

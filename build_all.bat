@@ -5,20 +5,30 @@ rem   build_all.bat            build, test, stage dist\ and compile the installe
 rem   build_all.bat notest     skip the test suites
 rem   build_all.bat engine     rebuild the language modules first (needs MSYS2;
 rem                            see engine\build_modules.cmd)
+rem   build_all.bat packs      write the eSpeak NG language packs in languages\
+rem                            again from the eSpeak NG sources (needs Python)
 rem
 rem Requires Visual Studio 2022 or its Build Tools with the C++ workload and a
 rem Windows 10/11 SDK, CMake 3.20+ and Inno Setup 6. The language modules in
-rem languages\ are prebuilt, so MSYS2 is only needed to rebuild them.
+rem languages\ are prebuilt, so MSYS2 is only needed to rebuild them. The eSpeak
+rem NG front-end is built here, from github.com/joshknnd1982/espeak-ng unless
+rem ESPEAK_NG_SOURCE_DIR names a local checkout (frontend\build_frontend.cmd).
+rem The eSpeak NG pack check wants a 64-bit Python and is skipped without one.
 rem Programs are run by absolute path: some environments set
 rem NoDefaultCurrentDirectoryInExePath, which hides programs in the current folder.
 setlocal EnableDelayedExpansion
 cd /d "%~dp0"
 set "ROOT=%CD%"
 set "RUN_TESTS=1"
+rem The tests write their settings file and audio outside the source tree: a
+rem sync client watching the tree (OneDrive) upsets the settings file's timestamps.
+set "TESTOUT=%TEMP%\OpenEvvTests"
 set "BUILD_ENGINE=0"
+set "WRITE_PACKS=0"
 for %%A in (%*) do (
     if /i "%%~A"=="notest" set "RUN_TESTS=0"
     if /i "%%~A"=="engine" set "BUILD_ENGINE=1"
+    if /i "%%~A"=="packs" set "WRITE_PACKS=1"
 )
 
 if "%BUILD_ENGINE%"=="1" (
@@ -43,18 +53,40 @@ for %%A in (x86 x64) do (
     cmake --build "%ROOT%\build_%%A" --config Release || goto :fail
 )
 
+echo.
+echo === The eSpeak NG front-end and data ===
+call "%ROOT%\frontend\build_frontend.cmd" || goto :fail
+
+set "PY="
+for %%P in (python.exe py.exe) do if not defined PY (where %%P >nul 2>nul && set "PY=%%P")
+if "%WRITE_PACKS%"=="1" (
+    echo.
+    echo === The eSpeak NG language packs, written again ===
+    if not defined PY (echo Python is needed to write the packs & goto :fail)
+    set "ESRC=%ESPEAK_NG_SOURCE_DIR%"
+    if not defined ESPEAK_NG_SOURCE_DIR set "ESRC=%ROOT%\build_frontend_x64\_deps\espeak-ng-src"
+    set PYTHONUTF8=1
+    !PY! "%ROOT%\engine\make_espeak_packs.py" --espeak-src "!ESRC!" --frontend "%ROOT%\dist\x64\OpenEvvFrontend.exe" --data "%ROOT%\dist\espeak-ng-data" || goto :fail
+)
+if "%RUN_TESTS%"=="1" if defined PY (
+    echo.
+    echo === Tests: every eSpeak NG language pack, through its template's own module ===
+    set PYTHONUTF8=1
+    !PY! "%ROOT%\engine\check_espeak_packs.py" "%ROOT%\dist\x64\OpenEvvFrontend.exe" "%ROOT%\dist\espeak-ng-data" || goto :fail
+)
+
 if "%RUN_TESTS%"=="1" (
     echo.
     echo === Tests: the SAPI engine through a mock SAPI site, both bitnesses ===
-    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --out "%ROOT%\build_x64\sapi_test_out" || goto :fail
+    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --out "%TESTOUT%\build_x64_sapi_test_out" || goto :fail
     echo.
     echo === Tests: the same inside a process that enforces CET shadow stacks ===
-    "%ROOT%\build_x64\bin\Release\sapi_test_cet.exe" --out "%ROOT%\build_x64\sapi_test_cet_out" || goto :fail
+    "%ROOT%\build_x64\bin\Release\sapi_test_cet.exe" --out "%TESTOUT%\build_x64_sapi_test_cet_out" || goto :fail
     echo.
-    "%ROOT%\build_x86\bin\Release\sapi_test.exe" --out "%ROOT%\build_x86\sapi_test_out" || goto :fail
+    "%ROOT%\build_x86\bin\Release\sapi_test.exe" --out "%TESTOUT%\build_x86_sapi_test_out" || goto :fail
     echo.
     echo === Tests: every voice of every language through SAPI ===
-    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --only none --all-voices --out "%ROOT%\build_x64\sapi_test_voices" || goto :fail
+    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --only none --all-voices --out "%TESTOUT%\build_x64_sapi_test_voices" || goto :fail
     echo.
     echo === Tests: the configuration utility, as a screen reader sees it ===
     "%ROOT%\build_x64\bin\Release\a11y_check.exe" "%ROOT%\build_x64\bin\Release\OpenEvvConfig.exe" || goto :fail
@@ -70,6 +102,7 @@ for %%A in (x86 x64) do (
     for %%F in (OpenEvvSAPI.dll OpenEvvHost.exe OpenEvvConfig.exe) do (
         copy /y "%ROOT%\build_%%A\bin\Release\%%F" "%ROOT%\dist\%%A\" >nul || goto :fail
     )
+    copy /y "%ROOT%\build_frontend_%%A\bin\OpenEvvFrontend.exe" "%ROOT%\dist\%%A\" >nul || goto :fail
 )
 mkdir "%ROOT%\dist\docs"
 copy /y "%ROOT%\README.md" "%ROOT%\dist\docs\README.txt" >nul || goto :fail
@@ -80,12 +113,14 @@ copy /y "%ROOT%\CHANGELOG.md" "%ROOT%\dist\docs\CHANGELOG.txt" >nul || goto :fai
 copy /y "%ROOT%\docs\LANGUAGES.md" "%ROOT%\dist\docs\LANGUAGES.txt" >nul || goto :fail
 copy /y "%ROOT%\openevv\LICENSE" "%ROOT%\dist\docs\openevv-LICENSE.txt" >nul || goto :fail
 copy /y "%ROOT%\openevv\NOTICE" "%ROOT%\dist\docs\openevv-NOTICE.txt" >nul || goto :fail
+copy /y "%ROOT%\frontend\COPYING" "%ROOT%\dist\docs\eSpeak-NG-and-front-end-COPYING.txt" >nul || goto :fail
+copy /y "%ROOT%\frontend\README.md" "%ROOT%\dist\docs\eSpeak-NG-front-end.txt" >nul || goto :fail
 
 if "%RUN_TESTS%"=="1" (
     echo.
     echo === Tests: the staged layout, and the self-test the installer runs ===
-    "%ROOT%\build_x86\bin\Release\sapi_test.exe" --dll "%ROOT%\dist\x86\OpenEvvSAPI.dll" --only languages --out "%ROOT%\build_x86\sapi_test_dist" || goto :fail
-    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --dll "%ROOT%\dist\x64\OpenEvvSAPI.dll" --only languages --out "%ROOT%\build_x64\sapi_test_dist" || goto :fail
+    "%ROOT%\build_x86\bin\Release\sapi_test.exe" --dll "%ROOT%\dist\x86\OpenEvvSAPI.dll" --only languages --out "%TESTOUT%\build_x86_sapi_test_dist" || goto :fail
+    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --dll "%ROOT%\dist\x64\OpenEvvSAPI.dll" --only languages --out "%TESTOUT%\build_x64_sapi_test_dist" || goto :fail
     start "" /wait "%ROOT%\dist\x64\OpenEvvConfig.exe" --selftest --hosts-only --report "%ROOT%\build_x64\selftest.txt"
     if errorlevel 1 (type "%ROOT%\build_x64\selftest.txt" & goto :fail)
     type "%ROOT%\build_x64\selftest.txt"

@@ -150,7 +150,7 @@ public:
     {
         auto h = std::make_shared<HostProcess>();
         h->module = lang.module_for(use64);
-        h->key = h->module + L"|" + std::to_wstring(lang.id);
+        h->key = host_key(lang, use64);
         h->signature = s.host_signature();
         h->x64 = use64;
         h->info.module = h->module;
@@ -159,6 +159,18 @@ public:
         if (!file_exists(exe)) {
             err = "the engine host is missing: " + wide_to_narrow(exe);
             return nullptr;
+        }
+        // A pack read by eSpeak NG: the host starts the front-end, a process
+        // of its own, of the host's bitness or the other one if that is all
+        // there is.
+        std::wstring fe;
+        if (lang.has_frontend()) {
+            fe = frontend_exe_for(use64);
+            if (!file_exists(fe)) fe = frontend_exe_for(!use64);
+            if (!file_exists(fe)) {
+                err = "the eSpeak NG front-end is missing: " + wide_to_narrow(fe);
+                return nullptr;
+            }
         }
 
         SECURITY_ATTRIBUTES sa{sizeof sa, nullptr, TRUE};
@@ -204,6 +216,10 @@ public:
         const std::wstring user_dict = user_dictionary_dir(lang.tag);
         if (!user_dict.empty()) cmd += L" --dict-user " + quote(user_dict);
         cmd += L" --dict-pack " + quote(lang.dir + L"\\dict");
+        if (lang.has_frontend()) {
+            cmd += L" --frontend " + quote(fe) + L" --fe-data " + quote(espeak_data_dir()) + L" --fe-voice " +
+                   quote(lang.fe_voice) + L" --fe-map " + quote(lang.fe_map);
+        }
         std::vector<wchar_t> cmdline(cmd.begin(), cmd.end());
         cmdline.push_back(L'\0');
         std::vector<wchar_t> env = host_environment(s);
@@ -643,7 +659,7 @@ void HostPool::warm(const LanguageInfo& lang, const Settings& s, int bitness)
     bool use64 = false;
     std::string err;
     if (!choose_bitness(lang, bitness, use64, err)) return;
-    const std::wstring key = lang.module_for(use64) + L"|" + std::to_wstring(lang.id);
+    const std::wstring key = host_key(lang, use64);
     const std::wstring sig = s.host_signature();
     std::lock_guard<std::mutex> g(m_);
     for (const auto& h : hosts_) {
@@ -662,7 +678,7 @@ std::shared_ptr<Utterance> HostPool::speak(const LanguageInfo& lang, const Setti
 {
     bool use64 = false;
     if (!choose_bitness(lang, bitness, use64, error)) return nullptr;
-    const std::wstring key = lang.module_for(use64) + L"|" + std::to_wstring(lang.id);
+    const std::wstring key = host_key(lang, use64);
     const std::wstring sig = s.host_signature();
 
     auto u = std::make_shared<Utterance>();

@@ -39,6 +39,11 @@ bool windows_is_64bit()
 // A short sentence in each language's own words; digits say the most.
 std::wstring sample_text(const LanguageInfo& l)
 {
+    if (l.has_frontend()) {
+        // the pack's own sentence, and digits, which eSpeak NG reads in the language
+        const std::wstring own = pack_sample_text(l);
+        return (own.empty() ? l.name : own.substr(0, 160)) + L" 1 2 3.";
+    }
     const std::wstring t = l.tag.substr(0, 2);
     if (t == L"de") return L"Guten Tag. Eins, zwei, drei.";
     if (t == L"es") return L"Hola. Uno, dos, tres.";
@@ -131,7 +136,11 @@ SelfTestResult run_selftest(bool hosts, bool sapi, const std::function<void(cons
             if (progress) progress(l.name + (x64 ? L", 64-bit" : L", 32-bit"));
             int ok = 0;
             std::string last_error;
-            for (int preset = 1; preset <= 8; ++preset) {
+            // A language read by eSpeak NG has its template's eight presets,
+            // which the template's own test already speaks: two of them say
+            // whether the reading works.
+            const int presets = l.has_frontend() ? 2 : 8;
+            for (int preset = 1; preset <= presets; ++preset) {
                 ++r.tried;
                 const RenderResult rr = render_voice(l, preset, s, sample_text(l), bits);
                 const double secs = rr.samples.size() / static_cast<double>(rr.sample_rate_hz);
@@ -144,8 +153,9 @@ SelfTestResult run_selftest(bool hosts, bool sapi, const std::function<void(cons
                 }
             }
             wchar_t line[400];
-            swprintf_s(line, L"%s, %s engine: %d of 8 voices speak%s%S\r\n", l.name.c_str(),
-                       x64 ? L"64-bit" : L"32-bit", ok, ok == 8 ? L"" : L" - ", ok == 8 ? "" : last_error.c_str());
+            swprintf_s(line, L"%s, %s engine: %d of %d voices speak%s%S\r\n", l.name.c_str(),
+                       x64 ? L"64-bit" : L"32-bit", ok, presets, ok == presets ? L"" : L" - ",
+                       ok == presets ? "" : last_error.c_str());
             r.report += line;
             log::write(log::kStandard, "selftest: %S", line);
             bitnesses |= x64 ? 2 : 1;

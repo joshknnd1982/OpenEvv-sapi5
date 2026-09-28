@@ -1,0 +1,128 @@
+# The openevv module that speaks each eSpeak NG language, where it is chosen
+# by hand. One line a pack: its tag and the template. Everything not named
+# here takes the template whose phones come closest to the sounds the language
+# uses, counted over eSpeak NG's own test sentences (make_espeak_packs.py
+# --report shows the scores).
+#
+# A template is an accent: every word of the language is said with that
+# module's sounds, rhythm and melody. So the first question is not which
+# module has the most of the language's sounds but whose accent the language
+# is least wrong in -- a relative's, or a neighbour's. Irish is spoken with
+# the British English module, not the Italian one; Brazilian Portuguese with
+# the Latin American Spanish one. Only where openevv has no relative or
+# neighbour of a language does the count of sounds decide.
+
+# ---- dialects of openevv's own languages: their own language's module ----
+en-us-nyc           enus    # New York City
+en-029              engb    # Caribbean English: non-rhotic, as British English is
+en-gb-scotland      engb
+en-gb-x-gbclan      engb    # Lancaster
+en-gb-x-gbcwmd      engb    # West Midlands
+en-gb-x-rp          engb    # Received Pronunciation
+en-shaw             engb    # English written in the Shavian alphabet
+fr-be               frfr    # Belgian French
+fr-ch               frfr    # Swiss French
+
+# ---- the Celtic languages: the accent of the British Isles ----
+ga                  engb    # Irish
+gd                  engb    # Scottish Gaelic
+cy                  engb    # Welsh
+
+# ---- Germanic: German, their nearest relative openevv has ----
+af                  dede
+nl                  dede
+lb                  dede
+pdc                 dede
+pdc-x-lehigh        dede
+pdc-x-midwest       dede
+da                  dede
+nb                  dede
+sv                  dede
+is                  dede
+fo                  dede
+
+# ---- the Iberian peninsula and the Americas: Spanish ----
+an                  eses    # Aragonese
+ca                  eses    # Catalan, as a Catalan speaks it beside Castilian
+ca-ba               eses
+ca-nw               eses
+ca-va               eses
+eu                  eses    # Basque
+pt                  eses    # European Portuguese: its Iberian neighbour
+pt-br               esus    # Brazilian Portuguese: its American neighbour
+pap                 esus    # Papiamento
+gn                  esus    # Guarani, spoken beside Paraguayan Spanish
+qu                  esus    # Quechua, beside Andean Spanish
+quc                 esus    # K'iche', beside Guatemalan Spanish
+nci                 esus    # Classical Nahuatl, as Mexico reads it
+mto                 esus    # Totontepec Mixe (Mexico)
+chr                 enus    # Cherokee, beside American English
+
+# ---- Italy and the Romance east ----
+la                  itit    # Latin, in the Italian way
+lij                 itit    # Ligurian
+ro                  itit    # Romanian
+rup                 itit    # Aromanian
+
+# ---- French-based ----
+ht                  frfr    # Haitian Creole
+
+# ---- front rounded vowels and vowel length make these languages, and only
+#      German has both; Turkish and German have long shared their speakers ----
+fi                  dede    # Finnish
+et                  dede    # Estonian
+hu                  dede    # Hungarian
+smj                 dede    # Lule Saami
+tr                  dede    # the Turkic languages
+az                  dede
+tk                  dede
+tt                  dede
+ba                  dede
+kk                  dede
+ky                  dede
+uz                  dede
+ug                  dede
+crh                 dede
+nog                 dede
+kaa                 dede
+cv                  dede
+mn                  dede    # Mongolian
+mn-f                dede
+
+# ---- Greek: the Spanish module has its th, dh, gh and ch ----
+el                  eses
+grc                 eses
+
+# ---- a romanised form is said as the language itself ----
+cmn-latn-pinyin     dede
+yue-latn-jyutping   dede
+fa-latn             dede
+ms                  itit    # Malay, as Indonesian
+
+# ---- Slavic: openevv has no Slavic module but German has their x (х, ch)
+#      and h (г, h) and ts, which Italian would say as k and not at all ----
+ru                  dede
+ru-cl               dede
+ru-lv               dede
+uk                  dede
+be                  dede
+cs                  dede
+sk                  dede
+sl                  dede
+
+# ---- the dialects of one language share a template, and neighbours too ----
+vi                  dede    # Vietnamese: h and kh
+vi-vn-x-central     dede
+vi-vn-x-south       dede
+hy                  dede    # Armenian: x, h and the affricates
+hyw                 dede
+ab                  dede    # Abkhaz, as Georgian
+as                  dede    # Assamese, as the other Indic languages
+te                  dede    # Telugu, as the other Dravidian languages
+lt                  dede    # the Baltic languages: vowel length
+lv                  dede
+ltg                 dede
+sq                  itit    # Albanian, across the Adriatic from Italy
+mi                  eses    # Maori: pure vowels, ng
+id                  itit    # Indonesian, as Malay
+bg                  dede    # Bulgarian: x, ts and the schwa, as the other Slavic languages

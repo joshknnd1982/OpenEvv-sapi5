@@ -67,7 +67,22 @@ bool read_language_pack(const std::wstring& dir, LanguageInfo& out, std::wstring
     li.codepage = static_cast<unsigned>(ini.get_int(L"Language", L"Codepage", 1252));
     li.experimental = ini.get_bool(L"Language", L"Experimental", false);
     li.order = ini.get_int(L"Language", L"Order", 1000);
-    if (li.id == 0) {
+    li.template_tag = ini.get(L"Language", L"Template");
+    const std::wstring engine = ini.get(L"Frontend", L"Engine");
+    if (!engine.empty()) {
+        if (_wcsicmp(engine.c_str(), L"espeak") != 0) {
+            problem = dir + L": language.ini names a front-end this version does not have: " + engine;
+            return false;
+        }
+        li.fe_voice = ini.get(L"Frontend", L"Voice");
+        const std::wstring map = ini.get(L"Frontend", L"Map", L"phonemes.map");
+        li.fe_map = (map.find(L':') != std::wstring::npos) ? map : dir + L"\\" + map;
+        if (li.fe_voice.empty() || !file_exists(li.fe_map)) {
+            problem = dir + L": the [Frontend] section needs a Voice and the pack its phoneme map";
+            return false;
+        }
+    }
+    if (li.id == 0 && li.template_tag.empty()) {
         problem = dir + L": language.ini gives no Id";
         return false;
     }
@@ -79,7 +94,7 @@ bool read_language_pack(const std::wstring& dir, LanguageInfo& out, std::wstring
                                       : dir + L"\\" + file;
         if (file_exists(full)) (x64 ? li.module64 : li.module32) = full;
     }
-    if (!li.usable()) {
+    if (!li.usable() && li.template_tag.empty()) {
         problem = dir + L": neither module named in language.ini is present";
         return false;
     }
@@ -133,11 +148,90 @@ std::vector<LanguageInfo> scan_languages(std::vector<std::wstring>* problems)
         } while (FindNextFileW(h, &fd));
         FindClose(h);
     }
+    // A pack with a template speaks with the template's modules.
+    std::vector<bool> keep(found.size(), true);
+    for (size_t i = 0; i < found.size(); ++i) {
+        LanguageInfo& li = found[i];
+        if (li.template_tag.empty() || li.usable()) continue;
+        const auto t = std::find_if(found.begin(), found.end(), [&](const LanguageInfo& o) {
+            return _wcsicmp(o.tag.c_str(), li.template_tag.c_str()) == 0 && o.template_tag.empty();
+        });
+        if (t == found.end() || !t->usable()) {
+            if (problems) problems->push_back(li.dir + L": its template " + li.template_tag + L" is not installed");
+            keep[i] = false;
+            continue;
+        }
+        li.module32 = t->module32;
+        li.module64 = t->module64;
+        if (li.id == 0) li.id = t->id;
+    }
+    std::vector<LanguageInfo> resolved;
+    for (size_t i = 0; i < found.size(); ++i) {
+        if (keep[i]) resolved.push_back(std::move(found[i]));
+    }
+    found = std::move(resolved);
     std::sort(found.begin(), found.end(), [](const LanguageInfo& a, const LanguageInfo& b) {
         if (a.order != b.order) return a.order < b.order;
         return _wcsicmp(a.name.c_str(), b.name.c_str()) < 0;
     });
     return found;
+}
+
+std::wstring host_key(const LanguageInfo& lang, bool x64)
+{
+    std::wstring key = lang.module_for(x64) + L"|" + std::to_wstring(lang.id);
+    if (lang.has_frontend()) key += L"|" + lang.tag;
+    return key;
+}
+
+std::wstring frontend_exe_for(bool x64)
+{
+    // Beside the host of the same bitness, as installed and as staged.
+    std::wstring dir = self_dir();
+    const size_t slash = dir.find_last_of(L"\\/");
+    const std::wstring parent = slash == std::wstring::npos ? dir : dir.substr(0, slash);
+    const std::wstring beside = dir + L"\\OpenEvvFrontend.exe";
+#if defined(_WIN64)
+    const bool self64 = true;
+#else
+    const bool self64 = false;
+#endif
+    const wchar_t* arch = x64 ? L"\\x64" : L"\\x86";
+    if (x64 == self64 && file_exists(beside)) return beside;
+    for (const std::wstring& p : {parent + arch + L"\\OpenEvvFrontend.exe",
+                                  install_root() + arch + L"\\OpenEvvFrontend.exe",
+                                  install_root() + L"\\dist" + arch + L"\\OpenEvvFrontend.exe"}) {
+        if (file_exists(p)) return p;
+    }
+    return install_root() + arch + L"\\OpenEvvFrontend.exe";
+}
+
+std::wstring pack_sample_text(const LanguageInfo& lang)
+{
+    HANDLE f = CreateFileW((lang.dir + L"\\sample.txt").c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
+                           0, nullptr);
+    if (f == INVALID_HANDLE_VALUE) return {};
+    char buf[4096];
+    DWORD got = 0;
+    ReadFile(f, buf, sizeof buf - 1, &got, nullptr);
+    CloseHandle(f);
+    std::string s(buf, got);
+    if (s.size() >= 3 && static_cast<unsigned char>(s[0]) == 0xEF) s.erase(0, 3);
+    const int n = MultiByteToWideChar(CP_UTF8, 0, s.data(), static_cast<int>(s.size()), nullptr, 0);
+    std::wstring w(static_cast<size_t>(n > 0 ? n : 0), L'\0');
+    if (n > 0) MultiByteToWideChar(CP_UTF8, 0, s.data(), static_cast<int>(s.size()), w.data(), n);
+    while (!w.empty() && (w.back() == L'\n' || w.back() == L'\r' || w.back() == L' ')) w.pop_back();
+    return w;
+}
+
+std::wstring espeak_data_dir()
+{
+    // Installed beside languages\; in a source tree, staged under dist\.
+    const std::wstring installed = install_root() + L"\\espeak-ng-data";
+    if (dir_exists(installed)) return installed;
+    const std::wstring staged = install_root() + L"\\dist\\espeak-ng-data";
+    if (dir_exists(staged)) return staged;
+    return installed;
 }
 
 bool find_language(const std::wstring& tag, LanguageInfo& out)

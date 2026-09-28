@@ -24,6 +24,11 @@
 #include <string>
 #include <vector>
 
+#include "common/languages.h"
+
+using evv::LanguageInfo;
+using evv::scan_languages;
+
 namespace {
 
 const CLSID kEngineClsid = {0xf3cc6ab4, 0xc4c4, 0x4ec6, {0xaa, 0x1f, 0x1a, 0x11, 0x43, 0x67, 0xae, 0x91}};
@@ -408,6 +413,15 @@ struct LangSample
     const wchar_t* text;
 };
 
+// A pack's own sample sentence (sample.txt, UTF-8), or its name.
+// A pack's own sample sentence, and some numbers, which eSpeak NG reads in
+// the language: never too short to measure, even where the sentence is a word.
+std::wstring pack_sample(const LanguageInfo& li)
+{
+    const std::wstring w = evv::pack_sample_text(li);
+    return (w.empty() ? li.name : w) + L" 1, 2, 3, 10, 25.";
+}
+
 const LangSample kLangSamples[] = {
     {L"enus", L"Hello. This is OpenEVV speaking US English through SAPI five."},
     {L"engb", L"Hello. This is OpenEVV speaking British English. The colour is grey."},
@@ -486,8 +500,16 @@ int wmain(int argc, wchar_t** argv)
             t->Release();
         }
         en->Release();
-        check(count == 80, "80 voices: ten languages times eight presets", fmt("%lu", count));
-        check(per_lang.size() == 10, "ten languages", fmt("%zu", per_lang.size()));
+        // Every language pack's eight presets: the ten built-in languages and
+        // every pack read by eSpeak NG.
+        const std::vector<LanguageInfo> packs = scan_languages();
+        size_t expected = 0;
+        for (const LanguageInfo& li : packs) expected += li.voices.size();
+        check(count == expected && expected >= 80, "every preset of every language pack is a voice",
+              fmt("%lu voices from %zu languages; the packs have %zu", count, per_lang.size(), expected));
+        for (const LanguageInfo& li : packs) {
+            if (!per_lang.count(li.tag)) printf("    missing from the voice list: %s\n", narrow(li.tag).c_str());
+        }
         check(attrs_ok, "every token has a name, gender, language and an OpenEVV token id");
     }
 
@@ -512,6 +534,24 @@ int wmain(int argc, wchar_t** argv)
               fmt("%.2f ms to the first audio", cold.first_ms));
         check(firsts[10] < 20, "warm: Speak() to the first audio",
               fmt("median %.2f ms, best %.2f, worst %.2f", firsts[10], firsts.front(), firsts.back()));
+        // A language read by eSpeak NG pays for the reading as well.
+        LanguageInfo sw;
+        if (evv::find_language(L"sw", sw)) {
+            Voice v = load_voice(L"sw", 1);
+            Frags w0;
+            w0.text(L"Habari.");
+            speak(v, w0);
+            std::vector<double> fe;
+            for (int i = 0; i < 20; ++i) {
+                Frags g;
+                g.text(i % 2 ? L"Mstari chini." : L"x");
+                fe.push_back(speak(v, g).first_ms);
+            }
+            std::sort(fe.begin(), fe.end());
+            check(fe[10] < 25, "warm, a language read by eSpeak NG: Speak() to the first audio",
+                  fmt("median %.2f ms, best %.2f, worst %.2f", fe[10], fe.front(), fe.back()));
+            v.release();
+        }
     }
 
     // ---- every language -----------------------------------------------------------
@@ -532,6 +572,31 @@ int wmain(int argc, wchar_t** argv)
                   fmt("%.2f s, rms %.0f, first audio %.1f ms", seconds(r.audio), rms(r.audio), r.first_ms));
             v.release();
         }
+        // Every pack read by eSpeak NG, with its own sample sentence.
+        int fe_ok = 0, fe_total = 0;
+        double worst_first = 0;
+        for (const LanguageInfo& li : scan_languages()) {
+            if (!li.has_frontend()) continue;
+            ++fe_total;
+            Voice v = load_voice(li.tag, 1);
+            if (!v.engine) {
+                printf("    %s: the voice does not load\n", narrow(li.tag).c_str());
+                continue;
+            }
+            Frags f;
+            f.text(pack_sample(li));
+            Run r = speak(v, f);
+            save(r.audio, std::wstring(L"lang_") + li.tag + L".wav");
+            if (r.hr == S_OK && seconds(r.audio) > 0.5 && rms(r.audio) > 300) {
+                ++fe_ok;
+                worst_first = std::max(worst_first, r.first_ms);
+            } else {
+                printf("    %s: %.2f s, rms %.0f\n", narrow(li.tag).c_str(), seconds(r.audio), rms(r.audio));
+            }
+            v.release();
+        }
+        check(fe_ok == fe_total && fe_total > 0, "every language read by eSpeak NG speaks its sample through SAPI",
+              fmt("%d of %d, slowest first audio %.1f ms (a cold host each)", fe_ok, fe_total, worst_first));
     }
 
     if (all_voices) {
@@ -544,7 +609,10 @@ int wmain(int argc, wchar_t** argv)
                 if (tag == s.tag) ls = &s;
             }
             Frags f;
-            f.text(ls ? ls->text : L"Hello.");
+            LanguageInfo li;
+            if (ls) f.text(ls->text);
+            else if (evv::find_language(tag, li)) f.text(pack_sample(li));
+            else f.text(L"Hello.");
             Run r = speak(v, f);
             save(r.audio, L"voice_" + tag + L"_" + std::to_wstring(preset) + L".wav");
             if (seconds(r.audio) > 1.0) ++ok;
@@ -607,6 +675,41 @@ int wmain(int argc, wchar_t** argv)
         check(ordered, "word events in audio order");
         check(r.audio.size() == plain.audio.size(), "word marks do not change the audio",
               fmt("%zu with, %zu without", r.audio.size(), plain.audio.size()));
+
+        // The same for a language read by eSpeak NG: its words are read as one
+        // text and the marks put back in front of the word each belongs to.
+        LanguageInfo sw;
+        if (evv::find_language(L"sw", sw)) {
+            Voice v = load_voice(L"sw", 1);
+            const wchar_t* text = L"Watu wote wamezaliwa huru. Nina miaka 25, je?";
+            Frags c;
+            c.text(text);
+            Run rw = speak(v, c, [](MockSite& s) {
+                s.interest = SPFEI(SPEI_WORD_BOUNDARY) | SPFEI(SPEI_SENTENCE_BOUNDARY);
+            });
+            Frags d;
+            d.text(text);
+            Run pw = speak(v, d);
+            int w = 0, sent = 0;
+            bool in_order = true;
+            ULONGLONG at = 0;
+            std::wstring heard;
+            for (const auto& e : rw.events) {
+                if (e.id == SPEI_WORD_BOUNDARY) {
+                    ++w;
+                    if (e.offset < at) in_order = false;
+                    at = e.offset;
+                    heard += c.all.substr(e.lp, e.wp) + L"|";
+                }
+                if (e.id == SPEI_SENTENCE_BOUNDARY) ++sent;
+            }
+            check(w == 8 && sent == 2 && in_order, "eSpeak NG language: a word event for each word, in order",
+                  fmt("%d words, %d sentences: %s", w, sent, narrow(heard).c_str()));
+            check(rw.audio.size() == pw.audio.size() && !pw.audio.empty(),
+                  "eSpeak NG language: word marks do not change the audio",
+                  fmt("%zu with, %zu without", rw.audio.size(), pw.audio.size()));
+            v.release();
+        }
     }
 
     if (want("silence", only)) {
@@ -692,6 +795,30 @@ int wmain(int argc, wchar_t** argv)
             }
             check(silent == 0, "Japanese names every lone ASCII symbol", which);
             ja.release();
+        }
+        // A language read by eSpeak NG: eSpeak NG spells, and names symbols.
+        LanguageInfo ru;
+        if (evv::find_language(L"ru", ru)) {
+            Voice v = load_voice(L"ru", 1);
+            Frags s, w;
+            s.spell(L"мама");
+            w.text(L"мама");
+            Run rs2 = speak(v, s), rw2 = speak(v, w);
+            check(seconds(rs2.audio) > seconds(rw2.audio) * 1.4, "eSpeak NG language: <spell> spells the letters",
+                  fmt("%.2f s spelled, %.2f s as a word", seconds(rs2.audio), seconds(rw2.audio)));
+            int silent = 0;
+            std::string which;
+            for (wchar_t ch : std::wstring(L"?,-@#%+")) {
+                Frags g;
+                g.text(std::wstring(1, ch));
+                Run r = speak(v, g);
+                if (seconds(r.audio) < 0.15) {
+                    ++silent;
+                    which.push_back(static_cast<char>(ch));
+                }
+            }
+            check(silent == 0, "eSpeak NG language: a lone symbol is named", which);
+            v.release();
         }
     }
 

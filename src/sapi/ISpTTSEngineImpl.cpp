@@ -348,6 +348,16 @@ private:
                 add_text(name);
                 return;
             }
+            // A language read by eSpeak NG: eSpeak NG names the symbol, in
+            // the language itself, when it is asked to spell.
+            if (lang_.has_frontend() && !iswalnum(text[first])) {
+                sentence_mark(src + static_cast<ULONG>(first), 1);
+                if (want_word_) word_mark(src + static_cast<ULONG>(first), 1);
+                req_.param(kParamTextMode, 2);
+                add_text(text.substr(first, 1));
+                req_.param(kParamTextMode, s_.text_mode);
+                return;
+            }
         }
 
         size_t i = 0;

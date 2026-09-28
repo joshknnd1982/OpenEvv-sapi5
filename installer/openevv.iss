@@ -30,13 +30,14 @@
 ; through MSAA on a private desktop.
 
 ; Bump MyAppVersion with src\common\version.h and project() in CMakeLists.txt.
-#define MyAppVersion   "1.0.0"
+#define MyAppVersion   "1.1.0"
 #define AppName        "OpenEVV SAPI5"
 #define AppPublisher   "OpenEVV SAPI5 project"
 #define AppURL         "https://github.com/joshknnd1982/OpenEvv-sapi5"
 #define DllName        "OpenEvvSAPI.dll"
 #define HostName       "OpenEvvHost.exe"
 #define ConfigName     "OpenEvvConfig.exe"
+#define FrontendName   "OpenEvvFrontend.exe"
 ; CLSIDs, as [Code] string literals and as [Registry] text (where "{{" is a literal brace)
 #define EngineClsid    "{F3CC6AB4-C4C4-4EC6-AA1F-1A114367AE91}"
 #define EnumClsid      "{90E5CEF9-18DD-435E-AE19-BEC9B58D3627}"
@@ -66,14 +67,14 @@ AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}/issues
 AppUpdatesURL={#AppURL}/releases
-AppComments=The OpenEVV engine (IBM Embedded ViaVoice, the Eloquence voice, rebuilt as C) as SAPI 5 voices for 32-bit and 64-bit programs: ten languages, eight voices each, with a configuration utility.
+AppComments=The OpenEVV engine (IBM Embedded ViaVoice, the Eloquence voice, rebuilt as C) as SAPI 5 voices for 32-bit and 64-bit programs: openevv's ten languages and 145 more read by eSpeak NG, eight voices each, with a configuration utility.
 UninstallDisplayName={#AppName}
 VersionInfoVersion={#MyAppVersion}.0
 VersionInfoProductVersion={#MyAppVersion}
 VersionInfoProductName={#AppName}
 VersionInfoCompany={#AppPublisher}
 VersionInfoDescription={#AppName} {#MyAppVersion} setup
-VersionInfoCopyright=Wrapper: GNU GPL v2. openevv engine: MIT. Language data: IBM, see NOTICE.
+VersionInfoCopyright=Wrapper: GNU GPL v2. eSpeak NG front-end and data: GNU GPL v3. openevv engine: MIT. Language data: IBM, see NOTICE.
 DefaultDirName={autopf}\OpenEVV SAPI5
 DefaultGroupName=OpenEVV SAPI5
 DisableProgramGroupPage=yes
@@ -135,11 +136,16 @@ Name: "{commonappdata}\OpenEVV\dictionaries"; Permissions: users-modify
 Source: "..\dist\x86\{#DllName}";    DestDir: "{app}\x86"; Flags: ignoreversion restartreplace uninsrestartdelete
 Source: "..\dist\x86\{#HostName}";   DestDir: "{app}\x86"; Flags: ignoreversion restartreplace uninsrestartdelete
 Source: "..\dist\x86\{#ConfigName}"; DestDir: "{app}\x86"; Flags: ignoreversion restartreplace uninsrestartdelete
+Source: "..\dist\x86\{#FrontendName}"; DestDir: "{app}\x86"; Flags: ignoreversion restartreplace uninsrestartdelete
 
 ; ---- 64-bit SAPI 5 interface ------------------------------------------------------------
 Source: "..\dist\x64\{#DllName}";    DestDir: "{app}\x64"; Flags: ignoreversion restartreplace uninsrestartdelete; Check: Is64BitInstallMode
 Source: "..\dist\x64\{#HostName}";   DestDir: "{app}\x64"; Flags: ignoreversion restartreplace uninsrestartdelete; Check: Is64BitInstallMode
 Source: "..\dist\x64\{#ConfigName}"; DestDir: "{app}\x64"; Flags: ignoreversion restartreplace uninsrestartdelete; Check: Is64BitInstallMode
+Source: "..\dist\x64\{#FrontendName}"; DestDir: "{app}\x64"; Flags: ignoreversion restartreplace uninsrestartdelete; Check: Is64BitInstallMode
+
+; ---- eSpeak NG's data, which OpenEvvFrontend.exe reads the languages made from it with --
+Source: "..\dist\espeak-ng-data\*"; DestDir: "{app}\espeak-ng-data"; Flags: ignoreversion recursesubdirs createallsubdirs restartreplace uninsrestartdelete
 
 ; ---- every language: the engine modules (32-bit and 64-bit) and language.ini ----------
 Source: "..\languages\*"; DestDir: "{app}\languages"; Flags: ignoreversion recursesubdirs createallsubdirs restartreplace uninsrestartdelete

@@ -62,6 +62,10 @@ const wchar_t kDefaultTest[] =
 
 std::wstring sample_for(const LanguageInfo& l)
 {
+    if (l.has_frontend()) {
+        const std::wstring own = pack_sample_text(l);
+        if (!own.empty()) return own;
+    }
     const std::wstring t = l.tag.substr(0, 2);
     if (t == L"de") return L"Guten Tag. Das ist die Stimme, die Sie gerade einstellen.";
     if (t == L"es") return L"Hola. Esta es la voz que está ajustando.";
@@ -528,10 +532,19 @@ void show_pack_info(HWND dlg)
         return;
     }
     wchar_t info[1200];
-    swprintf_s(info, L"%s (%s, %s): ECI language 0x%05x, code page %u. 32-bit module %s, 64-bit module %s.\r\nFolder: %s",
-               l->name.c_str(), l->tag.c_str(), l->locale.c_str(), l->id, l->codepage,
-               l->module32.empty() ? L"missing" : L"present", l->module64.empty() ? L"missing" : L"present",
-               l->dir.c_str());
+    if (l->has_frontend()) {
+        swprintf_s(info,
+                   L"%s (%s, %s): read by eSpeak NG (voice %s) and spoken with the %s module, ECI language 0x%05x."
+                   L"\r\nFolder: %s",
+                   l->name.c_str(), l->tag.c_str(), l->locale.c_str(), l->fe_voice.c_str(), l->template_tag.c_str(),
+                   l->id, l->dir.c_str());
+    } else {
+        swprintf_s(info,
+                   L"%s (%s, %s): ECI language 0x%05x, code page %u. 32-bit module %s, 64-bit module %s.\r\nFolder: %s",
+                   l->name.c_str(), l->tag.c_str(), l->locale.c_str(), l->id, l->codepage,
+                   l->module32.empty() ? L"missing" : L"present", l->module64.empty() ? L"missing" : L"present",
+                   l->dir.c_str());
+    }
     SetDlgItemTextW(dlg, IDC_LANGINFO, info);
 }
 
@@ -766,10 +779,18 @@ void remove_pack(HWND dlg)
     const LanguageInfo* l = selected_pack(dlg);
     if (!l) return;
     const LanguageInfo pack = *l;
-    if (MessageBoxW(dlg,
-                    (L"Remove " + pack.name + L" and its eight voices? The folder goes to the Recycle Bin.\n\n" + pack.dir)
-                        .c_str(),
-                    L"OpenEVV", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) != IDYES) {
+    // Languages read by eSpeak NG are spoken with another pack's modules.
+    int dependents = 0;
+    for (const LanguageInfo& o : g_langs) {
+        if (_wcsicmp(o.template_tag.c_str(), pack.tag.c_str()) == 0) ++dependents;
+    }
+    std::wstring question = L"Remove " + pack.name + L" and its eight voices? The folder goes to the Recycle Bin.\n\n";
+    if (dependents) {
+        question += std::to_wstring(dependents) + L" other language" + (dependents == 1 ? L" is" : L"s are") +
+                    L" spoken with this language's modules and would stop working too.\n\n";
+    }
+    question += pack.dir;
+    if (MessageBoxW(dlg, question.c_str(), L"OpenEVV", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) != IDYES) {
         return;
     }
     g_speaker.stop();

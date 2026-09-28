@@ -35,6 +35,7 @@
 #include "common/log.h"
 #include "common/protocol.h"
 #include "common/version.h"
+#include "host/frontend_client.h"
 
 using namespace evv;
 
@@ -57,6 +58,8 @@ struct Args
     std::wstring dict_user, dict_pack;
     unsigned codepage = 1252;
     int frame = 1024;
+    // a pack read by eSpeak NG: the front-end and what it is to read with
+    std::wstring frontend, fe_data, fe_voice, fe_map;
 };
 
 Args parse_args()
@@ -74,6 +77,10 @@ Args parse_args()
         else if (k == L"--dict-pack") a.dict_pack = v;
         else if (k == L"--codepage") a.codepage = static_cast<unsigned>(_wtoi(v.c_str()));
         else if (k == L"--frame") a.frame = _wtoi(v.c_str());
+        else if (k == L"--frontend") a.frontend = v;
+        else if (k == L"--fe-data") a.fe_data = v;
+        else if (k == L"--fe-voice") a.fe_voice = v;
+        else if (k == L"--fe-map") a.fe_map = v;
     }
     LocalFree(argv);
     if (a.frame < 128 || a.frame > 16384) a.frame = 1024;
@@ -108,6 +115,9 @@ void send(uint32_t type, const void* a, uint32_t na, const void* b = nullptr, ui
 
 EciModule g_eci;
 ECIHand g_h = nullptr;
+FrontendClient g_fe;
+bool g_use_fe = false;
+TextDictionary g_text_dict;
 std::vector<short> g_buffer;
 Args g_args;
 
@@ -358,6 +368,114 @@ void send_done(uint32_t id, int status, const char* error)
     send(proto::kDone, &d, sizeof d);
 }
 
+// ---- a pack read by eSpeak NG ---------------------------------------------------
+//
+// The request's text goes to the front-end whole -- the stretches between
+// marks are often single words, and eSpeak NG reads a number or an
+// abbreviation by what is around it -- and comes back as the template's
+// annotated text, with where each word began in what was sent. Marks, voice
+// changes and parameters are put back in front of the first word at or after
+// the place they stood.
+
+size_t count_code_points(const std::string& utf8)
+{
+    size_t n = 0;
+    for (unsigned char c : utf8) n += (c & 0xC0) != 0x80;
+    return n;
+}
+
+struct Placed
+{
+    proto::Item item;
+    uint32_t at; // code points of text before it
+};
+
+// The engine's spelling modes -- 1 letters and digits, 2 everything, 3 the
+// radio alphabet -- are eSpeak NG's to do in these languages: a character on
+// its own is read by its name in the language.
+bool spelling_mode(int text_mode)
+{
+    return text_mode >= 1 && text_mode <= 3;
+}
+
+std::string spaced_out(const std::string& utf8)
+{
+    std::string out;
+    out.reserve(utf8.size() * 2);
+    for (size_t i = 0; i < utf8.size();) {
+        size_t n = 1;
+        const unsigned char c = static_cast<unsigned char>(utf8[i]);
+        if (c >= 0xF0) n = 4;
+        else if (c >= 0xE0) n = 3;
+        else if (c >= 0xC0) n = 2;
+        n = std::min(n, utf8.size() - i);
+        out.append(utf8, i, n);
+        if (!(n == 1 && (c == ' ' || c == '\t' || c == '\n' || c == '\r'))) out.push_back(' ');
+        i += n;
+    }
+    return out;
+}
+
+void apply_item(const proto::Item& it);
+
+bool add_translated(const Request& r, std::string& preview, std::string& error)
+{
+    const proto::SpeakReq& q = r.req;
+    std::string all;
+    uint32_t at = 0;
+    std::vector<Placed> placed;
+    int text_mode = q.text_mode;
+    // punctuation is named when everything is spelled, not only letters and digits
+    bool name_punctuation = text_mode == 2 || text_mode == 3;
+    size_t pos = 0;
+    for (uint32_t i = 0; i < q.item_count && pos + sizeof(proto::Item) <= r.items.size(); ++i) {
+        proto::Item it;
+        memcpy(&it, r.items.data() + pos, sizeof it);
+        pos += sizeof it;
+        if (it.kind == proto::kItemText) {
+            if (it.a <= 0 || pos + static_cast<size_t>(it.a) > r.items.size()) break;
+            std::string t(reinterpret_cast<const char*>(r.items.data() + pos), static_cast<size_t>(it.a));
+            pos += static_cast<size_t>(it.a);
+            if (spelling_mode(text_mode)) t = spaced_out(t);
+            else if (q.user_dicts) t = g_text_dict.apply(t);
+            all += t;
+            at += static_cast<uint32_t>(count_code_points(t));
+            continue;
+        }
+        if (it.kind == proto::kItemParam && it.a == kParamTextMode) {
+            // the engine never spells the annotations; eSpeak NG spells the letters
+            text_mode = it.b;
+            name_punctuation = name_punctuation || it.b == 2 || it.b == 3;
+            continue;
+        }
+        if (it.kind == proto::kItemParam && it.a == kParamInputType) continue;
+        placed.push_back({it, at});
+    }
+    std::string out;
+    std::vector<EvvAnchor> anchors;
+    if (!g_fe.translate(all, name_punctuation ? EVV_FE_FLAG_PUNCTUATION : 0, out, anchors, error)) return false;
+    size_t next = 0;
+    auto add = [&](size_t from, size_t to) {
+        if (to <= from) return;
+        const std::string piece = out.substr(from, to - from);
+        g_eci.AddText(g_h, piece.c_str());
+        if (log::enabled(log::kFull) && preview.size() < 400) preview += piece;
+    };
+    size_t done = 0;
+    for (size_t k = 0; k < anchors.size(); ++k) {
+        const size_t start = std::min<size_t>(anchors[k].out_offset, out.size());
+        const bool fresh = k == 0 || anchors[k].src_offset != anchors[k - 1].src_offset;
+        if (fresh && next < placed.size() && placed[next].at <= anchors[k].src_offset) {
+            add(done, start);
+            done = start;
+            while (next < placed.size() && placed[next].at <= anchors[k].src_offset) apply_item(placed[next++].item);
+        }
+    }
+    add(done, out.size());
+    while (next < placed.size()) apply_item(placed[next++].item);
+    return true;
+}
+
 void run(Request& r)
 {
     const proto::SpeakReq& q = r.req;
@@ -365,6 +483,44 @@ void run(Request& r)
     g_first_audio = -1;
     g_delivered = 0;
     g_current.store(q.id, std::memory_order_release);
+
+    if (g_use_fe) {
+        set_param_cached(kParamSampleRate, q.sample_rate, g_rate);
+        set_param_cached(kParamTextMode, 0, g_text_mode);
+        set_param_cached(kParamInputType, 1, g_input_type);
+        if (q.preset >= 1 && q.preset <= 8) g_eci.CopyVoice(g_h, q.preset, 0);
+        for (int i = 0; i < kVoiceParamCount; ++i) {
+            if (q.voice[i] >= 0) g_eci.SetVoiceParam(g_h, 0, i, q.voice[i]);
+        }
+        if (q.user_dicts) {
+            std::wstring files[3];
+            for (int v = 0; v < 3; ++v) files[v] = dict_file(v);
+            g_text_dict.set_files(files);
+        }
+        std::string preview, error;
+        if (!add_translated(r, preview, error)) {
+            log::write(log::kStandard, "host: request %u: %s", q.id, error.c_str());
+            send_done(q.id, proto::kDoneFailed, error.c_str());
+            return;
+        }
+        SynthCall call{&g_eci, g_h};
+        unsigned long code = 0;
+        const bool ok = guarded_synthesize(&call, &code);
+        const bool cancelled = discarding();
+        if (!ok) {
+            char b[96];
+            snprintf(b, sizeof b, "engine fault 0x%08lX", code);
+            log::write(log::kStandard, "host: request %u: %s; restarting", q.id, b);
+            send_done(q.id, proto::kDoneFailed, b);
+            quit(3);
+        }
+        send_done(q.id, cancelled ? proto::kDoneCancelled : proto::kDoneOk, nullptr);
+        log::write(log::kStandard, "host: #%u %s: %llu samples, first audio %.2f ms, done in %.2f ms", q.id,
+                   cancelled ? "cancelled" : "spoken", static_cast<unsigned long long>(g_delivered), g_first_audio,
+                   now_ms() - g_t_request);
+        if (log::enabled(log::kFull)) log::write(log::kFull, "host: #%u annotated \"%s\"", q.id, preview.c_str());
+        return;
+    }
 
     set_param_cached(kParamSampleRate, q.sample_rate, g_rate);
     set_param_cached(kParamTextMode, q.text_mode, g_text_mode);
@@ -431,6 +587,26 @@ void run(Request& r)
                cancelled ? "cancelled" : "spoken", static_cast<unsigned long long>(g_delivered), g_first_audio,
                now_ms() - g_t_request);
     if (full) log::write(log::kFull, "host: #%u text \"%s\"", q.id, preview.c_str());
+}
+
+// A mark, a voice change or a parameter, for a pack read by eSpeak NG.
+void apply_item(const proto::Item& it)
+{
+    switch (it.kind) {
+    case proto::kItemIndex:
+        g_eci.InsertIndex(g_h, it.a);
+        break;
+    case proto::kItemVoice:
+        if (it.a >= 0 && it.a < kVoiceParamCount) g_eci.SetVoiceParam(g_h, 0, it.a, it.b);
+        break;
+    case proto::kItemParam:
+        if (it.a != kParamTextMode && it.a != kParamInputType && it.a != kParamNumberMode &&
+            it.a != kParamDictionary)
+            g_eci.SetParam(g_h, it.a, it.b);
+        break;
+    default:
+        break;
+    }
 }
 
 // ---- input -------------------------------------------------------------------
@@ -522,11 +698,32 @@ bool start_engine(proto::ReadyMsg& ready)
         strncpy_s(ready.voice_names[v - 1], name, _TRUNCATE);
         for (int p = 0; p < kVoiceParamCount; ++p) ready.voice_params[v - 1][p] = g_eci.GetVoiceParam(g_h, v, p);
     }
+    if (!g_args.frontend.empty()) {
+        // A pack read by eSpeak NG: its front-end, and annotations always.
+        std::string err;
+        if (!g_fe.start(g_args.frontend, g_args.fe_data, g_args.fe_voice, g_args.fe_map, err)) {
+            snprintf(ready.error, sizeof ready.error, "%s", err.c_str());
+            return false;
+        }
+        g_use_fe = true;
+        g_eci.SetParam(g_h, kParamInputType, 1);
+        g_input_type = 1;
+    }
     // Warm up: the first utterance an instance speaks pays for touching its
     // memory. Pay it now, into nothing, rather than on the user's first word.
     g_current = kWarmId;
     g_cancel_id = kWarmId;
-    g_eci.AddText(g_h, "Ready. 1 2 3.");
+    if (g_use_fe) {
+        std::string out, err;
+        std::vector<EvvAnchor> anchors;
+        if (!g_fe.translate("1 2 3.", 0, out, anchors, err)) {
+            snprintf(ready.error, sizeof ready.error, "%s", err.c_str());
+            return false;
+        }
+        g_eci.AddText(g_h, out.c_str());
+    } else {
+        g_eci.AddText(g_h, "Ready. 1 2 3.");
+    }
     SynthCall call{&g_eci, g_h};
     unsigned long code = 0;
     if (!guarded_synthesize(&call, &code)) {

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 # Keep in step with src/common/version.h and installer/openevv.iss.
-project(OpenEvvSAPI VERSION 1.0.0 LANGUAGES C CXX RC)
+project(OpenEvvSAPI VERSION 1.1.0 LANGUAGES C CXX RC)
 
 # The SAPI5 wrapper, the engine host, the configuration utility and the test
 # tools, built with MSVC for one architecture per build tree (build_all.bat
@@ -47,7 +47,7 @@ target_link_libraries(evv_common PUBLIC shell32 ole32 advapi32)
 # --- the engine host: one language module per process ---------------------------
 # Never /CETCOMPAT: the engine backtracks through a landing place that restores
 # the stack pointer itself, which a hardware shadow stack refuses.
-add_executable(OpenEvvHost WIN32 src/host/host_main.cpp src/host/host.rc)
+add_executable(OpenEvvHost WIN32 src/host/host_main.cpp src/host/frontend_client.cpp src/host/host.rc)
 target_link_libraries(OpenEvvHost PRIVATE evv_common)
 target_link_options(OpenEvvHost PRIVATE /CETCOMPAT:NO)
 
@@ -81,6 +81,9 @@ add_executable(evv_probe src/tools/evv_probe.cpp)
 target_link_libraries(evv_probe PRIVATE evv_common)
 add_executable(evv_chars src/tools/evv_chars.cpp)
 target_link_libraries(evv_chars PRIVATE evv_common)
+add_executable(evv_say src/tools/evv_say.cpp)
+target_link_libraries(evv_say PRIVATE evv_common)
+add_dependencies(evv_say OpenEvvHost)
 if(EXISTS ${CMAKE_SOURCE_DIR}/src/tools/evv_render.cpp)
     add_executable(evv_render src/tools/evv_render.cpp)
     target_link_libraries(evv_render PRIVATE evv_common)

@@ -4,10 +4,10 @@
 #pragma once
 
 #define EVV_VERSION_MAJOR 1
-#define EVV_VERSION_MINOR 0
+#define EVV_VERSION_MINOR 1
 #define EVV_VERSION_PATCH 0
-#define EVV_VERSION_STRING "1.0.0"
-#define EVV_VERSION_WSTRING L"1.0.0"
+#define EVV_VERSION_STRING "1.1.0"
+#define EVV_VERSION_WSTRING L"1.1.0"
 
 // The openevv engine the language modules were built from.
 #define EVV_ENGINE_COMMIT "7148737"
