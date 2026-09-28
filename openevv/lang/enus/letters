@@ -1,0 +1,53 @@
+# US English letter-to-sound.
+#
+# One block a letter and its arms in order, the first that matches winning.
+# The last arm of a block is the bare letter: what it says when nothing else
+# applies. An arm may also say what must stand to its left and right without
+# swallowing it -- `after', `before', and `vowel', `consonant' or `glide' in
+# either place -- and `at start' or `at end' for a run that has to begin or
+# end where the piece of the word does.
+#
+# The letters are the language's own characters and the phones are the ETI
+# phone letters, the same ones enus.dict uses. tools/rules/letters.py writes
+# rules/et_phone.up out of this, and test/words.sh says whether any of 24,318
+# words moved.
+
+rules in et_phone.obj named %s_rules
+a piece runs from 876 to 884
+
+letter b
+  bt at end   says t     # debt
+  b    says b
+
+letter w
+  wr at start   says r   # write, wrong
+  w    says w
+
+letter d
+  dg   says J     # judge, badge
+  dj   says J     # adjust
+  d    says d
+
+letter m
+  mech          says m E k # mechanic, mechanism
+  mn at start   says n     # mnemonic
+  mn at end     says m     # autumn, column, damn
+  mb at end     says m     # lamb, comb
+  m             says m
+
+letter n
+  ng at end               says G   # sing, singing
+  ng before n at end      says G
+  ng before then at end   says G   # strengthen
+  ng before ton at end    says G
+  n                       says n
+
+letter q
+  qu after i before et  says k     # etiquette, tourniquet
+  qu before e at end    says k     # antique, clique
+  qu before vowel       says k w   # quick, queen
+  q                     says k     # Iraq
+
+
+
+

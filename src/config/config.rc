@@ -1,0 +1,122 @@
+#include <windows.h>
+#include <commctrl.h>
+#include "resource.h"
+
+#define FV_FILE_DESCRIPTION "OpenEVV SAPI5 configuration"
+#define FV_INTERNAL_NAME "OpenEvvConfig"
+#define FV_ORIGINAL_FILENAME "OpenEvvConfig.exe"
+#define FV_FILE_TYPE VFT_APP
+#include "../common/version.rc"
+
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "config.manifest"
+
+// Every control is preceded by its own label: MSAA names a caption-less
+// control after the static text before it, so the order of these lines is the
+// accessibility of the dialog, and it is also the tab order. Numbers are edit
+// boxes with spin buttons (arrow keys step them): a trackbar reports its value
+// to a screen reader as a percentage of its range. Access keys are unique on
+// each page.
+
+IDD_VOICES DIALOGEX 0, 0, 300, 272
+STYLE DS_SHELLFONT | WS_CHILD | WS_CAPTION | WS_DISABLED
+CAPTION "Voices"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    LTEXT           "&Language:", -1, 7, 10, 150, 9
+    COMBOBOX        IDC_LANGUAGE, 160, 8, 133, 200, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Voice:", -1, 7, 26, 150, 9
+    COMBOBOX        IDC_VOICE, 160, 24, 133, 200, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Gender:", -1, 7, 42, 150, 9
+    COMBOBOX        IDC_GENDER, 160, 40, 133, 60, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Head size (0 to 100):", -1, 7, 58, 150, 9
+    EDITTEXT        IDC_HEADSIZE, 160, 56, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_HEADSIZE_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 56, 10, 12
+    LTEXT           "&Pitch (0 to 100):", -1, 7, 74, 150, 9
+    EDITTEXT        IDC_PITCH, 160, 72, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_PITCH_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 72, 10, 12
+    LTEXT           "&Inflection (0 to 100):", -1, 7, 90, 150, 9
+    EDITTEXT        IDC_INFLECTION, 160, 88, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_INFLECTION_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 88, 10, 12
+    LTEXT           "&Roughness (0 to 100):", -1, 7, 106, 150, 9
+    EDITTEXT        IDC_ROUGHNESS, 160, 104, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_ROUGHNESS_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 104, 10, 12
+    LTEXT           "&Breathiness (0 to 100):", -1, 7, 122, 150, 9
+    EDITTEXT        IDC_BREATHINESS, 160, 120, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_BREATHINESS_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 120, 10, 12
+    LTEXT           "Spee&d (0 to 250):", -1, 7, 138, 150, 9
+    EDITTEXT        IDC_SPEED, 160, 136, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_SPEED_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 136, 10, 12
+    LTEXT           "Vol&ume (0 to 100):", -1, 7, 154, 150, 9
+    EDITTEXT        IDC_VOLUME, 160, 152, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_VOLUME_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 152, 10, 12
+    PUSHBUTTON      "Rest&ore this voice's defaults", IDC_RESTORE, 7, 172, 140, 15, WS_TABSTOP
+    LTEXT           "Te&xt to speak:", -1, 7, 196, 150, 9
+    EDITTEXT        IDC_TESTTEXT, 7, 206, 286, 12, ES_AUTOHSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Spea&k", IDC_SPEAK, 7, 224, 70, 15, WS_TABSTOP
+    PUSHBUTTON      "&Stop", IDC_STOP, 83, 224, 70, 15, WS_TABSTOP
+    LTEXT           "", IDC_VOICE_STATUS, 7, 244, 286, 24, SS_NOPREFIX
+END
+
+IDD_SPEECH DIALOGEX 0, 0, 300, 272
+STYLE DS_SHELLFONT | WS_CHILD | WS_CAPTION | WS_DISABLED
+CAPTION "Speech"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    LTEXT           "&Sample rate:", -1, 7, 10, 150, 9
+    COMBOBOX        IDC_SAMPLERATE, 160, 8, 133, 200, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Resampling above 11,025 Hz:", -1, 7, 26, 150, 9
+    COMBOBOX        IDC_RESAMPLER, 160, 24, 133, 200, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Band-limit the &noise when synthesising above 11,025 Hz", IDC_NOISE, 7, 42, 286, 10, WS_TABSTOP
+    LTEXT           "&Fastest speed, at SAPI rate +10 (50 to 250):", -1, 7, 58, 150, 9
+    EDITTEXT        IDC_MAXSPEED, 160, 56, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_MAXSPEED_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 56, 10, 12
+    LTEXT           "Slo&west speed, at SAPI rate -10 (0 to 100):", -1, 7, 74, 150, 9
+    EDITTEXT        IDC_MINSPEED, 160, 72, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_MINSPEED_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 72, 10, 12
+    AUTOCHECKBOX    "Rate &boost: the fastest speed becomes 250", IDC_BOOST, 7, 90, 286, 10, WS_TABSTOP
+    LTEXT           "&Pitch change per SAPI pitch step (0 to 10):", -1, 7, 106, 150, 9
+    EDITTEXT        IDC_PITCHSTEP, 160, 104, 50, 12, ES_NUMBER | WS_TABSTOP
+    CONTROL         "", IDC_PITCHSTEP_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS, 210, 104, 10, 12
+    AUTOCHECKBOX    "Expand &abbreviations (the engine's own dictionary)", IDC_ABBREVIATIONS, 7, 122, 286, 10, WS_TABSTOP
+    LTEXT           "N&umbers:", -1, 7, 138, 150, 9
+    COMBOBOX        IDC_NUMBERS, 160, 136, 133, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Text mode:", -1, 7, 154, 150, 9
+    COMBOBOX        IDC_TEXTMODE, 160, 152, 133, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Honour back&quote annotations in the text", IDC_ANNOTATIONS, 7, 170, 286, 10, WS_TABSTOP
+    AUTOCHECKBOX    "&Heteronym fixes (English: produce, record, wound...)", IDC_HETERONYMS, 7, 184, 286, 10, WS_TABSTOP
+    AUTOCHECKBOX    "Name &lone symbols the engine would leave silent", IDC_SYMBOLS, 7, 198, 286, 10, WS_TABSTOP
+    AUTOCHECKBOX    "Use the user &dictionaries", IDC_DICTIONARIES, 7, 212, 286, 10, WS_TABSTOP
+    PUSHBUTTON      "R&estore these settings to their defaults", IDC_SPEECH_DEFAULTS, 7, 228, 160, 15, WS_TABSTOP
+    LTEXT           "", IDC_SPEECH_STATUS, 7, 248, 286, 20, SS_NOPREFIX
+END
+
+IDD_LANGUAGES DIALOGEX 0, 0, 300, 272
+STYLE DS_SHELLFONT | WS_CHILD | WS_CAPTION | WS_DISABLED
+CAPTION "Languages"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    LTEXT           "&Installed languages:", -1, 7, 8, 286, 9
+    LISTBOX         IDC_LANGLIST, 7, 18, 286, 84, LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_BORDER | WS_TABSTOP
+    LTEXT           "", IDC_LANGINFO, 7, 106, 286, 34, SS_NOPREFIX
+    PUSHBUTTON      "&Add a language pack...", IDC_ADDLANG, 7, 144, 140, 15, WS_TABSTOP
+    PUSHBUTTON      "&Remove the selected language", IDC_REMOVELANG, 153, 144, 140, 15, WS_TABSTOP
+    PUSHBUTTON      "Open the languages &folder", IDC_OPENLANGS, 7, 163, 140, 15, WS_TABSTOP
+    LTEXT           "User dictionaries for the selected language: one entry per line, the word, a tab, and what to say instead. A change is heard on the next thing spoken.", -1, 7, 186, 286, 26
+    PUSHBUTTON      "Edit the &main dictionary", IDC_DICT_MAIN, 7, 214, 140, 15, WS_TABSTOP
+    PUSHBUTTON      "Edit the r&oot dictionary", IDC_DICT_ROOT, 153, 214, 140, 15, WS_TABSTOP
+    PUSHBUTTON      "Edit the a&bbreviation dictionary", IDC_DICT_ABBR, 7, 233, 140, 15, WS_TABSTOP
+END
+
+IDD_DIAGNOSTICS DIALOGEX 0, 0, 300, 272
+STYLE DS_SHELLFONT | WS_CHILD | WS_CAPTION | WS_DISABLED
+CAPTION "Diagnostics"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    LTEXT           "&Logging:", -1, 7, 10, 150, 9
+    COMBOBOX        IDC_LOGLEVEL, 160, 8, 133, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Open the log folder", IDC_OPENLOGS, 7, 26, 140, 15, WS_TABSTOP
+    PUSHBUTTON      "Run the &self-test", IDC_SELFTEST, 153, 26, 140, 15, WS_TABSTOP
+    LTEXT           "Self-test &results:", -1, 7, 48, 286, 9
+    EDITTEXT        IDC_SELFTEST_RESULT, 7, 58, 286, 150, ES_MULTILINE | ES_READONLY | ES_AUTOVSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "", IDC_ABOUT, 7, 214, 286, 54, SS_NOPREFIX
+END

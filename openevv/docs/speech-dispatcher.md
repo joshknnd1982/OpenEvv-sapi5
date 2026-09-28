@@ -1,0 +1,168 @@
+# Speech Dispatcher
+
+OpenEVV has a native Speech Dispatcher output module for Linux. It keeps one
+engine instance alive, streams 16-bit mono 11025 Hz PCM back to Speech
+Dispatcher for playback, and does not open an audio device itself.
+
+## Build and automatic test
+
+Install Speech Dispatcher's development headers and module helper library,
+plus `pkg-config`. Package names vary; on Arch Linux the files are supplied by
+`speech-dispatcher`, while Debian-family systems normally use
+`libspeechd-dev`. On a Nix machine `nix develop` has them: the flake's shell
+carries `speechd`, `pkg-config` and `glib.dev`, the last because
+`speech-dispatcher.pc` requires glib and pkg-config cannot answer for it
+otherwise. None of that touches a running server -- the module hands its
+samples back rather than opening a device, so what it needs is headers and a
+library.
+
+    make -j"$(nproc)" RULES=bytecode speechd-test
+
+That builds `build/sd_openevv` and drives it through the output-module
+protocol without playing sound. To build every available language into one
+module and exercise each one:
+
+    make -j"$(nproc)" RULES=bytecode speechd-test-all
+
+The all-language executable is
+`build/sd_openevv-enus-engb-dede-eses-esus-frfr-frca-itit-plpl-jajp`. Omit
+`RULES=bytecode` for the faster-speaking compiled-rule build; generating it
+takes substantially longer, and the suite passes in both forms.
+
+**A packaging trap, which cost a real afternoon.** Where a build system expands
+its make flags as separate shell words -- Nix's `makeFlags` does -- a bare
+`LANGS=lang/enus lang/engb ...` reaches make as one assignment and eight
+targets. Make answers "Nothing to be done for 'lang/engb'", exits nought, and
+you install a module with one language in it. It builds, it speaks, and it
+passes a smoke test. Quote the whole assignment as one word. What caught it was
+`speechd-test` asserting the number of languages offered rather than deriving
+it, which failed with `AssertionError: {'en-US'}` -- the argument for stating a
+count rather than computing one from the same thing you are trying to check.
+
+Ten languages are linked and nine are offered. Japanese is deliberately left
+out of the module's table: its text is Shift-JIS, EUC-JP or one of three
+seven-bit JIS sets and its romanizer recodes whichever it was given, none of
+which is UTF-8, and there is no converter here for them. Offering it would
+hand a screen reader a language this module would mis-speak. `speechd-test-all`
+therefore states the count it expects rather than counting `LANGS`, so a
+language that quietly stopped being offered fails the check.
+
+## Install
+
+For a user-local compiled-rule installation with every language, use absolute
+paths appropriate to the account:
+
+    make -j"$(nproc)" RULES=c LANGS="lang/enus lang/engb lang/dede lang/eses lang/esus lang/frfr lang/frca lang/itit lang/plpl lang/jajp" PREFIX=/home/Username/.local SPEECHD_CONFDIR=/home/Username/.config/speech-dispatcher/modules speechd-install
+
+This installs `sd_openevv` below the chosen module directory and `openevv.conf` below the chosen configuration directory. Distribution packagers can set `DESTDIR`, `SPEECHD_MODULEDIR`, and `SPEECHD_CONFDIR` directly. Nothing further is needed to make the module visible: Speech Dispatcher walks its user and system module directories itself and loads what it finds there, so an installed module is offered the next time the daemon starts.
+
+**Do not register it in `speechd.conf`, and delete the line if it is already there.** Earlier versions of this file said Speech Dispatcher does not discover modules and gave an `AddModule` line to add by hand. That was wrong, and following it costs more than the line itself. `src/server/speechd.c` makes its three `detect_output_modules` calls only under `if (module_number_of_requested_modules() < 1)`, so the first explicit registration anywhere in `speechd.conf` turns discovery off for every module at once. An OpenEVV line added to a configuration that had none therefore hides espeak and every other installed voice behind the one module just added, which leaves the machine with less speech on it than before. Take the line out again; the section below says what restarting to pick that up costs.
+
+Two things make such a line harder to find by eye than it looks. The directive name is matched case-insensitively, so `addmodule` counts as much as `AddModule`, and the paths in it may be relative -- `module.c` resolves a bare binary name against the user module directory and then the system one, which is the form Speech Dispatcher's own commented examples use. A configuration that lists its modules explicitly on purpose is a different case and should be left that way: discovery is already off there by its owner's choice, and OpenEVV needs a line like everything else.
+
+If an explicit OpenEVV registration is already there, whether from an older package or from this document's own earlier advice, repair the current user's configuration with:
+
+    openevv-speechd-enable
+
+If the registration is in the system configuration, repair it explicitly as root:
+
+    sudo openevv-speechd-enable --system
+
+The helper backs up a configuration before changing it. It recognizes registrations whose module binary is named `sd_openevv`, whether their arguments are quoted or unquoted. If OpenEVV is the only explicit module, the helper prints and removes its registration to restore automatic discovery. If the configuration already lists other modules explicitly, the helper keeps or adds OpenEVV alongside them. Other custom OpenEVV registrations are left untouched.
+
+Directive names are matched case-insensitively. The helper examines only the selected `speechd.conf`; it does not follow `Include` directives, so inspect included files separately for `AddModule` lines. Use `--system` only on distributions where `/etc/speech-dispatcher/speechd.conf` is a regular, writable configuration file. On declaratively managed systems such as NixOS, change the system configuration through the distribution instead.
+
+The helper does not restart Speech Dispatcher itself. Restarting temporarily takes speech away, so do that only from a session that can be recovered without hearing.
+
+## Try it without installing
+
+A build that has not been installed is in neither module directory, so discovery cannot see it. A link is enough to fix that and costs nothing else. Make the two directories if they are not there:
+
+    mkdir -p ~/.local/libexec/speech-dispatcher-modules ~/.config/speech-dispatcher/modules
+
+Then point a link named `sd_openevv` at the built module, whatever that build is actually called. Discovery follows the link, and takes both the module's name and the configuration file it will look for from the link's own name, so the all-language build needs no different treatment here:
+
+    ln -sf /absolute/path/openevv/build/sd_openevv ~/.local/libexec/speech-dispatcher-modules/sd_openevv
+
+And put the configuration file where the module will be started with it:
+
+    cp /absolute/path/openevv/speechd/openevv.conf ~/.config/speech-dispatcher/modules/openevv.conf
+
+Nothing in `speechd.conf` changes, so every module that was being discovered still is. Only a name beginning `sd_` is considered, so nothing else left in that directory gets picked up, and removing the link is the whole of undoing this.
+
+The other route is an explicit registration, and it is worth knowing only because a configuration that already lists its modules explicitly needs one:
+
+    AddModule "openevv" "/absolute/path/openevv/build/sd_openevv" "/absolute/path/openevv/speechd/openevv.conf"
+
+If testing the all-language build that way, use its suffixed executable name
+instead. In a configuration that lists nothing, that line turns discovery off
+and hides every other voice, so put it only in one that already registers what
+it wants.
+
+Stop the existing per-user daemon with `killall speech-dispatcher`; the next
+client or screen reader connection will start it with the new configuration.
+
+**That command stops speech.** On a machine where a screen reader is how its
+user reads the screen, killing the daemon takes the speech away until
+something reconnects, and a module that will not start leaves it away. So do
+it in a session that can be recovered without hearing: a second machine, an
+ssh login, or a terminal already speaking through another synthesiser. Never
+replace a distribution module or a system configuration while evaluating a
+development build, for the same reason -- the fallback has to stay working.
+
+Confirm discovery before listening:
+
+    spd-say -O
+    spd-say -o openevv -L
+    spd-say -o openevv -w "OpenEVV through Speech Dispatcher."
+
+Useful coverage includes `-r`, `-p`, `-R`, and `-i` at negative, zero, and
+positive values; `-m none|some|most|all`; `-s`; `-c`; `-k`; every `-t` voice
+type; and exact voices such as `-y enus-elderly-male`. For a multilingual
+build, try `-l en-US`, `de-DE`, `en-GB`, `es-ES`, `es-MX`, `fr-FR`, `fr-CA`,
+`it-IT` and `pl-PL`, including accented text. Polish is the one worth listening
+to closely: it is the only language whose text the engine converts from UTF-8
+itself, so it is the only one where the module has to keep its hands off the
+bytes. Listen to text containing symbols under
+each `-m` mode: the direct protocol test cannot cover the server-side symbol
+names or translations. Finally, test rapid interruption and language changes
+in the actual screen reader, because that test also cannot establish audible
+latency, playback routing, or application behavior.
+
+## Supported behavior and limits
+
+The module advertises eight voice presets per built language. It supports
+Speech Dispatcher rate, pitch, pitch range, volume, voice type, exact voice,
+language, spelling, character, key, sound-icon fallback, stop, pause at Speech
+Dispatcher's next internal index mark, and index-mark events. Punctuation and
+symbol names use Speech Dispatcher's language-aware server-side symbol
+preprocessing. When the server inserts a symbol name and changes the module's
+punctuation mode to `none`, the module suppresses the retained non-prosodic
+symbol so names such as `dash-` and `left paren(` are not spoken twice. It
+preserves sentence punctuation for pauses and apostrophes inside words.
+UTF-8 input is converted to the Latin-1 input used by the nine languages IBM
+shipped. Left and right curly apostrophes are normalized to ASCII apostrophes;
+other characters outside Latin-1 become `?`.
+
+Polish is the exception and gets no conversion here at all. It declares code
+points of its own, so the engine converts its text from UTF-8 itself, and
+converting it twice would turn eight of its nine diacritics into question
+marks -- 99,616 PCM bytes for the pangram where leaving it alone gives 36,762.
+Two byte-wise walks had to learn the same thing, because the ranges collide
+exactly: a UTF-8 lead byte of 0xc0 to 0xdf reads as a Latin-1 capital and a
+continuation byte of 0xa1 to 0xbf reads as a symbol, so a lowercase Polish z
+with a dot was announced as a capital and had its second byte replaced with a
+space. Above 0x7f in UTF-8 the answer is that a byte is not a character to
+judge, and one consequence is honest to state: capital recognition works on
+Polish for the ASCII letters and does not announce the accented capitals.
+
+SSML support is deliberately small: `<mark name="...">` produces index
+events, `<break>` inserts a pause, the five predefined XML entities are
+decoded, and other tags are ignored while their text is spoken. Prosody,
+phoneme, substitution, and audio elements are not implemented. Capital
+recognition handles ordinary text, character, and key messages: `spell` says
+“capital” before uppercase letters and `icon` emits Speech Dispatcher's
+`capital` sound-icon event.
+
+Set `Debug 1` in `speechd/openevv.conf` only while diagnosing the module.
+Speech Dispatcher owns the log destination and audio backend.

@@ -1,0 +1,404 @@
+# Italian letter-to-sound.
+#
+# One block a letter and its arms in order, the first that matches winning.
+# The last arm of a block is the bare letter: what it says when nothing else
+# applies. An arm may also say what must stand to its left and right without
+# swallowing it -- `after', `before', and `vowel', `consonant' or `glide' in
+# either place -- and `at start' or `at end' for a run that has to begin or
+# end where the piece of the word does.
+#
+# Italian doubles its consonants and means it: a doubled letter is two phones
+# and one long sound, which IBM says by marking both `geminate'. Without the
+# mark the phones are right and the sound is not, so the word gate passes and
+# the sentences move. r is the exception, its double being one trill.
+#
+# An n before a hard c, g or q is the velar nasal, marked to be written as n,
+# where IBM's rule builds that record at run time. It is the same record
+# either way, and the ear cannot tell which built it.
+#
+# Some of what Italian says is decided by word rather than by letter, and IBM
+# keeps those words in lists named for what they decide: an s between vowels
+# is unvoiced in asepsi and dinosauro because their roots begin with an entry
+# of VsV_pronounced_s. An arm names such a list last of all, `where the root
+# begins <list>' or `where the root is <list>'.
+#
+# All twenty-six are here. The vowels are the most of it: whether a stressed
+# e or o is open is a tree of letter tests and lists, and a later rule closes
+# any open one that is not stressed, so the arms need not know which is.
+
+rules in it_phone.obj named apply_ital_%s_rules
+a piece runs from 864 to 872
+a word runs from 704 to 712
+
+letter b
+  bb   says b b   marked geminate yes
+  b    says b
+
+letter d
+  dd   says d d   marked geminate yes
+  d    says d
+
+letter f
+  ff   says f f   marked geminate yes
+  f    says f
+
+letter p
+  pp   says p p   marked geminate yes
+  p    says p
+
+letter t
+  tt   says t t   marked geminate yes
+  t    says t
+
+letter v
+  vv   says v v   marked geminate yes
+  v    says v
+
+
+letter r
+  rr   says R     # carro -- one trill rather than two taps
+  r    says r
+
+letter j
+  j    says J
+
+letter k
+  k    says k
+
+letter w
+  w    says v
+
+letter x
+  x    says k s
+
+letter q
+  q    says k
+
+letter a
+  a    says a
+
+letter l
+  ll   says l l   marked geminate yes
+  l    says l
+
+letter m
+  mm   says m m   marked geminate yes
+  m    says m
+
+letter n
+  nn           says n n   marked geminate yes
+  n before ce  says n
+  n before ci  says n
+  n before ge  says n
+  n before gi  says n
+  n before c   says G   marked diaph_ghost +n   # banca
+  n before g   says G   marked diaph_ghost +n   # lungo
+  n before q   says G   marked diaph_ghost +n   # cinque
+  n            says n
+
+letter c
+  cch               says k k
+  cc before ii      says t C
+  cci before vowel  says t C
+  cc before e       says t C
+  cc before è       says t C
+  cc before é       says t C
+  cc before i       says t C
+  cc before ì       says t C
+  cc before í       says t C
+  cc                says k k
+  ch                says k
+  ck                says k
+  c before ii       says C
+  c before i        says C     where the root begins i_pronounced_i   # farmac-ia
+  ci before vowel   says C
+  c before e        says C
+  c before è        says C
+  c before é        says C
+  c before i        says C
+  c before ì        says C
+  c before í        says C
+  c                 says k
+
+letter s
+  ss                          says s s   marked geminate yes
+  sh                          says S     # flash, leadership
+  sc before ii                says S     # struscii
+  sci before vowel            says S     where the root is sci_notpronounced_sci
+  sci                         says S i   where the root is sci_notpronounced_sc
+  sci                         says S i   where the root begins sci_pronounced_sci
+  sci before vowel            says S
+  sc before e                 says S
+  sc before è                 says S
+  sc before é                 says S
+  sc before i                 says S
+  sc before ì                 says S
+  sc before í                 says S
+  s before b                  says z
+  s before d                  says z
+  s before g                  says z
+  s before l                  says z
+  s before m                  says z
+  s before n                  says z
+  s before r                  says z
+  s before v                  says z
+  s after vowel before vowel  says s     where the root begins VsV_pronounced_s
+  s at start                  says s     # ri-salito, para-sole
+  s after vowel before vowel  says z
+  s                           says s
+
+letter g
+  gg before ii      says d J
+  ggi before vowel  says d J
+  gg before e       says d J
+  gg before è       says d J
+  gg before é       says d J
+  gg before i       says d J
+  gg before ì       says d J
+  gg before í       says d J
+  gg                says g g
+  gh                says g
+  gli at start      says g l i     # gliadina
+  gli after n       says g l i     # anglicano, gangliare
+  gli               says g l i     where the root begins gli_pronounced_gli
+  gli before vowel  says L
+  gl before i       says L          # caturegli, foglifero: the i is its own
+  gn                says N
+  g before ii       says J
+  gi before vowel   says J     where the root begins giV_pronounced_gV
+  gi after ol before a  says J i   # astrologia -- the stressed i of -logia
+  gi after ol before e  says J i
+  gi after ru before a  says J i   # drammaturgia
+  gi after ru before e  says J i
+  gi                says J i   where the root so far is i_pronounced_i
+  gi                says J i   where the root is giV_pronounced_giV
+  gi before vowel   says J
+  g before e        says J
+  g before è        says J
+  g before é        says J
+  g before i        says J
+  g before ì        says J
+  g before í        says J
+  g                 says g
+
+letter h
+  h at start   is left alone   # hall, hitler: where it begins the root
+  h            says nothing
+
+letter y
+  y before vowel   says y
+  y after vowel    says y     # boy, display
+  y                says i
+
+letter z
+  z at start  says D     # zimologo
+  zz          says t T   where the root begins zz_pronounced_tT
+  zz          says d D   where the root begins zz_pronounced_dD
+  zz after i before vowel  says d D   # monetizzare, but grizzly is t T
+  zz          says t T
+  z after t before i  says T   # strelitzia
+  z after t   says D     # gratza, trotzkista
+  z after s   says D     # puszta
+  z after g   says D     # zigzag
+  z after l   says T     # calzettone
+  z before vowel  says D     where the word begins z_pronounced_D   # benzina, but benz is T
+  z after nam before o  says D   # romanzo -- but romanzesco is T
+  z after nort          says T   # stronzio
+  z after nor           says D   # bronzo
+  z after rag           says D   # garza
+  z after vowel before iend         says D   # azienda
+  z after vowel before i at end     says T   # carpazi
+  z after vowel before vowel+vowel  says T   # stazione, anterozoo
+  z after vowel before vowel        says D   # azoto, ozono
+  z before consonant    says D   # izba, nazca
+  z           says T
+
+letter u
+  u accented             says u     # ù
+  u after consonant at word end  says u   # tu, più
+  u before vowel at start  says w   # uopo, super-uomini
+  u at start             says u     # pre-unitario, mono-utente
+  u                      says w     where the root is u_notpronounced_u
+  u                      says u     where the root begins u_pronounced_u
+  u after i              says u     # fiume
+  u before u             says u     # duumviro
+  u after u              says u
+  u before vowel         says w     # uomo, buono, quando
+  u after vowel          says w     # aurora, neutro
+  u                      says u
+
+letter i
+  i accented             says i     # ì, and entropia's i the dictionary stressed
+  i after consonant at word end  says i
+  i after consonant before i  says i   # serii -- before the lists, as IBM asks it
+  i                      says i     where the root is i_notpronounced_y
+  i                      says i     where the root begins i_pronounced_i  unless the root so far is i_notpronounced_i
+  i before vowel         says y     where the root begins i_pronounced_y
+  i after zarc   before a at word end  says i   # democrazia
+  i after zarc   before e at word end  says i
+  i after nof    before a at word end  says i   # telefonia
+  i after nof    before e at word end  says i
+  i after farg   before a at word end  says i   # geografia
+  i after farg   before e at word end  says i
+  i after gol    before a at word end  says i   # biologia
+  i after gol    before e at word end  says i
+  i after rtem   before a at word end  says i   # geometria
+  i after rtem   before e at word end  says i
+  i after mono   before a at word end  says i   # astronomia
+  i after mono   before e at word end  says i
+  i after paret  before a at word end  says i   # fisioterapia
+  i after paret  before e at word end  says i
+  i after re before a at end  says i   # artiglieria
+  i after re before e at end  says i
+  i before aco           says i     # cardiaco -- but diaclasi, niacina glide
+  i before aca           says i
+  i before ach           says i     # celiachia
+  i before vowel at start  says y   # iato, iodato
+  i at start             says i     # co-incidenza, auto-incendio
+  i before vowel         says y     # piano, fiore
+  i after vowel at word end  says i # colei, avvarrai
+  i after a before sm    says i     # -ismo, -ista
+  i after e before sm    says i
+  i after o before sm    says i
+  i after u before sm    says i     # altruismo
+  i after a before st    says i
+  i after e before st    says i
+  i after o before st    says i
+  i after u before st    says i
+  i after a              says y     # aimone
+  i after e              says y
+  i after o              says y
+  i after u              says y     where the root begins u_pronounced_u
+  i after u              says i     # acquisto -- the u glides, so this does not
+  i                      says i
+
+letter e
+  e   hands over to assign_homogr_E_e   where the root is E_e_homographs
+  è                      says E
+  e                      says E   where the root begins e_pronounced_E  unless the root is e_notpronounced_E
+  é                      says e
+  e                      says e   where the root begins e_pronounced_e  unless the root is e_notpronounced_e
+  e before tt+vowel at word end  says e   # -etto, -etta
+  e before ssa at word end       says e   # -essa
+  e before sse at word end       says e
+  e before nn+vowel at word end  says E   # -enne
+  e after lb             says E   # plebe -- a cluster ending in l
+  e after lc             says E   # sclera
+  e after lf             says E
+  e after lp             says E
+  e after ls             says E
+  e after lt             says E   # atleta
+  e before rb            says E
+  e before rl            says E
+  e before rm            says E
+  e before rn            says E
+  e before rp            says E
+  e before rs            says E
+  e before rt            says E
+  e before rv            says E
+  e before rz            says E
+  e before rci           says E
+  e before rce           says E
+  e before mb            says E
+  e before mp            says E   # tempo
+  e before st            says E   # festa
+  e before vowel         says E   # idea
+  e before glide         says E   # geyser
+  e at word end          says E   # tre, re -- nothing after it is a consonant
+  e before consonant+vowel+vowel  says E  unless before gu   # premio
+  e before ma at word end    says E   # problema
+  e before mi at word end    says E
+  e before tich+vowel at word end  says E
+  e before tic+vowel at word end   says E   # poetico
+  e before d+vowel       says E
+  e before z+vowel       says E
+  e before l+vowel       says E   # cielo
+  e after i              says E   # piede
+  e before c             says E   unless before ce  unless before ci   # greco
+  e before bb            says E
+  e before ff            says E
+  e before ll            says E   # bello
+  e before rr            says E
+  e before ss            says E
+  e before tt            says E
+  e before gg            says E   unless before ggi  unless before gge
+  e before cc            says e
+  e before dd            says e
+  e before gg            says e
+  e before mm            says e
+  e before nn            says e
+  e before pp            says e
+  e before qq            says e
+  e before vv            says e
+  e before zz            says e
+  e before gh            says e
+  e before ga            says e
+  e before go            says e
+  e before gu            says e
+  e before gn            says e
+  e before gli           says e
+  e before g             says E
+  e after m before nt    says e   # -mente, -mento
+  e before nd            says E   # -endo
+  e before ng            says E
+  e before ns            says E
+  e before nt            says E   # -ente
+  e before nz            says E   # -enza
+  e                      says e
+
+letter o
+  o                      says c   where the word passes one_ital_syllable
+  o   hands over to assign_homogr_c_o   where the root is c_o_homographs
+  ò                      says c
+  ó                      says o
+  o accented             is left alone
+  o                      says c   where the root begins o_pronounced_c  unless the root is o_notpronounced_c
+  o                      says o   where the root begins o_pronounced_o  unless the root is o_notpronounced_o
+  o before ne at word end        says o   # -one
+  o before ni at word end        says o
+  o before re at word end        says o   # -ore
+  o before ri at word end        says o
+  o before s+vowel at word end   says o   # -oso, -osa
+  o before io at word end        says o
+  o before ia at word end        says o
+  o before i at word end         says o
+  o after lb             says c   # a cluster ending in l
+  o after lc             says c
+  o after lf             says c
+  o after lp             says c
+  o after ls             says c
+  o after lt             says c
+  o before dromi at word end     says c   # ippodromo
+  o before dromo at word end     says c
+  o before vowel         says c
+  o before glide         says c
+  o after u              says c   # uomo, buono
+  o before consonant+vowel  says c   unless before sa at end  unless before se at end  unless before si at end  unless before so at end  unless before ga  unless before go  unless before gu  unless before ce
+  o before bb            says c
+  o before cc            says c
+  o before dd            says c
+  o before ff            says c
+  o before gg            says c
+  o before ll            says c
+  o before pp            says c
+  o before ss            says c
+  o before tt            says c
+  o before vv            says c
+  o before zz            says c
+  o before ns            says c   # alfonso
+  o before m             says c   unless before mb  unless before mp
+  o before r             says c   unless before rl  unless before rm  unless before rn  unless before rs
+  o before ld            says c
+  o before lg            says c
+  o before g             says c   unless before ga  unless before go  unless before gu  unless before gh  unless before gn
+  o before vr            says c
+  o before st            says c
+  o before sb            says c
+  o before sd            says c
+  o before sg            says c
+  o before sl            says c
+  o before sm            says c
+  o before sn            says c
+  o before sr            says c
+  o before sv            says c
+  o                      says o

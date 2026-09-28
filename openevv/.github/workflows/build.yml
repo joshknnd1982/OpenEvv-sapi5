@@ -1,0 +1,551 @@
+# Builds both binaries on every push, checks that the engine still says the
+# same thing, and cuts a release with the Windows exes when a tag is pushed.
+#
+# What it cannot do is compare against IBM's binary: that wants the SDK, which
+# is not in the tree and is not ours to put in a runner. So the checks here are
+# test/hash.sh, which speaks one fixed sentence and holds the samples against a
+# hash in the tree, and `make crashers`, which speaks the text IBM's engine
+# cannot survive and asks only that ours answers. Neither proves the engine
+# right -- test/suite.sh does that, on a machine with the SDK -- the first
+# proves it unchanged and the second proves it still there.
+
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  # `gh workflow run build -f every_language=true' rehearses what a tag does
+  # without cutting one: the same all-language build of what ships, with the
+  # release job still skipped because this is not a tag. Worth doing before a
+  # release, since that path is otherwise only ever exercised by the release
+  # itself and takes over an hour to tell you.
+  workflow_dispatch:
+    inputs:
+      every_language:
+        description: 'Build what ships with every language, as a tag does'
+        type: boolean
+        default: false
+
+jobs:
+  # Both forms of the rules are built and both are held to the same hash. Which
+  # one is the default has changed once and could change again, so each job says
+  # which it wants rather than taking it: whichever way the default points, the
+  # other form is the one that would quietly rot, and the compiled rules are
+  # checked against the interpreter by tools/rules/check-c.sh -- so if the
+  # interpreter moves, the thing the C is held against has moved.
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build, with the rules as C
+        run: make -j"$(nproc)" RULES=c
+
+      - name: Check the samples
+        run: test/hash.sh
+
+      - name: Check the command-line speaking helper
+        run: make RULES=c say-test
+
+      # English only here, and every language in the bytecode job below.
+      # Decompiling nine languages into C is a hundred and seventeen megabytes
+      # and most of an hour on a two-core runner; what this job is for is that
+      # the C form says what the interpreter says, and one language answers
+      # that.
+      - name: Check the recorded answers, with the rules as C
+        run: |
+          make -j"$(nproc)" RULES=c probe
+          EVV_MATRIX_NATIVE=$PWD/build/probe test/matrix.sh check enus
+
+      - name: Check the words the original cannot say
+        run: make crashers
+
+      - name: Check the add-on's own two
+        run: make nvda-test
+
+      # The shared library goes out beside the command, because the command
+      # is for a person and the library is for a program. Built here rather
+      # than in the bytecode job so that what ships has the rules as C, which
+      # is what a program interrupting speech wants.
+      #
+      # A release carries every language and an ordinary push carries
+      # English. Decompiling ten languages into C is over a hundred megabytes
+      # and most of an hour on a two-core runner, twice over for the library
+      # and the command, and there is no reason to spend it on every commit:
+      # what a tag changes here is the form of the rules, not the path. That a
+      # library can hold every language at once is proved on every push by the
+      # bytecode job below, which speaks all ten out of one.
+      #
+      # EVVPLAIN keeps the plain name with several languages in it. Everything
+      # else here names itself after what it contains, but a caller dlopens
+      # `libeci.so' and cannot be asked to know what is inside.
+      - name: Build what ships
+        env:
+          EVERY: ${{ inputs.every_language }}
+        run: |
+          set -eu
+          case "$GITHUB_REF$EVERY" in
+          refs/tags/v*|*true)
+            langs=$(printf 'lang/%s ' enus engb dede eses esus frfr frca \
+                                      itit plpl jajp) ;;
+          *)
+            langs=lang/enus ;;
+          esac
+          make -j"$(nproc)" RULES=c EVVPLAIN=1 LANGS="$langs" so all
+
+      # Staged into a directory of its own so the artifact holds four files
+      # at its top rather than the paths they were built at; the release job
+      # unpacks it straight into what becomes the archive.
+      - name: Stage what ships
+        run: |
+          set -eu
+          mkdir -p stage
+          cp build/evv build/openevv-say build/libeci.so.1 include/eci.h stage/
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: evv-linux-x86_64
+          path: stage/
+          if-no-files-found: error
+
+  # The quick one: no thirteen megabytes of generated C, half a minute. It
+  # proves the interpreter still says what it has always said. Python is
+  # wanted even here, because the rules a build compiles are written out of
+  # the text in lang/<tag>/rules first -- two seconds a language -- and it is
+  # the decompiling into C that this build skips.
+  linux-bytecode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build, with the rules as bytecode
+        run: make -j"$(nproc)" RULES=bytecode
+
+      - name: Check the samples
+        run: test/hash.sh
+
+      # The gate: every case of every language, samples and the answers the
+      # interface gave, held against what this engine has said before. 979
+      # cases, one binary with all ten languages in it, and neither Wine nor
+      # IBM's objects wanted. The differential suite that blessed these
+      # numbers cannot run here and does not need to.
+      - name: Check the recorded answers, every language
+        run: make matrix
+
+      - name: Check the words the original cannot say
+        run: make crashers
+
+      # Ubuntu's libspeechd-dev is the client API only: it has neither
+      # spd_module_main.h nor libspeechd_module. The development shell has
+      # Speech Dispatcher's out-of-tree module interface on every runner,
+      # which is the same environment this target is documented against.
+      - uses: cachix/install-nix-action@v31.11.1
+
+      - name: Check the Speech Dispatcher module, every language
+        run: nix develop --command make -j"$(nproc)" RULES=bytecode speechd-test-all
+
+      - name: Check the Speech Dispatcher configuration helper
+        run: make speechd-enable-test
+
+      - name: Check a rate change keeps the caller's buffer
+        run: make RULES=bytecode rate
+
+      # The rates IBM never shipped. Two claims at once: that the resonator
+      # tables built for them are the same formulae IBM's own four are, held
+      # against IBM's own arrays entry by entry, and that every rate speaks
+      # for the same length of time as eleven thousand and twenty five.
+      - name: Check the rates IBM never shipped
+        run: make RULES=bytecode rates
+
+      - name: Check a key that is not in a section reads as absent
+        run: make RULES=bytecode inikeys
+
+      # The eight voices the caller may edit on an instance just made. The
+      # suite is blind to them: the loop that fills them can be turned off
+      # entirely and all 81 cases still match IBM's binary, which is how a
+      # stale script in /tmp got that edit past everything once.
+      - name: Check the voices the caller may edit
+        run: make RULES=bytecode voices
+
+      - name: Check a stop from another thread leaves the engine whole
+        run: make RULES=bytecode stopthread
+
+      # Half of test/harness/prims.sh. The comparison against IBM's own objects wants
+      # Wine and the SDK and cannot run here, but our side of it exercises
+      # every machine primitive no rule calls -- fifty thousand calls that
+      # nothing else in the tree makes -- so a crash or a link that has lost
+      # one shows up.
+      - name: Run our side of the machine primitives
+        run: make RULES=bytecode prims
+
+      # The C form first, because it is the form every ordinary build uses:
+      # `RULES' defaults to c, so this is the one guarding what people
+      # actually run. It builds both sides itself and wants neither Wine nor
+      # IBM's objects. Ten rules rather than the module, because the module as
+      # C is what the job above already builds and what the matrix already
+      # speaks; what this catches is the translation of one rule.
+      #
+      # It had never run here. Nothing invoked it at all -- no target, no step
+      # -- and it had rotted three ways unnoticed, the last of them leaving it
+      # unable to run since 0855062 on 22 August. Ordering matters for the same
+      # reason: a job stops at its first failure, so a step behind a red one is
+      # a step nobody reads, which is how all three of those faults survived.
+      - name: Check the rules written as C say what the interpreter says
+        run: make c-check
+
+      # The rules written in the upper form, held against the ones IBM
+      # compiled: every rule entered and every call made with its arguments,
+      # over a build carrying each. It wants neither Wine nor IBM's objects.
+      # Only this harness's own sentences here rather than those and the
+      # suite's seven, because tracing costs twenty times what the synthesis
+      # does and these are the ones that reach the rules being checked.
+      - name: Check the rules written as what they do
+        run: EVV_UPPER_CASES=test/cases/upper.txt bash tools/rules/check-upper.sh
+
+      # The four texts a language module is made of besides its rules, each
+      # written back out as the C the build compiles and held against the tree
+      # byte for byte. Wants no objects and no Wine, and takes seconds.
+      - name: Check the tables beside the rules
+        run: |
+          make LANGS="$(printf 'lang/%s ' enus dede engb eses esus frfr frca itit plpl)" \
+               tables-check
+
+      # Every language module builds and speaks, which wants neither Wine nor
+      # IBM's objects: only the comparison against IBM does. So a module that
+      # stops linking, or an engine change that suits one language and not
+      # another, is caught here rather than on somebody's machine. Samples are
+      # required: a build that links and says nothing would otherwise pass.
+      - name: Build and speak every language
+        run: |
+          set -eu
+          for l in lang/*/; do
+            t=$(basename "$l")
+            # A directory under lang is a module when it carries the table the
+            # engine knows the language by, and this asks rather than assumes.
+            # lang/measured holds measurement text rather than a module, and
+            # this loop spent a week trying to build it as one -- unseen,
+            # because the step never ran while the gates above it were red.
+            [ -f "$l/delta_lang_$t.c" ] || continue
+            make -j"$(nproc)" probe LANG="lang/$t" RULES=bytecode
+            p=build/probe
+            [ "$t" = enus ] || p="build/probe-$t"
+            "$p" "The quick brown fox jumps over the lazy dog." "/tmp/$t.wav"
+            test -s "/tmp/$t.wav"
+          done
+
+      # The engine as a shared library, under the names IBM published. The C
+      # harness links against nothing and asks for every name by string, so a
+      # name that stops being exported fails here; what it says has to be
+      # what build/evv says on the same sentence, byte for byte. The ctypes
+      # one is a different question -- ctypes has its own idea of a handle
+      # and of a calling convention -- and until there was an ELF library it
+      # could only be asked on Windows.
+      - name: Speak through the shared library
+        run: |
+          set -eu
+          make -j"$(nproc)" RULES=bytecode sotest
+          ./build/evv -o /tmp/fromevv.wav \
+            "Hello. This is the Eloquence synthesizer speaking."
+          cmp build/sotest.wav /tmp/fromevv.wav
+
+      - name: Speak through the shared library with ctypes
+        run: |
+          set -eu
+          python3 test/lib/dll.py build/libeci.so /tmp/fromctypes.wav \
+            "Hello. This is the Eloquence synthesizer speaking."
+          cmp /tmp/fromctypes.wav /tmp/fromevv.wav
+
+      - name: Read a document through the shared library
+        run: |
+          set -eu
+          python3 test/lib/dll.py build/libeci.so /tmp/ssml.wav \
+            '<speak version="1.0" xml:lang="en-US">Hello there.</speak>'
+          test -s /tmp/ssml.wav
+
+      # Every language alive in one process through the library, each held to
+      # what it says alone. The binary check below is the same question asked
+      # of the probe; this one asks it of the thing a program actually loads,
+      # and it is what says a release carrying all ten will speak all ten.
+      - name: Every language from one library
+        run: |
+          set -eu
+          all=$(printf 'lang/%s ' enus dede engb eses esus frfr frca itit plpl jajp)
+          make -j"$(nproc)" RULES=bytecode so LANGS="$all"
+          python3 test/lib/langs.py \
+            build/libeci-enus-dede-engb-eses-esus-frfr-frca-itit-plpl-jajp.so
+
+      # And all of them in one binary, each still speaking: this is what says
+      # nothing in the engine has quietly stayed global.
+      - name: Speak every language out of one binary
+        run: |
+          set -eu
+          all=$(printf 'lang/%s ' enus dede engb eses esus frfr frca itit plpl jajp)
+          make -j"$(nproc)" probe RULES=bytecode LANGS="$all"
+          b=build/probe-enus-dede-engb-eses-esus-frfr-frca-itit-plpl-jajp
+          for id in 0x10000 0x10001 0x20000 0x20001 0x30000 0x30001 0x40000 0x50000 0x110000 0x80000; do
+            EVV_LANGUAGE=$id "$b" "The quick brown fox." "/tmp/one-$id.wav"
+            test -s "/tmp/one-$id.wav"
+          done
+
+  # Every word of every list, spoken through the interpreter. The matrix's
+  # sentences never nest the rules as deep as some single words do, and the
+  # interpreter takes a C stack frame a rule where the compiled rules take
+  # less than half that, so a word that runs a thread off its stack shows here
+  # and nowhere else -- one English word and one British one did, for as long
+  # as the thread was given IBM's forty thousand bytes. A language a runner,
+  # because one is five minutes or more on two cores and eight in a row would
+  # be most of an hour on every push.
+  words-bytecode:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: [enus, engb, dede, eses, esus, frfr, frca, itit]
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check every word, with the rules as bytecode
+        run: |
+          set -eu
+          t=${{ matrix.lang }}
+          make -j"$(nproc)" RULES=bytecode EVVLANG="lang/$t" phonemes-bin
+          b=build/phonemes
+          [ "$t" = enus ] || b="build/phonemes-$t"
+          EVV_WORDS_NATIVE=$PWD/$b bash test/words.sh check "$t"
+
+  # Cross-compiled here rather than on a Windows runner, because this is the
+  # same toolchain the tree is developed with and it takes a minute.
+  windows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Get the mingw toolchains
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-mingw-w64-x86-64 binutils-mingw-w64-x86-64 \
+                                  gcc-mingw-w64-i686 binutils-mingw-w64-i686
+
+      # Every language on a tag, English on an ordinary push, for the same
+      # reason the Linux job gives: the rules as C are most of an hour a
+      # build and a release is where that is worth spending. The exes and the
+      # DLLs keep their plain names whatever is in them, so nothing
+      # downstream has to know which this was.
+      - name: Build
+        env:
+          EVERY: ${{ inputs.every_language }}
+        run: |
+          set -eu
+          case "$GITHUB_REF$EVERY" in
+          refs/tags/v*|*true)
+            langs=$(printf 'lang/%s ' enus engb dede eses esus frfr frca \
+                                      itit plpl jajp) ;;
+          *)
+            langs=lang/enus ;;
+          esac
+          make -j"$(nproc)" LANGS="$langs" win win-dlltest win32
+
+      - name: Say what came out
+        run: |
+          ls -l build/evv.exe build/evvspeak.exe build/eci.dll build/eci32.dll
+          # Where the image lands stopped mattering when the language's data
+          # stopped being named where it lies, so this only reports it now.
+          # What is worth failing over is that the exports are plain names,
+          # since a caller asks for them by name.
+          x86_64-w64-mingw32-objdump -p build/evvspeak.exe | grep -i imagebase
+          for dll in build/eci.dll build/eci32.dll; do
+            n=$(x86_64-w64-mingw32-objdump -p "$dll" \
+                  | grep -cE '\beci[A-Za-z]+@[0-9]+' || true)
+            echo "$dll: $n decorated exports"
+            test "$n" = 0
+          done
+
+      # The add-on is built here because it wants both libraries, and this is
+      # the only job that has them. A tag names itself; anything else is named
+      # after the commit, so a downloaded artifact says what it came from.
+      #
+      # It is uploaded as a build artifact and deliberately left out of
+      # releases: it is not stable enough to hand anyone yet. The release job
+      # throws it away rather than this job not making it, so that a build to
+      # try is always there.
+      - name: Pack the NVDA add-on
+        run: |
+          case "$GITHUB_REF" in
+          refs/tags/v*) version=${GITHUB_REF_NAME#v} ;;
+          *)            version=0.0+${GITHUB_SHA::8} ;;
+          esac
+          python3 nvda/build.py --version "$version"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: openevv-windows-x86_64
+          path: |
+            build/evv.exe
+            build/evvspeak.exe
+            build/eci.dll
+            build/eci32.dll
+            build/eci.ini
+            build/dlltest.exe
+            build/dlltest32.exe
+            build/openevv-*.nvda-addon
+          if-no-files-found: error
+
+  # The one thing the cross build cannot answer: whether it runs on Windows.
+  windows-check:
+    needs: windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: openevv-windows-x86_64
+
+      - name: Speak, and check the samples
+        shell: pwsh
+        run: |
+          .\evv.exe -o out.wav "The quick brown fox jumps over the lazy dog."
+          $have = (Get-FileHash out.wav -Algorithm SHA256).Hash.ToLower()
+          $want = (Get-Content test/samples.sha256).Split(' ')[0]
+          "on Windows: $have"
+          "wanted:     $want"
+          if ($have -ne $want) { throw "the samples have moved on Windows" }
+
+      # The library is what an add-on loads, so it is checked the way an add-on
+      # loads it: by name, through ctypes, in a sixty-four bit process, on
+      # Windows itself. The C harness checks the same crossing without ctypes'
+      # opinions in the way.
+      - name: Speak through the library, from C and from ctypes
+        shell: pwsh
+        run: |
+          .\dlltest.exe -o fromc.wav "The quick brown fox jumps over the lazy dog."
+          $want = (Get-Content test/samples.sha256).Split(' ')[0]
+          $havec = (Get-FileHash fromc.wav -Algorithm SHA256).Hash.ToLower()
+          "from C:      $havec"
+          if ($havec -ne $want) { throw "the library says something else than the engine" }
+          python test/lib/dll.py eci.dll fromctypes.wav "The quick brown fox jumps over the lazy dog."
+          $havep = (Get-FileHash fromctypes.wav -Algorithm SHA256).Hash.ToLower()
+          "from ctypes: $havep"
+          "wanted:      $want"
+          if ($havep -ne $want) { throw "the library says something else through ctypes" }
+
+      # The thirty-two bit library, which is what the most used driver loads --
+      # it hosts the engine in a 32-bit process of its own whatever bitness the
+      # reader is. Checked from C, because a sixty-four bit Python cannot load
+      # a thirty-two bit library at all.
+      - name: Speak through the thirty-two bit library
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path t32 | Out-Null
+          Copy-Item eci32.dll t32\eci.dll
+          Copy-Item dlltest32.exe t32\
+          Copy-Item eci.ini t32\
+          Push-Location t32
+          .\dlltest32.exe -o from32.wav "The quick brown fox jumps over the lazy dog."
+          $have = (Get-FileHash from32.wav -Algorithm SHA256).Hash.ToLower()
+          Pop-Location
+          $want = (Get-Content test/samples.sha256).Split(' ')[0]
+          "thirty-two bit: $have"
+          "wanted:         $want"
+          if ($have -ne $want) { throw "the 32-bit library says something else" }
+
+  # The thirty-two bit library's real caller is not one of our own binaries: it
+  # is a host DLL built with MSVC, loading us across a toolchain boundary. A
+  # thirty-two bit Python is the closest thing a runner has to that -- MSVC
+  # built, no mingw runtime anywhere in it -- and ctypes is how the add-ons
+  # call in anyway.
+  windows-check-32:
+    needs: windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: openevv-windows-x86_64
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          architecture: x86
+
+      - name: Speak through the thirty-two bit library, from a 32-bit Python
+        shell: pwsh
+        run: |
+          python -c "import struct, sys; print('python is', struct.calcsize('P') * 8, 'bit')"
+          New-Item -ItemType Directory -Force -Path p32 | Out-Null
+          Copy-Item eci32.dll p32\eci.dll
+          Copy-Item eci.ini p32\
+          python test/lib/dll.py p32\eci.dll from32py.wav "The quick brown fox jumps over the lazy dog."
+          $have = (Get-FileHash from32py.wav -Algorithm SHA256).Hash.ToLower()
+          $want = (Get-Content test/samples.sha256).Split(' ')[0]
+          "from a 32-bit ctypes: $have"
+          "wanted:               $want"
+          if ($have -ne $want) { throw "the 32-bit library says something else through ctypes" }
+
+  release:
+    needs: [linux, linux-bytecode, words-bytecode, windows, windows-check,
+            windows-check-32]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      # Under dist, and not under win or linux: those are directories in the
+      # tree, and downloading into one put the speak window's own sources in
+      # the zip.
+      - uses: actions/download-artifact@v8
+        with:
+          name: openevv-windows-x86_64
+          path: dist/windows
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: evv-linux-x86_64
+          path: dist/linux
+
+      - name: Make the archives
+        run: |
+          # The harnesses are checks, not something to ship.
+          rm -f dist/windows/dlltest.exe dist/windows/dlltest32.exe
+          # The add-on is not released yet. It is still built and uploaded as a
+          # build artifact, which is how it gets tried, but it is thrown away
+          # here so it neither goes out as a file nor ends up inside the zip.
+          rm -f dist/windows/openevv-*.nvda-addon
+          # Two libraries with the same name cannot sit in one directory, and
+          # dropping the wrong one in is the mistake to design out: each gets a
+          # folder saying which it is, with the ini it wants beside it.
+          mkdir -p dist/windows/eci-x86_64 dist/windows/eci-x86
+          mv dist/windows/eci.dll dist/windows/eci-x86_64/eci.dll
+          mv dist/windows/eci32.dll dist/windows/eci-x86/eci.dll
+          cp dist/windows/eci.ini dist/windows/eci-x86_64/
+          mv dist/windows/eci.ini dist/windows/eci-x86/
+          cp README.md LICENSE NOTICE dist/windows/
+          (cd dist/windows \
+             && zip -q -r ../../openevv-${GITHUB_REF_NAME}-windows-x86_64.zip .)
+          chmod +x dist/linux/evv dist/linux/openevv-say
+          # The library keeps the name its soname says, with the plain one a
+          # link to it: that is what a linker looks for and what a dlopen of
+          # "libeci.so" finds. The header goes with it, since a library with
+          # nothing to compile against is half an answer.
+          ln -sf libeci.so.1 dist/linux/libeci.so
+          cp README.md LICENSE NOTICE dist/linux/
+          tar -C dist/linux -czf \
+              openevv-${GITHUB_REF_NAME}-linux-x86_64.tar.gz .
+          echo "what is going out:"
+          unzip -l openevv-${GITHUB_REF_NAME}-windows-x86_64.zip
+          tar -tzf openevv-${GITHUB_REF_NAME}-linux-x86_64.tar.gz
+
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "openevv $GITHUB_REF_NAME" \
+            --notes-file .github/release-notes.md \
+            openevv-*-windows-x86_64.zip \
+            openevv-*-linux-x86_64.tar.gz

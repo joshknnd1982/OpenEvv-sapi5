@@ -1,0 +1,96 @@
+/* What Romanizer is, as a record.
+ *
+ * Romanizer derives from `ConverterInterface', which is
+ * rom/jajp/convtinterface.c, so the two share one record: every field from
+ * 0x00 to 0x1f belongs to the base and convtinterface.obj says what each one
+ * is. The tail was a partial reading for as long as the class was unwritten
+ * -- the size was known, since RomInstance asks operator new for 0x78 bytes,
+ * and what was understood between 0x20 and 0x77 was what other classes
+ * reached in for. rom/jajp/jpnrom.c is the class now and the names below are
+ * what its own code uses.
+ *
+ * Two other classes do reach in, which is why the layout is not ours to
+ * choose: InputChar goes up through TextAnalysis to ask the parameter block
+ * whether annotations are in the text and to find the user dictionary, and
+ * DictSearch reads two settings out of it directly.
+ *
+ * The evidence for the head being complete is mechanical. Every displacement
+ * on a pointer anywhere in convtinterface.obj is one of 0x04, 0x08, 0x0c,
+ * 0x10, 0x14, 0x18, 0x1c, 0x20 and 0x24, and the last two occur only on the
+ * frame pointer, where they are arguments. So the base class has no field
+ * above 0x1c and none between the ones named here.
+ */
+
+#ifndef ROMANIZER_H
+#define ROMANIZER_H
+
+#include <stdint.h>
+
+#define RZ_BYTES         0x78    /* what RomInstance allocates */
+
+/* ---- the ConverterInterface half ------------------------------------- */
+
+#define RZ_VTABLE        0x00    /* the seven slots jprom.h lists */
+#define RZ_UNICODE       0x04    /* UnicodeConverter *, made on first use */
+#define RZ_PARAM         0x08    /* RomInstParam * */
+#define RZ_INPUT         0x0c    /* InputManager * */
+#define RZ_STOPPED       0x10    /* int32; stop sets it, resume clears it */
+#define RZ_TRANSBUF      0x14    /* char *, where a recoded text is put */
+#define RZ_USERDICT      0x18    /* RomUserDict * */
+#define RZ_BUSY          0x1c    /* int32; resume waits for it to fall */
+
+/* ---- Romanizer's own ------------------------------------------------- */
+
+#define RZ_UNREAD_MID    0x20
+#define RZ_OUT           0x28    /* DynaBuf *, where the answer is built */
+#define RZ_NUMBER_MODE   0x34    /* uint16; two refuses a bare place word */
+#define RZ_UNREAD_MID2   0x36
+#define RZ_TXTANAL       0x38    /* TextAnalysis *, the 946,216 bytes the
+                                    constructor asks for */
+#define RZ_INTON         0x3c    /* IntonPhrase *, the 432,204 after it */
+#define RZ_UNREAD_MID4   0x40
+#define RZ_MORE          0x44    /* int32; there is more of the text to say */
+#define RZ_FRESH         0x48    /* int32; nothing of this text has been said
+                                    yet, which is what ResetBuffer sets */
+#define RZ_MARK          0x4c    /* int16, minus one where none is pending */
+
+/* The five an annotation may set, which is what rz_GetParameter is for. The
+   letters are Eloquence's own: b is the baseline pitch, f the pitch
+   fluctuation, s the speed and v the volume, and a number on its own picks
+   one of the two voices and resets the other four to that voice's own. */
+#define RZ_VOICE         0x50    /* int32, one or two */
+#define RZ_BASELINE      0x54    /* int32 */
+#define RZ_FLUENCY       0x58    /* int32 */
+#define RZ_SPEED         0x5c    /* int32 */
+#define RZ_VOLUME        0x60    /* int32 */
+#define RZ_RATE          0x64    /* int32; the device number the sample rate
+                                    comes out as: nought, one or two */
+#define RZ_SPELL_ENGLISH 0x68    /* int32; above nought spells English out */
+#define RZ_UNREAD_TAIL   0x6c
+#define RZ_PROS          0x74    /* ProsCtrl *, which writes the ESPR */
+
+/* Six of the fields above are pointers and none of them can stay where IBM
+   put it on a build where a pointer is eight bytes wide: laid out four apiece
+   they would each run over the word after. They are parked past the record,
+   as DictSearch's and InputChar's are, and every one of them is reached
+   through the _AT name rather than the offset. */
+#define RZ_ROOM          (RZ_BYTES + 10 * sizeof(void *))
+#define RZ_VTABLE_AT     (RZ_BYTES + 0 * sizeof(void *))
+#define RZ_UNICODE_AT    (RZ_BYTES + 1 * sizeof(void *))
+#define RZ_PARAM_AT      (RZ_BYTES + 2 * sizeof(void *))
+#define RZ_INPUT_AT      (RZ_BYTES + 3 * sizeof(void *))
+#define RZ_TRANSBUF_AT   (RZ_BYTES + 4 * sizeof(void *))
+#define RZ_USERDICT_AT   (RZ_BYTES + 5 * sizeof(void *))
+#define RZ_TXTANAL_AT    (RZ_BYTES + 6 * sizeof(void *))
+#define RZ_INTON_AT      (RZ_BYTES + 7 * sizeof(void *))
+#define RZ_OUT_AT        (RZ_BYTES + 8 * sizeof(void *))
+#define RZ_PROS_AT       (RZ_BYTES + 9 * sizeof(void *))
+
+/* The dictionary manager is eight bytes in IBM's build -- a vtable slot and
+   the directory with `dic' on the end of it -- and nothing but Romanizer::Init
+   ever looks inside one, so ours is laid out for the host rather than for
+   IBM. */
+#define DM_BYTES         (2 * sizeof(void *))
+#define DM_PATH          (1 * sizeof(void *))
+
+#endif

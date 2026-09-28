@@ -1,0 +1,81 @@
+# openevv
+
+IBM's Embedded ViaVoice text-to-speech engine, taken out of its 1999 Windows objects and rebuilt as C. `docs/tree.md` says what every directory is, `docs/building.md` what every target and variable does, `docs/rules.md` the rules, `docs/language.md` the rest of a language module, `docs/testing.md` what proves any of it, and `docs/windows.md` the Windows side; read those rather than guessing, and keep them true when something moves.
+
+## Prove it before saying it
+
+Nothing works until `test/matrix.sh` says so. It speaks every case of every language through the engine and holds each against what this engine has said before: two hashes a case, the samples and the answers the interface gave, 979 cases over the ten languages. It wants neither Wine nor IBM's objects. `make matrix` runs it.
+
+**A case that moves is not a failure, it is a question.** The engine is being changed on purpose now, and as of 6 September 2026 byte identity with IBM is not maintained for any language: `.up` files are built where they exist, rules are edited where they need editing, and what holds the engine is `test/matrix.sh` over 979 recorded answers and `test/words.sh` over twenty thousand words. Neither asks whose bytecode it is. What was worth keeping was never the bytes but the ability to ask the original what it did, and `test/suite.sh` still answers that. What the gate is for is telling a change from an accident: if a case moved, say in the commit which and why, then `test/matrix.sh record` writes the new answers down. If a case you did not touch moved, that is the accident it exists to catch.
+
+Six builds have to pass, not one: `probe`, `probe32` and `probe.exe`, each with `RULES=bytecode` and `RULES=c`. C is the default as of 22 August 2026, so it is the interpreter that goes untested unless `RULES=bytecode` is what was built -- the opposite of the trap this warned about before. `EVV_MATRIX_NATIVE` names which binary to drive.
+
+`test/suite.sh` is the oracle, not the gate. It speaks each case through our engine and through IBM's binary under Wine and passes only on identical samples, and it is what to reach for when the question is what the original did rather than whether anything moved -- a path no case has walked before, a machine primitive no rule has ever called, a piece of IBM's code just transcribed. Every number in `test/samples` was blessed by it: the whole suite was run for each lifted language immediately before its numbers were recorded, so the baselines are values IBM's binary had just agreed with. Run it from inside `nix develop`, or Wine is not on the path, both sides produce no file, and every case reports a difference that is not real. The Windows one is `EVV_NATIVE=$PWD/build/probe.exe test/suite.sh`.
+
+Polish has no oracle and never will, since IBM never shipped it. Its baselines are what this engine does rather than what any original did, and `test/matrix.sh` is the only thing besides an ear that can tell a change to Polish from an accident. `test/cases/*-plpl.txt` are its cases and they are ours, written for Polish orthography rather than translated.
+
+**Nothing in this tree needs IBM, and that was measured on 6 September 2026 by moving `analysis/` off disk and running the lot.** The gate passed in all six builds with no IBM material present, along with the crashers, every language out of one library, and the upper-form check. Two scripts run IBM's binary -- `test/compare.sh`, which the suite is built on, and `test/harness/romcan.sh` -- and the census tools and `reference/Makefile` read its objects. Nothing else, and nothing in CI. So reach for the oracle when there is a question worth asking the original, never because something will not otherwise pass.
+
+Four things were once written by reading and never run beside IBM. Three are closed -- the SSML recoding path, the dictionary's lookup and update calls, and phoneme reporting -- and `docs/testing.md` says how. The fourth, a language change on a live instance, cannot be closed: IBM's engine holds one language per binary, so there is nothing to compare against, and `test/lib/langs.py` covers it against ourselves instead.
+
+`test/hash.sh` is the quick one, one English sentence. It is the two-second smoke test, not the gate.
+
+`make crashers` is another that wants neither Wine nor IBM's objects. It speaks the text in `test/cases/crashers.txt`, which is text IBM's engine dies on and ours used to die on with it, and it fails if the engine faulted on one or would not finish. It is not part of the differential suite and cannot be: the reference produces no audio for any of those strings, so there is nothing to compare. `tools/engine/crashers.py` is what found them and is how to find more.
+
+The library has its own two: `test/lib/dll.c` loads `eci.dll` by name and speaks, and `test/lib/dll.py` does it through ctypes. `make win32` builds the thirty-two bit library, which is where a wrong signature shows up -- stdcall carries the argument size in the decorated name on x86, so a declaration that disagrees with the engine fails to link there and links silently on x86-64.
+
+A pass proves nothing until the new code is shown to be the code that ran. Break the function on purpose, rebuild, check the audio changes, then put it back. That has caught two functions that were never reached at all. When a sabotage changes nothing, ask whether the harness can observe that function at all before concluding the code is dead.
+
+Rebuild both sides before believing a difference. A stale binary reads as a bug, and a single difference on a long sentence that does not reproduce is a timeout.
+
+`make missing` has to keep answering zero. A name that reappears there is a call that has quietly gone back to IBM's objects.
+
+A rule written in the upper form is proved by `make upper-check`, which builds both sides itself whatever `trials` says and so was untouched by the retirement above. What it proves has changed name rather than substance: that the compiler renders a rule faithfully, rather than that our bytecode is IBM's. Byte identity was never the standard there and could not be, since matching IBM's bytes would mean making its compiler's own register choices. What is required is that the engine cannot tell the difference -- every rule entered and every call made with its arguments, over both builds, and the audio besides. Two things that check taught, both worth keeping. A rule whose whole effect is to write a variable makes no call that shows it, so the audio is the only thing that catches a wrong value there. And the sentences have to reach the rule: the seven plain ones never take one of `has_lex_prefix`'s two alternatives, so its action number could be changed to anything and every case still passed, which is what `test/cases/upper.txt` is for. It went red on 6 September 2026 and stayed so for eight days with nothing wrong with the engine, because the mask it used to hide a reference stopped matching one; `docs/testing.md` says what it masks now and why a mask by value was the wrong idea to begin with.
+
+Japanese has its own cases, its own oracle and a romanizer between it and the engine: `EVV_LANG=jajp test/suite.sh`, against a reference built from Japanese objects, matches over all 98. `reference/romtap.c` and its half in `src/eci/lang/eci_romanizer.c` say what each romanizer was handed and what it gave back, and `reference/jptap.c` with `EVV_JPTRACE` say what each had to choose between; both pairs diff as they stand and are what to reach for when a Japanese case moves.
+
+German has its own cases and its own oracle: `EVV_LANG=dede test/suite.sh`, against a reference built from German objects. It matches over all 80 of them, on its own and in one binary with English -- `make LANGS="lang/enus lang/dede"`, then the suite twice with `EVV_NATIVE` naming that binary. `docs/status.md` says in which configurations, and what has not been built from `lang/dede` at all.
+
+A build with two languages in it proves something a build with one cannot: that nothing has quietly stayed global. `test/lib/langs.py build/eci.dll` is the cheap form of that -- every language spoken from one process, each held against what it says alone -- and it needs neither Wine nor IBM's objects. If a change makes only one language's suite pass, the language in force is being read from the wrong place.
+
+A change made for one language is not finished until every language has been run again, which is why `test/matrix.sh` walks all nine rather than the one being worked on. They share every line of `src` and every tool in `tools`: the dictionary table German crashed on had been wrong on sixty-four bits all along, and the lift that German needed changed two places in the English bytecode as well.
+
+A marker case that differs once and not again is IBM's binary being unsteady, not a change in ours. Run it again, and if in doubt hash both sides over several runs -- it is the reference that varies.
+
+The engine's second utterance is not its first, and that is faithful rather than random. Saying the same sentence twice on one instance gives 38,423 samples both times and 30,495 of them differ: the machine's state has moved on. It is entirely deterministic -- three processes give the same first utterance and the same second one, to the hash -- and IBM's own engine does it too, to the same 30,495 samples, with ours matching its second utterance byte for byte. So bytes are comparable, including a second utterance, as long as both sides have spoken the same history. What is not comparable is a second utterance against a first. `probe` and the reference both take a `t` in their mode argument, which says the same text twice and writes the second beside the first; that is what settled this, and it is the `second` category of both `test/suite.sh` and `test/matrix.sh` now, so the state carried between utterances is recorded rather than merely known.
+
+## What not to tidy
+
+File names in `src` are the names of IBM's objects. A file named for the object it came from can be checked against that object; renaming them would look tidier and cost real verification.
+
+`lang/plpl` says Polish and is Italian. It was copied from `lang/itit`'s text forms and renamed, so every rule and every table in it is IBM's Italian until something written here has replaced it -- which is what `make EVVLANG=lang/plpl census` counts, rule by rule. Two things follow. NOTICE governs it exactly as it governs `lang/itit`, and a change made there is only Polish when the census says so; a module that sounds plausible because it is still Italian is the failure that check exists to prevent. Polish is family seventeen, and the family is not free: three tables are indexed by it and hold eighteen, IBM used six, and four more are families its own code says have a romanizer, so an instance of one of those is refused when the romanizer is absent.
+
+`lang/enus` is transcribed data, not code to improve. It is what the engine sounds like. `tools/module/sets.py` puts IBM's own dictionary tables back and loses anything added through `tools/module/dict.py`, so do not run it to "regenerate" that file.
+
+The audio is identical to IBM's by design. If it sounds wrong, that is Eloquence sounding like Eloquence, not a fault to fix.
+
+Never hand the machine an address at all. A value is thirty-two bits and what it holds is a *distance* into the one region everything the machine can point at comes out of -- not an address, which is why that region goes wherever the system puts it rather than below two gigabytes. Anything the machine can be given the address of is copied into it at startup by `src/delta/delta_low.c` and turned into a distance at the crossing; a pointer from anywhere else aborts with a message saying so. If a new table is ever handed over, register it there rather than linking the program low again.
+
+One exception, and it is the interface's rather than the machine's: `ECICallback` in `include/eci.h` takes an `int param`, and for a string index mark IBM passed a pointer to the name in it. That name is copied into a sixty-four kilobyte low region on the way out to the caller, in `src/eci/api/eci_old.c`. Nothing else in the engine needs a low address.
+
+## Two hard rules
+
+Nothing here may reconfigure, restart or kill PipeWire, and nothing may write speech-dispatcher configuration. `tools/measure/say.sh` plays as an ordinary client, which is the only way anything in this project touches sound.
+
+Our own code is MIT, in LICENSE. `lang/enus` is IBM's data and is not ours to license: never put a licence header on anything in there, and never write anything that implies the MIT licence reaches it. NOTICE is the file that says whose is whose, and it is the one to keep true.
+
+## Habits
+
+Everything runs inside `nix develop`: outside it there is no compiler, no Python and no Wine. That Wine is wow64 and one prefix serves both kinds of PE; a prefix made by an older 32-bit-only Wine is refused outright, and the answer is to delete `.wine` and let it be made again.
+
+Read IBM's objects with `llvm-objdump -d -r --no-show-raw-insn` and never with binutils `objdump -d`. Each function is its own COMDAT `.text` section and MSVC gave local labels the same names in different sections, so binutils takes a recurring label for a function boundary, resynchronises the instruction stream at that byte, and prints plausible nonsense from there to the end of the section -- `into` and `add %al,(%eax)` where the code is really a compare and a jump. Nothing warns. If a function's control flow stops making sense in the middle, suspect the disassembler before suspecting IBM. The lifters in `tools` go on using binutils `objdump` and `nm` for sections, symbols and relocations, none of which is affected; it is instruction decoding that is wrong.
+
+The rules a build compiles are not in the tree, in either form. `lang/<tag>/rules` is the source: `make rulecode` writes `delta_rules_<tag>.c`, its header and its shim out of that text, two seconds a language, and every build runs it first. Every `.up` file in a module is built, in every language. `lang/<tag>/rules/trials` names any the build is to pass over and no module names anything now: it is for holding a rule out while it is half written. English named its four until 6 September 2026, when byte identity with IBM was retired as a maintained property -- see below. Editing a `.dr` or a `.up` is therefore the whole of changing a rule; there is no second copy to write out afterwards and none that can go stale. `lang/jajp` is the exception and is in the tree: it has no rules as text, the lift in `docs/japanese.md` writes those three files themselves, and they are therefore the only copy there is.
+
+The rules as C are thirteen megabytes of generated C in `lang/<tag>/delta_rules_cNN_<tag>.c`, decompiled from that bytecode; `make rules` writes them. Two minutes of Python and about fifteen seconds of compiler on twenty-four cores, where the one file this used to be was seven minutes that could not be shared out. `PARTS` in the Makefile and `EVV_RULE_PARTS` in the decompiler have to say the same number, since the build names the files it expects rather than taking whatever is there.
+
+Releases are tags: pushing `vN` makes the workflow build the archives and cut the release. Nothing about them is manual.
+
+## Markdown formatting
+
+All Markdown files are formatted with hard line breaks removed within paragraphs. Paragraphs are separated by blank lines, and structure (headers, lists, code blocks) is preserved. This keeps documents readable while removing artificial mid-paragraph line wrapping.

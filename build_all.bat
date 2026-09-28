@@ -1,0 +1,121 @@
+@echo off
+rem OpenEVV SAPI5 - full build: x86 and x64 binaries, tests, staging, installer.
+rem
+rem   build_all.bat            build, test, stage dist\ and compile the installer
+rem   build_all.bat notest     skip the test suites
+rem   build_all.bat engine     rebuild the language modules first (needs MSYS2;
+rem                            see engine\build_modules.cmd)
+rem
+rem Requires Visual Studio 2022 or its Build Tools with the C++ workload and a
+rem Windows 10/11 SDK, CMake 3.20+ and Inno Setup 6. The language modules in
+rem languages\ are prebuilt, so MSYS2 is only needed to rebuild them.
+rem Programs are run by absolute path: some environments set
+rem NoDefaultCurrentDirectoryInExePath, which hides programs in the current folder.
+setlocal EnableDelayedExpansion
+cd /d "%~dp0"
+set "ROOT=%CD%"
+set "RUN_TESTS=1"
+set "BUILD_ENGINE=0"
+for %%A in (%*) do (
+    if /i "%%~A"=="notest" set "RUN_TESTS=0"
+    if /i "%%~A"=="engine" set "BUILD_ENGINE=1"
+)
+
+if "%BUILD_ENGINE%"=="1" (
+    echo.
+    echo === Language modules, from openevv\ with MSYS2 mingw GCC ===
+    call "%ROOT%\engine\build_modules.cmd" || goto :fail
+)
+
+rem Build Tools installs are only found with -products *.
+set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+if not exist "%VSWHERE%" (echo vswhere.exe not found: install Visual Studio 2022 or its Build Tools & goto :fail)
+set "VSDIR="
+for /f "usebackq tokens=*" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSDIR=%%i"
+if not defined VSDIR (echo No Visual Studio with the C++ tools was found & goto :fail)
+echo Using Visual Studio at %VSDIR%
+
+for %%A in (x86 x64) do (
+    if "%%A"=="x86" (set "GEN_ARCH=Win32") else (set "GEN_ARCH=x64")
+    echo.
+    echo === Configuring and building %%A ===
+    cmake -G "Visual Studio 17 2022" -A !GEN_ARCH! -S "%ROOT%" -B "%ROOT%\build_%%A" || goto :fail
+    cmake --build "%ROOT%\build_%%A" --config Release || goto :fail
+)
+
+if "%RUN_TESTS%"=="1" (
+    echo.
+    echo === Tests: the SAPI engine through a mock SAPI site, both bitnesses ===
+    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --out "%ROOT%\build_x64\sapi_test_out" || goto :fail
+    echo.
+    echo === Tests: the same inside a process that enforces CET shadow stacks ===
+    "%ROOT%\build_x64\bin\Release\sapi_test_cet.exe" --out "%ROOT%\build_x64\sapi_test_cet_out" || goto :fail
+    echo.
+    "%ROOT%\build_x86\bin\Release\sapi_test.exe" --out "%ROOT%\build_x86\sapi_test_out" || goto :fail
+    echo.
+    echo === Tests: every voice of every language through SAPI ===
+    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --only none --all-voices --out "%ROOT%\build_x64\sapi_test_voices" || goto :fail
+    echo.
+    echo === Tests: the configuration utility, as a screen reader sees it ===
+    "%ROOT%\build_x64\bin\Release\a11y_check.exe" "%ROOT%\build_x64\bin\Release\OpenEvvConfig.exe" || goto :fail
+)
+
+echo.
+echo === Staging dist\ in the installed layout ===
+if exist "%ROOT%\dist\x86" rmdir /s /q "%ROOT%\dist\x86"
+if exist "%ROOT%\dist\x64" rmdir /s /q "%ROOT%\dist\x64"
+if exist "%ROOT%\dist\docs" rmdir /s /q "%ROOT%\dist\docs"
+for %%A in (x86 x64) do (
+    mkdir "%ROOT%\dist\%%A"
+    for %%F in (OpenEvvSAPI.dll OpenEvvHost.exe OpenEvvConfig.exe) do (
+        copy /y "%ROOT%\build_%%A\bin\Release\%%F" "%ROOT%\dist\%%A\" >nul || goto :fail
+    )
+)
+mkdir "%ROOT%\dist\docs"
+copy /y "%ROOT%\README.md" "%ROOT%\dist\docs\README.txt" >nul || goto :fail
+copy /y "%ROOT%\LICENSE" "%ROOT%\dist\docs\LICENSE.txt" >nul || goto :fail
+copy /y "%ROOT%\NOTICE.md" "%ROOT%\dist\docs\NOTICE.txt" >nul || goto :fail
+copy /y "%ROOT%\CREDITS.md" "%ROOT%\dist\docs\CREDITS.txt" >nul || goto :fail
+copy /y "%ROOT%\CHANGELOG.md" "%ROOT%\dist\docs\CHANGELOG.txt" >nul || goto :fail
+copy /y "%ROOT%\docs\LANGUAGES.md" "%ROOT%\dist\docs\LANGUAGES.txt" >nul || goto :fail
+copy /y "%ROOT%\openevv\LICENSE" "%ROOT%\dist\docs\openevv-LICENSE.txt" >nul || goto :fail
+copy /y "%ROOT%\openevv\NOTICE" "%ROOT%\dist\docs\openevv-NOTICE.txt" >nul || goto :fail
+
+if "%RUN_TESTS%"=="1" (
+    echo.
+    echo === Tests: the staged layout, and the self-test the installer runs ===
+    "%ROOT%\build_x86\bin\Release\sapi_test.exe" --dll "%ROOT%\dist\x86\OpenEvvSAPI.dll" --only languages --out "%ROOT%\build_x86\sapi_test_dist" || goto :fail
+    "%ROOT%\build_x64\bin\Release\sapi_test.exe" --dll "%ROOT%\dist\x64\OpenEvvSAPI.dll" --only languages --out "%ROOT%\build_x64\sapi_test_dist" || goto :fail
+    start "" /wait "%ROOT%\dist\x64\OpenEvvConfig.exe" --selftest --hosts-only --report "%ROOT%\build_x64\selftest.txt"
+    if errorlevel 1 (type "%ROOT%\build_x64\selftest.txt" & goto :fail)
+    type "%ROOT%\build_x64\selftest.txt"
+)
+
+echo.
+echo === Installer ===
+set "ISCC="
+for %%P in ("%LOCALAPPDATA%\Programs\Inno Setup 6\ISCC.exe" "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" "%ProgramFiles%\Inno Setup 6\ISCC.exe") do (
+    if not defined ISCC if exist "%%~P" set "ISCC=%%~P"
+)
+if not defined ISCC (echo Inno Setup 6 ISCC.exe not found & goto :fail)
+"%ISCC%" /Q "%ROOT%\installer\openevv.iss" || goto :fail
+
+if "%RUN_TESTS%"=="1" (
+    echo.
+    echo === Tests: the installer's pages, as a screen reader sees them ===
+    rem The probe is the same wizard without elevation or payload; it is walked on a
+    rem private desktop, installed per user into %%TEMP%%, and uninstalled again.
+    "%ISCC%" /Q /DProbe /O"%ROOT%\build_x64" "%ROOT%\installer\openevv.iss" || goto :fail
+    "%ROOT%\build_x64\bin\Release\installer_a11y.exe" "%ROOT%\build_x64\OpenEVV-SAPI5-AccessibilityProbe.exe" || goto :fail
+)
+
+echo.
+echo Build complete. Installer: %ROOT%\output\
+endlocal
+exit /b 0
+
+:fail
+echo.
+echo BUILD FAILED
+endlocal
+exit /b 1

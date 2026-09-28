@@ -1,0 +1,40 @@
+OpenEVV SAPI5
+
+This installs the OpenEVV text-to-speech engine as SAPI 5 voices, for both
+32-bit and 64-bit programs: screen readers such as NVDA and JAWS, e-book
+and document readers, and anything else that speaks through
+Microsoft SAPI 5.
+
+OpenEVV is IBM's Embedded ViaVoice engine - the voice people know as
+Eloquence - rebuilt as C by the openevv project. Nothing of IBM's binary code
+is used and nothing is read from the registry: each language is a module on
+disk.
+
+What is installed:
+
+  * Ten languages, eight voices each: US English, British English, German,
+    Castilian Spanish, Latin American Spanish, French, Canadian French,
+    Italian, Japanese, and Polish (experimental: upstream is still turning
+    Italian rules into Polish ones).
+  * The SAPI 5 interface for 32-bit programs and for 64-bit programs.
+  * OpenEVV Configuration, which adjusts every parameter of every voice,
+    the sample rate and the engine's speech options, manages language packs
+    and edits user dictionaries. Every change is heard at once, in every
+    program, with nothing to restart.
+
+Adding and removing languages: new languages are published as language pack
+.zip files. In OpenEVV Configuration, on the Languages page, press "Add a
+language pack", choose the .zip, and its eight voices appear in every SAPI 5
+program at once. "Remove the selected language" takes one away again.
+
+Licences: the SAPI 5 wrapper is under the GNU GPL version 2, the openevv
+engine under the MIT licence. The language data inside each language module
+was transcribed from IBM's Embedded ViaVoice and is IBM's work, which no
+licence here covers; docs\NOTICE.txt says whose it is.
+
+Logs of the voices, the engine and this installer are written to
+%ProgramData%\OpenEVV\Logs.
+
+Windows may say "Windows protected your PC" before this installer runs. That
+is SmartScreen reporting that the file is new and unsigned, not that anything
+is wrong with it; choose "More info" and then "Run anyway".
