@@ -1,0 +1,103 @@
+{
+  "tag": "uz",
+  "name": "Uzbek",
+  "family": "Turkic, Karluk",
+  "variety": "Standard Uzbek of Uzbekistan, based on the Tashkent dialect; Latin script (Cyrillic also in use)",
+  "sources": [
+    "Ido, Shinji (2025). Uzbek. Journal of the International Phonetic Association 55(1-2), 152-168.",
+    "Sjoberg, Andrée F. (1963). Uzbek Structural Grammar. Indiana University.",
+    "Bodrogligeti, András J. E. (2003). An Academic Reference Grammar of Modern Literary Uzbek. Lincom Europa.",
+    "Boeschoten, Hendrik (1998). Uzbek. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "q", "ʔ", "tʃ", "dʒ", "f", "v", "s", "z", "ʃ", "ʒ", "χ", "ʁ", "h", "m", "n", "ŋ", "l", "ɾ", "j", "ts"],
+  "vowels": ["i", "e", "a", "ɔ", "o", "u"],
+  "diphthongs": [],
+  "vowel_formants": {
+    "confidence": "medium",
+    "speaker": "adult male (one Tashkent speaker; only /o/ and /u/ are given as numbers, each the mean of two words, bo'l and uch)",
+    "source": "Ido 2025, Table 1",
+    "values": {
+      "o": [420, 855, 2860],
+      "u": [309, 986, 2450]
+    }
+  },
+  "contrasts": [
+    "six vowels, without front rounded vowels and without front-back pairs: /i e a/ and /u o ɔ/, spelt i e a and u oʻ o",
+    "voiced versus voiceless aspirated plosives",
+    "velar /k ɡ/ versus uvular /q ʁ χ/, not predictable from the vowels",
+    "/χ/ versus /h/ in careful standard speech (merged in traditional Tashkent speech)",
+    "vowel length only in loanwords (maʼno, maʼqul)"
+  ],
+  "allophony": [
+    "/i/ is a short, lax, centralised vowel in most words (biz, bir) and is closer and fronter next to palatal consonants; Ido (2025) treats the central variant as a separate seventh vowel that forms no minimal pairs with /i/",
+    "close vowels are often devoiced next to voiceless consonants or dropped in unstressed syllables (qishloq, kuchli)",
+    "/ɔ/ ranges between [ɑ] and a raised [ɔ], with variation between words, speakers and utterances",
+    "/o/ occurs almost only in root-initial syllables",
+    "/k ɡ/ are palatalised [kʲ ɡʲ] before non-back vowels and when released word-finally (kam [kʲam], kerak [kʲeɾakʲ])",
+    "voiceless plosives have a degree of aspiration",
+    "/ɾ/ does not begin native words; word-finally it is usually a trill and may be devoiced and fricated",
+    "the sibilants and affricates vary between alveolo-palatal [ɕ tɕ dʑ] and postalveolar [ʃ tʃ dʒ]; /dʒ/ is [ʒ] before a plosive (ajdar)",
+    "/f v/ are labiodental in the present standard, formerly bilabial [ɸ β]",
+    "a short vowel is inserted in clusters of a velar or uvular plosive plus a more front consonant (tegdi, yoqdi)",
+    "/ʔ/ occurs in a few Arabic loans; a non-phonemic glottal stop may precede a word-initial vowel at a phrase boundary"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words; Russian loans keep theirs (plash)",
+    "coda clusters occur in native stems and loans (toʻrt, qirq, xalq, fasl), some with an epenthetic vowel",
+    "very little vowel harmony: suffixes have one fixed form (-lar, -da, -ning); only a few vestiges remain",
+    "/ŋ/ does not begin a word",
+    "/ts/ occurs only in Russian loans"
+  ],
+  "stress": {
+    "type": "fixed final by default, with morphological and lexical exceptions",
+    "rule": "Primary stress falls on the last syllable; certain suffixes and enclitics repel it, and some proper names, loanwords and question words (qaysi) have non-final stress.",
+    "cues": "the vowel of the final syllable is lengthened, while F0 and intensity are highest on the penultimate syllable (Ido 2025)"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "moderate: close vowels are centralised, devoiced or dropped in unstressed syllables; the other vowels keep their quality",
+    "final_lengthening": "moderate"
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "Vowel length is not phonological in native words of Tashkent and standard Uzbek; lengthened vowels occur in some Arabic and Persian loans, often spelt with the tutuq belgisi (maʼno). Geminates occur in numerals and loans (ikki, yetti, toʻqqiz)."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "rise towards the end of non-final words and phrases, fall at the end of the statement",
+    "yes_no_question": "marked by the enclitic -mi; pitch is high before the enclitic",
+    "wh_question": "prominence on the question word, final fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "F0 peak on the penultimate syllable with lengthening of the final syllable in citation forms (Ido 2025)",
+    "notes": "Sentence intonation is low confidence: Ido (2025) analysed citation forms only, and the sentence entries follow the general pattern of the better described Turkic languages."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": ["aspirated voiceless plosives", "devoiced close vowels next to voiceless consonants", "devoiced, fricated word-final /ɾ/"],
+  "espeak": {
+    "voice_file": "trk/uz",
+    "phoneme_table": "uz",
+    "problems": [
+      "the letter i is mapped to the phoneme y, imported from base2 as the front rounded vowel [y] (F2 about 1720 Hz), so every i sounds like ü (kitob gives [kytɑb], qiz gives [qyz])",
+      "no stress rule is set for uz, so the default penultimate stress applies (bola, kitob, vatan are stressed on the first syllable); Uzbek stress is final",
+      "numbers are switched off in the language options, so digits are read one by one",
+      "the tutuq belgisi ʼ (U+02BC, also produced from Cyrillic ь and ъ) has no rule: a word such as maʼno is spelt out letter by letter",
+      "the rule for f gives 'f,' and so puts a secondary stress mark on the following vowel (fasl)",
+      "no centralised or devoiced variants of /i/ and /u/, no palatalisation of /k ɡ/, no lengthened vowels in loans",
+      "t is the unaspirated base2 stop while p and k use aspirated samples"
+    ],
+    "good": [
+      "q, x and gʻ are uvular [q χ ʁ]; ng is [ŋ]",
+      "o is a rounded open back vowel and oʻ is [o]",
+      "Latin and Cyrillic spelling are both accepted"
+    ]
+  },
+  "notes": "The voice is marked 'status testing' in eSpeak NG. Front rounded vowels exist in many dialects but not in Tashkent or standard Uzbek (Ido 2025)."
+}

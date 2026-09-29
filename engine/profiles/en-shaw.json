@@ -1,0 +1,120 @@
+{
+  "tag": "en-shaw",
+  "name": "English written in the Shavian alphabet",
+  "family": "Indo-European, Germanic, West Germanic, Anglo-Frisian",
+  "variety": "British English of the Received Pronunciation type. The eSpeak NG voice uses its default English phoneme table ('en', the table of its British English voice en-GB), a non-rhotic accent close to RP with a short front [a] in TRAP. The Shavian alphabet is a script, not a dialect: its reference spellings follow RP, with every historical r written",
+  "sources": [
+    "Shaw, Bernard (1962). Androcles and the Lion. The Shaw Alphabet Edition, with a reading key, notes on the spelling by Peter MacCarthy and suggestions for writing by Kingsley Read. Harmondsworth: Penguin.",
+    "MacCarthy, Peter A. D. (1969). The Bernard Shaw alphabet. In Haas (ed.), Alphabets for English. Manchester University Press.",
+    "The Unicode Standard, Shavian block (U+10450 to U+1047F).",
+    "Roach, Peter (2004). British English: Received Pronunciation. Journal of the International Phonetic Association 34(2), 239-245.",
+    "Wells, J. C. (1982). Accents of English. 3 volumes. Cambridge University Press.",
+    "Cruttenden, Alan (2014). Gimson's Pronunciation of English. 8th edition. London: Routledge.",
+    "Deterding, David (1997). The formants of monophthong vowels in Standard Southern British English pronunciation. Journal of the International Phonetic Association 27, 47-55.",
+    "Grabe, Esther and Low, Ee Ling (2002). Durational variability in speech and the Rhythm Class Hypothesis. In Gussenhoven and Warner (eds.), Laboratory Phonology 7. Berlin: Mouton de Gruyter.",
+    "Wells, J. C. (2006). English Intonation: An Introduction. Cambridge University Press."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "tʃ", "dʒ", "f", "v", "θ", "ð", "s", "z", "ʃ", "ʒ", "h", "m", "n", "ŋ", "l", "ɹ", "j", "w"],
+  "vowels": ["ɪ", "e", "æ", "ɒ", "ʌ", "ʊ", "ə", "i", "iː", "uː", "ɑː", "ɔː", "ɜː"],
+  "diphthongs": ["eɪ", "aɪ", "ɔɪ", "əʊ", "aʊ", "ɪə", "eə", "ʊə"],
+  "vowel_formants": {
+    "confidence": "medium",
+    "speaker": "mean of five adult male BBC broadcasters, vowels measured in connected speech",
+    "source": "Deterding 1997",
+    "values": {
+      "iː": [280, 2249, 2765],
+      "ɪ": [367, 1757, 2556],
+      "e": [494, 1650, 2547],
+      "æ": [690, 1550, 2463],
+      "ʌ": [644, 1259, 2551],
+      "ɑː": [646, 1155, 2490],
+      "ɒ": [558, 1047, 2481],
+      "ɔː": [415, 828, 2619],
+      "ʊ": [379, 1173, 2445],
+      "uː": [316, 1191, 2408],
+      "ɜː": [478, 1436, 2488]
+    }
+  },
+  "contrasts": [
+    "the alphabet has one letter for each of 24 consonants and 16 vowels and diphthongs, plus 8 compound letters: six for a vowel followed by r (are, or, air, err, array, ear) and two for the sequences in ian and yew",
+    "FOOT versus STRUT (letters wool and up) and TRAP versus PALM or BATH (letters ash and ah): the spelling keeps the splits of southern British English",
+    "LOT versus THOUGHT (letters on and awe)",
+    "schwa has its own letter (ado), so reduced vowels are written as such",
+    "historical r is always written, with the compound letters, so the spelling can be read with a rhotic or a non-rhotic accent; the voice reads it non-rhotically",
+    "voiced and voiceless consonants are paired letters (tall and deep forms)",
+    "stress is not written"
+  ],
+  "allophony": [
+    "/p t k/ are aspirated at the start of a stressed syllable and unaspirated after /s/",
+    "vowels are clipped before voiceless consonants",
+    "/l/ is clear before vowels and dark before consonants and pause",
+    "/ɹ/ occurs only before vowels; the letters for vowel plus r are read as long vowels or centring diphthongs, with a linking /r/ before a following vowel",
+    "final unstressed happY is [i] for most present-day speakers",
+    "/uː/ is fronted; /æ/ is an open front [a] for many present-day speakers",
+    "unstressed syllables have schwa, [ɪ] or a syllabic consonant; function words have weak forms",
+    "/t/ is often a glottal stop before a consonant"
+  ],
+  "syllable_structure": "(C)(C)(C)V(C)(C)(C)(C)",
+  "phonotactics": [
+    "/r/ occurs only before a vowel in the accent of the voice",
+    "the short vowels need a following consonant in a stressed syllable",
+    "/ŋ/ does not begin a syllable; /h/ only begins a syllable",
+    "in Shavian text a raised dot before a word marks a proper name, and the words the, of, and, to are written with one letter each"
+  ],
+  "stress": {
+    "type": "lexical, free",
+    "rule": "Stress is fixed for each word and is not shown in Shavian spelling; the written vowels help, because unstressed syllables are mostly written with the letters for schwa, the short i and the array letter.",
+    "cues": "pitch movement on accented syllables, duration, loudness and vowel quality"
+  },
+  "rhythm": {
+    "class": "stress-timed",
+    "vowel_reduction": "strong: most unstressed syllables have schwa, [ɪ], [i] or a syllabic consonant",
+    "final_lengthening": "strong",
+    "notes": "The nPVI value comes from one speaker of Southern British English reading a text.",
+    "npvi_v": {"value": 57.2, "source": "Grabe and Low 2002", "confidence": "medium"}
+  },
+  "length": {
+    "vowel": true,
+    "consonant": false,
+    "notes": "Long and short monophthongs contrast, with differences of quality; the alphabet pairs them as letters (if and eat, wool and ooze)."
+  },
+  "intonation": {
+    "pitch_range": "wide",
+    "declarative": "a high head that steps down through the accented syllables, and a falling nuclear tone on the last accented word",
+    "yes_no_question": "low rise or high rise on the nucleus; a fall is also common",
+    "wh_question": "falling nuclear tone",
+    "continuation": "fall-rise or low rise at the end of a non-final phrase",
+    "accent_shape": "nuclear fall (H* L); prenuclear accents are high level steps",
+    "notes": "As for Received Pronunciation."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none",
+    "notes": ""
+  },
+  "phonation": [
+    "glottal reinforcement of syllable-final /p t k tʃ/"
+  ],
+  "espeak": {
+    "voice_file": "gmw/en-Shaw",
+    "phoneme_table": "en",
+    "problems": [
+      "word stress is guessed, because the spelling does not show it and the Shavian part of the dictionary has only letter names, 14 short forms and 8 words: begin and example are stressed on the first syllable, and information and understand have primary and secondary stress exchanged",
+      "the rules put a primary stress mark on the compound letters are, or, air, err and ear, so every syllable written with them is stressed",
+      "function words written in Shavian are not recognised, except the few in the list: it, was, he, can, from, we, at come out stressed and in their strong forms, where the same sentence in Latin letters has weak forms",
+      "TRAP is the front [a] of the default British table, and BATH depends on the script: Latin bath gives short [a], while the usual Shavian spelling with the letter ah gives [ɑː]",
+      "the letter ian is read as a long [iː] plus schwa",
+      "wh-questions get the rising question tune"
+    ],
+    "good": [
+      "all 48 letters are mapped to phonemes one to one, which the phonemic spelling allows",
+      "the naming dot is accepted, and the one-letter words for the, of, and, to, for are in the dictionary with their weak forms",
+      "the letters for vowel plus r are read as non-rhotic vowels with a linking r before a vowel (car is, far away)",
+      "schwa letters give reduced vowels, so words written with them get their stress by default on the full vowel (about, ago, computer, banana)"
+    ]
+  },
+  "notes": "The formant and rhythm values are those of Received Pronunciation, repeated from the profile en-gb-x-rp; the default British table of eSpeak NG differs from RP mainly in TRAP."
+}

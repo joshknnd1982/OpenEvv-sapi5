@@ -1,0 +1,91 @@
+{
+  "tag": "ug",
+  "name": "Uyghur",
+  "family": "Turkic, Karluk",
+  "variety": "Standard Uyghur of Xinjiang (Central dialect: Ürümchi, Ghulja), Arabic script; Latin script (ULY) also in use",
+  "sources": [
+    "Hahn, Reinhard F. (1991). Spoken Uyghur. University of Washington Press.",
+    "Hahn, Reinhard F. (1998). Uyghur. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge.",
+    "Engesæth, Tarjei; Yakup, Mahire & Dwyer, Arienne (2009). Teklimakandin Salam / Greetings from the Teklimakan: A Handbook of Modern Uyghur. University of Kansas.",
+    "Yakup, Mahire & Sereno, Joan A. (2016). Acoustic correlates of lexical stress in Uyghur. Journal of the International Phonetic Association 46(1), 61-77."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "q", "ʔ", "tʃ", "dʒ", "f", "s", "z", "ʃ", "ʒ", "χ", "ʁ", "h", "m", "n", "ŋ", "l", "r", "j", "w"],
+  "vowels": ["i", "y", "u", "e", "ø", "o", "æ", "ɑ"],
+  "diphthongs": [],
+  "contrasts": [
+    "eight vowels: /i/ without a back partner (older /i/ and /ɯ/ have merged), /y u/, /e/, /ø o/, /æ ɑ/",
+    "voiced versus voiceless aspirated stops and affricates",
+    "velar /k ɡ/ versus uvular /q ʁ χ/",
+    "stress can distinguish words (a stem plus an unstressable suffix against a plain stem)",
+    "vowel length is not written: long vowels come from loanwords and from the loss of coda /r/ and other consonants"
+  ],
+  "allophony": [
+    "/i/ is [i] in front surroundings and a centralised or back [ɨ ~ ɯ] next to uvulars and in back-vowel words; it is neutral in vowel harmony",
+    "high vowels are devoiced between voiceless consonants and word-initially before a voiceless consonant (ikki, pishiq, ishik)",
+    "/ɑ/ and /æ/ are raised to [e] or [i] in open syllables when they lose the stress to a suffix (bala, balilar; at, éti); the spelling shows this",
+    "voiceless stops are aspirated in onsets",
+    "voiced stops are devoiced in syllable-final position",
+    "/k/ and /q/ are fricatives [ç ~ x] and [χ] before consonants (mektep, aqsaq)",
+    "coda /r/ is weak and often dropped with lengthening of the vowel (tört [tøːt])",
+    "/w/ varies with [v]; /l/ is velarised next to back vowels",
+    "/f ʒ/ occur in loans; /ʔ/ begins words written with an initial vowel and marks syllable breaks"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words",
+    "coda clusters are sonorant or fricative + obstruent (tört, xelq, dost)",
+    "backness harmony with neutral /i/ and /e/; rounding harmony in some high-vowel suffixes",
+    "loans and compounds often break harmony",
+    "/ŋ/ does not begin a word"
+  ],
+  "stress": {
+    "type": "final by default, with morphological exceptions",
+    "rule": "Stress falls on the last syllable of the word; unstressable suffixes and particles (negative -ma/-me, question -mu, predicative endings) leave it on the syllable before them.",
+    "cues": "duration is the robust cue; intensity is less consistent; F0 does not mark word stress (Yakup & Sereno 2016)"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "moderate: unstressed /ɑ æ/ in open syllables are raised to [e i], and high vowels are devoiced or dropped between voiceless consonants",
+    "final_lengthening": "moderate"
+  },
+  "length": {
+    "vowel": true,
+    "consonant": true,
+    "notes": "Long vowels are secondary and not written: they occur in Arabic and Persian loans and where coda /r/ or another consonant is lost. Geminates occur in numerals (ikki, yette, sekkiz, toqquz) and at morpheme boundaries. No published duration ratio is given here."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "rise at the end of non-final phrases, fall at the end of the statement",
+    "yes_no_question": "marked by the clause-final particle -mu; final pitch stays high or rises",
+    "wh_question": "prominence on the question word, final fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "stressed syllables are marked by length rather than by a pitch movement (Yakup & Sereno 2016)",
+    "notes": "Sentence intonation is low confidence and follows the general pattern of the better described Turkic languages; Yakup & Sereno (2016) show that F0 belongs to the sentence level, not to the word."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": ["aspirated voiceless stops", "devoiced high vowels between voiceless consonants"],
+  "espeak": {
+    "voice_file": "trk/ug",
+    "phoneme_table": "ug",
+    "problems": [
+      "no stress rule is set for ug, so the default penultimate stress applies (bala, kitab, uyghur are stressed on the first syllable); Uyghur stress is final by default",
+      "p t k are inherited from the Turkish table and are unaspirated; Uyghur voiceless stops are aspirated",
+      "i is always one short centralised vowel (length 100, F2 about 1660 Hz): no [i] versus [ɨ ~ ɯ] variants and no devoicing between voiceless consonants",
+      "no long vowels, and coda r is always a full trill",
+      "k and q stay stops before consonants, and voiced stops are not devoiced at the end of a syllable",
+      "unstressable suffixes and particles are not handled"
+    ],
+    "good": [
+      "Arabic-script and Latin (ULY) spelling are both accepted",
+      "the vowels æ, ø, y and the consonants q, χ, ʁ, ŋ, dʒ are present",
+      "vowel harmony and vowel raising follow from the spelling"
+    ]
+  },
+  "notes": "The glottal stop is mostly predictable (before word-initial vowels and between vowels in loans)."
+}

@@ -1,0 +1,115 @@
+{
+  "tag": "ru-lv",
+  "name": "Russian as spoken in Latvia",
+  "family": "Indo-European, Balto-Slavic, Slavic, East Slavic",
+  "variety": "Russian as used in Latvia. Native speakers in Latvia use the sound system of Standard Russian; regional phonetic differences are slight and little documented. The description below is therefore that of Standard Russian. Russian spoken as a second language by Latvian speakers differs more, and that accent is what the eSpeak NG voice imitates.",
+  "sources": [
+    "Yanushevskaya, Irena & Bunčić, Daniel (2015). Russian. Journal of the International Phonetic Association 45(2), 221-228.",
+    "Jones, Daniel & Ward, Dennis (1969). The Phonetics of Russian. Cambridge University Press.",
+    "Avanesov, R. I. (1984). Russkoe literaturnoe proiznošenie. Moscow: Prosveščenie.",
+    "Timberlake, Alan (2004). A Reference Grammar of Russian. Cambridge University Press.",
+    "Fant, Gunnar (1960). Acoustic Theory of Speech Production. The Hague: Mouton.",
+    "Ringen, Catherine & Kulikov, Vladimir (2012). Voicing in Russian stops: cross-linguistic implications. Journal of Slavic Linguistics 20(2), 269-300.",
+    "Bryzgunova, E. A. (1977). Zvuki i intonacija russkoj reči. Moscow: Russkij jazyk.",
+    "Laua, Alise (1997). Latviešu literārās valodas fonētika. Rīga: Zvaigzne ABC. (for the Latvian sound system behind the accent features)"
+  ],
+  "consonants": ["p", "pʲ", "b", "bʲ", "t̪", "tʲ", "d̪", "dʲ", "k", "kʲ", "ɡ", "ɡʲ", "t͡s", "t͡ɕ", "f", "fʲ", "v", "vʲ", "s̪", "sʲ", "z̪", "zʲ", "ʂ", "ʐ", "ɕː", "x", "xʲ", "m", "mʲ", "n̪", "nʲ", "ɫ", "lʲ", "r", "rʲ", "j"],
+  "vowels": ["i", "ɨ", "e", "a", "o", "u"],
+  "diphthongs": [],
+  "vowel_formants": {
+    "confidence": "low",
+    "speaker": "adult male, single speaker of Standard Russian, sustained isolated vowels; no measurements of speakers from Latvia are known to me",
+    "source": "Fant 1960",
+    "values": {
+      "i": [240, 2250, 3200],
+      "ɨ": [300, 1480, 2230],
+      "e": [440, 1800, 2550],
+      "a": [700, 1080, 2600],
+      "o": [535, 780, 2500],
+      "u": [300, 625, 2500]
+    }
+  },
+  "contrasts": [
+    "palatalised ('soft') versus non-palatalised ('hard') consonants at almost every place and manner, also word-finally and before consonants",
+    "voiced versus voiceless obstruents (prevoiced versus voiceless unaspirated)",
+    "five stressed vowels /i e a o u/, with [ɨ] after hard consonants",
+    "position of stress is lexically contrastive",
+    "long /ɕː/ and geminates at morpheme boundaries"
+  ],
+  "allophony": [
+    "/i/ is [ɨ] after hard consonants",
+    "akanye: unstressed /o/ and /a/ merge after hard consonants, [ɐ] in the first pretonic syllable and [ə] elsewhere",
+    "ikanye: unstressed /e/, /a/, /o/ after soft consonants merge as [ɪ]",
+    "stressed vowels are fronted next to soft consonants ([æ], [ɵ], [ʉ])",
+    "word-final obstruents are devoiced; obstruent clusters take the voicing of their last member",
+    "/ɫ/ is dental and velarised; /r/ is an apical trill or tap"
+  ],
+  "syllable_structure": "(C)(C)(C)(C)V(C)(C)(C)(C)",
+  "phonotactics": [
+    "onset and coda clusters of up to four consonants",
+    "no voiced obstruents before a pause",
+    "only reduced vowel qualities in unstressed syllables"
+  ],
+  "stress": {
+    "type": "free (lexical), mobile",
+    "rule": "Stress can fall on any syllable and may shift within a paradigm; it is not shown in ordinary spelling except by ё.",
+    "cues": "duration and vowel quality first, then intensity"
+  },
+  "rhythm": {
+    "class": "stress-timed",
+    "vowel_reduction": "strong, as in Standard Russian (akanye and ikanye)",
+    "final_lengthening": "moderate",
+    "notes": "No rhythm measurements for speakers from Latvia are cited here."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "No phonemic vowel length. Long /ɕː/ and geminates at morpheme boundaries."
+  },
+  "voice_onset_time_ms": {
+    "confidence": "low",
+    "source": "Ringen & Kulikov 2012 (monolingual speakers of Standard Russian, not speakers from Latvia)",
+    "values": {"p": 18, "t": 20, "k": 38, "b": -70, "d": -75, "ɡ": -78}
+  },
+  "intonation": {
+    "pitch_range": "wide",
+    "declarative": "fall on the stressed syllable of the nuclear word, low afterwards (IK-1)",
+    "yes_no_question": "steep rise on the stressed syllable of the word in focus, then low (IK-3); no final rise",
+    "wh_question": "high or falling accent on the question word or nucleus, then falling to low (IK-2)",
+    "continuation": "rise on the last stressed syllable of the non-final phrase",
+    "accent_shape": "statement nucleus: fall within the stressed syllable; question nucleus: late-peaked rise followed by a low tail",
+    "notes": "Described for Standard Russian; no study of intonation in Latvian Russian is cited."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none",
+    "notes": "No lexical tone or pitch accent."
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "zle/ru-LV",
+    "phoneme_table": "ru-lv",
+    "problems": [
+      "The voice models a Latvian accent rather than native Russian as spoken in Latvia: the phoneme table ru-lv (inherits ru) and the ?2 rules remove features that native speakers in Latvia share with the standard.",
+      "Unstressed е stays [e] (река [rʲeˈka], сегодня [sʲeˈvodɲʌ]): no ikanye. а, я after soft consonants stay [a] as in ru.",
+      "Unstressed о keeps the phoneme o (молоко is output as [moloˈko]) and is realised with an open vowel (formant file aa_7): one degree of akanye, without the [ə] of other unstressed syllables.",
+      "Hard л is a clear alveolar [l] (the Latvian-style l), not velarised [ɫ].",
+      "Final б and в are not devoiced (хлеб [xlʲeb], лев [lʲev]); final д, г, ж, з are.",
+      "щ is a long hard [ʃʃ] and сч is [ʃ] instead of soft [ɕː].",
+      "Soft н is the palatal nasal [ɲ] (kept word-finally: день [dʲeɲ]); soft л is l plus glide and is lost word-finally as in ru; м and з before soft vowels can stay hard (мил [mil], земля [zemlʲˈa]).",
+      "ь and ъ before я, ю, е, ё give a short pause (семья [sʲem_ˈja]).",
+      "Voice settings copy the Latvian and Latgalian voices (speed 95, stressLength and stressAmp with small stressed-unstressed differences, 'words 0 2' pause between a vowel-final and a vowel-initial word), which weakens the stress-timed rhythm of Russian.",
+      "As in ru: stress from the ru dictionary or guessed; no voicing assimilation between preposition and host; default eSpeak tunes only."
+    ],
+    "good": [
+      "uses the large Russian stress dictionary",
+      "regressive voicing assimilation inside words (вокзал, отдать)",
+      "[ɨ] after hard consonants including жи, ши, ци",
+      "soft нь is kept distinct word-finally"
+    ]
+  },
+  "notes": "I know of no published phonetic description of Russian in Latvia that could be cited with confidence, so no variety-specific numbers are given; the numeric blocks repeat Standard Russian data and are marked low confidence for this variety. The voice was contributed by the maintainer of the Latvian voice (voice file header)."
+}

@@ -1,0 +1,96 @@
+{
+  "tag": "az",
+  "name": "Azerbaijani",
+  "family": "Turkic, Oghuz",
+  "variety": "Standard North Azerbaijani (Baku norm, Latin script). The JIPA illustration and the acoustic vowel study describe the Tabriz (Iranian) variety; statements taken from them are marked as such.",
+  "sources": [
+    "Ghaffarvand Mokari, Payam & Werner, Stefan (2017). Azerbaijani. Journal of the International Phonetic Association 47(2), 207-212.",
+    "Ghaffarvand Mokari, Payam & Werner, Stefan (2016). An acoustic description of spectral and temporal characteristics of Azerbaijani vowels. Poznań Studies in Contemporary Linguistics 52(3), 503-518.",
+    "Schönig, Claus (1998). Azerbaijanian. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge.",
+    "Householder, Fred W. & Lotfi, Mansour (1965). Basic Course in Azerbaijani. Indiana University."
+  ],
+  "consonants": ["p", "b", "t̪", "d̪", "c", "ɟ", "k", "ɡ", "tʃ", "dʒ", "f", "v", "s", "z", "ʃ", "ʒ", "x", "ɣ", "h", "m", "n", "l", "ɾ", "j"],
+  "vowels": ["i", "y", "ɯ", "u", "e", "œ", "o", "æ", "ɑ"],
+  "diphthongs": ["ou̯", "œy̯"],
+  "contrasts": [
+    "nine vowel qualities, including the open front /æ/ (ə) against mid /e/ and open back /ɑ/",
+    "voiced versus voiceless aspirated stops and affricates",
+    "palatal stops /c ɟ/ (spelt k, g) versus velar /ɡ/ (spelt q) and /k/ (mostly in Russian loans)",
+    "velar fricatives /x/ and /ɣ/ (spelt x, ğ) as full consonants, unlike Turkish soft g",
+    "no phonemic vowel length; long vowels only in careful pronunciation of Arabic and Persian loans"
+  ],
+  "allophony": [
+    "voiceless stops are aspirated",
+    "/c/ (spelt k) is a fricative [ç] in the syllable coda, most clearly at the end of polysyllabic words (çörək [tʃœˈɾæç], səksən)",
+    "word-final /ɡ/ (spelt q) is [x] or [ɣ] (otaq [oˈtɑx]) and alternates with /ɣ/ before a vowel-initial suffix (otağı)",
+    "/x/ is often uvular [χ]",
+    "stops are devoiced in coda position (Tabriz data, Ghaffarvand Mokari & Werner 2017)",
+    "/l/ is velarised [ɫ] next to back vowels",
+    "the sequences /ov/ and /œv/ are pronounced as diphthongs [ou̯] and [œy̯] before a consonant or a pause (dovşan)",
+    "/tʃ dʒ/ are [ts dz] in Tabriz and several other dialects, not in the Baku standard",
+    "/ɣ/ does not occur word-initially in native words",
+    "/h/ is kept in all positions"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "native syllables are V, VC, CV, CVC; final clusters occur mainly in loans and a few native stems (dörd, qırx, xalq)",
+    "backness harmony throughout the native word; rounding harmony only in high suffix vowels",
+    "/o œ e/ occur mainly in first syllables of native words",
+    "/ɯ/ does not begin a word",
+    "loanwords often break harmony (kitab)"
+  ],
+  "stress": {
+    "type": "fixed final by default, with morphological and lexical exceptions",
+    "rule": "Stress falls on the last syllable; it moves to the syllable before unstressable elements (negative -mA, copular and personal predicate endings, the question particle) and to the first syllable in imperatives, vocatives and some adverbs.",
+    "cues": "not instrumentally studied for the standard variety in the sources used"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none",
+    "final_lengthening": "moderate",
+    "notes": "Ghaffarvand Mokari & Werner (2016) report a relatively strong intrinsic duration effect (open vowels longer than close ones) for Tabriz speakers."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "No native vowel length; lengthening appears in conservative pronunciation of Arabic and Persian loans, sometimes replacing a lost glottal stop or ayn (məna). Geminates occur in numerals and loans (yeddi, səkkiz, əlli)."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "non-final phrases end in a rise, successive phrases step down, final fall",
+    "yes_no_question": "usually marked by intonation alone: there is no final fall and the last phrase is higher in pitch than the others; the particle -mI is optional",
+    "wh_question": "falls at the end like a statement, with prominence on the question word",
+    "continuation": "rising pitch at the end of each non-final phrase",
+    "accent_shape": "rise to a high on the final stressed syllable of the word",
+    "notes": "Pattern as described for Tabriz speech by Ghaffarvand Mokari & Werner (2017); no instrumental study of the Baku standard was available to me."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": ["aspirated voiceless stops"],
+  "espeak": {
+    "voice_file": "trk/az",
+    "phoneme_table": "az",
+    "problems": [
+      "ğ is handled with the Turkish soft-g rules: it is dropped with lengthening after a vowel and a following identical vowel is swallowed (dağ gives [daː], ağac gives [aːdʒ], oğul gives [oːul]); Azerbaijani ğ is a fricative [ɣ]",
+      "every word-final ə of a polysyllabic word is marked unstressed, so nənə and küçə are stressed on the first syllable instead of the last",
+      "t between front vowels is turned into [ts] (iti gives [itsi], getir gives [ɟetsir]), which is not standard",
+      "p t k are the unaspirated base2 stops; Azerbaijani voiceless stops are aspirated",
+      "unstressable suffixes are not handled: gəlmədi and bilmirəm get final stress",
+      "ov and öv stay [ov] and [œv] instead of the diphthongs [ou̯] and [œy̯]",
+      "k is always palatal [c], also next to back vowels and in Russian loans (Bakı gives [bacɯ])",
+      "/ɾ/ is a trill except between vowels, and a schwa is inserted before word-final r after a consonant",
+      "no long vowels in loanwords"
+    ],
+    "good": [
+      "all nine vowels are present, including æ, ɯ, œ and y",
+      "palatal stops for k and g, [ɡ] for q with final [x], final and preconsonantal k as [ç]",
+      "velarised l next to back vowels; vowel harmony follows from the spelling"
+    ]
+  },
+  "notes": "The voice is marked 'status testing' in eSpeak NG."
+}

@@ -1,0 +1,99 @@
+{
+  "tag": "bpy",
+  "name": "Bishnupriya Manipuri",
+  "family": "Indo-European, Indo-Iranian, Indo-Aryan (Eastern zone, Bengali-Assamese), with a large Meitei (Tibeto-Burman) loan layer",
+  "variety": "Bishnupriya Manipuri as spoken in the Barak Valley of Assam, Tripura and Sylhet; the two dialects Rajar Gang and Madai Gang are not distinguished here. Provisional description: no instrumental phonetic study is known to me.",
+  "sources": [
+    "Sinha, Kali Prasad (1981). The Bishnupriya Manipuri Language. Calcutta: Firma KLM.",
+    "Kalita, Nayan Jyoti; Saharia, Navanath & Sinha, Smriti Kumar (2013). Towards the development of a Bishnupriya Manipuri corpus. arXiv:1312.3251 (word forms with IPA transcription).",
+    "Kalita, Nayan Jyoti; Saharia, Navanath & Sinha, Smriti Kumar (2014). Morphological analysis of the Bishnupriya Manipuri language using finite state transducers. In Computational Linguistics and Intelligent Text Processing, Lecture Notes in Computer Science 8403, 206-213 (word forms with IPA transcription).",
+    "Masica, Colin P. (1991). The Indo-Aryan Languages. Cambridge University Press.",
+    "Khan, Sameer ud Dowla (2016). The intonation of South Asian languages: towards a comparative analysis. Proceedings of Formal Approaches to South Asian Languages 6, 23-36 (areal intonation pattern only)."
+  ],
+  "consonants": [
+    "p", "pʰ", "b", "bʱ",
+    "t", "tʰ", "d", "dʱ",
+    "ʈ", "ʈʰ", "ɖ", "ɖʱ",
+    "k", "kʰ", "ɡ", "ɡʱ",
+    "dʒ",
+    "m", "n", "ŋ",
+    "s", "ʃ", "h",
+    "ɹ", "l", "w", "j"
+  ],
+  "vowels": ["i", "e", "ɛ", "a", "ɔ", "o", "ʊ", "u"],
+  "diphthongs": ["ei̯", "ai̯", "ɔi̯", "ou̯", "ɔu̯", "au̯"],
+  "contrasts": [
+    "aspirated versus unaspirated stops, voiced and voiceless (kʰ, tʰ, ɡʱ are attested in published transcriptions)",
+    "the inherent vowel of the script is /ɔ/ as in Bengali and Assamese, not a schwa",
+    "the letters for the old palatal stops are fricatives: চ is [s], ছ is [ʃ] in published transcriptions (/sakɔɹ/ 'servant', /maʃ/ 'fish'); জ is the affricate [dʒ]",
+    "back rounded vowels /ɔ/ : /ʊ/ : /u/ (ও is transcribed [ʊ]: /mʊɹ/ 'my')",
+    "no vowel length contrast is reported",
+    "velar nasal /ŋ/ occurs word-finally and before consonants (/ɡaŋ/ 'village')"
+  ],
+  "allophony": [
+    "the rhotic is transcribed as an approximant [ɹ]",
+    "a final inherent vowel is often not pronounced; suffix shapes depend on whether the stem ends in a pronounced vowel",
+    "inherited words show both loss and gain of aspiration compared with Old Indo-Aryan (duk 'sorrow', phuti 'cloth'), as reported in the descriptive literature"
+  ],
+  "syllable_structure": "(C)V(C); clusters arise at morpheme boundaries (/kɔɹlu/ 'I did') and in loans",
+  "phonotactics": [
+    "/ŋ/ does not begin native words",
+    "vowel sequences and diphthongs are frequent in verb endings (/kɔɹtou/, /kɔɹtei/)",
+    "about 4,000 roots are borrowed from Meitei"
+  ],
+  "stress": {
+    "type": "not described; presumably weak and non-contrastive",
+    "rule": "No published rule is known to me; the related languages Bengali and Assamese have prominence on the first syllable.",
+    "cues": "unknown"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none reported",
+    "final_lengthening": "moderate",
+    "notes": "All three values are assumptions carried over from Bengali and Assamese; nothing has been measured."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "Geminates are written and transcribed in suffixes (/ttɔ/); no duration data."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "presumably the areal pattern: a rise on each content word phrase and a final fall",
+    "yes_no_question": "presumably a high final boundary",
+    "wh_question": "presumably a low final boundary",
+    "continuation": "presumably a high right edge on non-final phrases",
+    "accent_shape": "presumably L* ... H per phrase",
+    "notes": "Not documented for this language; every entry is inferred from the pattern that Bengali, Assamese and other South Asian languages share (Khan 2016)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none",
+    "notes": "No lexical tone is reported, although Meitei, the source of many loans, is tonal, and neighbouring Sylheti has developed tone from lost aspiration."
+  },
+  "phonation": [
+    "breathy voiced stops are written and transcribed (ɡʱ); their phonetic realisation has not been studied"
+  ],
+  "espeak": {
+    "voice_file": "inc/bpy",
+    "phoneme_table": "bpy",
+    "problems": [
+      "The rule file is headed 'Pronunciation rule for Manipuri' and the translator source calls the language 'not indo-european': the rules appear to have been written with Meitei in mind, not the Indo-Aryan Bishnupriya language.",
+      "The inherent vowel comes out as a schwa in many words (ঘর [ɡhəɾ], মণি [məni], জল [ɟəl]) where the published transcriptions have [ɔ] ([ɡʰɔɹ], [mɔni]); in other words it is [ɔ], and the choice differs from letter to letter.",
+      "Aspirates are sequences of stop plus a separate [h] phoneme (gh, bh, dh, t.h, ch), not single aspirated or breathy stops.",
+      "চ is the palatal stop [c] and ছ is [c] plus [h] (মাছ [machɔ]); the transcriptions have [s] and [ʃ].",
+      "Extra final vowels: ধান [dhanɔ], মাছ [machɔ], এক [ekə], শেষ [ʃeʃə].",
+      "A schwa is inserted in clusters at morpheme boundaries: করলু [kɔɾəlu] for [kɔɹlu].",
+      "ঙ is [ŋɡ] (গাঙ [ɡaŋɡ]); ও is [o] where the transcriptions have [ʊ]; র is a tap.",
+      "Intonation uses the generic eSpeak tunes."
+    ],
+    "good": [
+      "stress on the first syllable, shared with the Bengali setting",
+      "no vowel length contrast; nasal vowels from candrabindu"
+    ]
+  },
+  "notes": "The consonant and vowel lists are reconstructed from the IPA transcriptions in Kalita, Saharia & Sinha (2013, 2014) and from the Bengali-Assamese script; they are provisional. Attested in those transcriptions: k kʰ ɡ ɡʱ t tʰ d p b m n ŋ s ʃ h ɹ l dʒ j and the vowels i e ɛ a ɔ ʊ u with the diphthongs ei ou ɔu ai. The retroflex series and the remaining aspirates are inferred from the script and may not contrast with the dental series, as in Assamese. No formant, VOT or rhythm figures exist."
+}

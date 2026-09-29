@@ -1,0 +1,97 @@
+{
+  "tag": "nci",
+  "name": "Classical Nahuatl",
+  "family": "Uto-Aztecan, Southern Uto-Aztecan, Nahuan (Aztecan)",
+  "variety": "Classical Nahuatl of the Valley of Mexico in the sixteenth and seventeenth centuries, as reconstructed from colonial grammars (above all Carochi 1645) and modern philology; there are no recordings, so all phonetic detail is reconstructed",
+  "sources": [
+    "Carochi, Horacio (1645). Arte de la lengua mexicana con la declaración de los adverbios della. México.",
+    "Andrews, J. Richard (2003). Introduction to Classical Nahuatl, revised edition. Norman: University of Oklahoma Press.",
+    "Launey, Michel (2011). An Introduction to Classical Nahuatl, translated and adapted by Christopher Mackay. Cambridge: Cambridge University Press.",
+    "Karttunen, Frances (1983). An Analytical Dictionary of Nahuatl. Austin: University of Texas Press.",
+    "Lockhart, James (2001). Nahuatl as Written. Stanford: Stanford University Press."
+  ],
+  "consonants": ["p", "t", "k", "kʷ", "ʔ", "ts", "tʃ", "tɬ", "s", "ʃ", "m", "n", "l", "w", "j"],
+  "vowels": ["i", "e", "a", "o", "iː", "eː", "aː", "oː"],
+  "diphthongs": [],
+  "contrasts": [
+    "short versus long vowels in four qualities: toca 'to follow' versus tōca 'to bury', tlatia 'to burn' versus tlātia 'to hide'",
+    "glottal stop (saltillo) after a vowel versus its absence; it also marks the plural of many nouns and verbs",
+    "lateral affricate tɬ versus t and l",
+    "labialised velar kʷ versus k, also at the end of a syllable (tēuctli with /kʷ/)",
+    "three affricates ts, tʃ, tɬ and two sibilants s, ʃ",
+    "no voiced stops, no r; four vowel qualities without a separate u"
+  ],
+  "allophony": [
+    "/w/ is voiceless [ʍ] at the end of a syllable (written uh)",
+    "/l/ is voiceless at the end of a syllable; /j/ does not occur there, where it is replaced by [ʃ]",
+    "/n/ takes the place of a following consonant, is weak or velar at the end of a word and is often left unwritten there",
+    "/m/ becomes n at the end of a word and before consonants other than labials",
+    "/tɬ/ becomes l after l: cal plus tli gives calli, with a long [lː]",
+    "/kʷ/ keeps its rounding at the end of a syllable as a voiceless release (written uc or cuh)",
+    "/o/ varies between [o] and [u]; colonial texts write both o and u",
+    "the glottal stop occurs only after a vowel; at the end of an utterance it is reported as a stronger, breath-like sound, and other dialects have [h] throughout",
+    "long vowels are shortened before a glottal stop and at the end of a word before a pause"
+  ],
+  "syllable_structure": "(C)V(C), with a short or long vowel; no clusters inside a syllable",
+  "phonotactics": [
+    "at most two consonants meet, across a syllable boundary in the middle of a word",
+    "words do not begin or end with a cluster; the noun ending is -tl after a vowel, -tli after a consonant and -li after l",
+    "a supporting vowel i is inserted where a cluster would arise",
+    "geminates arise at morpheme boundaries and are written double (calli, mitzittac)"
+  ],
+  "stress": {
+    "type": "fixed, penultimate",
+    "rule": "Stress falls on the penultimate syllable of the word; the only exception is the vocative ending -é used by men, which is stressed.",
+    "cues": "not recoverable for the classical language; in modern Nahuatl varieties pitch and duration"
+  },
+  "rhythm": {
+    "class": "mixed",
+    "vowel_reduction": "none recorded",
+    "final_lengthening": "moderate",
+    "notes": "Rhythm cannot be observed for an extinct stage of the language; class and final lengthening are neutral defaults, not findings. Contrastive vowel length and closed syllables make syllable weight relevant to timing."
+  },
+  "length": {
+    "vowel": true,
+    "consonant": true,
+    "notes": "Vowel length is contrastive and is written with a macron only in modern editions; colonial texts, except Carochi and a few others, leave it unmarked. The ratio of long to short vowels is unknown. Long consonants arise only at morpheme boundaries, above all ll."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "not recoverable; the colonial grammars do not describe sentence melody",
+    "yes_no_question": "marked by the particle cuix; melody not recoverable",
+    "wh_question": "question words (āc, tleh, cān, īc) begin the clause; melody not recoverable",
+    "continuation": "not recoverable",
+    "accent_shape": "not recoverable",
+    "notes": "The pitch range value is a neutral default."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none",
+    "notes": "Carochi's accent marks note vowel length and the glottal stop, not tone."
+  },
+  "phonation": [
+    "voiceless sonorants at the end of a syllable"
+  ],
+  "espeak": {
+    "voice_file": "azc/nci",
+    "phoneme_table": "nci",
+    "problems": [
+      "tl is the sequence t plus voiced l; there is no voiceless lateral affricate [tɬ]",
+      "kʷ at the end of a syllable is wrong: uc is read as [wk] (tēuctli comes out as [teːwktli]) and cuh as [kw] plus a glottal stop",
+      "vowel length depends on macrons in the text; the usual unmarked spelling gives short vowels everywhere",
+      "w at the end of a syllable (uh) is a voiced [w]; l, n are not devoiced or weakened there",
+      "long vowels are not shortened before the glottal stop or at the end of a word",
+      "no separate handling of the glottal stop at the end of an utterance"
+    ],
+    "good": [
+      "penultimate stress, with final stress for the vocative ē",
+      "the saltillo written h is a glottal stop",
+      "macron vowels are long; ll is a long l",
+      "spelling rules for c, qu, cu, hu, z, x, tz, ch"
+    ]
+  },
+  "notes": "No acoustic data exist for Classical Nahuatl. Values from modern Nahuatl varieties should not be copied into this profile without saying so."
+}

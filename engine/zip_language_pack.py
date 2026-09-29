@@ -3,9 +3,10 @@
     python engine/zip_language_pack.py <tag> [<tag> ...] [--out DIR]
     python engine/zip_language_pack.py --espeak [--out DIR]
 
-The second puts every pack read by eSpeak NG into one zip. Such a pack needs
-the eSpeak NG front-end and data that the OpenEVV SAPI5 installer puts in, and
-its template language installed.
+The second puts every pack read by eSpeak NG into one zip, and with them the
+modules that speak them: the packs that are no languages themselves and only
+lend their modules (Hidden=1 in their language.ini). Such a pack needs the
+eSpeak NG front-end and data that the OpenEVV SAPI5 installer puts in.
 
 Zips languages/<tag> into DIR (default output/) as
 OpenEVV-language-<tag>-<version>.zip, with the pack's folder at the top of the
@@ -27,7 +28,8 @@ def version():
 
 def is_espeak_pack(tag):
     with open(os.path.join(ROOT, "languages", tag, "language.ini"), encoding="utf-8-sig") as f:
-        return "[Frontend]" in f.read()
+        text = f.read()
+    return "[Frontend]" in text or re.search(r"^Hidden=1", text, re.M) is not None
 
 
 def main():
@@ -51,7 +53,8 @@ def main():
                     for name in sorted(files):
                         full = os.path.join(base, name)
                         z.write(full, os.path.join(tag, os.path.relpath(full, src)))
-        print(f"{len(tags)} eSpeak NG language packs: {path} ({os.path.getsize(path) // 1024} KB)")
+        print(f"{len(tags)} packs, the languages read by eSpeak NG and the modules that speak them: "
+              f"{path} ({os.path.getsize(path) // 1024} KB)")
         return 0
     if not args:
         print(__doc__)

@@ -19,7 +19,18 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # tag: (name, ECI id, SAPI Language attribute, locale, code page, order, experimental)
+# A name that begins "Module:" is a module that is no language: it says the
+# phones it is given, for the languages eSpeak NG reads, and its pack is
+# hidden.
 LANGS = {
+    "dedx": ("Module: international, from German", 0x00040000, "407", "de-DE", 65001, 910, False),
+    "itix": ("Module: international, from Italian", 0x00050000, "410", "it-IT", 65001, 911, False),
+    "esex": ("Module: international, from Castilian Spanish", 0x00020000, "C0A;40A", "es-ES", 65001, 912, False),
+    "esux": ("Module: international, from Latin American Spanish", 0x00020001, "80A;540A", "es-MX", 65001, 913,
+             False),
+    "engx": ("Module: international, from British English", 0x00010001, "809", "en-GB", 65001, 914, False),
+    "enux": ("Module: international, from US English", 0x00010000, "409", "en-US", 65001, 915, False),
+    "frfx": ("Module: international, from French", 0x00030000, "40C", "fr-FR", 65001, 916, False),
     "enus": ("US English", 0x00010000, "409", "en-US", 1252, 10, False),
     "engb": ("British English", 0x00010001, "809", "en-GB", 1252, 20, False),
     "dede": ("German", 0x00040000, "407", "de-DE", 1252, 30, False),
@@ -63,7 +74,7 @@ def main():
         print("make_language_packs.py needs a 64-bit Python")
         return 2
     built = sys.argv[1]
-    tags = sys.argv[2:] or list(LANGS)
+    tags = sys.argv[2:] or [t for t in LANGS if os.path.isdir(os.path.join(built, t))]
     for tag in tags:
         name, lid, lcid, locale, cp, order, experimental = LANGS[tag]
         src = os.path.join(built, tag)
@@ -90,8 +101,11 @@ def main():
             f"Module64=openevv-{tag}-x64.dll",
             f"Order={order}",
             f"Experimental={1 if experimental else 0}",
-            "",
         ]
+        if name.startswith("Module:"):
+            lines += ["; lends its modules to the languages eSpeak NG reads, and is not a language itself",
+                      "Hidden=1"]
+        lines.append("")
         for n, (vname, params) in enumerate(voices, 1):
             lines += [
                 f"[Voice{n}]",

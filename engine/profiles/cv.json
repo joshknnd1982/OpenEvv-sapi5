@@ -1,0 +1,91 @@
+{
+  "tag": "cv",
+  "name": "Chuvash",
+  "family": "Turkic, Oghur (Bulgar)",
+  "variety": "Literary Chuvash, based on the Anatri (lower) dialect, Cyrillic script",
+  "sources": [
+    "Krueger, John R. (1961). Chuvash Manual. Indiana University.",
+    "Clark, Larry (1998). Chuvash. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge.",
+    "Dobrovolsky, Michael (1999). The phonetics of Chuvash stress: implications for phonology. Proceedings of the 14th International Congress of Phonetic Sciences, San Francisco, 539-542."
+  ],
+  "consonants": ["p", "t", "k", "tɕ", "s", "ʂ", "ɕ", "x", "ʋ", "m", "n", "l", "r", "j", "b", "d", "ɡ", "z", "ʐ", "f", "ts"],
+  "vowels": ["i", "y", "ɯ", "u", "e", "a", "ɘ̆", "ə̆", "o"],
+  "diphthongs": [],
+  "contrasts": [
+    "full vowels /i y ɯ u e a/ versus the reduced vowels ӗ /ɘ̆/ (front) and ӑ /ə̆/ (back), which are very short and never attract stress when a full vowel is present",
+    "single versus geminate obstruents between vowels: single ones are lenis and voiced, geminates are voiceless (the numerals have both forms: пилӗк and пиллӗк 'five', сакӑр and саккӑр 'eight')",
+    "no voicing contrast in native obstruents; /b d ɡ z ʐ f ts/ are phonemes only in Russian loans",
+    "plain versus palatalised consonants, mostly predictable from the vowels but contrastive in some words and word-finally (spelt with ь)",
+    "front versus back vowels (vowel harmony)"
+  ],
+  "allophony": [
+    "stops, affricates and fricatives are voiceless and fortis at the beginning and end of a word and next to another obstruent, but lenis and voiced between vowels and between a sonorant /l m n r j ʋ/ and a vowel (кӗпе [kɘ̆ˈbe], лаша [laˈʐa]); the spelling does not show this",
+    "geminates do not undergo this voicing",
+    "consonants are palatalised next to front vowels",
+    "the reduced vowels are mid central, often weakly rounded; in unstressed position they are schwa-like and may be dropped in fast speech",
+    "/ʋ/ varies between a labiodental approximant and a fricative [v]",
+    "/x/ is velar; ҫ is an alveolo-palatal fricative [ɕ] and ч an alveolo-palatal affricate [tɕ]",
+    "/o/ occurs in Russian loans (and as a native vowel in the Viryal dialect)"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words; Russian loans keep theirs",
+    "coda clusters are sonorant + obstruent (ҫурт, пӳрт)",
+    "backness harmony in native words and most suffixes; several suffixes (for example plural -сем) do not harmonise",
+    "no rounding harmony",
+    "word-initial voiced obstruents occur only in loans"
+  ],
+  "stress": {
+    "type": "weight-sensitive (full versus reduced vowels), unbounded",
+    "rule": "Stress falls on the last full vowel of the word; if the word has only reduced vowels, prominence falls on the first syllable (Dobrovolsky 1999 analyses this initial prominence as an intonational fall, not stress). Russian loans keep their stress.",
+    "cues": "duration and total amplitude distinguish stressed full vowels; reduced vowels next to a stressed full vowel are extremely short; F0 falls early in the word in citation forms (Dobrovolsky 1999)"
+  },
+  "rhythm": {
+    "class": "mixed",
+    "vowel_reduction": "strong but lexical: the reduced vowels ӗ and ӑ are very short and schwa-like and can be dropped; full vowels keep their quality in unstressed position",
+    "final_lengthening": "moderate",
+    "notes": "Dobrovolsky (1999) also mentions a layer of rhythmic (secondary) stresses."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "The vowel contrast is full versus reduced rather than long versus short of the same quality. Geminate obstruents and sonorants contrast with single ones between vowels. No published duration ratio is given here."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "pitch falls early in the word in citation forms: high on or just before the first vowel, then low (Dobrovolsky 1999)",
+    "yes_no_question": "marked by the particle -и after the questioned word; pitch pattern not documented in the sources used",
+    "wh_question": "pitch pattern not documented in the sources used",
+    "continuation": "rising or rise-fall terminal contours occur in lists and repetitions (Dobrovolsky 1999)",
+    "accent_shape": "HL: a fall that begins within the first vowel or the sonorant after it",
+    "notes": "Sentence intonation is low confidence; only citation forms have been studied instrumentally."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": ["lenis voiced allophones of the obstruents between sonorant sounds"],
+  "espeak": {
+    "voice_file": "trk/cv",
+    "phoneme_table": "cv",
+    "problems": [
+      "no stress rule is set for cv, so the default penultimate stress applies: ача and лаша are stressed on the first syllable and чӑваш on the reduced vowel; the Chuvash rule (last full vowel, else first syllable) is only hand-marked in the numerals of cv_list",
+      "single obstruents are never voiced between vowels or after sonorants (лаша gives [laʃa], кӗпе gives [kɵpɛ], сакӑр gives [sakɯr])",
+      "ӑ is the Turkish ɯ phoneme with full length (180) while the full vowel ы is a short schwa-like vowel (110): the durations of the reduced and the full vowel are the wrong way round",
+      "ӗ has a back rounded target (F2 about 1160 Hz), further back than ӑ (F2 about 1280 Hz), so the front-back contrast of the two reduced vowels is lost",
+      "the Turkish allophone rules are inherited: и, у, ӳ are lowered in final and closed syllables and э becomes [æ] before a final sonorant",
+      "consonants are not palatalised in front-vowel words; ь only adds a palatal glide; ҫ is the palatal fricative [ç] and ч is [tʃ]",
+      "в is a fricative [v]"
+    ],
+    "good": [
+      "ӗ is short (length 100); ӳ and ы are distinguished",
+      "geminates written double are lengthened",
+      "the numerals carry hand-marked Chuvash stress",
+      "vowel harmony follows from the spelling"
+    ]
+  },
+  "notes": "The voice is marked 'status testing' in eSpeak NG. The consonant list includes /b d ɡ z ʐ f ts/ and the vowel list /o/, which are phonemes only in Russian loans. The degree of aspiration of the fortis stops is not documented in the sources used; eSpeak NG uses the unaspirated base2 stops."
+}

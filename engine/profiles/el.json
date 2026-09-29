@@ -1,0 +1,127 @@
+{
+  "tag": "el",
+  "name": "Greek (Modern)",
+  "family": "Indo-European, Hellenic",
+  "variety": "Standard Modern Greek (Athens)",
+  "sources": [
+    "Arvaniti, Amalia (1999). Standard Modern Greek. Journal of the International Phonetic Association 29(2): 167-172.",
+    "Arvaniti, Amalia (2007). Greek Phonetics: The State of the Art. Journal of Greek Linguistics 8: 97-208.",
+    "Sfakianaki, Anna (2002). Acoustic characteristics of Greek vowels produced by adults and children. Selected Papers on Theoretical and Applied Linguistics 14: 383-394. Thessaloniki.",
+    "Fourakis, Marios; Botinis, Antonis; Katsaiti, Maria (1999). Acoustic characteristics of Greek vowels. Phonetica 56: 28-43.",
+    "Fourakis, Marios (1986). A timing model for word-initial CV syllables in Modern Greek. Journal of the Acoustical Society of America 79(6).",
+    "Arvaniti, Amalia (2000). The phonetics of stress in Greek. Journal of Greek Linguistics 1: 9-39.",
+    "Arvaniti, Amalia; Joseph, Brian D. (2000). Variation in voiced stop prenasalization in Greek. Glossologia 11-12.",
+    "Arvaniti, Amalia; Ladd, D. Robert; Mennen, Ineke (1998). Stability of tonal alignment: the case of Greek prenuclear accents. Journal of Phonetics 26: 3-25.",
+    "Arvaniti, Amalia; Baltazani, Mary (2005). Intonational analysis and prosodic annotation of Greek spoken corpora. In Jun, Sun-Ah (ed.), Prosodic Typology: The Phonology of Intonation and Phrasing. Oxford University Press.",
+    "Joseph, Brian D.; Philippaki-Warburton, Irene (1987). Modern Greek. Routledge.",
+    "Grabe, Esther; Low, Ee Ling (2002). Durational variability in speech and the Rhythm Class Hypothesis. In Gussenhoven, Carlos & Warner, Natasha (eds.), Laboratory Phonology 7. Mouton de Gruyter, 515-546."
+  ],
+  "consonants": ["p", "b", "t̪", "d̪", "k", "ɡ", "f", "v", "θ", "ð", "s", "z", "x", "ɣ", "m", "n", "l", "ɾ", "t͡s", "d͡z"],
+  "vowels": ["i", "e", "a", "o", "u"],
+  "diphthongs": ["ai̯", "oi̯"],
+  "vowel_formants": {
+    "confidence": "high",
+    "speaker": "adult male (mean of 10 speakers), words read from a list, stressed and unstressed tokens pooled",
+    "source": "Sfakianaki 2002, table 1",
+    "values": {
+      "i": [423, 2073, 2593],
+      "e": [601, 1811, 2560],
+      "a": [736, 1466, 2459],
+      "o": [583, 1137, 2479],
+      "u": [434, 921, 2460]
+    }
+  },
+  "contrasts": [
+    "five vowels, with no contrast of length or nasality",
+    "voiceless against voiced fricatives at four places: /f v/, /θ ð/, /s z/, /x ɣ/",
+    "voiceless unaspirated stops against voiced stops",
+    "position of stress (νόμος 'law' against νομός 'prefecture')",
+    "affricates /t͡s d͡z/",
+    "no consonant length in the standard language: double letters stand for single consonants"
+  ],
+  "allophony": [
+    "velars are palatal before the front vowels /i e/: /k ɡ x ɣ/ become [c ɟ ç ʝ] (κύμα, αγγίζω, χέρι, γέλιο)",
+    "/l n/ followed by unstressed /i/ and a vowel become palatal [ʎ ɲ] (ελιά, νιάτα); after other consonants that unstressed /i/ becomes [ç] after a voiceless and [ʝ] after a voiced consonant (μάτια, παιδιά), and [ɲ] after /m/ (μια)",
+    "/s z/ are retracted alveolars, between English s and sh in place",
+    "/s/ is voiced to [z] before a voiced consonant inside words and across word boundaries (κόσμος, σβήνω, τους λόγους)",
+    "/n/ takes the place of a following consonant: [m], [ɱ], dental, palatal or velar [ŋ] (άγχος)",
+    "voiced stops are prenasalised to a varying degree after a vowel ([ᵐb ⁿd ᵑɡ]); younger Athenian speakers mostly have plain voiced stops; word-initially they are plain",
+    "final /n/ of articles and particles merges with a following voiceless stop, which becomes voiced (τον πατέρα as [tombaˈtera])",
+    "/ɾ/ is a tap, sometimes an approximant between vowels and a short trill in clusters",
+    "/p t̪ k/ are voiceless unaspirated; in running speech they can be partly voiced between vowels",
+    "stressed vowels are somewhat longer than unstressed ones; unstressed /i u/ can be devoiced or dropped between voiceless consonants in casual speech",
+    "/e o/ are true mid vowels and /a/ is a near-open central vowel"
+  ],
+  "syllable_structure": "(C)(C)(C)V(C)",
+  "phonotactics": [
+    "native words end in a vowel, /s/ or /n/",
+    "many initial clusters, including stop plus stop or fricative (pt, kt, ps, ks, ts), fricative plus stop or fricative (ft, xt, fθ, xθ, sf, sx, zv, zɣ) and /mn/",
+    "stress is limited to the last three syllables of the word",
+    "vowel sequences across word boundaries are often reduced by deleting or merging one vowel"
+  ],
+  "stress": {
+    "type": "lexical, within the last three syllables",
+    "rule": "Stress falls on one of the last three syllables and is written with the acute accent; when an enclitic follows a word stressed on the antepenultimate syllable, a second stress is added on the word's last syllable (ο άνθρωπός μου).",
+    "cues": "greater duration and intensity of the stressed vowel (amplitude integral); pitch marks the stressed syllable only when the word carries a pitch accent; vowel quality changes little"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "moderate: no phonological reduction, but unstressed vowels are shorter and more central and unstressed /i u/ may be devoiced or dropped",
+    "final_lengthening": "moderate",
+    "notes": "Rhythm metrics put Greek between the classic stress-timed and syllable-timed languages; Grabe & Low (2002) left it unclassified.",
+    "npvi_v": {"value": 48.7, "source": "Grabe & Low 2002 (one speaker)", "confidence": "medium"}
+  },
+  "length": {
+    "vowel": false,
+    "consonant": false,
+    "notes": "No phonemic length in Standard Greek. Geminate consonants are found in Cypriot and some south-eastern dialects."
+  },
+  "voice_onset_time_ms": {
+    "confidence": "medium",
+    "source": "Fourakis 1986, as tabulated by Arvaniti 2007 (word-initial, before stressed /a/)",
+    "values": {"p": 9, "t̪": 16, "k": 23},
+    "notes": "Arvaniti (1987), quoted in the same table, found 11, 15 and 26 ms. Word-initial /b d̪ ɡ/ are prevoiced."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "prenuclear accents rise from a low point at the start of the stressed syllable to a peak in the following unstressed syllable (L*+H); the nuclear accent is a high or falling accent (H* or H*+L) followed by a fall to low",
+    "yes_no_question": "low pitch on the stressed syllable of the focused word (L*), then a rise-fall at the end of the utterance: the peak falls on the last stressed syllable, or on the final syllable when the focused word is last, and the utterance ends low",
+    "wh_question": "rise-fall on the question word, a low stretch after it and often a small rise at the very end",
+    "continuation": "rise to high pitch at the end of a non-final phrase",
+    "accent_shape": "L*+H: low at the onset of the stressed syllable, rising to a peak early in the next vowel",
+    "notes": "Described in the GRToBI system (Arvaniti & Baltazani 2005)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "grk/el",
+    "phoneme_table": "el",
+    "problems": [
+      "/s/ inside a word is not voiced before a voiced consonant: κόσμος, σβήνω, σμήνος, σεισμός keep [s]; only word-final ς is voiced before a voiced initial, and this is applied even across a full stop",
+      "the palatal stop [ɟ] is missing: γκ and γγ before front vowels stay velar (αγγίζω, άγγελος, εγγύηση)",
+      "γ before front vowels and the glide from unstressed ι are the approximant [j], not the fricative [ʝ]",
+      "unstressed ι before a stressed vowel is a full syllable after most consonants: παιδιά is given three syllables [peðiˈa] and ποιος two [ˈpios]",
+      "double σσ is spoken long [ss] (θάλασσα), though the standard language has no geminates",
+      "prenasalisation is treated unevenly: μπ and ντ are always plain [b d], γκ and γγ after a vowel always [ŋɡ]",
+      "/s z/ use the plain alveolar sounds of the base table, not the retracted Greek ones, and /r/ is a short trill rather than a tap",
+      "secondary stresses are added by rule (άνθρωπος as [ˈanθroˌpos]), but there is no rule for the second stress before an enclitic",
+      "an unstressed final α is deleted before a word that begins with α, also in careful reading",
+      "intonation is generic: yes/no questions end in a plain rise instead of a low nucleus followed by a final rise-fall, and prenuclear peaks are not delayed into the next syllable"
+    ],
+    "good": [
+      "five vowels and stress taken from the written accent",
+      "palatal allophones [c], [ç], [ʎ], [ɲ] before front vowels and from ι plus vowel",
+      "αυ and ευ as [av, ev] or [af, ef] by the voicing of the next sound",
+      "nasal sandhi across words (τον πατέρα, στην πόλη, δεν πειράζει)",
+      "polytonic spellings are mapped to their monotonic equivalents",
+      "unaspirated voiceless stops"
+    ]
+  },
+  "notes": "The two diphthongs listed are marginal; they occur in a few words such as γάιδαρος and ρολόι, and Greek is usually described as having no phonemic diphthongs. The formant values pool stressed and unstressed vowels and are therefore less peripheral than values for stressed vowels alone; Fourakis et al. (1999) give separate values by stress, which could not be checked for this profile."
+}

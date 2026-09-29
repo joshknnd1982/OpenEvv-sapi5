@@ -1,0 +1,86 @@
+{
+  "tag": "crh",
+  "name": "Crimean Tatar",
+  "family": "Turkic, Kipchak (West Kipchak, with strong Oghuz influence)",
+  "variety": "Standard Crimean Tatar, based on the Central (Orta yolaq) dialect; Latin script (Cyrillic also in use)",
+  "sources": [
+    "Kavitskaya, Darya (2010). Crimean Tatar. Lincom Europa.",
+    "McCollum, Adam G. & Kavitskaya, Darya (2018). Non-iterative vowel harmony in Crimean Tatar. Proceedings of the 35th West Coast Conference on Formal Linguistics, 259-268. Cascadilla Proceedings Project.",
+    "Berta, Árpád (1998). West Kipchak languages. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "q", "tʃ", "dʒ", "f", "v", "s", "z", "ʃ", "ʒ", "x", "ɣ", "m", "n", "ŋ", "l", "r", "j"],
+  "vowels": ["i", "y", "ɯ", "u", "e", "ø", "o", "ɑ"],
+  "diphthongs": [],
+  "contrasts": [
+    "eight vowels: high versus non-high, front versus back, rounded versus unrounded",
+    "voiced versus voiceless stops and affricates",
+    "velar /k ɡ/ versus uvular /q/ and the fricatives /x ɣ/ (spelt h, ğ)",
+    "high vowels are short and lax, non-high vowels are longer",
+    "no phonemic vowel length"
+  ],
+  "allophony": [
+    "the high vowels are short and reduced; /i/ and /ɯ/ are both realised close to a centralised [ɪ] although they remain distinct phonemes (Kavitskaya 2010)",
+    "/k ɡ/ are fronted next to front vowels; /q/ and /ɣ/ occur with back vowels in native words",
+    "the letter h stands for the velar fricative [x]; a glottal [h] belongs to the southern dialect",
+    "/l/ is velarised next to back vowels",
+    "stem-final /p q k/ are voiced before vowel-initial suffixes (kitap, kitabı)",
+    "the southern dialect has [x] for standard /q/; the northern dialect has [q] for /x/ and [p] for /f/"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words",
+    "coda clusters are sonorant or fricative + obstruent (dört, qırq, halq)",
+    "backness harmony in native words and suffixes",
+    "rounding harmony is not iterative in the standard (central) dialect: it rounds a high vowel of the second syllable only (tuzluq, tuzluğı); the southern dialect rounds all following high vowels, the northern dialect none",
+    "/ŋ/ does not begin a word; /f v ʒ/ are frequent in loans"
+  ],
+  "stress": {
+    "type": "fixed final by default, with morphological exceptions",
+    "rule": "Stress falls on the last syllable of the word; unstressable suffixes and particles (negative -ma/-me, question -mı/-mi, predicative personal endings) leave it on the syllable before them.",
+    "cues": "not instrumentally studied in the sources used"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "moderate: the high vowels are short, centralised and may be dropped in unstressed syllables; non-high vowels keep their quality",
+    "final_lengthening": "moderate"
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "No vowel length contrast. Geminates occur in a few stems (elli 'fifty'), in loans and at morpheme boundaries."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "rise on the final stressed syllable of non-final phrases, fall at the end of the statement",
+    "yes_no_question": "marked by the particle -mı/-mi/-mu/-mü; pitch is high on the syllable before the particle",
+    "wh_question": "prominence on the question word, final fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "rise to a high on the final stressed syllable",
+    "notes": "Low confidence: no instrumental study of Crimean Tatar intonation was available to me; the entries follow the general pattern of the better described Turkic languages (Turkish, Kazakh)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "trk/crh",
+    "phoneme_table": "crh",
+    "problems": [
+      "a palatal glide is put before every e and most i, which palatalises the preceding consonant in the Russian way (men gives [mʲen], ev gives [ʲef], kelmedi gives [cʲelmʲedɪ]); the descriptions of Crimean Tatar have no such palatalisation",
+      "word-final z, v and j are devoiced to [s f ʃ] by rule (qız gives [qɯs]); the standard language keeps final /z/ voiced",
+      "i after most consonants is a mid central vowel (F1 500, F2 1412 Hz) and ı is F1 448, F2 1280 Hz: both are mid rather than high, and the difference between them is small",
+      "ö is a mid central vowel with the same formant targets as schwa (525 and 1441 Hz)",
+      "unstressable suffixes are covered only in part: the negative -ma/-me and the question particle are stressed (kelmedi gets final stress)"
+    ],
+    "good": [
+      "final stress is written into the vowel rules",
+      "q, ñ [ŋ], ğ [ɣ] and h [x] are present; k and g are palatal before front vowels; l is velarised next to back vowels",
+      "vowel harmony follows from the spelling; a list of about 500 words covers names and exceptions"
+    ]
+  },
+  "notes": "The voice is marked 'status testing' in eSpeak NG. Its p t k are unaspirated; the sources used here do not document the degree of aspiration in Crimean Tatar."
+}

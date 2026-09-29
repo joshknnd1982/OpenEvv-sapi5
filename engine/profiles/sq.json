@@ -1,0 +1,103 @@
+{
+  "tag": "sq",
+  "name": "Albanian",
+  "family": "Indo-European, Albanian",
+  "variety": "Standard Albanian, which is based on Tosk; phonetic detail from Northern Tosk speakers (Coretta et al. 2023)",
+  "sources": [
+    "Coretta, Stefano; Riverin-Coutlée, Josiane; Kapia, Enkeleida; Nichols, Stephen (2023). Northern Tosk Albanian. Journal of the International Phonetic Association 53(3): 1122-1144.",
+    "Newmark, Leonard; Hubbard, Philip; Prifti, Peter (1982). Standard Albanian: A Reference Grammar for Students. Stanford University Press.",
+    "Buchholz, Oda; Fiedler, Wilfried (1987). Albanische Grammatik. Leipzig: Verlag Enzyklopädie.",
+    "Camaj, Martin (1984). Albanian Grammar. Wiesbaden: Harrassowitz.",
+    "Moosmüller, Sylvia; Granser, Theodor (2006). The spread of Standard Albanian: an illustration based on an analysis of vowels. Language Variation and Change 18: 121-140.",
+    "Kolgjini, Julie M. (2004). Palatalization in Albanian: an acoustic investigation of stops and affricates. PhD dissertation, University of Texas at Arlington."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "t͡s", "d͡z", "t͡ʃ", "d͡ʒ", "c", "ɟ", "m", "n", "ɲ", "f", "v", "θ", "ð", "s", "z", "ʃ", "ʒ", "h", "r", "ɾ", "l", "ɫ", "j"],
+  "vowels": ["i", "y", "u", "e", "ə", "ɔ", "a"],
+  "diphthongs": ["ie", "ye", "ua", "ue"],
+  "contrasts": [
+    "two rhotics: a tap or flap (written r) against a trill (written rr)",
+    "two laterals: a plain, slightly palatalised alveolar /l/ against a velarised dental /ɫ/ (written ll)",
+    "dental fricatives /θ ð/ beside /s z/ and /ʃ ʒ/",
+    "three pairs of affricates: alveolar /t͡s d͡z/, postalveolar /t͡ʃ d͡ʒ/, and the pair written q, gj, traditionally palatal stops /c ɟ/",
+    "voicing in all stops, affricates and fricatives except /h/",
+    "front rounded /y/ and a mid central vowel (written ë) that can be stressed",
+    "lexical stress",
+    "no contrast of vowel length or nasality in the Tosk-based standard; both exist in Gheg"
+  ],
+  "allophony": [
+    "q and gj are affricates for Northern Tosk speakers, with a laminal postalveolar closure; they are never plain stops in the JIPA recordings, and they merge with /t͡ʃ d͡ʒ/ in many Gheg varieties",
+    "the single r is a tap, often a retroflex flap [ɽ] or approximant [ɻ], the approximant mostly in a syllable coda",
+    "/ɫ/ may be vocalised in running speech",
+    "/h/ may be voiced [ɦ] between vowels",
+    "the vowel written ë is more open than a schwa, near [ɜ], with slight lip rounding; /y/ is a lax [ʏ]; /a/ is central to back",
+    "final unstressed ë is weak and often dropped in colloquial speech",
+    "voiceless stops are unaspirated, /k/ with a longer release; voiced stops are fully prevoiced",
+    "voiced obstruents at the end of a word are often devoiced in colloquial Tosk"
+  ],
+  "syllable_structure": "(C)(C)(C)V(C)(C)",
+  "phonotactics": [
+    "initial clusters of nasal plus stop (mb, nd, ng, ngj) and of sh or zh plus consonant (shk, shp, zgj)",
+    "the mid central vowel is frequent in unstressed syllables, before and after the stress",
+    "vowel sequences such as ie, ua, ye are common; whether they are diphthongs or two syllables is disputed"
+  ],
+  "stress": {
+    "type": "lexical, largely predictable from word structure",
+    "rule": "Stress falls on the last syllable of the stem: on the final syllable of most consonant-final words and of many vowel-final ones (liri, shtëpi, atdhe), on the penultimate of words ending in unstressed -ë, -e, -ër, -ur and the like; endings and the suffixed article do not move it, so it can stand on the antepenultimate of an inflected form (flutura).",
+    "cues": "stressed vowels are longer and higher in pitch; intensity is a less regular cue (Coretta et al. 2023)"
+  },
+  "rhythm": {
+    "class": "mixed",
+    "vowel_reduction": "moderate: unstressed ë is short and may drop; other unstressed vowels keep their quality",
+    "final_lengthening": "moderate",
+    "notes": "No rhythm-metric study was found. Word-final vowels tend to be lengthened (noted by Coretta et al. 2023)."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": false,
+    "notes": "No phonemic length in the standard language. Gheg varieties contrast short and long (in the north-west also extra-long) vowels."
+  },
+  "voice_onset_time_ms": {
+    "confidence": "high",
+    "source": "Coretta et al. 2023, table 1 (five speakers, word-initial stops in isolated words, 15 tokens per word)",
+    "values": {"p": 14, "t": 15, "k": 55, "b": -108, "d": -117, "ɡ": -106}
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "falling contour",
+    "yes_no_question": "rising contour; the question is often introduced by the particle a",
+    "wh_question": "rising in the recordings of Coretta et al. (2023); earlier descriptions also give questions a rising contour",
+    "continuation": "not described in the sources consulted",
+    "accent_shape": "higher pitch on the stressed syllable",
+    "notes": "Recent work links topic, information focus and contrastive focus to different tunes in Standard Albanian; the details were not checked."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "ine/sq",
+    "phoneme_table": "sq",
+    "problems": [
+      "a word-final vowel is never stressed unless a rule says so: shtëpi, liri, atdhe and kafe are stressed on the penultimate syllable, in shtëpi even on ë",
+      "rr at the beginning of a word gets a schwa in front (rrugë is given as [əˈruɡə])",
+      "single r is a trill and rr a double trill, so the contrast is one of length, not tap against trill",
+      "the vowel sequences ua and ie are made a glide plus vowel (grua as [ɡrwɑ], dielli as [djelli]), which moves the syllable peak",
+      "final unstressed ë after a consonant is made a very short schwa by rule in most words, a colloquial feature applied everywhere",
+      "IPA output is misleading: plain l is printed [ɫ], velarised ll is printed 'll', and stressed ë is printed [ʌ]",
+      "no voicing of /h/ between vowels and no sandhi across words",
+      "intonation is generic"
+    ],
+    "good": [
+      "l and ll are distinct sounds with clear and dark formant patterns",
+      "q and gj are alveolo-palatal affricates, close to the Northern Tosk realisation",
+      "dental fricatives, /y/ and the three affricate pairs are present",
+      "suffix rules keep the stress on the stem in inflected forms (punëtor, tavolinë, universitet, faleminderit are correct)",
+      "unaspirated voiceless stops"
+    ]
+  },
+  "notes": "Vowel formants are left out: Coretta et al. (2023) give only a normalised F1/F2 plot, and the values of Moosmüller & Granser (2006) could not be checked."
+}

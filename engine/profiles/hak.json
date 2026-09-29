@@ -1,0 +1,157 @@
+{
+  "tag": "hak",
+  "name": "Hakka Chinese",
+  "family": "Sino-Tibetan, Sinitic, Hakka",
+  "variety": "Sixian Hakka of Taiwan (Northern Sixian, Miaoli), which is the variety that eSpeak NG's tone values, its sandhi rule and its Pha̍k-fa-sṳ input correspond to; Meixian (Guangdong) values are given for comparison",
+  "sources": [
+    "Hashimoto, Mantaro J. (1973). The Hakka Dialect: A Linguistic Study of its Phonology, Syntax and Lexicon. Cambridge University Press.",
+    "Lee, Wai-Sum & Zee, Eric (2009). Hakka Chinese. Journal of the International Phonetic Association 39(1), 107-111.",
+    "Chung, Raung-fu (2004). Taiwan Kejia yuyin daolun [An introduction to the sounds of Taiwan Hakka]. Taipei: Wunan.",
+    "Ministry of Education, Taiwan (2012). Kejiayu pinyin fang'an [Hakka romanisation scheme], with tone values for the Sixian, Hailu, Dapu, Raoping and Zhao'an varieties.",
+    "Chen, Matthew Y. (2000). Tone Sandhi: Patterns across Chinese Dialects. Cambridge University Press."
+  ],
+  "consonants": ["p", "pʰ", "t", "tʰ", "k", "kʰ", "ts", "tsʰ", "tɕ", "tɕʰ", "f", "v", "s", "ɕ", "h", "m", "n", "ɲ", "ŋ", "l", "j"],
+  "vowels": ["i", "ɨ", "e", "a", "o", "u", "m̩", "n̩", "ŋ̍"],
+  "diphthongs": ["ai", "au", "eu", "oi", "ui", "ia", "ie", "io", "iu", "ua", "ue", "iau", "ieu", "ioi", "uai"],
+  "contrasts": [
+    "aspirated versus unaspirated in stops and affricates; no voiced stops",
+    "voiced labiodental v against f",
+    "three final nasals m n ŋ and three final stops p t k, all kept (unlike Mandarin)",
+    "four tones in open and nasal-final syllables and two in checked syllables",
+    "apical (central) vowel ɨ against i after the sibilants",
+    "syllabic nasals m̩, n̩, ŋ̍"
+  ],
+  "allophony": [
+    "ts tsʰ s are alveolo-palatal [tɕ tɕʰ ɕ] before i in Sixian; Hailu and some other varieties have a separate postalveolar series",
+    "ŋ is palatal [ɲ] before i (written ngi)",
+    "v is a weakly fricated labiodental, often an approximant [ʋ]",
+    "final p t k are unreleased",
+    "the vowel written ṳ in Pha̍k-fa-sṳ (ii in the Ministry scheme) is an apical or central unrounded vowel [ɨ], found only after ts tsʰ s",
+    "zero-initial syllables beginning with i have a palatal glide onset, with friction in some varieties"
+  ],
+  "syllable_structure": "(C)(G)V(C) plus tone, where G is i or u and the coda is one of m n ŋ p t k or an offglide; or a syllabic nasal plus tone",
+  "phonotactics": [
+    "no consonant clusters",
+    "codas are limited to m n ŋ p t k and offglides",
+    "checked syllables (ending in p t k) carry only the two entering tones, yinru and yangru",
+    "ɨ occurs only after the sibilants ts tsʰ s"
+  ],
+  "stress": {
+    "type": "none (no lexical stress)",
+    "rule": "Every syllable carries a lexical tone; no stress placement rule is described.",
+    "cues": "not documented in the sources used"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none",
+    "final_lengthening": "moderate",
+    "notes": "No instrumental rhythm study of Sixian Hakka is known to the compiler; the class is given by analogy with other southern Sinitic languages and should be treated as low confidence."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": false,
+    "notes": "No length contrast. Vowels in checked syllables are short."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "lexical tones are kept, with declination; sentence-final particles carry much of the sentence-type meaning",
+    "yes_no_question": "marked mainly by a final particle or by A-not-A form; instrumental descriptions of the melody are lacking",
+    "wh_question": "statement-like; question word in place",
+    "continuation": "not documented in the sources used",
+    "accent_shape": "no pitch accents",
+    "notes": "Hakka intonation is poorly documented; these entries are general and of low confidence."
+  },
+  "tone": {
+    "type": "lexical tone",
+    "tone_bearing_unit": "syllable",
+    "confidence": "high",
+    "confidence_notes": "high for the Sixian citation values, which are the official Ministry of Education values; medium for durations and phonation",
+    "inventory": [
+      {
+        "name": "tone 1, yinping 陰平 (Pha̍k-fa-sṳ circumflex, â)",
+        "espeak": "1",
+        "chao": "24",
+        "description": "Low rising.",
+        "connected_speech": "11 (low level, like yangping) before yinping 24, qusheng 55 and yangru 5; 24 elsewhere",
+        "phonation": "modal",
+        "duration": "normal"
+      },
+      {
+        "name": "tone 2, yangping 陽平 (Pha̍k-fa-sṳ grave, à)",
+        "espeak": "2",
+        "chao": "11",
+        "description": "Low level.",
+        "connected_speech": "11",
+        "phonation": "modal",
+        "duration": "normal"
+      },
+      {
+        "name": "tone 3, shangsheng 上聲 (Pha̍k-fa-sṳ acute, á)",
+        "espeak": "3",
+        "chao": "31",
+        "description": "Mid falling.",
+        "connected_speech": "31",
+        "phonation": "modal",
+        "duration": "normal"
+      },
+      {
+        "name": "tone 4, qusheng 去聲 (Pha̍k-fa-sṳ unmarked, a)",
+        "espeak": "4",
+        "chao": "55",
+        "description": "High level.",
+        "connected_speech": "55",
+        "phonation": "modal",
+        "duration": "normal"
+      },
+      {
+        "name": "tone 5, yinru 陰入 (Pha̍k-fa-sṳ unmarked with final p t k, ak)",
+        "espeak": "5",
+        "chao": "2",
+        "description": "Low, short, in checked syllables.",
+        "connected_speech": "2",
+        "phonation": "modal, cut off by the unreleased final stop",
+        "duration": "short"
+      },
+      {
+        "name": "tone 6, yangru 陽入 (Pha̍k-fa-sṳ vertical line above with final p t k, a̍k)",
+        "espeak": "6",
+        "chao": "5",
+        "description": "High, short, in checked syllables.",
+        "connected_speech": "5",
+        "phonation": "modal, cut off by the unreleased final stop",
+        "duration": "short"
+      }
+    ],
+    "sandhi": [
+      "Sixian (Northern, Miaoli): yinping 24 becomes low level 11, the same as yangping, before a syllable with yinping 24, qusheng 55 or yangru 5 (before the tones that are or end high); it stays 24 before yangping 11, shangsheng 31 and yinru 2",
+      "the other Sixian tones do not change",
+      "other varieties have different and larger sets of rules (Hailu, Meixian); they are not described here"
+    ],
+    "neutral_tone": "no neutral tone comparable to Mandarin is described for Sixian",
+    "notes": "Meixian (Hashimoto 1973; Lee & Zee 2009) differs: yinping 44, yangping 11, shangsheng 31, qusheng 52 or 53, yinru 1 or 21, yangru 5. The combination low rising yinping 24 with high level qusheng 55 is what identifies eSpeak NG's table as Sixian. Hailu, the other main Taiwan variety, has seven tones (53, 55, 24, 11, 33, 5, 2) and roughly mirror-image pitch values. No published F0 values are given here."
+  },
+  "phonation": [
+    "no phonation contrast; aspiration only in stops and affricates",
+    "checked syllables end in an unreleased stop"
+  ],
+  "espeak": {
+    "voice_file": "sit/hak",
+    "phoneme_table": "hak",
+    "problems": [
+      "only Pha̍k-fa-sṳ romanisation can be read: hak_list holds nothing but numerals, so Hakka written in Han characters is not spoken, although the language is flagged as using ideographs",
+      "the Sixian sandhi rule is applied only inside one written word (syllables joined by hyphens or written together): thiên-kông becomes 11 24 but thiên kông with a space keeps 24 24",
+      "no sentence intonation and no declination: CalcPitches_Tone() in src/libespeak-ng/intonation.c ignores the clause type, and a question gives the same audio as a statement",
+      "the checked tones are not short in themselves: every vowel has length 250, and the checked syllable is shortened only by the time taken by the final stop (vowel about 210 ms against 280 ms measured)",
+      "final p t k have a weak release burst after about 40 ms of closure, where Hakka has unreleased stops",
+      "rule gaps: the rhyme ie with the yangru mark is not covered (ngie̍t is misparsed), and chhṳ is given the alveolo-palatal affricate that belongs before i",
+      "the tone table uses a different pitch scale from the other tone languages (20 to 100 instead of 10 to 50), giving about 81 to 122 Hz at the default voice pitch (about 7 semitones, measured); this is wider than eSpeak's Mandarin and Cantonese but still narrower than natural speech",
+      "no tonal coarticulation"
+    ],
+    "good": [
+      "the tone table carries the Sixian values as IPA tone letters (24, 11, 31, 55, 2, 5) and the pitch targets match them",
+      "the Sixian yinping sandhi is implemented in C, in CalcPitches_Tone() in src/libespeak-ng/intonation.c: tone 1 becomes tone 2 before tones 1, 4 and 6",
+      "aspirated and unaspirated stops and affricates, v, the palatal nasal, the apical vowel and the three syllabic nasals are all present"
+    ]
+  },
+  "notes": "The status of the voice in eSpeak NG is 'testing'. Pha̍k-fa-sṳ marks tone by diacritics: circumflex yinping, grave yangping, acute shangsheng, no mark qusheng or yinru, vertical line above yangru."
+}

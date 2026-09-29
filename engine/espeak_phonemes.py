@@ -113,7 +113,7 @@ def is_modifier(ch):
 # eSpeak writes a phoneme it has no IPA for by converting its ASCII mnemonic a
 # character at a time, which leaves some mnemonic marks behind: `s.' is a
 # retroflex s, `ph' an aspirated p, `i[' and `i.' the apical vowels of Mandarin.
-RETRO_OF = {"s": "ʂ", "z": "ʐ", "t": "ʈ", "d": "ɖ", "n": "ɳ", "l": "ɭ", "r": "ɻ", "ʃ": "ʂ", "ʒ": "ʐ"}
+RETRO_OF = {"s": "ʂ", "z": "ʐ", "t": "ʈ", "d": "ɖ", "n": "ɳ", "l": "ɭ", "r": "ɽ", "ʃ": "ʂ", "ʒ": "ʐ"}
 
 
 # Letters some phoneme tables use in place of IPA's own: the affricate
@@ -127,6 +127,9 @@ LETTER_EQUIVALENTS = {
 
 def normalise(ipa):
     s = unicodedata.normalize("NFD", ipa)
+    # the c with a cedilla is a letter of the IPA and not a c with a mark on it:
+    # taken apart, the palatal fricative was read as the palatal stop
+    s = s.replace("c\u0327", "\u00e7")
     s = s.replace("ɡ", "ɡ")
     s = "".join(LETTER_EQUIVALENTS.get(ch, ch) for ch in s)
     if s == "?":
@@ -144,6 +147,12 @@ def normalise(ipa):
             out.append(ch + "ʰ"); i += 2; continue
         if ch in MNEMONIC_LETTERS:
             out.append(MNEMONIC_LETTERS[ch]); i += 1; continue
+        # A backquote after a stop or an affricate is an ejective in the
+        # tables that write one so (Amharic, Tigrinya, Oromo, Quechua: p` t`
+        # tS` k` q`); after anything else it is a shorter variant (Latvian),
+        # which is nothing to say.
+        if ch == "`" and out and out[-1] in ("p", "t", "k", "q", "c", "ʃ", "s", "ʈ", "ɕ"):
+            out.append("ʼ"); i += 1; continue
         if ch in ".#^%\"-/[]!`~;_':=,+*<>|{}()?" and not (ch == "?" and not out):
             if ch == ";":
                 out.append(MOD_PALATAL)

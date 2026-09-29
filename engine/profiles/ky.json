@@ -1,0 +1,89 @@
+{
+  "tag": "ky",
+  "name": "Kyrgyz",
+  "family": "Turkic, Kipchak (Kyrgyz-Kipchak)",
+  "variety": "Standard Kyrgyz of Kyrgyzstan (northern dialect base), Cyrillic script",
+  "sources": [
+    "Kara, Dávid Somfai (2003). Kyrgyz. Lincom Europa.",
+    "Kirchner, Mark (1998). Kirghiz. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge.",
+    "Hebert, Raymond J. & Poppe, Nicholas (1963). Kirghiz Manual. Indiana University."
+  ],
+  "consonants": ["p", "b", "t̪", "d̪", "k", "ɡ", "tʃ", "dʒ", "s", "z", "ʃ", "m", "n", "ŋ", "l", "r", "j", "f", "v", "x", "ts"],
+  "vowels": ["i", "y", "ɯ", "u", "e", "ø", "o", "ɑ", "eː", "øː", "oː", "ɑː", "uː", "yː"],
+  "diphthongs": [],
+  "contrasts": [
+    "eight short vowels in a symmetrical system: high versus non-high, front versus back, rounded versus unrounded",
+    "phonemic vowel length, written with double letters (тоо 'mountain', суу 'water', жаан 'rain' versus жан 'soul'); long /iː ɯː/ are marginal",
+    "voiced versus voiceless stops and affricates",
+    "uvular [q ʁ] are variants of /k ɡ/ in back-vowel words, contrastive only in loans",
+    "strong rounding harmony: low vowels also round after rounded vowels, and the spelling shows it (көлдөр, тоолор)"
+  ],
+  "allophony": [
+    "/k/ is uvular [q] and /ɡ/ is [ʁ ~ ɢ] in back-vowel words; velar [k] and [ɡ ~ ɣ] in front-vowel words",
+    "/b/ is weakened to [β ~ w] between vowels",
+    "/q/ may be a fricative [χ] and /ɡ/ a fricative between vowels",
+    "/l/ is velarised in back-vowel words",
+    "word-initial ж is the affricate [dʒ]; [ʒ] occurs in Russian loans",
+    "suffix-initial consonants assimilate to the end of the stem (plural -лар, -дар, -тар with their harmonic variants)",
+    "/f v x ts/ occur in loanwords only; older loans replace f with p and x with k"
+  ],
+  "syllable_structure": "(C)V(ː)(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words",
+    "coda clusters are sonorant + obstruent (төрт, кырк)",
+    "backness and rounding harmony throughout native words and suffixes; after /u/ a low suffix vowel stays unrounded /ɑ/ (куштар), after /o ø y/ it is rounded",
+    "long vowels and Russian loans may break harmony",
+    "/ŋ/ does not begin a word"
+  ],
+  "stress": {
+    "type": "fixed final by default, with morphological exceptions",
+    "rule": "Stress falls on the last syllable of the word; unstressable suffixes and particles (negative -ба, question -бы, predicative personal endings) leave it on the syllable before them, and Russian loans may keep their own stress.",
+    "cues": "not instrumentally studied in the sources used; long vowels keep their length whether stressed or not"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none in quality; short high vowels can be very short between voiceless consonants",
+    "final_lengthening": "moderate"
+  },
+  "length": {
+    "vowel": true,
+    "consonant": true,
+    "notes": "Six long vowels /eː øː oː ɑː uː yː/ from the loss of consonants between vowels; they are written double. Geminates arise at morpheme boundaries and in a few stems. No published duration ratio is given here."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "rise on the final stressed syllable of non-final phrases, fall at the end of the statement",
+    "yes_no_question": "marked by the particle -бы (-би, -бу, -бү and variants with п); pitch is high on the syllable before the particle",
+    "wh_question": "prominence on the question word, final fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "rise to a high on the final stressed syllable",
+    "notes": "Low confidence: no instrumental study of Kyrgyz intonation was available to me; the entries follow the general pattern of the better described Turkic languages (Turkish, Kazakh)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "trk/ky",
+    "phoneme_table": "ky",
+    "problems": [
+      "the phoneme v (в) is defined as a vowel with vowel formants (a placeholder marked 'english v for now'), so в in loans such as вагон is not a fricative",
+      "ь and ъ are read as [j] (альбом gives [aljbom])",
+      "final stress is written into every vowel rule, so unstressable suffixes and particles are stressed (келдиби and келбейт get final stress)",
+      "dark l is changed to clear l before every vowel, so the velarised onset of back-vowel words is never produced",
+      "no weakening of b, g, q between vowels",
+      "the ipa strings of the table are not IPA (oe, N, S, X, tS, dZ, l-, t[), so --ipa output is wrong although the sounds are right",
+      "the statement and question tunes are the ones written for French (s3 c3 q3 e3)"
+    ],
+    "good": [
+      "long vowels from doubled letters, with about twice the length of short vowels",
+      "к and г become [q] and [ʁ] next to back vowels by rule",
+      "ж is [dʒ]; all eight vowel qualities are present and harmony follows from the spelling"
+    ]
+  },
+  "notes": "The consonant list includes /f v x ts/, which occur in loanwords only. The degree of aspiration of the voiceless stops is not documented in the sources used; eSpeak NG uses aspirated samples for p and k and an unaspirated dental t."
+}

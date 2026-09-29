@@ -1,0 +1,93 @@
+{
+  "tag": "lij",
+  "name": "Ligurian (Genoese)",
+  "family": "Indo-European, Romance, Western Romance, Gallo-Italic",
+  "variety": "Genoese, the urban variety of Genoa that serves as the Ligurian koine, in the official spelling of the Académia Ligùstica do Brénno",
+  "sources": [
+    "Toso, Fiorenzo (1997). Grammatica del genovese: varietà urbana e di koinè. Recco: Le Mani.",
+    "Forner, Werner (1988). Italienisch: Areallinguistik I. Ligurien. In Holtus, Metzeltin and Schmitt (eds.), Lexikon der Romanistischen Linguistik, volume IV. Tübingen: Niemeyer.",
+    "Forner, Werner (1997). Liguria. In Maiden and Parry (eds.), The Dialects of Italy. London: Routledge.",
+    "Ghini, Mirco (2001). Asymmetries in the Phonology of Miogliola. Berlin: Mouton de Gruyter."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "tʃ", "dʒ", "f", "v", "s", "z", "ʃ", "ʒ", "m", "n", "ɲ", "ŋ", "l", "r", "j", "w"],
+  "vowels": ["i", "iː", "y", "yː", "e", "eː", "ø", "øː", "ɛ", "ɛː", "a", "aː", "ɔ", "ɔː", "u", "uː"],
+  "diphthongs": ["aj", "ej", "ɔj", "uj", "aw", "ɔw", "ja", "je", "ju", "wa", "we", "wi"],
+  "contrasts": [
+    "vowel length in stressed syllables for every vowel quality, shown in the official spelling (long vowels with a circumflex, ö for long [ɔː] and æ for long [ɛː]; short stressed vowels with an acute or grave): amîgo [aˈmiːɡu], mâ [maː], against tùtto [ˈtytu], neutte [ˈnøte]",
+    "front rounded vowels /y ø/ next to /i e/ and /u/ (written u, eu; written o is [u])",
+    "open-mid versus close-mid front vowels /ɛ e/",
+    "velar nasal /ŋ/ versus alveolar /n/ between vowels: the velar nasal continues Latin single n and is written nn- or ñ (lùnn-a [ˈlyŋa] 'moon', campann-a 'bell'), while Latin double nn gives [n] (pénna [ˈpena] 'feather')",
+    "voiced versus voiceless sibilants /s z/ and /ʃ ʒ/ (written s, ç, z, sc, x)",
+    "affricates /tʃ dʒ/; there are no /ts dz/ and no /ʎ/ (figgio, famiggia have /dʒ/)",
+    "lexical stress"
+  ],
+  "allophony": [
+    "/n/ is velar [ŋ] at the end of a word and before any consonant (pan [paŋ], canto [ˈkaŋtu])",
+    "a consonant after a short stressed vowel is somewhat lengthened and is written double (neutte, tutto, dònna); after a long vowel it is short. Consonant length is not distinctive by itself",
+    "stressed vowels are long before r plus consonant (càrta) and in many open penultimate syllables",
+    "/r/ is a weak alveolar tap; between vowels and at the end of infinitives it was lost in the urban dialect (scignoa 'lady', mangiâ 'to eat')",
+    "vowels before the velar nasal are nasalised to some degree",
+    "unstressed vowels keep their quality; long vowels also occur in unstressed syllables before the stress, written with a diaeresis",
+    "/s/ before a voiced consonant is [z]; written s between vowels is [z], ss and ç are [s]"
+  ],
+  "syllable_structure": "(C)(C)(G)V(ː)(G)(C)",
+  "phonotactics": [
+    "the cluster written scc is [ʃtʃ] (scciumma)",
+    "words end in a vowel or in the velar nasal; other final consonants occur in loanwords",
+    "sequences of vowels are frequent because of lost consonants (moæ, poæ, scignoa)"
+  ],
+  "stress": {
+    "type": "lexical, mostly penultimate",
+    "rule": "Stress falls on the penultimate syllable of most words and on the last syllable of words that end in a long vowel (infinitives such as mangiâ, finî; çittæ) or in a stressed vowel plus nasal; the official spelling marks stress and length with accents.",
+    "cues": "duration (with the vowel length contrast realised in the stressed syllable), pitch and intensity"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none",
+    "final_lengthening": "moderate",
+    "notes": "No rhythm measurements for Ligurian are known to us. Length of the stressed vowel and of the following consonant are in inverse relation."
+  },
+  "length": {
+    "vowel": true,
+    "consonant": false,
+    "notes": "Vowel length is distinctive under stress. Double consonants of the spelling mark a preceding short vowel and are only slightly longer than single ones, unlike Italian geminates. No duration ratios are cited here."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "fall on or after the last stressed syllable to a low ending",
+    "yes_no_question": "no change of word order; rise at the end of the utterance",
+    "wh_question": "high on the question word, then a fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "rise through the stressed syllable, helped by the long vowels",
+    "notes": "Genoese speech is popularly said to have a marked sing-song melody, but the intonation of Ligurian has not been described in the sources used here. The entries are general northern Italian patterns and should be read as low confidence."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none",
+    "notes": ""
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "roa/lij",
+    "phoneme_table": "lij",
+    "problems": [
+      "the velar nasal between vowels is lost: nn- is read as plain [n] (lùnn-a [lˈyna], penn-a [pˈena], bonn-a [bˈuna]), so penn-a and pénna sound the same",
+      "the hyphen of nn-a also upsets the stress: campann-a is stressed on the first syllable ([kˈaŋpana])",
+      "the long vowel written êu is not recognised: fêugo is [fˈeːyːɡu] instead of [ˈføːɡu]",
+      "lengoa is [leŋɡˈua] with stress on u; the expected form is [ˈleŋɡwa]",
+      "double consonants get a half-length mark in the IPA output only; their duration in the synthesis is that of single consonants",
+      "/r/ is the base trill, where Genoese has a weak tap",
+      "intonation uses one of the generic tune sets (voice option 'intonation 2')"
+    ],
+    "good": [
+      "sixteen vowel phonemes: eight qualities including [y] and [ø], each short and long (about 150 to 180 against 230 to 260 table units)",
+      "the letter values of the official spelling: o as [u], u as [y], eu as [ø], æ as [ɛː], x as [ʒ], ç as [s], z as [z]",
+      "final and pre-consonantal n is velar [ŋ] (pan [pˈaŋ], gianco [dʒˈaŋku])",
+      "stressed vowels are lengthened before r plus consonant (càrta [kˈaːrta])"
+    ]
+  },
+  "notes": "Ligurian varieties differ a good deal (western, central, eastern, Oltregiogo, and the colonial varieties of Monaco, Bonifacio and Carloforte); this profile is for Genoese only. Several spellings are in use; the rules expect the official one with accents for length and stress."
+}

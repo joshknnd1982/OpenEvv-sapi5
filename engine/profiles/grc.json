@@ -1,0 +1,113 @@
+{
+  "tag": "grc",
+  "name": "Greek (Ancient)",
+  "family": "Indo-European, Hellenic",
+  "variety": "Classical Attic of the fifth and fourth centuries BC, in the reconstruction of Allen (1987). eSpeak NG does not follow this reconstruction: it speaks an Erasmian-type school pronunciation, with the classical vowel values but fricatives for φ θ χ, [z] for ζ and a stress accent in place of the pitch accent.",
+  "sources": [
+    "Allen, W. Sidney (1987). Vox Graeca: A Guide to the Pronunciation of Classical Greek (3rd ed.). Cambridge University Press.",
+    "Devine, A. M.; Stephens, Laurence D. (1994). The Prosody of Greek Speech. Oxford University Press.",
+    "Probert, Philomen (2003). A New Short Guide to the Accentuation of Ancient Greek. London: Bristol Classical Press.",
+    "Probert, Philomen (2006). Ancient Greek Accentuation: Synchronic Patterns, Frequency Effects, and Prehistory. Oxford University Press.",
+    "Horrocks, Geoffrey (2010). Greek: A History of the Language and its Speakers (2nd ed.). Wiley-Blackwell.",
+    "Sturtevant, Edgar H. (1940). The Pronunciation of Greek and Latin (2nd ed.). Philadelphia: Linguistic Society of America.",
+    "Dionysius of Halicarnassus, De compositione verborum, chapter 11 (ancient statement that the melody of speech spans about a fifth)."
+  ],
+  "consonants": ["p", "pʰ", "b", "t", "tʰ", "d", "k", "kʰ", "ɡ", "m", "n", "s", "h", "l", "r"],
+  "vowels": ["i", "iː", "y", "yː", "e", "eː", "ɛː", "a", "aː", "o", "ɔː", "uː"],
+  "diphthongs": ["ai̯", "oi̯", "yi̯", "au̯", "eu̯", "aːi̯", "ɛːi̯", "ɔːi̯", "ɛːu̯"],
+  "contrasts": [
+    "three series of stops: voiceless unaspirated /p t k/, voiceless aspirated /pʰ tʰ kʰ/ and voiced /b d ɡ/",
+    "vowel length: short /i y e a o/ against long /iː yː eː ɛː aː ɔː uː/; the long mid vowels are close /eː/ (ει) and open /ɛː/ (η), and /ɔː/ (ω) beside /uː/ (ου, earlier [oː])",
+    "consonant length: geminates such as λλ, μμ, νν, ππ, ττ, σσ, ρρ",
+    "pitch accent: its place in the word, and on long vowels and diphthongs the choice between acute (rise) and circumflex (fall)",
+    "/h/ at the beginning of a word (rough against smooth breathing)",
+    "front rounded /y yː/ (υ)",
+    "diphthongs with a short and with a long first element"
+  ],
+  "allophony": [
+    "/n/ is velar [ŋ] before a velar, written γ (ἄγκυρα, ἄγγελος, ἐγχειρίδιον, σφίγξ); γ before μ was probably [ŋ] as well (πρᾶγμα)",
+    "/s/ is voiced [z] before a voiced consonant (κόσμος, Λέσβος)",
+    "ζ stands for the sequence [zd]; ξ and ψ are [ks] and [ps]",
+    "ρ at the beginning of a word, and the second ρ of ρρ, is voiceless or aspirated [r̥]",
+    "the aspirated stops are true aspirates, not fricatives; the fricative values [f θ x] belong to later Greek",
+    "final short vowels are elided before a vowel, and vowels merge across words in crasis"
+  ],
+  "syllable_structure": "(C)(C)(C)V(V)(C)",
+  "phonotactics": [
+    "a word ends in a vowel or in /n r s/ (ξ and ψ included); ἐκ and οὐκ are the only words in a stop",
+    "a syllable is heavy if it has a long vowel or diphthong or is closed; metre is built on syllable weight",
+    "the accent falls on one of the last three syllables; it cannot stand on the antepenultimate if the final vowel is long; the circumflex stands only on a long vowel or diphthong in one of the last two syllables, and on the penultimate only if the final vowel is short",
+    "two aspirates do not stand in successive syllables of a root (Grassmann's law)"
+  ],
+  "stress": {
+    "type": "none: the word accent is one of pitch",
+    "rule": "One syllable among the last three carries the accent, a rise in pitch; its place is partly lexical and partly fixed by the length of the final vowel, and finite verbs put it as far from the end as the rules allow.",
+    "cues": "pitch alone; duration belongs to the quantity system and is independent of the accent, and there is no sign of vowel reduction"
+  },
+  "rhythm": {
+    "class": "mora-timed",
+    "vowel_reduction": "none",
+    "final_lengthening": "unknown",
+    "notes": "Rhythm rested on the alternation of heavy and light syllables, as the quantitative metres show. Devine & Stephens (1994) infer details of phrasing and lengthening from metrical evidence; none of it can be measured."
+  },
+  "length": {
+    "vowel": true,
+    "consonant": true,
+    "notes": "A long vowel or diphthong counts as two morae and a short vowel as one; in metre a heavy syllable is treated as equal to two light ones. Absolute durations are unknown."
+  },
+  "intonation": {
+    "pitch_range": "wide: ancient testimony puts the span between low and accented syllables at about a fifth",
+    "declarative": "as far as the musical fragments show, pitch rises towards each word accent and falls after it, and the accent peaks sink through the phrase, starting high again at the next phrase",
+    "yes_no_question": "unknown",
+    "wh_question": "unknown",
+    "continuation": "unknown; inside a phrase the grave accent shows that a word-final accent is lowered before the next word",
+    "accent_shape": "high pitch on the accented mora, reached by a gradual rise and followed by a fall on the next mora or syllable",
+    "notes": "All statements here are reconstructions from ancient grammarians and from texts set to music (the Delphic hymns, the Seikilos epitaph)."
+  },
+  "tone": {
+    "type": "pitch accent",
+    "tone_bearing_unit": "mora",
+    "inventory": [
+      {"name": "acute on a short vowel", "espeak": "", "chao": "5", "description": "high pitch on the single mora of the accented syllable", "phonation": "modal", "duration": "normal"},
+      {"name": "acute on a long vowel or diphthong", "espeak": "", "chao": "35", "description": "rising: the high pitch falls on the second mora", "phonation": "modal", "duration": "normal"},
+      {"name": "circumflex", "espeak": "", "chao": "52", "description": "falling: high on the first mora and a fall on the second; only on long vowels and diphthongs", "phonation": "modal", "duration": "normal"},
+      {"name": "grave", "espeak": "", "chao": "3", "description": "replaces an acute on a final syllable before another word; the rise is reduced or absent", "phonation": "modal", "duration": "normal"}
+    ],
+    "sandhi": [
+      "an acute on the last syllable becomes grave before another word of the same phrase, but stays before an enclitic and before a pause",
+      "an enclitic adds a second acute to the last syllable of a preceding word accented on the antepenultimate or carrying a circumflex on the penultimate (ἄνθρωπός τις, δῶρόν τι)",
+      "the syllable after the accent is low, and pitch climbs gradually over the syllables before the accent"
+    ],
+    "neutral_tone": "unaccented syllables are low to mid; proclitics and enclitics have no accent of their own",
+    "notes": "The Chao numerals are schematic: 5 stands for the accent peak, about a fifth above the low level. eSpeak NG has no tone phonemes for this language, so the espeak fields are empty."
+  },
+  "phonation": [
+    "aspirated voiceless stops /pʰ tʰ kʰ/",
+    "voiceless or aspirated word-initial ρ",
+    "/h/ at the beginning of words"
+  ],
+  "espeak": {
+    "voice_file": "grk/grc",
+    "phoneme_table": "grc",
+    "problems": [
+      "φ, θ, χ are fricatives [f θ x] (φ is defined as an 'affricate' played with the [f] sample), not the aspirated stops [pʰ tʰ kʰ] of Classical Attic",
+      "ζ is [z], not [zd]",
+      "the pitch accent is replaced by stress: acute, grave and circumflex are all turned into one primary stress mark, so acute and circumflex sound alike and the grave is not lowered",
+      "stressed syllables are lengthened, which cuts across the quantity system",
+      "γ before κ, χ, ξ stays [ɡ]; only γγ gives [ŋɡ] (ἄγκυρα is given as [aɡkyra])",
+      "σ is not voiced before voiced consonants (κόσμος, Λέσβος)",
+      "vowel length of α, ι, υ cannot be read from the spelling, and vowels written with a macron (ᾱ, ῑ) are not recognised: the word is broken up and spelled out",
+      "word-initial ῥ is [h] followed by a voiced trill",
+      "a pause is put after every word (voice option 'words 3'), so there is no connected phrasing and no elision or sandhi across words",
+      "intonation is the generic stress-accent tune set of the Modern Greek translator"
+    ],
+    "good": [
+      "vowel qualities follow the classical values: η as [ɛː], ω as [ɔː], ει as [eː], ου as [uː], υ as [y]",
+      "αι, οι, υι, αυ, ευ, ηυ are diphthongs, and iota subscript is pronounced as an off-glide",
+      "rough breathing is pronounced [h]",
+      "β, δ, γ are voiced stops",
+      "polytonic input is handled, and numbers are read with Attic number words"
+    ]
+  },
+  "notes": "There are no recordings, so formants, VOT and rhythm measures do not exist for this language. For a closer match to Classical Attic the main needs are aspirated stops, [zd], velar nasal before velars, and a pitch-accent model on the mora in place of stress."
+}

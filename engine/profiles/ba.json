@@ -1,0 +1,88 @@
+{
+  "tag": "ba",
+  "name": "Bashkir",
+  "family": "Turkic, Kipchak (Volga Kipchak)",
+  "variety": "Literary Bashkir (based on the Kuvakan and Yurmaty dialects), Cyrillic script",
+  "sources": [
+    "Poppe, Nicholas (1964). Bashkir Manual. Indiana University.",
+    "Berta, Árpád (1998). Tatar and Bashkir. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "q", "ʁ", "f", "s", "z", "θ", "ð", "ʃ", "ʒ", "χ", "h", "m", "n", "ŋ", "l", "r", "j", "w", "ʔ", "v", "ts", "tɕ"],
+  "vowels": ["i", "y", "u", "æ", "ɑ", "ĕ", "ø̆", "ŏ", "ɯ̆", "e", "o", "ɨ"],
+  "diphthongs": [],
+  "contrasts": [
+    "full vowels /i y u æ ɑ/ versus reduced (short, centralised) mid vowels /ĕ ø̆ ŏ ɯ̆/, spelt е/э, ө, о, ы",
+    "interdental fricatives /θ ð/ (spelt ҫ, ҙ) versus alveolar /s z/",
+    "velar /k ɡ/ versus uvular /q ʁ/, written with separate letters (к г versus ҡ ғ)",
+    "/h/ (spelt һ) as a frequent native phoneme, corresponding to /s/ of other Turkic languages",
+    "front versus back and rounded versus unrounded vowels"
+  ],
+  "allophony": [
+    "/θ/ and /ð/ are interdental fricatives, corresponding to /s/ and /z/ (and part of /d/) of the neighbouring Turkic languages",
+    "/ʁ/ is a uvular fricative, /q/ a uvular stop; both occur in back-vowel words",
+    "/l/ is velarised next to back vowels",
+    "/w/ is written у or ү after a vowel and в in native words; в is [v] in Russian loans",
+    "suffix-initial consonants alternate by the final sound of the stem (plural -лар, -дар, -ҙар, -тар)",
+    "reduced vowels are very short and may be dropped in fast speech",
+    "/ʔ v ts tɕ/ and full /e o ɨ/ occur only in loanwords"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words",
+    "coda clusters are sonorant + obstruent (дүрт, ҡырҡ)",
+    "backness harmony in native words and suffixes",
+    "rounding harmony of the reduced mid vowels is written in Bashkir (борон, төлкө), unlike Tatar",
+    "ь and ъ are not sounds of their own"
+  ],
+  "stress": {
+    "type": "fixed final by default, with morphological and lexical exceptions",
+    "rule": "Stress falls on the last syllable; unstressable suffixes and particles (negation, question particle, predicative personal endings) leave it on the syllable before them, imperatives and question words are stressed on the first syllable, and Russian loans keep their Russian stress.",
+    "cues": "not instrumentally studied in the sources used; the reduced vowels stay short even in the stressed final syllable"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "lexical rather than stress-driven: the reduced vowels ĕ ø̆ ŏ ɯ̆ are short and centralised in every position",
+    "final_lengthening": "moderate"
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "The vowel contrast is full versus reduced, not long versus short of the same quality. Geminates occur at morpheme boundaries and in a few stems. No published duration ratio is given here."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "rise on the final stressed syllable of non-final phrases, fall at the end of the statement",
+    "yes_no_question": "marked by the particle -мы/-ме (-мо/-мө); pitch is high on the syllable before the particle",
+    "wh_question": "prominence on the question word, final fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "rise to a high on the final stressed syllable",
+    "notes": "Low confidence: no instrumental study of Bashkir intonation was available to me; the entries follow the general pattern of the better described Turkic languages (Turkish, Kazakh)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "trk/ba",
+    "phoneme_table": "ba",
+    "problems": [
+      "no stress rule is set for ba, so the default penultimate stress applies (бала, китап, башҡорт are stressed on the first syllable); Bashkir stress is final",
+      "the Cyrillic letter classes are not set up for ba, so rules with a vowel or consonant context never match: у and ү after a vowel stay full vowels (тау gives two syllables instead of [tɑw])",
+      "г next to front vowels becomes the velar fricative [ɣ] instead of the stop [ɡ]",
+      "ь and ъ are always read as a glottal stop",
+      "Russian loanwords are read by the native rules (в is always [w], stress is not Russian)",
+      "unstressable suffixes, imperatives and question words are not handled"
+    ],
+    "good": [
+      "ҫ and ҙ are the dental fricatives [θ] and [ð]; ҡ and ғ are [q] and [ʁ]; һ is [h]",
+      "the reduced vowels е, ө, о, ы are shorter than the full vowels (length 110 against 180)",
+      "backness and rounding harmony follow from the spelling; я, ю, е choose front or back vowels by the harmony of the word",
+      "the front vowels æ (ә), y (ү) and ø̆ (ө) are present"
+    ]
+  },
+  "notes": "The eSpeak NG phoneme file ph_bashkir is identical to ph_tatar, including the Tatar rule that rounds first-syllable а to [ɒ]. The vowel list includes /e o ɨ/ and the consonant list /ʔ v ts tɕ/, which occur only in loanwords. The degree of aspiration of the voiceless stops is not documented in the sources used."
+}

@@ -1,0 +1,92 @@
+{
+  "tag": "kn",
+  "name": "Kannada",
+  "family": "Dravidian, South Dravidian",
+  "variety": "Standard Kannada (educated speech of the Mysore and Bangalore area), formal style",
+  "sources": [
+    "Sridhar, S. N. (1990). Kannada. London: Routledge (Descriptive Grammars).",
+    "Schiffman, Harold F. (1983). A Reference Grammar of Spoken Kannada. Seattle: University of Washington Press.",
+    "Steever, Sanford B. (1998). Kannada. In Steever (ed.), The Dravidian Languages. London: Routledge.",
+    "Upadhyaya, U. P. (1972). Kannada Phonetic Reader. Mysore: Central Institute of Indian Languages.",
+    "Krishnamurti, Bhadriraju (2003). The Dravidian Languages. Cambridge University Press."
+  ],
+  "consonants": ["p", "pʰ", "b", "bʱ", "t̪", "t̪ʰ", "d̪", "d̪ʱ", "ʈ", "ʈʰ", "ɖ", "ɖʱ", "tʃ", "tʃʰ", "dʒ", "dʒʱ", "k", "kʰ", "ɡ", "ɡʱ", "m", "n", "ɳ", "ɲ", "ŋ", "f", "s", "z", "ʃ", "ʂ", "h", "r", "l", "ɭ", "ʋ", "j"],
+  "vowels": ["i", "iː", "e", "eː", "a", "aː", "o", "oː", "u", "uː"],
+  "diphthongs": ["ai", "au"],
+  "contrasts": [
+    "vowel length for five vowel qualities",
+    "single versus geminate consonants",
+    "voiced versus voiceless stops in all vocabulary; aspirated and breathy voiced stops in Sanskrit and other loans, kept in educated formal speech and mostly lost colloquially",
+    "dental versus retroflex stops; alveolar versus retroflex nasal and lateral",
+    "/ɲ ŋ/ occur almost only before homorganic stops",
+    "/f z/ in Perso-Arabic and English loans; /ʃ/ and /ʂ/ are merged by most speakers"
+  ],
+  "allophony": [
+    "word-initial /e eː/ take a [j] on-glide and /o oː/ a [w] on-glide",
+    "the written nasal (anusvara) is homorganic with a following stop ([ŋ ɲ ɳ n̪ m]) and is [m] word-finally",
+    "/r/ is a tap [ɾ] between vowels and a trill when geminate or emphatic",
+    "/ʋ/ is a labiodental approximant, [w]-like before rounded vowels",
+    "short /a/ is centralised [ɐ] or [ʌ]; final short vowels are short and lax",
+    "aspirated and breathy voiced stops are pronounced without aspiration in colloquial speech",
+    "colloquial speech deletes short vowels of medial syllables, creating clusters (literary māḍuttēne, spoken māḍtīni 'I do')",
+    "English loans may keep [æː] and [ɔː] as extra vowel qualities"
+  ],
+  "syllable_structure": "(C)(C)V(ː)(C); most syllables are open",
+  "phonotactics": [
+    "words of the formal language end in a vowel; consonant-final stems and loanwords add the enunciative vowel -u (bassu 'bus')",
+    "initial clusters occur in Sanskrit and English loans",
+    "medial clusters are chiefly geminates and homorganic nasal plus stop in the formal language",
+    "retroflex /ɳ ɭ/ do not occur word-initially"
+  ],
+  "stress": {
+    "type": "no lexical stress; weak fixed prominence, not contrastive",
+    "rule": "A slight prominence falls on the first syllable of the word.",
+    "cues": "phrase-level pitch and slight lengthening; no reduction of vowel quality in the formal language"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none in the formal language; colloquial speech deletes short medial vowels",
+    "final_lengthening": "moderate",
+    "notes": "Syllable-timed is the traditional label. Because vowel and consonant length are contrastive, syllable duration follows the number of moras. No instrumental rhythm classification or nPVI value is cited here."
+  },
+  "length": {
+    "vowel": true,
+    "consonant": true,
+    "notes": "Long vowels are roughly twice as long as short vowels and geminate closures roughly twice as long as single ones (approximate ratios; no exact figures cited)."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "non-final phrases start low and rise toward their end; the final phrase, normally the verb, falls to low",
+    "yes_no_question": "marked by the clitic -ā on the verb or on the questioned word, with statement word order; pitch rises on the lengthened clitic vowel",
+    "wh_question": "question word stays in place and carries the main peak, followed by a fall to low",
+    "continuation": "rise to a high boundary at the end of non-final phrases and non-finite clauses",
+    "accent_shape": "low at the start of the phrase with a rise to its right edge (LH); no pitch accents tied to lexical stress",
+    "notes": "Instrumental work on Kannada intonation is sparse; this follows the reference grammars and the general pattern described for the neighbouring Dravidian languages."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none",
+    "notes": ""
+  },
+  "phonation": ["breathy voiced (voiced aspirated) stops /bʱ d̪ʱ ɖʱ dʒʱ ɡʱ/ in learned vocabulary"],
+  "espeak": {
+    "voice_file": "dra/kn",
+    "phoneme_table": "kn",
+    "problems": [
+      "ರ /r/ imports base1/r, the English approximant [ɹ] (IPA output [mˈɐɹɐ] for ಮರ), instead of a tap or trill",
+      "in the phoneme table short a carries the lng flag while the long vowels do not; the table is headed 'these are only guesses'",
+      "no on-glides for word-initial e and o",
+      "stress is fixed on the first syllable with stress-accent settings, and automatic secondary stress can fall on a short vowel next to an unstressed long one (ಕರ್ನಾಟಕ gives [kˈɐrnaːʈˌɐkɐ])",
+      "the obsolete letter ೞ (historical retroflex approximant, now /ɭ/) is read as [fa]"
+    ],
+    "good": [
+      "anusvara is homorganic before stops and [m] otherwise",
+      "vowel length (short 110 to 130, long 270 to 300 in table units) and geminates (doubled consonant phonemes) are kept",
+      "dental, retroflex, aspirated and breathy voiced stops come from the Hindi base table; nukta forms give [z] and [f]"
+    ]
+  },
+  "notes": "Kannada is diglossic like Tamil, though less sharply. Written text follows the formal language, in which every vowel is pronounced; the colloquial deletions are listed for reference only."
+}

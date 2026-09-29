@@ -1,0 +1,98 @@
+{
+  "tag": "mk",
+  "name": "Macedonian",
+  "family": "Indo-European, Balto-Slavic, Slavic, South Slavic (eastern group)",
+  "variety": "Standard Macedonian (literary norm based on the west-central dialects of the Prilep, Bitola, Veles and Kičevo area, as spoken in Skopje)",
+  "sources": [
+    "Friedman, Victor A. (2001). Macedonian. SEELRC Reference Grammars. Durham, NC: Slavic and East European Language Research Center, Duke University.",
+    "Friedman, Victor A. (1993). Macedonian. In B. Comrie & G. G. Corbett (eds.), The Slavonic Languages. London: Routledge.",
+    "Lunt, Horace G. (1952). A Grammar of the Macedonian Literary Language. Skopje: Državno knigoizdatelstvo.",
+    "Koneski, Blaže (1967). Gramatika na makedonskiot literaturen jazik. Skopje: Kultura.",
+    "Sawicka, Irena & Spasov, Ljudmil (1997). Fonologija na sovremeniot makedonski standarden jazik. Skopje: Detska radost.",
+    "Franks, Steven (1987). Regular and irregular stress in Macedonian. International Journal of Slavic Linguistics and Poetics 35-36.",
+    "Beasley, Tim & Crosswhite, Katherine (2003). Avoiding boundaries: antepenultimate stress in a rule-based framework. Linguistic Inquiry 34."
+  ],
+  "consonants": ["p", "b", "t", "d", "c", "ɟ", "k", "ɡ", "t͡s", "d͡z", "t͡ʃ", "d͡ʒ", "f", "v", "s", "z", "ʃ", "ʒ", "x", "m", "n", "ɲ", "l", "ɫ", "r", "j"],
+  "vowels": ["i", "ɛ", "a", "ɔ", "u"],
+  "diphthongs": [],
+  "contrasts": [
+    "five vowels without length or reduction; a marginal schwa in dialect words and some loans, written with an apostrophe",
+    "palatal stops /c ɟ/ (ќ, ѓ) versus velar /k ɡ/ and versus the affricates /t͡ʃ d͡ʒ/",
+    "affricate /d͡z/ (ѕ) versus fricative /z/",
+    "clear /l/ (љ, and л before front vowels and ј) versus velarised /ɫ/ (л elsewhere); the two contrast only before back vowels (бела vs беља)",
+    "palatal /ɲ/ versus /n/",
+    "syllabic /r̩/ between consonants and word-initially before a consonant (крв, прст, 'рж)",
+    "voiced versus voiceless obstruents (neutralised word-finally and in clusters)"
+  ],
+  "allophony": [
+    "/c ɟ/ range from palatal stops to alveolo-palatal affricates [t͡ɕ d͡ʑ] according to region and speaker",
+    "word-final obstruents are devoiced (леб [lɛp], град [ɡrat], заб [zap], маж [maʃ])",
+    "obstruent clusters take the voicing of their last member (сладок, слатка; одговор); /v/ is devoiced after or before voiceless consonants in many words (татковци [ˈtatkɔft͡si]) and does not voice a preceding consonant",
+    "/n/ is [ŋ] before velars; /m/ is [ɱ] before /f v/",
+    "/x/ is a weak velar fricative; it is rare in native words",
+    "/t d/ are dental; /r/ is an alveolar trill or tap",
+    "vowels keep their quality in unstressed syllables; /ɛ ɔ/ are open-mid",
+    "two identical vowels in sequence are pronounced as one long vowel or two syllables (таа, змии)"
+  ],
+  "syllable_structure": "(C)(C)(C)V(C)(C), with syllabic r as a possible nucleus",
+  "phonotactics": [
+    "no voiced obstruents before a pause",
+    "vowel sequences are frequent because intervocalic /x/, /v/ and /j/ were lost in many words (снаа, тоа)",
+    "soft consonants are limited to /c ɟ ɲ/ and clear /l/; there is no general palatalisation series"
+  ],
+  "stress": {
+    "type": "fixed antepenultimate",
+    "rule": "Stress falls on the third syllable from the end in words of three or more syllables and on the first syllable of disyllabic words; it moves when syllables are added (воденица, воденицата, воденичарите). Clitic groups count as one unit (донеси го, донесете ми го), and there are exceptions among loanwords, verbal adverbs in -јќи (penultimate) and some adverbs.",
+    "cues": "intensity and pitch, with a small increase in duration; no change of vowel quality"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none",
+    "final_lengthening": "moderate",
+    "notes": "The class label is an impression from the descriptive literature; no rhythm-metric study is cited."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": false,
+    "notes": "No phonemic length. Long vowels arise only from two identical vowels in sequence, and double consonants only at morpheme boundaries (одделение, најјак)."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "falling: high or rising pitch on stressed syllables early in the phrase, fall to low after the last stressed syllable",
+    "yes_no_question": "rise on the stressed syllable of the word in focus or on the last word; questions with дали or ли can end low",
+    "wh_question": "high on the question word, then falling",
+    "continuation": "rise at the end of a non-final phrase",
+    "accent_shape": "pitch peak on or just after the stressed (antepenultimate) syllable",
+    "notes": "Macedonian intonation is little studied instrumentally; this is a general description from the grammars and has low confidence."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none",
+    "notes": "No lexical tone or pitch accent."
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "zls/mk",
+    "phoneme_table": "mk",
+    "problems": [
+      "No final devoicing except в to [f]: леб, град, заб, маж, нож, џеб keep voiced final consonants.",
+      "No voicing assimilation in clusters or between words (татковци keeps [v] before ц, без тебе keeps [z]); the translator does not set the regressive voicing option for Macedonian.",
+      "Unstressed /a/ is replaced by a reduced [æ]-like vowel (phoneme &), /i/ by [ɪ] and /u/ by [ʊ], inherited from the Croatian phoneme table; Macedonian has no vowel reduction.",
+      "ч is mapped to the alveolo-palatal tS; ([t͡ɕ]) while џ is the postalveolar [d͡ʒ]; ќ is a palatal stop (k^, with no IPA name in the table) while ѓ is the affricate [d͡ʑ]: the voiced and voiceless partners do not match.",
+      "A secondary stress is added on the last syllable of words of three or more syllables (планина [ˈplanɪˌnæ]).",
+      "Exceptions to antepenultimate stress are not handled (литература and the verbal adverb одејќи are stressed on the third syllable from the end) and clitic groups are not treated as one stress unit (донеси го is read dónesi gó; each clitic gets its own stress).",
+      "л before a back vowel is a clear [l]; a dark [ɫ] appears only after a vowel when no vowel follows (the rule of the English l phoneme that the table imports), so л and љ before back vowels contrast as [l] vs palatal [ʎ] (бела, беља) instead of [ɫ] vs [l].",
+      "Only the default eSpeak tunes are used; wh-questions get the same fall-rise as yes-no questions."
+    ],
+    "good": [
+      "antepenultimate stress that moves when the article or another suffix is added (воденица, воденицата)",
+      "syllabic r, also word-initially (крв, прст, срце, рж)",
+      "ѕ as [d͡z], љ and њ as palatals",
+      "Latin transliteration is accepted as input"
+    ]
+  },
+  "notes": "No formant, VOT or rhythm-metric values are given because I cannot quote published figures with confidence."
+}

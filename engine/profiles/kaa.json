@@ -1,0 +1,88 @@
+{
+  "tag": "kaa",
+  "name": "Karakalpak",
+  "family": "Turkic, Kipchak (Kipchak-Nogai)",
+  "variety": "Literary Karakalpak of Karakalpakstan (Uzbekistan), based on the north-eastern dialect; Latin script (Cyrillic also in use)",
+  "sources": [
+    "Menges, Karl H. (1947). Qaraqałpaq Grammar. Part One: Phonology. King's Crown Press.",
+    "Kirchner, Mark (1998). Kazakh and Karakalpak. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "q", "ʁ", "s", "z", "ʃ", "ʒ", "x", "h", "m", "n", "ŋ", "l", "r", "j", "w", "f", "v", "ts", "tʃ"],
+  "vowels": ["i", "y", "ɯ", "u", "e", "ø", "o", "æ", "ɑ"],
+  "diphthongs": [],
+  "contrasts": [
+    "nine vowels: front /i y e ø æ/ (i ú e ó á) and back /ɯ u o ɑ/ (ı u o a)",
+    "velar /k ɡ/ versus uvular /q ʁ/, tied to vowel backness in native words",
+    "voiced versus voiceless obstruents",
+    "sibilant shift typical of the Kipchak-Nogai group: /ʃ/ where most Turkic languages have /tʃ/ and /s/ where they have /ʃ/ (úsh 'three', bes 'five', tas 'stone')"
+  ],
+  "allophony": [
+    "k and g are velar next to front vowels; q and ǵ [ʁ] occur next to back vowels",
+    "word-initial /e/ has a palatal on-glide [je] and word-initial /o ø/ a labial on-glide [wo wø], as in Kazakh",
+    "the high vowels are short and lax and may be dropped in fast speech",
+    "/l/ is velarised next to back vowels",
+    "suffix-initial consonants assimilate to the end of the stem (plural -lar, -ler; ablative -dan, -tan, -nan)",
+    "/f v ts tʃ/ occur in loanwords only; /h/ and /x/ occur mainly in Arabic and Persian loans"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words",
+    "coda clusters are sonorant + obstruent (tórt, qırq)",
+    "backness harmony in native words and suffixes; rounding harmony is weak and is not written beyond the first syllable",
+    "/ŋ/ does not begin a word",
+    "Russian and other loans may break harmony"
+  ],
+  "stress": {
+    "type": "fixed final by default, with morphological exceptions",
+    "rule": "Stress falls on the last syllable of the word; predicative personal endings, the negative suffix and the question particle are unstressed and leave the stress on the syllable before them.",
+    "cues": "not instrumentally studied in the sources used"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "moderate: high vowels are short and may be dropped between consonants; other vowels keep their quality",
+    "final_lengthening": "moderate",
+    "notes": "Low confidence: no instrumental study of Karakalpak timing was available to me."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "No vowel length contrast. Geminates occur at morpheme boundaries and in a few stems."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "rise at the end of non-final phrases, fall at the end of the statement",
+    "yes_no_question": "marked by the particle ma/me (ba/be, pa/pe); pitch is high before the particle or rises on it",
+    "wh_question": "prominence on the question word, final fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "rise to a high on the final stressed syllable",
+    "notes": "Low confidence: no instrumental study of Karakalpak intonation was available to me; the entries follow the general pattern of the better described Turkic languages (Turkish, Kazakh)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "trk/kaa",
+    "phoneme_table": "kaa",
+    "problems": [
+      "no stress rule is set for kaa, so the default penultimate stress applies (bala, kitaplar, úyler are stressed before the last syllable); Karakalpak stress is final",
+      "ı is the schwa phoneme @, which eSpeak cannot stress: words whose only vowel is ı get no stress at all (qız, mıń, jıldız)",
+      "the phoneme table is a copy of the Kazakh one; the mid vowel ó (/ø/) has the short duration of the high vowels (100 against 200)",
+      "every l that does not stand directly before a front vowel is dark [ɫ], also in front-vowel words (el, bel, kel-)",
+      "the apostrophe-like letter ʼ that replaces Cyrillic ь and ъ has no rule",
+      "no labial on-glide for word-initial o and ó",
+      "unstressable suffixes and particles are not handled",
+      "t is the unaspirated base2 stop while p and k use aspirated samples"
+    ],
+    "good": [
+      "Latin and Cyrillic spelling are both accepted",
+      "all nine vowels are present; q, ǵ, ń are [q], [ʁ], [ŋ]",
+      "vowel harmony follows from the spelling"
+    ]
+  },
+  "notes": "The consonant list includes /f v ts tʃ/, which occur in loanwords only. The degree of aspiration of the voiceless stops is not documented in the sources used."
+}

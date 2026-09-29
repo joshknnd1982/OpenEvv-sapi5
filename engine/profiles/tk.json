@@ -1,0 +1,91 @@
+{
+  "tag": "tk",
+  "name": "Turkmen",
+  "family": "Turkic, Oghuz",
+  "variety": "Standard Turkmen (based on the Teke dialect), Latin script",
+  "sources": [
+    "Clark, Larry (1998). Turkmen Reference Grammar. Harrassowitz.",
+    "Hoey, Elliott Michael (2013). Grammatical Sketch of Turkmen. MA thesis, University of California, Santa Barbara.",
+    "Schönig, Claus (1998). Turkmen. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge."
+  ],
+  "consonants": ["p", "b", "t̪", "d̪", "k", "ɡ", "tʃ", "dʒ", "f", "θ", "ð", "ʃ", "ʒ", "h", "β", "m", "n", "ŋ", "l", "r", "j"],
+  "vowels": ["i", "iː", "y", "yː", "ɯ", "ɯː", "u", "uː", "e", "ø", "øː", "o", "oː", "ɑ", "ɑː", "æː"],
+  "diphthongs": [],
+  "contrasts": [
+    "phonemic vowel length, inherited from Proto-Turkic and not written: at [ɑt] 'horse' versus at [ɑːt] 'name', ot [ot] 'grass' versus ot [oːt] 'fire'",
+    "dental fricatives /θ ð/ (spelt s, z) where other Turkic languages have /s z/",
+    "front versus back and rounded versus unrounded vowels",
+    "voiced versus voiceless stops and affricates",
+    "short /e/ pairs with long /æː/ (spelt ä); long /eː/ and short /æ/ are marginal"
+  ],
+  "allophony": [
+    "/θ ð/ are interdental or dental fricatives in all positions",
+    "/b/ is a stop word-initially and a bilabial fricative or approximant [β] after vowels; the letter w is also [β ~ w]",
+    "/ɡ/ is a stop word-initially and a fricative [ɣ] (front words) or [ʁ] (back words) between vowels and finally",
+    "/k/ is uvular [q] and /h/ is [x ~ χ] next to back vowels",
+    "/l/ is velarised next to back vowels",
+    "long /yː/ is a diphthong-like [yj] (spelt üý)",
+    "rounding harmony goes further in speech than in spelling: written a and e after a rounded vowel are pronounced [o] and [ø] (dogan [doʁon]), written y and i as [u] and [y]",
+    "progressive assimilation in clusters, not written: ld > ll, nd > nn, zd > ðð, sd > θθ",
+    "/f/ occurs in loans and is often bilabial [ɸ]"
+  ],
+  "syllable_structure": "(C)V(ː)(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words",
+    "coda clusters are sonorant + obstruent (dört, gurt)",
+    "backness harmony throughout the word; rounding harmony is written only in part (high vowels of the second syllable), and the rounding of low vowels is never written",
+    "long vowels occur in any syllable; suffixes can create long vowels by contraction",
+    "/ŋ/ does not begin a word"
+  ],
+  "stress": {
+    "type": "fixed final by default",
+    "rule": "Stress falls on the last syllable of the word; some suffixes and particles (negation, question and predicative endings) are unstressed and leave the stress on the preceding syllable.",
+    "cues": "not instrumentally studied in the sources used; vowel length is independent of stress"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none in quality; short high vowels are very short and may be dropped between voiceless consonants",
+    "final_lengthening": "moderate",
+    "notes": "No instrumental rhythm study is known to me; because vowel length is phonemic, syllable durations vary more than in Turkish."
+  },
+  "length": {
+    "vowel": true,
+    "consonant": true,
+    "notes": "Every short vowel except /e/ has a long counterpart. The spelling does not show length, apart from ä (nearly always long) and üý. Geminates arise from assimilation (ll, nn, θθ, ðð) and in numerals. No published duration ratio is given here."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "falling at the end of the statement",
+    "yes_no_question": "marked by the clause-final particle -my/-mi; the pitch pattern is not documented in the sources used",
+    "wh_question": "question word in preverbal position; pitch pattern not documented in the sources used",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "rise to a high on the final stressed syllable",
+    "notes": "Low confidence: no instrumental study of Turkmen intonation was available to me; the entries follow the general pattern of the better described Turkic languages (Turkish, Kazakh)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "trk/tk",
+    "phoneme_table": "tk",
+    "problems": [
+      "no stress rule is set for tk, so the default penultimate stress applies (kitap, sagat, dogan are stressed on the first syllable); Turkmen stress is final, and only a few suffix rules mark it",
+      "vowel length is not written, and eSpeak gets it only from a list of about 870 respelt word forms (tk_listx): forms not listed lose the long vowel (kitap has [ɑː], kitaplar does not) and homographs such as at 'horse' and at 'name' cannot be told apart",
+      "word-initial b is turned into [β] after any preceding word and into [m] after a word ending in a nasal, whatever the phrasing (sen biz gives [θen mið])",
+      "the ipa string of the long vowel ɯː has no length mark (affects --ipa output only)"
+    ],
+    "good": [
+      "s and z are the dental fricatives [θ ð]",
+      "the vowels ɯ (y), ø (ö), y (ü) and æ (ä) are all present, short and long",
+      "unwritten rounding harmony is applied by rule (dogan gives [doʁon])",
+      "k, g and h get uvular or fricative allophones by vowel context, and ld, nd, sd, zd assimilate",
+      "long vowels exist as phonemes with twice the length of short ones (300 versus 150)"
+    ]
+  },
+  "notes": "Short /æ/ and long /eː/ occur in a handful of words only and are left out of the vowel list. The degree of aspiration of the voiceless stops is not documented in the sources used; eSpeak NG uses the unaspirated base2 stops."
+}

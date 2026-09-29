@@ -1,0 +1,91 @@
+{
+  "tag": "tt",
+  "name": "Tatar",
+  "family": "Turkic, Kipchak (Volga Kipchak)",
+  "variety": "Literary Tatar, based on the Central (Kazan) dialect, Cyrillic script",
+  "sources": [
+    "Poppe, Nicholas (1963). Tatar Manual. Indiana University.",
+    "Berta, Árpád (1998). Tatar and Bashkir. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge.",
+    "Comrie, Bernard (1997). Tatar (Volga Tatar, Kazan Tatar) phonology. In Alan S. Kaye (ed.), Phonologies of Asia and Africa. Eisenbrauns."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "q", "ʁ", "ʔ", "f", "s", "z", "ʃ", "ʒ", "ɕ", "ʑ", "χ", "h", "m", "n", "ŋ", "l", "r", "j", "w", "v", "ts", "tɕ"],
+  "vowels": ["i", "y", "u", "æ", "ɑ", "ĕ", "ø̆", "ŏ", "ɤ̆", "e", "o", "ɨ"],
+  "diphthongs": [],
+  "contrasts": [
+    "full vowels /i y u æ ɑ/ versus reduced (short, lax, centralised) mid vowels /ĕ ø̆ ŏ ɤ̆/, spelt е/э, ө, о, ы; the Volga vowel shift raised the old mid vowels and reduced the old high vowels",
+    "front versus back and rounded versus unrounded vowels",
+    "velar /k ɡ/ versus uvular /q ʁ/, predictable from vowel backness in native words but contrastive in Arabic and Persian loans",
+    "alveolo-palatal fricatives /ɕ ʑ/ (spelt ч, җ) where most Turkic languages have affricates",
+    "voiced versus voiceless obstruents"
+  ],
+  "allophony": [
+    "/ɑ/ is rounded [ɒ] in the first syllable and after [ɒ], with the rounding fading towards the end of the word",
+    "in native words к and г are uvular [q] and [ʁ] next to back vowels, velar stops [k] and [ɡ] next to front vowels",
+    "rounding harmony of the reduced vowels is not written: ы and е after о and ө of the first syllable are pronounced rounded (борын [bŏrŏn], төлке [tø̆lkø̆]), weakening further from the first syllable",
+    "reduced vowels are very short and may be devoiced or dropped between voiceless consonants and next to sonorants (кеше)",
+    "/l/ is velarised next to back vowels",
+    "в is [w] in native and Arabic words, [v] in Russian loans; /w/ is written у or ү after a vowel",
+    "/h ʔ/ occur in Arabic and Persian loans, /v ts tɕ/ and full /e o ɨ/ in Russian loans",
+    "ч and җ are affricates [tɕ dʑ] in western (Mishar) speech"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words; Russian loans keep theirs",
+    "coda clusters are sonorant + obstruent (дүрт, кырк)",
+    "backness harmony in native words and suffixes; rounded vowels of non-initial syllables occur only through the unwritten rounding harmony",
+    "the letters ь and ъ do not stand for sounds of their own: they mark a front or back reading of neighbouring letters, a syllable break, or belong to Russian spelling"
+  ],
+  "stress": {
+    "type": "fixed final by default, with morphological and lexical exceptions",
+    "rule": "Stress falls on the last syllable; unstressable suffixes and particles (negative -ма/-мә, question -мы/-ме, predicative personal endings) leave it on the syllable before them, second person imperatives and question words are stressed on the first syllable, and Russian loans keep their Russian stress.",
+    "cues": "not instrumentally studied in the sources used; the reduced vowels stay short even in the stressed final syllable"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "lexical rather than stress-driven: the reduced vowels ĕ ø̆ ŏ ɤ̆ are short and centralised in every position and can be dropped in fast speech",
+    "final_lengthening": "moderate",
+    "notes": "The alternation of full and reduced vowels gives uneven syllable durations."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "No long versus short pairs of the same quality; the contrast is full versus reduced vowel. Sequences such as ий are pronounced long [iː]. Geminates occur in a few native words (илле 'fifty'), at morpheme boundaries and in loans. No published duration ratio is given here."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "rise on the final stressed syllable of non-final phrases, fall at the end of the statement",
+    "yes_no_question": "marked by the particle -мы/-ме; pitch is high on the syllable before the particle",
+    "wh_question": "prominence on the question word, final fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "rise to a high on the final stressed syllable",
+    "notes": "Low confidence: no instrumental study of Tatar intonation was available to me; the entries follow the general pattern of the better described Turkic languages (Turkish, Kazakh)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "trk/tt",
+    "phoneme_table": "tt",
+    "problems": [
+      "г next to front vowels becomes the velar fricative [ɣ] (the phoneme g is changed to Q), so гөл gives [ɣøl]; Tatar has the stop [ɡ] there and a fricative only in back-vowel words",
+      "ь and ъ are always read as a glottal stop (сәгать gives [sæʁɑtʔ]); in Tatar they are silent markers, and [ʔ] occurs only in a few Arabic loans",
+      "the unwritten rounding harmony of the reduced vowels is not applied (борын gives [borɯn])",
+      "stress is always final: unstressable suffixes, imperatives and question words are not handled (барма gives final stress)",
+      "Russian loanwords are read by the native rules: в is always [w], о and е are the reduced vowels, stress is final",
+      "t is the unaspirated base2 stop while p and k are the aspirated base1 stops"
+    ],
+    "good": [
+      "the reduced vowels е, ө, о, ы are shorter than the full vowels (length 110 against 180)",
+      "first-syllable rounding of а to [ɒ], carried on to the second syllable",
+      "к and л get uvular and velarised variants by vowel backness; ч and җ are [ɕ] and [ʑ]",
+      "я, ю, е choose front or back vowels by the harmony of the word; backness harmony otherwise follows from the spelling",
+      "the front vowels æ (ә), y (ү) and ø̆ (ө) are present"
+    ]
+  },
+  "notes": "The vowel list includes /e o ɨ/ and the consonant list /v ts tɕ h ʔ/, which occur only in loanwords. The degree of aspiration of the voiceless stops is not documented in the sources used."
+}

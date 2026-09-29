@@ -1,11 +1,17 @@
 """Make an OpenEVV language pack for every eSpeak NG language openevv lacks.
 
-Each pack is languages/<tag>/ with language.ini and phonemes.map. The pack has
-no engine module of its own: language.ini names an openevv language as its
-template, whose modules speak it, and names the eSpeak NG voice that reads the
-text. OpenEvvFrontend reads the text with that voice and writes each word in
-the template's phones, using phonemes.map, which this writes out of the
-eSpeak NG phoneme tables (engine/espeak_phonemes.py).
+Each pack is languages/<tag>/ with language.ini, sounds.map and phonemes.map.
+The pack has no engine module of its own: language.ini names a module as its
+template, which speaks it, and names the eSpeak NG voice that reads the text.
+OpenEvvFrontend reads the text with that voice and writes each word in the
+template's phones, using sounds.map, which says besides how each sound of the
+language differs from the phone that stands for it, what the language's
+melody is and what its tones are (engine/accent/mapwriter.py, out of the
+eSpeak NG phoneme tables and the language's profile in engine/profiles).
+
+phonemes.map is the map of 1.1: the nearest phones and nothing more. It is
+still written, and nothing of 1.2 reads it. A program of 1.1 that is still
+running while 1.2 is installed over it goes on reading the file it knows.
 
 A language openevv already has is left alone: the eSpeak NG voices for US and
 British English, German, Castilian and Latin American Spanish, French,
@@ -36,7 +42,10 @@ import tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.join(HERE, "accent"))
 import espeak_phonemes as EP  # noqa: E402
+import mapwriter  # noqa: E402
+import prosody  # noqa: E402
 
 # openevv's own languages: these eSpeak NG voices would be duplicates of them.
 # Every other voice is a pack, the dialects of these languages included.
@@ -364,7 +373,8 @@ def template_voices(template_tag):
 def write_ini(path, v, t, lcid, order, sample_source):
     tv = template_voices(t.tag)
     lines = [
-        "; OpenEVV language pack: %s, read by eSpeak NG and spoken by openevv's %s." % (v["name"], t.name),
+        "; OpenEVV language pack: %s, read by eSpeak NG and spoken by openevv's %s module" % (v["name"], t.name),
+        "; with the language's own sounds, melody and tones.",
         "; Drop a folder like this one into %ProgramData%\\OpenEVV\\languages (or the",
         "; languages folder of the installation) and its voices appear in every SAPI5",
         "; program; delete the folder and they are gone. docs/LANGUAGES.md has the format.",
@@ -377,15 +387,18 @@ def write_ini(path, v, t, lcid, order, sample_source):
         "LCID=%X" % lcid if lcid else "LCID=1000",
         "Locale=%s" % bcp47(LOCALE_FALLBACK.get(v["code"], v["code"])),
         "Codepage=65001",
-        "Template=%s" % t.tag,
+        "Template=%s" % mapwriter.CLONE.get(t.tag, t.tag),
         "Order=%d" % order,
         "Experimental=%d" % (1 if v.get("status") in ("testing", "immature") else 0),
         "",
         "[Frontend]",
-        "; eSpeak NG reads the text; its phonemes are said with the template's",
+        "; eSpeak NG reads the text; its phonemes are said with the template's phones,",
+        "; each as the language's own sound (Sounds=). Map= is the map of 1.1, the",
+        "; nearest phones only, for a program of 1.1 still running through an upgrade.",
         "Engine=espeak",
         "Voice=%s" % v["id"],
         "Map=phonemes.map",
+        "Sounds=sounds.map",
         "",
     ]
     for n, (name, gender, age) in enumerate(PRESETS, 1):
@@ -432,15 +445,20 @@ def main():
         dst = os.path.join(a.out, v["tag"])
         os.makedirs(dst, exist_ok=True)
         EP.write_map(os.path.join(dst, "phonemes.map"), t, table_names, tables, stats, v["id"], v["name"])
+        made = mapwriter.write_map(os.path.join(dst, "sounds.map"), v["tag"], chosen, table_names, tables, stats,
+                                   v["id"], v["name"], prosody.load_profile(v["tag"]))
         lcid = lcid_for(v["code"])
         write_ini(os.path.join(dst, "language.ini"), v, t, lcid, 200 + order, source)
         with open(os.path.join(dst, "sample.txt"), "w", encoding="utf-8", newline="\r\n") as f:
             f.write(pack_sample(v, samples, a.espeak_src, curated) + "\n")
         report.append({"tag": v["tag"], "name": v["name"], "voice": v["id"], "template": chosen,
+                       "module": made["clone"], "sounds": made["sounds"], "melody": made["kind"],
+                       "question": made["question"], "tones": made["tones"], "unsaid": made["unsaid"],
                        "automatic": best, "sample": source, "lcid": lcid, "tables": table_names,
                        "scores": [(c, round(s, 3)) for s, c in scored]})
-        print("%-22s %-5s %-34s %s%s" % (v["tag"], chosen, v["name"][:34], source,
-                                         "" if chosen == best else "  (automatic: %s)" % best))
+        print("%-22s %-5s %-34s %3d sounds %2d tones %-5s %-9s %s%s" % (
+            v["tag"], made["clone"], v["name"][:34], made["sounds"], made["tones"], made["kind"],
+            made["question"], source, "" if chosen == best else "  (automatic: %s)" % best))
     if a.report:
         json.dump(report, open(a.report, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("%d packs written to %s" % (len(report), a.out))

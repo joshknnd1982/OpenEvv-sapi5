@@ -1,0 +1,87 @@
+{
+  "tag": "nog",
+  "name": "Nogai",
+  "family": "Turkic, Kipchak (Kipchak-Nogai)",
+  "variety": "Literary Nogai of the North Caucasus (Dagestan, Karachay-Cherkessia, Stavropol), Cyrillic script",
+  "sources": [
+    "Csató, Éva Á. & Karakoç, Birsel (1998). Noghay. In Lars Johanson & Éva Á. Csató (eds.), The Turkic Languages. Routledge.",
+    "Baskakov, N. A. (1940). Nogajskij jazyk i ego dialekty: grammatika, teksty i slovar'. Izdatel'stvo Akademii Nauk SSSR."
+  ],
+  "consonants": ["p", "b", "t", "d", "k", "ɡ", "q", "ʁ", "s", "z", "ʃ", "ʒ", "x", "m", "n", "ŋ", "l", "r", "j", "w", "f", "v", "ts", "tʃ"],
+  "vowels": ["i", "y", "ɯ", "u", "e", "ø", "o", "æ", "ɑ"],
+  "diphthongs": [],
+  "contrasts": [
+    "nine vowels: front /i y e ø æ/ and back /ɯ u o ɑ/, the front rounded and open front vowels spelt with digraphs (уь, оь, аь)",
+    "velar /k ɡ/ versus uvular /q ʁ/, tied to vowel backness in native words",
+    "voiced versus voiceless obstruents",
+    "sibilant shift typical of the Kipchak-Nogai group: /ʃ/ where most Turkic languages have /tʃ/ and /s/ where they have /ʃ/ (уьш 'three', бес 'five', тас 'stone')"
+  ],
+  "allophony": [
+    "к and г are uvular [q] and [ʁ] next to back vowels, velar next to front vowels",
+    "/l/ is velarised next to back vowels",
+    "в is [w] in native words and [v] in Russian loans",
+    "word-initial е is [je]",
+    "suffix-initial consonants assimilate to the end of the stem (plural -лар, -лер, -нар, -нер)",
+    "/f v ts tʃ/ occur in Russian loans only"
+  ],
+  "syllable_structure": "(C)V(C)(C)",
+  "phonotactics": [
+    "no onset clusters in native words",
+    "coda clusters are sonorant + obstruent (доьрт, кырк)",
+    "backness harmony in native words and suffixes; rounding harmony is weak and not written beyond the first syllable",
+    "/ŋ/ (spelt нъ) does not begin a word",
+    "ь and ъ are parts of the digraphs аь, оь, уь, нъ; elsewhere they belong to Russian spelling"
+  ],
+  "stress": {
+    "type": "fixed final by default, with morphological exceptions",
+    "rule": "Stress falls on the last syllable of the word; predicative personal endings, the negative suffix and the question particle are unstressed and leave the stress on the syllable before them.",
+    "cues": "not instrumentally studied in the sources used"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "moderate: the high vowels are short and lax and may be dropped in fast speech, as in the closely related Kazakh and Karakalpak",
+    "final_lengthening": "moderate",
+    "notes": "Low confidence: no instrumental study of Nogai timing was available to me."
+  },
+  "length": {
+    "vowel": false,
+    "consonant": true,
+    "notes": "No vowel length contrast. Geminates occur at morpheme boundaries and in a few stems."
+  },
+  "intonation": {
+    "pitch_range": "medium",
+    "declarative": "rise at the end of non-final phrases, fall at the end of the statement",
+    "yes_no_question": "marked by the particle ма/ме (ба/бе, па/пе); pitch is high before the particle",
+    "wh_question": "prominence on the question word, final fall",
+    "continuation": "rise at the end of non-final phrases",
+    "accent_shape": "rise to a high on the final stressed syllable",
+    "notes": "Low confidence: no instrumental study of Nogai intonation was available to me; the entries follow the general pattern of the better described Turkic languages (Turkish, Kazakh)."
+  },
+  "tone": {
+    "type": "none",
+    "tone_bearing_unit": "none",
+    "inventory": [],
+    "sandhi": [],
+    "neutral_tone": "none"
+  },
+  "phonation": [],
+  "espeak": {
+    "voice_file": "trk/nog",
+    "phoneme_table": "nog",
+    "problems": [
+      "the phoneme table is the Kazakh one without changes; the mid vowel оь (/ø/) has the short duration of the high vowels (100 against 200)",
+      "outside the digraphs, ь and ъ are read as glottal stops (кельди, альбом, объект)",
+      "the rule for the past copula еди stresses the penultimate syllable of every word ending in -еди (келеди, келмеди)",
+      "the clear l chosen by the rules is turned into dark [ɫ] by the Kazakh phoneme table whenever no front vowel follows (эл, бел, кел-)",
+      "Russian loanwords need the _^_RU mark in the word list, which has only three such entries",
+      "t is the unaspirated base2 stop while p and k use aspirated samples"
+    ],
+    "good": [
+      "final stress is written into the rules, with the personal endings and the question particle unstressed (бараман, бармайман)",
+      "к and г choose velar or uvular variants by vowel class; нъ is [ŋ]; аь, оь, уь are front vowels",
+      "в is [w] next to back vowels; word-initial е is [je]",
+      "vowel harmony follows from the spelling"
+    ]
+  },
+  "notes": "The voice is marked 'status testing' in eSpeak NG. The consonant list includes /f v ts tʃ/, which occur in loanwords only. The degree of aspiration of the voiceless stops is not documented in the sources used."
+}

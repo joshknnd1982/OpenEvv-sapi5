@@ -1,0 +1,145 @@
+{
+  "tag": "vi-vn-x-central",
+  "name": "Vietnamese (Central)",
+  "family": "Austroasiatic, Vietic",
+  "variety": "Central Vietnamese, Huế",
+  "sources": [
+    "Thompson, Laurence C. (1965). A Vietnamese Grammar. University of Washington Press.",
+    "Hoàng, Thị Châu (2004). Phương ngữ học tiếng Việt [Vietnamese dialectology]. Hà Nội: Nhà xuất bản Đại học Quốc gia Hà Nội.",
+    "Vũ, Thanh Phương (1982). Phonetic properties of Vietnamese tones across dialects. In David Bradley (ed.), Papers in South-East Asian Linguistics 8: Tonation. Pacific Linguistics.",
+    "Phạm, Ben & McLeod, Sharynne (2016). Consonants, vowels and tones across Vietnamese dialects. International Journal of Speech-Language Pathology 18(2).",
+    "Kirby, James P. (2011). Vietnamese (Hanoi Vietnamese). Journal of the International Phonetic Association 41(3), 381-392.",
+    "Kirby, James (2010). Dialect experience in Vietnamese tone perception. Journal of the Acoustical Society of America 127(6)."
+  ],
+  "consonants": ["ɓ", "ɗ", "p", "t", "tʰ", "ʈ", "c", "k", "ʔ", "m", "n", "ɲ", "ŋ", "f", "v", "s", "ʂ", "x", "ɣ", "h", "l", "ʐ", "j", "w"],
+  "vowels": ["i", "e", "ɛ", "ɯ", "ɤ", "a", "u", "o", "ɔ", "ɤ̆", "ă"],
+  "diphthongs": ["iə", "ɯə", "uə"],
+  "contrasts": [
+    "five tones: hỏi and ngã are one tone",
+    "retroflex ʈ ʂ ʐ (written tr, s, r) against palatal c, alveolar s and the glide j (written ch, x, d or gi); Hanoi has lost these contrasts",
+    "implosive ɓ ɗ against voiceless unaspirated t, k and aspirated tʰ",
+    "long against short a and ɤ in closed syllables",
+    "final alveolars and velars are merged: written n and t are said as ŋ and k after most vowels"
+  ],
+  "allophony": [
+    "written d and gi are the glide [j]",
+    "written r is a retroflex fricative or approximant [ʐ ~ ɻ], sometimes a tap or trill",
+    "written v is [v]; [j], the Southern value, is also heard",
+    "final written n and t are velar [ŋ], [k̚] after most vowels (ăn is [ʔaŋ])",
+    "final p t k are unreleased",
+    "after rounded vowels final k and ŋ are labial-velar, as in the other dialects",
+    "a syllable written with an initial vowel begins with a glottal stop"
+  ],
+  "syllable_structure": "(C)(w)V(C) plus tone; the coda is one of p t k m n ŋ or a glide j, w",
+  "phonotactics": [
+    "syllables ending in a stop carry only the sắc or the nặng tone",
+    "the short vowels occur only in closed syllables",
+    "no consonant clusters"
+  ],
+  "stress": {
+    "type": "none (no lexical stress); phrase-level prominence",
+    "rule": "The last syllable of a phrase is the most prominent; grammatical words are weaker.",
+    "cues": "duration, intensity and fuller realisation of the tone contour"
+  },
+  "rhythm": {
+    "class": "syllable-timed",
+    "vowel_reduction": "none",
+    "final_lengthening": "moderate"
+  },
+  "length": {
+    "vowel": true,
+    "consonant": false,
+    "notes": "Length is contrastive only for a against ă and ɤ against ɤ̆, in closed syllables."
+  },
+  "intonation": {
+    "pitch_range": "narrow",
+    "declarative": "lexical tones are kept within a low, compressed range; mild declination",
+    "yes_no_question": "marked by particles (không, and local forms such as hỉ and hả); register raised",
+    "wh_question": "question word in place (local forms chi, mô, răng, rứa); often a final particle",
+    "continuation": "phrase-final lengthening, then pitch reset",
+    "accent_shape": "no pitch accents",
+    "notes": "No instrumental study of Huế intonation is known to the compiler; entries are general and of low confidence."
+  },
+  "tone": {
+    "type": "lexical tone",
+    "tone_bearing_unit": "syllable",
+    "confidence": "low",
+    "confidence_notes": "Published descriptions of Huế tones disagree in detail and the Chao digits below are the ones most often repeated in comparative tables, not the result of one instrumental study. What is agreed: five tones, hỏi and ngã merged, a low and narrow pitch range, ngang the highest tone, sắc low rather than high rising.",
+    "inventory": [
+      {
+        "name": "ngang, high rising in Huế; no tone mark",
+        "espeak": "1",
+        "espeak_aliases": ["7 (used on the last stressed syllable of a clause)"],
+        "chao": "35",
+        "description": "The highest tone; mid to high, rising.",
+        "connected_speech": "35",
+        "phonation": "modal",
+        "duration": "long"
+      },
+      {
+        "name": "huyền, mid level in Huế; grave accent",
+        "espeak": "2",
+        "chao": "33",
+        "description": "Mid level, slightly falling.",
+        "connected_speech": "33",
+        "phonation": "modal",
+        "duration": "long"
+      },
+      {
+        "name": "sắc, low rising in Huế; acute accent",
+        "espeak": "3",
+        "chao": "13",
+        "description": "Low with a small rise, the reverse of the high rising sắc of Hanoi and Saigon; glottalisation is reported.",
+        "connected_speech": "13 or 11",
+        "phonation": "modal or glottalised",
+        "duration": "medium; short in stop-final syllables"
+      },
+      {
+        "name": "hỏi and ngã (merged), low falling; hook above and tilde",
+        "espeak": "4",
+        "espeak_aliases": ["5 (ngã, which eSpeak NG keeps as a separate tone phoneme with almost the same contour)"],
+        "chao": "312",
+        "description": "Falls from mid to low with at most a slight final rise. Words written with hỏi and with ngã are said alike.",
+        "connected_speech": "31",
+        "phonation": "modal to creaky",
+        "duration": "long"
+      },
+      {
+        "name": "nặng, low dipping; dot below",
+        "espeak": "6",
+        "chao": "212",
+        "description": "Low fall with a slight final rise; heavy, with glottalisation reported.",
+        "connected_speech": "21",
+        "phonation": "glottalised or creaky",
+        "duration": "medium; short in stop-final syllables"
+      }
+    ],
+    "sandhi": [
+      "no categorical tone sandhi; gradient tonal coarticulation only"
+    ],
+    "neutral_tone": "none",
+    "notes": "Listeners from other regions find Huế tones hard to identify because the contours lie close together in a low range (compare Kirby 2010 on dialect experience). No absolute F0 values are given here."
+  },
+  "phonation": [
+    "glottalisation reported on nặng and sắc",
+    "implosive or preglottalised ɓ ɗ"
+  ],
+  "espeak": {
+    "voice_file": "aav/vi-VN-x-central",
+    "phoneme_table": "vi-hue",
+    "problems": [
+      "no sentence intonation and no declination: CalcPitches_Tone() in src/libespeak-ng/intonation.c ignores the clause type, and a question gives the same audio as a statement",
+      "the tones are crowded into a very small range: with the voice setting 'pitch 82 118' everything lies between about 73 and 100 Hz, and huyền, sắc, hỏi, ngã and nặng all lie between about 73 and 85 Hz (under 3 semitones, measured on the output), so they are hard to tell apart",
+      "written s is the plain alveolar s, the same as x, so the retroflex ʂ is missing, although tr and r do get retroflex phonemes (cr, z.)",
+      "several vowels (i, E, a:, @, @:, O) are reset to a fixed length of 150 in ph_vietnam_hue, which removes the coda-dependent durations of the Northern table",
+      "voice quality is not modelled; glottalisation is imitated only by a dip in amplitude (envelope vi_6amp, used on huyền, ngã and nặng)",
+      "no tonal coarticulation, and a pause between all words ('words 1')"
+    ],
+    "good": [
+      "the tone table is redefined for Huế and follows the pattern in the literature: ngang is a rise and the highest tone, huyền a mid level, sắc a very low tone, hỏi and ngã two nearly identical low falls (the merger), nặng a fall with a slight rise",
+      "final written n and t are turned into velars, and d and gi into a palatal fricative close to [j]",
+      "tr and ch, and r and d, are kept apart"
+    ]
+  },
+  "notes": "The voice selects its rules with 'dictrules 1' and its sounds with the phoneme table vi-hue, which inherits from vi. eSpeak NG tone numbers are the same as for Northern Vietnamese (1 ngang, 2 huyền, 3 sắc, 4 hỏi, 5 ngã, 6 nặng, 7 clause-final ngang) with different contours."
+}

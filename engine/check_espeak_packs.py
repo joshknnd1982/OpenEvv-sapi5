@@ -8,6 +8,13 @@ it. An annotation the module could not read is spoken instead of obeyed --
 backquote, bracket, full stop and all -- so any word the module did not take
 as a pronunciation is a failure, and so is a text that came out as nothing.
 
+A pack whose map gives the language sounds of its own (sounds.map) is held to
+one thing more. The engine writes down which phone every stretch of speech
+was and which sound the map meant it to be (EVV_ACCENT_TRACE), and a phone
+the engine could not find in what the map said is one the module said
+otherwise than it was given: more than a few of those and the sounds of the
+language are being laid over the wrong phones.
+
     python engine/check_espeak_packs.py <OpenEvvFrontend.exe> <espeak-ng-data> [tag ...]
 """
 import ctypes
@@ -19,6 +26,12 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+
+# Where the engine writes what it made of each phone. The name is in the
+# environment a checking process starts with: a module asks its C library,
+# which looked at the environment when the process began and not since.
+TRACE = os.environ.get("EVV_ACCENT_TRACE") or os.path.join(tempfile.gettempdir(),
+                                                           "openevv-check-%d.tsv" % os.getpid())
 
 CB = ctypes.WINFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_void_p)
 
@@ -109,14 +122,17 @@ def main(argv):
     only = set(argv[2:])
     langs = os.path.join(ROOT, "languages")
     tags = [t for t in sorted(os.listdir(langs))
-            if os.path.exists(os.path.join(langs, t, "phonemes.map")) and (not only or t in only)]
+            if (os.path.exists(os.path.join(langs, t, "sounds.map")) or
+                os.path.exists(os.path.join(langs, t, "phonemes.map"))) and (not only or t in only)]
     failures = 0
     # each pack in a process of its own: a module that loops for ever on
     # something it was handed is a failure to report, not a check that hangs
+    env = dict(os.environ)
     for tag in tags:
+        env["EVV_ACCENT_TRACE"] = "%s-%s" % (TRACE, tag)
         try:
             r = subprocess.run([sys.executable, os.path.abspath(__file__), "--one", fe, data, tag],
-                               capture_output=True, timeout=120)
+                               capture_output=True, timeout=120, env=env)
             out = r.stdout.decode("utf-8", "replace").strip()
             print(out.splitlines()[0] if out else "%-20s FAIL  no report: %s" % (tag, r.stderr.decode()[-300:]))
             if r.returncode != 0:
@@ -124,8 +140,38 @@ def main(argv):
         except subprocess.TimeoutExpired:
             print("%-20s FAIL  the module did not finish within two minutes: it hangs on this language" % tag)
             failures += 1
+        try:
+            os.remove(env["EVV_ACCENT_TRACE"])
+        except OSError:
+            pass
     print("%d packs checked, %d failed" % (len(tags), failures))
     return 1 if failures else 0
+
+
+READ = [0]
+
+
+def traced():
+    """What the engine wrote down since this was last asked: (phones, those
+    of them it could not place, the first few of those). The module holds
+    the file open, so it is read on from where the last reading stopped."""
+    if not os.path.exists(TRACE):
+        return 0, 0, []
+    phones, lost, which = 0, 0, []
+    with open(TRACE, encoding="latin-1") as f:
+        f.seek(READ[0])
+        text = f.read()
+        READ[0] = f.tell()
+        for line in text.splitlines():
+            c = line.rstrip("\n").split("\t")
+            if len(c) < 10 or c[0] in ("#", "-"):
+                continue
+            phones += 1
+            if c[5] == "-":
+                lost += 1
+                if len(which) < 4:
+                    which.append(c[0])
+    return phones, lost, which
 
 
 def check(fe, data, only):
@@ -151,7 +197,9 @@ def check(fe, data, only):
         if os.path.exists(sp):
             sample = open(sp, encoding="utf-8-sig").read().strip()
         text = (sample or ini[("Language", "Name")]) + EXTRA
-        rc, ann, err = translate(fe, data, ini[("Frontend", "Voice")], os.path.join(langs, tag, "phonemes.map"),
+        rc, ann, err = translate(fe, data, ini[("Frontend", "Voice")],
+                                 os.path.join(langs, tag, ini.get(("Frontend", "Sounds"),
+                                                                  ini.get(("Frontend", "Map"), "phonemes.map"))),
                                  text)
         checked += 1
         problems = []
@@ -160,6 +208,11 @@ def check(fe, data, only):
         words_in = ann.count("`[")
         if words_in == 0:
             problems.append("nothing came out")
+        try:
+            ann.encode("cp1252")
+        except UnicodeEncodeError:
+            problems.append("the front-end wrote what is not in the engine's character set")
+            ann = ann.encode("cp1252", "replace").decode("cp1252")
         out = m.phonemes(ann) if ann else ""
         # every word the module read as a pronunciation comes back as one;
         # anything it read as text comes back as more
@@ -167,17 +220,29 @@ def check(fe, data, only):
         if words_out != words_in:
             # find the first word it would not take
             bad = None
-            for w in re.findall(r"`\[[^\]]*\]", ann):
-                if m.phonemes(w).count("`[") != 1:
+            head = ann[:ann.find("{W")] if "{W" in ann else ""
+            for w in re.findall(r"(?:\{W[^}]*\})?`\[[^\]]*\]", ann):
+                if m.phonemes(head + w).count("`[") != 1:
                     bad = w
                     break
             problems.append("the module read %d words as %d%s" % (words_in, words_out,
                                                                   (", first refused: " + bad) if bad else ""))
+        traced()
         samples = m.speak(ann) if ann else 0
         if ann and samples == 0:
             problems.append("no audio")
+        phones, lost, which = traced()
+        placed = ""
+        if "{A " in ann:
+            if phones == 0:
+                problems.append("the engine wrote down no phones: the accent layer is not in this module")
+            elif lost * 20 > phones:
+                problems.append("%d of %d phones were not the ones the map gave (%s)" % (lost, phones,
+                                                                                         " ".join(which)))
+            placed = "%d phones, %d not placed" % (phones, lost)
         status = "FAIL" if problems else "ok"
-        print("%-20s %-5s %-4s %6.2f s  %s" % (tag, tpl, status, samples / 11025.0, "; ".join(problems)))
+        print("%-20s %-5s %-4s %6.2f s  %s  %s" % (tag, tpl, status, samples / 11025.0, placed,
+                                                   "; ".join(problems)))
         if problems:
             failures += 1
     return 1 if failures else 0

@@ -5,6 +5,13 @@
 # turns the results into language packs under ../languages.
 #
 #   TAGS="enus dede" engine/build_modules.sh     just those languages
+#
+# Seven of the modules are not languages: dedx, itix, esex, esux, engx, enux
+# and frfx are the German, Italian, Spanish, English and French modules with
+# the rules of their own language's phonology taken out, so that they say the
+# phones they are given. They speak the languages eSpeak NG reads, and are
+# made from openevv/accents/<tag> by tools/module/clone.py before they are
+# built.
 #   OPENEVV_WORK=/c/somewhere                     where to build (default:
 #                                                 %LOCALAPPDATA%\OpenEvvBuild)
 #   RULES=bytecode                                interpret the rules instead of
@@ -33,7 +40,7 @@ else
 fi
 WORK="$OPENEVV_WORK/openevv"
 OUT="$OPENEVV_WORK/modules"
-TAGS="${TAGS:-enus engb dede eses esus frfr frca itit plpl jajp}"
+TAGS="${TAGS:-enus engb dede eses esus frfr frca itit plpl jajp dedx itix esex esux engx enux frfx}"
 JOBS="${JOBS:-$(nproc)}"
 RULES="${RULES:-c}"
 
@@ -52,6 +59,9 @@ cp -au "$SRC/." "$WORK/"
 
 cd "$WORK"
 for tag in $TAGS; do
+  if [ -f "accents/$tag/recipe" ]; then
+    python3 tools/module/clone.py "$tag" || { echo "build_modules: $tag could not be made from its recipe" >&2; exit 1; }
+  fi
   [ -d "lang/$tag" ] || { echo "build_modules: no language $tag in the sources" >&2; exit 1; }
   echo "=== $tag"
   start=$(date +%s)
