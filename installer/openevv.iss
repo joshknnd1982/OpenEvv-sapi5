@@ -30,7 +30,7 @@
 ; through MSAA on a private desktop.
 
 ; Bump MyAppVersion with src\common\version.h and project() in CMakeLists.txt.
-#define MyAppVersion   "1.1.0"
+#define MyAppVersion   "1.1.1"
 #define AppName        "OpenEVV SAPI5"
 #define AppPublisher   "OpenEVV SAPI5 project"
 #define AppURL         "https://github.com/joshknnd1982/OpenEvv-sapi5"
@@ -104,11 +104,16 @@ MinVersion=6.1sp1
 SetupLogging=yes
 UninstallLogging=yes
 
-; Never close anybody's screen reader to win a file lock. A SAPI DLL that any program has
-; merely listed voices through stays loaded, and a program speaking with an OpenEVV voice
-; has engine hosts holding the language modules open; restartreplace below queues such
-; files to be swapped at the next restart instead of failing half-way and leaving a mix
-; of versions.
+; Never close anybody's screen reader to win a file lock, and never make anybody restart
+; Windows. A SAPI DLL that any program has merely listed voices through stays loaded, and
+; a program speaking with an OpenEVV voice has engine hosts holding the language modules
+; open. Windows will not delete or overwrite such a file but will rename it, so
+; MoveAsideFilesInUse renames each one to *.N.old before the files are copied: the new
+; version goes in under the real name, every program started from then on loads it, and
+; the programs already running keep the old one until they are started again. The .old
+; files are deleted by the next install or uninstall, or at the next restart, whichever
+; comes first. restartreplace below is only the last resort, for a file that could not
+; even be renamed.
 CloseApplications=no
 RestartApplications=no
 
@@ -200,6 +205,18 @@ function GetWindow(Wnd: HWND; Cmd: UINT): HWND;
 function SetWindowPos(Wnd, InsertAfter: HWND; X, Y, CX, CY: Integer; Flags: UINT): BOOL;
   external 'SetWindowPos@user32.dll stdcall';
 
+{ Deleting a file or an empty folder at the next restart, from setup and from the
+  uninstaller alike: NewName 0 is NULL, which MoveFileEx takes for "delete". It only
+  tidies up; nothing waits for that restart. }
+function MoveFileEx(ExistingName: String; NewName: Cardinal; Flags: DWORD): BOOL;
+  external 'MoveFileExW@kernel32.dll stdcall';
+
+procedure DeleteAtNextRestart(const Path: String);
+begin
+  if not MoveFileEx(Path, 0, 4 { MOVEFILE_DELAY_UNTIL_REBOOT }) then
+    Log('[openevv] could not queue for deletion at the next restart: ' + Path);
+end;
+
 const
   GW_HWNDPREV = 3;
   SWP_NOSIZE = $1;
@@ -212,6 +229,8 @@ var
   TestFailed: Boolean;
   RegistrationOk: Boolean;
   RunListLabel: TNewStaticText;
+  MovedAside: Integer;
+  ProgramsUsingOld: String;
 
 procedure Note(const S: String);
 begin
@@ -280,6 +299,129 @@ begin
     Ok := False;
   end;
   Result := Ok;
+end;
+
+{ ---- files in use: renamed out of the way, so no restart is needed --------------------- }
+
+{ A loaded DLL or a running program cannot be opened for writing. }
+function InUse(const F: String): Boolean;
+var
+  S: TFileStream;
+begin
+  Result := False;
+  try
+    S := TFileStream.Create(F, fmOpenReadWrite or fmShareExclusive);
+    S.Free;
+  except
+    Result := True;
+  end;
+end;
+
+function IsOldCopy(const Name: String): Boolean;
+begin
+  Result := (Length(Name) > 4) and (Lowercase(Copy(Name, Length(Name) - 3, 4)) = '.old');
+end;
+
+function IsBinary(const Name: String): Boolean;
+begin
+  Result := (CompareText(ExtractFileExt(Name), '.dll') = 0) or (CompareText(ExtractFileExt(Name), '.exe') = 0);
+end;
+
+{ In Dir (and below it, if Recurse): .old copies left by an earlier install are deleted
+  if nothing holds them any more, and every DLL or program something holds is renamed to
+  the first free <name>.N.old and queued for deletion at the next restart - which only
+  tidies up, and is never asked for. }
+procedure MoveAsideIn(const Dir: String; Recurse: Boolean);
+var
+  FR: TFindRec;
+  F, Old: String;
+  N: Integer;
+begin
+  if not FindFirst(Dir + '\*', FR) then
+    Exit;
+  try
+    repeat
+      F := Dir + '\' + FR.Name;
+      if (FR.Attributes and FILE_ATTRIBUTE_DIRECTORY) <> 0 then
+      begin
+        if Recurse and (FR.Name <> '.') and (FR.Name <> '..') then
+          MoveAsideIn(F, True);
+      end
+      else if IsOldCopy(FR.Name) then
+      begin
+        if DeleteFile(F) then
+          Note('removed an earlier copy nothing holds any more: ' + F);
+      end
+      else if IsBinary(FR.Name) and InUse(F) then
+      begin
+        N := 1;
+        repeat
+          Old := F + '.' + IntToStr(N) + '.old';
+          N := N + 1;
+        until not FileExists(Old);
+        if RenameFile(F, Old) then
+        begin
+          Note('in use, renamed out of the way: ' + F + ' -> ' + ExtractFileName(Old));
+          DeleteAtNextRestart(Old);
+          MovedAside := MovedAside + 1;
+        end
+        else
+          Note('in use and could not be renamed: ' + F + ' (it is replaced at the next restart)');
+      end;
+    until not FindNext(FR);
+  finally
+    FindClose(FR);
+  end;
+end;
+
+{ Each folder under Dir and then Dir itself, deleted at the next restart if empty by then. }
+procedure QueueFolderRemoval(const Dir: String);
+var
+  FR: TFindRec;
+begin
+  if FindFirst(Dir + '\*', FR) then
+  try
+    repeat
+      if ((FR.Attributes and FILE_ATTRIBUTE_DIRECTORY) <> 0) and (FR.Name <> '.') and (FR.Name <> '..') then
+        QueueFolderRemoval(Dir + '\' + FR.Name);
+    until not FindNext(FR);
+  finally
+    FindClose(FR);
+  end;
+  DeleteAtNextRestart(Dir);
+end;
+
+procedure MoveAsideFilesInUse;
+begin
+  MoveAsideIn(ExpandConstant('{app}\x64'), False);
+  MoveAsideIn(ExpandConstant('{app}\x86'), False);
+  MoveAsideIn(ExpandConstant('{app}\languages'), True);
+end;
+
+{ The programs that still have an OpenEVV SAPI DLL loaded, as "nvda.exe, notepad.exe";
+  '' for none. OpenEvvConfig.exe --in-use looks in 32-bit and 64-bit programs alike;
+  it runs elevated, as setup does, so it can see every user's programs. }
+function ProgramsUsingOpenEvv(const Exe: String): String;
+var
+  ListFile: String;
+  Lines: TArrayOfString;
+  I, Code: Integer;
+begin
+  Result := '';
+  ListFile := ExpandConstant('{tmp}\openevv-in-use.txt');
+  if not Exec(Exe, '--in-use "' + ListFile + '"', '', SW_HIDE, ewWaitUntilTerminated, Code) or (Code <> 0) then
+  begin
+    Note(Format('could not list the programs using OpenEVV (%d)', [Code]));
+    Exit;
+  end;
+  if LoadStringsFromFile(ListFile, Lines) then
+    for I := 0 to GetArrayLength(Lines) - 1 do
+      if Trim(Lines[I]) <> '' then
+      begin
+        if Result <> '' then
+          Result := Result + ', ';
+        Result := Result + Trim(Lines[I]);
+      end;
 end;
 
 { ---- the voice test ------------------------------------------------------------------ }
@@ -361,8 +503,23 @@ begin
     Summary32 := 'Accessibility probe: no voices were installed, so none were tested in 32-bit programs.';
   end;
 #else
-  if CurStep = ssPostInstall then
+  if CurStep = ssInstall then
   begin
+    MovedAside := 0;
+    ProgramsUsingOld := '';
+    MoveAsideFilesInUse;
+    Note(Format('%d files in use renamed out of the way; no restart is needed for them', [MovedAside]));
+  end
+  else if CurStep = ssPostInstall then
+  begin
+    if MovedAside > 0 then
+    begin
+      if Is64BitInstallMode then
+        ProgramsUsingOld := ProgramsUsingOpenEvv(ExpandConstant('{app}\x64\{#ConfigName}'))
+      else
+        ProgramsUsingOld := ProgramsUsingOpenEvv(ExpandConstant('{app}\x86\{#ConfigName}'));
+      Note('programs still running the OpenEVV installed before: ' + ProgramsUsingOld);
+    end;
     Note('checking the registration');
     RegistrationOk := True;
     if Is64BitInstallMode then
@@ -412,6 +569,14 @@ begin
     'Choose any voice named OpenEVV in your screen reader or any SAPI 5 program. ' +
     'OpenEVV Configuration, on the desktop and in the Start menu, adjusts every voice.' + #13#10#13#10 +
     'Logs, including install.log: ' + LogDir;
+  if ProgramsUsingOld <> '' then
+    S := S + #13#10#13#10 + 'Windows does not need to restart. These programs were already running with ' +
+      'the OpenEVV that was installed before, and keep using it until you close them and start them ' +
+      'again: ' + ProgramsUsingOld + '. Every program started from now on uses this version.'
+  else if MovedAside > 0 then
+    S := S + #13#10#13#10 + 'Windows does not need to restart. A program that was already using an ' +
+      'OpenEVV voice keeps the earlier version until you close it and start it again; every program ' +
+      'started from now on uses this version.';
   if WizardForm.YesRadio.Visible then
     S := S + #13#10#13#10 + 'Some files were in use and will be replaced when Windows restarts.';
   WizardForm.FinishedLabel.Caption := S;
@@ -490,9 +655,21 @@ begin
     SweepView(HKEY_LOCAL_MACHINE_32);
     ClearDefaultVoice(HKEY_LOCAL_MACHINE_32, 'HKLM32');
     ClearDefaultVoice(HKEY_CURRENT_USER, 'HKCU');
+    { Files a running program still holds are renamed rather than left for a restart
+      to delete, so uninstalling never asks for one either. }
+    MovedAside := 0;
+    MoveAsideFilesInUse;
+    Log(Format('[openevv] %d files in use renamed out of the way, deleted at the next restart', [MovedAside]));
   end
   else if CurUninstallStep = usPostUninstall then
   begin
+    { What is left is only those renamed files; their folders go with them at the next
+      restart, after the files, in the order they were queued. }
+    if DirExists(ExpandConstant('{app}')) then
+    begin
+      QueueFolderRemoval(ExpandConstant('{app}'));
+      Log('[openevv] ' + ExpandConstant('{app}') + ' still holds files in use; it goes at the next restart');
+    end;
     if RegKeyExists(HKEY_LOCAL_MACHINE_32, '{#TokenEnumsKey}') or
        (IsWin64 and RegKeyExists(HKEY_LOCAL_MACHINE_64, '{#TokenEnumsKey}')) then
       Log('[openevv] WARNING: an OpenEVV voice list key is still present')

@@ -12,15 +12,21 @@ disk.
 
 What is installed:
 
-  * Ten languages, eight voices each: US English, British English, German,
-    Castilian Spanish, Latin American Spanish, French, Canadian French,
-    Italian, Japanese, and Polish (experimental: upstream is still turning
-    Italian rules into Polish ones).
+  * 155 languages, eight voices each. Ten are openevv's own: US English,
+    British English, German, Castilian Spanish, Latin American Spanish,
+    French, Canadian French, Italian, Japanese, and Polish (experimental:
+    upstream is still turning Italian rules into Polish ones). The other 145
+    are read by eSpeak NG and spoken with the OpenEVV voices.
   * The SAPI 5 interface for 32-bit programs and for 64-bit programs.
   * OpenEVV Configuration, which adjusts every parameter of every voice,
     the sample rate and the engine's speech options, manages language packs
     and edits user dictionaries. Every change is heard at once, in every
     program, with nothing to restart.
+
+Windows does not need to restart, before or after. If a program is using
+an OpenEVV voice while you upgrade - your screen reader, say - it keeps the
+version it has until you close it and start it again; every program started
+after the upgrade uses the new one.
 
 Adding and removing languages: new languages are published as language pack
 .zip files. In OpenEVV Configuration, on the Languages page, press "Add a

@@ -1,5 +1,17 @@
 # Changes
 
+## 1.1.1 - 28 September 2026
+
+No restart, ever.
+
+- Installing no longer needs Windows to restart. When a program had an OpenEVV voice loaded during an upgrade (a screen reader, usually), 1.1.0 queued its files to be replaced at the next restart. Until then every 64-bit program kept the old voice list: 80 voices where there are 1,240, which is what the installer's voice test reported as a problem. Files in use are now renamed out of the way (`*.N.old`) and the new ones installed under the real names, so every program started afterwards uses the new version at once. The programs that were already running keep the old one until they are started again, and the installer's last page names them. The renamed copies are deleted by the next install or uninstall, or at the next restart, whichever comes first.
+- Uninstalling does the same, and no longer asks for a restart either.
+- Logs: a line naming a character outside ASCII (the Maori language, a program under a non-English path) was written as "(log format error)", and so was the first line of every SAPI log, which names the program that loaded OpenEVV. Log lines are now formatted in UTF-8.
+- The pre-install page counts all 155 languages.
+- `OpenEvvConfig.exe --in-use FILE` lists the programs, 32-bit and 64-bit, that have the installation's SAPI DLL loaded; the installer uses it to name them.
+- `src\tools\audit_voices.ps1` audits an installed copy through SAPI itself, every voice in 32-bit or 64-bit programs. Run on the installed 1.1.0 and again on 1.1.1: all 1,240 voices speak their language's sample in both, and eSpeak NG's reading of every one of the 145 languages reaches the engine as phonemes, with no text left over.
+- Tested by upgrading over running programs that held both SAPI DLLs, both engine hosts and a language module open: no restart asked for, and a program started afterwards lists all 1,240 voices.
+
 ## 1.1.0 - 28 September 2026
 
 145 more languages, read by eSpeak NG and spoken with the OpenEVV voices.

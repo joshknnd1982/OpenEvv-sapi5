@@ -13,6 +13,9 @@
 //                                          .zip, a folder or a language.ini
 //   OpenEvvConfig.exe --remove-pack DIR    delete a language pack (run elevated
 //                                          by the window for a shipped pack)
+//   OpenEvvConfig.exe --in-use FILE        the programs that have this
+//                                          installation's SAPI DLL loaded, one
+//                                          file name a line (for the installer)
 #include <windows.h>
 #include <commctrl.h>
 #include <mmsystem.h>
@@ -20,6 +23,7 @@
 #include <shldisp.h>
 #include <shlobj.h>
 #include <shobjidl.h>
+#include <tlhelp32.h>
 // Last among the system headers: initguid defines the Dynamic Annotation
 // GUIDs oleacc.h declares, which no import library provides.
 #include <initguid.h>
@@ -983,6 +987,54 @@ int run_selftest_cli(const std::wstring& report_path, bool hosts, bool sapi)
     return r.failures;
 }
 
+// The programs with this installation's SAPI DLL loaded, 32-bit and 64-bit alike.
+// The installer names them: a DLL it had to rename out of the way stays loaded in
+// them, the version they started with, until they are started again. The loader
+// keeps the name a module was loaded under, so a renamed DLL is still found here.
+int run_in_use_cli(const std::wstring& report_path)
+{
+    std::wstring root = self_dir();
+    root.resize(root.find_last_of(L"\\/") + 1);
+    std::vector<std::wstring> names;
+    HANDLE procs = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (procs == INVALID_HANDLE_VALUE) return 1;
+    PROCESSENTRY32W pe{};
+    pe.dwSize = sizeof pe;
+    for (BOOL more = Process32FirstW(procs, &pe); more; more = Process32NextW(procs, &pe)) {
+        if (pe.th32ProcessID == 0 || pe.th32ProcessID == GetCurrentProcessId()) continue;
+        HANDLE mods = INVALID_HANDLE_VALUE;
+        // ERROR_BAD_LENGTH: the process loaded or unloaded a module meanwhile
+        for (int tries = 0; tries < 3 && mods == INVALID_HANDLE_VALUE; ++tries) {
+            mods = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, pe.th32ProcessID);
+            if (mods == INVALID_HANDLE_VALUE && GetLastError() != ERROR_BAD_LENGTH) break;
+        }
+        if (mods == INVALID_HANDLE_VALUE) continue;
+        MODULEENTRY32W me{};
+        me.dwSize = sizeof me;
+        for (BOOL m = Module32FirstW(mods, &me); m; m = Module32NextW(mods, &me)) {
+            if (_wcsicmp(me.szModule, L"OpenEvvSAPI.dll") == 0 &&
+                _wcsnicmp(me.szExePath, root.c_str(), root.size()) == 0) {
+                if (std::find(names.begin(), names.end(), pe.szExeFile) == names.end()) {
+                    names.push_back(pe.szExeFile);
+                }
+                break;
+            }
+        }
+        CloseHandle(mods);
+    }
+    CloseHandle(procs);
+    std::wstring report;
+    for (const std::wstring& n : names) report += n + L"\r\n";
+    log::write(log::kStandard, "in use: %zu programs have OpenEvvSAPI.dll loaded", names.size());
+    const std::string bytes = wide_to_utf8(report);
+    HANDLE f = CreateFileW(report_path.c_str(), GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, 0, nullptr);
+    if (f == INVALID_HANDLE_VALUE) return 1;
+    DWORD w = 0;
+    WriteFile(f, bytes.data(), static_cast<DWORD>(bytes.size()), &w, nullptr);
+    CloseHandle(f);
+    return 0;
+}
+
 } // namespace
 
 int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR, int)
@@ -996,7 +1048,8 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR, int)
         if (a == L"--selftest") mode = a;
         else if (a == L"--hosts-only") sapi = false;
         else if (a == L"--sapi-only") hosts = false;
-        else if ((a == L"--report" || a == L"--remove-pack" || a == L"--add-pack") && i + 1 < argc) {
+        else if ((a == L"--report" || a == L"--remove-pack" || a == L"--add-pack" || a == L"--in-use") &&
+                 i + 1 < argc) {
             if (a != L"--report") mode = a;
             arg = argv[++i];
         }
@@ -1009,6 +1062,10 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR, int)
     log::write(log::kStandard, "OpenEVV configuration %s (%s) started%s%S", EVV_VERSION_STRING,
                sizeof(void*) == 8 ? "64-bit" : "32-bit", mode.empty() ? "" : " with ",
                mode.empty() ? L"" : mode.c_str());
+
+    if (mode == L"--in-use") {
+        return run_in_use_cli(arg);
+    }
 
     if (mode == L"--remove-pack") {
         // Only a folder holding a language pack, and only inside a languages folder.

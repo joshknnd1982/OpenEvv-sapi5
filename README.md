@@ -21,7 +21,7 @@ Download `OpenEVV-SAPI5-Setup-<version>.exe` from the [Releases](../../releases)
 
 Windows may say "Windows protected your PC" first. That is SmartScreen noting a new, unsigned download, not a detection: choose More info, then Run anyway.
 
-Installing over an older version keeps your settings and languages. If a program was using an OpenEVV voice during the upgrade, the files it had open are replaced when Windows restarts.
+Installing over an older version keeps your settings and languages, and Windows never needs to restart. Files a running program still has open (a screen reader using an OpenEVV voice, say) are renamed out of the way and the new ones installed beside them: every program started afterwards uses the new version at once, and the programs that were already running keep the old one until you close them and start them again. The installer's last page names those programs.
 
 ## Adding a new language to your installed copy
 

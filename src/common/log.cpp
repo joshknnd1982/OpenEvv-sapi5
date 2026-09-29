@@ -3,6 +3,7 @@
 #include <atomic>
 #include <cstdarg>
 #include <cstdio>
+#include <locale.h>
 #include <mutex>
 #include <shlobj.h>
 #include <windows.h>
@@ -117,22 +118,38 @@ std::string stamp()
     return b;
 }
 
+// %S writes a wide string through the locale; in the default "C" locale any character
+// outside ASCII (the a-macron in "Maori", a path under a non-English user name) fails
+// the whole line. The log files are UTF-8, so format in a UTF-8 locale of our own,
+// leaving the host program's locale alone.
+_locale_t utf8_locale()
+{
+    static const _locale_t loc = _create_locale(LC_ALL, ".UTF8");
+    return loc;
+}
+
 std::string vformat(const char* fmt, va_list ap)
 {
     char local[1024]; // not "small": rpcndr.h defines that as a macro
     va_list ap2;
     va_copy(ap2, ap);
-    const int n = vsnprintf(local, sizeof local, fmt, ap2);
+    const int n = _vsnprintf_s_l(local, sizeof local, _TRUNCATE, fmt, utf8_locale(), ap2);
     va_end(ap2);
-    if (n < 0) {
-        return "(log format error)";
-    }
-    if (static_cast<size_t>(n) < sizeof local) {
+    if (n >= 0) {
         return std::string(local, static_cast<size_t>(n));
     }
-    std::string big(static_cast<size_t>(n) + 1, '\0');
-    vsnprintf(big.data(), big.size(), fmt, ap);
-    big.resize(static_cast<size_t>(n));
+    va_copy(ap2, ap);
+    const int need = _vscprintf_l(fmt, utf8_locale(), ap2);
+    va_end(ap2);
+    if (need < 0) {
+        return "(log format error)";
+    }
+    std::string big(static_cast<size_t>(need) + 1, '\0');
+    const int n2 = _vsnprintf_s_l(big.data(), big.size(), _TRUNCATE, fmt, utf8_locale(), ap);
+    if (n2 < 0) {
+        return "(log format error)";
+    }
+    big.resize(static_cast<size_t>(n2));
     return big;
 }
 

@@ -66,7 +66,7 @@ void init_logging_once()
 #else
                    "32-bit",
 #endif
-                   EVV_ENGINE_COMMIT, utils::wstring_to_string(exe_path()).c_str());
+                   EVV_ENGINE_COMMIT, exe_path().c_str());
     });
 }
 

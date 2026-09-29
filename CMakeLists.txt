@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 # Keep in step with src/common/version.h and installer/openevv.iss.
-project(OpenEvvSAPI VERSION 1.1.0 LANGUAGES C CXX RC)
+project(OpenEvvSAPI VERSION 1.1.1 LANGUAGES C CXX RC)
 
 # The SAPI5 wrapper, the engine host, the configuration utility and the test
 # tools, built with MSVC for one architecture per build tree (build_all.bat
