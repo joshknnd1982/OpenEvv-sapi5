@@ -15,6 +15,15 @@
 //   languages\sw\language.ini     Template=eses, [Frontend] Voice=bnt/sw
 //   languages\sw\phonemes.map
 //
+// The template of such a pack may be a pack that is no language at all: a
+// module that says the phones it is given without the habits of any one
+// language, which is what a language read by eSpeak NG wants of it. Such a
+// pack says Hidden=1 and lends its modules without being listed as a
+// language or having voices of its own:
+//
+//   languages\dedx\language.ini   Hidden=1
+//   languages\dedx\openevv-dedx-x86.dll, openevv-dedx-x64.dll
+//
 // Adding a language is dropping a folder in, removing one is deleting it: the
 // SAPI voice list is built from whatever packs are present each time an
 // application asks for it, so nothing has to be registered. docs/LANGUAGES.md
@@ -44,13 +53,14 @@ struct LanguageInfo
     unsigned id = 0;             // ECI language, e.g. 0x00010000
     unsigned codepage = 1252;    // how text is handed to the engine
     bool experimental = false;
+    bool hidden = false;         // lends its modules and is not a language itself
     int order = 1000;
     std::wstring dir;            // the pack folder
     std::wstring module32, module64; // full paths ("" if the pack lacks one)
     std::vector<PresetVoice> voices; // the eight presets
     std::wstring template_tag;   // "eses": the pack whose modules speak this one
     std::wstring fe_voice;       // the eSpeak NG voice that reads the text, "bnt/sw"
-    std::wstring fe_map;         // full path of the pack's phonemes.map
+    std::wstring fe_map;         // full path of the pack's sounds.map, or phonemes.map
 
     // True for a pack read by eSpeak NG and spoken by its template's modules.
     bool has_frontend() const { return !fe_voice.empty(); }
@@ -64,7 +74,8 @@ struct LanguageInfo
 // Reads every pack. Packs in the user's drop-in folder win over shipped packs
 // with the same tag. Sorted by Order, then name. Problems (a pack with no
 // module, an unreadable ini) are reported in `problems` and the pack skipped.
-std::vector<LanguageInfo> scan_languages(std::vector<std::wstring>* problems = nullptr);
+// Packs that only lend their modules are left out unless they are asked for.
+std::vector<LanguageInfo> scan_languages(std::vector<std::wstring>* problems = nullptr, bool hidden_too = false);
 
 // One pack by tag, from a fresh scan.
 bool find_language(const std::wstring& tag, LanguageInfo& out);

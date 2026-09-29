@@ -66,6 +66,7 @@ bool read_language_pack(const std::wstring& dir, LanguageInfo& out, std::wstring
     li.id = static_cast<unsigned>(wcstoul(ini.get(L"Language", L"Id", L"0").c_str(), nullptr, 0));
     li.codepage = static_cast<unsigned>(ini.get_int(L"Language", L"Codepage", 1252));
     li.experimental = ini.get_bool(L"Language", L"Experimental", false);
+    li.hidden = ini.get_bool(L"Language", L"Hidden", false);
     li.order = ini.get_int(L"Language", L"Order", 1000);
     li.template_tag = ini.get(L"Language", L"Template");
     const std::wstring engine = ini.get(L"Frontend", L"Engine");
@@ -75,8 +76,15 @@ bool read_language_pack(const std::wstring& dir, LanguageInfo& out, std::wstring
             return false;
         }
         li.fe_voice = ini.get(L"Frontend", L"Voice");
+        // Sounds= is the map of 1.2, with the language's own sounds, melody
+        // and tones; Map= the nearest phones only, which is what a program of
+        // 1.1 still running through an upgrade reads, and is kept for it.
+        const auto full = [&](const std::wstring& f) {
+            return (f.find(L':') != std::wstring::npos) ? f : dir + L"\\" + f;
+        };
+        const std::wstring sounds = ini.get(L"Frontend", L"Sounds");
         const std::wstring map = ini.get(L"Frontend", L"Map", L"phonemes.map");
-        li.fe_map = (map.find(L':') != std::wstring::npos) ? map : dir + L"\\" + map;
+        li.fe_map = !sounds.empty() && file_exists(full(sounds)) ? full(sounds) : full(map);
         if (li.fe_voice.empty() || !file_exists(li.fe_map)) {
             problem = dir + L": the [Frontend] section needs a Voice and the pack its phoneme map";
             return false;
@@ -120,7 +128,7 @@ bool read_language_pack(const std::wstring& dir, LanguageInfo& out, std::wstring
     return true;
 }
 
-std::vector<LanguageInfo> scan_languages(std::vector<std::wstring>* problems)
+std::vector<LanguageInfo> scan_languages(std::vector<std::wstring>* problems, bool hidden_too)
 {
     std::vector<LanguageInfo> found;
     for (const std::wstring& root : language_dirs()) {
@@ -167,7 +175,8 @@ std::vector<LanguageInfo> scan_languages(std::vector<std::wstring>* problems)
     }
     std::vector<LanguageInfo> resolved;
     for (size_t i = 0; i < found.size(); ++i) {
-        if (keep[i]) resolved.push_back(std::move(found[i]));
+        // a pack that only lends its modules has lent them by now
+        if (keep[i] && (hidden_too || !found[i].hidden)) resolved.push_back(std::move(found[i]));
     }
     found = std::move(resolved);
     std::sort(found.begin(), found.end(), [](const LanguageInfo& a, const LanguageInfo& b) {

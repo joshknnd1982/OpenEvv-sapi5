@@ -416,6 +416,60 @@ std::string spaced_out(const std::string& utf8)
     return out;
 }
 
+// What is spelled is said by eSpeak NG character by character, each by its
+// name in the language and an accented letter with its accent: "a con
+// acento", "a fada". eSpeak NG is told by the command it keeps for that, the
+// character with the number one, the number of the way of saying (18:
+// characters) and Y; the same without a number ends it. Without it a letter
+// on its own is read as the word it may also be, or as its sound.
+const char kSayCharacters[] = "\001" "18Y";
+const char kSayWords[] = "\001" "Y";
+
+std::string spelled(const std::string& utf8)
+{
+    return kSayCharacters + spaced_out(utf8) + kSayWords;
+}
+
+// Whether the text is one letter and nothing else: somebody moving through a
+// line a character at a time, or hearing what they type. A letter and the
+// accent written after it as a character of its own are one letter where
+// Unicode has the two as one.
+bool lone_letter(const std::string& utf8)
+{
+    size_t first = 0, last = utf8.size();
+    auto blank = [](char c) { return c == ' ' || c == '\t' || c == '\n' || c == '\r'; };
+    while (first < last && blank(utf8[first])) ++first;
+    while (last > first && blank(utf8[last - 1])) --last;
+    if (last == first || last - first > 32) return false;
+    const std::wstring w = utf8_to_wide(utf8.substr(first, last - first));
+    if (w.empty()) return false;
+    wchar_t one[16];
+    const int n = NormalizeString(NormalizationC, w.data(), static_cast<int>(w.size()), one, 16);
+    if (n <= 0) return false;
+    const bool pair = n == 2 && one[0] >= 0xD800 && one[0] < 0xDC00 && one[1] >= 0xDC00 && one[1] < 0xE000;
+    if (n != 1 && !pair) return false;
+    WORD kind[2] = {0, 0}, mark[2] = {0, 0};
+    if (!GetStringTypeW(CT_CTYPE1, one, n, kind) || !GetStringTypeW(CT_CTYPE3, one, n, mark)) return false;
+    if (kind[0] & C1_DIGIT) return false; // a number is read as a number
+    return (kind[0] & C1_ALPHA) != 0 || (mark[0] & (C3_NONSPACING | C3_DIACRITIC | C3_VOWELMARK)) != 0;
+}
+
+std::string text_of(const Request& r)
+{
+    std::string all;
+    size_t pos = 0;
+    for (uint32_t i = 0; i < r.req.item_count && pos + sizeof(proto::Item) <= r.items.size(); ++i) {
+        proto::Item it;
+        memcpy(&it, r.items.data() + pos, sizeof it);
+        pos += sizeof it;
+        if (it.kind != proto::kItemText) continue;
+        if (it.a <= 0 || pos + static_cast<size_t>(it.a) > r.items.size()) break;
+        all.append(reinterpret_cast<const char*>(r.items.data() + pos), static_cast<size_t>(it.a));
+        pos += static_cast<size_t>(it.a);
+    }
+    return all;
+}
+
 void apply_item(const proto::Item& it);
 
 bool add_translated(const Request& r, std::string& preview, std::string& error)
@@ -425,6 +479,8 @@ bool add_translated(const Request& r, std::string& preview, std::string& error)
     uint32_t at = 0;
     std::vector<Placed> placed;
     int text_mode = q.text_mode;
+    // one letter and nothing else is named, whatever the mode
+    const bool lone = !spelling_mode(text_mode) && lone_letter(text_of(r));
     // punctuation is named when everything is spelled, not only letters and digits
     bool name_punctuation = text_mode == 2 || text_mode == 3;
     size_t pos = 0;
@@ -436,7 +492,7 @@ bool add_translated(const Request& r, std::string& preview, std::string& error)
             if (it.a <= 0 || pos + static_cast<size_t>(it.a) > r.items.size()) break;
             std::string t(reinterpret_cast<const char*>(r.items.data() + pos), static_cast<size_t>(it.a));
             pos += static_cast<size_t>(it.a);
-            if (spelling_mode(text_mode)) t = spaced_out(t);
+            if (spelling_mode(text_mode) || lone) t = spelled(t);
             else if (q.user_dicts) t = g_text_dict.apply(t);
             all += t;
             at += static_cast<uint32_t>(count_code_points(t));
@@ -491,6 +547,14 @@ void run(Request& r)
         if (q.preset >= 1 && q.preset <= 8) g_eci.CopyVoice(g_h, q.preset, 0);
         for (int i = 0; i < kVoiceParamCount; ++i) {
             if (q.voice[i] >= 0) g_eci.SetVoiceParam(g_h, 0, i, q.voice[i]);
+        }
+        // A language with a melody or tones of its own has its pitch made
+        // from the voice's pitch and pitch fluctuation, which the engine
+        // only ever says when they are set: so they are set, to what they
+        // are already.
+        for (const int i : {kVoicePitchBaseline, kVoicePitchFluctuation}) {
+            const int v = g_eci.GetVoiceParam(g_h, 0, i);
+            if (v >= 0) g_eci.SetVoiceParam(g_h, 0, i, v);
         }
         if (q.user_dicts) {
             std::wstring files[3];

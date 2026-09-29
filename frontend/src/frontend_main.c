@@ -14,7 +14,9 @@
  * NG: the SAPI wrapper talks to it over two pipes.
  *
  *   OpenEvvFrontend --data DIR --voice NAME --map FILE --text "..."
- *        prints what a text becomes, with each word's position
+ *        prints what a text becomes, with each word's position;
+ *        --spell has it spelled, every character by its name;
+ *        --phonemes lets it name eSpeak NG's phonemes in [[double brackets]]
  *   OpenEvvFrontend --data DIR --dump-phonemes
  *        every phoneme of every eSpeak NG phoneme table, as JSON
  *   OpenEvvFrontend --data DIR --serve
@@ -45,6 +47,7 @@
 #include <espeak-ng/encoding.h>
 
 #include "dictionary.h"
+#include "intonation.h"
 #include "phoneme.h"
 #include "readclause.h"
 #include "speech.h"
@@ -122,6 +125,67 @@ static int n_clause_words;
 
 static EvvMap g_map;
 static int g_map_loaded;
+static int g_src_shift;     /* characters put in front of the text, which no position counts */
+static const char *g_input; /* the text being read, as it was given */
+
+/* The stretches of the text that are to be spelled, in characters from the
+   start of the text as it was given. */
+typedef struct {
+	int from, to;
+} Stretch;
+#define MAX_SPELLED 64
+static Stretch g_spelled[MAX_SPELLED];
+static int g_n_spelled;
+
+/* eSpeak NG is told to say characters by a command in the text: the
+   character with the number one, a number and Y. 18 to 20 are the ways of
+   spelling; Y with no number, or nought, ends it. `shift' is how many
+   characters were put in front of the text that was given. */
+static void find_spelled(const char *text, int shift)
+{
+	int at = 0, open = -1;
+	g_n_spelled = 0;
+	for (const unsigned char *p = (const unsigned char *)text; *p;) {
+		if (*p == 1) {
+			const unsigned char *q = p + 1;
+			int value = 0, digits = 0;
+			while (*q >= '0' && *q <= '9') {
+				value = value * 10 + (*q - '0');
+				q++;
+				digits++;
+			}
+			if (*q == 'Y') {
+				int after = at + 1 + digits + 1 - shift;
+				if ((value & 0xf0) == 0x10) {
+					if (open < 0)
+						open = after < 0 ? 0 : after;
+				} else if (open >= 0 && g_n_spelled < MAX_SPELLED) {
+					g_spelled[g_n_spelled].from = open;
+					g_spelled[g_n_spelled].to = at - shift;
+					g_n_spelled++;
+					open = -1;
+				}
+			}
+		}
+		p++;
+		while ((*p & 0xc0) == 0x80)
+			p++;
+		at++;
+	}
+	if (open >= 0 && g_n_spelled < MAX_SPELLED) {
+		g_spelled[g_n_spelled].from = open;
+		g_spelled[g_n_spelled].to = at - shift + 1;
+		g_n_spelled++;
+	}
+}
+
+static int is_spelled(int character)
+{
+	for (int i = 0; i < g_n_spelled; i++)
+		if (character >= g_spelled[i].from && character < g_spelled[i].to)
+			return 1;
+	return 0;
+}
 
 /* --stats: how often each phoneme is said, for the tools that choose a
    template and write the maps */
@@ -173,6 +237,24 @@ static ClauseWord *new_word(int src, int src_len)
 	return cw;
 }
 
+/* How a clause ends, as the markup says it: a statement, a question, an
+   exclamation, or a sentence that goes on. */
+static char phrase_ending(int terminator)
+{
+	switch (terminator & CLAUSE_INTONATION_TYPE) {
+	case CLAUSE_INTONATION_QUESTION:
+		return 'q';
+	case CLAUSE_INTONATION_EXCLAMATION:
+		return 'e';
+	case CLAUSE_INTONATION_COMMA:
+		return 'c';
+	case CLAUSE_INTONATION_NONE:
+		return 'c';
+	default:
+		return (terminator & CLAUSE_TYPE) == CLAUSE_TYPE_CLAUSE ? 'c' : 's';
+	}
+}
+
 static void append_phones(EvvWord *to, const EvvWord *from, int at_front)
 {
 	if (to->n + from->n > EVV_WORD_MAX)
@@ -201,6 +283,54 @@ static const char *clause_punctuation(int terminator)
 	default:
 		return (terminator & CLAUSE_TYPE) == CLAUSE_TYPE_CLAUSE ? "," : ".";
 	}
+}
+
+/* Where in a text in UTF-8 the character with a number begins. */
+static const char *at_character(const char *s, int n)
+{
+	while (*s && n > 0) {
+		s++;
+		while ((*s & 0xc0) == 0x80)
+			s++;
+		n--;
+	}
+	return s;
+}
+
+static int is_letter_byte(unsigned char c)
+{
+	return c >= 0x80 || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+}
+
+/* Whether the clause is asked with a question word: one of the words the
+   map lists, where the map says such a word counts. */
+static int asked_with_a_word(void)
+{
+	if (!g_map.n_ask || !g_input)
+		return 0;
+	int seen = 0;
+	int last_src = -1;
+	for (int i = 0; i < n_clause_words; i++) {
+		const ClauseWord *cw = &clause_words[i];
+		if (cw->src == last_src || cw->src_len <= 0)
+			continue;
+		last_src = cw->src;
+		const char *a = at_character(g_input, cw->src);
+		const char *b = at_character(a, cw->src_len);
+		/* the word without what stands round it */
+		while (a < b && !is_letter_byte((unsigned char)*a))
+			a++;
+		while (b > a && !is_letter_byte((unsigned char)b[-1]))
+			b--;
+		if (b <= a)
+			continue;
+		seen++;
+		if (g_map.ask_where == 1 && seen > 3)
+			return 0;
+		if (evv_map_asks(&g_map, a, (size_t)(b - a), seen == 1))
+			return 1;
+	}
+	return 0;
 }
 
 static void write_clause(int terminator)
@@ -232,40 +362,74 @@ static void write_clause(int terminator)
 			cw->w.n = 0;
 		} else if (g_map.schwa[0]) {
 			/* nothing to lean on: give it a vowel */
-			char phones[1][EVV_PHONE_LEN];
-			strcpy(phones[0], g_map.schwa);
+			EvvMapPhone phones[1];
+			memset(phones, 0, sizeof(phones));
+			snprintf(phones[0].name, sizeof(phones[0].name), "%s", g_map.schwa);
 			EvvWord tmp = cw->w;
 			evv_word_clear(&cw->w);
-			evv_word_add(&cw->w, &g_map, phones, 1, 1, 1, 1);
+			evv_word_add(&cw->w, &g_map, phones, 1, 1, 1, 1, NULL);
 			append_phones(&cw->w, &tmp, 0);
 		}
 	}
-	static char buf[EVV_WORD_MAX * 12 + 16];
+	static char buf[EVV_WORD_MAX * 48 + 64];
 	int wrote = 0;
+	/* What is being spelled is said as people spell: a letter, a breath, the
+	   next letter. eSpeak NG makes that pause in its own sound; here it is a
+	   comma, which is what the engine pauses at. The words of one letter's
+	   name ("a", "con", "acento") stay together: they are read from one
+	   place in the text, or the later of them from the space after it. */
+	int last_src = -1;
 	for (int i = 0; i < n_clause_words; i++) {
 		ClauseWord *cw = &clause_words[i];
 		size_t l = evv_word_annotate(&cw->w, &g_map, buf, sizeof(buf));
 		if (l == 0)
 			continue;
-		if (out.len)
+		int same_letter = cw->src == last_src;
+		if (!same_letter && g_input != NULL) {
+			char c = *at_character(g_input, cw->src);
+			same_letter = c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == 0;
+		}
+		if (wrote && !same_letter && is_spelled(cw->src)) {
+			if (g_map.accent)
+				out_put("{P c}", 5);
+			out_put(",", 1);
+		}
+		if (out.len > 0)
 			out_put(" ", 1);
 		out_anchor((uint32_t)cw->src, (uint32_t)cw->src_len);
 		out_put(buf, l);
 		wrote = 1;
+		last_src = cw->src;
 	}
 	if (wrote) {
+		if (g_map.accent) {
+			/* how the phrase ends, for whoever is making its melody */
+			char ending = phrase_ending(terminator);
+			if (ending == 'q' && asked_with_a_word())
+				ending = 'w';
+			char group[8] = {'{', 'P', ' ', ending, '}', 0};
+			out_put(group, 5);
+		}
 		const char *p = clause_punctuation(terminator);
 		out_put(p, strlen(p));
 	}
 	n_clause_words = 0;
 }
 
-static void translate_clause_phonemes(int terminator)
+static void translate_clause_phonemes(int terminator, int clause_tone)
 {
 	int table = voice ? voice->phoneme_tab_ix : 0;
 	ClauseWord *cw = NULL;
-	char ipa[64], mnem[32];
-	char phones[EVV_MAX_PHONES][EVV_PHONE_LEN];
+	char ipa[64], mnem[32], tone_name[32];
+	EvvMapPhone phones[EVV_MAX_PHONES];
+
+	/* A language with tones changes them by what stands beside them: the
+	   third tone of Mandarin before another third tone, the neutral tone
+	   after each of the four. eSpeak NG does that where it works out the
+	   pitch, which is after the translation this program stops at, so it is
+	   asked to here. Nothing else it sets there is read. */
+	if (translator && translator->langopts.tone_language == 1 && n_phoneme_list > 2)
+		CalcPitches(translator, clause_tone);
 
 	n_clause_words = 0;
 	for (int ix = 1; ix < n_phoneme_list - 2; ix++) {
@@ -274,8 +438,14 @@ static void translate_clause_phonemes(int terminator)
 		if (ph == NULL)
 			continue;
 		if (plist->newword & PHLIST_START_OF_WORD) {
-			int src = clause_start_char + (plist->sourceix & 0x7ff);
-			cw = new_word(src > 0 ? src - 1 : 0, plist->sourceix >> 11);
+			int src = clause_start_char + (plist->sourceix & 0x7ff) - 1 - g_src_shift;
+			int len = plist->sourceix >> 11;
+			if (src < 0) {
+				/* the word began among the characters put in front of the text */
+				len = len + src > 0 ? len + src : 0;
+				src = 0;
+			}
+			cw = new_word(src, len);
 		}
 		if (ph->code == phonSWITCH) {
 			table = plist->tone_ph;
@@ -311,31 +481,92 @@ static void translate_clause_phonemes(int terminator)
 			n = evv_map_lookup(&g_map, phoneme_tab_list[table].name, mnem, ipa, phones, EVV_MAX_PHONES);
 		if (n == 0)
 			continue;
+		/* the tone the syllable carries, under the name the map gives it */
+		const char *tone = NULL;
+		if (plist->type == phVOWEL && plist->tone_ph != 0 && g_map.n_tone_ids > 0) {
+			PHONEME_TAB *tph = TonePhoneme(plist);
+			if (tph != NULL) {
+				tone_name[0] = 0;
+				WritePhMnemonic(tone_name, tph, plist, 0, NULL);
+				tone = evv_map_tone(&g_map, tone_name);
+			}
+		}
+		int stress = engine_stress(plist->stresslevel);
+		/* Where every syllable is a word and has a tone, a syllable's weight
+		   is its tone's: full, or light as the neutral tone is. */
+		if (tone != NULL && g_map.apart)
+			stress = evv_map_tone_is_weak(&g_map, tone) ? 0 : 1;
 		evv_word_add(&cw->w, &g_map, phones, n, (plist->synthflags & SFLAG_SYLLABLE) != 0,
-		             plist->type == phVOWEL, engine_stress(plist->stresslevel));
+		             plist->type == phVOWEL, stress, tone);
 	}
 	write_clause(terminator);
 }
 
+/* Text to be spelled: every character by its name in the language, which is
+   what somebody moving through a line a character at a time has to hear.
+   eSpeak NG is told by the command it keeps for that, written in front of
+   the text: the character with the number one, the number of the way of
+   saying (18: characters), and Y. The same command without a number ends
+   it. The host writes them itself around what is to be spelled; this is for
+   a whole text. */
+#define SPELL_ON "\001" "18Y"
+#define SPELL_ON_LEN 4
+
 static int translate_text(const char *utf8, uint32_t flags)
 {
 	out_reset();
+	g_src_shift = 0;
+	g_input = utf8;
 	if (!translator || (!g_map_loaded && !g_counting))
 		return -1;
 	/* spelling: punctuation is named, in the language's own words */
 	espeak_SetParameter(espeakPUNCTUATION, (flags & EVV_FE_FLAG_PUNCTUATION) ? espeakPUNCT_ALL : espeakPUNCT_NONE, 0);
 	if (p_decoder == NULL)
 		p_decoder = create_text_decoder();
+	char *spelled = NULL;
+	if (flags & EVV_FE_FLAG_SPELL) {
+		size_t n = strlen(utf8);
+		spelled = (char *)malloc(n + SPELL_ON_LEN + 1);
+		if (spelled) {
+			memcpy(spelled, SPELL_ON, SPELL_ON_LEN);
+			memcpy(spelled + SPELL_ON_LEN, utf8, n + 1);
+			utf8 = spelled;
+			g_src_shift = SPELL_ON_LEN;
+		}
+	}
+	find_spelled(utf8, g_src_shift);
 	InitText(0);
-	if (text_decoder_decode_string_multibyte(p_decoder, utf8, translator->encoding, espeakCHARS_UTF8) != ENS_OK)
+	if (text_decoder_decode_string_multibyte(p_decoder, utf8, translator->encoding, espeakCHARS_UTF8) != ENS_OK) {
+		free(spelled);
 		return -1;
+	}
 	int guard = 0;
 	while (!text_decoder_eof(p_decoder) && guard++ < 100000) {
 		int tone = 0, terminator = 0;
 		char *voice_change = NULL;
 		SelectPhonemeTable(voice->phoneme_tab_ix);
 		TranslateClauseWithTerminator(translator, &tone, &voice_change, &terminator);
-		translate_clause_phonemes(terminator);
+		translate_clause_phonemes(terminator, tone);
+	}
+	free(spelled);
+	/* What the phones were meant to be begins the text: the language, and
+	   those of its sounds and tones that these words have in them. It is
+	   written last, when it is known which they are, and put first. */
+	if (g_map_loaded && g_map.accent && !g_counting && out.len > 0) {
+		size_t hl = 0;
+		char *h = evv_map_begin(&g_map, &hl);
+		if (h && hl) {
+			size_t body = out.len;
+			out_put(h, hl); /* makes the room */
+			if (out.len == body + hl) {
+				memmove(out.text + hl, out.text, body);
+				memcpy(out.text, h, hl);
+				out.text[out.len] = 0;
+				for (size_t i = 0; i < out.n_anchors; i++)
+					out.anchors[i].out_offset += (uint32_t)hl;
+			}
+		}
+		free(h);
 	}
 	return 0;
 }
@@ -667,7 +898,11 @@ int main(int argc, char **argv)
 		fprintf(stderr, "%s\n", err);
 		return 1;
 	}
-	translate_text(text, has_arg(argc, argv, "--punctuation") ? EVV_FE_FLAG_PUNCTUATION : 0);
+	/* for whoever measures a sound: [[...]] in the text is eSpeak NG's own
+	   phoneme names, said as they stand */
+	option_phoneme_input = has_arg(argc, argv, "--phonemes");
+	translate_text(text, (has_arg(argc, argv, "--punctuation") ? EVV_FE_FLAG_PUNCTUATION : 0) |
+	                         (has_arg(argc, argv, "--spell") ? EVV_FE_FLAG_SPELL : 0));
 	if (has_arg(argc, argv, "--anchors")) {
 		for (size_t i = 0; i < out.n_anchors; i++)
 			printf("%u\t%u+%u\n", out.anchors[i].out_offset, out.anchors[i].src_offset, out.anchors[i].src_length);

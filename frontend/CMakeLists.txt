@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(OpenEvvFrontend VERSION 1.1.0 LANGUAGES C CXX)
+project(OpenEvvFrontend VERSION 1.2.0 LANGUAGES C CXX)
 
 # OpenEvvFrontend: eSpeak NG's reading of a text, written as pronunciations in
 # an openevv module's phoneme alphabet. It links eSpeak NG, so it is a program
@@ -16,7 +16,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(ESPEAK_NG_SOURCE_DIR "" CACHE PATH "A local eSpeak NG checkout to build instead of fetching one")
 set(ESPEAK_NG_GIT_REPOSITORY "https://github.com/joshknnd1982/espeak-ng.git" CACHE STRING "Where to fetch eSpeak NG from")
-set(ESPEAK_NG_GIT_TAG "openevv-1.1.0" CACHE STRING "Branch, tag or commit of eSpeak NG to build")
+set(ESPEAK_NG_GIT_TAG "openevv-1.2.0" CACHE STRING "Branch, tag or commit of eSpeak NG to build")
 
 set(USE_ASYNC OFF CACHE BOOL "" FORCE)
 set(USE_MBROLA OFF CACHE BOOL "" FORCE)
