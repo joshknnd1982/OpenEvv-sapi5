@@ -8,13 +8,15 @@ Everything outside `openevv/`, `frontend/` and `languages/` is the wrapper: the 
 
 ## eSpeak NG and the front-end: GNU GPL version 3 or later
 
-`frontend/` is `OpenEvvFrontend.exe`, which reads the 145 languages made from [eSpeak NG](https://github.com/espeak-ng/espeak-ng). It links eSpeak NG and is under the GNU General Public License version 3 or later, in `frontend/COPYING`, as eSpeak NG is. So is the eSpeak NG data installed with it in `espeak-ng-data\`, and so are the `phonemes.map` files in the eSpeak NG language packs, which are written from eSpeak NG's phoneme tables. The front-end is a program of its own: the wrapper starts it and talks to it over pipes, and does not link it. `src/common/frontend_proto.h`, the description of those pipes, is under the MIT licence so that both sides may include it.
+`frontend/` is `OpenEvvFrontend.exe`, which reads the 145 languages made from [eSpeak NG](https://github.com/espeak-ng/espeak-ng). It links eSpeak NG and is under the GNU General Public License version 3 or later, in `frontend/COPYING`, as eSpeak NG is. So is the eSpeak NG data installed with it in `espeak-ng-data\`, and so are the `sounds.map` and `phonemes.map` files in the eSpeak NG language packs, which are written from eSpeak NG's phoneme tables. The front-end is a program of its own: the wrapper starts it and talks to it over pipes, and does not link it. `src/common/frontend_proto.h`, the description of those pipes, is under the MIT licence so that both sides may include it.
 
 The eSpeak NG it is built from is [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng) at the tag `frontend/CMakeLists.txt` names, which is eSpeak NG with the changes made for OpenEVV (number reading for more languages among them); its complete source is there. eSpeak NG is Copyright (C) 2005 to 2013 Jonathan Duddington, and from 2013 Reece H. Dunn and the eSpeak NG contributors.
 
 ## The openevv engine: MIT
 
 `openevv/` is a snapshot of the openevv engine, and every language module in `languages/` is compiled from it. Its authors' own work (the engine in `openevv/src`, its front ends, tools, tests and documents) is under the MIT licence in `openevv/LICENSE`. Copyright (c) 2026 Stanislaw Przedzinkowski.
+
+What this project added to the engine is under the same licence: the accent layer in `openevv/src/accent`, which gives a language read by eSpeak NG its own sounds, melody and tones, the few lines in `openevv/src/eci` and `openevv/src/klatt` that call it, and `openevv/tools/module/clone.py`. Copyright (c) 2026 the OpenEVV SAPI5 contributors.
 
 ## The language data: IBM's, and not licensed here
 
@@ -32,6 +34,10 @@ Neither this project nor openevv is in a position to license that data to anyone
 `openevv/NOTICE` is upstream's own statement of this and is the authoritative one. None of this is legal advice. If you mean to do more with the language data than use it, the rights are yours to sort out with whoever holds them.
 
 Polish (`openevv/lang/plpl`) began as a copy of IBM's Italian and is still largely Italian data, so the same applies to it.
+
+The seven modules that speak the languages read by eSpeak NG (`dedx`, `itix`, `esex`, `esux`, `engx`, `enux` and `frfx` in `languages/`) are IBM's German, Italian, Spanish, English and French modules with a few rules of their phonology replaced by rules that do nothing. `openevv/accents/` holds what they differ by, and the rules written there are this project's own; the modules made from them are IBM's language data exactly as the modules they were made from are, and the same applies to them. They are not under the MIT licence or any other licence given here.
+
+The profiles in `engine/profiles/` are summaries, written for this project, of what the published literature says of each language, with the sources named; they are part of the wrapper and under its licence. The measurements and descriptions they cite are their authors'.
 
 ## Names
 

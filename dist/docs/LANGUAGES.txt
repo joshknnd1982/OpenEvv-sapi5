@@ -4,7 +4,7 @@ Every language OpenEVV speaks is a folder. The SAPI 5 voice list is built from t
 
 ## Where they live
 
-- `C:\Program Files\OpenEVV SAPI5\languages\` holds the 155 languages the installer puts there: openevv's own ten and 145 read by eSpeak NG.
+- `C:\Program Files\OpenEVV SAPI5\languages\` holds the 155 languages the installer puts there, openevv's own ten and 145 read by eSpeak NG, and the seven modules that speak those.
 - `%ProgramData%\OpenEVV\languages\` (usually `C:\ProgramData\OpenEVV\languages\`) is yours. Anyone can write there without being an administrator, and a pack there wins over a shipped pack with the same tag, so it is also how to replace one.
 
 OpenEVV Configuration's Languages page does all of this with buttons: **Add a language pack** takes a downloaded `.zip` as it is (or `language.ini` inside an extracted pack) and installs every language in it into your folder, **Remove the selected language** sends a pack to the Recycle Bin (asking for administrator rights only for a shipped pack), and **Open the languages folder** opens yours. `OpenEvvConfig.exe --add-pack <zip or folder>` does the same from a command line.
@@ -38,6 +38,7 @@ UTF-8, so Notepad can edit it. Only `[Language]` with `Id` and one module is req
     Module64=openevv-enus-x64.dll
     Order=10                     ; where the language sorts in the voice list
     Experimental=0
+    Hidden=0                     ; 1: lends its modules to other packs, and is no language
 
     [Voice1]                     ; one section per preset, 1 to 8
     Name=Adult Male 1
@@ -52,10 +53,12 @@ The ECI language numbers IBM assigned: 0x10000 US English, 0x10001 British Engli
 
 ## A language read by eSpeak NG
 
-145 of the languages have no engine module of their own. eSpeak NG reads their text -- its spelling rules, its dictionary, its numbers and letter names, its word stress -- and one of openevv's own modules, the pack's *template*, speaks what it read. Such a pack is a folder too:
+145 of the languages have no engine module of their own. eSpeak NG reads their text -- its spelling rules, its dictionary, its numbers, its letter names and the names of its punctuation marks, its word stress and its tones -- and one of openevv's modules, the pack's *template*, speaks what it read, with the sounds, the melody and the tones of the language itself. Such a pack is a folder too:
 
     languages\sw        language.ini
-        phonemes.map             eSpeak NG's phonemes, as the template's
+        sounds.map               eSpeak NG's phonemes as the template's phones, and how
+                                 each sound of the language differs from its phone
+        phonemes.map             the map of 1.1: the nearest phones and nothing more
         sample.txt               a sentence in the language, for Speak and the self-test
 
 and its `language.ini` names a template and an eSpeak NG voice instead of modules:
@@ -67,21 +70,36 @@ and its `language.ini` names a template and an eSpeak NG voice instead of module
     LCID=441
     Locale=sw
     Codepage=65001
-    Template=eses                ; the pack whose modules speak it
+    Template=esex                ; the pack whose modules speak it
     Order=289
 
     [Frontend]
     Engine=espeak
     Voice=bnt/sw                 ; the eSpeak NG voice, as a path under espeak-ng-data\lang
-    Map=phonemes.map
+    Map=phonemes.map             ; the map of 1.1: the nearest phones only
+    Sounds=sounds.map            ; the map of 1.2, which 1.2 reads when it is there
 
-The template's modules speak it with the template's own eight presets, which the `[Voice]` sections repeat. The engine host starts `OpenEvvFrontend.exe` beside it, which reads the text with eSpeak NG's data in `espeak-ng-data\` of the installation, and hands the template's engine a pronunciation for every word. `frontend\README.md` says how, and what `phonemes.map` holds; it is text, and a line of it is an eSpeak NG phoneme and the template phones that say it, so a sound can be changed with Notepad. A pack whose template is not installed is not offered.
+The engine host starts `OpenEvvFrontend.exe` beside it, which reads the text with eSpeak NG's data in `espeak-ng-data\` of the installation and hands the template's engine a pronunciation for every word, with what each phone of it was meant to be. `docs\SOUNDS.md` says what `sounds.map` holds and how the engine makes a language's sounds out of a module's phones; it is text, and a sound can be changed with Notepad. A pack whose template is not installed is not offered.
 
-The template is an accent: every word is said with that module's sounds, rhythm and melody. `engine\espeak_templates.txt` chooses it where a relative or a neighbour of the language decides -- the Celtic languages with British English, the Germanic ones with German, Brazilian Portuguese with Latin American Spanish, the dialects of English and French with their own language -- and otherwise `engine\make_espeak_packs.py` takes the template whose phones come closest to the sounds the language uses most, weighing most heavily two sounds of the language that the template could only say alike. `engine\check_espeak_packs.py` holds every pack to its template's module: a sample of the language, its numbers and its punctuation are read and handed to the module, and any word the module would not take as a pronunciation is a failure.
+### The modules that speak them
 
-eSpeak NG's own dialects of openevv's languages are packs of their own -- New York City, Scottish and Caribbean English, Received Pronunciation, Lancaster and the West Midlands, English in the Shavian alphabet, Belgian and Swiss French -- spoken with openevv's module for the language. Only the eSpeak NG voices that openevv's own ten already are, are left out.
+The templates are seven modules made for the purpose: `dedx`, `itix`, `esex`, `esux`, `engx`, `enux` and `frfx` are the German, Italian, Castilian and Latin American Spanish, British and US English and French modules with the habits of their own language taken out, so that they say the phones they are given. A language is spoken by the one made from the module it was spoken by in 1.1. Their packs say
 
-What eSpeak NG cannot bring across. A template can only say the sounds its module has, so a sound none of openevv's modules has is said as the nearest one it does. Tone is lost: the tonal languages are read with their tones by eSpeak NG, but the modules have no way to take a pitch for a syllable -- every change of pitch or speed inside an utterance makes the engine pause, which was measured -- so they are spoken with the template's own intonation.
+    Hidden=1
+
+in `[Language]`: they lend their modules to other packs and are not languages themselves, and have no voices in the voice list. They are in the same folders as every other pack, and the zip of the eSpeak NG languages carries them.
+
+### Spelling, single letters, numbers
+
+When a screen reader spells a word or moves through a line a character at a time, every letter is said by its name in the language, an accented letter with its accent as the language names it, and a punctuation mark by its name in the language. A text that is one letter and nothing else is named the same way. The names are eSpeak NG's, from its dictionary for the language, and OpenEVV asks for them with eSpeak NG's own command for saying characters. Numbers written in digits are read as numbers in the language. Where a language's dictionary had no names or no number words they were added to eSpeak NG (the branch `openevv-languages` of joshknnd1982/espeak-ng).
+
+`phonemes.map` is still written, and `Map=` still names it, for a program of 1.1 that is still running while 1.2 is installed over it: that program reads `Map=` and goes on speaking the language as 1.1 did until it is started again. 1.2 reads `Sounds=`, and falls back to `Map=` for a pack that has no `sounds.map`.
+
+`engine\check_espeak_packs.py` holds every pack to its template's module: a sample of the language, its numbers and its punctuation are read and handed to the module, any word the module would not take as a pronunciation is a failure, and so is a language whose sounds were laid over the wrong phones.
+
+eSpeak NG's own dialects of openevv's languages are packs of their own -- New York City, Scottish and Caribbean English, Received Pronunciation, Lancaster and the West Midlands, English in the Shavian alphabet, Belgian and Swiss French -- spoken with the module made from openevv's module for the language. Only the eSpeak NG voices that openevv's own ten already are, are left out.
+
+What eSpeak NG cannot bring across. What eSpeak NG does not read, OpenEVV cannot say: the word accents of Swedish, Norwegian, Serbian, Croatian, Slovenian, Lithuanian and Latvian are not in eSpeak NG's reading, and Thai is read without its tones. `docs\LANGUAGE-REPORT.md` says for every language what the literature describes, what eSpeak NG reads and what is spoken.
 
 ## Any ECI library is a module
 

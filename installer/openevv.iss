@@ -30,7 +30,7 @@
 ; through MSAA on a private desktop.
 
 ; Bump MyAppVersion with src\common\version.h and project() in CMakeLists.txt.
-#define MyAppVersion   "1.1.1"
+#define MyAppVersion   "1.2.0"
 #define AppName        "OpenEVV SAPI5"
 #define AppPublisher   "OpenEVV SAPI5 project"
 #define AppURL         "https://github.com/joshknnd1982/OpenEvv-sapi5"
