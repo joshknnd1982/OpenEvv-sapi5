@@ -23,6 +23,17 @@ Windows may say "Windows protected your PC" first. That is SmartScreen noting a 
 
 Installing over an older version keeps your settings and languages, and Windows never needs to restart. Files a running program still has open (a screen reader using an OpenEVV voice, say) are renamed out of the way and the new ones installed beside them: every program started afterwards uses the new version at once, and the programs that were already running keep the old one until you close them and start them again. The installer's last page names those programs.
 
+## Native speakers: please help make your language right
+
+Not every language is right yet. The 145 languages read by eSpeak NG were built from published descriptions, dictionaries, grammars and measurements, and checked by measuring the sound, but most of them have not yet been heard by a native speaker. If your language is read or spoken wrongly, please improve it with a pull request. If you would rather describe what you hear, open an issue: say which words or sentences are wrong and how a native speaker says them.
+
+Where a fix goes depends on what is wrong:
+
+- **How the text is read**: a word pronounced wrongly, a letter's name, how a number is read, the name of a punctuation mark. This is eSpeak NG's dictionary for the language, in the `openevv-languages` branch of [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng/tree/openevv-languages): `dictsource/<code>_list` holds words, letter names, numbers and punctuation names, and `dictsource/<code>_rules` the spelling rules. Send the pull request there. A fix that is right for eSpeak NG itself is welcome upstream at [espeak-ng/espeak-ng](https://github.com/espeak-ng/espeak-ng) too, and then every program that uses eSpeak NG benefits.
+- **How the language sounds**: a vowel or consonant, the rhythm, the melody of a sentence or a question, the tones. This is in this repository: the pack's `languages/<tag>/sounds.map`, a text file that `docs/SOUNDS.md` explains entry by entry, and the language's profile `engine/profiles/<tag>.json`, which says what the literature says the language sounds like, with sources. `docs/LANGUAGE-REPORT.md` lists, language by language, what is known to be missing.
+
+The easiest pull request to take says what was wrong, what is right, and where that is written down: a dictionary, a grammar, a published description, or simply "I am a native speaker of this language".
+
 ## Adding a new language to your installed copy
 
 New OpenEVV languages are published as language packs: a `.zip` holding one folder with `language.ini` and two engine modules. To add one:
