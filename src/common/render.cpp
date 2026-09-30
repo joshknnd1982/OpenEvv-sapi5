@@ -6,6 +6,7 @@
 
 #include "eci_module.h"
 #include "host_client.h"
+#include "pauses.h"
 #include "text_codec.h"
 #include "voice_math.h"
 
@@ -40,7 +41,17 @@ RenderResult render_voice(const LanguageInfo& lang, int preset, const Settings& 
     req.head.preset = preset;
     for (int i = 0; i < 8; ++i) req.head.voice[i] = voice[i];
     req.head.voice[kVoiceSpeed] = engine_speed(voice[kVoiceSpeed], 0, s);
-    req.text(encode_text(text, lang.codepage));
+    // The pauses at punctuation, as the SAPI engine puts them (pauses.h).
+    std::wstring said = text;
+    if (s.pause_mode != kPausesKept && s.text_mode == 0) { // not while spelling: see the SAPI engine
+        if (lang.has_frontend()) {
+            req.pauses(s.pause_mode);
+        } else {
+            said = shorten_text(text, s.pause_mode, s.annotations);
+            req.head.input_type = 1;
+        }
+    }
+    req.text(encode_text(said, lang.codepage));
 
     const double t0 = now_ms();
     auto utt = HostPool::get().speak(lang, s, req, out.error, nullptr, 10000, bitness);

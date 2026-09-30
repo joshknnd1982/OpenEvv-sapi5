@@ -12,10 +12,12 @@
 ;   * MSAA names each list after the text just before it. The list of things to run at
 ;     the end gets a short label of its own, so it is not named after the whole results
 ;     summary above it.
-;   * Every outcome - the registration, the voice test in 32-bit and in 64-bit programs,
-;     where the logs are - is stated in words on the last page and in the log, never only
-;     by an icon or a colour. A failed voice test is also reported in a message box, which
-;     screen readers read out as soon as it appears.
+;   * Every outcome - the registration, where the logs are - is stated in words on the last
+;     page and in the log, never only by an icon or a colour. An incomplete registration is
+;     also reported in a message box, which screen readers read out as soon as it appears.
+;   * Setup does not speak the voices to test them: that took minutes after the files were
+;     already installed. OpenEvvConfig.exe has a "Run the self-test" button for anyone who
+;     wants it, and setup only checks the registration, which is a few registry reads.
 ;   * SetupLogging and UninstallLogging are on, so every install and every uninstall
 ;     leaves a complete log behind; the install log is copied to the OpenEVV log folder.
 ;
@@ -30,7 +32,7 @@
 ; through MSAA on a private desktop.
 
 ; Bump MyAppVersion with src\common\version.h and project() in CMakeLists.txt.
-#define MyAppVersion   "1.2.0"
+#define MyAppVersion   "1.2.2"
 #define AppName        "OpenEVV SAPI5"
 #define AppPublisher   "OpenEVV SAPI5 project"
 #define AppURL         "https://github.com/joshknnd1982/OpenEvv-sapi5"
@@ -224,9 +226,7 @@ const
   SWP_NOACTIVATE = $10;
 
 var
-  Summary64: String;
-  Summary32: String;
-  TestFailed: Boolean;
+  Summary: String;
   RegistrationOk: Boolean;
   RunListLabel: TNewStaticText;
   MovedAside: Integer;
@@ -424,48 +424,6 @@ begin
       end;
 end;
 
-{ ---- the voice test ------------------------------------------------------------------ }
-
-{ Runs OpenEvvConfig.exe --selftest. The 64-bit utility speaks every voice of every
-  language through both the 64-bit and the 32-bit engine, and one through SAPI in a
-  64-bit process; the 32-bit utility then checks SAPI in a 32-bit process. It runs as
-  the user who started setup, so it also proves that user can write the logs. }
-function RunVoiceTest(const Exe, Args, Bits: String): String;
-var
-  Report: String;
-  Lines: TArrayOfString;
-  I, Code: Integer;
-begin
-  Result := '';
-  Report := LogDir + '\selftest-' + Bits + '.txt';
-  DeleteFile(Report);
-  WizardForm.StatusLabel.Caption := 'Testing the voices in ' + Bits + ' programs...';
-  WizardForm.FilenameLabel.Caption := '';
-  Note('voice test (' + Bits + '): ' + Exe + ' --selftest ' + Args + ' --report "' + Report + '"');
-  if not ExecAsOriginalUser(Exe, '--selftest ' + Args + ' --report "' + Report + '"', '', SW_HIDE,
-                            ewWaitUntilTerminated, Code) then
-  begin
-    Note('voice test (' + Bits + ') could not start: ' + SysErrorMessage(Code));
-    TestFailed := True;
-    Result := 'The voice test for ' + Bits + ' programs could not be started.';
-    Exit;
-  end;
-  if LoadStringsFromFile(Report, Lines) then
-    for I := 0 to GetArrayLength(Lines) - 1 do
-    begin
-      Note('  ' + Lines[I]);
-      if Pos('RESULT: ', Lines[I]) > 0 then
-        Result := Copy(Lines[I], Pos('RESULT: ', Lines[I]) + 8, Length(Lines[I]));
-    end
-  else
-    Note('voice test (' + Bits + ') wrote no report at ' + Report);
-  Note(Format('voice test (%s) exit code %d', [Bits, Code]));
-  if Code <> 0 then
-    TestFailed := True;
-  if Result = '' then
-    Result := Format('The voice test for %s programs ended with code %d and wrote no result.', [Bits, Code]);
-end;
-
 { ---- setup events --------------------------------------------------------------------- }
 
 function InitializeSetup: Boolean;
@@ -498,9 +456,8 @@ begin
 #ifdef Probe
   if CurStep = ssPostInstall then
   begin
-    { Stand-ins of realistic length, so the probe lays out the last page as setup does. }
-    Summary64 := 'Accessibility probe: no voices were installed, so none were tested in 64-bit programs.';
-    Summary32 := 'Accessibility probe: no voices were installed, so none were tested in 32-bit programs.';
+    { A stand-in of realistic length, so the probe lays out the last page as setup does. }
+    Summary := 'Accessibility probe: no voices were installed, so none were registered with Windows.';
   end;
 #else
   if CurStep = ssInstall then
@@ -526,26 +483,27 @@ begin
       RegistrationOk := CheckRegistration(HKEY_LOCAL_MACHINE_64, ExpandConstant('{app}\x64\{#DllName}'));
     RegistrationOk := CheckRegistration(HKEY_LOCAL_MACHINE_32, ExpandConstant('{app}\x86\{#DllName}')) and RegistrationOk;
     if RegistrationOk then
-      Note('registration complete in every view')
-    else
-      Note('REGISTRATION INCOMPLETE - see the entries above');
-
-    TestFailed := False;
-    if Is64BitInstallMode then
     begin
-      Summary64 := RunVoiceTest(ExpandConstant('{app}\x64\{#ConfigName}'), '', '64-bit');
-      Summary32 := RunVoiceTest(ExpandConstant('{app}\x86\{#ConfigName}'), '--sapi-only', '32-bit');
+      Note('registration complete in every view');
+      if Is64BitInstallMode then
+        Summary := 'The voices are registered with Windows for 64-bit and for 32-bit programs.'
+      else
+        Summary := 'The voices are registered with Windows for 32-bit programs.';
     end
     else
-      Summary32 := RunVoiceTest(ExpandConstant('{app}\x86\{#ConfigName}'), '', '32-bit');
+    begin
+      Note('REGISTRATION INCOMPLETE - see the entries above');
+      Summary := 'The registration with Windows is incomplete: the entries that are missing or wrong are in install.log.';
+    end;
+    Note('the voices are not tested during setup; OpenEvvConfig.exe has a self-test button');
 
     { The log so far, where the configuration utility's "Open the log folder" button finds
       it. Copied again at the very end, complete. }
     CopyFile(ExpandConstant('{log}'), LogDir + '\install.log', False);
 
-    if TestFailed or not RegistrationOk then
-      SuppressibleMsgBox('OpenEVV SAPI5 is installed, but the voice test found a problem.' + #13#10#13#10 +
-        Summary64 + #13#10 + Summary32 + #13#10#13#10 +
+    if not RegistrationOk then
+      SuppressibleMsgBox('OpenEVV SAPI5 is installed, but its registration with Windows is incomplete.' + #13#10#13#10 +
+        Summary + #13#10#13#10 +
         'The details are in install.log in ' + LogDir + '.', mbError, MB_OK, IDOK);
   end
   else if CurStep = ssDone then
@@ -556,18 +514,16 @@ end;
 { The last page says what actually happened, in words a screen reader reads out. }
 procedure CurPageChanged(CurPageID: Integer);
 var
-  S, Tests: String;
+  S: String;
   Delta: Integer;
 begin
   if CurPageID <> wpFinished then
     Exit;
-  Tests := Summary32;
-  if Summary64 <> '' then
-    Tests := Summary64 + #13#10 + Summary32;
   { No line may start with "#" here: the preprocessor would take it for a directive. }
-  S := '{#AppName} {#MyAppVersion} is installed.' + #13#10#13#10 + Tests + #13#10#13#10 +
+  S := '{#AppName} {#MyAppVersion} is installed.' + #13#10#13#10 + Summary + #13#10#13#10 +
     'Choose any voice named OpenEVV in your screen reader or any SAPI 5 program. ' +
-    'OpenEVV Configuration, on the desktop and in the Start menu, adjusts every voice.' + #13#10#13#10 +
+    'OpenEVV Configuration, on the desktop and in the Start menu, adjusts every voice, ' +
+    'and its Diagnostics page can run a self-test that speaks them all.' + #13#10#13#10 +
     'Logs, including install.log: ' + LogDir;
   if ProgramsUsingOld <> '' then
     S := S + #13#10#13#10 + 'Windows does not need to restart. These programs were already running with ' +

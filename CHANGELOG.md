@@ -1,5 +1,25 @@
 # Changes
 
+## 1.2.2 - 30 September 2026
+
+Shorter pauses at punctuation, as in the IBMTTS driver for NVDA.
+
+- **New setting: Punctuation pauses**, on the Speech page of OpenEVV Configuration, with the driver's three choices. *Do not shorten* is the engine's own pauses and is the default, so nothing changes until it is chosen. *Shorten at end of text only* takes away the silence of about 400 ms after the last word of every text, which is what a screen reader waits through after every announcement and every character it speaks. *Shorten all pauses* also takes the pause out of every comma, full stop, colon, semicolon, question mark, exclamation mark and dash inside the text: about 155 ms for a comma and 400 for the others become about 40. The marks still give the phrase its melody. Measured on a sentence with eight marks in US English: 6.2 s as it was, 5.8 s at the end of text only, 3.8 s with every pause shortened.
+- How it is done is the driver's: the engine's one-unit pause annotation, `` `p1 ``, goes in front of the mark, and the engine reads it in place of the pause the mark would make. It works in all 155 languages. The ten languages the engine speaks itself take it in the text; for a language read by eSpeak NG the host puts it into the text the front-end makes, in front of each clause's mark, and leaves a text that is spelled alone.
+- Where it differs from the driver, on purpose: mode 1 also shortens the pause of a final mark ("Hello." as well as "Hello"), which is what the driver's documentation says of it, where its code only does it for a text with no mark at the end. A full stop that ends an abbreviation ("Mr.", "Dr.", "St.", an initial, the "3." of a German date) is left alone: the annotation between a word and its dot stops the engine's dictionary from reading it, and "Mr. Smith" no longer came out as "Mister Smith". Marks are found in a run of any of them, followed by closing quotes and brackets ("no.") and in East Asian text without a space after them (、。？！).
+- While pauses are shortened a backquote in the text is read as a space (as the driver does), since the engine takes a backquote to begin a command once it accepts the annotation; the *Honour backquote annotations* setting keeps them. Nothing is added while the text mode spells, or to `<spell>`: the engine would spell the annotation.
+- `settings.ini` has `PauseMode` (0, 1, 2) in `[General]`. Every running voice takes a change on its next utterance, and restoring the Speech page's defaults puts it back to 0.
+- Protocol: a new request item, `kItemPauses`, carries the mode to the host for a language read by eSpeak NG. A host that does not know it ignores it, and an older client never sends it, so 1.2.2 hosts and older programs that still have an earlier OpenEvvSAPI.dll loaded keep working together.
+- `sapi_test --only pauses` holds it: all ten languages the engine speaks itself and two read by eSpeak NG shorten in the order the modes say, "Mr." and "Dr." are still read as words, a lone letter is still a letter, a backquote is not an annotation, word and sentence events and `<spell>` are unchanged.
+- Includes 1.2.1's quicker install, below, which was not released on its own.
+
+## 1.2.1 - 30 September 2026
+
+A quicker install.
+
+- The installer no longer speaks every voice of every language right after it has copied the files. That test ran in both 64-bit and 32-bit programs and made the last step of an install take minutes. Setup still checks that the voices are registered with Windows in every view, which is a few registry reads, and says so on its last page and in `install.log`; an incomplete registration is still reported in a message box. The self-test is still there for anyone who wants it: the "Run the self-test" button on the Diagnostics page of OpenEVV Configuration, or `OpenEvvConfig.exe --selftest`.
+- No change to the voices, the engine or the language packs.
+
 ## 1.2.0 - 29 September 2026
 
 The 145 languages read by eSpeak NG speak with their own sounds, melodies and tones, and name their letters, numbers and punctuation in their own words.

@@ -483,14 +483,37 @@ RequestBuilder::RequestBuilder()
     for (int& v : head.voice) v = -1;
 }
 
-void RequestBuilder::text(const std::string& bytes)
+size_t RequestBuilder::text(const std::string& bytes)
 {
-    if (bytes.empty()) return;
-    proto::Item it{proto::kItemText, static_cast<int32_t>(bytes.size()), 0};
     const size_t at = items_.size();
+    if (bytes.empty()) return at;
+    proto::Item it{proto::kItemText, static_cast<int32_t>(bytes.size()), 0};
     items_.resize(at + sizeof it + bytes.size());
     memcpy(items_.data() + at, &it, sizeof it);
     memcpy(items_.data() + at + sizeof it, bytes.data(), bytes.size());
+    ++head.item_count;
+    return at;
+}
+
+void RequestBuilder::replace_text(size_t at, const std::string& bytes)
+{
+    proto::Item it;
+    if (bytes.empty() || at + sizeof it > items_.size()) return;
+    memcpy(&it, items_.data() + at, sizeof it);
+    if (it.kind != proto::kItemText || it.a < 0 || at + sizeof it + static_cast<size_t>(it.a) > items_.size()) return;
+    const auto body = items_.begin() + static_cast<std::ptrdiff_t>(at + sizeof it);
+    items_.erase(body, body + it.a);
+    items_.insert(items_.begin() + static_cast<std::ptrdiff_t>(at + sizeof it), bytes.begin(), bytes.end());
+    it.a = static_cast<int32_t>(bytes.size());
+    memcpy(items_.data() + at, &it, sizeof it);
+}
+
+void RequestBuilder::pauses(int mode)
+{
+    proto::Item it{proto::kItemPauses, mode, 0};
+    const size_t at = items_.size();
+    items_.resize(at + sizeof it);
+    memcpy(items_.data() + at, &it, sizeof it);
     ++head.item_count;
 }
 

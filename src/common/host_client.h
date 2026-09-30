@@ -73,10 +73,14 @@ class RequestBuilder
 public:
     proto::SpeakReq head{};
     RequestBuilder();
-    void text(const std::string& bytes);
+    // Adds a stretch of text and answers where it is, for replace_text.
+    size_t text(const std::string& bytes);
+    // Puts other bytes in place of the stretch of text that text() put at `at`.
+    void replace_text(size_t at, const std::string& bytes);
     void index(int32_t value);
     void voice(int which, int value);
     void param(int which, int value);
+    void pauses(int mode);
     bool empty() const { return head.item_count == 0; }
     std::vector<uint8_t> finish(uint32_t id) const;
 

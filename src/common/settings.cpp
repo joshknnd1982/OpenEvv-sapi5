@@ -73,6 +73,7 @@ Settings load_settings()
     s.number_mode = clampi(ini.get_int(G, L"NumberMode", s.number_mode), 0, 1);
     s.text_mode = clampi(ini.get_int(G, L"TextMode", s.text_mode), 0, 3);
     s.annotations = ini.get_bool(G, L"Annotations", s.annotations);
+    s.pause_mode = clampi(ini.get_int(G, L"PauseMode", s.pause_mode), 0, 2);
     s.user_dictionaries = ini.get_bool(G, L"UserDictionaries", s.user_dictionaries);
     s.spell_lone_symbols = ini.get_bool(G, L"SpellLoneSymbols", s.spell_lone_symbols);
     s.log_level = clampi(ini.get_int(G, L"LogLevel", s.log_level), 0, 2);
@@ -106,6 +107,7 @@ bool save_settings(const Settings& s)
     ini.set_int(G, L"NumberMode", s.number_mode);
     ini.set_int(G, L"TextMode", s.text_mode);
     ini.set_int(G, L"Annotations", s.annotations);
+    ini.set_int(G, L"PauseMode", s.pause_mode);
     ini.set_int(G, L"UserDictionaries", s.user_dictionaries);
     ini.set_int(G, L"SpellLoneSymbols", s.spell_lone_symbols);
     ini.set_int(G, L"LogLevel", s.log_level);

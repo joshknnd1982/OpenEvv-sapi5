@@ -51,6 +51,7 @@
 #define IDC_DICTIONARIES 1117
 #define IDC_SPEECH_DEFAULTS 1118
 #define IDC_SPEECH_STATUS 1119
+#define IDC_PAUSES 1120
 
 // Languages page
 #define IDC_LANGLIST 1201

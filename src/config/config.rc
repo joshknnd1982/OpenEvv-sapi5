@@ -57,7 +57,7 @@ BEGIN
     LTEXT           "", IDC_VOICE_STATUS, 7, 244, 286, 24, SS_NOPREFIX
 END
 
-IDD_SPEECH DIALOGEX 0, 0, 300, 272
+IDD_SPEECH DIALOGEX 0, 0, 300, 288
 STYLE DS_SHELLFONT | WS_CHILD | WS_CAPTION | WS_DISABLED
 CAPTION "Speech"
 FONT 9, "Segoe UI", 400, 0, 0x1
@@ -82,12 +82,14 @@ BEGIN
     COMBOBOX        IDC_NUMBERS, 160, 136, 133, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Text mode:", -1, 7, 154, 150, 9
     COMBOBOX        IDC_TEXTMODE, 160, 152, 133, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    AUTOCHECKBOX    "Honour back&quote annotations in the text", IDC_ANNOTATIONS, 7, 170, 286, 10, WS_TABSTOP
-    AUTOCHECKBOX    "&Heteronym fixes (English: produce, record, wound...)", IDC_HETERONYMS, 7, 184, 286, 10, WS_TABSTOP
-    AUTOCHECKBOX    "Name &lone symbols the engine would leave silent", IDC_SYMBOLS, 7, 198, 286, 10, WS_TABSTOP
-    AUTOCHECKBOX    "Use the user &dictionaries", IDC_DICTIONARIES, 7, 212, 286, 10, WS_TABSTOP
-    PUSHBUTTON      "R&estore these settings to their defaults", IDC_SPEECH_DEFAULTS, 7, 228, 160, 15, WS_TABSTOP
-    LTEXT           "", IDC_SPEECH_STATUS, 7, 248, 286, 20, SS_NOPREFIX
+    LTEXT           "Pun&ctuation pauses:", -1, 7, 170, 150, 9
+    COMBOBOX        IDC_PAUSES, 160, 168, 133, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Honour back&quote annotations in the text", IDC_ANNOTATIONS, 7, 186, 286, 10, WS_TABSTOP
+    AUTOCHECKBOX    "&Heteronym fixes (English: produce, record, wound...)", IDC_HETERONYMS, 7, 200, 286, 10, WS_TABSTOP
+    AUTOCHECKBOX    "Name &lone symbols the engine would leave silent", IDC_SYMBOLS, 7, 214, 286, 10, WS_TABSTOP
+    AUTOCHECKBOX    "Use the user &dictionaries", IDC_DICTIONARIES, 7, 228, 286, 10, WS_TABSTOP
+    PUSHBUTTON      "R&estore these settings to their defaults", IDC_SPEECH_DEFAULTS, 7, 244, 160, 15, WS_TABSTOP
+    LTEXT           "", IDC_SPEECH_STATUS, 7, 264, 286, 20, SS_NOPREFIX
 END
 
 IDD_LANGUAGES DIALOGEX 0, 0, 300, 272

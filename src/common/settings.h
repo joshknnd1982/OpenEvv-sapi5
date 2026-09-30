@@ -57,6 +57,10 @@ struct Settings
     int number_mode = 1;          // eciNumberMode
     int text_mode = 0;            // eciTextMode 0..3
     bool annotations = false;     // honour `backquote tags in the text
+    // The pauses the engine makes at a comma, full stop, question mark and the
+    // rest (pauses.h): 0 as the engine makes them, 1 shorten the one after the
+    // last word of a text, 2 shorten all of them.
+    int pause_mode = 0;
     bool user_dictionaries = true;
     bool spell_lone_symbols = true; // name a lone punctuation character instead of silence
     int log_level = 1;

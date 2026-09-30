@@ -10,7 +10,7 @@ The OpenEVV text-to-speech engine as SAPI 5 voices for Windows, in both 32-bit a
 - **And 145 more, read by eSpeak NG:** every language and dialect [eSpeak NG](https://github.com/espeak-ng/espeak-ng) has that openevv does not, from Afrikaans to Yue Chinese, New York City English and Swiss French among them. eSpeak NG reads the text -- its spelling, dictionary, numbers, letter names, punctuation names, stress and tones -- and one of openevv's modules speaks it in the Eloquence voice, with the language's own sounds: Hindi's retroflex and breathy voiced stops, the palatalised consonants of Russian, the nasal vowels of Portuguese, the voicing lead of Hindi and Turkish b, d and g, the taps and trills, the uvulars, the h and the glottal stop the modules never had. Each language has the melody its literature describes, and a question asked with a question word ends differently from one that wants yes or no. Mandarin, Cantonese, Hakka, Vietnamese, Burmese and Shan are spoken with their tones, and so are the low tone of Punjabi and the tones of Cherokee where the text marks them, Mandarin's third tone and neutral tone changing as they do beside other tones. Spelling and moving through a line a character at a time say every letter by its name in the language, an accented letter with its accent. `docs/SOUNDS.md` says how, `docs/LANGUAGE-REPORT.md` what each language has and what is still missing.
 - **The eight classic presets in every language:** Adult Male 1 (Reed), Adult Female 1 (Shelley), Child 1, Adult Male 2, Adult Male 3, Adult Female 2, Elderly Female 1 and Elderly Male 1. Voices are named "OpenEVV US English Adult Male 1" and so on.
 - **Low latency.** The engine synthesises about 600 times faster than real time. From a program's `Speak()` call to the first audio handed to SAPI takes about 1.5 ms on a warm voice. A cancel returns in well under a millisecond, and the next utterance never waits for the one it replaced.
-- **Everything adjustable, live.** OpenEVV Configuration adjusts all eight parameters of every voice in every language: gender, head size, pitch, inflection, roughness, breathiness, speed and volume. It also sets the sample rate (8 to 48 kHz), the resampler, the speed range for SAPI's rate, the pitch step, abbreviation expansion, how numbers are read, the spelling modes, backquote annotations, English heteronym fixes and user dictionaries. Each change is saved at once and heard on the next thing any program says, a screen reader already speaking included.
+- **Everything adjustable, live.** OpenEVV Configuration adjusts all eight parameters of every voice in every language: gender, head size, pitch, inflection, roughness, breathiness, speed and volume. It also sets the sample rate (8 to 48 kHz), the resampler, the speed range for SAPI's rate, the pitch step, abbreviation expansion, how numbers are read, the spelling modes, the pauses at punctuation, backquote annotations, English heteronym fixes and user dictionaries. Each change is saved at once and heard on the next thing any program says, a screen reader already speaking included.
 - **Languages you can add and remove** as folders, without reinstalling anything. See below.
 - **Everything SAPI asks of an engine:** word, sentence and bookmark events on the exact sample, pauses, `<spell>` (NVDA's character navigation), rate, pitch and volume changes inside an utterance, and sentence skipping. A lone symbol the engine would render as silence is named instead (in Japanese that is most ASCII punctuation), but only when it is the whole utterance, so prose keeps its natural pauses.
 - **Logs** of the voices, the engine hosts, the utility and the installer, in `%ProgramData%\OpenEVV\Logs`.
@@ -23,16 +23,89 @@ Windows may say "Windows protected your PC" first. That is SmartScreen noting a 
 
 Installing over an older version keeps your settings and languages, and Windows never needs to restart. Files a running program still has open (a screen reader using an OpenEVV voice, say) are renamed out of the way and the new ones installed beside them: every program started afterwards uses the new version at once, and the programs that were already running keep the old one until you close them and start them again. The installer's last page names those programs.
 
-## Native speakers: please help make your language right
+## Native speakers: help make your language right
 
-Not every language is right yet. The 145 languages read by eSpeak NG were built from published descriptions, dictionaries, grammars and measurements, and checked by measuring the sound, but most of them have not yet been heard by a native speaker. If your language is read or spoken wrongly, please improve it with a pull request. If you would rather describe what you hear, open an issue: say which words or sentences are wrong and how a native speaker says them.
+OpenEVV speaks 145 languages through eSpeak NG. Most of them were built from dictionaries, grammars and published research, not by people who speak them, so not every language is right yet. If you speak one of them, you can make it better. You do not need to be a programmer to start.
 
-Where a fix goes depends on what is wrong:
+Each language has two parts, and they are kept in two places:
 
-- **How the text is read**: a word pronounced wrongly, a letter's name, how a number is read, the name of a punctuation mark. This is eSpeak NG's dictionary for the language, in the `openevv-languages` branch of [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng/tree/openevv-languages): `dictsource/<code>_list` holds words, letter names, numbers and punctuation names, and `dictsource/<code>_rules` the spelling rules. Send the pull request there. A fix that is right for eSpeak NG itself is welcome upstream at [espeak-ng/espeak-ng](https://github.com/espeak-ng/espeak-ng) too, and then every program that uses eSpeak NG benefits.
-- **How the language sounds**: a vowel or consonant, the rhythm, the melody of a sentence or a question, the tones. This is in this repository: the pack's `languages/<tag>/sounds.map`, a text file that `docs/SOUNDS.md` explains entry by entry, and the language's profile `engine/profiles/<tag>.json`, which says what the literature says the language sounds like, with sources. `docs/LANGUAGE-REPORT.md` lists, language by language, what is known to be missing.
+- **Reading** is how the text becomes sounds: how each word is pronounced, the names of the letters, how numbers are said, and the names of punctuation marks. This is eSpeak NG's dictionary for the language, kept in the `openevv-languages` branch of [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng/tree/openevv-languages).
+- **Sound** is what those sounds sound like in the OpenEVV voice: the vowels and consonants, the accent, the rhythm, the melody of sentences and questions, and the tones. This is kept here, in this repository.
 
-The easiest pull request to take says what was wrong, what is right, and where that is written down: a dictionary, a grammar, a published description, or simply "I am a native speaker of this language".
+Everything below happens on GitHub. If you do not have an account, make one at github.com; it is free. Every language has a short tag. Find your language in [docs/LANGUAGE-REPORT.md](docs/LANGUAGE-REPORT.md): the tag is in brackets after its name, for example Welsh (`cy`). That page also lists what is already known to be missing in each language.
+
+### Tell us what is wrong (no programming needed)
+
+1. Go to this repository's [Issues](../../issues) page and press **New issue**.
+2. For the title, write the language and the problem, for example "Welsh: ll sounds like l".
+3. In the description, write the words or the sentence that are wrong, how a native speaker says them, and which voice you heard. Write the words in the language's own spelling. If you know the International Phonetic Alphabet, add that too.
+4. If you can, attach a short recording of yourself saying it. Put the recording in a .zip file first, because GitHub does not accept sound files on their own.
+5. Press **Submit new issue**.
+
+That is enough. Someone who knows the files can make the change from what you wrote.
+
+### Fix how words, letters, numbers or punctuation are read
+
+These changes go to eSpeak NG's dictionary, and you can make them in your web browser.
+
+1. Open the dictionary folder: [dictsource on the openevv-languages branch](https://github.com/joshknnd1982/espeak-ng/tree/openevv-languages/dictsource).
+2. Open your language's word list. It is named with the language's code and `_list`, for example `cy_list` for Welsh. An accent or dialect shares its language's list: Scottish English uses `en_list`. The file ending in `_rules` beside it, for example `cy_rules`, has the spelling rules used for every word that is not in the list.
+3. Press **Edit this file**. GitHub says you need your own copy to propose changes. Press **Fork this repository**.
+4. Make your change. Each line is a word, one or more spaces, and how the word is said, written in eSpeak NG's phoneme letters for the language. For example, English has `hello  h@l'oU`. The `'` goes before the stressed syllable. Lines that begin with `_` are special:
+   - `_a` is the name of the letter a.
+   - `_1` to `_9`, `_1X` (ten), `_0C` (hundred) and `_0M1` (thousand) are how numbers are built.
+   - `_.` and `_,` are the names of punctuation marks.
+
+   Copy the pattern of the lines near yours. eSpeak NG's [dictionary guide](https://github.com/espeak-ng/espeak-ng/blob/master/docs/dictionary.md) and [numbers guide](https://github.com/espeak-ng/espeak-ng/blob/master/docs/numbers.md) explain every kind of line.
+5. Press **Commit changes**, write one line saying what you changed, and press **Propose changes**.
+6. Press **Create pull request**. In the description, say what was wrong, what is right, and how you know: a dictionary, a grammar, or simply "I am a native speaker".
+
+You do not have to test the change yourself; it is checked before it goes in. If you have eSpeak NG installed, `espeak-ng -v cy -x "word"` shows the phonemes it reads for a word, which helps you check. A fix that is right for eSpeak NG itself is welcome at [espeak-ng/espeak-ng](https://github.com/espeak-ng/espeak-ng) as well, so that every program that uses eSpeak NG gets it.
+
+### Fix how the language sounds: its accent, melody and tones
+
+These changes go to this repository. Each language's sounds are in one text file, `languages/<tag>/sounds.map`, for example `languages/cy/sounds.map`. It says which OpenEVV sound each of the language's sounds is made from, and how it is changed: where a vowel sits, where a consonant is made, how long the voice waits after a stop, the melody of statements and questions, and the tones. [docs/SOUNDS.md](docs/SOUNDS.md) explains every line.
+
+To try a change on your own computer first:
+
+1. Copy the folder `C:\Program Files\OpenEVV SAPI5\languages\<tag>` into `%ProgramData%\OpenEVV\languages`. To open that second folder, type `%ProgramData%\OpenEVV\languages` into File Explorer's address bar. A language in that folder takes the place of the installed one with the same tag.
+2. Open `sounds.map` in your copy with Notepad and change one thing, as docs/SOUNDS.md describes.
+3. Save the file and listen. The file is read each time a voice starts, so press **Speak** in OpenEVV Configuration, or restart your screen reader.
+4. When you are done, delete your copied folder to go back to the installed language.
+
+To send the change:
+
+1. Open the [languages](languages) folder in this repository, then your language's folder, then `sounds.map`.
+2. Press **Edit this file**, then **Fork this repository**.
+3. Make the same change you tried.
+4. Press **Commit changes**, then **Propose changes**, then **Create pull request**. Say what the sound should be and where that is written down.
+
+Each language also has a profile, `engine/profiles/<tag>.json`, which says what books and research say about how the language sounds, with their sources. Its `sounds.map` was first written from the profile. If you know a better source, a change to the profile is welcome too.
+
+### Add an accent or a dialect
+
+An accent is a new voice for a language that is already here, the way Scottish English sits beside British English.
+
+1. Open an issue with a title like "New accent: Welsh English". Say where the accent is spoken and how it differs from the language.
+2. eSpeak NG needs a voice for the accent. A voice is a small text file in the `espeak-ng-data/lang` folder of the [openevv-languages branch](https://github.com/joshknnd1982/espeak-ng/tree/openevv-languages/espeak-ng-data/lang). Copy the voice of the same language, give the copy the accent's name, and change what differs. Words the accent says differently go in the language's `_list` with a `?` and a number in front of them, and only the voice that asks for that number reads them. eSpeak NG's [voices guide](https://github.com/espeak-ng/espeak-ng/blob/master/docs/voices.md) and the Accent part of its [guide to adding a language](https://github.com/espeak-ng/espeak-ng/blob/master/docs/add_language.md) explain how. Send this as a pull request to the fork, as in the steps above.
+3. OpenEVV then needs a language folder for the new voice, in `languages`. The simplest way to make one is to copy the folder of the language, then change `Tag`, `Name` and `Voice` in its `language.ini`, and in `sounds.map` the sounds the accent says differently. Send that as a pull request here. The new voice works once OpenEVV is built with the new eSpeak NG voice. If this step is more than you want to do, stop after step 2; the maintainer can make the folder.
+
+### Add a new language
+
+1. Look in [docs/LANGUAGE-REPORT.md](docs/LANGUAGE-REPORT.md) first: the language may already be there under another name.
+2. Open an issue with a title like "New language:" and its name. Say where it is spoken, how it is written, and whether you can listen to it and check it.
+3. Teach eSpeak NG to read it. eSpeak NG's [guide to adding a language](https://github.com/espeak-ng/espeak-ng/blob/master/docs/add_language.md) says, step by step, which files a language needs: a voice file, a word list (`_list`), spelling rules (`_rules`), and, if the language has sounds no other language has, a phoneme table. Send the pull request to the `openevv-languages` branch of [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng/tree/openevv-languages), and, if you like, to [espeak-ng/espeak-ng](https://github.com/espeak-ng/espeak-ng) too.
+4. Describe how it sounds. Copy the profile of a related language in `engine/profiles`, name the copy with your language's tag, and change what is different: its vowels, its consonants, where the stress falls, the melody, and its tones if it has any. Say where each fact comes from.
+5. Make the language's folder. This needs the build tools described in "Building from source" below, with `ESPEAK_NG_SOURCE_DIR` set to your eSpeak NG folder. Then `python engine\make_espeak_packs.py --espeak-src <your eSpeak NG folder> --frontend dist\x64\OpenEvvFrontend.exe --data dist\espeak-ng-data <tag>` writes `languages\<tag>`, and `python engine\check_espeak_packs.py dist\x64\OpenEvvFrontend.exe dist\espeak-ng-data <tag>` checks it. If you do not have the tools, stop after step 4 and send the pull request; the maintainer will make the folder.
+6. Send a pull request here with the profile and, if you made it, the folder.
+
+### Add a new sound (a phoneme)
+
+Sometimes a language has a sound that neither eSpeak NG nor OpenEVV has yet.
+
+1. In eSpeak NG, the sound goes in the language's phoneme table, in the `phsource` folder. eSpeak NG's [phoneme guide](https://github.com/espeak-ng/espeak-ng/blob/master/docs/phonemes.md) and the Phoneme Definition File part of its [guide to adding a language](https://github.com/espeak-ng/espeak-ng/blob/master/docs/add_language.md) explain how to write one. Then the language's `_list` and `_rules` can use it.
+2. In OpenEVV, the new phoneme needs a line in the language's `sounds.map` saying which OpenEVV sound it is made from, and a `sound` line saying how it differs: how far its formants move, how long its voice waits, how much noise it has. [docs/SOUNDS.md](docs/SOUNDS.md) lists every key a `sound` line can have. This is how OpenEVV already makes retroflex, palatal, uvular and pharyngeal consonants, breathy and nasal sounds, h and the glottal stop, and ejectives and implosives as nearly as its kind of synthesiser can.
+3. If the sound is something OpenEVV cannot make yet, open an issue and describe it; a recording helps.
 
 ## Adding a new language to your installed copy
 
@@ -82,6 +155,7 @@ Four pages, all standard Windows controls, every one labelled. Each number is an
   - the pitch change per SAPI pitch step
   - abbreviation expansion, and how numbers are read: 1999 as "nineteen ninety-nine", or as a whole number
   - the text mode: normal, spell letters and digits, spell everything, or the radio alphabet
+  - punctuation pauses: do not shorten, shorten at end of text only, or shorten all pauses (see below)
   - backquote annotations, English heteronym fixes, naming lone symbols, and user dictionaries
 - **Languages:** the installed languages; adding and removing packs; editing the main, root and abbreviation user dictionaries of the selected language.
 - **Diagnostics:** the logging level, the log folder, and a self-test that speaks every voice of every language into memory, in both bitnesses, and one through SAPI itself.
@@ -93,6 +167,22 @@ Settings are per user, in `%APPDATA%\OpenEVV\settings.ini`.
 - **Rate:** SAPI rate 0 is each voice's own speed, 50 for most voices. +10 reaches the fastest speed set on the Speech page: 156 by default, the same top as NVDA's own Eloquence driver, or 250 with rate boost. -10 reaches the slowest speed set there, 0 by default. The engine's speed scale is already exponential (each ten units is about 22% faster), so every SAPI step is an even change.
 - **Pitch:** each SAPI pitch step moves the voice's pitch baseline by the pitch step set on the Speech page, 4 units by default. NVDA's capital-letter pitch change comes through this way.
 - **Volume:** SAPI's volume, and a fragment's own volume, scale the voice's own volume.
+
+### Shorter pauses at punctuation
+
+The engine pauses at a comma, a full stop, a question mark and an exclamation mark for as long as a person reading aloud would, about 155 ms for a comma and 400 ms for the others, and it goes on being silent for about 400 ms after the last word of every text it is given. That is slow for a screen reader. The **Punctuation pauses** setting on the Speech page shortens them, with the three choices of the [IBMTTS driver for NVDA](https://github.com/davidacm/NVDA-IBMTTS-Driver), whose method it uses:
+
+- **Do not shorten:** the engine's own pauses. This is the default, so nothing sounds different until you choose otherwise.
+- **Shorten at end of text only:** the silence after the last word of what is said goes, whether the text ends in a mark or not, and the pauses between phrases stay. Every announcement and every character you move over comes out with no silence after it.
+- **Shorten all pauses:** every pause at , . : ; ? ! and a dash, in every language, to about 40 ms. The mark still gives the phrase its melody: a question still rises.
+
+It works by putting the engine's one-unit pause annotation, `` `p1 ``, in front of each mark, which the engine reads in place of the pause the mark would make. It applies to all 155 languages: the ten the engine speaks itself take it in the text, and for a language read by eSpeak NG the host puts it into the text eSpeak NG's front-end makes. Three details:
+
+- A full stop that ends an abbreviation ("Mr.", "Dr.", "St.", an initial, an ordinal such as the "3." of "am 3. Mai") is left alone, because the annotation between a word and its dot stops the engine's dictionary from reading it as the abbreviation. Put in front of every dot, as the driver's method does, it changes how such words are read in this engine; this does not.
+- While pauses are shortened a backquote in the text is read as a space, as the driver does, because the engine treats a backquote as the start of a command once it accepts the annotation. The "Honour backquote annotations" setting keeps them.
+- Nothing is added while the text mode spells, or to `<spell>`: the engine would spell the annotation.
+
+The setting is `PauseMode` (0, 1 or 2) in `settings.ini`. Every running voice takes it on its next utterance.
 
 ## How it works
 
@@ -171,7 +261,7 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 - **`engine\check_espeak_packs.py`:** every eSpeak NG pack's sample, numbers and punctuation read and handed to its template's module, which must take every word as a pronunciation.
 - **`a11y_check`:** walks every page of OpenEVV Configuration through MSAA on a private desktop. It fails on an unlabelled control or a duplicated access key, and checks that edits reach the settings file at once.
 - **`installer_a11y`:** walks every page of the installer the same way, then installs and uninstalls a non-elevated probe build.
-- **`OpenEvvConfig.exe --selftest`:** every voice of every language in both bitnesses, plus one through SAPI itself. The installer runs this too.
+- **`OpenEvvConfig.exe --selftest`:** every voice of every language in both bitnesses, plus one through SAPI itself. It is the "Run the self-test" button on the Diagnostics page; the installer does not run it, so installing stays quick.
 
 ## Logs and troubleshooting
 

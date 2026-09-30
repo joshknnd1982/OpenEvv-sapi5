@@ -13,7 +13,7 @@
 // probe is uninstalled again afterwards.
 //
 // Fails when a focusable control has no accessible name, when a page does not
-// advance, when the last page does not state the voice test results, or when a
+// advance, when the last page does not state the registration result, or when a
 // check list is not named for what it is (MSAA takes a list's name from the
 // static text just before it).
 #include <windows.h>
@@ -387,7 +387,7 @@ int wmain(int argc, wchar_t** argv)
         ++failures;
     }
     if (!saw_summary) {
-        printf("FAIL: the last page did not state the voice test results and the log folder\n");
+        printf("FAIL: the last page did not state the registration result and the log folder\n");
         ++failures;
     }
     const bool removed = uninstall_probe();

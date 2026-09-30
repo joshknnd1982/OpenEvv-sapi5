@@ -723,6 +723,109 @@ int wmain(int argc, wchar_t** argv)
         check(added > 0.65 && added < 0.75, "<silence msec=700/> adds 700 ms", fmt("%.3f s", added));
     }
 
+    // ---- shorter pauses at punctuation (pauses.h) ---------------------------------------------
+    if (want("pauses", only)) {
+        printf("shorter pauses at punctuation\n");
+        // One text at one of the three pause modes: 0 as the engine has them, 1 the
+        // pause after the last word shortened, 2 all of them.
+        auto say = [&](Voice& v, const std::wstring& text, int mode, bool events = false) {
+            write_settings(fmt("[General]\r\nLogLevel=1\r\nPauseMode=%d\r\n", mode));
+            Frags f;
+            f.text(text);
+            return speak(v, f, [&](MockSite& site) {
+                if (events) site.interest = SPFEI(SPEI_WORD_BOUNDARY) | SPFEI(SPEI_SENTENCE_BOUNDARY);
+            });
+        };
+        const size_t n_native = sizeof kLangSamples / sizeof kLangSamples[0];
+        size_t native_ok = 0;
+        std::string native_detail;
+        for (const auto& ls : kLangSamples) {
+            Voice v = load_voice(ls.tag, 1);
+            if (!v.engine) continue;
+            const double a0 = seconds(say(v, ls.text, 0).audio), a1 = seconds(say(v, ls.text, 1).audio),
+                         a2 = seconds(say(v, ls.text, 2).audio);
+            // Mode 1 takes away about the silence after the last word, mode 2 that and the ones between phrases.
+            const bool ok = a0 - a1 > 0.2 && a0 - a1 < 0.7 && a1 - a2 > 0.3 && a2 > 0.5;
+            if (ok) ++native_ok;
+            else native_detail += fmt(" %s %.2f/%.2f/%.2f", narrow(ls.tag).c_str(), a0, a1, a2);
+            v.release();
+        }
+        check(native_ok == n_native,
+              "every language the engine speaks itself: mode 1 shortens the end, mode 2 the rest as well",
+              native_detail.empty() ? fmt("%zu of %zu", native_ok, n_native) : native_detail);
+        // Languages read by eSpeak NG: the host puts the annotations into the front-end's text.
+        const struct
+        {
+            const wchar_t* tag;
+            const wchar_t* text;
+        } fe[] = {{L"sw", L"Watu wote wamezaliwa huru. Nina miaka 25, je? Ndiyo."},
+                  {L"nl", L"Nou, dat is goed. Is het waar? Ja!"}};
+        for (const auto& f : fe) {
+            LanguageInfo li;
+            if (!evv::find_language(f.tag, li)) continue;
+            Voice v = load_voice(f.tag, 1);
+            const double a0 = seconds(say(v, f.text, 0).audio), a1 = seconds(say(v, f.text, 1).audio),
+                         a2 = seconds(say(v, f.text, 2).audio);
+            check(a0 - a1 > 0.2 && a0 - a1 < 0.7 && a1 - a2 > 0.3 && a2 > 0.5,
+                  fmt("%s, read by eSpeak NG: mode 1 shortens the end, mode 2 the rest as well", narrow(f.tag).c_str())
+                      .c_str(),
+                  fmt("%.2f / %.2f / %.2f s", a0, a1, a2));
+            v.release();
+        }
+        // "Mr." and "Dr." are read by the engine's dictionary as words only with their dot beside them,
+        // so those dots keep the engine's own pauses, and the sentence reads as it did.
+        {
+            const std::wstring t = L"Mr. Smith and Dr. Jones live near the park";
+            const double a0 = seconds(say(en, t, 0).audio), a1 = seconds(say(en, t, 1).audio),
+                         a2 = seconds(say(en, t, 2).audio);
+            check(a0 - a1 > 0.25 && a0 - a1 < 0.6 && std::fabs(a1 - a2) < 0.01,
+                  "an abbreviation's dot is left alone: Mr. and Dr. are still Mister and Doctor",
+                  fmt("%.3f / %.3f / %.3f s", a0, a1, a2));
+        }
+        // A lone letter is still read as a letter (not as a word), and a text without a mark is still shortened.
+        {
+            const double a0 = seconds(say(en, L"a", 0).audio), a2 = seconds(say(en, L"a", 2).audio);
+            check(a0 - a2 > 0.3 && a2 > 0.2, "a lone letter is still spoken, without the silence after it",
+                  fmt("%.3f s, %.3f s", a0, a2));
+        }
+        // Backquotes are annotations once the engine honours them, so somebody else's text has them
+        // taken out: it says what the same text with a space in place of each says.
+        {
+            const Run a = say(en, L"Hello `v1 there. Bye `vs250 now.", 2);
+            const Run b = say(en, L"Hello  v1 there. Bye  vs250 now.", 2);
+            check(a.audio.size() == b.audio.size() && !a.audio.empty(),
+                  "a backquote in the text is not an annotation while pauses are shortened",
+                  fmt("%zu and %zu samples", a.audio.size(), b.audio.size()));
+        }
+        // Word and sentence events, and marks, work as they did, and do not change the audio.
+        {
+            const std::wstring t = L"The quick brown fox, they said. Jumps over the lazy dog!";
+            const Run with = say(en, t, 2, true), plain = say(en, t, 2);
+            int words = 0, sentences = 0;
+            for (const auto& e : with.events) {
+                if (e.id == SPEI_WORD_BOUNDARY) ++words;
+                if (e.id == SPEI_SENTENCE_BOUNDARY) ++sentences;
+            }
+            check(words == 11 && sentences == 2 && with.audio.size() == plain.audio.size() && !plain.audio.empty(),
+                  "word and sentence events are unchanged, and do not change the audio",
+                  fmt("%d words, %d sentences, %zu with, %zu without", words, sentences, with.audio.size(),
+                      plain.audio.size()));
+        }
+        // Spelling has a pace of its own: nothing is added to it, or the annotation would be spelled out.
+        {
+            write_settings("[General]\r\nLogLevel=1\r\nPauseMode=0\r\n");
+            Frags a, b;
+            a.spell(L"Hello, ok.");
+            b.spell(L"Hello, ok.");
+            const Run r0 = speak(en, a);
+            write_settings("[General]\r\nLogLevel=1\r\nPauseMode=2\r\n");
+            const Run r2 = speak(en, b);
+            check(r0.audio.size() == r2.audio.size() && !r0.audio.empty(), "<spell> is not changed by shorter pauses",
+                  fmt("%zu and %zu samples", r0.audio.size(), r2.audio.size()));
+        }
+        write_settings("[General]\r\nLogLevel=1\r\n");
+    }
+
     // ---- prosody ---------------------------------------------------------------------------
     if (want("prosody", only)) {
         printf("rate, pitch and volume\n");

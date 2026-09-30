@@ -8,6 +8,7 @@
 
 #include "common/host_client.h"
 #include "common/log.h"
+#include "common/pauses.h"
 #include "common/paths.h"
 #include "common/text_codec.h"
 #include "common/version.h"
@@ -134,6 +135,22 @@ public:
         req_.head.user_dicts = s.user_dictionaries ? 1 : 0;
         req_.head.preset = preset;
         for (int i = 0; i < 8; ++i) req_.head.voice[i] = voice_[i];
+        // Spelling has a pace of its own, and in the engine's spelling modes a
+        // pause annotation is spelled out like everything else.
+        pause_mode_ = s.text_mode == 0 ? s.pause_mode : kPausesKept;
+        if (pause_mode_ != kPausesKept) {
+            if (lang.has_frontend()) {
+                // The host puts the pauses into the text eSpeak NG's front-end makes.
+                req_.pauses(pause_mode_);
+            } else {
+                // The pauses are annotations in the text the engine is given, so it
+                // has to honour them, and then a backquote in what somebody else
+                // wrote must not be one (unless the user asked for them).
+                shorten_ = true;
+                keep_backquotes_ = s.annotations;
+                req_.head.input_type = 1;
+            }
+        }
         bytes_per_sample_ = 2;
         rate_hz_ = sample_rate_hz(sample_rate_eci);
     }
@@ -192,6 +209,7 @@ public:
             for (const Marker& m : marks_) on_marker(m);
             return true;
         }
+        shorten_last_pause();
         std::string err;
         HostInfo info;
         auto utt = HostPool::get().speak(lang_, s_, req_, err, &info);
@@ -271,6 +289,22 @@ private:
     long site_rate_ = 0;
     USHORT site_volume_ = 100;
     bool started_ = false, has_text_ = false;
+    // Shorter pauses at punctuation, for a language the engine speaks itself: the
+    // annotations go into the text as it is added (pauses.h). The last stretch of
+    // text that says anything is remembered, since its end is the end of the
+    // utterance and the pause after it is the one mode 1 shortens.
+    int pause_mode_ = kPausesKept;
+    bool shorten_ = false, keep_backquotes_ = false;
+    wchar_t last_char_ = 0;
+    struct Tail
+    {
+        bool set = false;
+        bool prose = false; // spoken as it stands, not spelled
+        size_t at = 0;      // where the request holds it
+        std::wstring text;
+        wchar_t before = 0;
+    } tail_;
+    bool tail_done_ = false;
     int cur_speed_ = -1, cur_pitch_ = -1, cur_volume_ = -1;
     ULONGLONG bytes_ = 0;
     int bytes_per_sample_ = 2;
@@ -314,12 +348,41 @@ private:
         cur_volume_ = volume;
     }
 
-    void add_text(const std::wstring& t)
+    // `prose` is text spoken as it stands; the names of characters and the letters of
+    // a spelled word are not, and only the annotations that are not for them are
+    // kept out of their way.
+    void add_text(const std::wstring& t, bool prose = true)
     {
-        const std::string bytes = encode_text(t, lang_.codepage);
+        std::wstring w = t;
+        if (shorten_) {
+            if (!keep_backquotes_) w = without_backquotes(std::move(w));
+            if (prose && pause_mode_ == kPausesAll) w = shorten_pauses(w, last_char_);
+        }
+        const std::string bytes = encode_text(w, lang_.codepage);
         if (bytes.empty()) return;
-        req_.text(bytes);
+        const size_t at = req_.text(bytes);
         has_text_ = true;
+        if (!shorten_) return;
+        bool says_something = false;
+        for (const wchar_t c : t) says_something = says_something || !is_space(c);
+        if (says_something) {
+            tail_.set = true;
+            tail_.prose = prose;
+            tail_.at = at;
+            tail_.text = w;
+            tail_.before = last_char_;
+        }
+        last_char_ = t.back();
+    }
+
+    // Before the request goes: the pause after the last word of the utterance.
+    void shorten_last_pause()
+    {
+        if (!shorten_ || tail_done_ || pause_mode_ < kPausesEndOnly) return;
+        tail_done_ = true;
+        if (!tail_.set || !tail_.prose) return;
+        const std::wstring t = shorten_final_pause(tail_.text, tail_.before);
+        if (t != tail_.text) req_.replace_text(tail_.at, encode_text(t, lang_.codepage));
     }
 
     void sentence_mark(ULONG src, ULONG len)
@@ -434,7 +497,7 @@ private:
         auto flush = [&]() {
             if (run.empty()) return;
             req_.param(kParamTextMode, 2);
-            add_text(run);
+            add_text(run, false);
             req_.param(kParamTextMode, s_.text_mode);
             run.clear();
         };
@@ -448,7 +511,7 @@ private:
             if (!name.empty()) {
                 flush();
                 if (want_word_) word_mark(src + static_cast<ULONG>(i), 1);
-                add_text(name + L" ");
+                add_text(name + L" ", false);
                 continue;
             }
             if (want_word_) {
@@ -607,10 +670,10 @@ const Settings& ISpTTSEngineImpl::current_settings()
         log::set_level(s.log_level);
         log::write(log::kStandard,
                    "settings: rate %d Hz (%S), max speed %d%s, pitch step %d, abbreviations %d, numbers %d, text mode "
-                   "%d, annotations %d, dictionaries %d, heteronyms %d, %zu voices adjusted, log %d",
+                   "%d, annotations %d, dictionaries %d, heteronyms %d, pauses %d, %zu voices adjusted, log %d",
                    sample_rate_hz(s.sample_rate), s.resampler.c_str(), s.max_speed, s.rate_boost ? " (boost)" : "",
                    s.pitch_step, s.abbreviations, s.number_mode, s.text_mode, s.annotations, s.user_dictionaries,
-                   s.heteronyms, s.voices.size(), s.log_level);
+                   s.heteronyms, s.pause_mode, s.voices.size(), s.log_level);
     }
     return settings_.get();
 }

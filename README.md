@@ -10,7 +10,7 @@ The OpenEVV text-to-speech engine as SAPI 5 voices for Windows, in both 32-bit a
 - **And 145 more, read by eSpeak NG:** every language and dialect [eSpeak NG](https://github.com/espeak-ng/espeak-ng) has that openevv does not, from Afrikaans to Yue Chinese, New York City English and Swiss French among them. eSpeak NG reads the text -- its spelling, dictionary, numbers, letter names, punctuation names, stress and tones -- and one of openevv's modules speaks it in the Eloquence voice, with the language's own sounds: Hindi's retroflex and breathy voiced stops, the palatalised consonants of Russian, the nasal vowels of Portuguese, the voicing lead of Hindi and Turkish b, d and g, the taps and trills, the uvulars, the h and the glottal stop the modules never had. Each language has the melody its literature describes, and a question asked with a question word ends differently from one that wants yes or no. Mandarin, Cantonese, Hakka, Vietnamese, Burmese and Shan are spoken with their tones, and so are the low tone of Punjabi and the tones of Cherokee where the text marks them, Mandarin's third tone and neutral tone changing as they do beside other tones. Spelling and moving through a line a character at a time say every letter by its name in the language, an accented letter with its accent. `docs/SOUNDS.md` says how, `docs/LANGUAGE-REPORT.md` what each language has and what is still missing.
 - **The eight classic presets in every language:** Adult Male 1 (Reed), Adult Female 1 (Shelley), Child 1, Adult Male 2, Adult Male 3, Adult Female 2, Elderly Female 1 and Elderly Male 1. Voices are named "OpenEVV US English Adult Male 1" and so on.
 - **Low latency.** The engine synthesises about 600 times faster than real time. From a program's `Speak()` call to the first audio handed to SAPI takes about 1.5 ms on a warm voice. A cancel returns in well under a millisecond, and the next utterance never waits for the one it replaced.
-- **Everything adjustable, live.** OpenEVV Configuration adjusts all eight parameters of every voice in every language: gender, head size, pitch, inflection, roughness, breathiness, speed and volume. It also sets the sample rate (8 to 48 kHz), the resampler, the speed range for SAPI's rate, the pitch step, abbreviation expansion, how numbers are read, the spelling modes, backquote annotations, English heteronym fixes and user dictionaries. Each change is saved at once and heard on the next thing any program says, a screen reader already speaking included.
+- **Everything adjustable, live.** OpenEVV Configuration adjusts all eight parameters of every voice in every language: gender, head size, pitch, inflection, roughness, breathiness, speed and volume. It also sets the sample rate (8 to 48 kHz), the resampler, the speed range for SAPI's rate, the pitch step, abbreviation expansion, how numbers are read, the spelling modes, the pauses at punctuation, backquote annotations, English heteronym fixes and user dictionaries. Each change is saved at once and heard on the next thing any program says, a screen reader already speaking included.
 - **Languages you can add and remove** as folders, without reinstalling anything. See below.
 - **Everything SAPI asks of an engine:** word, sentence and bookmark events on the exact sample, pauses, `<spell>` (NVDA's character navigation), rate, pitch and volume changes inside an utterance, and sentence skipping. A lone symbol the engine would render as silence is named instead (in Japanese that is most ASCII punctuation), but only when it is the whole utterance, so prose keeps its natural pauses.
 - **Logs** of the voices, the engine hosts, the utility and the installer, in `%ProgramData%\OpenEVV\Logs`.
@@ -155,6 +155,7 @@ Four pages, all standard Windows controls, every one labelled. Each number is an
   - the pitch change per SAPI pitch step
   - abbreviation expansion, and how numbers are read: 1999 as "nineteen ninety-nine", or as a whole number
   - the text mode: normal, spell letters and digits, spell everything, or the radio alphabet
+  - punctuation pauses: do not shorten, shorten at end of text only, or shorten all pauses (see below)
   - backquote annotations, English heteronym fixes, naming lone symbols, and user dictionaries
 - **Languages:** the installed languages; adding and removing packs; editing the main, root and abbreviation user dictionaries of the selected language.
 - **Diagnostics:** the logging level, the log folder, and a self-test that speaks every voice of every language into memory, in both bitnesses, and one through SAPI itself.
@@ -166,6 +167,22 @@ Settings are per user, in `%APPDATA%\OpenEVV\settings.ini`.
 - **Rate:** SAPI rate 0 is each voice's own speed, 50 for most voices. +10 reaches the fastest speed set on the Speech page: 156 by default, the same top as NVDA's own Eloquence driver, or 250 with rate boost. -10 reaches the slowest speed set there, 0 by default. The engine's speed scale is already exponential (each ten units is about 22% faster), so every SAPI step is an even change.
 - **Pitch:** each SAPI pitch step moves the voice's pitch baseline by the pitch step set on the Speech page, 4 units by default. NVDA's capital-letter pitch change comes through this way.
 - **Volume:** SAPI's volume, and a fragment's own volume, scale the voice's own volume.
+
+### Shorter pauses at punctuation
+
+The engine pauses at a comma, a full stop, a question mark and an exclamation mark for as long as a person reading aloud would, about 155 ms for a comma and 400 ms for the others, and it goes on being silent for about 400 ms after the last word of every text it is given. That is slow for a screen reader. The **Punctuation pauses** setting on the Speech page shortens them, with the three choices of the [IBMTTS driver for NVDA](https://github.com/davidacm/NVDA-IBMTTS-Driver), whose method it uses:
+
+- **Do not shorten:** the engine's own pauses. This is the default, so nothing sounds different until you choose otherwise.
+- **Shorten at end of text only:** the silence after the last word of what is said goes, whether the text ends in a mark or not, and the pauses between phrases stay. Every announcement and every character you move over comes out with no silence after it.
+- **Shorten all pauses:** every pause at , . : ; ? ! and a dash, in every language, to about 40 ms. The mark still gives the phrase its melody: a question still rises.
+
+It works by putting the engine's one-unit pause annotation, `` `p1 ``, in front of each mark, which the engine reads in place of the pause the mark would make. It applies to all 155 languages: the ten the engine speaks itself take it in the text, and for a language read by eSpeak NG the host puts it into the text eSpeak NG's front-end makes. Three details:
+
+- A full stop that ends an abbreviation ("Mr.", "Dr.", "St.", an initial, an ordinal such as the "3." of "am 3. Mai") is left alone, because the annotation between a word and its dot stops the engine's dictionary from reading it as the abbreviation. Put in front of every dot, as the driver's method does, it changes how such words are read in this engine; this does not.
+- While pauses are shortened a backquote in the text is read as a space, as the driver does, because the engine treats a backquote as the start of a command once it accepts the annotation. The "Honour backquote annotations" setting keeps them.
+- Nothing is added while the text mode spells, or to `<spell>`: the engine would spell the annotation.
+
+The setting is `PauseMode` (0, 1 or 2) in `settings.ini`. Every running voice takes it on its next utterance.
 
 ## How it works
 
@@ -244,7 +261,7 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 - **`engine\check_espeak_packs.py`:** every eSpeak NG pack's sample, numbers and punctuation read and handed to its template's module, which must take every word as a pronunciation.
 - **`a11y_check`:** walks every page of OpenEVV Configuration through MSAA on a private desktop. It fails on an unlabelled control or a duplicated access key, and checks that edits reach the settings file at once.
 - **`installer_a11y`:** walks every page of the installer the same way, then installs and uninstalls a non-elevated probe build.
-- **`OpenEvvConfig.exe --selftest`:** every voice of every language in both bitnesses, plus one through SAPI itself. The installer runs this too.
+- **`OpenEvvConfig.exe --selftest`:** every voice of every language in both bitnesses, plus one through SAPI itself. It is the "Run the self-test" button on the Diagnostics page; the installer does not run it, so installing stays quick.
 
 ## Logs and troubleshooting
 

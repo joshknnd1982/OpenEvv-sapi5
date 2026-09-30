@@ -118,7 +118,7 @@ copy /y "%ROOT%\frontend\README.md" "%ROOT%\dist\docs\eSpeak-NG-front-end.txt" >
 
 if "%RUN_TESTS%"=="1" (
     echo.
-    echo === Tests: the staged layout, and the self-test the installer runs ===
+    echo === Tests: the staged layout, and the configuration utility's self-test ===
     "%ROOT%\build_x86\bin\Release\sapi_test.exe" --dll "%ROOT%\dist\x86\OpenEvvSAPI.dll" --only languages --out "%TESTOUT%\build_x86_sapi_test_dist" || goto :fail
     "%ROOT%\build_x64\bin\Release\sapi_test.exe" --dll "%ROOT%\dist\x64\OpenEvvSAPI.dll" --only languages --out "%TESTOUT%\build_x64_sapi_test_dist" || goto :fail
     start "" /wait "%ROOT%\dist\x64\OpenEvvConfig.exe" --selftest --hosts-only --report "%ROOT%\build_x64\selftest.txt"

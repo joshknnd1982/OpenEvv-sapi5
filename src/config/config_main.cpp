@@ -435,6 +435,7 @@ void load_speech(HWND dlg)
     CheckDlgButton(dlg, IDC_ABBREVIATIONS, g_s.abbreviations ? BST_CHECKED : BST_UNCHECKED);
     combo_select(dlg, IDC_NUMBERS, g_s.number_mode);
     combo_select(dlg, IDC_TEXTMODE, g_s.text_mode);
+    combo_select(dlg, IDC_PAUSES, g_s.pause_mode);
     CheckDlgButton(dlg, IDC_ANNOTATIONS, g_s.annotations ? BST_CHECKED : BST_UNCHECKED);
     CheckDlgButton(dlg, IDC_HETERONYMS, g_s.heteronyms ? BST_CHECKED : BST_UNCHECKED);
     CheckDlgButton(dlg, IDC_SYMBOLS, g_s.spell_lone_symbols ? BST_CHECKED : BST_UNCHECKED);
@@ -456,6 +457,7 @@ void store_speech(HWND dlg)
     g_s.abbreviations = IsDlgButtonChecked(dlg, IDC_ABBREVIATIONS) == BST_CHECKED;
     g_s.number_mode = combo_data(dlg, IDC_NUMBERS, 1);
     g_s.text_mode = combo_data(dlg, IDC_TEXTMODE, 0);
+    g_s.pause_mode = combo_data(dlg, IDC_PAUSES, 0);
     g_s.annotations = IsDlgButtonChecked(dlg, IDC_ANNOTATIONS) == BST_CHECKED;
     g_s.heteronyms = IsDlgButtonChecked(dlg, IDC_HETERONYMS) == BST_CHECKED;
     g_s.spell_lone_symbols = IsDlgButtonChecked(dlg, IDC_SYMBOLS) == BST_CHECKED;
@@ -488,6 +490,10 @@ INT_PTR CALLBACK speech_proc(HWND dlg, UINT msg, WPARAM wp, LPARAM)
         combo_add(dlg, IDC_TEXTMODE, L"Spell letters and digits", 1);
         combo_add(dlg, IDC_TEXTMODE, L"Spell everything, punctuation included", 2);
         combo_add(dlg, IDC_TEXTMODE, L"Spell with the radio alphabet", 3);
+        // The IBMTTS driver for NVDA has the same three choices.
+        combo_add(dlg, IDC_PAUSES, L"Do not shorten", 0);
+        combo_add(dlg, IDC_PAUSES, L"Shorten at end of text only", 1);
+        combo_add(dlg, IDC_PAUSES, L"Shorten all pauses", 2);
         load_speech(dlg);
         SetDlgItemTextW(dlg, IDC_SPEECH_STATUS,
                         L"These apply to every OpenEVV voice. Each change is saved and heard at once.");

@@ -33,6 +33,7 @@
 #include "common/eci_module.h"
 #include "common/ini.h"
 #include "common/log.h"
+#include "common/pauses.h"
 #include "common/protocol.h"
 #include "common/version.h"
 #include "host/frontend_client.h"
@@ -479,6 +480,11 @@ bool add_translated(const Request& r, std::string& preview, std::string& error)
     uint32_t at = 0;
     std::vector<Placed> placed;
     int text_mode = q.text_mode;
+    // The pauses at punctuation (pauses.h), which the client asks for as an item.
+    // Spelling puts a comma between letters that is the pace of spelling, not a
+    // pause to shorten, so a request that spells anything keeps its pauses.
+    int pause_mode = 0;
+    bool spells = false;
     // one letter and nothing else is named, whatever the mode
     const bool lone = !spelling_mode(text_mode) && lone_letter(text_of(r));
     // punctuation is named when everything is spelled, not only letters and digits
@@ -492,8 +498,12 @@ bool add_translated(const Request& r, std::string& preview, std::string& error)
             if (it.a <= 0 || pos + static_cast<size_t>(it.a) > r.items.size()) break;
             std::string t(reinterpret_cast<const char*>(r.items.data() + pos), static_cast<size_t>(it.a));
             pos += static_cast<size_t>(it.a);
-            if (spelling_mode(text_mode) || lone) t = spelled(t);
-            else if (q.user_dicts) t = g_text_dict.apply(t);
+            if (spelling_mode(text_mode) || lone) {
+                t = spelled(t);
+                spells = spells || !lone; // a lone letter has no comma between letters to keep
+            } else if (q.user_dicts) {
+                t = g_text_dict.apply(t);
+            }
             all += t;
             at += static_cast<uint32_t>(count_code_points(t));
             continue;
@@ -505,15 +515,22 @@ bool add_translated(const Request& r, std::string& preview, std::string& error)
             continue;
         }
         if (it.kind == proto::kItemParam && it.a == kParamInputType) continue;
+        if (it.kind == proto::kItemPauses) {
+            pause_mode = std::max(0, std::min(2, it.a));
+            continue;
+        }
         placed.push_back({it, at});
     }
     std::string out;
     std::vector<EvvAnchor> anchors;
     if (!g_fe.translate(all, name_punctuation ? EVV_FE_FLAG_PUNCTUATION : 0, out, anchors, error)) return false;
     size_t next = 0;
+    const bool shorten = pause_mode != 0 && !spells && !name_punctuation;
     auto add = [&](size_t from, size_t to) {
         if (to <= from) return;
-        const std::string piece = out.substr(from, to - from);
+        std::string piece = out.substr(from, to - from);
+        // The clause that ends a piece ends with a mark; the last piece ends the text.
+        if (shorten) piece = shorten_annotated(piece, pause_mode == 2, to >= out.size());
         g_eci.AddText(g_h, piece.c_str());
         if (log::enabled(log::kFull) && preview.size() < 400) preview += piece;
     };

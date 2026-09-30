@@ -39,6 +39,11 @@ enum ItemKind : uint8_t
     kItemIndex = 2, // a = the mark's number
     kItemVoice = 3, // a = voice parameter, b = value: set on voice 0 from here on
     kItemParam = 4, // a = engine parameter, b = value (text mode, input type...)
+    // a = the pause mode (pauses.h: 0 as the engine has them, 1 shorten the one at the end of the
+    // text, 2 shorten all of them). Only a language read by eSpeak NG needs it: the host puts the
+    // pause annotations into the front-end's text. A language the engine speaks itself has them
+    // put into its text by the client, and a host that does not know this item ignores it.
+    kItemPauses = 5,
 };
 
 #pragma pack(push, 1)
