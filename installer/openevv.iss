@@ -21,6 +21,15 @@
 ;   * SetupLogging and UninstallLogging are on, so every install and every uninstall
 ;     leaves a complete log behind; the install log is copied to the OpenEVV log folder.
 ;
+; The languages are chosen on the standard "Select Components" page, reworded as "Select languages":
+; one check box per language pack, and four ready-made choices (the ten OpenEVV languages, English
+; only, all of them, custom). The list is generated from languages\ by make_components.py into
+; generated\*.inc, and this script stops the build when languages\ holds a pack the list lacks. A
+; pack that only lends its engine modules to other packs is installed when a language that speaks
+; with it is chosen, and removed when none is. Installing over an earlier version offers the
+; languages that are installed, so nothing goes unless it is unchecked, and installs and removes
+; what is changed; /TYPE=full or /COMPONENTS=... on the command line choose for an unattended install.
+;
 ; Registration is written by the [Registry] section rather than by regsvr32, so it is
 ; logged entry by entry and does not depend on loading the DLLs during setup. Uninstall
 ; removes it three independent ways: DllUnregisterServer, the [Registry] uninsdeletekey
@@ -28,11 +37,12 @@
 ;
 ; ISCC.exe /DProbe installer\openevv.iss builds the accessibility probe: the same wizard
 ; and pages under its own AppId, per user and without elevation, installing only a text
-; file and touching no registration, settings or logs. installer_a11y.exe walks it
-; through MSAA on a private desktop.
+; file and each language pack's language.ini, and touching no registration, settings or
+; logs. installer_a11y.exe walks it through MSAA on a private desktop, and
+; test_language_choice.ps1 installs and upgrades it with different choices of languages.
 
 ; Bump MyAppVersion with src\common\version.h and project() in CMakeLists.txt.
-#define MyAppVersion   "1.2.3"
+#define MyAppVersion   "1.2.4"
 #define AppName        "OpenEVV SAPI5"
 #define AppPublisher   "OpenEVV SAPI5 project"
 #define AppURL         "https://github.com/joshknnd1982/OpenEvv-sapi5"
@@ -47,6 +57,14 @@
 #define EnumClsidReg   "{{90E5CEF9-18DD-435E-AE19-BEC9B58D3627}"
 #define TokenEnumsKey  "Software\Microsoft\Speech\Voices\TokenEnums\OpenEVV"
 #define RealAppId      "{A077FCBD-75CA-41BA-A4D9-D74433765FF2}"
+
+; ISCC.exe /DProbe /DProbeFullPacks installs each pack's files as the real installer does, but per
+; user and with no registration: to check what each choice of languages really brings with it.
+#if defined(Probe) && !defined(ProbeFullPacks)
+#define PackMask "language.ini"
+#else
+#define PackMask "*"
+#endif
 
 #ifndef Probe
 ; Refuse to package binaries from a different build than this script describes.
@@ -69,7 +87,7 @@ AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}/issues
 AppUpdatesURL={#AppURL}/releases
-AppComments=The OpenEVV engine (IBM Embedded ViaVoice, the Eloquence voice, rebuilt as C) as SAPI 5 voices for 32-bit and 64-bit programs: openevv's ten languages and 145 more read by eSpeak NG, eight voices each, with a configuration utility.
+AppComments=The OpenEVV engine (IBM Embedded ViaVoice, the Eloquence voice, rebuilt as C) as SAPI 5 voices for 32-bit and 64-bit programs: openevv's ten languages and 145 more read by eSpeak NG to choose from, eight voices each, with a configuration utility.
 UninstallDisplayName={#AppName}
 VersionInfoVersion={#MyAppVersion}.0
 VersionInfoProductVersion={#MyAppVersion}
@@ -122,12 +140,39 @@ RestartApplications=no
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
+[Messages]
+; The standard Select Components page, worded for what it chooses. Its first control is the list of
+; ready-made choices, then the check boxes, one per language.
+WizardSelectComponents=Select languages
+SelectComponentsDesc=Which languages should be installed?
+SelectComponentsLabel2=Every language adds eight voices to every SAPI 5 program, so install only the languages you will use. Choose a type of installation, or Custom to check languages one by one. Run this installer again to add or remove languages. Click Next to continue.
+
 [Tasks]
 Name: "desktopicon"; Description: "Create a &desktop shortcut to OpenEVV Configuration"; GroupDescription: "Additional shortcuts:"
+
+; ---- the languages. generated\*.inc is written by make_components.py from languages\*\language.ini.
+[Types]
+#include "generated\types.inc"
+
+; A pack in languages\ that the generated list does not know would be left out of the installer
+; without a word, so the build stops instead.
+#define FindHandle
+#define FindResult
+#sub CheckPackListed
+  #define PackFolder FindGetFileName(FindHandle)
+  #if (PackFolder != ".") && (PackFolder != "..") && (Pos("|" + PackFolder + "|", LangTags) == 0)
+    #expr Error("languages\" + PackFolder + " is not in installer\generated: run  python installer\make_components.py")
+  #endif
+#endsub
+#for {FindHandle = FindResult = FindFirst(AddBackslash(SourcePath) + "..\languages\*", faDirectory); FindResult; FindResult = FindNext(FindHandle)} CheckPackListed
+
+[Components]
+#include "generated\components.inc"
 
 #ifdef Probe
 [Files]
 Source: "before_install.txt"; DestDir: "{app}"
+#include "generated\files.inc"
 #else
 [Dirs]
 ; Logs, language packs a user drops in, user dictionaries, and a newer community dictionary
@@ -156,8 +201,9 @@ Source: "..\dist\x64\{#FrontendName}"; DestDir: "{app}\x64"; Flags: ignoreversio
 ; ---- eSpeak NG's data, which OpenEvvFrontend.exe reads the languages made from it with --
 Source: "..\dist\espeak-ng-data\*"; DestDir: "{app}\espeak-ng-data"; Flags: ignoreversion recursesubdirs createallsubdirs restartreplace uninsrestartdelete
 
-; ---- every language: the engine modules (32-bit and 64-bit) and language.ini ----------
-Source: "..\languages\*"; DestDir: "{app}\languages"; Flags: ignoreversion recursesubdirs createallsubdirs restartreplace uninsrestartdelete
+; ---- the languages that were chosen: each pack's engine modules (32-bit and 64-bit) and
+; language.ini, and the packs that only lend their modules to the languages that need them.
+#include "generated\files.inc"
 
 ; ---- the community pronunciation dictionary (CC0), and the record of which commit it is. A
 ; newer one that OpenEvvConfig downloads goes in %ProgramData%\OpenEVV\community-dictionary
@@ -236,6 +282,9 @@ var
   Summary: String;
   RegistrationOk: Boolean;
   RunListLabel: TNewStaticText;
+  TypesLabel, LanguagesLabel: TNewStaticText;
+  SelectAllButton, SelectNoneButton: TNewButton;
+  LanguagePageLaidOut: Boolean;
   MovedAside: Integer;
   ProgramsUsingOld: String;
 
@@ -431,6 +480,281 @@ begin
       end;
 end;
 
+{ ---- the choice of languages ----------------------------------------------------------- }
+
+{ Every pack that languages\ holds, as generated\code.inc lists them. A pack that has a
+  component is a language; one that has none only lends its engine modules, and is wanted
+  when a language that names it as its template is installed. }
+var
+  PackCount: Integer;
+  PackTag, PackComp, PackTemplate, PackName: array of String;
+  SelectionDir: String;      { the folder whose installed languages were last offered }
+  LanguagesText: String;     { what the last page says about the languages }
+
+procedure AddPack(const Tag, Comp, Template, Name: String);
+begin
+  SetArrayLength(PackTag, PackCount + 1);
+  SetArrayLength(PackComp, PackCount + 1);
+  SetArrayLength(PackTemplate, PackCount + 1);
+  SetArrayLength(PackName, PackCount + 1);
+  PackTag[PackCount] := Tag;
+  PackComp[PackCount] := Comp;
+  PackTemplate[PackCount] := Template;
+  PackName[PackCount] := Name;
+  PackCount := PackCount + 1;
+end;
+
+#include "generated\code.inc"
+
+function PackFolder(const AppDir, Tag: String): String;
+begin
+  Result := AppDir + '\languages\' + Tag;
+end;
+
+function PackInstalled(const AppDir, Tag: String): Boolean;
+begin
+  Result := FileExists(PackFolder(AppDir, Tag) + '\language.ini');
+end;
+
+{ The person installing named the languages on the command line: /TYPE=full, or
+  /COMPONENTS="openevv\enus,espeak\nb". Nothing then overrides that. }
+function LanguagesChosenOnCommandLine: Boolean;
+begin
+  Result := (ExpandConstant('{param:TYPE|}') <> '') or (ExpandConstant('{param:COMPONENTS|}') <> '');
+end;
+
+function CountSelectedLanguages: Integer;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to PackCount - 1 do
+    if (PackComp[I] <> '') and WizardIsComponentSelected(PackComp[I]) then
+      Result := Result + 1;
+end;
+
+{ The list of types of installation says which type the languages that are checked make up: all
+  of them, the ten the engine speaks itself, English only, or else Custom. Setup does this when
+  a check box is clicked, but not when the checks are set here, and a list that says "the ten
+  OpenEVV languages" over 157 checked languages would be wrong for whoever reads it. }
+procedure ShowTypeOfSelection;
+var
+  I, Total, Selected, Native, NativeSelected, EnglishSelected: Integer;
+  Checked: Boolean;
+begin
+  Total := 0;
+  Selected := 0;
+  Native := 0;
+  NativeSelected := 0;
+  EnglishSelected := 0;
+  for I := 0 to PackCount - 1 do
+    if PackComp[I] <> '' then
+    begin
+      Checked := WizardIsComponentSelected(PackComp[I]);
+      Total := Total + 1;
+      if Copy(PackComp[I], 1, 8) = 'openevv\' then
+        Native := Native + 1;
+      if Checked then
+      begin
+        Selected := Selected + 1;
+        if Copy(PackComp[I], 1, 8) = 'openevv\' then
+          NativeSelected := NativeSelected + 1;
+        if IsEnglishTag(PackTag[I]) then
+          EnglishSelected := EnglishSelected + 1;
+      end;
+    end;
+  if Selected = Total then
+    WizardForm.TypesCombo.ItemIndex := TypeFull
+  else if (Selected = Native) and (NativeSelected = Native) then
+    WizardForm.TypesCombo.ItemIndex := TypeOpenevv
+  else if (Selected = 2) and (EnglishSelected = 2) then
+    WizardForm.TypesCombo.ItemIndex := TypeEnglish
+  else
+    WizardForm.TypesCombo.ItemIndex := TypeCustom;
+end;
+
+{ Every language checked, or none: the two buttons under the list. The groups are set too,
+  since a group cannot be checked without one of its languages, nor a language without its group. }
+procedure SelectEveryLanguage(All: Boolean);
+var
+  I: Integer;
+  List: String;
+begin
+  List := '';
+  for I := 0 to PackCount - 1 do
+    if PackComp[I] <> '' then
+    begin
+      if List <> '' then
+        List := List + ',';
+      if All then
+        List := List + PackComp[I]
+      else
+        List := List + '!' + PackComp[I];
+    end;
+  if All then
+    List := '*openevv,*espeak,' + List
+  else
+    List := List + ',!openevv,!espeak';
+  WizardSelectComponents(List);
+  ShowTypeOfSelection;
+end;
+
+procedure SelectAllButtonClick(Sender: TObject);
+begin
+  SelectEveryLanguage(True);
+end;
+
+procedure SelectNoneButtonClick(Sender: TObject);
+begin
+  SelectEveryLanguage(False);
+end;
+
+{ Upgrading: the wizard offers the languages that are installed in AppDir, and only those, so
+  that installing over an earlier version never removes or adds a language nobody asked about.
+  Earlier versions installed them all and recorded nothing about it, so what is on disk is
+  the only record there is. A folder with no OpenEVV languages in it changes nothing. }
+procedure SelectInstalledLanguages(const AppDir: String);
+var
+  I, Found: Integer;
+  List: String;
+begin
+  SelectionDir := AppDir;
+  Found := 0;
+  List := '';
+  for I := 0 to PackCount - 1 do
+    if PackComp[I] <> '' then
+    begin
+      if List <> '' then
+        List := List + ',';
+      if PackInstalled(AppDir, PackTag[I]) then
+      begin
+        List := List + PackComp[I];
+        Found := Found + 1;
+      end
+      else
+        List := List + '!' + PackComp[I];
+    end;
+  if Found = 0 then
+  begin
+    Note('no OpenEVV language is installed in ' + AppDir + ': the standard choice is offered');
+    Exit;
+  end;
+  WizardSelectComponents(List);
+  ShowTypeOfSelection;
+  Note(Format('%d languages are installed in %s and are offered again', [Found, AppDir]));
+end;
+
+procedure RemovePack(const Dir: String);
+begin
+  { language.ini first: from that moment the pack is in no program's voice list }
+  DeleteFile(Dir + '\language.ini');
+  if DelTree(Dir, True, True, True) then
+    Note('removed ' + Dir)
+  else
+    Note('removed what could be of ' + Dir + '; a file a program still holds is left until that program has closed');
+end;
+
+{ True if a pack in Root\languages, other than the ones this setup knows, speaks with the
+  module pack Tag: one a person dropped in by hand, or added with OpenEVV Configuration. }
+function OtherPackUses(const Root, Tag: String): Boolean;
+var
+  FR: TFindRec;
+  Ini: String;
+begin
+  Result := False;
+  if not FindFirst(Root + '\languages\*', FR) then
+    Exit;
+  try
+    repeat
+      if ((FR.Attributes and FILE_ATTRIBUTE_DIRECTORY) <> 0) and (FR.Name <> '.') and (FR.Name <> '..') then
+      begin
+        Ini := Root + '\languages\' + FR.Name + '\language.ini';
+        if FileExists(Ini) and (CompareText(GetIniString('Language', 'Template', '', Ini), Tag) = 0) then
+        begin
+          Result := True;
+          Exit;
+        end;
+      end;
+    until not FindNext(FR);
+  finally
+    FindClose(FR);
+  end;
+end;
+
+{ A module pack is wanted while a language that is being installed, or one that is already
+  there, speaks with it. }
+function ModulePackWanted(const Tag: String): Boolean;
+var
+  I: Integer;
+begin
+  Result := True;
+  for I := 0 to PackCount - 1 do
+    if (PackComp[I] <> '') and (CompareText(PackTemplate[I], Tag) = 0) and WizardIsComponentSelected(PackComp[I]) then
+      Exit;
+  if OtherPackUses(ExpandConstant('{app}'), Tag) or OtherPackUses(ExpandConstant('{commonappdata}\OpenEVV'), Tag) then
+    Exit;
+  Result := False;
+end;
+
+{ Installing over an earlier version installs what is checked and removes what is not: the
+  installer only copies files, so the languages that were unchecked would stay in every voice list. }
+procedure RemoveUnselectedLanguages;
+var
+  I, Removed: Integer;
+  AppDir: String;
+begin
+  AppDir := ExpandConstant('{app}');
+  if CountSelectedLanguages = 0 then
+  begin
+    Note('no language is selected: none is removed');
+    Exit;
+  end;
+  Removed := 0;
+  for I := 0 to PackCount - 1 do
+    if (PackComp[I] <> '') and not WizardIsComponentSelected(PackComp[I]) and DirExists(PackFolder(AppDir, PackTag[I])) then
+    begin
+      Note('language not selected, removed: ' + PackName[I] + ' (' + PackTag[I] + ')');
+      RemovePack(PackFolder(AppDir, PackTag[I]));
+      Removed := Removed + 1;
+    end;
+  { after the languages: a module pack goes when the last language that used it has gone }
+  for I := 0 to PackCount - 1 do
+    if (PackComp[I] = '') and DirExists(PackFolder(AppDir, PackTag[I])) and not ModulePackWanted(PackTag[I]) then
+    begin
+      Note('module pack no language uses any more, removed: ' + PackTag[I]);
+      RemovePack(PackFolder(AppDir, PackTag[I]));
+    end;
+  Note(Format('%d unselected languages removed', [Removed]));
+end;
+
+{ What is installed now, stated for the last page and the log. }
+procedure DescribeInstalledLanguages;
+var
+  I, N: Integer;
+  Names, AppDir: String;
+begin
+  AppDir := ExpandConstant('{app}');
+  N := 0;
+  Names := '';
+  for I := 0 to PackCount - 1 do
+    if (PackComp[I] <> '') and PackInstalled(AppDir, PackTag[I]) then
+    begin
+      N := N + 1;
+      if Names <> '' then
+        Names := Names + ', ';
+      Names := Names + PackName[I];
+      Note('language installed: ' + PackName[I] + ' (' + PackTag[I] + ')');
+    end;
+  Note(Format('%d languages installed, %d voices', [N, N * 8]));
+  if N = 1 then
+    LanguagesText := 'Installed: 1 language, 8 voices: ' + Names + '.'
+  else if N <= 4 then
+    LanguagesText := Format('Installed: %d languages, %d voices: %s.', [N, N * 8, Names])
+  else
+    LanguagesText := Format('Installed: %d languages, %d voices.', [N, N * 8]);
+  LanguagesText := LanguagesText + ' Run this installer again to add or remove languages.';
+end;
+
 { ---- setup events --------------------------------------------------------------------- }
 
 function InitializeSetup: Boolean;
@@ -456,15 +780,35 @@ begin
   RunListLabel.Caption := 'Things to do now:';
   RunListLabel.Left := WizardForm.RunList.Left;
   RunListLabel.Visible := False;
+
+  RegisterPacks;
+  if not LanguagesChosenOnCommandLine then
+    SelectInstalledLanguages(WizardDirValue);
+end;
+
+{ A setup with no language chosen would remove every language there is on an upgrade. }
+function NextButtonClick(CurPageID: Integer): Boolean;
+begin
+  Result := True;
+  { Next on the languages page, and Install after it: the page that has none checked stays. }
+  if ((CurPageID = wpSelectComponents) or (CurPageID = wpReady)) and (CountSelectedLanguages = 0) then
+  begin
+    MsgBox('No language is selected. Select at least one language, or choose one of the types of installation, ' +
+      'before you go on: OpenEVV cannot be installed without a language.', mbError, MB_OK);
+    Result := False;
+  end;
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
 #ifdef Probe
-  if CurStep = ssPostInstall then
+  if CurStep = ssInstall then
+    RemoveUnselectedLanguages
+  else if CurStep = ssPostInstall then
   begin
     { A stand-in of realistic length, so the probe lays out the last page as setup does. }
     Summary := 'Accessibility probe: no voices were installed, so none were registered with Windows.';
+    DescribeInstalledLanguages;
   end;
 #else
   if CurStep = ssInstall then
@@ -473,9 +817,11 @@ begin
     ProgramsUsingOld := '';
     MoveAsideFilesInUse;
     Note(Format('%d files in use renamed out of the way; no restart is needed for them', [MovedAside]));
+    RemoveUnselectedLanguages;
   end
   else if CurStep = ssPostInstall then
   begin
+    DescribeInstalledLanguages;
     if MovedAside > 0 then
     begin
       if Is64BitInstallMode then
@@ -518,16 +864,81 @@ begin
 #endif
 end;
 
-{ The last page says what actually happened, in words a screen reader reads out. }
+{ MSAA names a list after the static text just before it in the z-order. On the languages page
+  the list of types and the list of languages have none: a screen reader would say "combo box"
+  and "list" and nothing more, or read the whole paragraph above as the combo box's name. Each
+  gets a short label of its own, directly before it; the page is made room for them. It is done
+  when the page is first shown, after setup has laid the page out itself. }
+procedure LayoutLanguagePage;
+var
+  Gap, Shift: Integer;
+begin
+  if LanguagePageLaidOut then
+    Exit;
+  LanguagePageLaidOut := True;
+  Gap := ScaleY(4);
+
+  TypesLabel := TNewStaticText.Create(WizardForm);
+  TypesLabel.Parent := WizardForm.SelectComponentsPage;
+  TypesLabel.Caption := 'Type of installation:';
+  TypesLabel.Left := WizardForm.TypesCombo.Left;
+  TypesLabel.Top := WizardForm.TypesCombo.Top;
+  WizardForm.TypesCombo.Top := TypesLabel.Top + TypesLabel.Height + Gap;
+  SetWindowPos(TypesLabel.Handle, GetWindow(WizardForm.TypesCombo.Handle, GW_HWNDPREV), 0, 0, 0, 0,
+    SWP_NOSIZE or SWP_NOMOVE or SWP_NOACTIVATE);
+
+  LanguagesLabel := TNewStaticText.Create(WizardForm);
+  LanguagesLabel.Parent := WizardForm.SelectComponentsPage;
+  LanguagesLabel.Caption := 'Languages to install:';
+  LanguagesLabel.Left := WizardForm.ComponentsList.Left;
+  LanguagesLabel.Top := WizardForm.TypesCombo.Top + WizardForm.TypesCombo.Height + Gap * 2;
+  Shift := LanguagesLabel.Top + LanguagesLabel.Height + Gap - WizardForm.ComponentsList.Top;
+  WizardForm.ComponentsList.Top := WizardForm.ComponentsList.Top + Shift;
+  WizardForm.ComponentsList.Height := WizardForm.ComponentsList.Height - Shift;
+  SetWindowPos(LanguagesLabel.Handle, GetWindow(WizardForm.ComponentsList.Handle, GW_HWNDPREV), 0, 0, 0, 0,
+    SWP_NOSIZE or SWP_NOMOVE or SWP_NOACTIVATE);
+
+  { Two buttons under the list, taking their room from it. They are made last, so they come
+    after the list when Tab is pressed. }
+  SelectAllButton := TNewButton.Create(WizardForm);
+  SelectAllButton.Parent := WizardForm.SelectComponentsPage;
+  SelectAllButton.Caption := 'Select &all languages';
+  SelectAllButton.Width := ScaleX(140);
+  SelectAllButton.Height := ScaleY(23);
+  SelectAllButton.OnClick := @SelectAllButtonClick;
+  SelectNoneButton := TNewButton.Create(WizardForm);
+  SelectNoneButton.Parent := WizardForm.SelectComponentsPage;
+  SelectNoneButton.Caption := 'Select n&o languages';
+  SelectNoneButton.Width := ScaleX(140);
+  SelectNoneButton.Height := ScaleY(23);
+  SelectNoneButton.OnClick := @SelectNoneButtonClick;
+  Shift := SelectAllButton.Height + Gap * 2;
+  WizardForm.ComponentsList.Height := WizardForm.ComponentsList.Height - Shift;
+  SelectAllButton.Left := WizardForm.ComponentsList.Left;
+  SelectAllButton.Top := WizardForm.ComponentsList.Top + WizardForm.ComponentsList.Height + Gap;
+  SelectNoneButton.Left := SelectAllButton.Left + SelectAllButton.Width + ScaleX(8);
+  SelectNoneButton.Top := SelectAllButton.Top;
+end;
+
+{ The directory can be changed on the page before the languages; the languages installed there
+  are then the ones to offer. Going back and forth without changing it keeps what was checked.
+  The last page says what actually happened, in words a screen reader reads out. }
 procedure CurPageChanged(CurPageID: Integer);
 var
   S: String;
   Delta: Integer;
 begin
+  if CurPageID = wpSelectComponents then
+  begin
+    LayoutLanguagePage;
+    if not LanguagesChosenOnCommandLine and (CompareText(WizardDirValue, SelectionDir) <> 0) then
+      SelectInstalledLanguages(WizardDirValue);
+  end;
   if CurPageID <> wpFinished then
     Exit;
   { No line may start with "#" here: the preprocessor would take it for a directive. }
   S := '{#AppName} {#MyAppVersion} is installed.' + #13#10#13#10 + Summary + #13#10#13#10 +
+    LanguagesText + #13#10#13#10 +
     'Choose any voice named OpenEVV in your screen reader or any SAPI 5 program. ' +
     'OpenEVV Configuration, on the desktop and in the Start menu, adjusts every voice, ' +
     'and its Diagnostics page can run a self-test that speaks them all.' + #13#10#13#10 +

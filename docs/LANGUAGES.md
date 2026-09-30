@@ -4,7 +4,7 @@ Every language OpenEVV speaks is a folder. The SAPI 5 voice list is built from t
 
 ## Where they live
 
-- `C:\Program Files\OpenEVV SAPI5\languages\` holds the 155 languages the installer puts there, openevv's own ten and 145 read by eSpeak NG, and the seven modules that speak those.
+- `C:\Program Files\OpenEVV SAPI5\languages\` holds the languages the installer put there: of the 155 it offers (openevv's own ten and 145 read by eSpeak NG) the ones you chose, and the modules, of the seven that speak the 145, that the ones you chose need. Run the installer again to add or remove some of them.
 - `%ProgramData%\OpenEVV\languages\` (usually `C:\ProgramData\OpenEVV\languages\`) is yours. Anyone can write there without being an administrator, and a pack there wins over a shipped pack with the same tag, so it is also how to replace one.
 
 OpenEVV Configuration's Languages page does all of this with buttons: **Add a language pack** takes a downloaded `.zip` as it is (or `language.ini` inside an extracted pack) and installs every language in it into your folder, **Remove the selected language** sends a pack to the Recycle Bin (asking for administrator rights only for a shipped pack), and **Open the languages folder** opens yours. `OpenEvvConfig.exe --add-pack <zip or folder>` does the same from a command line.

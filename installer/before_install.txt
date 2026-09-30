@@ -12,11 +12,15 @@ disk.
 
 What is installed:
 
-  * 155 languages, eight voices each. Ten are openevv's own: US English,
+  * The languages you choose on the Select languages page, eight voices
+    each. There are 155 to choose from. Ten are openevv's own: US English,
     British English, German, Castilian Spanish, Latin American Spanish,
     French, Canadian French, Italian, Japanese, and Polish (experimental:
     upstream is still turning Italian rules into Polish ones). The other 145
-    are read by eSpeak NG and spoken with the OpenEVV voices.
+    are read by eSpeak NG and spoken with the OpenEVV voices. Every language
+    adds eight voices to every SAPI 5 program, so choose the ones you will
+    use; the wizard offers the ten OpenEVV languages first, and has buttons
+    to select all of them or none.
   * The SAPI 5 interface for 32-bit programs and for 64-bit programs.
   * OpenEVV Configuration, which adjusts every parameter of every voice,
     the sample rate and the engine's speech options, manages language packs
@@ -32,7 +36,11 @@ an OpenEVV voice while you upgrade - your screen reader, say - it keeps the
 version it has until you close it and start it again; every program started
 after the upgrade uses the new one.
 
-Adding and removing languages: new languages are published as language pack
+Changing the languages you installed: run this installer again. It offers
+the languages that are installed now, installs the ones you add and removes
+the ones you clear.
+
+Adding other languages: new languages are published as language pack
 .zip files. In OpenEVV Configuration, on the Languages page, press "Add a
 language pack", choose the .zip, and its eight voices appear in every SAPI 5
 program at once. "Remove the selected language" takes one away again.

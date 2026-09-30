@@ -1,5 +1,18 @@
 # Changes
 
+## 1.2.4 - 30 September 2026
+
+The installer asks which languages to install. ([Issue 2](https://github.com/joshknnd1982/OpenEvv-sapi5/issues/2): all 155 languages, 1,240 voices, were installed without a choice, which left some people's SAPI 5 unstable.)
+
+- **New: the Select languages page.** The wizard lists all 155 languages, one check box each, in two groups (the ten the engine speaks itself, and the 145 read by eSpeak NG, in alphabetical order), with a list of ready-made choices above them: *The ten OpenEVV languages* (80 voices), *English only* (16), *All 155 languages* (1,240) and *Custom*. **Select all languages** and **Select no languages** buttons check or clear the whole list, and the list of choices follows what is checked. Going on with no language checked, by Next or by Install, is refused with a message asking for at least one.
+- **The standard choice changed:** a computer with no OpenEVV on it is offered the ten OpenEVV languages, not all 155. Everything else is one click away, and an unattended install asks for it with `/TYPE=full`.
+- **Only what is chosen is installed.** Each language is its own component, and the seven module packs the 145 eSpeak NG languages speak with (`Hidden=1` packs: 9 to 17 MB each) are installed when a language that needs one is chosen and by nobody else. One language read by eSpeak NG is about 45 KB and its module pack.
+- **Installing again changes the languages.** The page offers exactly the languages that are installed, which is how 1.2.3 and earlier, that recorded no choice, are upgraded without losing one, and a language removed by hand or with OpenEVV Configuration is not put back. What is checked is installed, what is cleared is removed (its `language.ini` first, so that it is in no voice list from that moment), and a module pack goes with the last language that needed it, unless a pack somebody added by hand, in the installation or in `%ProgramData%\OpenEVV\languages`, names it as its template. Nothing needs a restart. Setup no longer warns that clearing a component "will not uninstall" it, which would be untrue here.
+- **Unattended:** `/TYPE=full`, `/TYPE=english`, `/TYPE=openevv`, or `/COMPONENTS="openevv\enus,espeak\nb"`; with nothing given an install over an existing one keeps what is installed.
+- **Screen readers:** the list of types is named "Type of installation", the list of languages "Languages to install" and both buttons by their captions (setup's own page named neither list); the last page says how many languages and voices were installed, and names them up to four.
+- The list of languages is generated from `languages\` by `installer\make_components.py` into `installer\generated\`, and the installer build stops, naming the folder, if `languages\` holds a pack it does not list. The accessibility probe installs each pack's `language.ini` only, so the choice is tested in seconds: `installer\test_language_choice.ps1` (22 checks: every type, single languages with exactly their module pack, adding, removing, upgrading with nothing given, from an installation with no record, after a hand removal, a pack somebody added, and the wizard itself clicked through) and `installer_a11y` (new: `--buttons`, `--upgrade`, `--expect-checked`, `--expect-type`, `--expect-packs`, `--screenshot`; it now keeps setup's child process from outliving a failed walk).
+- No change to the voices, the engine or the language packs themselves.
+
 ## 1.2.3 - 30 September 2026
 
 The community pronunciation dictionary, and a fix to the 64-bit engine that it needed.

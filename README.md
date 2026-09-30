@@ -18,11 +18,24 @@ The OpenEVV text-to-speech engine as SAPI 5 voices for Windows, in both 32-bit a
 
 ## Installing
 
-Download `OpenEVV-SAPI5-Setup-<version>.exe` from the [Releases](../../releases) page and run it. It installs both SAPI interfaces, all 155 languages, OpenEVV Configuration (with a desktop shortcut, and in the Start menu) and the documentation. It then tests every voice in 32-bit and 64-bit programs and states the result on its last page. The wizard is Inno Setup's standard one and works with screen readers.
+Download `OpenEVV-SAPI5-Setup-<version>.exe` from the [Releases](../../releases) page and run it. It installs both SAPI interfaces, OpenEVV Configuration (with a desktop shortcut, and in the Start menu), the documentation and the languages you choose. It checks that the voices are registered with Windows and states the result on its last page. The wizard is Inno Setup's standard one and works with screen readers.
+
+**Choosing the languages.** Every language adds eight voices to every SAPI 5 program, and 155 languages are 1,240 voices, a long list for a screen reader or any other program to go through, and more than some programs take well. So the wizard's **Select languages** page lets you install only the ones you will use. It has a check box for each of the 155 languages, and a list of ready-made choices above them:
+
+- *The ten OpenEVV languages* (80 voices), the languages the engine speaks itself: US and British English, German, Castilian and Latin American Spanish, French, Canadian French, Italian, Japanese and Polish. This is what the wizard offers first on a computer with no OpenEVV on it.
+- *English only*: US and British English (16 voices).
+- *All 155 languages* (1,240 voices): the ten above and the 145 read by eSpeak NG.
+- *Custom*: check the languages one by one. **Select all languages** and **Select no languages** under the list check or clear every one; at least one language has to be selected, and the wizard says so if none is.
+
+Each language that eSpeak NG reads is spoken by one of the engine's modules; the wizard installs that module when you choose a language that needs it, and only then, so a single such language adds about 9 to 17 MB.
+
+**Changing the languages later.** Run the installer again. Its language page offers exactly the languages that are installed now; it installs the ones you add and removes the ones you clear, and never asks Windows to restart. Installing over a version that put every language in (1.2.3 and earlier) offers all of them, so nothing is removed unless you clear it. A language you removed yourself with OpenEVV Configuration is not put back. OpenEVV Configuration's Languages page also removes languages one at a time, and adds language packs.
+
+**Unattended installs.** With nothing on the command line, an install over an existing one keeps exactly the languages that are installed, and one on a computer with no OpenEVV installs the ten OpenEVV languages. `/TYPE=full` installs all 155, `/TYPE=english` US and British English, `/TYPE=openevv` the ten. `/COMPONENTS="openevv\enus,espeak\nb"` names languages: `openevv\` or `espeak\` and the language's folder name in `languages\`, with `-` written as `_` (`espeak\en_gb_scotland`); `installer\generated\components.inc` lists them all.
 
 Windows may say "Windows protected your PC" first. That is SmartScreen noting a new, unsigned download, not a detection: choose More info, then Run anyway.
 
-Installing over an older version keeps your settings and languages, and Windows never needs to restart. Files a running program still has open (a screen reader using an OpenEVV voice, say) are renamed out of the way and the new ones installed beside them: every program started afterwards uses the new version at once, and the programs that were already running keep the old one until you close them and start them again. The installer's last page names those programs.
+Installing over an older version keeps your settings and the languages you have installed, and Windows never needs to restart. Files a running program still has open (a screen reader using an OpenEVV voice, say) are renamed out of the way and the new ones installed beside them: every program started afterwards uses the new version at once, and the programs that were already running keep the old one until you close them and start them again. The installer's last page names those programs.
 
 ## Native speakers: help make your language right
 
@@ -143,7 +156,7 @@ A language in openevv is text: its rules, tables and dictionary in `openevv/lang
    This writes `output\OpenEVV-language-<tag>-<version>.zip`.
 6. Publish that zip on the Releases page, either with a new release of this project or in a release of its own, for example `gh release upload v1.0.0 output\OpenEVV-language-<tag>-1.0.0.zip`. Point users to "Adding a new language to your installed copy" above.
 
-To ship the language in the installer as well, commit `languages/<tag>/` and build a new installer. `installer\openevv.iss` installs whatever is in `languages\`.
+To ship the language in the installer as well, commit `languages/<tag>/`, run `python installer\make_components.py` (it writes the list of languages the installer offers, in `installer\generated\`, which is committed too) and build a new installer. The installer's build stops, naming the folder, if `languages\` holds one that list does not.
 
 ## OpenEVV Configuration
 
@@ -254,7 +267,7 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 | `openevv/` | the openevv engine source, a snapshot of [joshknnd1982/openevv](https://github.com/joshknnd1982/openevv) at 7148737 (= [Mudb0y/openevv](https://github.com/Mudb0y/openevv) main, 28 September 2026) |
 | `engine/` | building the modules and packs from `openevv/`, and the eSpeak NG packs from eSpeak NG (`make_espeak_packs.py`, `espeak_phonemes.py`, `check_espeak_packs.py`, `espeak_templates.txt`) |
 | `dictionaries/community/` | the community pronunciation dictionary installed with OpenEVV: the English files of IBMTTSDictionaries at the commit `community-dictionary.ini` names, byte for byte |
-| `installer/` | the Inno Setup script |
+| `installer/` | the Inno Setup script, the list of languages it offers (`generated/`, written by `make_components.py` from `languages/`) and `test_language_choice.ps1`, which tests the choice of languages |
 | `samples/` | every voice of openevv's own ten languages, rendered straight from the engine modules; the 145 eSpeak NG languages' samples are a download on the Releases page (`engine/render_espeak_samples.py`) |
 
 ## Testing
@@ -275,7 +288,8 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 - **`sapi_test --all-voices`:** all 1,240 voices through SAPI.
 - **`engine\check_espeak_packs.py`:** every eSpeak NG pack's sample, numbers and punctuation read and handed to its template's module, which must take every word as a pronunciation.
 - **`a11y_check`:** walks every page of OpenEVV Configuration through MSAA on a private desktop. It fails on an unlabelled control or a duplicated access key, and checks that edits reach the settings file at once.
-- **`installer_a11y`:** walks every page of the installer the same way, then installs and uninstalls a non-elevated probe build.
+- **`installer_a11y`:** walks every page of the installer the same way, then installs and uninstalls a non-elevated probe build. On the language page it checks that both lists have names, that there are at least 155 languages, what is checked when upgrading, that **Select all languages** checks everything and **Select no languages** clears it, and that going on with no language is refused with a message.
+- **`installer\test_language_choice.ps1`:** installs the probe with every type and with single languages, upgrades it (adding languages, removing them, with nothing on the command line, from an installation that has no record of a choice, after a language was deleted by hand) and uninstalls it, and checks which language packs, and which module packs, are left each time against what `languages\*\language.ini` says they should be. `build_all.bat` runs it.
 - **`OpenEvvConfig.exe --selftest`:** every voice of every language in both bitnesses, plus one through SAPI itself. It is the "Run the self-test" button on the Diagnostics page; the installer does not run it, so installing stays quick.
 
 ## Logs and troubleshooting

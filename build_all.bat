@@ -67,6 +67,8 @@ if "%WRITE_PACKS%"=="1" (
     if not defined ESPEAK_NG_SOURCE_DIR set "ESRC=%ROOT%\build_frontend_x64\_deps\espeak-ng-src"
     set PYTHONUTF8=1
     !PY! "%ROOT%\engine\make_espeak_packs.py" --espeak-src "!ESRC!" --frontend "%ROOT%\dist\x64\OpenEvvFrontend.exe" --data "%ROOT%\dist\espeak-ng-data" || goto :fail
+    rem The installer offers each pack as a language to choose: its list is made from languages\.
+    !PY! "%ROOT%\installer\make_components.py" || goto :fail
 )
 if "%RUN_TESTS%"=="1" if defined PY (
     echo.
@@ -132,6 +134,11 @@ if "%RUN_TESTS%"=="1" (
 
 echo.
 echo === Installer ===
+rem The list of languages the wizard offers is generated from languages\; ISCC stops when a pack is
+rem missing from it, and with Python this says so first, and also when a name or a count went stale.
+if defined PY (
+    !PY! "%ROOT%\installer\make_components.py" --check || goto :fail
+)
 set "ISCC="
 for %%P in ("%LOCALAPPDATA%\Programs\Inno Setup 6\ISCC.exe" "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" "%ProgramFiles%\Inno Setup 6\ISCC.exe") do (
     if not defined ISCC if exist "%%~P" set "ISCC=%%~P"
@@ -146,6 +153,9 @@ if "%RUN_TESTS%"=="1" (
     rem private desktop, installed per user into %%TEMP%%, and uninstalled again.
     "%ISCC%" /Q /DProbe /O"%ROOT%\build_x64" "%ROOT%\installer\openevv.iss" || goto :fail
     "%ROOT%\build_x64\bin\Release\installer_a11y.exe" "%ROOT%\build_x64\OpenEVV-SAPI5-AccessibilityProbe.exe" || goto :fail
+    echo.
+    echo === Tests: the choice of languages, by installing and upgrading the probe ===
+    "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "%ROOT%\installer\test_language_choice.ps1" -Probe "%ROOT%\build_x64\OpenEVV-SAPI5-AccessibilityProbe.exe" -Walker "%ROOT%\build_x64\bin\Release\installer_a11y.exe" || goto :fail
 )
 
 echo.

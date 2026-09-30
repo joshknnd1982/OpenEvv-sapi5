@@ -1,6 +1,21 @@
 // installer_a11y: what a screen reader sees in the installer, page by page.
 //
-//   installer_a11y PATH\OpenEVV-SAPI5-AccessibilityProbe.exe
+//   installer_a11y PATH\OpenEVV-SAPI5-AccessibilityProbe.exe [options]
+//
+//     --dir DIR            install into DIR (default: a folder in %TEMP%)
+//     --upgrade            DIR already holds an installation of the probe: walk the wizard over it
+//                          as a person upgrading would, without removing it first
+//     --expect-checked N   the languages page must show N items checked when it first appears
+//                          (a group, "OpenEVV" or "eSpeak NG", counts only when all of its languages are:
+//                          otherwise it is shown half checked)
+//     --expect-type TEXT   the list of types of installation must read TEXT (a part of it) when the
+//                          languages page first appears
+//     --screenshot PREFIX  write each page of the wizard as PREFIX<n>.bmp, for a person to look at
+//     --expect-packs N     when setup is done, DIR\languages must hold N packs (folders with a language.ini)
+//     --buttons            on the languages page: press "Select no languages" (nothing may stay checked),
+//                          press Next (an error must say that at least one language is needed, and the
+//                          page must stay), press "Select all languages" (every item must be checked),
+//                          and go on
 //
 // The probe is installer\openevv.iss compiled with /DProbe: the same wizard
 // pages and [Code] as the real installer, but installing only a text file, per
@@ -15,7 +30,9 @@
 // Fails when a focusable control has no accessible name, when a page does not
 // advance, when the last page does not state the registration result, or when a
 // check list is not named for what it is (MSAA takes a list's name from the
-// static text just before it).
+// static text just before it). The page that chooses the languages is held to the
+// same: its type list and its language list are named "Type of installation" and
+// "Languages to install", and what it shows checked is read item by item.
 #include <windows.h>
 #include <oleacc.h>
 
@@ -194,6 +211,119 @@ int layout_problems(const std::vector<Control>& cs)
     return problems;
 }
 
+// The wizard window as it is drawn, written as a 24-bit bitmap.
+void save_window(HWND h, const std::wstring& path)
+{
+    RECT r;
+    GetWindowRect(h, &r);
+    const int w = r.right - r.left, hgt = r.bottom - r.top;
+    if (w <= 0 || hgt <= 0) return;
+    HDC screen = GetDC(nullptr);
+    HDC dc = CreateCompatibleDC(screen);
+    HBITMAP bmp = CreateCompatibleBitmap(screen, w, hgt);
+    HGDIOBJ old = SelectObject(dc, bmp);
+    PrintWindow(h, dc, 2 /* PW_RENDERFULLCONTENT */);
+    BITMAPINFOHEADER bi{sizeof bi, w, -hgt, 1, 24, BI_RGB, 0, 0, 0, 0, 0};
+    const int stride = (w * 3 + 3) & ~3;
+    std::vector<unsigned char> px(static_cast<size_t>(stride) * hgt);
+    GetDIBits(dc, bmp, 0, static_cast<UINT>(hgt), px.data(), reinterpret_cast<BITMAPINFO*>(&bi), DIB_RGB_COLORS);
+    SelectObject(dc, old);
+    DeleteObject(bmp);
+    DeleteDC(dc);
+    ReleaseDC(nullptr, screen);
+    BITMAPFILEHEADER fh{0x4D42, static_cast<DWORD>(sizeof fh + sizeof bi + px.size()), 0, 0, sizeof fh + sizeof bi};
+    bi.biHeight = -hgt;
+    HANDLE f = CreateFileW(path.c_str(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (f == INVALID_HANDLE_VALUE) return;
+    DWORD got = 0;
+    WriteFile(f, &fh, sizeof fh, &got, nullptr);
+    WriteFile(f, &bi, sizeof bi, &got, nullptr);
+    WriteFile(f, px.data(), static_cast<DWORD>(px.size()), &got, nullptr);
+    CloseHandle(f);
+}
+
+struct Item
+{
+    std::wstring name;
+    long state = 0;
+};
+
+// The items of a check list, as a screen reader reads them: each one's name and state.
+std::vector<Item> list_items(IAccessible* list)
+{
+    std::vector<Item> out;
+    long n = 0;
+    if (FAILED(list->get_accChildCount(&n))) return out;
+    for (long i = 1; i <= n; ++i) {
+        VARIANT child;
+        child.vt = VT_I4;
+        child.lVal = i;
+        Item it;
+        BSTR b = nullptr;
+        list->get_accName(child, &b);
+        it.name = bstr(b);
+        VARIANT st;
+        VariantInit(&st);
+        if (SUCCEEDED(list->get_accState(child, &st)) && st.vt == VT_I4) it.state = st.lVal;
+        VariantClear(&st);
+        out.push_back(std::move(it));
+    }
+    return out;
+}
+
+// Folders of DIR\languages that hold a language.ini.
+int count_packs(const std::wstring& dir)
+{
+    int n = 0;
+    std::error_code ec;
+    for (const auto& e : std::filesystem::directory_iterator(dir + L"\\languages", ec)) {
+        if (e.is_directory(ec) && std::filesystem::exists(e.path() / L"language.ini", ec)) ++n;
+    }
+    return n;
+}
+
+struct FindDialog
+{
+    HWND wizard = nullptr;
+    DWORD pid = 0; // the setup program's own windows only: the desktop has system windows of its own
+    HWND hit = nullptr;
+    std::wstring cls;
+    std::wstring seen;
+};
+
+// A message box setup shows: a visible top-level window of the private desktop that is not the wizard.
+BOOL CALLBACK find_dialog(HWND h, LPARAM lp)
+{
+    auto* f = reinterpret_cast<FindDialog*>(lp);
+    if (h == f->wizard || !IsWindowVisible(h)) return TRUE;
+    DWORD pid = 0;
+    GetWindowThreadProcessId(h, &pid);
+    if (pid != f->pid) return TRUE;
+    wchar_t cls[64] = L"";
+    GetClassNameW(h, cls, 64);
+    if (wcscmp(cls, L"TWizardForm") == 0 || wcscmp(cls, L"TMainForm") == 0 || wcscmp(cls, L"TApplication") == 0) {
+        return TRUE;
+    }
+    // Windows' own helper windows (the input indicator, the IME) are in every process on a desktop
+    if (wcsncmp(cls, L"UAC", 3) == 0 || wcsncmp(cls, L"MSCTFIME", 8) == 0 || wcsstr(cls, L"IME") != nullptr) {
+        return TRUE;
+    }
+    wchar_t title[128] = L"";
+    GetWindowTextW(h, title, 128);
+    f->seen += std::wstring(cls) + L" \"" + title + L"\"; ";
+    f->hit = h;
+    f->cls = cls;
+    return FALSE;
+}
+
+int count_checked(const std::vector<Item>& items)
+{
+    int n = 0;
+    for (const Item& it : items)
+        if (it.state & STATE_SYSTEM_CHECKED) ++n;
+    return n;
+}
+
 bool run_on_desktop(const std::wstring& exe, const std::wstring& args, DWORD wait_ms, DWORD* exit_code)
 {
     STARTUPINFOW si{sizeof si};
@@ -243,9 +373,31 @@ bool uninstall_probe()
 int wmain(int argc, wchar_t** argv)
 {
     if (argc < 2) {
-        fprintf(stderr, "usage: installer_a11y PATH\\OpenEVV-SAPI5-AccessibilityProbe.exe\n");
+        fprintf(stderr,
+                "usage: installer_a11y PATH\\OpenEVV-SAPI5-AccessibilityProbe.exe [--dir DIR] [--upgrade] "
+                "[--expect-checked N] [--expect-type TEXT] [--expect-packs N] [--buttons]\n");
         return 2;
     }
+    std::wstring dir_arg;
+    bool upgrade = false;
+    int expect_checked = -1, expect_packs = -1;
+    bool buttons = false;
+    std::wstring expect_type, shot_prefix;
+    for (int i = 2; i < argc; ++i) {
+        const std::wstring a = argv[i];
+        if (a == L"--upgrade") upgrade = true;
+        else if (a == L"--buttons") buttons = true;
+        else if (a == L"--screenshot" && i + 1 < argc) shot_prefix = argv[++i];
+        else if (a == L"--expect-type" && i + 1 < argc) expect_type = argv[++i];
+        else if (a == L"--dir" && i + 1 < argc) dir_arg = argv[++i];
+        else if (a == L"--expect-checked" && i + 1 < argc) expect_checked = _wtoi(argv[++i]);
+        else if (a == L"--expect-packs" && i + 1 < argc) expect_packs = _wtoi(argv[++i]);
+        else {
+            fprintf(stderr, "unknown argument %ls\n", a.c_str());
+            return 2;
+        }
+    }
+    SetProcessDPIAware(); // window rectangles are the real ones, so that a screenshot is the whole window
     HDESK desk = CreateDesktopW(kDesktop, nullptr, nullptr, 0, GENERIC_ALL, nullptr);
     if (!desk) {
         fprintf(stderr, "CreateDesktop failed %lu\n", GetLastError());
@@ -254,28 +406,39 @@ int wmain(int argc, wchar_t** argv)
     SetThreadDesktop(desk); // before COM makes a window on this thread
     CoInitialize(nullptr);
 
-    if (probe_installed()) {
+    if (probe_installed() && !upgrade) {
         printf("removing a probe left installed by an earlier run\n");
         uninstall_probe();
     }
 
     wchar_t tmp[MAX_PATH];
     GetTempPathW(MAX_PATH, tmp);
-    const std::wstring dir = std::wstring(tmp) + L"OpenEVV_installer_a11y";
+    const std::wstring dir = dir_arg.empty() ? std::wstring(tmp) + L"OpenEVV_installer_a11y" : dir_arg;
     const std::wstring setup_log = std::wstring(tmp) + L"OpenEVV_installer_a11y_setup.log";
     // An existing folder would add a "folder already exists" question to the walk.
     std::error_code ec;
-    std::filesystem::remove_all(dir, ec);
+    if (!upgrade) std::filesystem::remove_all(dir, ec);
 
     STARTUPINFOW si{sizeof si};
     std::wstring deskname = kDesktop;
     si.lpDesktop = deskname.data();
     PROCESS_INFORMATION pi{};
     std::wstring cmd = L"\"" + std::wstring(argv[1]) + L"\" /DIR=\"" + dir + L"\" /LOG=\"" + setup_log + L"\"";
-    if (!CreateProcessW(argv[1], cmd.data(), nullptr, nullptr, FALSE, 0, nullptr, nullptr, &si, &pi)) {
+    // Setup starts a copy of itself from %TEMP%. A walk that fails must not leave that copy waiting
+    // on a message box on this desktop for the next walk to find: everything setup starts goes
+    // with this job when this program ends.
+    HANDLE job = CreateJobObjectW(nullptr, nullptr);
+    if (job) {
+        JOBOBJECT_EXTENDED_LIMIT_INFORMATION li{};
+        li.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+        SetInformationJobObject(job, JobObjectExtendedLimitInformation, &li, sizeof li);
+    }
+    if (!CreateProcessW(argv[1], cmd.data(), nullptr, nullptr, FALSE, CREATE_SUSPENDED, nullptr, nullptr, &si, &pi)) {
         fprintf(stderr, "cannot start %ls (%lu)\n", argv[1], GetLastError());
         return 2;
     }
+    if (job) AssignProcessToJobObject(job, pi.hProcess);
+    ResumeThread(pi.hThread);
     CloseHandle(pi.hThread);
 
     // Setup relaunches itself from a temporary folder, so find the window by class.
@@ -294,6 +457,10 @@ int wmain(int argc, wchar_t** argv)
     Sleep(800);
 
     bool saw_tasks_name = false, saw_run_name = false, saw_summary = false, finished = false;
+    bool saw_types_name = false, saw_languages_name = false, saw_languages_stated = false;
+    int checked_shown = -1;
+    std::wstring type_shown;
+    bool type_seen = false;
     int pages = 0, stops = 0;
     for (int page = 1; page <= 12 && !finished; ++page) {
         std::vector<Control> cs = controls(form);
@@ -324,9 +491,40 @@ int wmain(int argc, wchar_t** argv)
                 saw_tasks_name = true;
             }
             if (c.role == ROLE_SYSTEM_OUTLINE && c.name.rfind(L"Things to do now", 0) == 0) saw_run_name = true;
+            if (c.role == ROLE_SYSTEM_COMBOBOX && c.name.rfind(L"Type of installation", 0) == 0) {
+                saw_types_name = true;
+                printf("          selected type: \"%s\"\n", narrow(c.value).c_str());
+                if (!type_seen) type_shown = c.value;
+                type_seen = true;
+            }
+            if (c.role == ROLE_SYSTEM_OUTLINE && c.name.rfind(L"Languages to install", 0) == 0) {
+                saw_languages_name = true;
+                const std::vector<Item> items = list_items(c.acc);
+                int checked = 0;
+                std::string names;
+                for (const Item& it : items) {
+                    if (it.state & STATE_SYSTEM_CHECKED) {
+                        ++checked;
+                        if (checked <= 12) names += (names.empty() ? "" : ", ") + narrow(it.name, 40);
+                    }
+                }
+                if (checked_shown < 0) checked_shown = checked;
+                printf("          %d items, %d checked%s%s\n", static_cast<int>(items.size()), checked,
+                       checked ? ": " : "", names.c_str());
+                // 155 languages to choose from, and the groups they are in
+                if (items.size() < 155) {
+                    printf("    FAIL: the languages page lists only %d items; there are 155 languages\n",
+                           static_cast<int>(items.size()));
+                    ++failures;
+                }
+            }
             if (c.role == ROLE_SYSTEM_STATICTEXT && c.name.find(L"Accessibility probe: no voices") != std::wstring::npos &&
                 c.name.find(L"Logs, including install.log") != std::wstring::npos) {
                 saw_summary = true;
+            }
+            if (c.role == ROLE_SYSTEM_STATICTEXT && c.name.find(L"Installed: ") != std::wstring::npos &&
+                c.name.find(L"languages") != std::wstring::npos) {
+                saw_languages_stated = true;
             }
             if (c.role == ROLE_SYSTEM_PUSHBUTTON && enabled) {
                 const std::wstring n = without_amp(c.name);
@@ -336,7 +534,100 @@ int wmain(int argc, wchar_t** argv)
             }
         }
         failures += layout_problems(cs);
+        if (!shot_prefix.empty()) save_window(form, shot_prefix + std::to_wstring(page) + L".bmp");
         const std::wstring before = signature(form);
+        Control* languages_list = nullptr;
+        Control* select_all = nullptr;
+        Control* select_none = nullptr;
+        for (auto& c : cs) {
+            if (c.role == ROLE_SYSTEM_OUTLINE && c.name.rfind(L"Languages to install", 0) == 0) languages_list = &c;
+            if (c.role == ROLE_SYSTEM_PUSHBUTTON) {
+                const std::wstring n = without_amp(c.name);
+                if (n.rfind(L"Select all languages", 0) == 0) select_all = &c;
+                if (n.rfind(L"Select no languages", 0) == 0) select_none = &c;
+            }
+        }
+        if (languages_list && !select_all) {
+            printf("    FAIL: no \"Select all languages\" button on the languages page\n");
+            ++failures;
+        }
+        if (languages_list && !select_none) {
+            printf("    FAIL: no \"Select no languages\" button on the languages page\n");
+            ++failures;
+        }
+        if (buttons && languages_list && select_all && select_none && advance) {
+            VARIANT self;
+            self.vt = VT_I4;
+            self.lVal = CHILDID_SELF;
+            const auto wait_checked = [&](bool all) {
+                for (int i = 0; i < 40; ++i) {
+                    const std::vector<Item> items = list_items(languages_list->acc);
+                    const int n = count_checked(items);
+                    if (all ? n == static_cast<int>(items.size()) : n == 0) return n;
+                    Sleep(100);
+                }
+                return count_checked(list_items(languages_list->acc));
+            };
+            printf("    pressing \"Select no languages\"\n");
+            select_none->acc->accDoDefaultAction(self);
+            const int none = wait_checked(false);
+            printf("          %d items checked\n", none);
+            if (none != 0) {
+                printf("    FAIL: \"Select no languages\" left %d items checked\n", none);
+                ++failures;
+            }
+            printf("    pressing \"%s\" with nothing selected\n", narrow(without_amp(advance->name)).c_str());
+            advance->acc->accDoDefaultAction(self);
+            FindDialog d;
+            d.wizard = form;
+            GetWindowThreadProcessId(form, &d.pid);
+            for (int i = 0; i < 50 && !d.hit; ++i) {
+                Sleep(100);
+                EnumDesktopWindows(desk, find_dialog, reinterpret_cast<LPARAM>(&d));
+            }
+            if (!d.hit) {
+                printf("    FAIL: no error appeared when no language was selected\n");
+                ++failures;
+            } else {
+                std::vector<Control> dc = controls(d.hit);
+                std::wstring text;
+                Control* ok = nullptr;
+                for (auto& x : dc) {
+                    if (x.role == ROLE_SYSTEM_STATICTEXT) text += x.name + L" ";
+                    if (x.role == ROLE_SYSTEM_PUSHBUTTON && !ok) ok = &x;
+                }
+                printf("    a dialog (%s) says: \"%s\"\n", narrow(d.cls).c_str(), narrow(text, 300).c_str());
+                printf("          (windows of setup: %s)\n", narrow(d.seen, 300).c_str());
+                if (text.find(L"at least one language") == std::wstring::npos) {
+                    printf("    FAIL: the error does not ask for at least one language\n");
+                    ++failures;
+                }
+                if (ok) {
+                    printf("    pressing \"%s\" in the dialog\n", narrow(without_amp(ok->name)).c_str());
+                    ok->acc->accDoDefaultAction(self);
+                } else {
+                    printf("    FAIL: the error has no button\n");
+                    ++failures;
+                }
+                release_all(dc);
+                for (int i = 0; i < 30 && IsWindow(d.hit) && IsWindowVisible(d.hit); ++i) Sleep(100);
+            }
+            Sleep(300);
+            if (signature(form) != before) {
+                printf("    FAIL: the page went on with no language selected\n");
+                ++failures;
+            }
+            printf("    pressing \"Select all languages\"\n");
+            select_all->acc->accDoDefaultAction(self);
+            const int all = wait_checked(true);
+            const int total = static_cast<int>(list_items(languages_list->acc).size());
+            printf("          %d of %d items checked\n", all, total);
+            if (all != total) {
+                printf("    FAIL: \"Select all languages\" left %d of %d items unchecked\n", total - all, total);
+                ++failures;
+            }
+            buttons = false;
+        }
         if (advance) {
             const bool last = without_amp(advance->name).rfind(L"Finish", 0) == 0;
             printf("    pressing \"%s\"\n", narrow(without_amp(advance->name)).c_str());
@@ -385,6 +676,35 @@ int wmain(int argc, wchar_t** argv)
     if (!saw_run_name) {
         printf("FAIL: the list on the last page is not named \"Things to do now\"\n");
         ++failures;
+    }
+    if (!saw_types_name) {
+        printf("FAIL: the list of types of installation is not named \"Type of installation\"\n");
+        ++failures;
+    }
+    if (!saw_languages_name) {
+        printf("FAIL: the list of languages is not named \"Languages to install\"\n");
+        ++failures;
+    }
+    if (!saw_languages_stated) {
+        printf("FAIL: the last page did not say how many languages were installed\n");
+        ++failures;
+    }
+    if (expect_checked >= 0 && checked_shown != expect_checked) {
+        printf("FAIL: the languages page first showed %d items checked, %d expected\n", checked_shown, expect_checked);
+        ++failures;
+    }
+    if (!expect_type.empty() && type_shown.find(expect_type) == std::wstring::npos) {
+        printf("FAIL: the languages page first showed the type \"%s\", \"%s\" expected\n", narrow(type_shown).c_str(),
+               narrow(expect_type).c_str());
+        ++failures;
+    }
+    if (expect_packs >= 0) {
+        const int packs = count_packs(dir);
+        printf("%d language packs installed\n", packs);
+        if (packs != expect_packs) {
+            printf("FAIL: %d language packs expected\n", expect_packs);
+            ++failures;
+        }
     }
     if (!saw_summary) {
         printf("FAIL: the last page did not state the registration result and the log folder\n");
