@@ -145,9 +145,9 @@ int wmain(int argc, wchar_t** argv)
     Sleep(400);
     CoInitialize(nullptr);
 
-    const char* const kPages[] = {"Voices", "Speech", "Languages", "Diagnostics"};
+    const char* const kPages[] = {"Voices", "Speech", "Languages", "Community dictionary", "Diagnostics"};
     int stops = 0;
-    for (int p = 0; p < 4; ++p) {
+    for (int p = 0; p < 5; ++p) {
         SendMessageW(sheet, PSM_SETCURSEL, static_cast<WPARAM>(p), 0);
         Sleep(250);
         failures += walk(sheet, kPages[p]);

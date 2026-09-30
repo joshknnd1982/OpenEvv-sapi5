@@ -1,6 +1,6 @@
 # Notice: whose is whose
 
-Four different things are in this repository and its installer, under four different sets of terms.
+Five different things are in this repository and its installer, under five different sets of terms.
 
 ## The SAPI 5 wrapper: GNU GPL version 2
 
@@ -17,6 +17,10 @@ The eSpeak NG it is built from is [joshknnd1982/espeak-ng](https://github.com/jo
 `openevv/` is a snapshot of the openevv engine, and every language module in `languages/` is compiled from it. Its authors' own work (the engine in `openevv/src`, its front ends, tools, tests and documents) is under the MIT licence in `openevv/LICENSE`. Copyright (c) 2026 Stanislaw Przedzinkowski.
 
 What this project added to the engine is under the same licence: the accent layer in `openevv/src/accent`, which gives a language read by eSpeak NG its own sounds, melody and tones, the few lines in `openevv/src/eci` and `openevv/src/klatt` that call it, and `openevv/tools/module/clone.py`. Copyright (c) 2026 the OpenEVV SAPI5 contributors.
+
+## The community pronunciation dictionary: CC0
+
+`dictionaries/community/` is [eigencrow/IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries), byte for byte, at the commit `community-dictionary.ini` names. It was released to the public domain under the Creative Commons CC0 1.0 Universal dedication; the text is in `dictionaries/community/LICENSE.md` and is installed with it. OpenEvvConfig.exe can download a newer copy of the same files from GitHub, which stay under the same dedication.
 
 ## The language data: IBM's, and not licensed here
 

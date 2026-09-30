@@ -12,6 +12,7 @@ The OpenEVV text-to-speech engine as SAPI 5 voices for Windows, in both 32-bit a
 - **Low latency.** The engine synthesises about 600 times faster than real time. From a program's `Speak()` call to the first audio handed to SAPI takes about 1.5 ms on a warm voice. A cancel returns in well under a millisecond, and the next utterance never waits for the one it replaced.
 - **Everything adjustable, live.** OpenEVV Configuration adjusts all eight parameters of every voice in every language: gender, head size, pitch, inflection, roughness, breathiness, speed and volume. It also sets the sample rate (8 to 48 kHz), the resampler, the speed range for SAPI's rate, the pitch step, abbreviation expansion, how numbers are read, the spelling modes, the pauses at punctuation, backquote annotations, English heteronym fixes and user dictionaries. Each change is saved at once and heard on the next thing any program says, a screen reader already speaking included.
 - **Languages you can add and remove** as folders, without reinstalling anything. See below.
+- **The community pronunciation dictionary** for English, the IBMTTS community's [IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) (public domain): a main, a root and an abbreviation dictionary of pronunciation fixes, installed with OpenEVV and read before your own dictionaries. OpenEVV Configuration switches it on and off, and one button looks on GitHub for a newer version and installs it. See below.
 - **Everything SAPI asks of an engine:** word, sentence and bookmark events on the exact sample, pauses, `<spell>` (NVDA's character navigation), rate, pitch and volume changes inside an utterance, and sentence skipping. A lone symbol the engine would render as silence is named instead (in Japanese that is most ASCII punctuation), but only when it is the whole utterance, so prose keeps its natural pauses.
 - **Logs** of the voices, the engine hosts, the utility and the installer, in `%ProgramData%\OpenEVV\Logs`.
 
@@ -146,7 +147,7 @@ To ship the language in the installer as well, commit `languages/<tag>/` and bui
 
 ## OpenEVV Configuration
 
-Four pages, all standard Windows controls, every one labelled. Each number is an edit box with a spin button; the arrow keys step it.
+Five pages, all standard Windows controls, every one labelled. Each number is an edit box with a spin button; the arrow keys step it.
 
 - **Voices:** pick a language and one of its eight voices, then adjust gender, head size, pitch, inflection, roughness, breathiness, speed and volume. **Restore this voice's defaults** undoes your changes to that voice. **Speak** plays test text with the settings as they are.
 - **Speech:** settings for every voice:
@@ -158,6 +159,7 @@ Four pages, all standard Windows controls, every one labelled. Each number is an
   - punctuation pauses: do not shorten, shorten at end of text only, or shorten all pauses (see below)
   - backquote annotations, English heteronym fixes, naming lone symbols, and user dictionaries
 - **Languages:** the installed languages; adding and removing packs; editing the main, root and abbreviation user dictionaries of the selected language.
+- **Community dictionary:** the switch for the community pronunciation dictionary, which version of it is in use, and **Check for a newer version and install it** (see below).
 - **Diagnostics:** the logging level, the log folder, and a self-test that speaks every voice of every language into memory, in both bitnesses, and one through SAPI itself.
 
 Settings are per user, in `%APPDATA%\OpenEVV\settings.ini`.
@@ -183,6 +185,17 @@ It works by putting the engine's one-unit pause annotation, `` `p1 ``, in front 
 - Nothing is added while the text mode spells, or to `<spell>`: the engine would spell the annotation.
 
 The setting is `PauseMode` (0, 1 or 2) in `settings.ini`. Every running voice takes it on its next utterance.
+
+### The community dictionary
+
+[IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) is the pronunciation dictionary the IBMTTS community keeps for the Eloquence engine, in the format the engine's own dictionaries have: one entry a line, the word, a tab, and what to say instead (spelt out, or as an annotation with the phonemes, `` `[.1post.2fIks] ``). It has a main, a root and an abbreviation dictionary for US English (`ENU*.dic`); the repository also holds German ones (`DEU*.dic`), which OpenEVV does not use. It is in the public domain (CC0) and is maintained by amirsol81, x0 (ultrasound1372), thunderdrop and many contributors.
+
+- **Where it applies:** the US English voices, and English only. The repository also holds German files, which OpenEVV neither installs nor reads, and no other language is touched, the 145 read by eSpeak NG included. If the project ever publishes British English files (`ENG*.dic`), they are used for the British English voices without a new OpenEVV.
+- **Under your own dictionaries:** the engine host loads it first and your own main, root and abbreviation dictionaries (Languages page) after it, so where you and the community disagree about a word, yours wins. Take your entry away and the community's is back.
+- **On or off:** the checkbox on the Community dictionary page, saved at once and heard on the next thing any program says. It is on by default, and `CommunityDictionary` (0 or 1) in `settings.ini` is the setting. The Speech page's *Expand abbreviations* switch is the engine's whole dictionary and turns this off with the rest.
+- **Two copies, the newer wins:** the version installed with OpenEVV is in `dictionaries\community` beside the program. **Check for a newer version and install it** asks GitHub for the newest commit of the project's `master` branch (the newest, not the monthly release: a fix made yesterday is worth having today). If it is not the one already in use, the branch's zip is downloaded, every file in it is checked against its checksum, and only then are the files put in `%ProgramData%\OpenEVV\community-dictionary`. Every voice already speaking uses them on its next utterance, and nothing restarts. A failed check or download changes nothing and says why; if GitHub's API refuses (it allows sixty requests an hour without a token) the zip alone is enough. Whichever copy has the later commit date is the one in use.
+- **Without a window:** `OpenEvvConfig.exe --update-community-dictionary --report FILE` does the same, and its exit code is 1 when it failed.
+- **Speed:** the root dictionary has 69,000 entries. The engine reads it in about a tenth of a second, in 32-bit and, since 1.2.3, in 64-bit modules; see the changelog for the fault that had made it 63 seconds in the 64-bit ones.
 
 ## How it works
 
@@ -232,7 +245,7 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 |------|------------|
 | `src/sapi/` | the SAPI 5 engine and voice enumerator (OpenEvvSAPI.dll) |
 | `src/host/` | the engine host (OpenEvvHost.exe) |
-| `src/common/` | shared by all of them: the host protocol and pool, settings, language packs, logging |
+| `src/common/` | shared by all of them: the host protocol and pool, settings, language packs, logging, the community dictionary (`community_dict.*`), and, for OpenEvvConfig alone, its update (`community_update.*`, `http.*`, `zip_reader.*`) |
 | `src/config/` | OpenEVV Configuration and its self-test |
 | `src/tools/` | test tools: `sapi_test` (the SAPI engine through a mock site), `a11y_check` and `installer_a11y` (what a screen reader sees), `evv_probe` and `evv_chars` (measure a module directly) |
 | `languages/` | the 155 language packs: openevv's ten, prebuilt, and the 145 read by eSpeak NG |
@@ -240,6 +253,7 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 | `dist/` | the built SAPI wrapper, host, utility and eSpeak NG front-end, both bitnesses, and eSpeak NG's compiled data, in the installed layout |
 | `openevv/` | the openevv engine source, a snapshot of [joshknnd1982/openevv](https://github.com/joshknnd1982/openevv) at 7148737 (= [Mudb0y/openevv](https://github.com/Mudb0y/openevv) main, 28 September 2026) |
 | `engine/` | building the modules and packs from `openevv/`, and the eSpeak NG packs from eSpeak NG (`make_espeak_packs.py`, `espeak_phonemes.py`, `check_espeak_packs.py`, `espeak_templates.txt`) |
+| `dictionaries/community/` | the community pronunciation dictionary installed with OpenEVV: the English files of IBMTTSDictionaries at the commit `community-dictionary.ini` names, byte for byte |
 | `installer/` | the Inno Setup script |
 | `samples/` | every voice of openevv's own ten languages, rendered straight from the engine modules; the 145 eSpeak NG languages' samples are a download on the Releases page (`engine/render_espeak_samples.py`) |
 
@@ -257,6 +271,7 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
   - all seven sample rates
   - that a settings change is heard on the next utterance
   - recovery from a killed host
+  - the community dictionary against the engine, with the switch on and off, under the user's own entry, for a language it has no files for, and an update installed from a zip while a voice is speaking: a damaged zip, a file that is not a zip and a zip holding something that is not a dictionary are each refused and leave what was installed alone
 - **`sapi_test --all-voices`:** all 1,240 voices through SAPI.
 - **`engine\check_espeak_packs.py`:** every eSpeak NG pack's sample, numbers and punctuation read and handed to its template's module, which must take every word as a pronunciation.
 - **`a11y_check`:** walks every page of OpenEVV Configuration through MSAA on a private desktop. It fails on an unlabelled control or a duplicated access key, and checks that edits reach the settings file at once.
@@ -272,6 +287,7 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 - **The wrapper** (everything outside `openevv/`, `frontend/` and `languages/`) is under the GNU General Public License version 2; see `LICENSE`. Its COM and SAPI scaffolding comes from the BestSpeech SAPI5 wrapper.
 - **The eSpeak NG front-end** (`frontend/`, `OpenEvvFrontend.exe`), the eSpeak NG data installed with it and the eSpeak NG packs' phoneme maps are under the GNU General Public License version 3 or later, as eSpeak NG is; see `frontend/COPYING`. The front-end is a separate program the wrapper talks to over pipes.
 - **The openevv engine** is under the MIT licence; see `openevv/LICENSE`.
+- **The community pronunciation dictionary** (`dictionaries/community/`) is [eigencrow/IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries), released to the public domain under CC0 1.0 (its `LICENSE.md` is installed beside it).
 - **The language data inside each language module** was transcribed from IBM's Embedded ViaVoice objects, and is IBM's work. Neither licence covers it, and nobody here can license it to anyone. `NOTICE.md` and `openevv/NOTICE` say whose it is and who the rights may belong to today.
 
 `CREDITS.md` names everyone this is built on.

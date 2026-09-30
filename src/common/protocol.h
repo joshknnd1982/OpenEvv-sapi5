@@ -66,6 +66,12 @@ struct ReadyMsg
     int32_t voice_params[8][8];
 };
 
+// What SpeakReq::user_dicts carries. Bit 0 is what it always was: the user's own dictionaries are
+// on. Bit 1 switches the community dictionary OFF, so that a client that has never heard of it (an
+// older OpenEvvSAPI.dll still loaded in a running program) leaves it on, which is its default.
+constexpr int32_t kDictUser = 1;
+constexpr int32_t kDictCommunityOff = 2;
+
 struct SpeakReq
 {
     uint32_t id;
@@ -74,7 +80,7 @@ struct SpeakReq
     int32_t number_mode;  // eciNumberMode
     int32_t dictionary;   // 1 = the abbreviation dictionary on
     int32_t input_type;   // 1 = annotations honoured
-    int32_t user_dicts;   // 1 = load the user dictionaries
+    int32_t user_dicts;   // kDictUser | kDictCommunityOff
     int32_t preset;       // 1..8, copied onto voice 0 first
     int32_t voice[8];     // then these, where not -1
     uint32_t item_count;

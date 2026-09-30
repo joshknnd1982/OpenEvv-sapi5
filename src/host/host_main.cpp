@@ -30,6 +30,7 @@
 #include <thread>
 #include <vector>
 
+#include "common/community_dict.h"
 #include "common/eci_module.h"
 #include "common/ini.h"
 #include "common/log.h"
@@ -194,13 +195,32 @@ LONG WINAPI last_chance(EXCEPTION_POINTERS* ep)
     return EXCEPTION_EXECUTE_HANDLER;
 }
 
-// ---- user dictionaries ---------------------------------------------------
+// ---- dictionaries ---------------------------------------------------------
+//
+// The engine's dictionary is three volumes (main, root, abbreviations), and each is read
+// from layers, lowest first: the community dictionary, where there is a file of it for this
+// language (community_dict.h), then the user's own file, or the language pack's where the
+// user has none. An entry in a later layer replaces the same word in an earlier one, so the
+// user's own always wins. The layers of a volume are joined into one file and loaded with one
+// call.
+
+struct DictLayer
+{
+    std::wstring path;
+    FILETIME stamp{};
+    // The community's files are in the language's own code set (Windows 1252 for English and
+    // German), whatever bytes they happen to hold; a user's file may be UTF-8 (Notepad's).
+    bool in_code_set = false;
+    bool operator==(const DictLayer& o) const
+    {
+        return path == o.path && CompareFileTime(&stamp, &o.stamp) == 0;
+    }
+};
 
 struct DictState
 {
     ECIDictHand dict = nullptr;
-    FILETIME stamps[3] = {};
-    std::wstring files[3];
+    std::vector<DictLayer> layers[3];
     bool active = false;
 };
 DictState g_dict;
@@ -217,13 +237,36 @@ std::wstring dict_file(int volume)
     return {};
 }
 
-// A dictionary file may be UTF-8 (what Notepad writes) or already in the
-// language's code set. The engine wants the latter, and a path it can open
-// with a narrow string, so every volume is loaded from a converted copy.
-bool stage_dictionary(const std::wstring& src, const std::wstring& dst)
+DictLayer layer_of(const std::wstring& path, bool in_code_set)
 {
-    HANDLE f = CreateFileW(src.c_str(), GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr, OPEN_EXISTING, 0,
-                           nullptr);
+    DictLayer l;
+    l.path = path;
+    l.in_code_set = in_code_set;
+    WIN32_FILE_ATTRIBUTE_DATA a{};
+    if (GetFileAttributesExW(path.c_str(), GetFileExInfoStandard, &a)) l.stamp = a.ftLastWriteTime;
+    return l;
+}
+
+std::vector<DictLayer> dict_layers(int volume, bool user, bool community, const CommunitySnapshot& snapshot)
+{
+    std::vector<DictLayer> layers;
+    if (community) {
+        const std::wstring f = community_file(snapshot, g_args.language, volume);
+        if (!f.empty()) layers.push_back(layer_of(f, true));
+    }
+    if (user) {
+        const std::wstring f = dict_file(volume);
+        if (!f.empty()) layers.push_back(layer_of(f, false));
+    }
+    return layers;
+}
+
+// One layer as the engine wants it: in the language's code set, a line an entry, LF line ends.
+// A file that may be UTF-8 (what Notepad writes) is converted; the engine cannot read it as it is.
+bool read_layer(const DictLayer& layer, std::string& out)
+{
+    HANDLE f = CreateFileW(layer.path.c_str(), GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr,
+                           OPEN_EXISTING, 0, nullptr);
     if (f == INVALID_HANDLE_VALUE) return false;
     LARGE_INTEGER size{};
     GetFileSizeEx(f, &size);
@@ -232,66 +275,87 @@ bool stage_dictionary(const std::wstring& src, const std::wstring& dst)
     if (!bytes.empty()) ReadFile(f, bytes.data(), static_cast<DWORD>(bytes.size()), &got, nullptr);
     CloseHandle(f);
     bytes.resize(got);
-    std::string out = bytes;
-    bool utf8 = false;
-    if (bytes.size() >= 3 && static_cast<unsigned char>(bytes[0]) == 0xEF &&
-        static_cast<unsigned char>(bytes[1]) == 0xBB && static_cast<unsigned char>(bytes[2]) == 0xBF) {
-        bytes.erase(0, 3);
-        utf8 = true;
-    } else if (MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, bytes.data(), static_cast<int>(bytes.size()),
-                                   nullptr, 0) > 0) {
-        utf8 = std::any_of(bytes.begin(), bytes.end(), [](char c) { return (c & 0x80) != 0; });
+    std::string converted = bytes;
+    if (!layer.in_code_set) {
+        bool utf8 = false;
+        if (bytes.size() >= 3 && static_cast<unsigned char>(bytes[0]) == 0xEF &&
+            static_cast<unsigned char>(bytes[1]) == 0xBB && static_cast<unsigned char>(bytes[2]) == 0xBF) {
+            bytes.erase(0, 3);
+            utf8 = true;
+        } else if (MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, bytes.data(), static_cast<int>(bytes.size()),
+                                       nullptr, 0) > 0) {
+            utf8 = std::any_of(bytes.begin(), bytes.end(), [](char c) { return (c & 0x80) != 0; });
+        }
+        if (utf8 && g_args.codepage != CP_UTF8) {
+            const std::wstring w = utf8_to_wide(bytes);
+            const int n = WideCharToMultiByte(g_args.codepage, 0, w.data(), static_cast<int>(w.size()), nullptr, 0,
+                                              " ", nullptr);
+            converted.assign(static_cast<size_t>(n > 0 ? n : 0), '\0');
+            if (n > 0) {
+                WideCharToMultiByte(g_args.codepage, 0, w.data(), static_cast<int>(w.size()), converted.data(), n, " ",
+                                    nullptr);
+            }
+        } else if (utf8) {
+            converted = bytes;
+        }
     }
-    if (utf8 && g_args.codepage != CP_UTF8) {
-        const std::wstring w = utf8_to_wide(bytes);
-        const int n = WideCharToMultiByte(g_args.codepage, 0, w.data(), static_cast<int>(w.size()), nullptr, 0, " ",
-                                          nullptr);
-        out.assign(static_cast<size_t>(n > 0 ? n : 0), '\0');
-        if (n > 0)
-            WideCharToMultiByte(g_args.codepage, 0, w.data(), static_cast<int>(w.size()), out.data(), n, " ", nullptr);
-    } else if (utf8) {
-        out = bytes;
+    out.clear();
+    out.reserve(converted.size() + 1);
+    for (char c : converted) {
+        if (c != '\r') out.push_back(c);
     }
-    // The engine reads a line an entry: normalise line ends to LF.
-    std::string norm;
-    norm.reserve(out.size());
-    for (char c : out) {
-        if (c != '\r') norm.push_back(c);
+    if (!out.empty() && out.back() != '\n') out.push_back('\n'); // so the next layer starts a line
+    return true;
+}
+
+// The layers of a volume, joined, in a file the engine can open.
+bool stage_dictionary(const std::vector<DictLayer>& layers, const std::wstring& dst)
+{
+    std::string all;
+    for (const DictLayer& l : layers) {
+        std::string one;
+        if (read_layer(l, one)) all += one;
     }
+    if (all.empty()) return false;
     HANDLE o = CreateFileW(dst.c_str(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_TEMPORARY, nullptr);
     if (o == INVALID_HANDLE_VALUE) return false;
     DWORD w = 0;
-    WriteFile(o, norm.data(), static_cast<DWORD>(norm.size()), &w, nullptr);
+    WriteFile(o, all.data(), static_cast<DWORD>(all.size()), &w, nullptr);
     CloseHandle(o);
     return true;
 }
 
-void refresh_dictionaries(bool wanted)
+std::string names_of(const std::vector<DictLayer>& layers)
+{
+    std::string s;
+    for (const DictLayer& l : layers) {
+        const size_t slash = l.path.find_last_of(L"\\/");
+        if (!s.empty()) s += " + ";
+        s += wide_to_utf8(slash == std::wstring::npos ? l.path : l.path.substr(slash + 1));
+    }
+    return s;
+}
+
+void refresh_dictionaries(bool user, bool community)
 {
     if (!g_eci.NewDict || !g_eci.LoadDict || !g_eci.SetDict) return;
-    if (!wanted) {
+    if (!user && !community) {
         if (g_dict.active) {
             g_eci.SetDict(g_h, nullptr);
             g_dict.active = false;
-            log::write(log::kStandard, "host: user dictionaries off");
+            log::write(log::kStandard, "host: dictionaries off");
         }
         return;
     }
-    std::wstring files[3];
-    FILETIME stamps[3] = {};
+    const CommunitySnapshot snapshot = community ? community_snapshot() : CommunitySnapshot{};
+    std::vector<DictLayer> layers[3];
     bool any = false;
     for (int v = 0; v < 3; ++v) {
-        files[v] = dict_file(v);
-        WIN32_FILE_ATTRIBUTE_DATA a{};
-        if (!files[v].empty() && GetFileAttributesExW(files[v].c_str(), GetFileExInfoStandard, &a)) {
-            stamps[v] = a.ftLastWriteTime;
-            any = true;
-        }
+        layers[v] = dict_layers(v, user, community, snapshot);
+        any = any || !layers[v].empty();
     }
     bool same = g_dict.dict != nullptr;
-    for (int v = 0; v < 3 && same; ++v) {
-        same = files[v] == g_dict.files[v] && CompareFileTime(&stamps[v], &g_dict.stamps[v]) == 0;
-    }
+    for (int v = 0; v < 3 && same; ++v) same = layers[v] == g_dict.layers[v];
     if (same) {
         if (!g_dict.active && any) {
             g_eci.SetDict(g_h, g_dict.dict);
@@ -304,10 +368,7 @@ void refresh_dictionaries(bool wanted)
         if (g_eci.DeleteDict) g_eci.DeleteDict(g_h, g_dict.dict);
         g_dict = DictState{};
     }
-    for (int v = 0; v < 3; ++v) {
-        g_dict.files[v] = files[v];
-        g_dict.stamps[v] = stamps[v];
-    }
+    for (int v = 0; v < 3; ++v) g_dict.layers[v] = layers[v];
     if (!any) return;
     g_dict.dict = g_eci.NewDict(g_h);
     if (!g_dict.dict) {
@@ -317,19 +378,20 @@ void refresh_dictionaries(bool wanted)
     wchar_t tmp[MAX_PATH];
     GetTempPathW(MAX_PATH, tmp);
     for (int v = 0; v < 3; ++v) {
-        if (files[v].empty()) continue;
+        if (layers[v].empty()) continue;
+        const double t0 = now_ms();
         wchar_t staged[MAX_PATH];
         swprintf_s(staged, L"%sopenevv-%lu-%d.dic", tmp, GetCurrentProcessId(), v);
         char narrow[MAX_PATH * 2] = {};
         wchar_t shortp[MAX_PATH] = {};
-        if (!stage_dictionary(files[v], staged)) continue;
+        if (!stage_dictionary(layers[v], staged)) continue;
         // A narrow path the engine can open whatever the user's name is.
         if (!GetShortPathNameW(staged, shortp, MAX_PATH)) wcscpy_s(shortp, staged);
         WideCharToMultiByte(CP_ACP, 0, shortp, -1, narrow, sizeof narrow, nullptr, nullptr);
         const int rc = g_eci.LoadDict(g_h, g_dict.dict, v, narrow);
         DeleteFileW(staged);
-        log::write(log::kStandard, "host: loaded %S as volume %d: %s", files[v].c_str(), v,
-                   rc == 0 ? "ok" : ("error " + std::to_string(rc)).c_str());
+        log::write(log::kStandard, "host: loaded %s as volume %d: %s (%.0f ms)", names_of(layers[v]).c_str(), v,
+                   rc == 0 ? "ok" : ("error " + std::to_string(rc)).c_str(), now_ms() - t0);
     }
     g_eci.SetDict(g_h, g_dict.dict);
     g_dict.active = true;
@@ -501,7 +563,7 @@ bool add_translated(const Request& r, std::string& preview, std::string& error)
             if (spelling_mode(text_mode) || lone) {
                 t = spelled(t);
                 spells = spells || !lone; // a lone letter has no comma between letters to keep
-            } else if (q.user_dicts) {
+            } else if (q.user_dicts & proto::kDictUser) {
                 t = g_text_dict.apply(t);
             }
             all += t;
@@ -573,7 +635,7 @@ void run(Request& r)
             const int v = g_eci.GetVoiceParam(g_h, 0, i);
             if (v >= 0) g_eci.SetVoiceParam(g_h, 0, i, v);
         }
-        if (q.user_dicts) {
+        if (q.user_dicts & proto::kDictUser) {
             std::wstring files[3];
             for (int v = 0; v < 3; ++v) files[v] = dict_file(v);
             g_text_dict.set_files(files);
@@ -609,7 +671,7 @@ void run(Request& r)
     // eciDictionary is inverted: one turns the dictionary off.
     set_param_cached(kParamDictionary, q.dictionary ? 0 : 1, g_dictionary);
     set_param_cached(kParamInputType, q.input_type, g_input_type);
-    refresh_dictionaries(q.user_dicts != 0);
+    refresh_dictionaries((q.user_dicts & proto::kDictUser) != 0, (q.user_dicts & proto::kDictCommunityOff) == 0);
 
     if (q.preset >= 1 && q.preset <= 8) g_eci.CopyVoice(g_h, q.preset, 0);
     for (int i = 0; i < kVoiceParamCount; ++i) {

@@ -6,11 +6,14 @@
 //   {app}\languages\<tag>\  language.ini and the two module DLLs
 //   %ProgramData%\OpenEVV\languages\<tag>\  languages a user dropped in
 //   %ProgramData%\OpenEVV\dictionaries\<tag>\  user dictionaries
+//   {app}\dictionaries\community\  the community dictionary installed with OpenEVV, and
+//   %ProgramData%\OpenEVV\community-dictionary\  a newer one downloaded (community_dict.h)
 //   %ProgramData%\OpenEVV\Logs\  logs
 //   %APPDATA%\OpenEVV\settings.ini  per-user settings
 //
 // A build tree is found the same way: the root is the nearest folder above
-// the binary that holds a "languages" folder. OPENEVV_ROOT overrides it.
+// the binary that holds a "languages" folder. OPENEVV_ROOT overrides it, and
+// OPENEVV_DATA stands in for %ProgramData%\OpenEVV.
 #pragma once
 
 #include <string>

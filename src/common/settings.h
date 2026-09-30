@@ -62,6 +62,9 @@ struct Settings
     // last word of a text, 2 shorten all of them.
     int pause_mode = 0;
     bool user_dictionaries = true;
+    // The community pronunciation dictionary (community_dict.h), loaded under the
+    // user's own dictionaries for the languages it has files for.
+    bool community_dictionary = true;
     bool spell_lone_symbols = true; // name a lone punctuation character instead of silence
     int log_level = 1;
     std::map<std::wstring, VoiceOverride> voices; // key "enus.1"

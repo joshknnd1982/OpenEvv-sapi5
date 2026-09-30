@@ -6,6 +6,7 @@
 #define IDD_SPEECH 101
 #define IDD_LANGUAGES 102
 #define IDD_DIAGNOSTICS 103
+#define IDD_COMMUNITY 104
 
 // Voices page
 #define IDC_LANGUAGE 1001
@@ -62,6 +63,12 @@
 #define IDC_DICT_ROOT 1206
 #define IDC_DICT_ABBR 1207
 #define IDC_LANGINFO 1208
+
+// Community dictionary page
+#define IDC_COMMUNITY_ON 1401
+#define IDC_COMMUNITY_STATUS 1402
+#define IDC_COMMUNITY_UPDATE 1403
+#define IDC_COMMUNITY_OPEN 1404
 
 // Diagnostics page
 #define IDC_LOGLEVEL 1301

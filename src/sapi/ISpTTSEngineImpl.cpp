@@ -132,7 +132,7 @@ public:
         req_.head.number_mode = s.number_mode;
         req_.head.dictionary = s.abbreviations ? 1 : 0;
         req_.head.input_type = s.annotations ? 1 : 0;
-        req_.head.user_dicts = s.user_dictionaries ? 1 : 0;
+        req_.head.user_dicts = dictionary_flags(s);
         req_.head.preset = preset;
         for (int i = 0; i < 8; ++i) req_.head.voice[i] = voice_[i];
         // Spelling has a pace of its own, and in the engine's spelling modes a
@@ -670,10 +670,10 @@ const Settings& ISpTTSEngineImpl::current_settings()
         log::set_level(s.log_level);
         log::write(log::kStandard,
                    "settings: rate %d Hz (%S), max speed %d%s, pitch step %d, abbreviations %d, numbers %d, text mode "
-                   "%d, annotations %d, dictionaries %d, heteronyms %d, pauses %d, %zu voices adjusted, log %d",
+                   "%d, annotations %d, dictionaries %d, community %d, heteronyms %d, pauses %d, %zu voices adjusted, log %d",
                    sample_rate_hz(s.sample_rate), s.resampler.c_str(), s.max_speed, s.rate_boost ? " (boost)" : "",
                    s.pitch_step, s.abbreviations, s.number_mode, s.text_mode, s.annotations, s.user_dictionaries,
-                   s.heteronyms, s.pause_mode, s.voices.size(), s.log_level);
+                   s.community_dictionary, s.heteronyms, s.pause_mode, s.voices.size(), s.log_level);
     }
     return settings_.get();
 }

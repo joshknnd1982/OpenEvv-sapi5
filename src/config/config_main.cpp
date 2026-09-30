@@ -9,6 +9,10 @@
 //                                          speak every voice into memory, and
 //                                          one through SAPI; the exit code is
 //                                          the number of failures
+//   OpenEvvConfig.exe --update-community-dictionary [--report FILE]
+//                                          look on GitHub for a newer community
+//                                          pronunciation dictionary and install it;
+//                                          the exit code is 1 when that failed
 //   OpenEvvConfig.exe --add-pack PATH      install the language pack(s) in a
 //                                          .zip, a folder or a language.ini
 //   OpenEvvConfig.exe --remove-pack DIR    delete a language pack (run elevated
@@ -37,6 +41,8 @@
 #include <thread>
 #include <vector>
 
+#include "common/community_dict.h"
+#include "common/community_update.h"
 #include "common/host_client.h"
 #include "common/ini.h"
 #include "common/languages.h"
@@ -55,6 +61,7 @@ namespace {
 
 constexpr UINT WM_APP_STATUS = WM_APP + 1;   // lParam: new std::wstring*, wParam: control id
 constexpr UINT WM_APP_SELFTEST = WM_APP + 2; // lParam: new std::wstring*
+constexpr UINT WM_APP_COMMUNITY = WM_APP + 3; // lParam: new CommunityUpdate*
 
 Settings g_s;
 std::vector<LanguageInfo> g_langs;
@@ -503,9 +510,11 @@ INT_PTR CALLBACK speech_proc(HWND dlg, UINT msg, WPARAM wp, LPARAM)
         if (id == IDC_SPEECH_DEFAULTS && code == BN_CLICKED) {
             const auto voices = g_s.voices;
             const int log_level = g_s.log_level;
+            const bool community = g_s.community_dictionary; // has a page of its own
             g_s = Settings{};
             g_s.voices = voices;
             g_s.log_level = log_level;
+            g_s.community_dictionary = community;
             save();
             load_speech(dlg);
             SetDlgItemTextW(dlg, IDC_SPEECH_STATUS, L"Speech settings restored to their defaults.");
@@ -891,6 +900,75 @@ INT_PTR CALLBACK languages_proc(HWND dlg, UINT msg, WPARAM wp, LPARAM lp)
     return FALSE;
 }
 
+// ---- the Community dictionary page ---------------------------------------------------------
+//
+// The switch is saved at once like every other setting. "Check for a newer version" asks GitHub
+// on a thread of its own, so the window stays alive, and puts its answer in the status box and
+// the focus there, where a screen reader reads it.
+
+std::thread g_community;
+
+// What is in use, under a line of news when there is one.
+void show_community_status(HWND dlg, const std::wstring& news = std::wstring())
+{
+    std::wstring text = news;
+    if (!text.empty()) text += L"\r\n\r\n";
+    text += community_describe(community_snapshot());
+    SetDlgItemTextW(dlg, IDC_COMMUNITY_STATUS, text.c_str());
+}
+
+INT_PTR CALLBACK community_proc(HWND dlg, UINT msg, WPARAM wp, LPARAM lp)
+{
+    switch (msg) {
+    case WM_INITDIALOG:
+        CheckDlgButton(dlg, IDC_COMMUNITY_ON, g_s.community_dictionary ? BST_CHECKED : BST_UNCHECKED);
+        show_community_status(dlg);
+        return TRUE;
+    case WM_COMMAND: {
+        const int id = LOWORD(wp), code = HIWORD(wp);
+        if (id == IDC_COMMUNITY_ON && code == BN_CLICKED) {
+            g_s.community_dictionary = IsDlgButtonChecked(dlg, IDC_COMMUNITY_ON) == BST_CHECKED;
+            save();
+            show_community_status(dlg, g_s.community_dictionary
+                                           ? L"The community dictionary is on. Every OpenEVV voice uses it from its next utterance."
+                                           : L"The community dictionary is off. Every OpenEVV voice stops using it from its next utterance.");
+        } else if (id == IDC_COMMUNITY_UPDATE && code == BN_CLICKED) {
+            if (g_community.joinable()) g_community.join();
+            // The focus goes to the status box first: it would be lost with the button that has it.
+            SetFocus(GetDlgItem(dlg, IDC_COMMUNITY_STATUS));
+            EnableWindow(GetDlgItem(dlg, IDC_COMMUNITY_UPDATE), FALSE);
+            SetDlgItemTextW(dlg, IDC_COMMUNITY_STATUS, L"Looking on GitHub for the newest community dictionary...");
+            g_community = std::thread([dlg] {
+                auto* result = new CommunityUpdate(update_community_dictionary());
+                PostMessageW(dlg, WM_APP_COMMUNITY, 0, reinterpret_cast<LPARAM>(result));
+            });
+        } else if (id == IDC_COMMUNITY_OPEN && code == BN_CLICKED) {
+            const CommunitySnapshot s = community_snapshot();
+            const std::wstring dir = s.valid() ? s.dir : community_downloaded_dir();
+            ensure_dir(dir);
+            ShellExecuteW(dlg, L"open", dir.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+        }
+        return TRUE;
+    }
+    case WM_APP_COMMUNITY: {
+        std::unique_ptr<CommunityUpdate> result(reinterpret_cast<CommunityUpdate*>(lp));
+        EnableWindow(GetDlgItem(dlg, IDC_COMMUNITY_UPDATE), TRUE);
+        show_community_status(dlg, result->message);
+        SetFocus(GetDlgItem(dlg, IDC_COMMUNITY_STATUS));
+        return TRUE;
+    }
+    case WM_NOTIFY:
+        // The Speech page can change the switch, and another program can have updated the copy.
+        // Not while a check is running: the button is off, and the box says so.
+        if (reinterpret_cast<NMHDR*>(lp)->code == PSN_SETACTIVE && IsWindowEnabled(GetDlgItem(dlg, IDC_COMMUNITY_UPDATE))) {
+            CheckDlgButton(dlg, IDC_COMMUNITY_ON, g_s.community_dictionary ? BST_CHECKED : BST_UNCHECKED);
+            show_community_status(dlg);
+        }
+        return FALSE;
+    }
+    return FALSE;
+}
+
 // ---- the Diagnostics page -----------------------------------------------------------------
 
 std::thread g_selftest;
@@ -950,14 +1028,18 @@ int CALLBACK sheet_callback(HWND sheet, UINT msg, LPARAM)
 
 int run_window(HINSTANCE inst)
 {
-    PROPSHEETPAGEW pages[4] = {};
+    constexpr int kPageCount = 5;
+    PROPSHEETPAGEW pages[kPageCount] = {};
     const struct
     {
         int id;
         DLGPROC proc;
-    } kPages[4] = {{IDD_VOICES, voices_proc}, {IDD_SPEECH, speech_proc}, {IDD_LANGUAGES, languages_proc},
-                   {IDD_DIAGNOSTICS, diagnostics_proc}};
-    for (int i = 0; i < 4; ++i) {
+    } kPages[kPageCount] = {{IDD_VOICES, voices_proc},
+                            {IDD_SPEECH, speech_proc},
+                            {IDD_LANGUAGES, languages_proc},
+                            {IDD_COMMUNITY, community_proc},
+                            {IDD_DIAGNOSTICS, diagnostics_proc}};
+    for (int i = 0; i < kPageCount; ++i) {
         pages[i].dwSize = sizeof pages[i];
         pages[i].hInstance = inst;
         pages[i].pszTemplate = MAKEINTRESOURCEW(kPages[i].id);
@@ -968,13 +1050,33 @@ int run_window(HINSTANCE inst)
     h.dwFlags = PSH_PROPSHEETPAGE | PSH_NOAPPLYNOW | PSH_USECALLBACK | PSH_NOCONTEXTHELP;
     h.hInstance = inst;
     h.pszCaption = L"OpenEVV SAPI5 Configuration";
-    h.nPages = 4;
+    h.nPages = kPageCount;
     h.ppsp = pages;
     h.pfnCallback = sheet_callback;
     PropertySheetW(&h);
     g_speaker.stop();
     if (g_selftest.joinable()) g_selftest.join();
+    if (g_community.joinable()) g_community.join();
     return 0;
+}
+
+// The community dictionary, updated without a window: what happened goes to the report file
+// (UTF-8, for a script or a test) and the exit code says whether it worked.
+int run_community_update_cli(const std::wstring& report_path)
+{
+    const CommunityUpdate u = update_community_dictionary();
+    log::write(log::kStandard, "community dictionary: %S", u.message.c_str());
+    if (!report_path.empty()) {
+        const std::string bytes = wide_to_utf8(u.message + L"\r\n" + community_describe(u.in_use) + L"\r\n");
+        HANDLE f = CreateFileW(report_path.c_str(), GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, 0, nullptr);
+        if (f != INVALID_HANDLE_VALUE) {
+            DWORD w = 0;
+            WriteFile(f, "\xEF\xBB\xBF", 3, &w, nullptr);
+            WriteFile(f, bytes.data(), static_cast<DWORD>(bytes.size()), &w, nullptr);
+            CloseHandle(f);
+        }
+    }
+    return u.outcome == CommunityOutcome::Failed ? 1 : 0;
 }
 
 int run_selftest_cli(const std::wstring& report_path, bool hosts, bool sapi)
@@ -1051,7 +1153,7 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR, int)
     bool hosts = true, sapi = true;
     for (int i = 1; argv && i < argc; ++i) {
         const std::wstring a = argv[i];
-        if (a == L"--selftest") mode = a;
+        if (a == L"--selftest" || a == L"--update-community-dictionary") mode = a;
         else if (a == L"--hosts-only") sapi = false;
         else if (a == L"--sapi-only") hosts = false;
         else if ((a == L"--report" || a == L"--remove-pack" || a == L"--add-pack" || a == L"--in-use") &&
@@ -1071,6 +1173,10 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR, int)
 
     if (mode == L"--in-use") {
         return run_in_use_cli(arg);
+    }
+
+    if (mode == L"--update-community-dictionary") {
+        return run_community_update_cli(arg);
     }
 
     if (mode == L"--remove-pack") {

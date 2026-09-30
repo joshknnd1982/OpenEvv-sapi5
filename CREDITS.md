@@ -16,6 +16,10 @@ The engine code is MIT-licensed; the language data is IBM's. See `NOTICE.md`.
 
 The names of letters, numbers and punctuation marks added to eSpeak NG for 1.2 come from each language's own references: its language boards and academies (among them the Kunsill Nazzjonali tal-Ilsien Malti, Te Taura Whiri i te Reo Māori, the Akademi Kreyòl Ayisyen, PanSALB and An Caighdeán Oifigiúil), its school books, dictionaries and Wikipedia, and from the Unicode Common Locale Data Repository and the translations of NVDA's symbol names, where the language has them.
 
+## The community pronunciation dictionary: IBMTTSDictionaries
+
+[IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) is the pronunciation dictionary the IBMTTS driver community keeps for the ECI engine: main, root and abbreviation dictionaries for US English (it holds German ones too, which OpenEVV does not use), maintained by [amirsol81](https://github.com/amirsol81), [x0](https://github.com/ultrasound1372) and [thunderdrop](https://github.com/thunderdrop), with contributions from many people. It is released to the public domain under CC0 1.0. OpenEVV installs it, reads it beneath the user's own dictionaries, and can download its newest version. No ownership of the IBMTTS driver or its dependencies is implied.
+
 ## The speech engine underneath: Eloquence and IBM
 
 Eloquence was created by Eloquent Technology, Inc., and IBM licensed it as the formant engine of ViaVoice and Embedded ViaVoice. The language data in every module is IBM's work, transcribed from the Embedded ViaVoice 4.3 SDK that IBM still serves from its public download site. No licence here covers it. See `NOTICE.md`.

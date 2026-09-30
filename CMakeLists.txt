@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 # Keep in step with src/common/version.h and installer/openevv.iss.
-project(OpenEvvSAPI VERSION 1.2.2 LANGUAGES C CXX RC)
+project(OpenEvvSAPI VERSION 1.2.3 LANGUAGES C CXX RC)
 
 # The SAPI5 wrapper, the engine host, the configuration utility and the test
 # tools, built with MSVC for one architecture per build tree (build_all.bat
@@ -42,8 +42,18 @@ add_library(evv_common STATIC
     src/common/host_client.cpp
     src/common/render.cpp
     src/common/eci_module.cpp
+    src/common/community_dict.cpp
 )
 target_link_libraries(evv_common PUBLIC shell32 ole32 advapi32)
+
+# --- the community dictionary's update: the network and the zip, for OpenEvvConfig and the tests only.
+# The SAPI engine and the engine host never link these, so no screen reader loads WinHTTP because of them.
+add_library(evv_update STATIC
+    src/common/zip_reader.cpp
+    src/common/http.cpp
+    src/common/community_update.cpp
+)
+target_link_libraries(evv_update PUBLIC evv_common winhttp)
 
 # --- the engine host: one language module per process ---------------------------
 # Never /CETCOMPAT: the engine backtracks through a landing place that restores
@@ -73,7 +83,7 @@ if(EXISTS ${CMAKE_SOURCE_DIR}/src/config/config_main.cpp)
         src/config/selftest.cpp
         src/config/config.rc
     )
-    target_link_libraries(OpenEvvConfig PRIVATE evv_common comctl32 ole32 oleacc sapi shell32 winmm)
+    target_link_libraries(OpenEvvConfig PRIVATE evv_common evv_update comctl32 ole32 oleacc sapi shell32 winmm)
     target_link_options(OpenEvvConfig PRIVATE /MANIFEST:NO) # config.rc embeds its own manifest
 endif()
 
@@ -92,13 +102,13 @@ if(EXISTS ${CMAKE_SOURCE_DIR}/src/tools/evv_render.cpp)
 endif()
 if(EXISTS ${CMAKE_SOURCE_DIR}/src/tools/sapi_test.cpp)
     add_executable(sapi_test src/tools/sapi_test.cpp)
-    target_link_libraries(sapi_test PRIVATE evv_common ole32 sapi shell32)
+    target_link_libraries(sapi_test PRIVATE evv_common evv_update ole32 sapi shell32)
     add_dependencies(sapi_test OpenEvvSAPI OpenEvvHost)
     # The same tests inside a process that enforces CET shadow stacks, the way
     # 64-bit PowerShell and Narrator do: the engine must stay out of it.
     if(EVV_ARCH STREQUAL "x64")
         add_executable(sapi_test_cet src/tools/sapi_test.cpp)
-        target_link_libraries(sapi_test_cet PRIVATE evv_common ole32 sapi shell32)
+        target_link_libraries(sapi_test_cet PRIVATE evv_common evv_update ole32 sapi shell32)
         target_link_options(sapi_test_cet PRIVATE /CETCOMPAT)
         add_dependencies(sapi_test_cet OpenEvvSAPI OpenEvvHost)
     endif()

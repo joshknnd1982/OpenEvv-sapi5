@@ -24,7 +24,10 @@
 #include <string>
 #include <vector>
 
+#include "common/community_dict.h"
+#include "common/community_update.h"
 #include "common/languages.h"
+#include "common/paths.h"
 
 using evv::LanguageInfo;
 using evv::scan_languages;
@@ -388,6 +391,21 @@ void write_settings(const std::string& body)
     Sleep(20); // a new timestamp even on coarse file systems
 }
 
+// Deletes a folder of the test's own: only ever one under the output folder.
+void remove_tree(const std::wstring& dir)
+{
+    if (dir.size() <= g_out.size() || _wcsnicmp(dir.c_str(), g_out.c_str(), g_out.size()) != 0) return;
+    if (GetFileAttributesW(dir.c_str()) == INVALID_FILE_ATTRIBUTES) return;
+    std::wstring from = dir;
+    from.push_back(L'\0');
+    from.push_back(L'\0');
+    SHFILEOPSTRUCTW op{};
+    op.wFunc = FO_DELETE;
+    op.pFrom = from.c_str();
+    op.fFlags = FOF_NOCONFIRMATION | FOF_SILENT | FOF_NOERRORUI;
+    SHFileOperationW(&op);
+}
+
 std::vector<DWORD> host_pids()
 {
     std::vector<DWORD> out;
@@ -458,6 +476,9 @@ int wmain(int argc, wchar_t** argv)
     g_settings = g_out + L"\\test_settings.ini";
     DeleteFileW(g_settings.c_str());
     SetEnvironmentVariableW(L"OPENEVV_SETTINGS", g_settings.c_str());
+    // The machine's own %ProgramData%\OpenEVV (user dictionaries, a downloaded community dictionary) is
+    // never read or written: the hosts started below inherit this.
+    SetEnvironmentVariableW(L"OPENEVV_DATA", (g_out + L"\\data").c_str());
     write_settings("[General]\r\nLogLevel=1\r\n");
     CoInitializeEx(nullptr, COINIT_MULTITHREADED);
     printf("sapi_test (%s) on %s\n", sizeof(void*) == 8 ? "64-bit" : "32-bit", narrow(g_dll_path).c_str());
@@ -822,6 +843,186 @@ int wmain(int argc, wchar_t** argv)
             const Run r2 = speak(en, b);
             check(r0.audio.size() == r2.audio.size() && !r0.audio.empty(), "<spell> is not changed by shorter pauses",
                   fmt("%zu and %zu samples", r0.audio.size(), r2.audio.size()));
+        }
+        write_settings("[General]\r\nLogLevel=1\r\n");
+    }
+
+    // ---- the community pronunciation dictionary ----------------------------------------------------------
+    if (want("community", only)) {
+        printf("the community dictionary\n");
+        // Everything below runs against OPENEVV_DATA, a scratch folder, never the machine's own.
+        auto say = [&](Voice& v, const std::wstring& text, bool community) {
+            write_settings(fmt("[General]\r\nLogLevel=1\r\nCommunityDictionary=%d\r\n", community ? 1 : 0));
+            Frags f;
+            f.text(text);
+            return speak(v, f);
+        };
+        // The engine's second utterance is not its first (its state moves on), so what is the same is not
+        // the samples but how many there are: the same words make the same length, and different words,
+        // read as the dictionary says or not, do not.
+        auto same = [](const Run& a, const Run& b) { return !a.audio.empty() && a.audio.size() == b.audio.size(); };
+        auto differ = [](const Run& a, const Run& b) {
+            const size_t x = a.audio.size(), y = b.audio.size();
+            return x > y + 100 || y > x + 100;
+        };
+        const evv::CommunitySnapshot shipped = evv::community_snapshot();
+        check(shipped.valid() && !shipped.downloaded && shipped.commit.size() == 40,
+              "the copy installed with OpenEVV is found, and says which commit it is from",
+              shipped.valid() ? fmt("commit %.7s of %s", shipped.commit.c_str(), shipped.commit_date.c_str())
+                              : "none found");
+
+        // ---- US English: a word in it, with the dictionary off, on, and as its entry says it
+        remove_tree(g_out + L"\\data\\dictionaries");
+        const Run off = say(en, L"omg", false);
+        const Run on = say(en, L"omg", true); // the first with it: the host reads 2 MB of root dictionary
+        const Run said = say(en, L"oe em jee", false);
+        check(differ(on, off),
+              "US English: a word in the community dictionary is spoken differently with it switched on",
+              fmt("%zu samples off, %zu on", off.audio.size(), on.audio.size()));
+        check(same(on, said), "... as its entry says it (omg is \"oe em jee\")",
+              fmt("%zu samples, and %zu for the entry spoken", on.audio.size(), said.audio.size()));
+        check(on.first_ms >= 0 && on.first_ms < 3000, "the first utterance with it loads it promptly",
+              fmt("%.0f ms to the first audio", on.first_ms));
+        check(same(say(en, L"omg", false), off) && same(say(en, L"omg", true), on),
+              "switching it off and on is heard on the very next utterance, with nothing restarted");
+
+        // ---- the user's own dictionary is read after it, so its entry wins
+        {
+            const std::wstring user = g_out + L"\\data\\dictionaries\\enus";
+            SHCreateDirectoryExW(nullptr, user.c_str(), nullptr);
+            FILE* f = _wfopen((user + L"\\main.dic").c_str(), L"wb");
+            if (f) {
+                fputs("omg\toh my god\r\n", f);
+                fclose(f);
+            }
+            const Run mine = say(en, L"omg", true);
+            const Run plain = say(en, L"oh my god", true);
+            check(same(mine, plain) && differ(mine, on),
+                  "the user's own entry wins over the community's for the same word",
+                  fmt("%zu samples with the user's entry, %zu with the community's", mine.audio.size(), on.audio.size()));
+            const Run mine_alone = say(en, L"omg", false);
+            check(same(mine_alone, plain), "... and is used alone when the community dictionary is off",
+                  fmt("%zu samples", mine_alone.audio.size()));
+            DeleteFileW((user + L"\\main.dic").c_str());
+            check(same(say(en, L"omg", true), on), "take the user's entry away and the community's is back", "");
+        }
+
+        // ---- the abbreviation volume, another of the three
+        {
+            const Run a_off = say(en, L"XIX", false), a_on = say(en, L"XIX", true), a_said = say(en, L"nineteen", false);
+            check(differ(a_on, a_off) && same(a_on, a_said),
+                  "US English: the abbreviation dictionary is read too (XIX is \"nineteen\")",
+                  fmt("%zu samples off, %zu on, %zu for the word", a_off.audio.size(), a_on.audio.size(),
+                      a_said.audio.size()));
+        }
+        // ---- it is for English and only English: German is not touched, though the repository has German files
+        {
+            check(evv::community_language_code(0x00040000) == nullptr && evv::community_language_code(0x00010000) != nullptr,
+                  "only English languages have community dictionary files (German has none)");
+            Voice de = load_voice(L"dede", 1);
+            if (de.engine) {
+                const Run d_off = say(de, L"Abs", false), d_on = say(de, L"Abs", true);
+                check(same(d_on, d_off), "German is spoken the same either way: the community dictionary is for English only",
+                      fmt("%zu samples off, %zu on", d_off.audio.size(), d_on.audio.size()));
+                de.release();
+            }
+        }
+
+        // ---- a language it has no files for is left alone, read by eSpeak NG or not
+        for (const auto& [tag, text] : {std::pair<const wchar_t*, const wchar_t*>{L"frfr", L"Bonjour, ceci est un essai."},
+                                        {L"sw", L"Habari za asubuhi, watu wote."}}) {
+            evv::LanguageInfo li;
+            if (!evv::find_language(tag, li)) continue;
+            Voice v = load_voice(tag, 1);
+            const Run a = say(v, text, false), b = say(v, text, true);
+            check(same(a, b),
+                  fmt("%s has no community dictionary and speaks the same either way", narrow(tag).c_str()).c_str(),
+                  fmt("%zu samples", a.audio.size()));
+            v.release();
+        }
+
+        // ---- the update, offline: a zip made as GitHub makes them
+        const std::wstring tests = evv::install_root() + L"\\src\\tools\\testdata";
+        const std::wstring good = tests + L"\\community_fixture.zip", bad = tests + L"\\community_fixture_bad.zip";
+        if (!evv::file_exists(good) || !evv::file_exists(bad)) {
+            printf("  (the update fixtures are not beside this build; the update is not tested)\n");
+        } else {
+            const std::wstring got = evv::community_downloaded_dir();
+            remove_tree(got);
+            const Run before = say(en, L"fixtureword", true);
+            const std::string fixture_commit = "0123456789abcdef0123456789abcdef01234567";
+
+            SetEnvironmentVariableW(L"OPENEVV_COMMUNITY_ZIP", good.c_str());
+            evv::CommunityUpdate u = evv::update_community_dictionary();
+            check(u.outcome == evv::CommunityOutcome::Updated && u.in_use.downloaded && u.in_use.commit == fixture_commit,
+                  "installing a newer version from a zip: it is now the copy in use",
+                  narrow(u.message.substr(0, 90)));
+            check(evv::file_exists(got + L"\\ENUmain.dic") && evv::file_exists(got + L"\\ENUabbr.dic") &&
+                      evv::file_exists(got + L"\\README.md") && evv::file_exists(got + L"\\community-dictionary.ini") &&
+                      !evv::file_exists(got + L"\\nested.dic") && !evv::file_exists(got + L"\\notes.txt") &&
+                      !evv::file_exists(got + L"\\DEUmain.dic"),
+                  "only what a dictionary folder holds is taken, from the top folder of the zip");
+            // The voice that has been running all along picks it up on its next utterance.
+            const Run after = say(en, L"fixtureword", true), entry = say(en, L"banana split", true);
+            check(differ(after, before) && same(after, entry),
+                  "a voice already speaking uses the new version on its next utterance",
+                  fmt("%zu samples, and %zu for the entry spoken", after.audio.size(), entry.audio.size()));
+            const Run gone = say(en, L"omg", true);
+            check(same(gone, off), "the newer copy replaces the older one whole: a word only the old one had is not said as it said",
+                  "");
+
+            u = evv::update_community_dictionary();
+            check(u.outcome == evv::CommunityOutcome::UpToDate, "asking again finds it is already the newest",
+                  narrow(u.message.substr(0, 70)));
+
+            // Nothing that fails may change what is installed. Each of these names a commit other than the
+            // one in use, so that none of them is "already the newest".
+            auto slurp = [](const std::wstring& path) {
+                std::string s;
+                if (FILE* f = _wfopen(path.c_str(), L"rb")) {
+                    char buf[4096];
+                    size_t n;
+                    while ((n = fread(buf, 1, sizeof buf, f)) > 0) s.append(buf, n);
+                    fclose(f);
+                }
+                return s;
+            };
+            auto spit = [](const std::wstring& path, const std::string& bytes) {
+                if (FILE* f = _wfopen(path.c_str(), L"wb")) {
+                    fwrite(bytes.data(), 1, bytes.size(), f);
+                    fclose(f);
+                }
+            };
+            const std::string kept = slurp(got + L"\\ENUmain.dic");
+            std::string damaged = slurp(good);
+            damaged[150] = static_cast<char>(damaged[150] ^ 0x5A); // inside the compressed ENUmain.dic
+            damaged.replace(damaged.size() - 40, 40, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"); // and a commit of its own
+            const std::wstring damaged_path = g_out + L"\\community_damaged.zip";
+            const std::wstring garbage_path = g_out + L"\\community_garbage.zip";
+            spit(damaged_path, damaged);
+            spit(garbage_path, "This is not a zip file, whatever its name says.");
+            const struct
+            {
+                std::wstring path;
+                const char* what;
+            } refused[] = {{damaged_path, "a damaged zip"},
+                           {garbage_path, "a file that is not a zip"},
+                           {bad, "a zip with a file that is not a dictionary"}};
+            for (const auto& r : refused) {
+                SetEnvironmentVariableW(L"OPENEVV_COMMUNITY_ZIP", r.path.c_str());
+                const evv::CommunityUpdate f = evv::update_community_dictionary();
+                check(f.outcome == evv::CommunityOutcome::Failed && slurp(got + L"\\ENUmain.dic") == kept &&
+                          !evv::file_exists(got + L"\\DEUmain.dic"),
+                      fmt("%s is refused, and what was installed is left as it was", r.what).c_str(),
+                      narrow(f.message.substr(0, 100)));
+            }
+            DeleteFileW(damaged_path.c_str());
+            DeleteFileW(garbage_path.c_str());
+
+            SetEnvironmentVariableW(L"OPENEVV_COMMUNITY_ZIP", nullptr);
+            remove_tree(got);
+            check(evv::community_snapshot().dir == shipped.dir && same(say(en, L"omg", true), on),
+                  "with the downloaded copy gone, the one installed with OpenEVV is in use again", "");
         }
         write_settings("[General]\r\nLogLevel=1\r\n");
     }

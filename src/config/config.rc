@@ -109,6 +109,20 @@ BEGIN
     PUSHBUTTON      "Edit the a&bbreviation dictionary", IDC_DICT_ABBR, 7, 233, 140, 15, WS_TABSTOP
 END
 
+IDD_COMMUNITY DIALOGEX 0, 0, 300, 272
+STYLE DS_SHELLFONT | WS_CHILD | WS_CAPTION | WS_DISABLED
+CAPTION "Community dictionary"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    AUTOCHECKBOX    "&Use the community pronunciation dictionary", IDC_COMMUNITY_ON, 7, 8, 286, 10, WS_TABSTOP
+    LTEXT           "Pronunciation fixes for English, kept up to date on GitHub by the IBMTTS and Eloquence community (eigencrow/IBMTTSDictionaries, public domain). It is for the English voices only.", -1, 7, 24, 286, 28
+    LTEXT           "Your own dictionaries are read after it, so an entry of yours always wins. A change is heard from the next thing spoken.", -1, 7, 54, 286, 20
+    LTEXT           "&Status:", -1, 7, 80, 286, 9
+    EDITTEXT        IDC_COMMUNITY_STATUS, 7, 90, 286, 82, ES_MULTILINE | ES_READONLY | ES_AUTOVSCROLL | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Check for a newer version and install it", IDC_COMMUNITY_UPDATE, 7, 180, 170, 15, WS_TABSTOP
+    PUSHBUTTON      "Open the dictionary &folder", IDC_COMMUNITY_OPEN, 183, 180, 110, 15, WS_TABSTOP
+END
+
 IDD_DIAGNOSTICS DIALOGEX 0, 0, 300, 272
 STYLE DS_SHELLFONT | WS_CHILD | WS_CAPTION | WS_DISABLED
 CAPTION "Diagnostics"

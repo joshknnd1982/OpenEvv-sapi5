@@ -92,6 +92,13 @@ std::wstring install_root()
 
 std::wstring data_dir()
 {
+    // Tests point this at a scratch folder, never the machine's own.
+    wchar_t env[MAX_PATH];
+    const DWORD n = GetEnvironmentVariableW(L"OPENEVV_DATA", env, MAX_PATH);
+    if (n > 0 && n < MAX_PATH) {
+        ensure_dir(env);
+        return env;
+    }
     const std::wstring pd = known_folder(FOLDERID_ProgramData);
     if (pd.empty()) return {};
     const std::wstring dir = pd + L"\\OpenEVV";

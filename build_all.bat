@@ -92,6 +92,8 @@ if "%RUN_TESTS%"=="1" (
     "%ROOT%\build_x64\bin\Release\a11y_check.exe" "%ROOT%\build_x64\bin\Release\OpenEvvConfig.exe" || goto :fail
 )
 
+if not exist "%ROOT%\dictionaries\community\ENUmain.dic" (echo dictionaries\community is missing: the installer ships it & goto :fail)
+
 echo.
 echo === Staging dist\ in the installed layout ===
 if exist "%ROOT%\dist\x86" rmdir /s /q "%ROOT%\dist\x86"
@@ -115,6 +117,8 @@ copy /y "%ROOT%\openevv\LICENSE" "%ROOT%\dist\docs\openevv-LICENSE.txt" >nul || 
 copy /y "%ROOT%\openevv\NOTICE" "%ROOT%\dist\docs\openevv-NOTICE.txt" >nul || goto :fail
 copy /y "%ROOT%\frontend\COPYING" "%ROOT%\dist\docs\eSpeak-NG-and-front-end-COPYING.txt" >nul || goto :fail
 copy /y "%ROOT%\frontend\README.md" "%ROOT%\dist\docs\eSpeak-NG-front-end.txt" >nul || goto :fail
+copy /y "%ROOT%\dictionaries\community\LICENSE.md" "%ROOT%\dist\docs\community-dictionary-LICENSE.txt" >nul || goto :fail
+copy /y "%ROOT%\dictionaries\community\README.md" "%ROOT%\dist\docs\community-dictionary-README.txt" >nul || goto :fail
 
 if "%RUN_TESTS%"=="1" (
     echo.

@@ -67,6 +67,12 @@ private:
     bool cancelled_ = false;
 };
 
+// What SpeakReq::user_dicts says of the dictionaries the settings ask for (protocol.h).
+inline int32_t dictionary_flags(const Settings& s)
+{
+    return (s.user_dictionaries ? proto::kDictUser : 0) | (s.community_dictionary ? 0 : proto::kDictCommunityOff);
+}
+
 // Builds a SpeakReq and its items.
 class RequestBuilder
 {

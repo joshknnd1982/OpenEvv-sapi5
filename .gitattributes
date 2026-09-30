@@ -16,3 +16,6 @@
 
 # eSpeak NG's compiled data is used byte for byte, whatever looks like text in it.
 dist/espeak-ng-data/** -text
+
+# The community pronunciation dictionary is cp1252 text with its own line ends; committed byte for byte.
+dictionaries/community/*.dic -text

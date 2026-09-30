@@ -75,6 +75,7 @@ Settings load_settings()
     s.annotations = ini.get_bool(G, L"Annotations", s.annotations);
     s.pause_mode = clampi(ini.get_int(G, L"PauseMode", s.pause_mode), 0, 2);
     s.user_dictionaries = ini.get_bool(G, L"UserDictionaries", s.user_dictionaries);
+    s.community_dictionary = ini.get_bool(G, L"CommunityDictionary", s.community_dictionary);
     s.spell_lone_symbols = ini.get_bool(G, L"SpellLoneSymbols", s.spell_lone_symbols);
     s.log_level = clampi(ini.get_int(G, L"LogLevel", s.log_level), 0, 2);
     for (const std::wstring& sec : ini.sections()) {
@@ -109,6 +110,7 @@ bool save_settings(const Settings& s)
     ini.set_int(G, L"Annotations", s.annotations);
     ini.set_int(G, L"PauseMode", s.pause_mode);
     ini.set_int(G, L"UserDictionaries", s.user_dictionaries);
+    ini.set_int(G, L"CommunityDictionary", s.community_dictionary);
     ini.set_int(G, L"SpellLoneSymbols", s.spell_lone_symbols);
     ini.set_int(G, L"LogLevel", s.log_level);
     for (const auto& [key, o] : s.voices) {

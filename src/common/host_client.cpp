@@ -478,7 +478,7 @@ RequestBuilder::RequestBuilder()
     head.number_mode = 1;
     head.dictionary = 1;
     head.input_type = 0;
-    head.user_dicts = 1;
+    head.user_dicts = proto::kDictUser;
     head.preset = 1;
     for (int& v : head.voice) v = -1;
 }

@@ -37,7 +37,7 @@ RenderResult render_voice(const LanguageInfo& lang, int preset, const Settings& 
     req.head.number_mode = s.number_mode;
     req.head.dictionary = s.abbreviations ? 1 : 0;
     req.head.input_type = s.annotations ? 1 : 0;
-    req.head.user_dicts = s.user_dictionaries ? 1 : 0;
+    req.head.user_dicts = dictionary_flags(s);
     req.head.preset = preset;
     for (int i = 0; i < 8; ++i) req.head.voice[i] = voice[i];
     req.head.voice[kVoiceSpeed] = engine_speed(voice[kVoiceSpeed], 0, s);

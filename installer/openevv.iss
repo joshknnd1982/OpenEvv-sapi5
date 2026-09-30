@@ -32,7 +32,7 @@
 ; through MSAA on a private desktop.
 
 ; Bump MyAppVersion with src\common\version.h and project() in CMakeLists.txt.
-#define MyAppVersion   "1.2.2"
+#define MyAppVersion   "1.2.3"
 #define AppName        "OpenEVV SAPI5"
 #define AppPublisher   "OpenEVV SAPI5 project"
 #define AppURL         "https://github.com/joshknnd1982/OpenEvv-sapi5"
@@ -130,12 +130,14 @@ Name: "desktopicon"; Description: "Create a &desktop shortcut to OpenEVV Configu
 Source: "before_install.txt"; DestDir: "{app}"
 #else
 [Dirs]
-; Logs, language packs a user drops in, and user dictionaries live here, and must be
-; writable by whoever uses the voices, not only by the administrator who installed them.
+; Logs, language packs a user drops in, user dictionaries, and a newer community dictionary
+; downloaded by OpenEvvConfig live here, and must be writable by whoever uses the voices, not
+; only by the administrator who installed them.
 Name: "{commonappdata}\OpenEVV"; Permissions: users-modify
 Name: "{commonappdata}\OpenEVV\Logs"; Permissions: users-modify
 Name: "{commonappdata}\OpenEVV\languages"; Permissions: users-modify
 Name: "{commonappdata}\OpenEVV\dictionaries"; Permissions: users-modify
+Name: "{commonappdata}\OpenEVV\community-dictionary"; Permissions: users-modify
 
 [Files]
 ; ---- 32-bit SAPI 5 interface: 32-bit programs load x86\OpenEvvSAPI.dll, which runs the
@@ -156,6 +158,11 @@ Source: "..\dist\espeak-ng-data\*"; DestDir: "{app}\espeak-ng-data"; Flags: igno
 
 ; ---- every language: the engine modules (32-bit and 64-bit) and language.ini ----------
 Source: "..\languages\*"; DestDir: "{app}\languages"; Flags: ignoreversion recursesubdirs createallsubdirs restartreplace uninsrestartdelete
+
+; ---- the community pronunciation dictionary (CC0), and the record of which commit it is. A
+; newer one that OpenEvvConfig downloads goes in %ProgramData%\OpenEVV\community-dictionary
+; and is used instead for as long as it is the newer of the two.
+Source: "..\dictionaries\community\*"; DestDir: "{app}\dictionaries\community"; Flags: ignoreversion
 
 ; ---- documentation --------------------------------------------------------------------
 Source: "..\dist\docs\*"; DestDir: "{app}\docs"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -631,10 +638,12 @@ begin
       Log('[openevv] WARNING: an OpenEVV voice list key is still present')
     else
       Log('[openevv] the OpenEVV voices are no longer registered');
-    { The logs go. Language packs and dictionaries a user added are theirs and stay;
-      their folders are removed only if they are empty. }
+    { The logs go, and so does a community dictionary that was downloaded: it is a copy
+      of what is on GitHub. Language packs and dictionaries a user added are theirs and
+      stay; their folders are removed only if they are empty. }
     Data := ExpandConstant('{commonappdata}\OpenEVV');
     DelTree(Data + '\Logs', True, True, True);
+    DelTree(Data + '\community-dictionary', True, True, True);
     RemoveDir(Data + '\languages');
     RemoveDir(Data + '\dictionaries');
     if RemoveDir(Data) then
