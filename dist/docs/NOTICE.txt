@@ -2,9 +2,9 @@
 
 Five different things are in this repository and its installer, under five different sets of terms.
 
-## The SAPI 5 wrapper: GNU GPL version 2
+## The SAPI 5 wrapper: MIT
 
-Everything outside `openevv/`, `frontend/` and `languages/` is the wrapper: the SAPI 5 engine and voice enumerator, the engine host, OpenEVV Configuration, the tools, the build scripts and the installer script. It is under the GNU General Public License version 2, in `LICENSE`. Its COM and SAPI scaffolding descends from the BestSpeech SAPI5 wrapper; see `CREDITS.md`.
+Everything outside `openevv/`, `frontend/` and `languages/` is the wrapper: the SAPI 5 engine and voice enumerator, the engine host, OpenEVV Configuration, the tools, the build scripts and the installer script. It is under the MIT licence, in `LICENSE`. Its COM and SAPI scaffolding descends from the BestSpeech SAPI5 wrapper; see `CREDITS.md`.
 
 ## eSpeak NG and the front-end: GNU GPL version 3 or later
 
@@ -20,7 +20,7 @@ What this project added to the engine is under the same licence: the accent laye
 
 ## The community pronunciation dictionary: CC0
 
-`dictionaries/community/` is [eigencrow/IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries), byte for byte, at the commit `community-dictionary.ini` names. It was released to the public domain under the Creative Commons CC0 1.0 Universal dedication; the text is in `dictionaries/community/LICENSE.md` and is installed with it. OpenEvvConfig.exe can download a newer copy of the same files from GitHub, which stay under the same dedication.
+`dictionaries/community/` is [eigencrow/IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries), byte for byte, at the commit `community-dictionary.ini` names. It was released under the Creative Commons CC0 1.0 Universal dedication; the text is in `dictionaries/community/LICENSE.md` and is installed with it. OpenEvvConfig.exe can download a newer copy of the same files from GitHub, which stay under the same dedication.
 
 ## The language data: IBM's, and not licensed here
 

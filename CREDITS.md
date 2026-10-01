@@ -18,7 +18,7 @@ The names of letters, numbers and punctuation marks added to eSpeak NG for 1.2 c
 
 ## The community pronunciation dictionary: IBMTTSDictionaries
 
-[IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) is the pronunciation dictionary the IBMTTS driver community keeps for the ECI engine: main, root and abbreviation dictionaries for US English (it holds German ones too, which OpenEVV does not use), maintained by [amirsol81](https://github.com/amirsol81), [x0](https://github.com/ultrasound1372) and [thunderdrop](https://github.com/thunderdrop), with contributions from many people. It is released to the public domain under CC0 1.0. OpenEVV installs it, reads it beneath the user's own dictionaries, and can download its newest version. No ownership of the IBMTTS driver or its dependencies is implied.
+[IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) is the pronunciation dictionary the IBMTTS driver community keeps for the ECI engine: main, root and abbreviation dictionaries for US English (it holds German ones too, which OpenEVV does not use), maintained by [amirsol81](https://github.com/amirsol81), [x0](https://github.com/ultrasound1372) and [thunderdrop](https://github.com/thunderdrop), with contributions from many people. It is released under CC0 1.0. OpenEVV installs it, reads it beneath the user's own dictionaries, and can download its newest version. No ownership of the IBMTTS driver or its dependencies is implied.
 
 ## The speech engine underneath: Eloquence and IBM
 

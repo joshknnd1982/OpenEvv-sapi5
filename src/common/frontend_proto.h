@@ -4,7 +4,7 @@
  * standard input and output.
  *
  * This header is shared by two programs under two licences -- the host under
- * the GPL version 2 and the front-end under the GPL version 3 or later -- and
+ * the MIT licence and the front-end under the GPL version 3 or later -- and
  * is itself under the MIT licence so that both may include it:
  *
  * Copyright (c) 2026 the OpenEVV SAPI5 contributors

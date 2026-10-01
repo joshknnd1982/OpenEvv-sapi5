@@ -12,7 +12,7 @@ The OpenEVV text-to-speech engine as SAPI 5 voices for Windows, in both 32-bit a
 - **Low latency.** The engine synthesises about 600 times faster than real time. From a program's `Speak()` call to the first audio handed to SAPI takes about 1.5 ms on a warm voice. A cancel returns in well under a millisecond, and the next utterance never waits for the one it replaced.
 - **Everything adjustable, live.** OpenEVV Configuration adjusts all eight parameters of every voice in every language: gender, head size, pitch, inflection, roughness, breathiness, speed and volume. It also sets the sample rate (8 to 48 kHz), the resampler, the speed range for SAPI's rate, the pitch step, abbreviation expansion, how numbers are read, the spelling modes, the pauses at punctuation, backquote annotations, English heteronym fixes and user dictionaries. Each change is saved at once and heard on the next thing any program says, a screen reader already speaking included.
 - **Languages you can add and remove** as folders, without reinstalling anything. See below.
-- **The community pronunciation dictionary** for English, the IBMTTS community's [IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) (public domain): a main, a root and an abbreviation dictionary of pronunciation fixes, installed with OpenEVV and read before your own dictionaries. OpenEVV Configuration switches it on and off, and one button looks on GitHub for a newer version and installs it. See below.
+- **The community pronunciation dictionary** for English, the IBMTTS community's [IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) (CC0 1.0): a main, a root and an abbreviation dictionary of pronunciation fixes, installed with OpenEVV and read before your own dictionaries. OpenEVV Configuration switches it on and off, and one button looks on GitHub for a newer version and installs it. See below.
 - **Everything SAPI asks of an engine:** word, sentence and bookmark events on the exact sample, pauses, `<spell>` (NVDA's character navigation), rate, pitch and volume changes inside an utterance, and sentence skipping. A lone symbol the engine would render as silence is named instead (in Japanese that is most ASCII punctuation), but only when it is the whole utterance, so prose keeps its natural pauses.
 - **Logs** of the voices, the engine hosts, the utility and the installer, in `%ProgramData%\OpenEVV\Logs`.
 
@@ -201,7 +201,7 @@ The setting is `PauseMode` (0, 1 or 2) in `settings.ini`. Every running voice ta
 
 ### The community dictionary
 
-[IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) is the pronunciation dictionary the IBMTTS community keeps for the Eloquence engine, in the format the engine's own dictionaries have: one entry a line, the word, a tab, and what to say instead (spelt out, or as an annotation with the phonemes, `` `[.1post.2fIks] ``). It has a main, a root and an abbreviation dictionary for US English (`ENU*.dic`); the repository also holds German ones (`DEU*.dic`), which OpenEVV does not use. It is in the public domain (CC0) and is maintained by amirsol81, x0 (ultrasound1372), thunderdrop and many contributors.
+[IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries) is the pronunciation dictionary the IBMTTS community keeps for the Eloquence engine, in the format the engine's own dictionaries have: one entry a line, the word, a tab, and what to say instead (spelt out, or as an annotation with the phonemes, `` `[.1post.2fIks] ``). It has a main, a root and an abbreviation dictionary for US English (`ENU*.dic`); the repository also holds German ones (`DEU*.dic`), which OpenEVV does not use. It is released under CC0 1.0 and is maintained by amirsol81, x0 (ultrasound1372), thunderdrop and many contributors.
 
 - **Where it applies:** the US English voices, and English only. The repository also holds German files, which OpenEVV neither installs nor reads, and no other language is touched, the 145 read by eSpeak NG included. If the project ever publishes British English files (`ENG*.dic`), they are used for the British English voices without a new OpenEVV.
 - **Under your own dictionaries:** the engine host loads it first and your own main, root and abbreviation dictionaries (Languages page) after it, so where you and the community disagree about a word, yours wins. Take your entry away and the community's is back.
@@ -298,10 +298,10 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 
 ## Licence and provenance
 
-- **The wrapper** (everything outside `openevv/`, `frontend/` and `languages/`) is under the GNU General Public License version 2; see `LICENSE`. Its COM and SAPI scaffolding comes from the BestSpeech SAPI5 wrapper.
+- **The wrapper** (everything outside `openevv/`, `frontend/` and `languages/`) is under the MIT licence; see `LICENSE`. Its COM and SAPI scaffolding comes from the BestSpeech SAPI5 wrapper.
 - **The eSpeak NG front-end** (`frontend/`, `OpenEvvFrontend.exe`), the eSpeak NG data installed with it and the eSpeak NG packs' phoneme maps are under the GNU General Public License version 3 or later, as eSpeak NG is; see `frontend/COPYING`. The front-end is a separate program the wrapper talks to over pipes.
 - **The openevv engine** is under the MIT licence; see `openevv/LICENSE`.
-- **The community pronunciation dictionary** (`dictionaries/community/`) is [eigencrow/IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries), released to the public domain under CC0 1.0 (its `LICENSE.md` is installed beside it).
+- **The community pronunciation dictionary** (`dictionaries/community/`) is [eigencrow/IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries), released under CC0 1.0 (its `LICENSE.md` is installed beside it).
 - **The language data inside each language module** was transcribed from IBM's Embedded ViaVoice objects, and is IBM's work. Neither licence covers it, and nobody here can license it to anyone. `NOTICE.md` and `openevv/NOTICE` say whose it is and who the rights may belong to today.
 
 `CREDITS.md` names everyone this is built on.
