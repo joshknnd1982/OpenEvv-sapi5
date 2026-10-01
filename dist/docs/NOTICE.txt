@@ -4,7 +4,20 @@ Five different things are in this repository and its installer, under five diffe
 
 ## The SAPI 5 wrapper: MIT
 
-Everything outside `openevv/`, `frontend/` and `languages/` is the wrapper: the SAPI 5 engine and voice enumerator, the engine host, OpenEVV Configuration, the tools, the build scripts and the installer script. It is under the MIT licence, in `LICENSE`. Its COM and SAPI scaffolding descends from the BestSpeech SAPI5 wrapper; see `CREDITS.md`.
+Everything outside `openevv/`, `frontend/` and `languages/` is the wrapper: the SAPI 5 engine and voice enumerator, the engine host, OpenEVV Configuration, the tools, the build scripts and the installer script. It is under the MIT licence, in `LICENSE`. Its COM and SAPI scaffolding descends from the BestSpeech SAPI5 wrapper; see `CREDITS.md`. The files listed in the next section are not covered by the MIT licence.
+
+## Not covered: files adapted from the BestSpeech SAPI 5 wrapper
+
+The files below were adapted from the BestSpeech SAPI 5 wrapper by Gozaltech (<https://github.com/gozaltech/BstSpeech-sapi>) and still contain much of that project's code: its SAPI 5 COM server and token enumerator skeleton. They are an exception to the section above: the MIT licence does not cover them, and they stay under their original author's terms.
+
+- `src/sapi/com.hpp` and `src/sapi/com.cpp`
+- `src/sapi/registry.hpp` and `src/sapi/registry.cpp`
+- `src/sapi/utils.hpp`
+- `src/sapi/ISpDataKeyImpl.hpp` and `src/sapi/ISpDataKeyImpl.cpp`
+- `src/sapi/IEnumSpObjectTokensImpl.hpp` and `src/sapi/IEnumSpObjectTokensImpl.cpp`
+- `src/sapi/voice_token.hpp` and `src/sapi/voice_token.cpp`
+- `src/sapi/sapi_main.cpp`
+- `src/sapi/ISpTTSEngineImpl.hpp`
 
 ## eSpeak NG and the front-end: GNU GPL version 3 or later
 

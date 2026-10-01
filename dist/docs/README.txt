@@ -298,7 +298,7 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 
 ## Licence and provenance
 
-- **The wrapper** (everything outside `openevv/`, `frontend/` and `languages/`) is under the MIT licence; see `LICENSE`. Its COM and SAPI scaffolding comes from the BestSpeech SAPI5 wrapper.
+- **The wrapper** (everything outside `openevv/`, `frontend/` and `languages/`) is under the MIT licence; see `LICENSE`. Its COM and SAPI scaffolding comes from the BestSpeech SAPI5 wrapper; the files adapted from it are not covered by that licence, and `NOTICE.md` lists them.
 - **The eSpeak NG front-end** (`frontend/`, `OpenEvvFrontend.exe`), the eSpeak NG data installed with it and the eSpeak NG packs' phoneme maps are under the GNU General Public License version 3 or later, as eSpeak NG is; see `frontend/COPYING`. The front-end is a separate program the wrapper talks to over pipes.
 - **The openevv engine** is under the MIT licence; see `openevv/LICENSE`.
 - **The community pronunciation dictionary** (`dictionaries/community/`) is [eigencrow/IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries), released under CC0 1.0 (its `LICENSE.md` is installed beside it).
