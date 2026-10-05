@@ -100,3 +100,70 @@ Read by a research helper who opened each source; numbers are facts cited from t
 | becker2007 | M. R. Becker (2007). Acoustic Analysis of the Production of [m] and [n] in Codas by Brazilian Students | https://nupffale.ufsc.br/newsounds/Papers/4.Becker_Marcia.pdf | New Sounds 2007: Proceedings of the Fifth International Symposium on the Acquisition of Second Language Speech; no licence statement seen; facts cited. | Secondary citation only: antiformant ranges for [m] and [n] and the 200-300 Hz nasal formant attributed to Fujimura (1962, p. 1871). Fujimura (1962) itself not opened (no open copy found). |
 
 Named in the sources above but **not opened**: Lisker & Abramson 1964 and Cho & Ladefoged 1999 (VOT values come through Cho & Ladefoged 1997's tables), Fujimura 1962 (nasal ranges through Becker 2007), Espy-Wilson et al. 2000, Peterson & Barney's own Table II (means were computed from the data file: provenance `derived`), Hillenbrand et al.'s Table V (means from the author's statistics file).
+
+## Phase 2 (2026-10-05): sources for the design
+
+Opened by a research helper on 2026-10-05 (the main session did not open them again). Nothing was copied into the repository; facts are restated. "Used for" names the part of `DESIGN.md` that rests on it.
+
+### Standards and charts
+
+| Title | URL | Licence | Used for |
+|---|---|---|---|
+| extIPA Symbols for Disordered Speech (revised to 2015), ICPLA | https://www.internationalphoneticassociation.org/sites/default/files/extIPA_2016.pdf | "© ICPLA 2015"; no licence stated | Tier B: which chart (section 1) |
+| ExtIPA Symbols for Disordered Speech, ICPLA 2021 | https://www.internationalphoneticassociation.org/sites/default/files/extIPA_2021.pdf | CC BY-SA icons on the chart; version not printed | Tier B: the newer issue exists; ShareAlike, so cited only |
+| ICPLA, Journal & Publications (links the 2015 extIPA chart and the VoQS chart "updated 2016") | https://www.icpla.info/journal-publications | none stated | Tier B: where the charts are published |
+| Ball, Howard & Miller (2018). Revisions to the extIPA chart. JIPA 48(2), 155-164, doi:10.1017/S0025100317000147 | Cambridge Core abstract page | journal article | the revision was approved in 2016 |
+| VoQS: Voice Quality Symbols (chart) | https://www.icpla.info/VOQSchart_2015v4.pdf | "© 2015 Ball, Esling, Dickson"; no licence stated | Tier B: what VoQS contains (airstream, phonation, settings, degrees) |
+| Ball, Esling & Dickson (2018). Revisions to the VoQS system. JIPA 48(2), 165-171, doi:10.1017/S0025100317000159 | Cambridge Core | journal article | Tier B |
+| Unicode 18.0.0 (released 2026-09-16); `Blocks.txt`, `UnicodeData.txt`, `DerivedAge.txt`, `NamesList.txt` | https://www.unicode.org/Public/UCD/latest/ucd/ | Unicode License v3 (https://www.unicode.org/license.txt): permissive, notice kept | the ten blocks and their 891 assigned characters (section 1); the tone letters' block |
+| TOML v1.1.0 (2025-12-24) and v1.0.0 (2021-01-12) | https://toml.io/en/ | MIT (specification repository) | the pack format (section 6.1) |
+| YAML 1.2.2 (2021-10-01) | https://yaml.org/spec/1.2.2/ | | the comparison in section 6.1 |
+| RFC 8259, The JSON Data Interchange Format | https://www.rfc-editor.org/rfc/rfc8259 | | JSON has no comments |
+
+### Software looked at (none installed in this phase)
+
+| What | URL | Licence | Fact used |
+|---|---|---|---|
+| Python `tomllib` | https://docs.python.org/3/library/tomllib.html | PSF | in the standard library from 3.11, reads only; this machine has 3.10 |
+| `tomli` 2.4.1, `tomli-w` 1.2.0 | https://pypi.org/project/tomli/ , https://pypi.org/project/tomli-w/ | MIT | the reader and writer for Python 3.10 |
+| `tomlc17` (a C parser; not needed, the product never reads TOML) | https://github.com/cktan/tomlc17 | MIT | noted |
+| PyYAML 6.0.3 and its `resolver.py` | https://pypi.org/project/PyYAML/ , https://github.com/yaml/pyyaml/blob/main/lib/yaml/resolver.py | MIT | it implements YAML 1.1: an unquoted `no` loads as false (read in the source, not run) |
+| PanPhon | https://github.com/dmort27/panphon ; paper https://aclanthology.org/C16-1328/ | MIT (code and tables); paper CC BY 4.0 | a feature table that may be used as a cross-check; 24 feature columns today, 21 in the paper |
+| PHOIBLE | https://phoible.org/ ; https://github.com/phoible/dev | site CC BY-SA 3.0; repository data CC BY 4.0, code MIT | reference only; not copied |
+| B. Hayes, Introductory Phonology, feature spreadsheets | https://brucehayes.org/IP/ | none stated | reference only; not copied |
+| Meta Omnilingual ASR | https://github.com/facebookresearch/omnilingual-asr | Apache 2.0; needs fairseq2, which has no native Windows support | noted for Phase 7 (OPEN_QUESTIONS Q7) |
+| Allosaurus; `facebook/wav2vec2-lv-60-espeak-cv-ft` and `-xlsr-53-`; Montreal Forced Aligner | github.com/xinjli/allosaurus ; huggingface.co/facebook ; montreal-forced-aligner.readthedocs.io | GPL v3; Apache 2.0; MIT | phone recognisers and aligners: noted, not adopted (trained on natural speech; the wav2vec2 labels are eSpeak's own) |
+
+### Literature
+
+| Id | Source | URL | Used for |
+|---|---|---|---|
+| klatt1980 | D. H. Klatt (1980). Software for a cascade/parallel formant synthesizer. JASA 67(3), 971-995, doi:10.1121/1.383940 | https://www.fon.hum.uva.nl/david/ma_ssp/doc/Klatt-1980-JAS000971.pdf (scanned copy; © ASA) | 39 control parameters; the text only "evaluates" a step excitation at a plosive release, the listing has one (`PLSTEP`); this engine has none (F6) |
+| klatt_klatt1990 | D. H. Klatt, L. C. Klatt (1990). Analysis, synthesis, and perception of voice quality variations among female and male talkers. JASA 87(2), 820-857, doi:10.1121/1.398894 | https://www.fon.hum.uva.nl/david/ma_ssp/doc/Klatt-1990-JAS000820.pdf | the frame's words are KLSYN88's (open quotient, tilt, flutter, diplophonia, aspiration, tracheal pair, DF1/DB1); breathy voice raises open quotient, tilt and aspiration (C6) |
+| exter2011 | M. Exter (2011). The acoustic modeling of click types. ICPhS XVII | https://www.internationalphoneticassociation.org/icphs-proceedings/ICPhS2011/OnlineProceedings/RegularSession/Exter/Exter.pdf | abrupt clicks are single transients without turbulence, the response of the cavity in front of the back closure: the reason for C12's trigger |
+| wp_click | Wikipedia, "Click consonant" | https://en.wikipedia.org/wiki/Click_consonant (CC BY-SA 4.0; cited, not copied) | which clicks are noisy and long, which abrupt; which are low and which high: the order the click test checks |
+| vicenik_georgian | C. Vicenik. An Acoustic Study of Georgian Stop Consonants. UCLA Working Papers in Phonetics 107, 1-30 | eScholarship, item 63t1324h | ejectives: a voicing lag between voiced and aspirated, creaky onset, flat or rising pitch |
+| mori2023 | Mori (2023). The acoustic characteristics of implosive and plosive bilabials in Shimaore. JIPA 53(3), 950-976, doi:10.1017/S0025100322000184 | Cambridge Core (CC BY 4.0) | implosives: amplitude rises through the closure, shorter prevoicing, higher pitch |
+| trills2026 | Counting Closures in Spanish Trills: A Multi-Corpus Acoustic Study. arXiv:2609.17424v1 (2026-09-15) | https://arxiv.org/html/2609.17424 (CC BY-SA 4.0; cited) | it calls 18 to 40 Hz the canonical trill range and searches within it; its own results are a median of two closures and medians of 23 to 28 Hz: C11's test, to be confirmed against a second source |
+| keating_esposito | P. Keating, C. Esposito. Linguistic Voice Quality. UCLA Working Papers in Phonetics 105, 85-91 | eScholarship, item 04r5q6qn | H1 minus H2 and cepstral measures separate breathy, modal and creaky: C6's test |
+| styler2017 | W. Styler (2017). On the acoustical features of vowel nasality in English and French. JASA 142(4), doi:10.1121/1.5008854 | eScholarship, item 5j61c2w4 | A1 minus P0, F1 bandwidth and tilt mark nasality; nasal peaks near 250 and 950 Hz: C9's trigger |
+| omnilingual2025 | Omnilingual ASR (paper), arXiv:2511.09690, Table 5 | https://arxiv.org/pdf/2511.09690 | Whisper large-v3 averages about 2 % character error on eight well-resourced languages and about 22 % over 81: why one pass mark cannot be fair (section 10.3) |
+| whisper2022 | Radford et al., Robust Speech Recognition via Large-Scale Weak Supervision, arXiv:2212.04356 | https://arxiv.org/pdf/2212.04356 | error falls with training hours; its Table 13 is for large-v2 and word error, so no number is taken from it |
+
+### Licences of pronunciation data (R4: recorded before anything is imported; nothing has been imported)
+
+| Source | Licence text opened | Result (`DESIGN.md` 8.4) |
+|---|---|---|
+| eSpeak NG | `COPYING`, https://github.com/espeak-ng/espeak-ng : GPL v3 or later | stays in the front-end's data; never in MIT files |
+| Epitran | `LICENSE.txt`, https://github.com/dmort27/epitran : MIT | its own maps may be used with the notice |
+| WikiPron | README, https://github.com/CUNY-CL/wikipron : code Apache 2.0; data under Wiktionary's terms | data only as a separate ShareAlike pack |
+| CMUdict | `LICENSE`, https://github.com/cmusphinx/cmudict : BSD-style, 2 clauses | may be used with the notice |
+| ipa-dict | https://github.com/open-dict-data/ipa-dict : MIT unless a language's source says otherwise (some ShareAlike, GPL 2, non-commercial) | per language only |
+| Unicode CLDR | `LICENSE`, https://github.com/unicode-org/cldr : Unicode License v3 | may be used with the notice (number spell-out rules) |
+| Wiktionary | https://en.wiktionary.org/wiki/Wiktionary:Copyrights : CC BY-SA 4.0 and GFDL | only as a separate ShareAlike pack |
+
+These readings of licences are ours and are not legal advice.
+
+### Looked for and not opened, so nothing rests on them
+
+The full text of Ball (2024), "Changes to certain extIPA diacritics" (doi:10.1080/02699206.2024.2365205; only its metadata was opened); the licence version of the 2021 extIPA chart and any licence for the VoQS chart; Ladefoged & Traill on clicks; Ladefoged & Maddieson (1996); Solé on trills; House & Stevens (1956); Gordon & Ladefoged (2001); Chen (1997) (its figures are as quoted by Styler 2017); Hayes (2009), the book; per-language error rates for Whisper large-v3; the constant in Klatt 1980's `PLSTEP` line (unreadable in the scan).

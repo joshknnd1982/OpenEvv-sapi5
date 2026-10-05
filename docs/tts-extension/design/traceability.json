@@ -1,0 +1,3603 @@
+{
+ "what": "Symbol-to-capability traceability (DESIGN.md section 4). Written by build_traceability.py; do not edit by hand. Plans, not results.",
+ "existing": {
+  "X1": "a phone of the speaking module",
+  "X2": "formants and bandwidths moved against the module phone (f1-f4, g1-g4, b1-b4, reach)",
+  "X3": "noise shaping (fric, a2-a6, ab, af)",
+  "X4": "stop timing and release (vot, asp, lead, bar, voi, burst, noburst, pre, ej, impl)",
+  "X5": "a sound the accent layer makes beside a vowel (<, >, ms, hush, whisper)",
+  "X6": "tap: brief closures cut into a sound (tap, tapms)",
+  "X7": "phonation keys (oq, tl, creak, whisper, brth)",
+  "X8": "nasal coupling, one knob (nas)",
+  "X9": "duration (dur, hold)",
+  "X10": "stress: the module's stress digits and the accent line",
+  "X11": "tone lines and the layer's own pitch (tone, f0=own)",
+  "X12": "phrase endings ({P}, punctuation)",
+  "X13": "syllables and pieces in the annotation; an affricate said as stop + fricative (says)"
+ },
+ "to_build": {
+  "C1": "never silent: a diagnostics channel and a strict mode",
+  "C2": "the IPA reader and segment model",
+  "C3": "the master table, its validator and the adapter (composition when a pack is built)",
+  "C4": "composition when speaking, with nearest-feature fallback and a loud warning",
+  "C5": "pitch: register steps, a slope per phrase, pitch moved by a consonant under own pitch",
+  "C6": "phonation held through a sound or at its edges; breath noise on voiced frames",
+  "C7": "syllabicity: a consonant as a syllable, a vowel as none",
+  "C8": "edge transforms on the neighbouring phone (spreading)",
+  "C9": "the nasal and the second pole/zero pair, set directly",
+  "C10": "timed events on a carrier phone",
+  "C11": "aperture modulation at a stated rate (trills)",
+  "C12": "transient excitation: an impulse into the resonators"
+ },
+ "universal": [
+  "C1",
+  "C2",
+  "C3",
+  "C4"
+ ],
+ "tests": {
+  "T-stop": "closure length, burst spectrum, voice onset time, F2/F3 at the vowel edge, in a_a i_i u_u",
+  "T-nasal": "murmur F1, antiformant, F2 transitions",
+  "T-fric": "noise centre and band edges (0 to 5.5 kHz), length, voicing",
+  "T-approx": "F1-F3 mid-sound and their movement into the vowel",
+  "T-tap": "one brief amplitude dip",
+  "T-trill": "modulation rate in Hz, depth in dB, number of closures",
+  "T-vowel": "F1-F3 at the midpoint against the reference range; length",
+  "T-click": "silent closure, burst length and level against the vowel, spectrum by place, no breath",
+  "T-airstream": "implosive: voicing that grows through the closure, weak burst; ejective: silence after the burst, no breath",
+  "T-phonation": "H1-H2, harmonics-to-noise, period regularity, against the plain sound",
+  "T-nasality": "A1-P0, F1 bandwidth, against the plain vowel",
+  "T-shift": "the named formant or noise measure moves the stated way against the plain base",
+  "T-length": "length ratio against the plain base",
+  "T-syllable": "number of syllable peaks; length of the marked sound",
+  "T-release": "burst absent, or replaced by a murmur or a lateral, at the release",
+  "T-stress": "pitch, length and level of the marked syllable against an unmarked one",
+  "T-tone": "F0 contour against the points asked, in semitones; order of the levels",
+  "T-register": "the tones after the mark sit lower (or higher) by the step asked",
+  "T-slope": "slope of F0 across the phrase, against the unmarked phrase",
+  "T-boundary": "pause, final lengthening and boundary pitch; or their absence",
+  "T-sequence": "the two parts in order, one closure, length less than the two apart",
+  "T-contrast": "measurably different from its nearest neighbour, in the right direction"
+ },
+ "counts": {
+  "entries": 175,
+  "by_decision": {
+   "as-is": 109,
+   "new mechanism": 16,
+   "composition": 50
+  },
+  "by_end_state": {
+   "mapped": 67,
+   "created": 55,
+   "composed": 53
+  },
+  "by_section": {
+   "pulmonic": {
+    "as-is": 56,
+    "new mechanism": 3
+   },
+   "non_pulmonic": {
+    "new mechanism": 5,
+    "composition": 6
+   },
+   "other_symbols": {
+    "as-is": 9,
+    "new mechanism": 1,
+    "composition": 2
+   },
+   "vowels": {
+    "as-is": 28
+   },
+   "diacritics": {
+    "composition": 29,
+    "new mechanism": 3
+   },
+   "suprasegmentals": {
+    "as-is": 6,
+    "composition": 3
+   },
+   "tones": {
+    "as-is": 10,
+    "composition": 10,
+    "new mechanism": 4
+   }
+  },
+  "needed_by": {
+   "C11": 3,
+   "C10": 6,
+   "C7": 2,
+   "C6": 1,
+   "C5": 4
+  },
+  "needed_only_if": {
+   "C6": 9,
+   "C9": 5,
+   "C12": 2,
+   "C5": 6,
+   "C11": 2,
+   "C8": 6,
+   "C10": 2
+  }
+ },
+ "rows": [
+  {
+   "id": "U+0070",
+   "symbol": "p",
+   "section": "pulmonic",
+   "n": 1,
+   "name": "voiceless bilabial plosive",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's p",
+   "tests": [
+    "T-stop"
+   ]
+  },
+  {
+   "id": "U+0062",
+   "symbol": "b",
+   "section": "pulmonic",
+   "n": 2,
+   "name": "voiced bilabial plosive",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "the module's b, voiced through the closure where the module's is weak",
+   "tests": [
+    "T-stop"
+   ]
+  },
+  {
+   "id": "U+0074",
+   "symbol": "t",
+   "section": "pulmonic",
+   "n": 3,
+   "name": "voiceless dental or alveolar plosive",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's t",
+   "tests": [
+    "T-stop"
+   ]
+  },
+  {
+   "id": "U+0064",
+   "symbol": "d",
+   "section": "pulmonic",
+   "n": 4,
+   "name": "voiced dental or alveolar plosive",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "the module's d, voiced through the closure where needed",
+   "tests": [
+    "T-stop"
+   ]
+  },
+  {
+   "id": "U+0288",
+   "symbol": "ʈ",
+   "section": "pulmonic",
+   "n": 5,
+   "name": "voiceless retroflex plosive",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "t with a retroflex locus (F3 and F4 lowered) and its burst shaped",
+   "tests": [
+    "T-stop",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0256",
+   "symbol": "ɖ",
+   "section": "pulmonic",
+   "n": 6,
+   "name": "voiced retroflex plosive",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "d with a retroflex locus",
+   "tests": [
+    "T-stop",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0063",
+   "symbol": "c",
+   "section": "pulmonic",
+   "n": 7,
+   "name": "voiceless palatal plosive",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "t with a palatal locus (F2 raised) and a longer, noisier release",
+   "tests": [
+    "T-stop",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+025F",
+   "symbol": "ɟ",
+   "section": "pulmonic",
+   "n": 8,
+   "name": "voiced palatal plosive",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "d with a palatal locus",
+   "tests": [
+    "T-stop",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+006B",
+   "symbol": "k",
+   "section": "pulmonic",
+   "n": 9,
+   "name": "voiceless velar plosive",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's k",
+   "tests": [
+    "T-stop"
+   ]
+  },
+  {
+   "id": "U+0261",
+   "symbol": "ɡ",
+   "section": "pulmonic",
+   "n": 10,
+   "name": "voiced velar plosive",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "the module's g, voiced through the closure where needed",
+   "tests": [
+    "T-stop"
+   ]
+  },
+  {
+   "id": "U+0071",
+   "symbol": "q",
+   "section": "pulmonic",
+   "n": 11,
+   "name": "voiceless uvular plosive",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "k with a uvular locus (F2 lowered, F1 raised) and a lower burst",
+   "tests": [
+    "T-stop",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0262",
+   "symbol": "ɢ",
+   "section": "pulmonic",
+   "n": 12,
+   "name": "voiced uvular plosive",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "g with a uvular locus",
+   "tests": [
+    "T-stop",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0294",
+   "symbol": "ʔ",
+   "section": "pulmonic",
+   "n": 13,
+   "name": "glottal plosive (glottal stop)",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X5"
+   ],
+   "to_build": [
+    "C6?"
+   ],
+   "how": "a silence the layer makes, with the vowel edges glottalised",
+   "tests": [
+    "T-stop",
+    "T-phonation"
+   ]
+  },
+  {
+   "id": "U+006D",
+   "symbol": "m",
+   "section": "pulmonic",
+   "n": 14,
+   "name": "voiced bilabial nasal",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's m",
+   "tests": [
+    "T-nasal"
+   ]
+  },
+  {
+   "id": "U+0271",
+   "symbol": "ɱ",
+   "section": "pulmonic",
+   "n": 15,
+   "name": "voiced labiodental nasal",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [
+    "C9?"
+   ],
+   "how": "m with a labiodental locus",
+   "tests": [
+    "T-nasal",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+006E",
+   "symbol": "n",
+   "section": "pulmonic",
+   "n": 16,
+   "name": "voiced dental or alveolar nasal",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's n",
+   "tests": [
+    "T-nasal"
+   ]
+  },
+  {
+   "id": "U+0273",
+   "symbol": "ɳ",
+   "section": "pulmonic",
+   "n": 17,
+   "name": "voiced retroflex nasal",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [
+    "C9?"
+   ],
+   "how": "n with a retroflex locus (F3 lowered)",
+   "tests": [
+    "T-nasal",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0272",
+   "symbol": "ɲ",
+   "section": "pulmonic",
+   "n": 18,
+   "name": "voiced palatal nasal",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [
+    "C9?"
+   ],
+   "how": "the module's palatal nasal, or n with a palatal locus",
+   "tests": [
+    "T-nasal",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+014B",
+   "symbol": "ŋ",
+   "section": "pulmonic",
+   "n": 19,
+   "name": "voiced velar nasal",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's velar nasal",
+   "tests": [
+    "T-nasal"
+   ]
+  },
+  {
+   "id": "U+0274",
+   "symbol": "ɴ",
+   "section": "pulmonic",
+   "n": 20,
+   "name": "voiced uvular nasal",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [
+    "C9?"
+   ],
+   "how": "the velar nasal with a uvular locus",
+   "tests": [
+    "T-nasal",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0299",
+   "symbol": "ʙ",
+   "section": "pulmonic",
+   "n": 21,
+   "name": "voiced bilabial trill",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [
+    "C11"
+   ],
+   "how": "a bilabial carrier whose opening is modulated at a trill's rate",
+   "tests": [
+    "T-trill",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0072",
+   "symbol": "r",
+   "section": "pulmonic",
+   "n": 22,
+   "name": "voiced dental or alveolar trill",
+   "engine_today": "already",
+   "decision": "new mechanism",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X6"
+   ],
+   "to_build": [
+    "C11"
+   ],
+   "how": "the module's trill, or a carrier modulated at a stated rate",
+   "tests": [
+    "T-trill"
+   ]
+  },
+  {
+   "id": "U+0280",
+   "symbol": "ʀ",
+   "section": "pulmonic",
+   "n": 23,
+   "name": "voiced uvular trill",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3",
+    "X6"
+   ],
+   "to_build": [
+    "C11"
+   ],
+   "how": "a uvular carrier modulated at a stated rate, with some noise",
+   "tests": [
+    "T-trill",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+2C71",
+   "symbol": "ⱱ",
+   "section": "pulmonic",
+   "n": 24,
+   "name": "voiced labiodental flap",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X6"
+   ],
+   "to_build": [],
+   "how": "a labiodental carrier with one brief closure",
+   "tests": [
+    "T-tap",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+027E",
+   "symbol": "ɾ",
+   "section": "pulmonic",
+   "n": 25,
+   "name": "voiced dental or alveolar tap",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X6"
+   ],
+   "to_build": [],
+   "how": "the module's tap, or a carrier with one brief closure",
+   "tests": [
+    "T-tap"
+   ]
+  },
+  {
+   "id": "U+027D",
+   "symbol": "ɽ",
+   "section": "pulmonic",
+   "n": 26,
+   "name": "voiced retroflex flap",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X6"
+   ],
+   "to_build": [],
+   "how": "a tap with a retroflex locus (F3 lowered)",
+   "tests": [
+    "T-tap",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0278",
+   "symbol": "ɸ",
+   "section": "pulmonic",
+   "n": 27,
+   "name": "voiceless bilabial fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "f with a bilabial locus and weaker, flatter noise",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+03B2",
+   "symbol": "β",
+   "section": "pulmonic",
+   "n": 28,
+   "name": "voiced bilabial fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "v with a bilabial locus and weak friction",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0066",
+   "symbol": "f",
+   "section": "pulmonic",
+   "n": 29,
+   "name": "voiceless labiodental fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's f",
+   "tests": [
+    "T-fric"
+   ]
+  },
+  {
+   "id": "U+0076",
+   "symbol": "v",
+   "section": "pulmonic",
+   "n": 30,
+   "name": "voiced labiodental fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's v",
+   "tests": [
+    "T-fric"
+   ]
+  },
+  {
+   "id": "U+03B8",
+   "symbol": "θ",
+   "section": "pulmonic",
+   "n": 31,
+   "name": "voiceless dental fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "the module's dental fricative, or f with a dental locus and its noise",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+00F0",
+   "symbol": "ð",
+   "section": "pulmonic",
+   "n": 32,
+   "name": "voiced dental fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "the module's voiced dental fricative, or v reshaped",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0073",
+   "symbol": "s",
+   "section": "pulmonic",
+   "n": 33,
+   "name": "voiceless alveolar fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's s",
+   "tests": [
+    "T-fric"
+   ]
+  },
+  {
+   "id": "U+007A",
+   "symbol": "z",
+   "section": "pulmonic",
+   "n": 34,
+   "name": "voiced alveolar fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's z",
+   "tests": [
+    "T-fric"
+   ]
+  },
+  {
+   "id": "U+0283",
+   "symbol": "ʃ",
+   "section": "pulmonic",
+   "n": 35,
+   "name": "voiceless postalveolar fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's sh",
+   "tests": [
+    "T-fric"
+   ]
+  },
+  {
+   "id": "U+0292",
+   "symbol": "ʒ",
+   "section": "pulmonic",
+   "n": 36,
+   "name": "voiced postalveolar fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's zh",
+   "tests": [
+    "T-fric"
+   ]
+  },
+  {
+   "id": "U+0282",
+   "symbol": "ʂ",
+   "section": "pulmonic",
+   "n": 37,
+   "name": "voiceless retroflex fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "sh with a retroflex shape (lower noise peak, F3 lowered)",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0290",
+   "symbol": "ʐ",
+   "section": "pulmonic",
+   "n": 38,
+   "name": "voiced retroflex fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "zh with a retroflex shape",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+00E7",
+   "symbol": "ç",
+   "section": "pulmonic",
+   "n": 39,
+   "name": "voiceless palatal fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "the module's palatal fricative, or sh/x reshaped",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+029D",
+   "symbol": "ʝ",
+   "section": "pulmonic",
+   "n": 40,
+   "name": "voiced palatal fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X3",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "the palatal fricative voiced",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0078",
+   "symbol": "x",
+   "section": "pulmonic",
+   "n": 41,
+   "name": "voiceless velar fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "the module's velar fricative",
+   "tests": [
+    "T-fric"
+   ]
+  },
+  {
+   "id": "U+0263",
+   "symbol": "ɣ",
+   "section": "pulmonic",
+   "n": 42,
+   "name": "voiced velar fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "to_build": [],
+   "how": "the velar fricative voiced",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+03C7",
+   "symbol": "χ",
+   "section": "pulmonic",
+   "n": 43,
+   "name": "voiceless uvular fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "the velar fricative with a uvular shape",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0281",
+   "symbol": "ʁ",
+   "section": "pulmonic",
+   "n": 44,
+   "name": "voiced uvular fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "the module's uvular r, or the velar fricative voiced and lowered",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0127",
+   "symbol": "ħ",
+   "section": "pulmonic",
+   "n": 45,
+   "name": "voiceless pharyngeal fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X5",
+    "X2"
+   ],
+   "to_build": [],
+   "how": "breath the layer makes beside the vowel, F1 raised and F2 lowered",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0295",
+   "symbol": "ʕ",
+   "section": "pulmonic",
+   "n": 46,
+   "name": "voiced pharyngeal fricative (often an approximant)",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X5",
+    "X2",
+    "X4"
+   ],
+   "to_build": [
+    "C6?"
+   ],
+   "how": "the same with voice",
+   "tests": [
+    "T-approx",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0068",
+   "symbol": "h",
+   "section": "pulmonic",
+   "n": 47,
+   "name": "voiceless glottal fricative",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X5"
+   ],
+   "to_build": [],
+   "how": "breath the layer makes beside the vowel (or the module's h)",
+   "tests": [
+    "T-fric"
+   ]
+  },
+  {
+   "id": "U+0266",
+   "symbol": "ɦ",
+   "section": "pulmonic",
+   "n": 48,
+   "name": "voiced glottal fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X5",
+    "X4"
+   ],
+   "to_build": [
+    "C6?"
+   ],
+   "how": "the same with voice",
+   "tests": [
+    "T-phonation",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+026C",
+   "symbol": "ɬ",
+   "section": "pulmonic",
+   "n": 49,
+   "name": "voiceless dental or alveolar lateral fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X3",
+    "X7"
+   ],
+   "to_build": [],
+   "how": "l said without voice, with friction",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+026E",
+   "symbol": "ɮ",
+   "section": "pulmonic",
+   "n": 50,
+   "name": "voiced dental or alveolar lateral fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "l with friction",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+028B",
+   "symbol": "ʋ",
+   "section": "pulmonic",
+   "n": 51,
+   "name": "voiced labiodental approximant",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "v without its friction",
+   "tests": [
+    "T-approx",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0279",
+   "symbol": "ɹ",
+   "section": "pulmonic",
+   "n": 52,
+   "name": "voiced dental or alveolar approximant",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [],
+   "how": "the module's English r, or an r reshaped (F3 lowered)",
+   "tests": [
+    "T-approx"
+   ]
+  },
+  {
+   "id": "U+027B",
+   "symbol": "ɻ",
+   "section": "pulmonic",
+   "n": 53,
+   "name": "voiced retroflex approximant",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [],
+   "how": "the approximant r with F3 lower still",
+   "tests": [
+    "T-approx",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+006A",
+   "symbol": "j",
+   "section": "pulmonic",
+   "n": 54,
+   "name": "voiced palatal approximant",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's j",
+   "tests": [
+    "T-approx"
+   ]
+  },
+  {
+   "id": "U+0270",
+   "symbol": "ɰ",
+   "section": "pulmonic",
+   "n": 55,
+   "name": "voiced velar approximant",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [],
+   "how": "w without its rounding (F2 raised)",
+   "tests": [
+    "T-approx",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+006C",
+   "symbol": "l",
+   "section": "pulmonic",
+   "n": 56,
+   "name": "voiced dental or alveolar lateral approximant",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's l",
+   "tests": [
+    "T-approx"
+   ]
+  },
+  {
+   "id": "U+026D",
+   "symbol": "ɭ",
+   "section": "pulmonic",
+   "n": 57,
+   "name": "voiced retroflex lateral approximant",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [],
+   "how": "l with a retroflex shape (F3 lowered)",
+   "tests": [
+    "T-approx",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+028E",
+   "symbol": "ʎ",
+   "section": "pulmonic",
+   "n": 58,
+   "name": "voiced palatal lateral approximant",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [],
+   "how": "the module's palatal lateral, or l with F2 raised",
+   "tests": [
+    "T-approx",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+029F",
+   "symbol": "ʟ",
+   "section": "pulmonic",
+   "n": 59,
+   "name": "voiced velar lateral approximant",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [],
+   "how": "l with a velar shape (F2 lowered)",
+   "tests": [
+    "T-approx",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0298",
+   "symbol": "ʘ",
+   "section": "non_pulmonic",
+   "n": 1,
+   "name": "bilabial click (chart label: Bilabial); the letter gives the front (lip) closure only; the rear closure and its accompaniment (voiceless, voiced, nasal, aspirated...) need another letter",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X3"
+   ],
+   "to_build": [
+    "C10"
+   ],
+   "how": "closure, a noisy low burst at the lips, a short silence, a weak velar release",
+   "tests": [
+    "T-click",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+01C0",
+   "symbol": "ǀ",
+   "section": "non_pulmonic",
+   "n": 2,
+   "name": "dental click (chart label: Dental); laminal tongue-tip/blade front closure at the teeth, released with friction; rear closure set by the accompaniment",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X3"
+   ],
+   "to_build": [
+    "C10"
+   ],
+   "how": "closure, a long noisy high burst, a short silence, a weak velar release",
+   "tests": [
+    "T-click",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+01C3",
+   "symbol": "ǃ",
+   "section": "non_pulmonic",
+   "n": 3,
+   "name": "(post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X3"
+   ],
+   "to_build": [
+    "C10",
+    "C12?"
+   ],
+   "how": "closure, one abrupt burst with low peaks, a short silence, a weak velar release",
+   "tests": [
+    "T-click",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+01C2",
+   "symbol": "ǂ",
+   "section": "non_pulmonic",
+   "n": 4,
+   "name": "palatoalveolar click (chart label: Palatoalveolar; often called the palatal click); laminal front closure from the alveolar ridge to the hard palate, released fairly abruptly; rear closure set by the accompaniment",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X3"
+   ],
+   "to_build": [
+    "C10",
+    "C12?"
+   ],
+   "how": "closure, one abrupt burst with high peaks, a short silence, a weak velar release",
+   "tests": [
+    "T-click",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+01C1",
+   "symbol": "ǁ",
+   "section": "non_pulmonic",
+   "n": 5,
+   "name": "alveolar lateral click (chart label: Alveolar lateral); front closure at the alveolar ridge released at the side(s) of the tongue; rear closure set by the accompaniment",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X3"
+   ],
+   "to_build": [
+    "C10"
+   ],
+   "how": "closure, a long noisy low burst at the side, a short silence, a weak velar release",
+   "tests": [
+    "T-click",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0253",
+   "symbol": "ɓ",
+   "section": "non_pulmonic",
+   "n": 6,
+   "name": "voiced bilabial implosive (chart label: Bilabial)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X1",
+    "X4"
+   ],
+   "to_build": [
+    "C5?"
+   ],
+   "how": "b + implosive: voicing that grows through the closure, a weak burst",
+   "tests": [
+    "T-airstream",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0257",
+   "symbol": "ɗ",
+   "section": "non_pulmonic",
+   "n": 7,
+   "name": "voiced dental/alveolar implosive (chart label: Dental/alveolar)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X1",
+    "X4"
+   ],
+   "to_build": [
+    "C5?"
+   ],
+   "how": "d + implosive",
+   "tests": [
+    "T-airstream",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0284",
+   "symbol": "ʄ",
+   "section": "non_pulmonic",
+   "n": 8,
+   "name": "voiced palatal implosive (chart label: Palatal)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X1",
+    "X2",
+    "X4"
+   ],
+   "to_build": [
+    "C5?"
+   ],
+   "how": "the palatal stop + implosive",
+   "tests": [
+    "T-airstream",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0260",
+   "symbol": "ɠ",
+   "section": "non_pulmonic",
+   "n": 9,
+   "name": "voiced velar implosive (chart label: Velar)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X1",
+    "X4"
+   ],
+   "to_build": [
+    "C5?"
+   ],
+   "how": "g + implosive",
+   "tests": [
+    "T-airstream",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+029B",
+   "symbol": "ʛ",
+   "section": "non_pulmonic",
+   "n": 10,
+   "name": "voiced uvular implosive (chart label: Uvular)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X1",
+    "X2",
+    "X4"
+   ],
+   "to_build": [
+    "C5?"
+   ],
+   "how": "the uvular stop + implosive",
+   "tests": [
+    "T-airstream",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+02BC",
+   "symbol": "ʼ",
+   "section": "non_pulmonic",
+   "n": 11,
+   "name": "ejective: the consonant it follows is made with a glottalic egressive airstream; the glottis is closed and the larynx raised during the oral closure, compressing the air in the mouth and pharynx, which escapes at the oral release",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X4",
+    "X5",
+    "X9"
+   ],
+   "to_build": [
+    "C5?",
+    "C6?"
+   ],
+   "how": "a voiceless stop, affricate or fricative + ejective: a harder burst, then silence before the voice (after an affricate or fricative the silence is made by the layer)",
+   "tests": [
+    "T-airstream",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+028D",
+   "symbol": "ʍ",
+   "section": "other_symbols",
+   "n": 1,
+   "name": "voiceless labial-velar fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X7"
+   ],
+   "to_build": [],
+   "how": "w said without voice",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0077",
+   "symbol": "w",
+   "section": "other_symbols",
+   "n": 2,
+   "name": "voiced labial-velar approximant",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1"
+   ],
+   "to_build": [],
+   "how": "the module's w",
+   "tests": [
+    "T-approx"
+   ]
+  },
+  {
+   "id": "U+0265",
+   "symbol": "ɥ",
+   "section": "other_symbols",
+   "n": 3,
+   "name": "voiced labial-palatal approximant",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2"
+   ],
+   "to_build": [],
+   "how": "the module's rounded palatal glide, or j with its formants lowered",
+   "tests": [
+    "T-approx",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+029C",
+   "symbol": "ʜ",
+   "section": "other_symbols",
+   "n": 4,
+   "name": "voiceless epiglottal fricative",
+   "engine_today": "absent",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X5",
+    "X2",
+    "X3"
+   ],
+   "to_build": [
+    "C11?",
+    "C6?"
+   ],
+   "how": "strong breath the layer makes beside the vowel, F1 raised further than for the pharyngeal",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+02A2",
+   "symbol": "ʢ",
+   "section": "other_symbols",
+   "n": 5,
+   "name": "voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant)",
+   "engine_today": "absent",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X5",
+    "X2",
+    "X4",
+    "X7"
+   ],
+   "to_build": [
+    "C11?",
+    "C6?"
+   ],
+   "how": "the same with voice and creak",
+   "tests": [
+    "T-approx",
+    "T-phonation",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+02A1",
+   "symbol": "ʡ",
+   "section": "other_symbols",
+   "n": 6,
+   "name": "epiglottal plosive (voicing not specified on the chart)",
+   "engine_today": "absent",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X5",
+    "X2"
+   ],
+   "to_build": [
+    "C10"
+   ],
+   "how": "a silence the layer makes, then a burst, with F1 high at the vowel edge",
+   "tests": [
+    "T-stop",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0255",
+   "symbol": "ɕ",
+   "section": "other_symbols",
+   "n": 7,
+   "name": "voiceless alveolo-palatal fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "sh with a palatal shape (F2 raised, noise peak raised)",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0291",
+   "symbol": "ʑ",
+   "section": "other_symbols",
+   "n": 8,
+   "name": "voiced alveolo-palatal fricative",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "zh with a palatal shape",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+027A",
+   "symbol": "ɺ",
+   "section": "other_symbols",
+   "n": 9,
+   "name": "voiced alveolar lateral flap",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X6"
+   ],
+   "to_build": [],
+   "how": "l with one brief closure",
+   "tests": [
+    "T-tap",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+0267",
+   "symbol": "ɧ",
+   "section": "other_symbols",
+   "n": 10,
+   "name": "simultaneous ʃ and x (IPA symbol list: voiceless postalveolar-velar fricative)",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "the velar fricative with a second, sh-like noise peak and rounding (marked approximate)",
+   "tests": [
+    "T-fric",
+    "T-contrast"
+   ]
+  },
+  {
+   "id": "U+035C",
+   "symbol": "͜",
+   "section": "other_symbols",
+   "n": 11,
+   "name": "tie bar (below): joins two symbols written as one segment, an affricate or a double articulation",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X13",
+    "X4",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "two letters as one sound: an affricate (stop released into its fricative) or a double closure",
+   "tests": [
+    "T-sequence"
+   ]
+  },
+  {
+   "id": "U+0361",
+   "symbol": "͡",
+   "section": "other_symbols",
+   "n": 12,
+   "name": "tie bar (above): joins two symbols written as one segment, an affricate or a double articulation",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X13",
+    "X4",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "two letters as one sound: an affricate (stop released into its fricative) or a double closure",
+   "tests": [
+    "T-sequence"
+   ]
+  },
+  {
+   "id": "U+0069",
+   "symbol": "i",
+   "section": "vowels",
+   "n": 1,
+   "name": "close front unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's i",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0079",
+   "symbol": "y",
+   "section": "vowels",
+   "n": 2,
+   "name": "close front rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's front rounded vowel, or i with F2 and F3 lowered",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0268",
+   "symbol": "ɨ",
+   "section": "vowels",
+   "n": 3,
+   "name": "close central unrounded vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "a central vowel placed by its formants",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0289",
+   "symbol": "ʉ",
+   "section": "vowels",
+   "n": 4,
+   "name": "close central rounded vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "a central rounded vowel placed by its formants",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+026F",
+   "symbol": "ɯ",
+   "section": "vowels",
+   "n": 5,
+   "name": "close back unrounded vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "u without rounding (F2 raised)",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0075",
+   "symbol": "u",
+   "section": "vowels",
+   "n": 6,
+   "name": "close back rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's u",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+026A",
+   "symbol": "ɪ",
+   "section": "vowels",
+   "n": 7,
+   "name": "near-close near-front unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's lax i, or i moved",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+028F",
+   "symbol": "ʏ",
+   "section": "vowels",
+   "n": 8,
+   "name": "near-close near-front rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's lax front rounded vowel, or placed",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+028A",
+   "symbol": "ʊ",
+   "section": "vowels",
+   "n": 9,
+   "name": "near-close near-back rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's lax u, or u moved",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0065",
+   "symbol": "e",
+   "section": "vowels",
+   "n": 10,
+   "name": "close-mid front unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's e",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+00F8",
+   "symbol": "ø",
+   "section": "vowels",
+   "n": 11,
+   "name": "close-mid front rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's front rounded mid vowel, or e rounded",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0258",
+   "symbol": "ɘ",
+   "section": "vowels",
+   "n": 12,
+   "name": "close-mid central unrounded vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "a central vowel placed by its formants",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0275",
+   "symbol": "ɵ",
+   "section": "vowels",
+   "n": 13,
+   "name": "close-mid central rounded vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "a central rounded vowel placed by its formants",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0264",
+   "symbol": "ɤ",
+   "section": "vowels",
+   "n": 14,
+   "name": "close-mid back unrounded vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "o without rounding (F2 raised)",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+006F",
+   "symbol": "o",
+   "section": "vowels",
+   "n": 15,
+   "name": "close-mid back rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's o",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0259",
+   "symbol": "ə",
+   "section": "vowels",
+   "n": 16,
+   "name": "mid central vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's schwa",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+025B",
+   "symbol": "ɛ",
+   "section": "vowels",
+   "n": 17,
+   "name": "open-mid front unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's open e",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0153",
+   "symbol": "œ",
+   "section": "vowels",
+   "n": 18,
+   "name": "open-mid front rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's open front rounded vowel, or placed",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+025C",
+   "symbol": "ɜ",
+   "section": "vowels",
+   "n": 19,
+   "name": "open-mid central unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "a central vowel placed by its formants",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+025E",
+   "symbol": "ɞ",
+   "section": "vowels",
+   "n": 20,
+   "name": "open-mid central rounded vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "a central rounded vowel placed by its formants",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+028C",
+   "symbol": "ʌ",
+   "section": "vowels",
+   "n": 21,
+   "name": "open-mid back unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's vowel of \"cut\", or placed",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0254",
+   "symbol": "ɔ",
+   "section": "vowels",
+   "n": 22,
+   "name": "open-mid back rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's open o",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+00E6",
+   "symbol": "æ",
+   "section": "vowels",
+   "n": 23,
+   "name": "near-open front unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's vowel of \"cat\", or open e lowered",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0250",
+   "symbol": "ɐ",
+   "section": "vowels",
+   "n": 24,
+   "name": "near-open central vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "a low central vowel placed by its formants",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0061",
+   "symbol": "a",
+   "section": "vowels",
+   "n": 25,
+   "name": "open front unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's a",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0276",
+   "symbol": "ɶ",
+   "section": "vowels",
+   "n": 26,
+   "name": "open front rounded vowel",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "created",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "a rounded (F2 and F3 lowered)",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0251",
+   "symbol": "ɑ",
+   "section": "vowels",
+   "n": 27,
+   "name": "open back unrounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "the module's back a, or a with F2 lowered",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0252",
+   "symbol": "ɒ",
+   "section": "vowels",
+   "n": 28,
+   "name": "open back rounded vowel",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X1",
+    "X2",
+    "X9"
+   ],
+   "to_build": [],
+   "how": "back a rounded, or open o lowered",
+   "tests": [
+    "T-vowel"
+   ]
+  },
+  {
+   "id": "U+0325",
+   "symbol": "̥",
+   "section": "diacritics",
+   "n": 1,
+   "name": "voiceless: the sound is produced without vocal-fold vibration (devoicing of a normally voiced segment)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X4",
+    "X7"
+   ],
+   "to_build": [],
+   "how": "base + voiceless: voicing off; a sonorant or vowel becomes breath through the same shape",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+030A",
+   "symbol": "̊",
+   "section": "diacritics",
+   "n": 2,
+   "name": "voiceless (alternative placement above a symbol with a descender)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X4",
+    "X7"
+   ],
+   "to_build": [],
+   "how": "base + voiceless: voicing off; a sonorant or vowel becomes breath through the same shape",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+032C",
+   "symbol": "̬",
+   "section": "diacritics",
+   "n": 3,
+   "name": "voiced: vocal-fold vibration during a segment that is normally voiceless",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X4"
+   ],
+   "to_build": [],
+   "how": "base + voiced: voicing through the closure or the friction",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+02B0",
+   "symbol": "ʰ",
+   "section": "diacritics",
+   "n": 4,
+   "name": "aspirated: a period of voicelessness (open glottis) after the release before voicing of the following sound begins",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X4"
+   ],
+   "to_build": [],
+   "how": "base + aspirated: a longer voice onset time filled with breath",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0339",
+   "symbol": "̹",
+   "section": "diacritics",
+   "n": 5,
+   "name": "more rounded: greater lip rounding than the base symbol implies",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [],
+   "how": "base + more rounded: F2 and F3 lowered one step",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+031C",
+   "symbol": "̜",
+   "section": "diacritics",
+   "n": 6,
+   "name": "less rounded: less lip rounding than the base symbol implies",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [],
+   "how": "base + less rounded: F2 and F3 raised one step",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+031F",
+   "symbol": "̟",
+   "section": "diacritics",
+   "n": 7,
+   "name": "advanced: articulated further forward than the base symbol implies",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "base + advanced: a vowel's F2 raised; a consonant moved part of the way to the next place forward",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0320",
+   "symbol": "̠",
+   "section": "diacritics",
+   "n": 8,
+   "name": "retracted: articulated further back than the base symbol implies",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "base + retracted: the reverse",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0308",
+   "symbol": "̈",
+   "section": "diacritics",
+   "n": 9,
+   "name": "centralized: tongue position moved toward the centre of the vowel space on the front–back dimension",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [],
+   "how": "base + centralized: F2 moved part of the way to the central vowel of the same height",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+033D",
+   "symbol": "̽",
+   "section": "diacritics",
+   "n": 10,
+   "name": "mid-centralized: moved toward the mid-central (schwa) position, in height as well as backness",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [],
+   "how": "base + mid-centralized: F1 and F2 moved part of the way to schwa",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0329",
+   "symbol": "̩",
+   "section": "diacritics",
+   "n": 11,
+   "name": "syllabic: the consonant forms the nucleus of a syllable",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "composed",
+   "existing": [
+    "X9",
+    "X13"
+   ],
+   "to_build": [
+    "C7"
+   ],
+   "how": "base + syllabic: the consonant carries the syllable, its stress and its tone, with no vowel put in",
+   "tests": [
+    "T-syllable"
+   ]
+  },
+  {
+   "id": "U+032F",
+   "symbol": "̯",
+   "section": "diacritics",
+   "n": 12,
+   "name": "non-syllabic: the vowel is not the syllable nucleus (e.g. the off-glide of a diphthong)",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "composed",
+   "existing": [
+    "X9",
+    "X13"
+   ],
+   "to_build": [
+    "C7"
+   ],
+   "how": "base + non-syllabic: the vowel is short, carries no syllable and glides into its neighbour",
+   "tests": [
+    "T-syllable"
+   ]
+  },
+  {
+   "id": "U+02DE",
+   "symbol": "˞",
+   "section": "diacritics",
+   "n": 13,
+   "name": "rhoticity: r-colouring of a vowel (tongue tip raised/retroflexed or tongue bunched, often with pharyngeal constriction)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [
+    "C8?"
+   ],
+   "how": "base + rhotic: F3 lowered towards F2",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0324",
+   "symbol": "̤",
+   "section": "diacritics",
+   "n": 14,
+   "name": "breathy voiced: vocal folds vibrate with lower tension and incomplete closure, letting more air escape (murmur)",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "composed",
+   "existing": [
+    "X7"
+   ],
+   "to_build": [
+    "C6"
+   ],
+   "how": "base + breathy: a longer open phase, more tilt and breath noise through the whole sound",
+   "tests": [
+    "T-phonation"
+   ]
+  },
+  {
+   "id": "U+0330",
+   "symbol": "̰",
+   "section": "diacritics",
+   "n": 15,
+   "name": "creaky voiced: constricted glottis with slow, irregular vocal-fold vibration (laryngealization)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X7"
+   ],
+   "to_build": [
+    "C6?"
+   ],
+   "how": "base + creaky: a shorter open phase and alternating periods",
+   "tests": [
+    "T-phonation"
+   ]
+  },
+  {
+   "id": "U+033C",
+   "symbol": "̼",
+   "section": "diacritics",
+   "n": 16,
+   "name": "linguolabial: tongue tip or blade against the upper lip",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "base + linguolabial: locus and noise between the bilabial and the alveolar",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+02B7",
+   "symbol": "ʷ",
+   "section": "diacritics",
+   "n": 17,
+   "name": "labialized: secondary lip rounding (often with raised tongue back) added to the consonant",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [
+    "C8?"
+   ],
+   "how": "base + labialized: F2 and F3 lowered at the release, a brief w-like glide",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+02B2",
+   "symbol": "ʲ",
+   "section": "diacritics",
+   "n": 18,
+   "name": "palatalized: secondary raising of the tongue body toward the hard palate",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [
+    "C8?"
+   ],
+   "how": "base + palatalized: F2 raised at the release, a brief j-like glide",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+02E0",
+   "symbol": "ˠ",
+   "section": "diacritics",
+   "n": 19,
+   "name": "velarized: secondary raising of the back of the tongue toward the velum",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [
+    "C8?"
+   ],
+   "how": "base + velarized: F2 lowered",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+02E4",
+   "symbol": "ˤ",
+   "section": "diacritics",
+   "n": 20,
+   "name": "pharyngealized: secondary constriction of the pharynx (tongue root/epiglottis retracted)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [
+    "C8?"
+   ],
+   "how": "base + pharyngealized: F1 raised and F2 lowered, reaching into the vowels beside it",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0334",
+   "symbol": "̴",
+   "section": "diacritics",
+   "n": 21,
+   "name": "velarized or pharyngealized: a cover mark for velarization, uvularization or pharyngealization, written through the letter",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [
+    "C8?"
+   ],
+   "how": "base + velarized or pharyngealized (velarized unless a pack says otherwise)",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+031D",
+   "symbol": "̝",
+   "section": "diacritics",
+   "n": 22,
+   "name": "raised: articulated with a closer constriction (higher tongue) than the base symbol implies",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "base + raised: a vowel's F1 lowered; an approximant gains friction",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+031E",
+   "symbol": "̞",
+   "section": "diacritics",
+   "n": 23,
+   "name": "lowered: articulated with a more open constriction (lower tongue) than the base symbol implies",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "base + lowered: a vowel's F1 raised; a fricative loses its friction",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0318",
+   "symbol": "̘",
+   "section": "diacritics",
+   "n": 24,
+   "name": "advanced tongue root (ATR): tongue root moved forward and larynx lowered, expanding the pharynx",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [
+    "C6?"
+   ],
+   "how": "base + advanced tongue root: F1 lowered",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0319",
+   "symbol": "̙",
+   "section": "diacritics",
+   "n": 25,
+   "name": "retracted tongue root (RTR): tongue root pulled back, narrowing the pharynx",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2"
+   ],
+   "to_build": [
+    "C6?"
+   ],
+   "how": "base + retracted tongue root: F1 raised",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+032A",
+   "symbol": "̪",
+   "section": "diacritics",
+   "n": 26,
+   "name": "dental: tongue tip or blade against the upper teeth",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X2",
+    "X3"
+   ],
+   "to_build": [],
+   "how": "base + dental: locus and noise of the dental place",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+033A",
+   "symbol": "̺",
+   "section": "diacritics",
+   "n": 27,
+   "name": "apical: articulated with the tongue tip",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X3"
+   ],
+   "to_build": [],
+   "how": "base + apical: a small shift of the noise or burst spectrum (marked approximate)",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+033B",
+   "symbol": "̻",
+   "section": "diacritics",
+   "n": 28,
+   "name": "laminal: articulated with the tongue blade",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X3"
+   ],
+   "to_build": [],
+   "how": "base + laminal: a small shift of the noise or burst spectrum (marked approximate)",
+   "tests": [
+    "T-shift"
+   ]
+  },
+  {
+   "id": "U+0303",
+   "symbol": "̃",
+   "section": "diacritics",
+   "n": 29,
+   "name": "nasalized: the velum is lowered so air resonates in the nasal cavity as well as the mouth",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X8"
+   ],
+   "to_build": [
+    "C9?"
+   ],
+   "how": "base + nasalized: the nose opened",
+   "tests": [
+    "T-nasality"
+   ]
+  },
+  {
+   "id": "U+207F",
+   "symbol": "ⁿ",
+   "section": "diacritics",
+   "n": 30,
+   "name": "nasal release: the oral closure of a stop is released by lowering the velum, so air escapes through the nose (e.g. English sudden)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X4",
+    "X9",
+    "X13"
+   ],
+   "to_build": [
+    "C10?"
+   ],
+   "how": "base + nasal release: the stop is not released by a burst but into a brief nasal of its own place",
+   "tests": [
+    "T-release"
+   ]
+  },
+  {
+   "id": "U+02E1",
+   "symbol": "ˡ",
+   "section": "diacritics",
+   "n": 31,
+   "name": "lateral release: the stop is released by lowering the sides of the tongue into a lateral (e.g. English middle)",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X4",
+    "X9",
+    "X13"
+   ],
+   "to_build": [
+    "C10?"
+   ],
+   "how": "base + lateral release: the stop is released into l",
+   "tests": [
+    "T-release"
+   ]
+  },
+  {
+   "id": "U+031A",
+   "symbol": "̚",
+   "section": "diacritics",
+   "n": 32,
+   "name": "no audible release: the stop closure is held without an audible release burst (unreleased / checked stop)",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X4"
+   ],
+   "to_build": [],
+   "how": "base + no audible release: the burst left out",
+   "tests": [
+    "T-release"
+   ]
+  },
+  {
+   "id": "U+02C8",
+   "symbol": "ˈ",
+   "section": "suprasegmentals",
+   "n": 1,
+   "name": "Marks the syllable that carries the word's main stress. The mark is written before the stressed syllable, not before its vowel.",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X10"
+   ],
+   "to_build": [],
+   "how": "main stress of the syllable that follows",
+   "tests": [
+    "T-stress"
+   ]
+  },
+  {
+   "id": "U+02CC",
+   "symbol": "ˌ",
+   "section": "suprasegmentals",
+   "n": 2,
+   "name": "Marks a syllable that is stressed relative to unstressed syllables but less strongly than the primary-stressed one. Written before the syllable.",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X10"
+   ],
+   "to_build": [],
+   "how": "secondary stress of the syllable that follows",
+   "tests": [
+    "T-stress"
+   ]
+  },
+  {
+   "id": "U+02D0",
+   "symbol": "ː",
+   "section": "suprasegmentals",
+   "n": 3,
+   "name": "The preceding segment (vowel or consonant) is held longer. On a consonant it marks a long consonant (geminate).",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X9"
+   ],
+   "to_build": [],
+   "how": "base + long: a vowel's length, a consonant's hold",
+   "tests": [
+    "T-length"
+   ]
+  },
+  {
+   "id": "U+02D1",
+   "symbol": "ˑ",
+   "section": "suprasegmentals",
+   "n": 4,
+   "name": "The preceding segment is somewhat longer than short but shorter than long.",
+   "engine_today": "absent",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X9"
+   ],
+   "to_build": [],
+   "how": "base + half-long",
+   "tests": [
+    "T-length"
+   ]
+  },
+  {
+   "id": "U+0306",
+   "symbol": "̆",
+   "section": "suprasegmentals",
+   "n": 5,
+   "name": "The segment under the mark (usually a vowel) is extra short while keeping its quality. On a consonant the breve can stand for a very brief articulation, for example a flap that has no letter of its own.",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X9"
+   ],
+   "to_build": [],
+   "how": "base + extra-short",
+   "tests": [
+    "T-length"
+   ]
+  },
+  {
+   "id": "U+007C",
+   "symbol": "|",
+   "section": "suprasegmentals",
+   "n": 6,
+   "name": "Boundary of a minor prosodic group (foot group). It is a phrasing mark, not an articulation.",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X12"
+   ],
+   "to_build": [],
+   "how": "the end of a minor group: a continuation ending with little or no pause",
+   "tests": [
+    "T-boundary"
+   ]
+  },
+  {
+   "id": "U+2016",
+   "symbol": "‖",
+   "section": "suprasegmentals",
+   "n": 7,
+   "name": "Boundary of a major prosodic group (intonation phrase). Often coincides with a breath or pause.",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X12"
+   ],
+   "to_build": [],
+   "how": "the end of a major group: a final ending and a pause",
+   "tests": [
+    "T-boundary"
+   ]
+  },
+  {
+   "id": "U+002E",
+   "symbol": ".",
+   "section": "suprasegmentals",
+   "n": 8,
+   "name": "Marks where one syllable ends and the next begins. On the chart it separates two vowels in hiatus (re.act), which are therefore not a diphthong.",
+   "engine_today": "already",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X13"
+   ],
+   "to_build": [],
+   "how": "a syllable break",
+   "tests": [
+    "T-syllable"
+   ]
+  },
+  {
+   "id": "U+203F",
+   "symbol": "‿",
+   "section": "suprasegmentals",
+   "n": 9,
+   "name": "Two words are joined with no break between them, for example a linking or liaison consonant that becomes the onset of the next word's syllable (French les amis /lɛ.z‿a.mi/), or two words forming one phonological unit (hot dog /ˈhɒt‿dɒɡ/).",
+   "engine_today": "unknown",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X13"
+   ],
+   "to_build": [],
+   "how": "two words said as one piece, with no break",
+   "tests": [
+    "T-boundary"
+   ]
+  },
+  {
+   "id": "U+030B",
+   "symbol": "̋",
+   "section": "tones",
+   "n": 1,
+   "name": "extra high tone (IPA list name: EXTRA HIGH LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the extra high level for the syllable, written as a diacritic over the syllable nucleus",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 5",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E5",
+   "symbol": "˥",
+   "section": "tones",
+   "n": 2,
+   "name": "extra high level tone written as a Chao tone letter (IPA list name: EXTRA HIGH LEVEL TONE (CHAO LETTER)): pitch held at level 5 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 5",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+0301",
+   "symbol": "́",
+   "section": "tones",
+   "n": 3,
+   "name": "high tone (IPA list name: HIGH LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the high level for the syllable, written as a diacritic over the syllable nucleus",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 4",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E6",
+   "symbol": "˦",
+   "section": "tones",
+   "n": 4,
+   "name": "high level tone written as a Chao tone letter (IPA list name: HIGH LEVEL TONE (CHAO LETTER)): pitch held at level 4 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 4",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+0304",
+   "symbol": "̄",
+   "section": "tones",
+   "n": 5,
+   "name": "mid tone (IPA list name: MID LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the mid level for the syllable, written as a diacritic over the syllable nucleus",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 3",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E7",
+   "symbol": "˧",
+   "section": "tones",
+   "n": 6,
+   "name": "mid level tone written as a Chao tone letter (IPA list name: MID LEVEL TONE (CHAO LETTER)): pitch held at level 3 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 3",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+0300",
+   "symbol": "̀",
+   "section": "tones",
+   "n": 7,
+   "name": "low tone (IPA list name: LOW LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the low level for the syllable, written as a diacritic over the syllable nucleus",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 2",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E8",
+   "symbol": "˨",
+   "section": "tones",
+   "n": 8,
+   "name": "low level tone written as a Chao tone letter (IPA list name: LOW LEVEL TONE (CHAO LETTER)): pitch held at level 2 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 2",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+030F",
+   "symbol": "̏",
+   "section": "tones",
+   "n": 9,
+   "name": "extra low tone (IPA list name: EXTRA LOW LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the extra low level for the syllable, written as a diacritic over the syllable nucleus",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 1",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E9",
+   "symbol": "˩",
+   "section": "tones",
+   "n": 10,
+   "name": "extra low level tone written as a Chao tone letter (IPA list name: EXTRA LOW LEVEL TONE (CHAO LETTER)): pitch held at level 1 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+   "engine_today": "partly",
+   "decision": "as-is",
+   "end_state": "mapped",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a level tone at 1",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+030C",
+   "symbol": "̌",
+   "section": "tones",
+   "n": 11,
+   "name": "rising contour tone written as a diacritic over the nucleus (IPA list name: RISING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch low to high (L→H) across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 1 then 5",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E9+U+02E5",
+   "symbol": "˩˥",
+   "section": "tones",
+   "n": 12,
+   "name": "rising contour tone written as a Chao tone-letter sequence (IPA list name: RISING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 1 → 5 across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 1 then 5",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+0302",
+   "symbol": "̂",
+   "section": "tones",
+   "n": 13,
+   "name": "falling contour tone written as a diacritic over the nucleus (IPA list name: FALLING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch high to low (H→L) across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 5 then 1",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E5+U+02E9",
+   "symbol": "˥˩",
+   "section": "tones",
+   "n": 14,
+   "name": "falling contour tone written as a Chao tone-letter sequence (IPA list name: FALLING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 5 → 1 across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 5 then 1",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+1DC4",
+   "symbol": "᷄",
+   "section": "tones",
+   "n": 15,
+   "name": "high rising contour tone written as a diacritic over the nucleus (IPA list name: HIGH RISING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch mid to high (M→H) across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 3 then 5",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E7+U+02E5",
+   "symbol": "˧˥",
+   "section": "tones",
+   "n": 16,
+   "name": "high rising contour tone written as a Chao tone-letter sequence (IPA list name: HIGH RISING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 3 → 5 across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 3 then 5",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+1DC5",
+   "symbol": "᷅",
+   "section": "tones",
+   "n": 17,
+   "name": "low rising contour tone written as a diacritic over the nucleus (IPA list name: LOW RISING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch low to mid (L→M) across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 1 then 3",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E9+U+02E7",
+   "symbol": "˩˧",
+   "section": "tones",
+   "n": 18,
+   "name": "low rising contour tone written as a Chao tone-letter sequence (IPA list name: LOW RISING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 1 → 3 across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 1 then 3",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+1DC8",
+   "symbol": "᷈",
+   "section": "tones",
+   "n": 19,
+   "name": "rising-falling contour tone written as a diacritic over the nucleus (IPA list name: RISING-FALLING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch low-high-low (L→H→L) across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 3, 4, then 2",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+02E7+U+02E6+U+02E8",
+   "symbol": "˧˦˨",
+   "section": "tones",
+   "n": 20,
+   "name": "rising-falling contour tone written as a Chao tone-letter sequence (IPA list name: RISING-FALLING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 3 → 4 → 2 across the syllable",
+   "engine_today": "partly",
+   "decision": "composition",
+   "end_state": "composed",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [],
+   "how": "a contour made of level tones: levels 3, 4, then 2",
+   "tests": [
+    "T-tone"
+   ]
+  },
+  {
+   "id": "U+A71C",
+   "symbol": "ꜜ",
+   "section": "tones",
+   "n": 21,
+   "name": "downstep: the following tone (typically a high tone) is realised on a lower pitch register than the same tone before it, and that lowered register persists for following tones; written before the affected syllable",
+   "engine_today": "absent",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [
+    "C5"
+   ],
+   "how": "a step down of the register: every later tone of the phrase is lower",
+   "tests": [
+    "T-register"
+   ]
+  },
+  {
+   "id": "U+A71B",
+   "symbol": "ꜛ",
+   "section": "tones",
+   "n": 22,
+   "name": "upstep: the following tone is realised on a higher pitch register than the same tone before it; also used for pitch reset at the start of a new prosodic chunk; written before the affected syllable",
+   "engine_today": "absent",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X11"
+   ],
+   "to_build": [
+    "C5"
+   ],
+   "how": "a step up of the register",
+   "tests": [
+    "T-register"
+   ]
+  },
+  {
+   "id": "U+2197",
+   "symbol": "↗",
+   "section": "tones",
+   "n": 23,
+   "name": "global rise: intonation, not lexical tone; the whole prosodic unit (when attached to a boundary mark such as ‖) or the marked word/syllable has rising overall pitch",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X11",
+    "X12"
+   ],
+   "to_build": [
+    "C5"
+   ],
+   "how": "the pitch of the whole group rises",
+   "tests": [
+    "T-slope"
+   ]
+  },
+  {
+   "id": "U+2198",
+   "symbol": "↘",
+   "section": "tones",
+   "n": 24,
+   "name": "global fall: intonation, not lexical tone; the whole prosodic unit (when attached to a boundary mark) or the marked word/syllable has falling overall pitch",
+   "engine_today": "partly",
+   "decision": "new mechanism",
+   "end_state": "created",
+   "existing": [
+    "X11",
+    "X12"
+   ],
+   "to_build": [
+    "C5"
+   ],
+   "how": "the pitch of the whole group falls",
+   "tests": [
+    "T-slope"
+   ]
+  }
+ ]
+}

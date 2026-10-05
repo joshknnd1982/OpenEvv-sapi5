@@ -22,6 +22,8 @@ ASR: 105 languages scored, 50 unavailable: 46 that Whisper large-v3 does not kno
 
 The failure layers used: `phoneme values` (check A or B fails), `stress-or-tone` (only ASR fails, and the pack has tones), `unknown` (only ASR fails; G2P, duration and coarticulation cannot be told apart yet). The earlier categories of this file (text analysis, phoneme mapping, segment realization, prosody, capability) are the finer split Phase 6 triage will use.
 
+**Found in Phase 2 (2026-10-05), and true of every number below for the 145 languages read by eSpeak NG:** the shipped engine voices a voiceless consonant or a pause that follows a stop with a voice-onset or breathy-release setting (`DESIGN.md`, "A defect found on the way"). The checks of this baseline could not see it: the golden cases put each consonant between two vowels, and check A asks only whether what was meant to sound did. The speech-recognition scores were taken with the defect present; how much of them it explains is not known. The ten native languages are not affected.
+
 ## Native-speaker sign-offs
 
 None yet.

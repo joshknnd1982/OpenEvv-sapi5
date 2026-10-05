@@ -100,6 +100,32 @@ Nothing can be validated by ear until Phase 7 produces review packets. Languages
 
 **Q7. ASR for the 46 languages Whisper does not know.** Meta's Omnilingual ASR (Apache 2.0, 1,600+ languages) would cover about 30 of them but needs WSL2 (Linux on Windows) and a model download of a few GB. Meta MMS is non-commercial (CC BY-NC) and is not proposed. *Recommended default: leave them "ASR unavailable" until Phase 7 (the native-validation pipeline), then decide.*
 
+## Added in Phase 2 (2026-10-05)
+
+**The five questions of the design** are in `DESIGN.md` section 14, with the answers given (`DECISIONS.md` D34). Q6 above (rebuilding the native modules) is question 4 there and is **answered: yes, when proven**. Q11 below is question 5 and is **answered: fixed first thing in Phase 3**.
+
+**Q8. The 32-bit US English module is older than the 64-bit one.** `languages/enus/openevv-enus-x86.dll` is still the 1.0.0 file; the 64-bit one was rebuilt for 1.2.3 and contains the accent layer, the 32-bit one does not (`DECISIONS.md` D30). No user is affected today: the product never sends the accent layer's markup to a native module, and in Phase 0 the two gave the same sound for the same sentence. It matters only if US English is ever to be given accents through the layer, and then 32-bit programs would hear the markup read aloud. *Recommended default: nothing now; rebuild both together with the other nine native modules if and when question 4 is answered yes, with the proof `DESIGN.md` 11.3 (M5) asks for.*
+
+**Q9. Natural recordings to judge the recogniser by (for Phase 7).** `DESIGN.md` 10.3 proposes that a language may also pass the speech-recognition check if its error is close to the same recogniser's error on *natural* recordings of the same sentences. Common Voice's recordings are CC0, but they are a download of some size, behind Mozilla's terms. *Recommended default: decide in Phase 7; until then the one pass mark of 0.15 stands.*
+
+**Q11 (answered 2026-10-05: option (b), first thing in Phase 3). A defect in the released product: voiceless sounds and pauses are voiced after certain stops.** Found by the reviewer of the design and measured (`DESIGN.md`, "A defect found on the way"; `DECISIONS.md` D33). In the 145 languages read by eSpeak NG, a stop whose sound carries a voice-onset or a breathy-release setting switches the voice on afterwards even when a voiceless consonant or a pause follows: Russian "кто" comes out with its t voiced, and a sentence ending in such a stop is followed by a voiced sound through the whole pause (about half a second at default settings; shortened-pause settings hide most of that part). It is most frequent where the plain p, t and k carry the setting: 61 of the 87 languages spoken through the German-based module, and the two spoken through the American English one. The ten native languages are not affected. Claude cannot hear it; the frames and the signal level say so. You speak American English: one voice you could check by ear is "OpenEVV English (America, New York City)", with a short sentence ending in t, p or k, pause shortening off.
+
+The fix is a few lines in the accent layer, but it ships only in rebuilt template modules (fourteen files in `languages/`), and it changes what those languages say, for the better. Two ways: **(a)** fix it at once on `main` as a release of its own (1.2.5), in a separate session; **(b)** fix it as the first act of Phase 3 and release it whenever the next release is made. *Recommended default: (b), unless users are already complaining, because (b) costs nothing extra and the proof (the module baseline, the new check, the golden recorded again) is the first work of Phase 3 anyway. Either way nothing is rebuilt without your say-so.*
+
+**Q10. Should the handoff files and the design be pushed to GitHub?** Still local (Q2). *Recommended default, unchanged: after the design is approved, push the `tts-ext/*` branches if you want them backed up; they change nothing in the released product.*
+
+### For Phase 3 (found by reading and measuring in Phase 2; Claude can act on these)
+
+- The golden lists 15 module phones as `not_covered` because their names hold `:` or `~`. They can be written in single quotes (D30). Cover them and re-record those packs.
+- The tone key `av` is parsed by the accent layer and never applied; eight tone lines of the two Mandarin packs carry it. Apply it or remove it (defect X-2 of `DESIGN.md` 4.4).
+- The map keyword `may` is parsed and not documented; `tonename` is documented and used by no pack; `docs/SOUNDS.md` documents no limit (64 vowels, 32 glides, 8 phones an entry, 1,023-byte lines, 7-letter phone names, 11-letter ids).
+- `openevv/test/matrix.sh` has still not been run on this machine. Its scripts say they support MSYS2 (`make win-probe`, then `EVV_MATRIX_NATIVE=build/probe-<langs>.exe`). Try it before the first change under `openevv/src`.
+- The chassis files (`engine/accent/chassis/*.json`) do not record the voice they were measured with, and the script that built the measuring programs (`engine\build_probes.cmd`) is not in the repository. The adapter needs them re-measured with the voice written down.
+
+### Carried forward, not design questions
+
+The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the English diphthong cases) are faults or doubts in single packs. The design does not settle them; they belong to Phase 4 (the sounds) and Phase 6 (triage).
+
 ## For Phase 2 (found by measuring in Phase 1)
 
 - Quechua (`qu`): in the golden case `s|t\``, the engine meant a final vowel `a` and gave it 11 frames with neither voicing nor noise (silent). Check whether the map or the template devoices it deliberately.

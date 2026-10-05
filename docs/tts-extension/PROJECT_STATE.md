@@ -4,11 +4,71 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 1 (Headless rendering and measurement harness): complete, 2026-10-05**, on branch `tts-ext/phase-1` (made from `tts-ext/phase-0`). Next: **Phase 2, Architecture design (human approves)**: Fable 5.1, effort xhigh, permission Accept edits, on a new branch `tts-ext/phase-2` made from `tts-ext/phase-1`. Phase 2 must stop if it is not on Fable 5.1 at xhigh.
+**Phase 2 (Architecture design): the design is written and is WAITING FOR THE HUMAN'S APPROVAL (the stop gate), 2026-10-05**, on branch `tts-ext/phase-2` (made from `tts-ext/phase-1`). Session: Fable 5.1 at effort xhigh, as the phase requires. `DESIGN.md` covers all 13 items; an independent review was made and its real findings fixed (`DECISIONS.md` D33); the five questions were asked and answered (`DESIGN.md` 14, `DECISIONS.md` D34). **Nothing of Phase 3 may start until the human replies "APPROVED"**; the approval is then recorded in `DESIGN.md` 15, `DECISIONS.md` D35 and here, and the pause protocol is run. Phase 2 implemented nothing: no engine, product or language file changed.
 
-Phase 0 complete, 2026-10-05 (commit `53a830d`).
+**A defect in the released product was found in this phase and is NOT fixed** (the phase builds nothing): in the 145 languages read by eSpeak NG, a voiceless consonant or a pause that follows a stop with a voice-onset or breathy-release setting is given voice by mistake. `DESIGN.md` ("A defect found on the way", and 4.4 X-1), `DECISIONS.md` D33, `OPEN_QUESTIONS.md` Q11. Every Phase 1 measurement of those languages was taken with it present. **The human decided: it is fixed first thing in Phase 3.**
+
+**The human's answers** (D34): TOML; the standard pass marks; Southern American English first; module files in `languages/` may be rebuilt and replaced when proven, at stated points, the differences shown first; the defect is fixed first thing in Phase 3.
+
+Phase 1 complete, 2026-10-05 (branch `tts-ext/phase-1`, last commit `cdcd70f`). Phase 0 complete, 2026-10-05 (commit `53a830d`).
 
 BLOCKED symbols: none (nothing has been mapped yet; all 175 checklist entries are `MISSING`, as they must be before Phase 4).
+
+## What Phase 2 did
+
+- Read the engine again for the design, with six research helpers (accent layer, synthesiser, front-end and pack generator, native modules, wrapper, and the web), and checked by hand the findings the design leans on. The findings are in `DESIGN.md` ("The facts this design rests on"); those that correct earlier documents are in `DECISIONS.md` D30 and `ARCHITECTURE_MAP.md` 13.
+- **`DESIGN.md`**: scope tiers and the coverage metric; the sound model (features, composition, fallback with a warning); the master table's format; capability gaps; the USP in this design; the pack format (TOML) and inheritance; voice against language; G2P; prosody and timing; verification; migration; keep, extend or replace for every component, and what must not change; risks and changes proposed to the phase plan.
+- **`design/TRACEABILITY.md`** (written by `design/build_traceability.py`): a decision for every one of the 175 checklist entries. 109 as-is, 50 composition, 16 new mechanism; meant to end 67 mapped, 53 composed, 55 created (by rule, a letter is `created` when none of the seven IBM modules the checklist read has it as a phone of its own). Plans, not results.
+- The direction, in one line: **extend, do not rewrite.** The synthesiser and the modules stay; one engine-neutral table of sounds with provenance replaces the scattered tables; an adapter turns it into what this engine reads; two defects are fixed first; twelve capabilities are to be built (four foundations, five mechanisms, three only if a measurement fails without them); the module files in `languages/` are rebuilt only at stated points, after proof, with the human's say-so.
+- An independent review of the diff (R15) found the defect above, a gap in the migration plan (no place for rebuilding the template modules) and smaller things; the one re-review R15 allows found the defect described too narrowly (the breathy-release key does it too; 61 of the 87 German-template packs, not all) and a few loose ends. All fixed in the design (D33).
+- Decisions D22 to D35 in `DECISIONS.md`; the Phase 2 sources and licences in `REFERENCES.md`; Q8 to Q11 and a list for Phase 3 in `OPEN_QUESTIONS.md`; the register's rules in `CREATED_SOUNDS.md`.
+
+### Phase 2 commands and what they printed (2026-10-05)
+
+    python docs\tts-extension\design\build_traceability.py
+        entries 175 = 59 pulmonic + 11 non_pulmonic + 12 other_symbols + 28 vowels + 32 diacritics + 9 suprasegmentals + 24 tones
+        decision: {'as-is': 109, 'new mechanism': 16, 'composition': 50}
+        meant to end as: {'mapped': 67, 'created': 55, 'composed': 53}
+        needed by (to build): {'C5': 4, 'C6': 1, 'C7': 2, 'C8': 0, 'C9': 0, 'C10': 6, 'C11': 3, 'C12': 0}
+        needed only if a measurement fails: {'C5': 6, 'C6': 9, 'C7': 0, 'C8': 6, 'C9': 5, 'C10': 2, 'C11': 2, 'C12': 2}
+        orphans: 0; capabilities serving no symbol: 0; equivalent pairs decided alike: yes
+    head size, harness render of enus `[.1tat] (mid voiced frame, F1-F5; B1; nasal pole):
+        default (50): 750 1232 2440 3600 3900; 120; 200
+        `vh0:         937 1540 3050 4500 4875; 120; 200      (x 1.25)
+        `vh100:       562  924 1830 2700 2925; 120; 200      (x 0.75)
+    quoted phone names, evv_render dede preset 1, Annotations=1 (samples):
+        `[.1aEa] 8998    `[.1aE:a] 62051    `[.1a'E:'a] 9482    `[.1ta~t] 59609    `[.1t'a~'t] 9339
+    the packs (counted from languages/*/sounds.map):
+        145 files; accent line with f0=own: 145; f0= keys in sound lines: 196 in 145 packs
+        packs with the line "ː -": 145; with "ʲ -": 145
+    accent-layer strings (EVV_ACCENT_TRACE, {A v=1) in languages/*/openevv-*.dll:
+        present in 15 of 34: enus x64, and x64 + x86 of dedx engx enux esex esux frfx itix
+        absent in 19: enus x86, and x64 + x86 of dede engb eses esus frca frfr itit jajp plpl
+    speech-recognition error by speaking module (from harness/results/status.json; median, lowest to highest, how many at or under 0.15):
+        dedx n=61 0.46 0.18-1.63 0     esex n=12 0.20 0.06-1.22 4     itix n=11 0.17 0.08-0.56 5
+        frfx n=3 0.40 0.25-0.40 0      engx n=6 0.06 0.03-0.66 5      enux n=1 0.05     esux n=1 0.06
+        native: enus 0.01 engb 0.00 dede 0.03 eses 0.04 esus 0.03 itit 0.01 plpl 0.09 frfr 0.12 frca 0.14 jajp 0.15
+
+    the defect (harness renders of text, shipped modules, preset 1; frames with voicing amplitude above zero, per phone):
+        ru "кто."    k=s13[0/3]  t=s11[15/21]  o=s8[34/37]  #[12/92]        ro "pta."   p[0/3]  t[0/11]  a[41/41]  #[6/86]
+        ru "псы."    p=s12[0/3]  s[25/27]  y=s46[32/33]  #[12/92]            ro "taxa."  t[0/3] a[19/20] k[4/17] s[0/18] a[25/25] #[6/86]
+        ru "такса."  t=s11[0/4] a=s51[30/31] k=s13[5/18] s[11/17] a=s5[16/16] #[12/92]
+        final pause, voiced frames and level against the loudest 20 ms:
+        hi "आप." 92/92 -7.2 dB    ru "кот." 90/92 -6.6 dB    en-us-nyc "cat." 85/96 -7.5 dB
+        hi "आपा." 12/92 -21.3 dB  ru "кота." 12/92 -18.7 dB  ro "pot." 0/90 -53.6 dB  id "tidak." 0/90 -38.2 dB
+    the same with the product's evv_say.exe at default settings (last 300 ms against the loudest 20 ms):
+        hi "आप." -7.1 dB   ru "кот." -6.4 dB   en-us-nyc "cat." -6.8 dB   hi "आपा.", ro "pot.", dede "Kot.": digital silence
+        (with this machine's own settings, PauseMode=2, the final pause is cut from the file)
+    the breathy-release key (hi; s70 has brth=90, s24 is plain d):
+        "दूधसा."  d=s70[28/28]  s[voiced 17/20, friction 3/20]        "दूदसा."  d=s24[28/28]  s[voiced 0/20, friction 20/20]
+        "दूध."    final pause voiced 17/83                            "दूद."    final pause voiced 0/83
+        friction left in the s of ru "псы.": 4/27 frames (ro "taxa.": 18/18)
+    sound definitions with a vot key: in 145 of 145 packs, 930 in all (dedx 542, esex 153, itix 130, esux 51, engx 21, enux 18, frfx 15)
+    sound definitions with a brth key: 196, in 145 of 145 packs
+    packs whose plain p, t and k all carry vot: dedx 61 of 87 (25 none, 1 two), enux 2 of 2, engx 1 of 9, esex 0 of 21, esux 0 of 7, itix 0 of 16, frfx 0 of 3
+    tone lines with the unapplied key av: cmn 4, cmn-latn-pinyin 4
+
+Not run in Phase 2: any build, the golden regression (nothing that it guards was touched), `openevv/test/matrix.sh`.
 
 ## What Phase 1 did
 
@@ -176,11 +236,13 @@ The engine is IBM's Embedded ViaVoice (Eloquence) rebuilt as C from its 1999 Win
 2. **Renders depend on history**: every case is spoken in a host of its own on purpose (D11). IPA and phoneme input give the product's frames but not its noise samples (D12).
 3. **The native modules other than enus do not know the accent layer's markup** (D13, `OPEN_QUESTIONS.md` Q6). Giving native languages new sounds through the accent layer would mean rebuilding them, which overwrites `languages/`.
 4. **Check B is thin**: vowel references exist for a handful of languages. Most of the "level 2" languages are there for lack of references, not because they failed anything.
-5. **No way in for IPA tone letters, or for the module phones named with `:` or `~`**, yet; Phase 3/4 territory.
+5. **No way in for IPA tone letters** yet (capability C2 of the design). The module phones named with `:` or `~` *can* be written, in single quotes (`'E:'`): Phase 2 measured it (D30); the harness does not do it yet.
 6. The DLLs built from source in Phase 0 (`%LOCALAPPDATA%\OpenEvvBuild-ttsext`) have still not been compared with the shipped ones; the golden is of the **shipped** DLLs in `languages/`. Compare by pointing a copy of `languages/` at the built DLLs and running `golden.py`.
 7. Another Claude session may share this working tree. Check `git log -3` and `git status -sb` before every commit, and commit by path.
 8. This project's scratch build folder is `%LOCALAPPDATA%\OpenEvvBuild-ttsext`; `build_x64` and `build_x86` in the repository are git-ignored. `build_x64` now also holds `evv_render.exe` (`cmake --build build_x64 --config Release`).
+9. **From Phase 2, for Phase 3.** Read `DESIGN.md` first: "A defect found on the way" and 4.4 (two defects to fix first), 4.3 (what to build, in order, each with its test), 11.1 (every change of behaviour is tied to a version line in the map; a listed defect's fix is the one exception and is shown and approved), 11.2 (the seven templates are first rebuilt from unchanged source and must give an identical golden; development happens in a staging data folder, never in `languages/`) and 13.2 (the proposed order). The key `f0` must stay inert in the present packs: a consonant's push on pitch gets a new key. Try `openevv/test/matrix.sh` under MSYS2 before the first change under `openevv/src`. `openevv/CLAUDE.md` binds every change there.
+10. The harness venv has no TOML reader; the design's pack and table format needs `tomli` (MIT) on Python 3.10. Nothing was installed in Phase 2.
 
 ## Open questions
 
-See `OPEN_QUESTIONS.md`. For the human: Q1 (the permissions file), Q5 (the Stop hook), Q6 (rebuilding native modules: Phase 2 decides), Q7 (ASR for the 46 languages Whisper lacks), and Q2 to Q4 from Phase 0.
+See `OPEN_QUESTIONS.md`. For the human: Q1 (the permissions file), Q5 (the Stop hook), Q7 (ASR for the 46 languages Whisper lacks), Q8 (the 32-bit US English module is older than the 64-bit one), Q9 (natural recordings to judge the recogniser by), Q10 and Q2 (pushing to GitHub), Q3 and Q4 from Phase 0. Answered in Phase 2: Q6 (module files may be rebuilt and replaced when proven) and Q11 (the defect is fixed first thing in Phase 3).
