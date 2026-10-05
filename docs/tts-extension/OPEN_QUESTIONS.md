@@ -71,3 +71,36 @@ What it does, in plain English: lets the build, test, speak-to-WAV and inventory
 ## For native speakers and experts (none needed yet)
 
 Nothing can be validated by ear until Phase 7 produces review packets. Languages will be queued here as their sounds are marked `approximate`.
+
+## Added in Phase 1 (2026-10-05)
+
+**Q5. A Stop hook, so that a Claude turn cannot end while the harness's smoke check fails (playbook Phase 1, step 8).** The script is `harness/stop_hook.py`. In plain English: when Claude is about to finish a turn, it looks at whether anything under `openevv/`, `languages/`, `engine/`, `frontend/` or `dist/espeak-ng-data/` has uncommitted changes. If nothing there changed (almost always), it does nothing. If something did, it runs the one-minute smoke check, and if that fails, Claude is told why and keeps working instead of stopping. It never blocks twice in a row, so it cannot loop. Claude may not change its own settings, so if you want it, add this to `.claude/settings.json` (create the file if Q1's content is not there yet; merge the `hooks` key into it if it is). *Recommended default: add it before Phase 3, the first phase that changes the engine; it costs nothing until then.*
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/docs/tts-extension/harness/stop_hook.py\"",
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+(Checked against https://code.claude.com/docs/en/hooks.md on 2026-10-05: a Stop hook blocks with exit code 2 and its stderr; `stop_hook_active` is true on a forced continuation; commands run in bash on Windows.)
+
+**Q6. Should the shipped native modules be rebuilt with the accent layer's text filter?** Nine of the ten native modules (all but US English) speak the accent markup aloud instead of reading it (`DECISIONS.md` D13). It does not affect users today: the product never sends markup to a native module. It matters for Phase 2/3 if native languages are to get accents or new sounds the way the eSpeak NG packs do. Rebuilding overwrites the DLLs in `languages/`, which needs your say-so. *Recommended default: decide in Phase 2's design; nothing is rebuilt now.*
+
+**Q7. ASR for the 46 languages Whisper does not know.** Meta's Omnilingual ASR (Apache 2.0, 1,600+ languages) would cover about 30 of them but needs WSL2 (Linux on Windows) and a model download of a few GB. Meta MMS is non-commercial (CC BY-NC) and is not proposed. *Recommended default: leave them "ASR unavailable" until Phase 7 (the native-validation pipeline), then decide.*
+
+## For Phase 2 (found by measuring in Phase 1)
+
+- Quechua (`qu`): in the golden case `s|t\``, the engine meant a final vowel `a` and gave it 11 frames with neither voicing nor noise (silent). Check whether the map or the template devoices it deliberately.
+- English-based packs read by eSpeak NG (en-029, en-gb-x-rp and others): the diphthong cases `e@`, `i@`, `i@3` begin with a `t` whose whole span is closure; harmless, but a sign that the module merges the burst into the vowel.

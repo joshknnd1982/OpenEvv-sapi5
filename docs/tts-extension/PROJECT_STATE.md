@@ -4,9 +4,39 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 0 (Orientation and safety net): complete, 2026-10-05.** Next: **Phase 1, Headless rendering and measurement harness** (Opus 5.5, effort high, permission Auto), on a new branch `tts-ext/phase-1` made from `tts-ext/phase-0`.
+**Phase 1 (Headless rendering and measurement harness): complete, 2026-10-05**, on branch `tts-ext/phase-1` (made from `tts-ext/phase-0`). Next: **Phase 2, Architecture design (human approves)**: Fable 5.1, effort xhigh, permission Accept edits, on a new branch `tts-ext/phase-2` made from `tts-ext/phase-1`. Phase 2 must stop if it is not on Fable 5.1 at xhigh.
+
+Phase 0 complete, 2026-10-05 (commit `53a830d`).
 
 BLOCKED symbols: none (nothing has been mapped yet; all 175 checklist entries are `MISSING`, as they must be before Phase 4).
+
+## What Phase 1 did
+
+A harness that replaces listening with measurement, in `docs/tts-extension/harness/` (its `README.md` has every command). Nothing in the engine, the product or the language data changed; nothing was deleted or pushed.
+
+- **Render** (`engine.py` + `src/tools/evv_render.cpp`, a new tool): text, IPA, eSpeak NG phoneme names, a module's own annotation or the front-end's output in; a WAV plus JSON of every frame the synthesiser received and every phone the engine meant out. Optional `sounds.map` overrides. Each case in a host of its own; the engine's existing logs, no new hook. `evv_render`'s audio is byte-identical to `evv_say`'s (enus, hi).
+- **Analyse** (`analysis.py`, numpy/scipy, MIT): formants (Burg LPC) and trajectories, F0 and tone contours, intensity, fricative moments and band edges, stop closure/burst/VOT, nasal antiformant and murmur, F3 minimum; and what the frames requested per phone.
+- **Self-tests** (`selftest.py`): 70 of 70 pass: the analyser on synthetic signals with known answers, and every engine fact the harness relies on. Praat agrees on 24 of 24 comparisons (`praat_crosscheck.py`, the only GPL file).
+- **Reference store** (`reference/ranges.json`, `reference.py`): 956 cited values from 14 opened sources (US English, German, Spanish, Portuguese, French, Dutch, Australian English vowels; VOT; English fricatives; nasals; /ɹ/; Mandarin tones). Values not found are absent.
+- **ASR round trip** (`asr.py`): Whisper large-v3 on the GPU; sentences from Common Voice (CC0) and Tatoeba (CC BY 2.0 FR), 142 languages. 105 scored, 50 unavailable (reasons recorded).
+- **Golden regression** (`golden.py`, `golden/*.json.gz`): every phoneme of every language, 13,766 cases, metrics not audio; fails loudly on drift (proven by a planted change).
+- **Report** (`report.py`): `LANGUAGE_STATUS.md` baseline for all 155 languages and `reports/index.html` (tables, spectrograms with requested vs measured formants, vowel charts against references).
+- **Smoke check** (`smoke.py`, 5 s with facts cached) and a Stop hook script (`stop_hook.py`), not installed: `OPEN_QUESTIONS.md` Q5.
+- Decisions D9 to D19 in `DECISIONS.md`; Phase 1 sources and licences in `REFERENCES.md`; Q5 to Q7 and two measured findings in `OPEN_QUESTIONS.md`.
+
+## Phase 1 results in numbers (preset 1, 64-bit, 11025 Hz)
+
+| | |
+|---|---|
+| Level 1 draft | 1 (qu: a vowel the engine meant, made silent) |
+| Level 2 engine-verified | 149 |
+| Level 4 intelligibility-verified | 5 (enus, engb, en-us-nyc, pt, pt-br) |
+| Check A (engine fidelity) | 154 of 155 pass |
+| Check B (reference ranges) | 14 languages have references: 5 pass, 9 fail; 141 have none |
+| ASR | 105 scored (median CER 0.33; 25 at or under 0.15), 50 unavailable |
+| Golden | 155 packs, 13,766 cases, recorded and re-run: 0 failed, every frame identical |
+
+Findings (measured, not fixed): nine native modules speak the accent markup instead of reading it (D13); the host's 1.5 s grace sometimes kills a host before it flushes its logs (D14); IPA tone letters and phones named with `:`/`~` cannot be given to the engine directly yet (harness README, "Known limits").
 
 ## What Phase 0 did
 
@@ -36,6 +66,11 @@ BLOCKED symbols: none (nothing has been mapped yet; all 175 checklist entries ar
 "already" = an IBM module has the sound as a phone of its own; "partly" = said as another phone, reshaped or not, or a mechanism that covers some cases; see `DECISIONS.md` D5. Of the 477 acoustic correlates recorded, 348 come from a source a helper opened and 129 are from memory and tagged `recalled-unverified`.
 
 ## Environment
+
+- Harness Python: venv at `%USERPROFILE%\OpenEvvBuild-ttsextenv` (Python 3.10.11; numpy 2.2.6, scipy 1.15.3, matplotlib 3.10.9, jiwer 4.0.0, soundfile 0.14.0, praat-parselmouth 0.4.7, faster-whisper 1.2.1, ctranslate2 4.8.2, nvidia-cublas-cu12 12.8.4.1). Not under `%LOCALAPPDATA%`: a folder the Claude app creates there is redirected into `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\` (a first venv landed there; it is unused).
+- Whisper model: `%USERPROFILE%\OpenEvvBuild-ttsext\modelsaster-whisper-large-v3` (3.09 GB).
+- Hardware: AMD Ryzen 7 260 (8 cores, 16 threads), 31.3 GB RAM, NVIDIA GeForce RTX 5060 Laptop GPU (8 GB, compute capability 12.0, driver 572.97). Whisper runs on it in float16.
+- Harness scratch: `%TEMP%\OpenEvvTests\harness` (outside OneDrive).
 
 - Windows 11 Home 10.0.26300, 64-bit. Repository at `C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5` (inside a OneDrive folder: tests write outside the tree for that reason).
 - Visual Studio 2022 Build Tools 17.14 (MSVC x86 + x64), CMake, Python 3.10 64-bit, MSYS2 at `C:\msys64` (make, python3, both mingw-w64 GCCs), Inno Setup 6. Ninja and bash are not on PATH.
@@ -95,20 +130,48 @@ Inventories:
 
 Not run: `build_all.bat`, `engine\build_modules.cmd`, the front-end build, the installer, openevv's `test/matrix.sh` (see `DECISIONS.md` D2 and `OPEN_QUESTIONS.md`).
 
+### Phase 1 (2026-10-05), venv python, `PYTHONUTF8=1`, from the repository root
+
+    cmake --build build_x64 --config Release --target evv_render
+        evv_render.vcxproj -> ...uild_x64in\Release\evv_render.exe
+    evv_render vs evv_say, first case, SHA-256 of the WAV:
+        say_en.wav 241135d6327dad97  en/a.wav 241135d6327dad97   say_hi.wav 9f2b8cdce8bcaee5  hi/a.wav 9f2b8cdce8bcaee5
+    python docs/tts-extension/harness/selftest.py
+        == 70 checks, 70 passed, 0 failed          exit 0
+    python docs/tts-extension/harness/praat_crosscheck.py
+        == 24 compared, 24 agree within 5 % (F1 60 Hz), 0 differ
+    python docs/tts-extension/harness/golden.py --record
+        recorded 155 packs in 562 s; 0 not recorded   (then enus engb dede eses esus frfr frca itit jajp plpl again
+        with the vowel frame of D17: recorded 10 packs, 0 not recorded; frca plpl jajp once more for their classes)
+    python docs/tts-extension/harness/golden.py
+        golden: 155 packs, 13766 cases, 0 FAILED, 0 changed within tolerance, 632 s     exit 0
+    python docs/tts-extension/harness/golden.py enus engb dede eses esus frfr frca itit jajp plpl   (after the last re-record)
+        golden: 10 packs, 416 cases, 0 FAILED, 0 changed within tolerance, 18 s
+    python docs/tts-extension/harness/smoke.py
+        selftest --quick: exit 0 (58 checks, 58 passed); golden --smoke: 6 packs, 28 cases, 0 FAILED; smoke: passed in 5 s
+    python docs/tts-extension/harness/asr.py     (then asr.py sr, after the Serbian transliteration)
+        asr: 155 languages, 105 scored, 50 unavailable
+    python docs/tts-extension/harness/report.py
+        levels: 1 draft: 1, 2 engine-verified: 149, 4 intelligibility-verified: 5
+        check A pass: 154 of 155
+        check B: pass 5, fail 9, no reference 141
+        failure layers: {'unknown': 72, 'stress-or-tone': 8, 'phoneme values': 10}
+
 ## Licence and origin of the engine (R4: flagged, not blocking)
 
 The engine is IBM's Embedded ViaVoice (Eloquence) rebuilt as C from its 1999 Windows objects, that is, reverse-engineered. Its authors' code is MIT. **The language data in every module is IBM's and is licensed to no one here**; who holds those rights today is in litigation (Cerence v. Microsoft and Nuance, D. Del. 1:25-cv-00553). eSpeak NG and everything derived from its phoneme tables (the front-end, its data, the packs' maps) are GPL v3 or later. The wrapper is MIT. `NOTICE.md` is the authoritative statement. For this project: new sound definitions should live in files of our own; nothing GPL or ShareAlike may be pasted into MIT files.
 
 ## Things the next phase must know
 
-1. **There is no way to hand the product an IPA string today** (`ARCHITECTURE_MAP.md` section 4). The harness needs its own path in: the front-end's `--phonemes` option (eSpeak NG phoneme names, command line only), engine annotations through `evv_say` with `Annotations=1` in a settings file named by `OPENEVV_SETTINGS`, or the modules' `evv-<tag>.exe -A`.
-2. **Every frame the synthesiser receives can be logged** with `EVV_KLATT_TAP=file` (62 integers a frame, after the accent layer), and what each phone was meant to be with `EVV_ACCENT_TRACE=file`. That is "check A" (did the engine realize the requested parameters) almost for free.
-3. `evv_say` reads the user's real settings unless `OPENEVV_SETTINGS` and `OPENEVV_DATA` point elsewhere; a harness must set both, as `sapi_test` does.
-4. The engine's second utterance on one instance differs from its first, by design. Render each regression case with the same history.
-5. The DLLs built from source today differ in bytes from the ones in `languages/`. Compare their audio before trusting either as the golden reference.
-6. Another Claude session may share this working tree (the maintainer releases from it). Check `git log -3` and `git status -sb` before every commit, and commit by path.
-7. This project's scratch build folder is `%LOCALAPPDATA%\OpenEvvBuild-ttsext`; `build_x64` and `build_x86` in the repository are git-ignored.
+1. **Measure with the harness, not by ear.** One render: `python docs/tts-extension/harness/engine.py <tag> ipa "<IPA>" out.wav` (venv python, `PYTHONUTF8=1`, from the repository root). Before committing anything that touches synthesis or data: `golden.py` (about 10 minutes, must say `0 FAILED`); after any such edit: `smoke.py`. An intended change: `golden.py --record <tags>` and a line in DECISIONS.md.
+2. **Renders depend on history**: every case is spoken in a host of its own on purpose (D11). IPA and phoneme input give the product's frames but not its noise samples (D12).
+3. **The native modules other than enus do not know the accent layer's markup** (D13, `OPEN_QUESTIONS.md` Q6). Giving native languages new sounds through the accent layer would mean rebuilding them, which overwrites `languages/`.
+4. **Check B is thin**: references exist for a handful of languages. Most of the "level 2" languages are there for lack of references, not because they failed anything.
+5. **No way in for IPA tone letters, or for the module phones named with `:` or `~`**, yet; Phase 3/4 territory.
+6. The DLLs built from source in Phase 0 (`%LOCALAPPDATA%\OpenEvvBuild-ttsext`) have still not been compared with the shipped ones; the golden is of the **shipped** DLLs in `languages/`. Compare by pointing a copy of `languages/` at the built DLLs and running `golden.py`.
+7. Another Claude session may share this working tree. Check `git log -3` and `git status -sb` before every commit, and commit by path.
+8. This project's scratch build folder is `%LOCALAPPDATA%\OpenEvvBuild-ttsext`; `build_x64` and `build_x86` in the repository are git-ignored. `build_x64` now also holds `evv_render.exe` (`cmake --build build_x64 --config Release`).
 
 ## Open questions
 
-See `OPEN_QUESTIONS.md`. One needs the human: Q1 (the permissions file).
+See `OPEN_QUESTIONS.md`. For the human: Q1 (the permissions file), Q5 (the Stop hook), Q6 (rebuilding native modules: Phase 2 decides), Q7 (ASR for the 46 languages Whisper lacks), and Q2 to Q4 from Phase 0.
