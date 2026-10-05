@@ -4,7 +4,15 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 2 (Architecture design): the design is written and is WAITING FOR THE HUMAN'S APPROVAL (the stop gate), 2026-10-05**, on branch `tts-ext/phase-2` (made from `tts-ext/phase-1`). Session: Fable 5.1 at effort xhigh, as the phase requires. `DESIGN.md` covers all 13 items; an independent review was made and its real findings fixed (`DECISIONS.md` D33); the five questions were asked and answered (`DESIGN.md` 14, `DECISIONS.md` D34). **Nothing of Phase 3 may start until the human replies "APPROVED"**; the approval is then recorded in `DESIGN.md` 15, `DECISIONS.md` D35 and here, and the pause protocol is run. Phase 2 implemented nothing: no engine, product or language file changed.
+**Phase 2 (Architecture design): complete, and the design APPROVED by the human, 2026-10-05**, on branch `tts-ext/phase-2` (made from `tts-ext/phase-1`). Session: Fable 5.1 at effort xhigh, as the phase requires. `DESIGN.md` covers all 13 items; an independent review and the one re-review were made and their real findings fixed (`DECISIONS.md` D33); the five questions were asked and answered (`DESIGN.md` 14, D34); the human replied "APPROVED" and asked for no change (`DESIGN.md` 15, D35). Phase 2 implemented nothing: no engine, product or language file changed.
+
+Next: **Phase 3, Engine capability extensions**: Opus 5.5, effort high, permission Auto, on a new branch `tts-ext/phase-3` made from `tts-ext/phase-2`. **The approved design changes the order of work** (`DESIGN.md` 13.2, D35), and the Phase 3 session must follow it where it differs from the playbook's own Phase 3 text:
+
+1. *Part 3A, first.* (a) Rebuild the seven template modules from unchanged source into the scratch folder and prove the whole golden regression identical on them (`DESIGN.md` 11.2); if it is not identical, report and settle that before anything else. (b) Try `openevv/test/matrix.sh` under MSYS2. (c) Fix defect X-1, then X-2 (`DESIGN.md` 4.4), in staged modules, with the new check A3 and the word-final and cluster golden cases; show the human what moved. (d) Build C1 to C4 and the new harness measures. (e) Run the template comparison, with the defect fixed, and choose the reference template.
+2. Pause at the end of 3A and say so. By the approved plan Phase 4 then starts with the 159 symbols that need no new mechanism.
+3. *Part 3B:* C5, C6, C7, C10, C11, each with its test, each followed by the symbols that need it. C8, C9 and C12 only if their written trigger fires.
+
+Development never writes into `languages/`: rebuilt modules are staged in the data folder the product reads first, and files in `languages/` are replaced only at a stated point, after proof, with the differences shown to the human first (answer 4).
 
 **A defect in the released product was found in this phase and is NOT fixed** (the phase builds nothing): in the 145 languages read by eSpeak NG, a voiceless consonant or a pause that follows a stop with a voice-onset or breathy-release setting is given voice by mistake. `DESIGN.md` ("A defect found on the way", and 4.4 X-1), `DECISIONS.md` D33, `OPEN_QUESTIONS.md` Q11. Every Phase 1 measurement of those languages was taken with it present. **The human decided: it is fixed first thing in Phase 3.**
 

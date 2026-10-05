@@ -57,7 +57,7 @@ Not changed: the failure layers `G2P` and `duration-or-coarticulation` are not a
 
 ## 2026-10-05 (Phase 2: the design)
 
-These are the decisions of `DESIGN.md`. **They are proposals until the human approves the design** (D35).
+These are the decisions of `DESIGN.md`. **The human approved the design on 2026-10-05** (D35).
 
 **D22. Extend the engine; do not rewrite it.** The synthesiser core (`openevv/src/klatt`) is kept exactly as it is. An independent rewrite cannot give today's samples (about 1,490 lines of integer signal code with fifteen behaviours no textbook describes, two tables with no known formula, a gate that compares SHA-256 of samples), and what it would buy either fits behind a switch in the present one or is not needed for the chart. The modules' rules are kept too: 183,000 to 393,000 lines a module, and Phase 1 shows they work very well where they fit. New ability goes into the accent layer and the front-end, which are ours. No core synthesis component is proposed for replacement. `DESIGN.md` 12.
 
@@ -103,3 +103,5 @@ These are the decisions of `DESIGN.md`. **They are proposals until the human app
 4. *Module files in `languages/`:* **Yes, when proven.** Work happens in a scratch folder; files in `languages/` are replaced only at a stated point, after the measurements pass, and each time the differences are shown to the human first; the seven template modules now, the ten native ones later when accents for them are wanted. This answers `OPEN_QUESTIONS.md` Q6. It is a standing permission on those terms, not a permission to replace anything unseen.
 5. *The defect (X-1):* **fixed first thing in Phase 3**, with the proofs the design asks for, and released with the next release the human chooses to make. This answers Q11.
 Decided by default and not asked: IPA through SAPI is a later addition.
+
+**D35. The design is approved.** The human replied "APPROVED" on 2026-10-05 and asked for no change. D22 to D34 are therefore decisions and no longer proposals. The approval accepts the two changes to the phase plan of `DESIGN.md` 13.2: Phase 3 is split into 3A (the module baseline, the two defect fixes, C1 to C4, the new harness measures, the trial of the engine's own gate, then the template comparison) and 3B (C5, C6, C7, C10, C11); and Phase 4 starts after 3A with the 159 symbols that need no new mechanism, each mechanism of 3B being followed by the symbols that need it. It does not cover replacing any file in `languages/` unseen, any release or push, or the later proposals the design names as decisions of their own.

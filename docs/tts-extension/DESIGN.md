@@ -2,7 +2,7 @@
 
 Written 2026-10-05 on branch `tts-ext/phase-2`. **No implementation: this file decides, it builds nothing.** It rests on `ARCHITECTURE_MAP.md`, `inventory/IPA_CHECKLIST.json`, the Phase 1 results (`LANGUAGE_STATUS.md`, `harness/results/`) and a fresh reading of the code in this phase. The per-symbol table that belongs to section 4 is `design/TRACEABILITY.md`.
 
-**Status: the five questions are answered (section 14); awaiting the human's approval** (section 15). Nothing in Phase 3 starts before that.
+**Status: APPROVED by the human on 2026-10-05** (section 15), with the five answers of section 14.
 
 ## Summary for the human
 
@@ -19,7 +19,7 @@ In plain words, this is what is proposed.
 9. **Old and new live side by side.** Each existing language keeps its present sound until the new route is shown to be at least as good for it, language by language, with every difference shown to you.
 10. **A defect in the released product was found on the way** and is not fixed here, because this phase builds nothing: in the 145 languages read by eSpeak NG, a voiceless sound or a pause that follows certain stops is given voice by mistake. It is described under "A defect found on the way" below. You decided it is fixed first thing in Phase 3 (question 5).
 
-What I need from you: the word **APPROVED**, or the changes you want. (The five questions of section 14 are answered.)
+Approved on 2026-10-05; the five questions of section 14 are answered.
 
 What is **not** proposed: no replacement of the synthesiser, no change to the SAPI interface, no change to the ten native languages. New abilities live inside the module files in `languages/`, so shipping them means rebuilding those files; that is done only at stated points, after proof, and each time with your say-so (question 4).
 
@@ -807,4 +807,6 @@ What the answers settle in the design:
 
 ## 15. Approval
 
-*(pending)* This design is not approved until the human replies **APPROVED**. The approval, or the changes asked for, will be recorded here, in `DECISIONS.md` and in `PROJECT_STATE.md`.
+**APPROVED.** The human replied "APPROVED" on 2026-10-05, after answering the five questions of section 14 and after being shown the defect, what the two reviews changed, what rests on helpers' reading only, and that approving accepts the changes to the phase plan in section 13.2. No change was asked for. Recorded in `DECISIONS.md` D35 and `PROJECT_STATE.md`.
+
+What the approval covers: the direction (extend, do not rewrite; no core synthesis component replaced); the master table, the adapter and composition; the twelve capabilities in their order and the two defects fixed first; TOML packs with inheritance; the verification rules; the migration stages; what must not change; the split of Phase 3 and the earlier start of Phase 4. What it does not cover: any replacement of files in `languages/` (each is shown first, answer 4), any release, any push, and any later proposal named in the design as a decision of its own (a frame generator of our own, L4, L5, L6, Tier B).
