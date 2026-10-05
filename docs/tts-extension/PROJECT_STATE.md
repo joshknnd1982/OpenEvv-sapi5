@@ -16,25 +16,26 @@ A harness that replaces listening with measurement, in `docs/tts-extension/harne
 
 - **Render** (`engine.py` + `src/tools/evv_render.cpp`, a new tool): text, IPA, eSpeak NG phoneme names, a module's own annotation or the front-end's output in; a WAV plus JSON of every frame the synthesiser received and every phone the engine meant out. Optional `sounds.map` overrides. Each case in a host of its own; the engine's existing logs, no new hook. `evv_render`'s audio is byte-identical to `evv_say`'s (enus, hi).
 - **Analyse** (`analysis.py`, numpy/scipy, MIT): formants (Burg LPC) and trajectories, F0 and tone contours, intensity, fricative moments and band edges, stop closure/burst/VOT, nasal antiformant and murmur, F3 minimum; and what the frames requested per phone.
-- **Self-tests** (`selftest.py`): 70 of 70 pass: the analyser on synthetic signals with known answers, and every engine fact the harness relies on. Praat agrees on 24 of 24 comparisons (`praat_crosscheck.py`, the only GPL file).
-- **Reference store** (`reference/ranges.json`, `reference.py`): 956 cited values from 14 opened sources (US English, German, Spanish, Portuguese, French, Dutch, Australian English vowels; VOT; English fricatives; nasals; /ɹ/; Mandarin tones). Values not found are absent.
+- **Self-tests** (`selftest.py`): 72 of 72 pass: the analyser on synthetic signals with known answers, and every engine fact the harness relies on. Praat agrees on 24 of 24 comparisons (`praat_crosscheck.py`, the only GPL file).
+- **Reference store** (`reference/ranges.json`, `reference.py`): 956 cited values from 14 opened sources (US English, German, Spanish, Portuguese, French, Dutch, Australian English vowels; VOT; English fricatives; nasals; /ɹ/; Mandarin tones). Values not found are absent. Check B uses the vowel formants, the fricative and nasal values and /ɹ/'s F3; it cannot use the VOT values (means without a spread, so no range) or the tone values (no tone cases until Phase 4).
 - **ASR round trip** (`asr.py`): Whisper large-v3 on the GPU; sentences from Common Voice (CC0) and Tatoeba (CC BY 2.0 FR), 142 languages. 105 scored, 50 unavailable (reasons recorded).
-- **Golden regression** (`golden.py`, `golden/*.json.gz`): every phoneme of every language, 13,766 cases, metrics not audio; fails loudly on drift (proven by a planted change).
+- **Golden regression** (`golden.py`, `golden/*.json.gz`): every phoneme every pack maps (borrowed ones too) and every native phone, 16,472 cases, metrics and hashes, not audio; fails loudly on drift, in the frames or in the sound (proven by a planted change); 15 entries it cannot render are listed, not dropped.
 - **Report** (`report.py`): `LANGUAGE_STATUS.md` baseline for all 155 languages and `reports/index.html` (tables, spectrograms with requested vs measured formants, vowel charts against references).
-- **Smoke check** (`smoke.py`, 5 s with facts cached) and a Stop hook script (`stop_hook.py`), not installed: `OPEN_QUESTIONS.md` Q5.
-- Decisions D9 to D19 in `DECISIONS.md`; Phase 1 sources and licences in `REFERENCES.md`; Q5 to Q7 and two measured findings in `OPEN_QUESTIONS.md`.
+- **Smoke check** (`smoke.py`, 6 s with facts cached) and a Stop hook script (`stop_hook.py`), not installed: `OPEN_QUESTIONS.md` Q5.
+- An independent review of the diff (R15) found nine problems; the real ones were fixed (D20), among them a VOT measurement bug and a golden that could not see synthesiser changes.
+- Decisions D9 to D20 in `DECISIONS.md`; Phase 1 sources and licences in `REFERENCES.md`; Q5 to Q7 and two measured findings in `OPEN_QUESTIONS.md`.
 
 ## Phase 1 results in numbers (preset 1, 64-bit, 11025 Hz)
 
 | | |
 |---|---|
 | Level 1 draft | 1 (qu: a vowel the engine meant, made silent) |
-| Level 2 engine-verified | 149 |
-| Level 4 intelligibility-verified | 5 (enus, engb, en-us-nyc, pt, pt-br) |
-| Check A (engine fidelity) | 154 of 155 pass |
-| Check B (reference ranges) | 14 languages have references: 5 pass, 9 fail; 141 have none |
+| Level 2 engine-verified | 150 |
+| Level 4 intelligibility-verified | 4 (enus, en-us-nyc, pt, pt-br) |
+| Check A (engine fidelity) | 154 of 155 pass; no substitution anywhere (A0) |
+| Check B (reference ranges) | 14 languages have enough references: 4 pass, 10 fail; 137 too few (nasals only), 4 none |
 | ASR | 105 scored (median CER 0.33; 25 at or under 0.15), 50 unavailable |
-| Golden | 155 packs, 13,766 cases, recorded and re-run: 0 failed, every frame identical |
+| Golden | 155 packs, 16,472 cases, recorded and re-run: 0 failed, every frame and every sound identical |
 
 Findings (measured, not fixed): nine native modules speak the accent markup instead of reading it (D13); the host's 1.5 s grace sometimes kills a host before it flushes its logs (D14); IPA tone letters and phones named with `:`/`~` cannot be given to the engine directly yet (harness README, "Known limits").
 
@@ -67,8 +68,8 @@ Findings (measured, not fixed): nine native modules speak the accent markup inst
 
 ## Environment
 
-- Harness Python: venv at `%USERPROFILE%\OpenEvvBuild-ttsextenv` (Python 3.10.11; numpy 2.2.6, scipy 1.15.3, matplotlib 3.10.9, jiwer 4.0.0, soundfile 0.14.0, praat-parselmouth 0.4.7, faster-whisper 1.2.1, ctranslate2 4.8.2, nvidia-cublas-cu12 12.8.4.1). Not under `%LOCALAPPDATA%`: a folder the Claude app creates there is redirected into `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\` (a first venv landed there; it is unused).
-- Whisper model: `%USERPROFILE%\OpenEvvBuild-ttsext\modelsaster-whisper-large-v3` (3.09 GB).
+- Harness Python: venv at `%USERPROFILE%\OpenEvvBuild-ttsext\venv` (Python 3.10.11; numpy 2.2.6, scipy 1.15.3, matplotlib 3.10.9, jiwer 4.0.0, soundfile 0.14.0, praat-parselmouth 0.4.7, faster-whisper 1.2.1, ctranslate2 4.8.2, nvidia-cublas-cu12 12.8.4.1). Not under `%LOCALAPPDATA%`: a folder the Claude app creates there is redirected into `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\` (a first venv landed there; it is unused).
+- Whisper model: `%USERPROFILE%\OpenEvvBuild-ttsext\models\faster-whisper-large-v3` (3.09 GB).
 - Hardware: AMD Ryzen 7 260 (8 cores, 16 threads), 31.3 GB RAM, NVIDIA GeForce RTX 5060 Laptop GPU (8 GB, compute capability 12.0, driver 572.97). Whisper runs on it in float16.
 - Harness scratch: `%TEMP%\OpenEvvTests\harness` (outside OneDrive).
 
@@ -133,29 +134,32 @@ Not run: `build_all.bat`, `engine\build_modules.cmd`, the front-end build, the i
 ### Phase 1 (2026-10-05), venv python, `PYTHONUTF8=1`, from the repository root
 
     cmake --build build_x64 --config Release --target evv_render
-        evv_render.vcxproj -> ...uild_x64in\Release\evv_render.exe
+        evv_render.vcxproj -> ...\build_x64\bin\Release\evv_render.exe
     evv_render vs evv_say, first case, SHA-256 of the WAV:
         say_en.wav 241135d6327dad97  en/a.wav 241135d6327dad97   say_hi.wav 9f2b8cdce8bcaee5  hi/a.wav 9f2b8cdce8bcaee5
     python docs/tts-extension/harness/selftest.py
-        == 70 checks, 70 passed, 0 failed          exit 0
+        == 72 checks, 72 passed, 0 failed          exit 0   (after the review's fixes)
     python docs/tts-extension/harness/praat_crosscheck.py
         == 24 compared, 24 agree within 5 % (F1 60 Hz), 0 differ
     python docs/tts-extension/harness/golden.py --record
         recorded 155 packs in 562 s; 0 not recorded   (then enus engb dede eses esus frfr frca itit jajp plpl again
         with the vowel frame of D17: recorded 10 packs, 0 not recorded; frca plpl jajp once more for their classes)
     python docs/tts-extension/harness/golden.py
-        golden: 155 packs, 13766 cases, 0 FAILED, 0 changed within tolerance, 632 s     exit 0
+        golden: 155 packs, 13766 cases, 0 FAILED, 0 changed within tolerance, 632 s     exit 0   (before the review)
+    after the review's fixes (D20), golden.py --record, then golden.py:
+        recorded 155 packs in 795 s; 0 not recorded
+        golden: 155 packs, 16472 cases, 0 FAILED, 0 changed within tolerance, 882 s     exit 0
     python docs/tts-extension/harness/golden.py enus engb dede eses esus frfr frca itit jajp plpl   (after the last re-record)
         golden: 10 packs, 416 cases, 0 FAILED, 0 changed within tolerance, 18 s
     python docs/tts-extension/harness/smoke.py
-        selftest --quick: exit 0 (58 checks, 58 passed); golden --smoke: 6 packs, 28 cases, 0 FAILED; smoke: passed in 5 s
+        selftest --quick: exit 0 (60 checks, 60 passed); golden --smoke: 6 packs, 28 cases, 0 FAILED; smoke: passed in 6 s
     python docs/tts-extension/harness/asr.py     (then asr.py sr, after the Serbian transliteration)
         asr: 155 languages, 105 scored, 50 unavailable
     python docs/tts-extension/harness/report.py
-        levels: 1 draft: 1, 2 engine-verified: 149, 4 intelligibility-verified: 5
+        levels: 1 draft: 1, 2 engine-verified: 150, 4 intelligibility-verified: 4
         check A pass: 154 of 155
-        check B: pass 5, fail 9, no reference 141
-        failure layers: {'unknown': 72, 'stress-or-tone': 8, 'phoneme values': 10}
+        check B: pass 4, fail 10, too few references 137, no reference 4
+        failure layers: {'unknown': 72, 'stress-or-tone': 8, 'phoneme values': 11}
 
 ## Licence and origin of the engine (R4: flagged, not blocking)
 
@@ -166,7 +170,7 @@ The engine is IBM's Embedded ViaVoice (Eloquence) rebuilt as C from its 1999 Win
 1. **Measure with the harness, not by ear.** One render: `python docs/tts-extension/harness/engine.py <tag> ipa "<IPA>" out.wav` (venv python, `PYTHONUTF8=1`, from the repository root). Before committing anything that touches synthesis or data: `golden.py` (about 10 minutes, must say `0 FAILED`); after any such edit: `smoke.py`. An intended change: `golden.py --record <tags>` and a line in DECISIONS.md.
 2. **Renders depend on history**: every case is spoken in a host of its own on purpose (D11). IPA and phoneme input give the product's frames but not its noise samples (D12).
 3. **The native modules other than enus do not know the accent layer's markup** (D13, `OPEN_QUESTIONS.md` Q6). Giving native languages new sounds through the accent layer would mean rebuilding them, which overwrites `languages/`.
-4. **Check B is thin**: references exist for a handful of languages. Most of the "level 2" languages are there for lack of references, not because they failed anything.
+4. **Check B is thin**: vowel references exist for a handful of languages. Most of the "level 2" languages are there for lack of references, not because they failed anything.
 5. **No way in for IPA tone letters, or for the module phones named with `:` or `~`**, yet; Phase 3/4 territory.
 6. The DLLs built from source in Phase 0 (`%LOCALAPPDATA%\OpenEvvBuild-ttsext`) have still not been compared with the shipped ones; the golden is of the **shipped** DLLs in `languages/`. Compare by pointing a copy of `languages/` at the built DLLs and running `golden.py`.
 7. Another Claude session may share this working tree. Check `git log -3` and `git status -sb` before every commit, and commit by path.

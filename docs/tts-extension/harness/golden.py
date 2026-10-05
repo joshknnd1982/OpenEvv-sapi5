@@ -17,7 +17,9 @@ frames and of its sound, and the phone sequence. Metrics, not audio.
     python docs/tts-extension/harness/golden.py --smoke                a few phonemes of a few packs
 
 Drift: a case missing or new, a phone sequence changed, a requested value changed by more than
-REQ_TOL, or a measured value by more than MEAS_TOL. Frames identical to the golden's pass at once.
+REQ_TOL, or a measured value by more than MEAS_TOL. A case whose frames and sound are both
+byte-identical to the golden's passes at once; the sound is compared because the frames are
+logged before the synthesiser runs, and a change inside it would leave them as they were.
 An intended change is recorded again with --record and written down in DECISIONS.md (R8).
 """
 
@@ -48,26 +50,60 @@ MEAS_TOL = dict(hz=(0.02, 15.0), db=(0.0, 1.0), ms=(0.0, 3.0), other=(0.05, 0.0)
 SMOKE = {'enus': 6, 'dede': 4, 'hi': 6, 'cmn': 4, 'sw': 4, 'ar': 4}
 
 
-def espeak_cases(p):
+def table_chain(name):
+    """A phoneme table and every table it includes (eSpeak NG: `includes` is the parent's index + 1)."""
     import ipa
-    inv = ipa.espeak_inventory(p)
-    table = {ph['mnemonic']: ph for ph in ipa.dump()[ipa.voice_table(p)]['phonemes']}
-    cases, seen = [], set()
+    tables = ipa.dump()
+    by_index = {t['index']: t for t in tables.values()}
+    out = []
+    t = tables.get(name)
+    while t is not None and t['table'] not in out:
+        out.append(t['table'])
+        t = by_index.get(t['includes'] - 1) if t['includes'] else None
+    return out
+
+
+def espeak_cases(p):
+    """(cases, not covered). Every `@table:name` line of the pack's sounds.map that maps to something.
+
+    A phoneme of the voice's own table chain is said as it stands; one the pack borrows from
+    another table (ru `@en:A:`, for English words in Russian text) is said after eSpeak NG's
+    table switch, `_^_en`, exactly as the front-end meets it. Its case id is `kind|name|table`.
+    Anything that cannot be said is listed as not covered, with the reason, never dropped quietly.
+    """
+    import ipa
+    own = ipa.voice_table(p)
+    chain = set(table_chain(own))
+    tables = ipa.dump()
+    cases, seen, uncovered = [], set(), []
     with open(p.sounds_map, encoding='utf-8') as f:
         for line in f:
             w = line.split('#', 1)[0].split()
             if len(w) < 2 or not w[0].startswith('@') or w[1] == '-':
                 continue
-            name = w[0].split(':', 1)[1] if ':' in w[0] else ''
-            if not name or name in seen or name not in inv or name not in table:
+            tname, _, name = w[0][1:].partition(':')
+            if not name:
                 continue
-            kind = ESPEAK_TYPES.get(table[name]['type'])
+            src = own if tname in chain or not tname else tname
+            if (src, name) in seen:
+                continue
+            seen.add((src, name))
+            if src not in tables:
+                uncovered.append(dict(entry=w[0], reason='no eSpeak NG table %s' % src))
+                continue
+            phon = {ph['mnemonic']: ph for ph in tables[src]['phonemes']}
+            if name not in phon:
+                uncovered.append(dict(entry=w[0], reason='table %s has no phoneme %s' % (src, name)))
+                continue
+            kind = ESPEAK_TYPES.get(phon[name]['type'])
             if kind is None:
-                continue
-            seen.add(name)
-            said = "t'%sta" % name if kind == 'vowel' else "'a%sa" % name
-            cases.append(('%s|%s' % (kind[0], name), 'espeak', said))
-    return cases
+                continue          # stress marks, pauses and other non-segments: nothing to sound
+            body = "t'%sta" % name if kind == 'vowel' else "'a%sa" % name
+            if src == own:
+                cases.append(('%s|%s' % (kind[0], name), 'espeak', body))
+            else:
+                cases.append(('%s|%s|%s' % (kind[0], name, src), 'espeak', '_^_%s %s' % (src, body)))
+    return cases, uncovered
 
 
 # Phones whose names hold ':' or '~' cannot be written in an annotation: the module speaks the
@@ -101,8 +137,17 @@ def native_cases(p):
 
 
 def cases_for(tag):
+    """(cases, not covered) for a pack."""
     p = E.pack(tag)
-    return espeak_cases(p) if p.kind == 'espeak' else native_cases(p)
+    return espeak_cases(p) if p.kind == 'espeak' else (native_cases(p), native_uncovered(p))
+
+
+def native_uncovered(p):
+    path = os.path.join(E.ROOT, 'docs', 'tts-extension', 'inventory', 'languages.json')
+    with open(path, encoding='utf-8') as f:
+        q = {x['tag']: x for x in json.load(f)['packs']}[p.module_tag]
+    return [dict(entry=ph['name'], reason='cannot be written in an annotation; reached through TEXT_CASES words, unlabelled')
+            for ph in q['phonemes'] if ph['name'] and (':' in ph['name'] or '~' in ph['name'])]
 
 
 def _num(v):
@@ -133,7 +178,7 @@ def measure_case(r, phone_module):
 
 def run_pack(tag, limit=None, jobs=2):
     p = E.pack(tag)
-    cases = cases_for(tag)
+    cases, uncovered = cases_for(tag)
     if limit:
         cases = cases[:limit]
     out, errors = {}, {}
@@ -153,7 +198,7 @@ def run_pack(tag, limit=None, jobs=2):
         except Exception as e:     # a measurement bug must not pass for a clean run
             errors[r['id']] = 'measuring failed: %r' % e
     return dict(tag=tag, kind=p.kind, module=p.module_tag, phone_module=p.phone_module, preset=1, bits=64,
-                cases=out, errors=errors, seconds=round(time.time() - t0, 1))
+                cases=out, errors=errors, not_covered=uncovered, seconds=round(time.time() - t0, 1))
 
 
 def _close(a, b, key):
@@ -184,7 +229,9 @@ def compare(gold, now):
         if n is None:
             out.append((cid, 'FAIL', 'missing case (in the golden, not rendered now)'))
             continue
-        if g['frames_sha256'] == n['frames_sha256']:
+        # The frames are logged before the synthesiser runs, so the sound is compared too: a change
+        # in the synthesiser itself (resonators, sources, noise) leaves the frames as they were.
+        if g['frames_sha256'] == n['frames_sha256'] and g['wav_sha256'] == n['wav_sha256']:
             continue
         gs, ns = [p['name'] for p in g['phones']], [p['name'] for p in n['phones']]
         if gs != ns:
@@ -201,10 +248,12 @@ def compare(gold, now):
                 nv = (np_.get('meas') or {}).get(k)
                 if not _close(nv, gv, k):
                     msgs.append('%s measured %s %s -> %s' % (gp['name'], k, gv, nv))
+        what = 'frames' if g['frames_sha256'] != n['frames_sha256'] else 'sound (same frames)'
         if msgs:
-            out.append((cid, 'FAIL', '; '.join(msgs[:6]) + (' (+%d more)' % (len(msgs) - 6) if len(msgs) > 6 else '')))
+            out.append((cid, 'FAIL', '%s changed: ' % what + '; '.join(msgs[:6]) +
+                        (' (+%d more)' % (len(msgs) - 6) if len(msgs) > 6 else '')))
         else:
-            out.append((cid, 'note', 'frames changed, every value within tolerance'))
+            out.append((cid, 'note', '%s changed, every value within tolerance' % what))
     return out
 
 
@@ -252,7 +301,8 @@ def main():
                 tag = futs[f]
                 r = dict(tag=tag, kind=E.pack(tag).kind, cases={}, errors={'*': '%s: %s' % (type(e).__name__, e)}, seconds=0)
             results[r['tag']] = r
-            print('%-8s %3d cases %2d errors %6.1f s' % (r['tag'], len(r['cases']), len(r['errors']), r['seconds']), flush=True)
+            print('%-8s %3d cases %2d errors %2d not covered %6.1f s' % (r['tag'], len(r['cases']), len(r['errors']),
+                                                                    len(r.get('not_covered', [])), r['seconds']), flush=True)
     fails = notes = 0
     if a.record:
         os.makedirs(GOLDEN, exist_ok=True)

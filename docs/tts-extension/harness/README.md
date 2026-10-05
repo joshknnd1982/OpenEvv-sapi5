@@ -47,7 +47,7 @@ Examples:
 | `synth.py` | Synthetic signals with known answers, for the self-tests |
 | `selftest.py` | The harness's own proof |
 | `reference.py`, `reference/ranges.json` | The reference-range store (cited values only) and check B |
-| `golden.py`, `golden/<tag>.json` | The golden regression: metrics, not audio |
+| `golden.py`, `golden/<tag>.json.gz` | The golden regression: metrics and hashes, not audio; every phoneme a pack maps, borrowed ones through eSpeak NG's table switch; what cannot be rendered is listed per pack as `not_covered` |
 | `asr.py`, `asr/` | The ASR round trip; `asr/sentences.json` (CC0 / CC BY sentences), `asr/whisper_codes.json` |
 | `report.py`, `results/` | Status levels, failure layers, LANGUAGE_STATUS.md, `../reports/index.html` |
 | `smoke.py` | The one-minute check |
@@ -62,6 +62,7 @@ Examples:
 ## Known limits (written down, not hidden)
 
 - IPA tone letters (˥˦˧˨˩) are not converted yet; a pack's tones come from its text. IPA input for frca, jajp and plpl needs a phone-to-IPA table those modules lack; their annotation input works.
-- Module phones whose names hold `:` or `~` (German `E: a~ E~ o~ oe~`, French nasals) cannot be written in an annotation: the module speaks the annotation as text. The golden reaches them through words.
+- Module phones whose names hold `:` or `~` (German `E: a~ E~ o~ oe~`, French nasals) cannot be written in an annotation: the module speaks the annotation as text. The golden reaches them through words, and lists them as `not_covered`.
+- Check B cannot use the store's VOT values (means without a published spread) or its tone values (no tone cases until Phase 4).
 - Nine native modules (all but enus) do not know the accent layer's markup, so their phones are segmented by the array log's runs, labelled only when the input named the phones.
 - IPA, eSpeak-phoneme and override renders of a pack read by eSpeak NG go through `--annotated`: the product's frames (selftest.py proves it), but a different warm-up, so the noise generator's samples differ from the product's.

@@ -64,15 +64,21 @@ def noise_band(lo_hz, hi_hz, dur_ms=200.0, rate=RATE, seed=1):
     return 8000 * y / np.max(np.abs(y))
 
 
-def stop_cv(closure_ms=80.0, vot_ms=40.0, prevoiced_ms=0.0, rate=RATE, seed=2):
-    """Lead-in vowel, closure (silent, or voiced for its last prevoiced_ms), a 3 ms burst,
+def stop_cv(closure_ms=80.0, vot_ms=40.0, prevoiced_ms=0.0, carry_ms=0.0, rate=RATE, seed=2):
+    """Lead-in vowel, closure (silent, or voiced for its last prevoiced_ms, or with the vowel's
+    voicing dying away over its first carry_ms, as an engine's closure does), a 3 ms burst,
     aspiration noise for vot_ms, then a vowel. Returns the signal and the true times in ms."""
     rng = np.random.default_rng(seed)
     v = vowel([(700, 80), (1200, 90), (2600, 150)], dur_ms=150.0, rate=rate)
     clo = np.zeros(int(closure_ms * rate / 1000.0))
     if prevoiced_ms:
         n = int(prevoiced_ms * rate / 1000.0)
-        clo[-n:] = 0.03 * resonator(pulses(110.0, prevoiced_ms, rate), 250, 100, rate)[:n] * 20000 / 3
+        # a voice bar about 29 dB below the vowel (the engine's own, hi /b/, is 2-3 dB below)
+        clo[-n:] = 0.1 * resonator(pulses(110.0, prevoiced_ms, rate), 250, 100, rate)[:n] * 20000 / 3
+    if carry_ms:
+        n = int(carry_ms * rate / 1000.0)
+        decay = np.exp(-np.arange(n) / (n / 4.0))
+        clo[:n] = 0.3 * decay * resonator(pulses(110.0, carry_ms, rate), 300, 100, rate)[:n] * 20000 / 3
     burst = rng.standard_normal(int(0.003 * rate)) * 12000
     n_asp = int(vot_ms * rate / 1000.0)
     asp = (signal.sosfilt(signal.butter(4, [500 / (rate / 2.0), 4500 / (rate / 2.0)], 'band', output='sos'),

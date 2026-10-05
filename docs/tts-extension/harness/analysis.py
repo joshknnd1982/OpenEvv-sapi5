@@ -13,8 +13,10 @@ known, and praat_crosscheck.py can compare them with Praat:
     nasal_zero(x, rate, a, b)       the deepest spectral valley of a nasal murmur (antiformant)
     tone_contour(x, rate, a, b)     F0 at ten points, in Hz and in semitones
 
-and `phone_metrics` picks the ones that suit a phone's class. Add a metric by adding a function and
-naming it in METRICS; nothing else needs to change.
+and `phone_metrics` picks the ones that suit a phone's class. Add a metric by writing a function and
+calling it in `phone_metrics` for the classes it suits: every key it returns is stored by golden.py,
+compared on every run (tolerance chosen by the key's unit suffix, _hz, _db or _ms) and can be
+checked against references by naming it in reference.METRIC. Nothing else needs to change.
 """
 
 import math
@@ -270,8 +272,12 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
     closure: the quiet part (RMS 25 dB or more below the stretch's loudest 5 ms) before the burst.
     burst:   the first 1 ms hop after the closure whose energy above 1.5 kHz jumps 12 dB or more
              over the closure's.
-    voicing: the first moment, before or after the burst, from which F0 is found for 20 ms.
-    VOT = voicing onset - burst (negative when the closure is voiced: prevoicing).
+    voicing: prevoicing when a voice bar (energy below 400 Hz within 40 dB of the stretch's
+             loudest) runs unbroken for 10 ms or more into the burst: its start is the onset.
+             Otherwise the first moment after the burst from which F0 is found for 20 ms.
+             Voicing carried over from the vowel before, which dies away in the closure, is not
+             prevoicing (it made Hindi /p t k/ read -117 to -49 ms: the review of Phase 1).
+    VOT = voicing onset - burst (negative when prevoiced).
     """
     y = _seg(x, rate, a_ms, b_ms + after_ms)
     if len(y) < rate * 0.01:
@@ -301,10 +307,22 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
         while k >= 0 and quiet[k]:
             k -= 1
         closure_ms = (j - k) * hop_ms if j >= 0 else 0.0
+    lo = signal.sosfilt(signal.butter(4, 400.0 / (rate / 2.0), 'low', output='sos'), y)
+    e_lo = np.array([np.mean(lo[i * hop:(i + 1) * hop] ** 2) for i in range(n)]) + 1e-12
+    db_lo = 10 * np.log10(np.convolve(e_lo, np.ones(5) / 5, mode='same'))
+    bar = db_lo > db_lo.max() - 40
     onset = None
     t = 0.0
+    if burst is not None:
+        j = burst - 1
+        while j >= 0 and bar[j]:
+            j -= 1
+        if (burst - 1 - j) * hop_ms >= 10:
+            onset = (j + 1) * hop_ms           # prevoiced: the voice bar reaches the burst
+        else:
+            t = burst * hop_ms
     total = len(y) * 1000.0 / rate
-    while t < total - 20:
+    while onset is None and t < total - 20:
         if all(f0_at(y, rate, t + d, threshold=voicing) for d in (0.0, 5.0, 10.0, 15.0, 20.0)):
             onset = t
             break

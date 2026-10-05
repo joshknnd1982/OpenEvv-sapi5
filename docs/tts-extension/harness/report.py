@@ -10,15 +10,20 @@ store, and writes:
 Check A, engine fidelity. Evidence: the frames are the request (the engine is parametric, so what
 it asked the synthesiser for is ground truth), and the sound is measured to see that the
 synthesiser realised them.
+    A0 (trace)   every phone that sounded is the phone asked for, or a piece of it (an affricate
+                 sounded as its stop and its fricative).
     A1 (frames)  every phone the engine meant to sound has frames that sound: voicing or noise.
     A2 (signal)  in every vowel, F1 and F2 measured from the sound match the frames' (F1 within
                  8 % or three quarters of F0, F2 within 8 % or 60 Hz) and F0 the frames' mean over
                  the middle 40 ms within 5 % (not for a vowel starting in the first 20 ms).
     Stops (their closure is silent by nature) and unlabelled runs are not held to A1.
-    passes when A1 holds for every phone and A2 for at least A2_PASS of its checks.
+    passes when A0 and A1 hold for every phone and A2 for at least A2_PASS of its checks.
+    Reported beside it, not counted in it: the cases whose phoneme the map gives no phone of its
+    own (no_own_phone), and the pack's entries the golden could not render (not_covered).
 Check B, target correctness: each measured value of a target phone against the reference store
 (reference.py), preset 1 (adult male). Passes when at least B_PASS of the checks with a reference
-are in range; "no reference" when none has one.
+are in range, and only once references cover at least B_MIN_VOWELS vowels; otherwise "too few
+references" (its rows are still reported).
 ASR: CER from asr.py; passes at or below CER_PASS.
 
 Status level (playbook 1.5): 1 draft; 2 engine-verified (A passes); 3 reference-verified (and B
@@ -49,6 +54,7 @@ DOCS = os.path.dirname(HERE)
 REPORTS = os.path.join(DOCS, 'reports')
 RESULTS = os.path.join(HERE, 'results')
 A2_PASS, B_PASS, CER_PASS = 0.90, 0.80, 0.15
+B_MIN_VOWELS = 3
 B_MEASURES = ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'centroid_hz', 'peak_hz', 'vot_ms', 'antiformant_hz',
               'murmur_F1_hz', 'F3_min_hz')
 
@@ -60,10 +66,20 @@ def load(path, default=None):
         return json.load(f)
 
 
-def check_a(gold):
+def check_a(gold, phone_module):
     a1 = a1_bad = a2 = a2_ok = 0
-    bad = []
+    substituted, bad = [], []
+    ipa = A.module_ipa(A.CLASS_TABLE.get(phone_module, phone_module))
     for cid, case in gold['cases'].items():
+        # A0: every phone that sounded is the phone the engine was asked for, or a piece of it (a
+        # module sounds its affricate C as t then S, both traced as meant C)
+        for ph in case['phones']:
+            m = ph.get('meant')
+            if m in (None, '-') or ph['name'] == m:
+                continue
+            mi, ni = ipa.get(m), ipa.get(ph['name'])
+            if not (mi and ni and ni in mi):
+                substituted.append('%s: %s sounded for %s' % (cid, ph['name'], m))
         for ph in case['phones']:
             if ph['cls'] == 'silence':
                 continue
@@ -99,9 +115,9 @@ def check_a(gold):
                     a2_ok += 1
                 elif len(bad) < 40:
                     bad.append('%s: %s F0 measured %s, frames %s' % (cid, ph['name'], m, r))
-    ok = a1_bad == 0 and a1 > 0 and (a2 == 0 or a2_ok / a2 >= A2_PASS)
-    return dict(passed=ok, a1_phones=a1, a1_silent=a1_bad, a2_checks=a2, a2_ok=a2_ok,
-                a2_rate=round(a2_ok / a2, 3) if a2 else None, problems=bad[:40])
+    ok = not substituted and a1_bad == 0 and a1 > 0 and (a2 == 0 or a2_ok / a2 >= A2_PASS)
+    return dict(passed=ok, substituted=len(substituted), a1_phones=a1, a1_silent=a1_bad, a2_checks=a2,
+                a2_ok=a2_ok, a2_rate=round(a2_ok / a2, 3) if a2 else None, problems=(substituted + bad)[:40])
 
 
 def case_ipa(p, cid):
@@ -111,6 +127,9 @@ def case_ipa(p, cid):
         return None
     if p.kind == 'espeak':
         import ipa
+        name, _, table = name.partition('|')
+        if table:         # borrowed from another table (golden.espeak_cases)
+            return {ph['mnemonic']: ph['ipa'] for ph in ipa.dump()[table]['phonemes']}.get(name)
         return ipa.espeak_inventory(p).get(name)
     return A.module_ipa(p.phone_module).get(name)
 
@@ -144,8 +163,13 @@ def check_b(p, gold, locale):
                 c.update(case=cid, ipa=ipa, measure=mname)
                 rows.append(c)
     n_in = sum(1 for r in rows if r['verdict'] == 'in range')
+    vowels = {r['ipa'] for r in rows if r['measure'].startswith('F') and r['measure'] != 'F3_min_hz'}
     if not rows:
         return dict(passed=None, checks=0, in_range=0, rows=[])
+    if len(vowels) < B_MIN_VOWELS:
+        # a couple of nasal values are not evidence that a language's sounds are right
+        return dict(passed=None, checks=len(rows), in_range=n_in, rate=round(n_in / len(rows), 3), rows=rows,
+                    why='references for %d vowels; %d needed' % (len(vowels), B_MIN_VOWELS))
     return dict(passed=n_in / len(rows) >= B_PASS, checks=len(rows), in_range=n_in,
                 rate=round(n_in / len(rows), 3), rows=rows)
 
@@ -155,6 +179,14 @@ def has_tones(p):
         return p.tag == 'jajp'      # pitch accent, made by the module itself
     with open(p.sounds_map, encoding='utf-8') as f:
         return any(line.startswith('tone ') for line in f)
+
+
+def locale_of(p):
+    with open(os.path.join(p.dir, 'language.ini'), encoding='utf-8-sig') as f:
+        for line in f:
+            if line.startswith('Locale='):
+                return line.split('=', 1)[1].strip()
+    return None
 
 
 def status(tag, asr):
@@ -172,7 +204,12 @@ def status(tag, asr):
         out.update(level=1, why='no golden data: not yet rendered')
         return out
     out['cases'] = len(gold['cases'])
-    out['a'] = check_a(gold)
+    out['a'] = check_a(gold, p.phone_module)
+    # cases whose phoneme the map gives no phone of its own (an /h/ heard only as the vowel's
+    # aspiration, a /ʔ/ as a hush): a mapping fact for Phase 4, not an engine fault
+    out['no_own_phone'] = sorted(cid for cid, case in gold['cases'].items()
+                                 if not cid.startswith('t|') and target(case, cid) is None)
+    out['not_covered'] = gold.get('not_covered', [])
     out['b'] = check_b(p, gold, locale)
     ar = (asr or {}).get(tag)
     out['asr'] = {k: ar.get(k) for k in ('status', 'reason', 'whisper', 'cer', 'wer', 'n', 'source', 'note')} if ar else \
@@ -199,6 +236,8 @@ LEVEL_NAME = {1: '1 draft', 2: '2 engine-verified', 3: '3 reference-verified', 4
 
 
 def fmt_b(b):
+    if b['passed'] is None and b.get('checks'):
+        return 'too few references (%d/%d in range)' % (b['in_range'], b['checks'])
     if b['passed'] is None:
         return 'no reference'
     return '%s %d/%d' % ('pass' if b['passed'] else 'FAIL', b['in_range'], b['checks'])
@@ -225,15 +264,16 @@ def write_status_md(rows):
              'CER <= %.2f. A failure layer is a first-pass label, not a diagnosis.' % (
                  time.strftime('%Y-%m-%d'), ', '.join('%s: %d' % (LEVEL_NAME[k], v) for k, v in sorted(counts.items())),
                  A2_PASS * 100, B_PASS * 100, CER_PASS), '',
-             '| Tag | Language | Kind | Level | Check A (A1 silent / A2) | Check B | ASR | Failure layer |',
-             '|---|---|---|---|---|---|---|---|']
+             '| Tag | Language | Kind | Level | Check A (A0 substituted / A1 silent / A2) | No phone of its own | Check B | ASR | Failure layer |',
+             '|---|---|---|---|---|---|---|---|---|']
     for r in rows:
         a = r.get('a') or {}
-        lines.append('| %s | %s | %s | %s | %s | %s | %s | %s |' % (
+        lines.append('| %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
             r['tag'], r['name'], r['kind'], LEVEL_NAME[r['level']],
-            ('%s (%d / %s)' % ('pass' if a.get('passed') else 'FAIL', a.get('a1_silent', 0),
-                               '%.0f %%' % (100 * a['a2_rate']) if a.get('a2_rate') is not None else '-')) if a else '-',
-            fmt_b(r['b']) if r.get('b') else '-', fmt_asr(r.get('asr') or {}), r.get('failure_layer') or ''))
+            ('%s (%d / %d / %s)' % ('pass' if a.get('passed') else 'FAIL', a.get('substituted', 0), a.get('a1_silent', 0),
+                                    '%.0f %%' % (100 * a['a2_rate']) if a.get('a2_rate') is not None else '-')) if a else '-',
+            len(r.get('no_own_phone') or []), fmt_b(r['b']) if r.get('b') else '-', fmt_asr(r.get('asr') or {}),
+            r.get('failure_layer') or ''))
     lines += ['', end]
     block = '\n'.join(lines)
     if begin in text:
@@ -249,7 +289,8 @@ def write_status_md(rows):
 
 def plot_case(tag, kind, text, png, title):
     """Spectrogram with formant tracks: measured from the sound (dots), requested in the frames
-    (lines), and the reference range where there is one (bands at the right)."""
+    (lines), and, for a native pack's vowels, the cited reference range of F1 and F2 where the store
+    has one for its language (shaded bands over the vowel)."""
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -265,6 +306,19 @@ def plot_case(tag, kind, text, png, title):
                 [f[k - 1][0] for tt, f in tr if len(f) >= k and A.intensity_db(x, rate, tt - 10, tt + 10) > -45],
                 '.', color=col, ms=2.5, label='F%d measured' % k)
     p = E.pack(tag)
+    locale = locale_of(p)
+    ipa_of = A.module_ipa(A.CLASS_TABLE.get(p.phone_module, p.phone_module))
+    banded = False
+    for ph in r['phones']:
+        ipa = ipa_of.get(ph['name']) if p.kind != 'espeak' else None
+        if ipa and A.phone_class(ph.get('record'), ph['name'], p.phone_module) == 'vowel':
+            for k, col in ((1, '#d62728'), (2, '#1f77b4')):
+                e = R.lookup(ipa, locale, 1, 'F%d_50_hz' % k)
+                if e:
+                    lo, hi, _ = R.bounds(e)
+                    ax.fill_between([ph['start_ms'] / 1000.0, ph['end_ms'] / 1000.0], lo, hi, color=col, alpha=0.15,
+                                    lw=0, label=None if banded else 'reference range (F1 red, F2 blue)')
+                    banded = True
     for ph in r['phones']:
         ax.axvline(ph['start_ms'] / 1000.0, color='#999', lw=0.5)
         ax.text((ph['start_ms'] + ph['end_ms']) / 2000.0, rate / 2 - 300, ph['name'], ha='center', fontsize=8)
@@ -368,7 +422,7 @@ tr.l3 td:nth-child(4) {{ background:var(--l3); }} tr.l4 td:nth-child(4) {{ backg
 <p class="m">Written {date} by docs/tts-extension/harness/report.py. Preset 1 (adult male), 64-bit, 11025 Hz. Levels and checks are defined at the top of report.py; LANGUAGE_STATUS.md holds the same table. Nothing here was judged by ear.</p>
 <h2>Languages</h2><div class="wrap"><table><tr><th>Tag</th><th>Language</th><th>Kind</th><th>Level</th><th>Check A</th><th>Check B</th><th>ASR</th><th>Failure layer</th></tr>
 {rows}</table></div>
-<h2>Pictures</h2><p class="m">Spectrograms: lines are the formants the engine asked the synthesiser for (its frames), dots the formants measured from the sound. Vowel charts: blue dots are measured vowels, red boxes the cited reference ranges for the same IPA symbol.</p>
+<h2>Pictures</h2><p class="m">Spectrograms: lines are the formants the engine asked the synthesiser for (its frames), dots the formants measured from the sound, shaded bands the cited F1 and F2 reference ranges of a native pack&#39;s vowels. Vowel charts: blue dots are measured vowels, red boxes the cited reference ranges for the same IPA symbol.</p>
 {figs}
 <h2>Check B: values out of range</h2><div class="wrap"><table><tr><th>Tag</th><th>Case</th><th>IPA</th><th>Measure</th><th>Value</th><th>Range</th><th>Source</th></tr>
 {brows}</table></div>
@@ -402,10 +456,11 @@ def main():
             layers[r['failure_layer']] = layers.get(r['failure_layer'], 0) + 1
     print('levels: %s' % ', '.join('%s: %d' % (LEVEL_NAME[k], v) for k, v in sorted(counts.items())))
     print('check A pass: %d of %d' % (sum(1 for r in rows if (r.get('a') or {}).get('passed')), len(rows)))
-    print('check B: pass %d, fail %d, no reference %d' % (
+    print('check B: pass %d, fail %d, too few references %d, no reference %d' % (
         sum(1 for r in rows if (r.get('b') or {}).get('passed') is True),
         sum(1 for r in rows if (r.get('b') or {}).get('passed') is False),
-        sum(1 for r in rows if (r.get('b') or {}).get('passed') is None)))
+        sum(1 for r in rows if (r.get('b') or {}).get('passed') is None and (r.get('b') or {}).get('checks')),
+        sum(1 for r in rows if (r.get('b') or {}).get('passed') is None and not (r.get('b') or {}).get('checks'))))
     print('failure layers: %s' % layers)
     print('wrote %s, %s, %s' % (md, page, os.path.join(RESULTS, 'status.json')))
 

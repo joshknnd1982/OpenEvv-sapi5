@@ -113,15 +113,18 @@ def test_fricatives():
 
 
 def test_stops():
-    for clo, vot, pre in ((80, 60, 0), (90, 12, 0), (100, 0, 60)):
-        y, truth = S.stop_cv(closure_ms=clo, vot_ms=vot, prevoiced_ms=pre)
+    # the last case: voicing carried over from the vowel into the closure, dying away in 25 ms,
+    # must not read as prevoicing (it did: the review of Phase 1)
+    for clo, vot, pre, carry in ((80, 60, 0, 0), (90, 12, 0, 0), (100, 0, 60, 0), (90, 12, 0, 25)):
+        y, truth = S.stop_cv(closure_ms=clo, vot_ms=vot, prevoiced_ms=pre, carry_ms=carry)
         st = A.stop_timing(y, S.RATE, truth['closure_start_ms'], truth['stop_end_ms'])
         e_vot = truth['vot_ms'] if not pre else -float(pre)
-        label = 'aspirated' if vot > 30 else 'short lag' if not pre else 'prevoiced'
+        label = 'aspirated' if vot > 30 else 'prevoiced' if pre else 'short lag, voicing carried over' if carry else 'short lag'
         check('stop burst (%s)' % label, near(st['burst_ms'], truth['burst_ms'], absol=3),
               '%.0f ms +-3' % truth['burst_ms'], st['burst_ms'])
-        check('stop closure (%s)' % label, near(st['closure_ms'], clo, absol=6),
-              '%d ms +-6' % clo, st['closure_ms'])
+        if not carry:      # with carried-over voicing the quiet part is shorter than the closure
+            check('stop closure (%s)' % label, near(st['closure_ms'], clo, absol=6),
+                  '%d ms +-6' % clo, st['closure_ms'])
         check('stop VOT (%s)' % label, near(st['vot_ms'], e_vot, absol=8),
               '%.0f ms +-8' % e_vot, '%.1f' % st['vot_ms'] if st['vot_ms'] is not None else None)
 

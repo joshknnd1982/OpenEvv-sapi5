@@ -12,8 +12,12 @@ source gave, in this order:
 and nothing else: a mean alone is not a range, and an entry without one is not used.
 
 A pack matches entries of its own variety, else of the same language (en-US for enus, de-DE for
-de); never another language. Preset 1 of every pack is an adult male voice and preset 2 an adult
-female one (language.ini); other presets have no reference group.
+de), else an entry its source states for languages in general ('cross-language': the nasal
+ranges); never another language's. Preset 1 of every pack is an adult male voice and preset 2 an adult
+female one (language.ini); other presets have no reference group. An entry for the voice's own
+group is preferred; one pooled over speakers ('mixed': the VOT, fricative and nasal sources) is
+used when there is none. The store's tone entries (Chao numbers, F0 turning points) have no
+measure mapped to them yet: tones are checked from Phase 4, when tone cases exist.
 """
 
 import json
@@ -71,20 +75,22 @@ def lookup(ipa, locale, preset, measure):
         return None
     ipa = unicodedata.normalize('NFC', ipa)
     loc, lang = varieties(locale)
-    exact, same_lang = [], []
+    exact, same_lang, general = [], [], []
     for e in store()['entries']:
-        if e['ipa'] != ipa or e['metric'] != metric or e['speaker_group'] != group or bounds(e) is None:
+        if e['ipa'] != ipa or e['metric'] != metric or e['speaker_group'] not in (group, 'mixed') or bounds(e) is None:
             continue
         v = e['variety']
         if v.lower() == loc.lower():
             exact.append(e)
         elif v.split('-')[0].lower() == lang:
             same_lang.append(e)
-    pick = exact or same_lang
+        elif v == 'cross-language':
+            general.append(e)
+    pick = exact or same_lang or general
     if not pick:
         return None
-    # the source with the most tokens, then the first listed
-    return sorted(pick, key=lambda e: -(e.get('n') or 0))[0]
+    # the voice's own group before a pooled one, then the source with the most tokens
+    return sorted(pick, key=lambda e: (e['speaker_group'] != group, -(e.get('n') or 0)))[0]
 
 
 def check(ipa, locale, preset, measure, value):

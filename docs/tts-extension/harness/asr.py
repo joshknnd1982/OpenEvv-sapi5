@@ -124,8 +124,14 @@ def run(tags, cpu=False, limit=8, preset=1):
         if model is None:
             model, device = whisper(cpu)
         t0 = time.time()
-        renders = E.render(tag, [('s%d' % i, 'text', s) for i, s in enumerate(sents)], preset=preset,
-                           work=os.path.join(E.WORK, 'asr', tag))
+        try:
+            renders = E.render(tag, [('s%d' % i, 'text', s) for i, s in enumerate(sents)], preset=preset,
+                               work=os.path.join(E.WORK, 'asr', tag))
+        except Exception as e:      # one language's failure is its own, recorded, and the run goes on
+            rec.update(status='ASR unavailable', reason='the engine could not render it: %s: %s' % (type(e).__name__, e))
+            out[tag] = rec
+            print('%-8s %s: %s' % (tag, rec['status'], rec['reason']), flush=True)
+            continue
         hyps = []
         for r in renders:
             # Whisper's own defence against hallucinated repetition: fall back to higher
