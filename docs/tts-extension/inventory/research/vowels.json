@@ -1,0 +1,1240 @@
+{
+  "section": "vowels",
+  "chart": {
+    "title": "International Phonetic Alphabet in IPA Kiel (IPA Chart), sub-chart 'VOWELS'",
+    "revision": "IPA Chart revised to 2015/2005; current annual re-issue printed '© 2026 IPA' (vowel sub-chart footer: 'IPA Chart revised to 2015/2005'). Per the IPA page, 2018 and 2020 issues were identical to the 2015/2005 revision apart from years and copyright symbols, and since 2025 the chart is re-issued annually.",
+    "url": "https://www.internationalphoneticassociation.org/content/ipa-chart",
+    "licence": "Copyright International Phonetic Association; available under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).",
+    "how_read": "Opened the IPA chart page (revision history and licence text). The full-chart PDF (IPA_Kiel.pdf) could not be read as text, so I viewed the official vowel sub-chart image IPA_Kiel_V_0600.png from the IPA site and read the 28 symbols, row labels, the pairing note and the footer from it. Cross-checked symbols, descriptions, IPA names, IPA numbers and Unicode values against the IPA's own tooltip-chart data file (IPAcharts/IPA_charts_TI/dbs/arrays.js, entries with Tbl:5, SID 501-528, exactly 28). Unicode names checked against unicode.org UnicodeData.txt (latest) and Python unicodedata."
+  },
+  "count": 28,
+  "count_explanation": "The vowel trapezium prints 28 symbols: close row 6 (i y ɨ ʉ ɯ u), near-close 3 (ɪ ʏ ʊ), close-mid 6 (e ø ɘ ɵ ɤ o), mid 1 (ə), open-mid 6 (ɛ œ ɜ ɞ ʌ ɔ), near-open 2 (æ ɐ), open 4 (a ɶ ɑ ɒ). The IPA's tooltip-chart database lists exactly 28 entries for the vowel table (SID 501-528), matching the image. No vowel symbol on the chart is a diacritic or a two-representation case, so no equivalent_to links. Not counted: rhotacized ɚ/ɝ (not printed in the trapezium; ˞ belongs to diacritics), retired symbols (ı ɩ ɷ ʚ etc.), and the near-front/near-back labels (positions, not symbols).",
+  "symbols": [
+    {
+      "symbol": "i",
+      "codepoints": [
+        "U+0069"
+      ],
+      "unicode_name": "LATIN SMALL LETTER I",
+      "ipa_name": "Lower-case I",
+      "ipa_number": 301,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close front unrounded vowel",
+      "features": {
+        "height": "close",
+        "backness": "front",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Lowest F1 class on the chart (close). Highest F2 of all vowels (front, unrounded), with F3 also high and close to F2. Reference point for the top-left corner of the F1/F2 plane.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 240 Hz, F2 2400 Hz (F2-F1 = 2160 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /i/ 'beet': F1 270 Hz, F2 2290 Hz, F3 3010 Hz. This is a language-specific vowel near [i], not a cardinal [i]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Primary cardinal vowel 1. Not to be confused with U+0131 LATIN SMALL LETTER DOTLESS I (IPA 394, retired)."
+    },
+    {
+      "symbol": "y",
+      "codepoints": [
+        "U+0079"
+      ],
+      "unicode_name": "LATIN SMALL LETTER Y",
+      "ipa_name": "Lower-case Y",
+      "ipa_number": 309,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close front rounded vowel",
+      "features": {
+        "height": "close",
+        "backness": "front",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 about as low as [i] (close). F2 and F3 both lower than for [i]: front rounding lowers F2 and F3, which is the main acoustic cue separating [y] from [i]; F2 still well above any central or back vowel.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 235 Hz, F2 2100 Hz (F2-F1 = 1865 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Secondary cardinal vowel 9."
+    },
+    {
+      "symbol": "ɨ",
+      "codepoints": [
+        "U+0268"
+      ],
+      "unicode_name": "LATIN SMALL LETTER I WITH STROKE",
+      "ipa_name": "Barred I",
+      "ipa_number": 317,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close central unrounded vowel",
+      "features": {
+        "height": "close",
+        "backness": "central",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 low, like [i] and [u] (close). F2 intermediate: below [i]/[y] and above [ɯ]/[u] (central). Unrounded, so F2 should sit above that of its rounded partner [ʉ].",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "No fetched source gave hertz values for this vowel; only the relative expectations above are supported.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Not to be confused with U+0197 (capital I with stroke) or with i + combining stroke."
+    },
+    {
+      "symbol": "ʉ",
+      "codepoints": [
+        "U+0289"
+      ],
+      "unicode_name": "LATIN SMALL LETTER U BAR",
+      "ipa_name": "Barred U",
+      "ipa_number": 318,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close central rounded vowel",
+      "features": {
+        "height": "close",
+        "backness": "central",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 low (close). F2 central, lower than [ɨ] because of rounding but higher than [u]; F3 also lowered relative to [ɨ].",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "No fetched source gave hertz values for this vowel; only the relative expectations above are supported.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Single precomposed character; do not compose u + U+0336."
+    },
+    {
+      "symbol": "ɯ",
+      "codepoints": [
+        "U+026F"
+      ],
+      "unicode_name": "LATIN SMALL LETTER TURNED M",
+      "ipa_name": "Turned M",
+      "ipa_number": 316,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close back unrounded vowel",
+      "features": {
+        "height": "close",
+        "backness": "back",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 low (close). F2 low (back) but clearly higher than [u], because without lip rounding the back cavity is not lengthened; F2 tends toward the central region.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 300 Hz, F2 1390 Hz (F2-F1 = 1090 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Secondary cardinal vowel 16."
+    },
+    {
+      "symbol": "u",
+      "codepoints": [
+        "U+0075"
+      ],
+      "unicode_name": "LATIN SMALL LETTER U",
+      "ipa_name": "Lower-case U",
+      "ipa_number": 308,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close back rounded vowel",
+      "features": {
+        "height": "close",
+        "backness": "back",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 low (close; rounding in back vowels lowers F1 further). F2 among the lowest on the chart (back + rounded), so F1 and F2 are close together; F3 relatively low.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 250 Hz, F2 595 Hz (F2-F1 = 345 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /u/ 'boot': F1 300 Hz, F2 870 Hz, F3 2240 Hz. This is a language-specific vowel near [u], not a cardinal [u]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Primary cardinal vowel 8."
+    },
+    {
+      "symbol": "ɪ",
+      "codepoints": [
+        "U+026A"
+      ],
+      "unicode_name": "LATIN LETTER SMALL CAPITAL I",
+      "ipa_name": "Small capital I",
+      "ipa_number": 319,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "near-close near-front unrounded vowel",
+      "features": {
+        "height": "near-close",
+        "backness": "near-front",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 somewhat higher than [i] (slightly lower tongue). F2 somewhat lower than [i] (slightly retracted from front). Lies between [i] and [e] on the F1 axis.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /I/ 'bit': F1 390 Hz, F2 1990 Hz, F3 2550 Hz. This is a language-specific vowel near [ɪ], not a cardinal [ɪ]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Small capital I. Not U+0049 'I' and not U+0269 LATIN SMALL LETTER IOTA (IPA 399, retired)."
+    },
+    {
+      "symbol": "ʏ",
+      "codepoints": [
+        "U+028F"
+      ],
+      "unicode_name": "LATIN LETTER SMALL CAPITAL Y",
+      "ipa_name": "Small capital Y",
+      "ipa_number": 320,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "near-close near-front rounded vowel",
+      "features": {
+        "height": "near-close",
+        "backness": "near-front",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 somewhat higher than [y]; F2 somewhat lower than [y]. Compared with [ɪ], F2 and F3 are lower because of rounding.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "No fetched source gave hertz values for this vowel; only the relative expectations above are supported.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Small capital Y; not U+0059."
+    },
+    {
+      "symbol": "ʊ",
+      "codepoints": [
+        "U+028A"
+      ],
+      "unicode_name": "LATIN SMALL LETTER UPSILON",
+      "ipa_name": "Upsilon",
+      "ipa_number": 321,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "near-close near-back rounded vowel",
+      "features": {
+        "height": "near-close",
+        "backness": "near-back",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 somewhat higher than [u]; F2 somewhat higher than [u] (less back). Rounded, so F2 below that of an unrounded vowel at the same position.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /U/ 'book': F1 440 Hz, F2 1020 Hz, F3 2240 Hz. This is a language-specific vowel near [ʊ], not a cardinal [ʊ]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Upsilon; not Greek U+03C5 υ and not U+0277 LATIN SMALL LETTER CLOSED OMEGA (IPA 398, retired)."
+    },
+    {
+      "symbol": "e",
+      "codepoints": [
+        "U+0065"
+      ],
+      "unicode_name": "LATIN SMALL LETTER E",
+      "ipa_name": "Lower-case E",
+      "ipa_number": 302,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close-mid front unrounded vowel",
+      "features": {
+        "height": "close-mid",
+        "backness": "front",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 higher than [i]/[ɪ], lower than [ɛ] (close-mid). F2 high, a little below [i] (front, unrounded).",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 390 Hz, F2 2300 Hz (F2-F1 = 1910 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Primary cardinal vowel 2."
+    },
+    {
+      "symbol": "ø",
+      "codepoints": [
+        "U+00F8"
+      ],
+      "unicode_name": "LATIN SMALL LETTER O WITH STROKE",
+      "ipa_name": "Slashed O",
+      "ipa_number": 310,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close-mid front rounded vowel",
+      "features": {
+        "height": "close-mid",
+        "backness": "front",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 like [e] (close-mid). F2 and F3 lower than for [e] (front rounding), F2 still above central vowels.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 370 Hz, F2 1900 Hz (F2-F1 = 1530 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Secondary cardinal vowel 10. Not U+2205 EMPTY SET."
+    },
+    {
+      "symbol": "ɘ",
+      "codepoints": [
+        "U+0258"
+      ],
+      "unicode_name": "LATIN SMALL LETTER REVERSED E",
+      "ipa_name": "Reversed E",
+      "ipa_number": 397,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close-mid central unrounded vowel",
+      "features": {
+        "height": "close-mid",
+        "backness": "central",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 close-mid, between [ɨ] and [ə]. F2 central: below [e]/[ø], above [ɤ]/[o]; above its rounded partner [ɵ].",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "No fetched source gave hertz values for this vowel; only the relative expectations above are supported.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "One of the 1990s additions numbered downward from 399 (IPA 397, per the 'IPA number' page). Not U+01DD (turned e) and not schwa U+0259."
+    },
+    {
+      "symbol": "ɵ",
+      "codepoints": [
+        "U+0275"
+      ],
+      "unicode_name": "LATIN SMALL LETTER BARRED O",
+      "ipa_name": "Barred O",
+      "ipa_number": 323,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close-mid central rounded vowel",
+      "features": {
+        "height": "close-mid",
+        "backness": "central",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 close-mid. F2 central and lower than [ɘ] (rounding); F3 lowered relative to [ɘ].",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "No fetched source gave hertz values for this vowel; only the relative expectations above are supported.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Not U+03B8 Greek theta (consonant symbol θ) nor U+0473/U+04E9 Cyrillic barred o."
+    },
+    {
+      "symbol": "ɤ",
+      "codepoints": [
+        "U+0264"
+      ],
+      "unicode_name": "LATIN SMALL LETTER RAMS HORN",
+      "ipa_name": "Ram's horns",
+      "ipa_number": 315,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close-mid back unrounded vowel",
+      "features": {
+        "height": "close-mid",
+        "backness": "back",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 close-mid, like [o]. F2 low-ish (back) but clearly higher than [o] because unrounded; F2 drifts toward the central region.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 460 Hz, F2 1310 Hz (F2-F1 = 850 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Ram's horns. Classic trap: not U+0263 LATIN SMALL LETTER GAMMA (ɣ, voiced velar fricative). The IPA's glyph notes ask for 'more distinct ram's horns' in this glyph. Secondary cardinal vowel 15."
+    },
+    {
+      "symbol": "o",
+      "codepoints": [
+        "U+006F"
+      ],
+      "unicode_name": "LATIN SMALL LETTER O",
+      "ipa_name": "Lower-case O",
+      "ipa_number": 307,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "close-mid back rounded vowel",
+      "features": {
+        "height": "close-mid",
+        "backness": "back",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 close-mid, higher than [u], lower than [ɔ]. F2 low (back + rounded), close to F1.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 360 Hz, F2 640 Hz (F2-F1 = 280 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Primary cardinal vowel 7."
+    },
+    {
+      "symbol": "ə",
+      "codepoints": [
+        "U+0259"
+      ],
+      "unicode_name": "LATIN SMALL LETTER SCHWA",
+      "ipa_name": "Schwa",
+      "ipa_number": 322,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "mid central vowel",
+      "features": {
+        "height": "mid",
+        "backness": "central",
+        "rounding": "unspecified"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 and F2 both mid-range: F1 between close-mid and open-mid vowels, F2 between front and back vowels. Commonly treated as the vowel of the neutral (approximately uniform) vocal tract, whose formants are roughly evenly spaced.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "A uniform tube of adult male vocal-tract length (17 cm) has formants near F1 500 Hz, F2 1500 Hz, F3 2500 Hz; these are the textbook neutral-tract values.",
+          "provenance": "literature",
+          "refs": [
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Identifying [ə] with that neutral tube is the usual textbook simplification; the page read does not itself make that link.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Height/backness 'mid central'; the IPA description gives no rounding value. Not U+01DD LATIN SMALL LETTER TURNED E and not U+04D9 Cyrillic schwa. Rhotacized ɚ (U+025A, IPA 327) is not printed in the vowel trapezium."
+    },
+    {
+      "symbol": "ɛ",
+      "codepoints": [
+        "U+025B"
+      ],
+      "unicode_name": "LATIN SMALL LETTER OPEN E",
+      "ipa_name": "Epsilon",
+      "ipa_number": 303,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open-mid front unrounded vowel",
+      "features": {
+        "height": "open-mid",
+        "backness": "front",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 higher than [e], lower than [æ]/[a] (open-mid). F2 high, below [e] (front unrounded; F2 of front vowels falls as they open).",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 610 Hz, F2 1900 Hz (F2-F1 = 1290 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /e/ 'bet': F1 530 Hz, F2 1840 Hz, F3 2480 Hz. This is a language-specific vowel near [ɛ], not a cardinal [ɛ]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Primary cardinal vowel 3. Not Greek U+03B5 ε."
+    },
+    {
+      "symbol": "œ",
+      "codepoints": [
+        "U+0153"
+      ],
+      "unicode_name": "LATIN SMALL LIGATURE OE",
+      "ipa_name": "Lower-case O-E ligature",
+      "ipa_number": 311,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open-mid front rounded vowel",
+      "features": {
+        "height": "open-mid",
+        "backness": "front",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 like [ɛ] (open-mid). F2 and F3 lower than for [ɛ] (front rounding).",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 585 Hz, F2 1710 Hz (F2-F1 = 1125 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Secondary cardinal vowel 11."
+    },
+    {
+      "symbol": "ɜ",
+      "codepoints": [
+        "U+025C"
+      ],
+      "unicode_name": "LATIN SMALL LETTER REVERSED OPEN E",
+      "ipa_name": "Reversed epsilon",
+      "ipa_number": 326,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open-mid central unrounded vowel",
+      "features": {
+        "height": "open-mid",
+        "backness": "central",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 open-mid, like [ɛ] and [ʌ]. F2 central: between [ɛ] and [ʌ]; above its rounded partner [ɞ].",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "No fetched source gave hertz values for this vowel; only the relative expectations above are supported.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Not U+0437 Cyrillic ze or digit 3. Rhotacized ɝ (U+025D) is not printed in the trapezium."
+    },
+    {
+      "symbol": "ɞ",
+      "codepoints": [
+        "U+025E"
+      ],
+      "unicode_name": "LATIN SMALL LETTER CLOSED REVERSED OPEN E",
+      "ipa_name": "Closed reversed epsilon",
+      "ipa_number": 395,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open-mid central rounded vowel",
+      "features": {
+        "height": "open-mid",
+        "backness": "central",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 open-mid. F2 central and lower than [ɜ]; F3 lowered relative to [ɜ] (rounding).",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "No fetched source gave hertz values for this vowel; only the relative expectations above are supported.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "One of the 1990s additions numbered downward from 399 (IPA 395, per the 'IPA number' page). Not U+029A LATIN SMALL LETTER CLOSED OPEN E (ʚ, IPA 396), which is not on the current chart."
+    },
+    {
+      "symbol": "ʌ",
+      "codepoints": [
+        "U+028C"
+      ],
+      "unicode_name": "LATIN SMALL LETTER TURNED V",
+      "ipa_name": "Turned V",
+      "ipa_number": 314,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open-mid back unrounded vowel",
+      "features": {
+        "height": "open-mid",
+        "backness": "back",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 open-mid, like [ɔ]. F2 low (back) but well above [ɔ] because unrounded.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 600 Hz, F2 1170 Hz (F2-F1 = 570 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /L/ 'but': F1 640 Hz, F2 1190 Hz, F3 2390 Hz. This is a language-specific vowel near [ʌ], not a cardinal [ʌ]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Secondary cardinal vowel 14. Not Greek U+039B Λ."
+    },
+    {
+      "symbol": "ɔ",
+      "codepoints": [
+        "U+0254"
+      ],
+      "unicode_name": "LATIN SMALL LETTER OPEN O",
+      "ipa_name": "Open O",
+      "ipa_number": 306,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open-mid back rounded vowel",
+      "features": {
+        "height": "open-mid",
+        "backness": "back",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 open-mid, higher than [o], lower than [ɒ]/[ɑ]. F2 low (back + rounded), close to F1.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 500 Hz, F2 700 Hz (F2-F1 = 200 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /aw/ 'bought': F1 570 Hz, F2 840 Hz, F3 2410 Hz. This is a language-specific vowel near [ɔ], not a cardinal [ɔ]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Primary cardinal vowel 6."
+    },
+    {
+      "symbol": "æ",
+      "codepoints": [
+        "U+00E6"
+      ],
+      "unicode_name": "LATIN SMALL LETTER AE",
+      "ipa_name": "Ash; Lower-case A-E ligature",
+      "ipa_number": 325,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "near-open front unrounded vowel",
+      "features": {
+        "height": "near-open",
+        "backness": "front",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 higher than [ɛ], a little lower than [a] (near-open). F2 front: below [ɛ] and above central vowels.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /ae/ 'bat': F1 660 Hz, F2 1720 Hz, F3 2410 Hz. This is a language-specific vowel near [æ], not a cardinal [æ]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Not a cardinal vowel; printed between open-mid and open on the front edge."
+    },
+    {
+      "symbol": "ɐ",
+      "codepoints": [
+        "U+0250"
+      ],
+      "unicode_name": "LATIN SMALL LETTER TURNED A",
+      "ipa_name": "Turned A",
+      "ipa_number": 324,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "near-open central vowel",
+      "features": {
+        "height": "near-open",
+        "backness": "central",
+        "rounding": "unspecified"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 high, between [ɜ]/[ə] and [a] (near-open). F2 central, between [æ] and [ɑ].",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "No fetched source gave hertz values for this vowel; only the relative expectations above are supported.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "IPA description 'near-open central vowel' gives no rounding value. Printed on the central line between open-mid and open."
+    },
+    {
+      "symbol": "a",
+      "codepoints": [
+        "U+0061"
+      ],
+      "unicode_name": "LATIN SMALL LETTER A",
+      "ipa_name": "Lower-case A",
+      "ipa_number": 304,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open front unrounded vowel",
+      "features": {
+        "height": "open",
+        "backness": "front",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Highest F1 class on the chart (open front). F2 lower than the other front vowels (F2 of front vowels falls as they open) but above back [ɑ]/[ɒ].",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 850 Hz, F2 1610 Hz (F2-F1 = 760 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Primary cardinal vowel 4. Must be the two-storey 'a' U+0061 as distinct from script ɑ U+0251; fonts that draw U+0061 single-storey hide the contrast."
+    },
+    {
+      "symbol": "ɶ",
+      "codepoints": [
+        "U+0276"
+      ],
+      "unicode_name": "LATIN LETTER SMALL CAPITAL OE",
+      "ipa_name": "Small capital O-E ligature",
+      "ipa_number": 312,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open front rounded vowel",
+      "features": {
+        "height": "open",
+        "backness": "front",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 high, like [a] (open). F2 a little lower than [a] (rounding), the smallest front-rounding effect on the chart because the open jaw limits lip rounding.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 820 Hz, F2 1530 Hz (F2-F1 = 710 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Secondary cardinal vowel 12. Small capital OE ligature, not U+0152 Œ."
+    },
+    {
+      "symbol": "ɑ",
+      "codepoints": [
+        "U+0251"
+      ],
+      "unicode_name": "LATIN SMALL LETTER ALPHA",
+      "ipa_name": "Script A",
+      "ipa_number": 305,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open back unrounded vowel",
+      "features": {
+        "height": "open",
+        "backness": "back",
+        "rounding": "unrounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 high (open). F2 low (back), so F1 and F2 lie close together; above its rounded partner [ɒ].",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 750 Hz, F2 940 Hz (F2-F1 = 190 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        },
+        {
+          "text": "American English men's average for the vowel listed as /a/ 'father': F1 730 Hz, F2 1090 Hz, F3 2440 Hz. This is a language-specific vowel near [ɑ], not a cardinal [ɑ]; use as an order-of-magnitude check, not a target.",
+          "provenance": "literature",
+          "refs": [
+            "pb_princeton",
+            "peterson_barney1952"
+          ]
+        }
+      ],
+      "notes": "Primary cardinal vowel 5. Not Greek U+03B1 α, and distinct from 'a' U+0061."
+    },
+    {
+      "symbol": "ɒ",
+      "codepoints": [
+        "U+0252"
+      ],
+      "unicode_name": "LATIN SMALL LETTER TURNED ALPHA",
+      "ipa_name": "Turned script A",
+      "ipa_number": 313,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "open back rounded vowel",
+      "features": {
+        "height": "open",
+        "backness": "back",
+        "rounding": "rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F1 high (open), slightly below [ɑ] (rounding lowers F1 in back vowels). F2 lower than [ɑ]; F1 and F2 almost merge.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "wiki_vowel",
+            "umanitoba_formants"
+          ]
+        },
+        {
+          "text": "Catford's average values for a male voice: F1 700 Hz, F2 760 Hz (F2-F1 = 60 Hz). Phonetician's cardinal-style reference values, single adult male voice type; no F3 given in this table.",
+          "provenance": "literature",
+          "refs": [
+            "wiki_formant",
+            "catford2001"
+          ]
+        }
+      ],
+      "notes": "Secondary cardinal vowel 13."
+    }
+  ],
+  "references": [
+    {
+      "id": "ipa_chart_page",
+      "title": "IPA Chart (chart page: revision history, downloads, licence)",
+      "author": "International Phonetic Association",
+      "year": "2026 (page as accessed)",
+      "url": "https://www.internationalphoneticassociation.org/content/ipa-chart",
+      "accessed": "2026-10-05",
+      "licence": "Chart and subparts CC BY-SA 4.0 (as stated on the page)",
+      "read": true,
+      "used_for": "current revision (2015/2005, annual re-issue since 2025), licence line, download URLs"
+    },
+    {
+      "id": "ipa_vowels_png",
+      "title": "IPA Chart in IPA Kiel: Vowels (IPA_Kiel_V_0600.png)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_E/images/IPA_Kiel_V_0600.png",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "the 28 printed symbols, their positions, the rounded-pair note and the footer 'IPA Chart revised to 2015/2005', '2026 IPA'"
+    },
+    {
+      "id": "ipa_ti_arrays",
+      "title": "IPA tooltip charts symbol database (dbs/arrays.js, arrays_else.js, used by IPA_charts_TI.html)",
+      "author": "International Phonetic Association",
+      "year": "2026 (as accessed)",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_TI/dbs/arrays.js",
+      "accessed": "2026-10-05",
+      "licence": "Part of the IPA charts site; chart material CC BY-SA 4.0 per the chart page (no separate licence stated in the file)",
+      "read": true,
+      "used_for": "official descriptions (e.g. NEAR-CLOSE NEAR-FRONT), IPA names, IPA numbers, Unicode names and hex values, vowel-table count of 28, ram's-horns glyph note"
+    },
+    {
+      "id": "unicode_ucd",
+      "title": "UnicodeData.txt (Unicode Character Database, latest)",
+      "author": "Unicode Consortium",
+      "year": "2026 (latest as accessed; charts redirected to 18.0.0)",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt",
+      "accessed": "2026-10-05",
+      "licence": "Unicode data files licence (Unicode License v3) - licence page not opened",
+      "read": true,
+      "used_for": "exact code points and character names of all 28 symbols"
+    },
+    {
+      "id": "wiki_ipa_number",
+      "title": "IPA number",
+      "author": "Wikipedia contributors",
+      "year": "2026 (as accessed)",
+      "url": "https://en.wikipedia.org/wiki/IPA_number",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "cross-check of IPA numbers; numbering from the Handbook of the IPA (1999); 1993 additions ɘ ɞ numbered downward from 399; retired ı ɩ ɷ ʚ"
+    },
+    {
+      "id": "wiki_formant",
+      "title": "Formant",
+      "author": "Wikipedia contributors",
+      "year": "2026 (as accessed)",
+      "url": "https://en.wikipedia.org/wiki/Formant",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "F1 vs height, F2 vs backness, rounding lowers F1/F2 in back vowels and F2/F3 in front vowels; table 'Average vowel formants for a male voice' quoted from Catford (2001: 154) for 16 vowels"
+    },
+    {
+      "id": "catford2001",
+      "title": "A Practical Introduction to Phonetics (2nd ed.), p. 154",
+      "author": "J. C. Catford",
+      "year": "2001",
+      "url": "",
+      "accessed": "2026-10-05",
+      "licence": "copyright Oxford University Press",
+      "read": false,
+      "used_for": "original source of the F1/F2 table; NOT opened, values taken as quoted on wiki_formant"
+    },
+    {
+      "id": "wiki_vowel",
+      "title": "Vowel",
+      "author": "Wikipedia contributors",
+      "year": "2026 (as accessed)",
+      "url": "https://en.wikipedia.org/wiki/Vowel",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "open vowels high F1, front vowels high F2; rounded vowels identified chiefly by lowered F2; F3 somewhat lowered in front rounded vowels; F1 somewhat lowered in back rounded vowels (uncited statements on that page)"
+    },
+    {
+      "id": "umanitoba_formants",
+      "title": "Acoustic Phonetics: Formants",
+      "author": "not stated on page (University of Manitoba linguistics course pages, ~krussll)",
+      "year": "",
+      "url": "https://home.cc.umanitoba.ca/~krussll/phonetics/acoustic/formants.html",
+      "accessed": "2026-10-05",
+      "licence": "not stated",
+      "read": true,
+      "used_for": "high F1 = low vowel, high F2 = front vowel; uniform 17 cm adult-male tract formants 500/1500/2500 Hz"
+    },
+    {
+      "id": "pb_princeton",
+      "title": "Nominal male vowel speech sounds and first three formant frequencies (COS 325 course page)",
+      "author": "Princeton University course page, citing Peterson & Barney 1952 via P. R. Cook (ed.), Music, Cognition, and Computerized Sound (MIT Press, 1999), ch. 11",
+      "year": "1999",
+      "url": "https://www.cs.princeton.edu/courses/archive/spr99/cs325/formants.html",
+      "accessed": "2026-10-05",
+      "licence": "not stated",
+      "read": true,
+      "used_for": "F1/F2/F3 men's averages for 10 American English vowels (9 mapped to chart symbols)"
+    },
+    {
+      "id": "peterson_barney1952",
+      "title": "Control methods used in a study of the vowels, JASA 24, 175-184",
+      "author": "G. E. Peterson and H. L. Barney",
+      "year": "1952",
+      "url": "",
+      "accessed": "2026-10-05",
+      "licence": "copyright Acoustical Society of America",
+      "read": false,
+      "used_for": "original source of the F1/F2/F3 values; NOT opened, values taken as quoted on pb_princeton"
+    }
+  ],
+  "problems": [
+    "The full official chart PDF (IPA_Kiel.pdf) could not be read as text here (no PDF renderer); the vowel section was read from the official sub-chart PNG plus the IPA's own tooltip-chart data file, which agree.",
+    "Revision naming: the printed chart says 'IPA Chart revised to 2015/2005' with copyright year 2026; earlier issues were labelled 2018 and 2020 but are the same revision. The brief's '2015 chart as revised' is that revision.",
+    "Formant numbers are secondary: Catford (2001) values were read only as quoted on Wikipedia 'Formant' (male voice, 16 of 28 vowels, F1/F2 only), and Peterson & Barney (1952) values only as quoted on a Princeton course page (American English men, 9 vowels mapped by me from ASCII labels: /e/ 'bet' -> ɛ, /a/ 'father' -> ɑ, /aw/ 'bought' -> ɔ, /L/ 'but' -> ʌ, /U/ 'book' -> ʊ, /ae/ 'bat' -> æ, /I/ 'bit' -> ɪ). The P&B vowels are English phonemes, not cardinal qualities (e.g. American 'but' is more central than cardinal ʌ).",
+    "No fetched source gave hertz values for ɨ ʉ ʏ ɘ ɵ ɜ ɞ ɐ (or F3 for most vowels); those carry relational correlates only. Attempts to open sources with cardinal-vowel formants of Daniel Jones (Vaissière 2011, HAL) were blocked by an access-denied page, and Jassem & Krzyśko 1992 'In quest for Cardinal Vowels' (Archives of Acoustics) full text could not be read.",
+    "Wikipedia 'Phonetic symbols in Unicode' was fetched but the tool's summary returned wrong character names (e.g. 'LATIN LETTER REVERSED I' for U+0268); it was discarded and names were taken from unicode.org UnicodeData.txt and the IPA's own data instead.",
+    "ə and ɐ: the IPA descriptions ('mid central vowel', 'near-open central vowel') give no rounding value; features.rounding is 'unspecified'.",
+    "The relational F1/F2/F3 statements per vowel are my own application of the general rules in wiki_formant, wiki_vowel and umanitoba_formants (height ~ inverse F1, backness ~ F2, rounding lowers F2/F3 in front vowels and F1/F2 in back vowels); the specific neighbour-by-neighbour orderings (e.g. ɶ having a small rounding effect, ɯ F2 drifting toward central) are inferences, not quoted findings.",
+    "Confusable code points named in notes (U+0131, U+0263, U+0269, U+0277, U+029A, U+01DD, U+03B1, U+03B5, U+03C5, U+2205 etc.) were checked against Python's local unicodedata (Unicode 13.0) only, not a fetched page; U+0131/U+0269/U+0277/U+029A as retired IPA letters come from wiki_ipa_number.",
+    "Cardinal-vowel numbers in notes (CV1-16) are recalled-unverified; no fetched source in this session lists them."
+  ]
+}

@@ -1,0 +1,1255 @@
+{
+  "section": "diacritics",
+  "chart": {
+    "title": "The International Phonetic Alphabet (IPA Chart), Diacritics table",
+    "revision": "IPA Chart revised to 2015/2005; current annual issue copyright 2026 (re-issued annually since 2025 with an updated copyright year)",
+    "url": "https://www.internationalphoneticassociation.org/content/ipa-chart (PDF: https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Kiel.pdf; text version: https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_TI/IPA_charts_TI.html)",
+    "licence": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), Copyright 2026 International Phonetic Association",
+    "how_read": "Opened the IPA chart page (revision and licence). Downloaded IPA_Kiel.pdf: decompressed its content streams and read the revision line 'IPA Chart revised to 2015/2005', the copyright 2026 attribution text, and the diacritics note 'Some diacritics may be placed above a symbol with a descender, e.g.'. The symbols themselves are set in a legacy 8-bit IPA Kiel font with no Unicode mapping, so they could not be read as text, and the PDF could not be rendered (no PDF renderer available; the in-app browser offered it as a download). For the symbols, names, numbers, codepoints and examples I used the IPA's own text transcription: its interactive chart (IPA_charts_TI.html, DIACRITICS table) and the data file behind it (IPA_charts_TI/dbs/arrays.js), which gives for each diacritic the IPA name, IPA number, Unicode name and codepoint, and linked examples. Every codepoint and Unicode name was checked against unicode.org UnicodeData.txt (Unicode 18.0.0)."
+  },
+  "count": 32,
+  "count_explanation": "The Diacritics table prints 31 labelled rows in three columns (12 + 12 + 7): Voiceless, Voiced, Aspirated, More rounded, Less rounded, Advanced, Retracted, Centralized, Mid-centralized, Syllabic, Non-syllabic, Rhoticity | Breathy voiced, Creaky voiced, Linguolabial, Labialized, Palatalized, Velarized, Pharyngealized, Velarized or pharyngealized, Raised, Lowered, Advanced tongue root, Retracted tongue root | Dental, Apical, Laminal, Nasalized, Nasal release, Lateral release, No audible release. Each row has one diacritic, so 31. The chart's note above the table ('Some diacritics may be placed above a symbol with a descender, e.g. ŋ̊') prints a second representation of Voiceless, the over-ring U+030A (IPA no. 402B), entered separately and linked with equivalent_to. 31 + 1 = 32. Example forms (n̥ d̥, ɹ̝, β̞, ɫ, ɚ, etc.) are not entries. Arguable: (1) the over-ring appears only in the note, not as a table row; (2) the over-stroke U+030D for syllabic and the arch above U+0311 for non-syllabic follow the same descender convention but are not printed on the chart, so they are not counted; (3) Rhoticity ˞ and the superscript letters ʰ ʷ ʲ ˠ ˤ ⁿ ˡ are spacing modifier letters rather than combining marks, but the chart lists them as diacritics, so they are counted here; (4) the IPA's interactive chart data assigns its own internal IDs 401–435 to these, which are not IPA numbers.",
+  "symbols": [
+    {
+      "symbol": "̥",
+      "codepoints": [
+        "U+0325"
+      ],
+      "unicode_name": "COMBINING RING BELOW",
+      "ipa_name": "Under-ring",
+      "ipa_number": "402A",
+      "chart_example": "n̥ d̥",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiceless: the sound is produced without vocal-fold vibration (devoicing of a normally voiced segment)",
+      "features": {
+        "modifies": "phonation",
+        "value": "voiceless"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Voicing means vocal-fold vibration (periodicity); a voiceless segment therefore has no periodic glottal excitation and no F0 for its duration; on a stop this shows as no voicing during the closure (no voice bar) and voicing of a following vowel starting only at or after release.",
+          "provenance": "literature",
+          "refs": [
+            "wp_vot"
+          ]
+        },
+        {
+          "text": "On a sonorant (e.g. n̥, l̥) the resonances are excited only by turbulent airflow, so the segment looks like weak aspiration-like noise with the base sound's formant/nasal resonances visible in the noise rather than in harmonics; overall amplitude is much lower than the voiced counterpart.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Chart example n̥ d̥ (IPA interactive chart data). The chart note says some diacritics may be placed above a symbol with a descender; for voiceless that is the over-ring (next entry)."
+    },
+    {
+      "symbol": "̊",
+      "codepoints": [
+        "U+030A"
+      ],
+      "unicode_name": "COMBINING RING ABOVE",
+      "ipa_name": "Over-ring",
+      "ipa_number": "402B",
+      "chart_example": "ŋ̊",
+      "alt_codepoints": [],
+      "equivalent_to": "U+0325",
+      "articulatory": "voiceless (alternative placement above a symbol with a descender)",
+      "features": {
+        "modifies": "phonation",
+        "value": "voiceless"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Same as the under-ring: no periodic voicing and no F0 over the segment; for the nasal example ŋ̊ the velar nasal resonance is excited only by airflow noise.",
+          "provenance": "literature",
+          "refs": [
+            "wp_vot"
+          ]
+        },
+        {
+          "text": "Voiceless nasals are weak, noisy and low in amplitude compared with voiced nasals.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Printed on the chart only through the note 'Some diacritics may be placed above a symbol with a descender, e.g. ŋ̊' (the example glyph is in the symbol font of the PDF; the IPA's interactive chart data links ŋ̊ to this over-ring as 'Long descender', IPA no. 402B)."
+    },
+    {
+      "symbol": "̬",
+      "codepoints": [
+        "U+032C"
+      ],
+      "unicode_name": "COMBINING CARON BELOW",
+      "ipa_name": "Subscript wedge",
+      "ipa_number": "403",
+      "chart_example": "s̬ t̬",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiced: vocal-fold vibration during a segment that is normally voiceless",
+      "features": {
+        "modifies": "phonation",
+        "value": "voiced"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Periodic voicing (F0, low-frequency voice bar) continues through the segment; on a stop this means voicing during the closure, i.e. a voice onset time at or below zero rather than a positive lag.",
+          "provenance": "literature",
+          "refs": [
+            "wp_vot"
+          ]
+        },
+        {
+          "text": "On a fricative such as s̬ the high-frequency frication is accompanied by low-frequency periodic energy and the frication is usually weaker than in the voiceless form.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "ʰ",
+      "codepoints": [
+        "U+02B0"
+      ],
+      "unicode_name": "MODIFIER LETTER SMALL H",
+      "ipa_name": "Superscript H",
+      "ipa_number": "404",
+      "chart_example": "tʰ dʰ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "aspirated: a period of voicelessness (open glottis) after the release before voicing of the following sound begins",
+      "features": {
+        "modifies": "laryngeal timing",
+        "value": "aspirated"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Positive voice onset time: a gap of aspiration noise between the stop burst and the onset of voicing. VOT is the practical measure of aspiration; for velars, unaspirated about 20–30 ms, weakly aspirated about 50–60 ms, moderately aspirated about 80–90 ms, and much over 100 ms counts as strong; a strongly aspirating language (Navajo) has about twice the English duration (about 160 ms reported).",
+          "provenance": "literature",
+          "refs": [
+            "wp_vot"
+          ]
+        },
+        {
+          "text": "During the aspiration the following vowel's formants (especially F2, F3) appear in turbulent noise before periodic voicing starts; F1 is weak in that interval.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "On a voiced base (the chart's dʰ) the result is acoustically similar to breathy voice: delay of full (modal) voicing after release.",
+          "provenance": "literature",
+          "refs": [
+            "wp_breathy"
+          ]
+        }
+      ],
+      "notes": "dʰ on the chart: the IPA uses this for 'voiced aspirated' (breathy) release."
+    },
+    {
+      "symbol": "̹",
+      "codepoints": [
+        "U+0339"
+      ],
+      "unicode_name": "COMBINING RIGHT HALF RING BELOW",
+      "ipa_name": "Subscript right half-ring",
+      "ipa_number": "411",
+      "chart_example": "ɔ̹",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "more rounded: greater lip rounding than the base symbol implies",
+      "features": {
+        "modifies": "lip rounding",
+        "value": "more rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Lip rounding lowers formants: F1 and F2 in back vowels, F2 and F3 in front vowels. More rounding therefore means lower F2 (and F3 for front vowels) than the base vowel.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̜",
+      "codepoints": [
+        "U+031C"
+      ],
+      "unicode_name": "COMBINING LEFT HALF RING BELOW",
+      "ipa_name": "Subscript left half-ring",
+      "ipa_number": "412",
+      "chart_example": "ɔ̜",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "less rounded: less lip rounding than the base symbol implies",
+      "features": {
+        "modifies": "lip rounding",
+        "value": "less rounded"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "The inverse of the rounding effect: less rounding leaves the formants that rounding lowers (F2, and F3 for front vowels; F1/F2 for back vowels) higher than for the fully rounded base vowel.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        }
+      ],
+      "notes": "The direction is inferred from the rounding effect described in the cited source."
+    },
+    {
+      "symbol": "̟",
+      "codepoints": [
+        "U+031F"
+      ],
+      "unicode_name": "COMBINING PLUS SIGN BELOW",
+      "ipa_name": "Subscript plus",
+      "ipa_number": "413",
+      "chart_example": "u̟",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "advanced: articulated further forward than the base symbol implies",
+      "features": {
+        "modifies": "place / tongue frontness",
+        "value": "advanced"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Front vowels have higher F2; advancing a vowel (u̟) raises F2 relative to the base vowel.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        },
+        {
+          "text": "On consonants, a more forward place shifts the burst/frication spectrum upward and moves the F2 locus of the transitions toward that of the more forward place.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̠",
+      "codepoints": [
+        "U+0320"
+      ],
+      "unicode_name": "COMBINING MINUS SIGN BELOW",
+      "ipa_name": "Under-bar",
+      "ipa_number": "414",
+      "chart_example": "e̠",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "retracted: articulated further back than the base symbol implies",
+      "features": {
+        "modifies": "place / tongue frontness",
+        "value": "retracted"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F2 relates to front–back position (front vowels have higher F2); retracting a vowel (e̠) lowers F2 relative to the base vowel.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        },
+        {
+          "text": "On consonants, a further-back place lowers the spectral peak of bursts and frication.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "The IPA interactive chart data encodes its example e̠ with U+0331 COMBINING MACRON BELOW while giving U+0320 as the diacritic's codepoint; see problems."
+    },
+    {
+      "symbol": "̈",
+      "codepoints": [
+        "U+0308"
+      ],
+      "unicode_name": "COMBINING DIAERESIS",
+      "ipa_name": "Umlaut",
+      "ipa_number": "415",
+      "chart_example": "ë",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "centralized: tongue position moved toward the centre of the vowel space on the front–back dimension",
+      "features": {
+        "modifies": "vowel quality",
+        "value": "centralized"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F2 carries front–back position, so centralization moves F2 toward the central (schwa-like) value: lower F2 for a front base vowel, higher F2 for a back base vowel.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        }
+      ],
+      "notes": "ë is printed as a precomposed letter in Unicode (U+00EB) but represents e + U+0308."
+    },
+    {
+      "symbol": "̽",
+      "codepoints": [
+        "U+033D"
+      ],
+      "unicode_name": "COMBINING X ABOVE",
+      "ipa_name": "Over-cross",
+      "ipa_number": "416",
+      "chart_example": "e̽",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "mid-centralized: moved toward the mid-central (schwa) position, in height as well as backness",
+      "features": {
+        "modifies": "vowel quality",
+        "value": "mid-centralized"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Both formants move toward the mid-central region: F2 toward the central value (as for centralized) and F1 toward a mid value (F1 is higher for open vowels, lower for close vowels).",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̩",
+      "codepoints": [
+        "U+0329"
+      ],
+      "unicode_name": "COMBINING VERTICAL LINE BELOW",
+      "ipa_name": "Syllabicity mark",
+      "ipa_number": "431",
+      "chart_example": "ɹ̩ l̩ m̩",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "syllabic: the consonant forms the nucleus of a syllable",
+      "features": {
+        "modifies": "syllabicity",
+        "value": "syllabic"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "A syllabic consonant is a syllable nucleus by itself (as m, n, l in rhythm, sudden, awful).",
+          "provenance": "literature",
+          "refs": [
+            "wp_syllabic"
+          ]
+        },
+        {
+          "text": "As a nucleus it has longer duration and greater relative intensity than the same consonant in onset or coda, and carries the syllable's pitch and stress; the steady sonorant resonances (nasal murmur, lateral or rhotic formants) fill the time a vowel would.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "The interactive chart data lists ɹ̩, l̩ and m̩ as examples; which of these the printed PDF shows could not be verified. Wikipedia notes an overstroke U+030D may be used above symbols with descenders (e.g. ŋ̍), but the IPA chart does not print it; not counted."
+    },
+    {
+      "symbol": "̯",
+      "codepoints": [
+        "U+032F"
+      ],
+      "unicode_name": "COMBINING INVERTED BREVE BELOW",
+      "ipa_name": "Subscript arch",
+      "ipa_number": "432",
+      "chart_example": "e̯",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "non-syllabic: the vowel is not the syllable nucleus (e.g. the off-glide of a diphthong)",
+      "features": {
+        "modifies": "syllabicity",
+        "value": "non-syllabic"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "A non-syllabic vowel is short and lower in intensity than the nucleus it attaches to, with formants mainly in transition toward or away from the nucleus rather than a steady state.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "A superscript-arch variant above the symbol (U+0311 COMBINING INVERTED BREVE) is used by some writers for descenders, but the IPA chart does not print it; not counted."
+    },
+    {
+      "symbol": "˞",
+      "codepoints": [
+        "U+02DE"
+      ],
+      "unicode_name": "MODIFIER LETTER RHOTIC HOOK",
+      "ipa_name": "Right hook",
+      "ipa_number": "419",
+      "chart_example": "ɚ a˞",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "rhoticity: r-colouring of a vowel (tongue tip raised/retroflexed or tongue bunched, often with pharyngeal constriction)",
+      "features": {
+        "modifies": "vowel quality",
+        "value": "rhotic (r-coloured)"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "The defining acoustic property of an r-coloured vowel is a lowering of F3.",
+          "provenance": "literature",
+          "refs": [
+            "wp_rcolored",
+            "wp_formant"
+          ]
+        },
+        {
+          "text": "For comparison, the English r consonant has a very low F3, well below 2000 Hz.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        }
+      ],
+      "notes": "Spacing modifier written after the vowel. ɚ (U+025A) and ɝ (U+025D) are precomposed r-coloured vowels; the interactive chart data gives ɚ, a˞, o˞ and ɝ as examples."
+    },
+    {
+      "symbol": "̤",
+      "codepoints": [
+        "U+0324"
+      ],
+      "unicode_name": "COMBINING DIAERESIS BELOW",
+      "ipa_name": "Subscript umlaut",
+      "ipa_number": "405",
+      "chart_example": "b̤ a̤",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "breathy voiced: vocal folds vibrate with lower tension and incomplete closure, letting more air escape (murmur)",
+      "features": {
+        "modifies": "phonation",
+        "value": "breathy"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Higher H1*-H2* (stronger first harmonic relative to the second, i.e. steeper spectral tilt) than modal voice; this was the one measure that separated phonation types in all four languages studied, with breathy/lax voice showing the highest values.",
+          "provenance": "literature",
+          "refs": [
+            "keating2011"
+          ]
+        },
+        {
+          "text": "Lower electroglottographic contact quotient (less vocal-fold contact) and more noise (lower cepstral peak prominence / harmonics-to-noise) than modal voice.",
+          "provenance": "literature",
+          "refs": [
+            "keating2011"
+          ]
+        },
+        {
+          "text": "In a breathy stop such as b̤ there is a delay in the onset of full modal voicing after release, similar to aspiration.",
+          "provenance": "literature",
+          "refs": [
+            "wp_breathy"
+          ]
+        },
+        {
+          "text": "Breathy consonants in some languages lower the pitch (F0) of a following vowel.",
+          "provenance": "literature",
+          "refs": [
+            "wp_breathy"
+          ]
+        }
+      ],
+      "notes": "The interactive chart data also gives b̤a̤ as an example of the diacritic applied to both consonant and vowel."
+    },
+    {
+      "symbol": "̰",
+      "codepoints": [
+        "U+0330"
+      ],
+      "unicode_name": "COMBINING TILDE BELOW",
+      "ipa_name": "Subscript tilde",
+      "ipa_number": "406",
+      "chart_example": "b̰ a̰",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "creaky voiced: constricted glottis with slow, irregular vocal-fold vibration (laryngealization)",
+      "features": {
+        "modifies": "phonation",
+        "value": "creaky"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Prototypical creak has a low F0, an irregular F0 (shows up as jitter and lower harmonics-to-noise ratio / cepstral peak prominence) and a constricted glottis.",
+          "provenance": "literature",
+          "refs": [
+            "keating2015"
+          ]
+        },
+        {
+          "text": "Lower H1 and lower H1-H2 (and other harmonic differences), i.e. less spectral tilt, than modal voice.",
+          "provenance": "literature",
+          "refs": [
+            "keating2015"
+          ]
+        },
+        {
+          "text": "Sub-types differ: vocal fry has damped pulses, regular F0 and narrow formant bandwidths; multiply-pulsed creak shows subharmonics (high subharmonic-to-harmonic ratio); non-constricted creak can show higher, not lower, H1-H2. No single measure identifies all creak.",
+          "provenance": "literature",
+          "refs": [
+            "keating2015"
+          ]
+        }
+      ],
+      "notes": "The interactive chart data also gives b̰a̰."
+    },
+    {
+      "symbol": "̼",
+      "codepoints": [
+        "U+033C"
+      ],
+      "unicode_name": "COMBINING SEAGULL BELOW",
+      "ipa_name": "Subscript seagull",
+      "ipa_number": "407",
+      "chart_example": "t̼ d̼",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "linguolabial: tongue tip or blade against the upper lip",
+      "features": {
+        "modifies": "place",
+        "value": "linguolabial"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Formant transitions resemble those of labial consonants (low F2 locus) because the constriction is at the lips, while the burst/frication is produced by the tongue against the lip; the precise spectral differences from bilabials are not established here.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "ʷ",
+      "codepoints": [
+        "U+02B7"
+      ],
+      "unicode_name": "MODIFIER LETTER SMALL W",
+      "ipa_name": "Superscript W",
+      "ipa_number": "420",
+      "chart_example": "tʷ dʷ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "labialized: secondary lip rounding (often with raised tongue back) added to the consonant",
+      "features": {
+        "modifies": "secondary articulation",
+        "value": "labialized"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Lip rounding lowers formants (F2, and F3 in front contexts), so the release and transitions into the next vowel show lowered F2/F3 compared with the plain consonant.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        },
+        {
+          "text": "Burst and frication spectra are lowered in frequency by the lip rounding.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Wikipedia notes superscript w is also used for simultaneous velarization with labialization."
+    },
+    {
+      "symbol": "ʲ",
+      "codepoints": [
+        "U+02B2"
+      ],
+      "unicode_name": "MODIFIER LETTER SMALL J",
+      "ipa_name": "Superscript J",
+      "ipa_number": "421",
+      "chart_example": "tʲ dʲ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "palatalized: secondary raising of the tongue body toward the hard palate",
+      "features": {
+        "modifies": "secondary articulation",
+        "value": "palatalized"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "i-like transitions: raised F2 (and often F3) at the release and into the following vowel, and higher-frequency burst/frication spectra than the plain consonant.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "The fetched Wikipedia article on palatalization gave no acoustic correlates."
+    },
+    {
+      "symbol": "ˠ",
+      "codepoints": [
+        "U+02E0"
+      ],
+      "unicode_name": "MODIFIER LETTER SMALL GAMMA",
+      "ipa_name": "Superscript gamma",
+      "ipa_number": "422",
+      "chart_example": "tˠ dˠ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "velarized: secondary raising of the back of the tongue toward the velum",
+      "features": {
+        "modifies": "secondary articulation",
+        "value": "velarized"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Lowered F2 at the consonant and in adjacent vowel transitions compared with the plain consonant (as in English 'dark' l).",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Velarization is a secondary raising of the tongue back toward the velum; English dark l is the common example (source: wp_velarization)."
+    },
+    {
+      "symbol": "ˤ",
+      "codepoints": [
+        "U+02E4"
+      ],
+      "unicode_name": "MODIFIER LETTER SMALL REVERSED GLOTTAL STOP",
+      "ipa_name": "Superscript reversed glottal stop",
+      "ipa_number": "423",
+      "chart_example": "tˤ dˤ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "pharyngealized: secondary constriction of the pharynx (tongue root/epiglottis retracted)",
+      "features": {
+        "modifies": "secondary articulation",
+        "value": "pharyngealized"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Vowels next to pharyngealized consonants are more open (higher F1) and more back (lower F2), with F1 and F2 closer together; the study also found tense/pressed voice quality in those vowels.",
+          "provenance": "literature",
+          "refs": [
+            "altamimi2017"
+          ]
+        },
+        {
+          "text": "When lip protrusion accompanies the pharyngeal constriction, F3 is expected to fall in front vowels; in back vowels F3 can rise.",
+          "provenance": "literature",
+          "refs": [
+            "altamimi2017"
+          ]
+        }
+      ],
+      "notes": "Unicode also has U+02C1 MODIFIER LETTER REVERSED GLOTTAL STOP (a Semiticist character); the IPA uses U+02E4 (source: wp_pharyngealization, IPA data)."
+    },
+    {
+      "symbol": "̴",
+      "codepoints": [
+        "U+0334"
+      ],
+      "unicode_name": "COMBINING TILDE OVERLAY",
+      "ipa_name": "Superimposed tilde",
+      "ipa_number": "428",
+      "chart_example": "ɫ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "velarized or pharyngealized: a cover mark for velarization, uvularization or pharyngealization, written through the letter",
+      "features": {
+        "modifies": "secondary articulation",
+        "value": "velarized or pharyngealized"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Pharyngealized realizations: higher F1 and lower F2 in adjacent vowels.",
+          "provenance": "literature",
+          "refs": [
+            "altamimi2017"
+          ]
+        },
+        {
+          "text": "Velarized realizations (e.g. ɫ, dark l): lowered F2 compared with the plain consonant.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "Combining overlay; precomposed letters exist and are preferred where available (ɫ U+026B, ᵭ U+1D6D, ᵰ U+1D70, ꭨ U+AB68 are listed as examples in the IPA interactive chart data). Wikipedia says the tilde covers velarization, uvularization and pharyngealization (wp_velarization, wp_pharyngealization)."
+    },
+    {
+      "symbol": "̝",
+      "codepoints": [
+        "U+031D"
+      ],
+      "unicode_name": "COMBINING UP TACK BELOW",
+      "ipa_name": "Raising sign",
+      "ipa_number": "429",
+      "chart_example": "e̝ ɹ̝",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "raised: articulated with a closer constriction (higher tongue) than the base symbol implies",
+      "features": {
+        "modifies": "constriction degree / vowel height",
+        "value": "raised"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "On a vowel, raising lowers F1 (open vowels have higher F1, close vowels lower F1).",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        },
+        {
+          "text": "On an approximant, raising narrows the constriction enough to make turbulent frication: the chart gives ɹ̝ as a voiced alveolar fricative (non-sibilant), so frication noise is added to the base sound.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "The chart prints ɹ̝ with the gloss 'voiced alveolar fricative' (IPA interactive chart data, 'Cf.')."
+    },
+    {
+      "symbol": "̞",
+      "codepoints": [
+        "U+031E"
+      ],
+      "unicode_name": "COMBINING DOWN TACK BELOW",
+      "ipa_name": "Lowering sign",
+      "ipa_number": "430",
+      "chart_example": "e̞ β̞",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "lowered: articulated with a more open constriction (lower tongue) than the base symbol implies",
+      "features": {
+        "modifies": "constriction degree / vowel height",
+        "value": "lowered"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "On a vowel, lowering raises F1.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        },
+        {
+          "text": "On a fricative, lowering widens the constriction so frication noise disappears and the sound becomes an approximant with clear formants: the chart gives β̞ as a voiced bilabial approximant.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "The chart prints β̞ with the gloss 'voiced bilabial approximant' (IPA interactive chart data)."
+    },
+    {
+      "symbol": "̘",
+      "codepoints": [
+        "U+0318"
+      ],
+      "unicode_name": "COMBINING LEFT TACK BELOW",
+      "ipa_name": "Advancing sign",
+      "ipa_number": "417",
+      "chart_example": "e̘",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "advanced tongue root (ATR): tongue root moved forward and larynx lowered, expanding the pharynx",
+      "features": {
+        "modifies": "tongue root",
+        "value": "advanced"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "ATR vowels are often heard as 'brighter', associated with narrower formant bandwidths; larynx lowering can add a breathy quality.",
+          "provenance": "literature",
+          "refs": [
+            "wp_atr"
+          ]
+        },
+        {
+          "text": "Lower F1 than the corresponding RTR (or plain) vowel, because the expanded pharynx lengthens and widens the back cavity.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̙",
+      "codepoints": [
+        "U+0319"
+      ],
+      "unicode_name": "COMBINING RIGHT TACK BELOW",
+      "ipa_name": "Retracting sign",
+      "ipa_number": "418",
+      "chart_example": "e̙",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "retracted tongue root (RTR): tongue root pulled back, narrowing the pharynx",
+      "features": {
+        "modifies": "tongue root",
+        "value": "retracted"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Higher F1 than the ATR counterpart, often with a lower F2; voice quality may be less breathy / more tense than ATR vowels.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Heard as less 'bright' than ATR vowels (ATR vowels have narrower formants).",
+          "provenance": "literature",
+          "refs": [
+            "wp_atr"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̪",
+      "codepoints": [
+        "U+032A"
+      ],
+      "unicode_name": "COMBINING BRIDGE BELOW",
+      "ipa_name": "Subscript bridge",
+      "ipa_number": "408",
+      "chart_example": "t̪ d̪",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "dental: tongue tip or blade against the upper teeth",
+      "features": {
+        "modifies": "place",
+        "value": "dental"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Compared with alveolar stops, dental stops tend to have a weaker, more diffuse (flatter) burst spectrum and slightly lower F2 locus in transitions; dental fricatives have weak, diffuse noise.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̺",
+      "codepoints": [
+        "U+033A"
+      ],
+      "unicode_name": "COMBINING INVERTED BRIDGE BELOW",
+      "ipa_name": "Inverted subscript bridge",
+      "ipa_number": "409",
+      "chart_example": "t̺ d̺",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "apical: articulated with the tongue tip",
+      "features": {
+        "modifies": "articulator (tongue part)",
+        "value": "apical"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Compared with laminal articulations, apical stops and fricatives tend to have lower-frequency, more compact burst/frication spectra and a sharper release; apicals can show some F3/F4 lowering in transitions.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̻",
+      "codepoints": [
+        "U+033B"
+      ],
+      "unicode_name": "COMBINING SQUARE BELOW",
+      "ipa_name": "Subscript square",
+      "ipa_number": "410",
+      "chart_example": "t̻ d̻",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "laminal: articulated with the tongue blade",
+      "features": {
+        "modifies": "articulator (tongue part)",
+        "value": "laminal"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Compared with apical articulations, laminal stops tend to have more diffuse, higher-frequency burst energy and longer, noisier releases (more affrication); laminal sibilants have a higher spectral centre of gravity.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̃",
+      "codepoints": [
+        "U+0303"
+      ],
+      "unicode_name": "COMBINING TILDE",
+      "ipa_name": "Superscript tilde",
+      "ipa_number": "424",
+      "chart_example": "ẽ ɑ̃",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "nasalized: the velum is lowered so air resonates in the nasal cavity as well as the mouth",
+      "features": {
+        "modifies": "nasality",
+        "value": "nasalized"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "A1 (amplitude of the harmonic at F1) drops and A1-P0 (F1 amplitude minus the low-frequency nasal peak, measured around 250 Hz) decreases; the lowering of A1 is the main driver. P0 gains prominence relative to the neighbouring harmonics even when its absolute amplitude does not rise. A1-P0 was the most reliable measure across vowels, speakers and languages (English and French).",
+          "provenance": "literature",
+          "refs": [
+            "styler2014"
+          ]
+        },
+        {
+          "text": "Formant-frequency changes with nasality are language-specific rather than a direct consequence of nasal coupling.",
+          "provenance": "literature",
+          "refs": [
+            "styler2014"
+          ]
+        },
+        {
+          "text": "Nasal coupling also adds pole-zero pairs and widens the F1 bandwidth, flattening the low-frequency spectrum.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "ẽ is printed as a precomposed letter in Unicode (U+1EBD). The IPA interactive chart HTML shows this diacritic with U+0342 COMBINING GREEK PERISPOMENI as a display glyph while its data gives U+0303; see problems."
+    },
+    {
+      "symbol": "ⁿ",
+      "codepoints": [
+        "U+207F"
+      ],
+      "unicode_name": "SUPERSCRIPT LATIN SMALL LETTER N",
+      "ipa_name": "Superscript N",
+      "ipa_number": "425",
+      "chart_example": "dⁿ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "nasal release: the oral closure of a stop is released by lowering the velum, so air escapes through the nose (e.g. English sudden)",
+      "features": {
+        "modifies": "release",
+        "value": "nasal"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "No oral release burst; the stop closure goes straight into a nasal: the velum lowers while the mouth stays closed, giving an audible nasal release.",
+          "provenance": "literature",
+          "refs": [
+            "wp_nasalrelease"
+          ]
+        },
+        {
+          "text": "Spectrally the stop closure is followed directly by a nasal murmur (strong low-frequency resonance, weak higher formants, antiresonances) instead of a burst and vowel transitions.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "ˡ",
+      "codepoints": [
+        "U+02E1"
+      ],
+      "unicode_name": "MODIFIER LETTER SMALL L",
+      "ipa_name": "Superscript L",
+      "ipa_number": "426",
+      "chart_example": "dˡ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "lateral release: the stop is released by lowering the sides of the tongue into a lateral (e.g. English middle)",
+      "features": {
+        "modifies": "release",
+        "value": "lateral"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "The stop is released into a lateral consonant rather than with a central burst; in English it is often transcribed as having no audible release.",
+          "provenance": "literature",
+          "refs": [
+            "wp_lateralrelease"
+          ]
+        },
+        {
+          "text": "The lateral that follows has its typical resonances; [l] usually has an extra formant around 1500 Hz.",
+          "provenance": "literature",
+          "refs": [
+            "wp_formant"
+          ]
+        },
+        {
+          "text": "The burst is weak or absent and lateral formant structure begins immediately at release.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "symbol": "̚",
+      "codepoints": [
+        "U+031A"
+      ],
+      "unicode_name": "COMBINING LEFT ANGLE ABOVE",
+      "ipa_name": "Corner",
+      "ipa_number": "427",
+      "chart_example": "d̚",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "no audible release: the stop closure is held without an audible release burst (unreleased / checked stop)",
+      "features": {
+        "modifies": "release",
+        "value": "unreleased"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "No release burst: nothing marks the end of the oral closure; in clusters the release happens during the next consonant's closure and is masked. Any aspiration contrast is neutralized.",
+          "provenance": "literature",
+          "refs": [
+            "wp_noaudible"
+          ]
+        },
+        {
+          "text": "The stop is cued only by the formant transitions of the preceding vowel and by the silent closure.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "The interactive chart data also gives p̚."
+    }
+  ],
+  "references": [
+    {
+      "id": "ipa_chart_page",
+      "title": "IPA Chart (page with downloads, revision history and licence)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/content/ipa-chart",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0 for the chart",
+      "read": true,
+      "used_for": "current revision (2015/2005, re-issued annually since 2025), licence and attribution format"
+    },
+    {
+      "id": "ipa_chart_pdf",
+      "title": "IPA Chart in IPA Kiel (PDF)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Kiel.pdf",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "revision line, copyright year, licence, and the note on placing diacritics above symbols with descenders (symbol glyphs not readable as text)"
+    },
+    {
+      "id": "ipa_interactive",
+      "title": "Interactive IPA Chart (English), DIACRITICS table, and its data file dbs/arrays.js",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_TI/IPA_charts_TI.html",
+      "accessed": "2026-10-05",
+      "licence": "International Phonetic Association; the IPA states the chart in all formats is under CC BY-SA 4.0 (site copyright script); not separately confirmed for the data file",
+      "read": true,
+      "used_for": "row labels, IPA names, IPA numbers, Unicode names/codepoints, examples, over-ring alternate (402B), glosses for ɹ̝ and β̞"
+    },
+    {
+      "id": "unicode_ucd",
+      "title": "Unicode Character Database, UnicodeData.txt, version 18.0.0",
+      "author": "Unicode, Inc.",
+      "year": "2026",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt",
+      "accessed": "2026-10-05",
+      "licence": "Unicode License / Terms of Use (https://www.unicode.org/terms_of_use.html)",
+      "read": true,
+      "used_for": "checking every codepoint and character name"
+    },
+    {
+      "id": "keating2015",
+      "title": "Acoustic properties of different kinds of creaky voice",
+      "author": "Patricia Keating, Marc Garellek, Jody Kreiman",
+      "year": "2015",
+      "url": "https://pages.ucsd.edu/~mgarellek/files/Keating_etal_2015_ICPhS.pdf",
+      "accessed": "2026-10-05",
+      "licence": "not stated (ICPhS 2015 proceedings paper, author-hosted copy)",
+      "read": true,
+      "used_for": "creaky voice correlates; H1-H2 as an index of glottal constriction"
+    },
+    {
+      "id": "keating2011",
+      "title": "Phonation contrasts across languages",
+      "author": "Patricia Keating, Christina Esposito, Marc Garellek, Sameer ud Dowla Khan, Jianjing Kuang",
+      "year": "2011",
+      "url": "https://www.reed.edu/linguistics/khan/assets/Keating%20ea%202011%20Phonation%20contrasts%20across%20languages.pdf",
+      "accessed": "2026-10-05",
+      "licence": "not stated (ICPhS XVII 2011 proceedings paper, author-hosted copy)",
+      "read": true,
+      "used_for": "breathy voice correlates (highest H1*-H2*, lower contact quotient, noise/CPP)"
+    },
+    {
+      "id": "styler2014",
+      "title": "Surveying the nasal peak: A1 and P0 in nasal and nasalized vowels (ASA poster 1aSC8)",
+      "author": "Will Styler, Rebecca Scarborough",
+      "year": "2014",
+      "url": "https://wstyler.ucsd.edu/files/stylerASA2014.pdf",
+      "accessed": "2026-10-05",
+      "licence": "not stated (author-hosted poster)",
+      "read": true,
+      "used_for": "nasalization correlates (A1, P0, A1-P0, P0 prominence)"
+    },
+    {
+      "id": "altamimi2017",
+      "title": "Revisiting acoustic correlates of pharyngealization in Jordanian and Moroccan Arabic: Implications for formal representations",
+      "author": "Jalal Al-Tamimi",
+      "year": "2017",
+      "url": "https://doi.org/10.5334/labphon.19",
+      "accessed": "2026-10-05",
+      "licence": "open access (Laboratory Phonology); licence line not found on the fetched page",
+      "read": true,
+      "used_for": "pharyngealization correlates (higher F1, lower F2, F1-F2 proximity, tense voice, F3 effects)"
+    },
+    {
+      "id": "wp_formant",
+      "title": "Formant",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Formant",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "F1 ~ height, F2 ~ front/back, rounding lowers formants, F3 lowering in r-coloured vowels, [l] extra formant"
+    },
+    {
+      "id": "wp_vot",
+      "title": "Voice onset time",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Voice_onset_time",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "voicing as vocal-fold vibration, VOT ranges for aspiration, negative VOT for voiced stops"
+    },
+    {
+      "id": "wp_breathy",
+      "title": "Breathy voice",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Breathy_voice",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "delay of full voicing in breathy stops, tone-lowering effect"
+    },
+    {
+      "id": "wp_rcolored",
+      "title": "R-colored vowel",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/R-colored_vowel",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "F3 lowering as the defining property of rhoticity"
+    },
+    {
+      "id": "wp_atr",
+      "title": "Advanced and retracted tongue root",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Advanced_and_retracted_tongue_root",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "ATR articulation, 'brightness' / narrow formants, possible breathiness"
+    },
+    {
+      "id": "wp_noaudible",
+      "title": "No audible release",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/No_audible_release",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "absence of release burst, masking in clusters, neutralized aspiration"
+    },
+    {
+      "id": "wp_nasalrelease",
+      "title": "Nasal release",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Nasal_release",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "definition and mechanism of nasal release"
+    },
+    {
+      "id": "wp_lateralrelease",
+      "title": "Lateral release (phonetics)",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Lateral_release_(phonetics)",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "definition of lateral release"
+    },
+    {
+      "id": "wp_velarization",
+      "title": "Velarization",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Velarization",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "articulation of velarization, dark l, tilde overlay scope"
+    },
+    {
+      "id": "wp_pharyngealization",
+      "title": "Pharyngealization",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Pharyngealization",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "IPA numbers 423/428, U+02E4 vs U+02C1, tilde overlay scope"
+    },
+    {
+      "id": "wp_syllabic",
+      "title": "Syllabic consonant",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Syllabic_consonant",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "definition; overstroke variant for descenders (not printed on chart)"
+    },
+    {
+      "id": "wp_palatalization",
+      "title": "Palatalization (phonetics)",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Palatalization_(phonetics)",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "checked for acoustic correlates; none given (so palatalized correlates are recalled-unverified)"
+    }
+  ],
+  "problems": [
+    "The official PDF (IPA_Kiel.pdf) could not be read glyph by glyph: its symbols use a legacy 8-bit IPA Kiel font with no Unicode mapping and no PDF renderer was available. The symbol list, names, numbers and examples come from the IPA's own interactive (text) chart and its data file; the revision, licence and the descender note were read from the PDF itself.",
+    "Trying to open the PDF in the in-app browser made the site serve it as a download, so a save dialog was shown to the user; nothing was saved by this helper through that dialog.",
+    "Examples: the interactive chart data lists more examples than the printed chart probably shows (e.g. ᵰ ᵭ ꭨ for the tilde overlay, m̩ for syllabic, b̤a̤ / b̰a̰, o˞ and ɝ for rhoticity, p̚). Which ones the printed PDF shows was not verified; chart_example gives the main ones.",
+    "The IPA data encodes the 'Retracted' example e̠ as e + U+0331 COMBINING MACRON BELOW, but gives U+0320 COMBINING MINUS SIGN BELOW as the diacritic. This file uses U+0320 for the diacritic, as the IPA's own codepoint field gives.",
+    "The interactive chart HTML shows 'Nasalized' with U+0342 COMBINING GREEK PERISPOMENI (a display workaround) while its data gives U+0303 COMBINING TILDE; this file uses U+0303. Its display strings also contain U+25CC DOTTED CIRCLE and U+034F COMBINING GRAPHEME JOINER as layout aids; neither is part of any diacritic.",
+    "Descender alternates: only the over-ring (ŋ̊, U+030A) is printed on the chart. The syllabic over-stroke U+030D (e.g. ŋ̍, described by Wikipedia) and the non-syllabic arch above U+0311 are not printed, so they are not counted; the merge step may want them as unofficial alternates.",
+    "U+02E4 (IPA pharyngealized) is easily confused with U+02C1 MODIFIER LETTER REVERSED GLOTTAL STOP; only U+02E4 is IPA.",
+    "Many correlates are recalled-unverified because no fetched source gave them: voiceless sonorants, palatalized (raised F2), velarized (lowered F2), linguolabial, dental/apical/laminal spectra, the F1 direction for ATR/RTR, syllabic/non-syllabic duration and intensity, nasal pole-zero pairs, and raised/lowered consonant frication. They should be checked against a phonetics text such as Ladefoged & Maddieson, The Sounds of the World's Languages, or Stevens, Acoustic Phonetics, before use.",
+    "The Laboratory Phonology article (altamimi2017) is open access, but its licence line was not found in the fetched page text; the three ICPhS/ASA papers carry no licence statement. Only the facts are used, in our own words.",
+    "The attribution text in the 2026 PDF names a path containing '_next_year' (…/pdfs_IPA_charts_E/_next_year/IPA_Kiel.pdf), which differs from the URL that was downloaded; the revision line still reads 2015/2005.",
+    "Breathy and creaky H1-H2 directions come from cross-language studies; actual values vary by language and speaker (keating2011 found the same-named phonation types differ across languages). No hertz or millisecond targets are given for phonation diacritics."
+  ]
+}

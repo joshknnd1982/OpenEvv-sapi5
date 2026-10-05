@@ -1,0 +1,257 @@
+{
+  "section": "other_symbols",
+  "chart": {
+    "title": "The International Phonetic Alphabet (IPA Chart), box \"OTHER SYMBOLS\"",
+    "revision": "IPA Chart revised to 2015/2005, annual re-issue (c) 2026 IPA. The symbols and wording are those of the 2015 revision (itself the 2005 chart with minor wording/layout changes); since 2025 the chart is re-issued every year with only the copyright year and symbols updated.",
+    "url": "https://www.internationalphoneticassociation.org/content/ipa-chart",
+    "licence": "Copyright International Phonetic Association; IPA Chart and all its subparts available under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) since July 2012.",
+    "how_read": "Opened the IPA's chart page (content/ipa-chart, revision history and licence text) and the IPA_charts_E.html download page with its data scripts (charts_fonts.js, ipa_charts_E.js, cp_licence.js) to find the file names. Downloaded and read as PDF (text layer plus rendered page image): the Other symbols sub-chart IPA_Doulos_OS.pdf, the full chart IPA_Kiel.pdf (the Association's recommended version), the IPA Number Chart IPA_number_chart.pdf and the IPA symbol list IPA_Doulos_sl.pdf (names, IPA names, IPA numbers, Unicode hex values). All four carry '(c) 2026 IPA' and 'IPA Chart revised to 2015/2005'. Codepoints and Unicode character names were then checked against UnicodeData.txt and NamesList.txt of the Unicode Character Database 18.0.0."
+  },
+  "count": 12,
+  "count_explanation": "The Other symbols box prints ten letters with a label (ʍ w ɥ ʜ ʢ ʡ, then ɕ ʑ sharing one label 'Alveolo-palatal fricatives', ɺ and ɧ) and a note that affricates and double articulations can be written as two symbols joined by a tie bar, illustrated by t͜s (tie below) and k͡p (tie above). 10 letters + 2 printed tie-bar forms (U+035C below, U+0361 above, entered separately and linked with equivalent_to, as the brief requires for two printed representations of one thing) = 12. Not counted: ʃ and x, which appear only inside the label 'Simultaneous ʃ and x' and belong to the pulmonic table; the example sequences t͜s and k͡p (carrier letters only). Arguable membership: the tie bars could be filed with diacritics; the IPA symbol list files both tie bars under OTHER SYMBOLS, which supports keeping them here. The bottom tie bar shares the IPA number (509) with the suprasegmental 'Linking (absence of a break)' ‿ U+203F, which is a different character and belongs to the suprasegmentals section.",
+  "symbols": [
+    {
+      "symbol": "ʍ",
+      "codepoints": ["U+028D"],
+      "unicode_name": "LATIN SMALL LETTER TURNED W",
+      "ipa_name": "Turned W",
+      "ipa_number": 169,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiceless labial-velar fricative",
+      "features": {"voicing": "voiceless", "place": "labial-velar (double articulation: lips rounded and tongue back raised toward the soft palate)", "manner": "fricative (some descriptions: approximant)", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "No voicing: the segment is a stretch of aperiodic noise with no harmonics and no voice bar; whatever formant structure shows comes from noise passing through a [w]-shaped tract.", "provenance": "recalled-unverified", "refs": []},
+        {"text": "The tract shape is that of [w]: a labial and a velar constriction, like a close back rounded vowel; rounding at the lips lowers all formants, so the noise energy is concentrated low in the spectrum, with low F1 and low F2 shapes visible in the following vowel's onset transitions.", "provenance": "literature", "refs": ["unc_ling520_approximants", "mit_ocw_24915_vowels"]},
+        {"text": "In English 'wh' words the sound is often realised as a voiceless approximant [w̥], a labialised glottal fricative [hʷ] or an [hw] sequence rather than strong velar friction, so the noise is typically weak and breathy rather than sibilant-like.", "provenance": "literature", "refs": ["wiki_voiceless_labial_velar_fricative"]}
+      ],
+      "notes": "Redefined in 1979 from 'voiceless w' to a fricative with the place of k͡p (per the Wikipedia article); whether it is a fricative or an approximant is disputed."
+    },
+    {
+      "symbol": "w",
+      "codepoints": ["U+0077"],
+      "unicode_name": "LATIN SMALL LETTER W",
+      "ipa_name": "Lower-case W",
+      "ipa_number": 170,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiced labial-velar approximant",
+      "features": {"voicing": "voiced", "place": "labial-velar (double articulation: lip rounding plus tongue-back raising)", "manner": "approximant (central)", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "A glide: on a spectrogram it looks like a very short vowel next to a full vowel, with voicing and clear formants but shorter duration and no syllable nucleus.", "provenance": "literature", "refs": ["unc_ling520_approximants"]},
+        {"text": "Labial and velar constrictions give the formant pattern of a close back rounded vowel [u]: low F1 and low F2; lip rounding and protrusion lower all formants, F2 most for a back articulation. Transitions into the following vowel rise from these low values.", "provenance": "literature", "refs": ["unc_ling520_approximants", "mit_ocw_24915_vowels"]},
+        {"text": "Slightly lower overall amplitude than the neighbouring vowel because of the narrow lip opening.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Plain ASCII letter; the voiceless counterpart in this box is ʍ."
+    },
+    {
+      "symbol": "ɥ",
+      "codepoints": ["U+0265"],
+      "unicode_name": "LATIN SMALL LETTER TURNED H",
+      "ipa_name": "Turned H",
+      "ipa_number": 171,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiced labial-palatal approximant",
+      "features": {"voicing": "voiced", "place": "labial-palatal (front tongue raised toward the hard palate, lips rounded)", "manner": "approximant (central)", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "The non-syllabic counterpart of the close front rounded vowel [y] (French nuire, Mandarin yuè): a short glide with the formant pattern of [y].", "provenance": "literature", "refs": ["wiki_voiced_labial_palatal_approximant", "unc_ling520_approximants"]},
+        {"text": "Like [j] it has a low F1 and a high F2 from the palatal constriction, but lip rounding lowers the front-cavity resonance, which for front articulations is usually F3; so F3 (and to a lesser degree F2) sits lower than in [j], bringing F2 and F3 closer together.", "provenance": "literature", "refs": ["mit_ocw_24915_vowels", "unc_ling520_approximants"]},
+        {"text": "Compressed (exolabial) and protruded (endolabial) rounding variants exist; the protruded type is described as acoustically between the compressed type and unrounded [j].", "provenance": "literature", "refs": ["wiki_voiced_labial_palatal_approximant"]}
+      ],
+      "notes": "Unicode NamesList annotation: voiced rounded palatal approximant. Uppercase mapping U+A78D exists in Unicode but is not an IPA symbol."
+    },
+    {
+      "symbol": "ʜ",
+      "codepoints": ["U+029C"],
+      "unicode_name": "LATIN LETTER SMALL CAPITAL H",
+      "ipa_name": "Small capital H",
+      "ipa_number": 172,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiceless epiglottal fricative",
+      "features": {"voicing": "voiceless", "place": "epiglottal (aryepiglottic folds constricted against the epiglottis; Esling treats this as a pharyngeal place)", "manner": "fricative, often with aryepiglottic trilling", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "Turbulent noise generated deep in the throat by the aryepiglottic folds; fibreoptic filming shows trilling of the aryepiglottic folds often accompanying the friction, which adds a low-frequency, irregular pulsing to the noise.", "provenance": "literature", "refs": ["esling1996", "wiki_epiglottal_consonant"]},
+        {"text": "Auditory quality changes markedly with larynx height and with pitch register (raised versus lowered larynx).", "provenance": "literature", "refs": ["esling1996"]},
+        {"text": "A low pharyngeal constriction typically raises F1 and lowers F2 in adjacent vowels (pharyngealised colouring).", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Unicode NamesList annotation agrees: voiceless epiglottal fricative."
+    },
+    {
+      "symbol": "ʢ",
+      "codepoints": ["U+02A2"],
+      "unicode_name": "LATIN LETTER REVERSED GLOTTAL STOP WITH STROKE",
+      "ipa_name": "Barred reversed glottal stop",
+      "ipa_number": 174,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant)",
+      "features": {"voicing": "voiced", "place": "epiglottal (aryepiglottic; Esling treats this as a pharyngeal place)", "manner": "fricative or approximant, often with aryepiglottic trilling", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "Voicing combined with constriction (and often trilling) of the aryepiglottic folds; Esling lists a voiced fricative with aryepiglottic trilling, and notes that the commonest value of /ʕ/ is a voiced pharyngeal ('epiglottal') approximant, so the friction may be slight.", "provenance": "literature", "refs": ["esling1996"]},
+        {"text": "Because the constriction is so close to the vocal folds, voicing and friction interfere with each other, making a clearly fricated voiced epiglottal hard to produce and to distinguish.", "provenance": "literature", "refs": ["wiki_epiglottal_consonant"]},
+        {"text": "Expect a harsh, creaky-sounding voice quality with raised F1 and lowered F2 in the neighbouring vowels.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Unicode NamesList annotation: voiced epiglottal fricative."
+    },
+    {
+      "symbol": "ʡ",
+      "codepoints": ["U+02A1"],
+      "unicode_name": "LATIN LETTER GLOTTAL STOP WITH STROKE",
+      "ipa_name": "Barred glottal stop",
+      "ipa_number": 173,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "epiglottal plosive (voicing not specified on the chart)",
+      "features": {"voicing": "unspecified on chart (normally voiceless)", "place": "epiglottal (aryepiglottic folds closed against the epiglottis)", "manner": "plosive", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "A complete closure made by the aryepiglottic folds against the epiglottis: a silent gap followed by an abrupt release; Esling describes it as a 'massive glottal stop'.", "provenance": "literature", "refs": ["esling1996", "wiki_epiglottal_consonant"]},
+        {"text": "A truly voiced epiglottal stop may be impossible; intervocalically a voiced version surfaces as a tap.", "provenance": "literature", "refs": ["wiki_epiglottal_consonant"]},
+        {"text": "No oral burst spectrum to speak of; the place cue lies in pharyngealised transitions (high F1, low F2) and often creaky phonation at the edges of the closure.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Unicode NamesList annotates U+02A1 as 'voiced epiglottal stop', which disagrees with the chart's unspecified voicing (see problems)."
+    },
+    {
+      "symbol": "ɕ",
+      "codepoints": ["U+0255"],
+      "unicode_name": "LATIN SMALL LETTER C WITH CURL",
+      "ipa_name": "Curly-tail C",
+      "ipa_number": 182,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiceless alveolo-palatal fricative",
+      "features": {"voicing": "voiceless", "place": "alveolo-palatal (laminal, front of tongue raised toward the hard palate behind the alveolar ridge)", "manner": "fricative (sibilant)", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "Sibilant noise whose centre of gravity lies between that of [s] (highest) and the Polish retroflex [ʂ] (lowest); for one female Polish speaker, read from the published figures, [ɕ] clustered at roughly 4 to 5.5 kHz against roughly 7 to 9 kHz for [s] and roughly 2.3 to 3.7 kHz for [ʂ], with no overlap between the three.", "provenance": "literature", "refs": ["zygis_hamann2003"]},
+        {"text": "It is a distinct category from a palatalised postalveolar [ʃʲ]: listeners separate the two reliably, and for the female speaker the [ʃʲ] centre of gravity fell between [ɕ] and [ʂ]; for the male speaker centre of gravity alone overlapped, so it is not a sufficient cue across speakers.", "provenance": "literature", "refs": ["zygis_hamann2003"]},
+        {"text": "The raised tongue body gives high F2 transitions into and out of neighbouring vowels, an [i]-like colouring.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Shares the chart label 'Alveolo-palatal fricatives' with ʑ. Unicode NamesList: voiceless alveolo-palatal laminal fricative (Mandarin x, Polish ś)."
+    },
+    {
+      "symbol": "ʑ",
+      "codepoints": ["U+0291"],
+      "unicode_name": "LATIN SMALL LETTER Z WITH CURL",
+      "ipa_name": "Curly-tail Z",
+      "ipa_number": 183,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiced alveolo-palatal fricative",
+      "features": {"voicing": "voiced", "place": "alveolo-palatal (laminal, front of tongue raised toward the hard palate)", "manner": "fricative (sibilant)", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "Voiced counterpart of [ɕ]: periodic voicing (voice bar, low-frequency energy) combined with sibilant noise in the same mid-high region as [ɕ]; the published measurements covered only the voiceless member, so the noise placement is carried over by analogy.", "provenance": "recalled-unverified", "refs": []},
+        {"text": "The Polish study that measured [ɕ] states that it restricted its perception tests and acoustic measurements to the voiceless segments, so no figures exist there for [ʑ].", "provenance": "literature", "refs": ["zygis_hamann2003"]},
+        {"text": "Frication is weaker than in the voiceless [ɕ] because voicing reduces airflow through the constriction; high F2 transitions as for [ɕ].", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Shares the chart label 'Alveolo-palatal fricatives' with ɕ. Unicode NamesList: voiced alveolo-palatal laminal fricative (Polish ź)."
+    },
+    {
+      "symbol": "ɺ",
+      "codepoints": ["U+027A"],
+      "unicode_name": "LATIN SMALL LETTER TURNED R WITH LONG LEG",
+      "ipa_name": "Turned long-leg R",
+      "ipa_number": 181,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "voiced alveolar lateral flap",
+      "features": {"voicing": "voiced", "place": "alveolar", "manner": "lateral flap (single ballistic contact, air escaping over the sides of the tongue)", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "A single quick contact of the tongue against the alveolar ridge, with airflow over the sides of the tongue instead of the centre: acoustically a very brief lateral interval rather than a sustained [l].", "provenance": "literature", "refs": ["wiki_voiced_alveolar_lateral_flap"]},
+        {"text": "During the lateral contact the spectrum should resemble a lateral: low F1, a relatively high F3, and antiformants from the pocket of air above the tongue acting as a side branch.", "provenance": "literature", "refs": ["unc_ling520_approximants"]},
+        {"text": "Duration is of the order of a tap (a few tens of milliseconds), much shorter than [l]; many languages described with a lateral flap actually have a flap indeterminate between central and lateral, so [ɾ]-like tokens are expected.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Approved in 1928 and redefined as an alveolar lateral flap in 1979 (per the Wikipedia article). Wikipedia also notes that some 'lateral flaps' are central/lateral-indeterminate (e.g. Japanese)."
+    },
+    {
+      "symbol": "ɧ",
+      "codepoints": ["U+0267"],
+      "unicode_name": "LATIN SMALL LETTER HENG WITH HOOK",
+      "ipa_name": "Hooktop heng",
+      "ipa_number": 175,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "simultaneous ʃ and x (IPA symbol list: voiceless postalveolar-velar fricative)",
+      "features": {"voicing": "voiceless", "place": "postalveolar plus velar, simultaneously (as defined by the chart)", "manner": "fricative", "airstream": "pulmonic egressive"},
+      "acoustic_correlates": [
+        {"text": "The chart defines the symbol as simultaneous [ʃ] and [x], but real realisations of the Swedish sj-sound vary widely (labiodental with velarisation and lip protrusion, or a velar fricative with weak friction), usually with distinct lip rounding; Ladefoged and Maddieson doubt that turbulence can be produced at two points at once in ordinary speech.", "provenance": "literature", "refs": ["wiki_sj_sound"]},
+        {"text": "Expected sound: a diffuse, relatively low-pitched, breathy frication without the strong high-frequency sibilant peak of [ʃ], darkened by lip rounding; centre of gravity lower than [ʃ].", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Unicode NamesList: voiceless coarticulated velar and palatoalveolar fricative; 'sj' in some Swedish dialects. The ʃ and x printed in the chart label are pulmonic symbols and are not entries of this section."
+    },
+    {
+      "symbol": "͜",
+      "codepoints": ["U+035C"],
+      "unicode_name": "COMBINING DOUBLE BREVE BELOW",
+      "ipa_name": "Bottom tie bar",
+      "ipa_number": 509,
+      "chart_example": "t͜s",
+      "alt_codepoints": [],
+      "equivalent_to": "U+0361",
+      "articulatory": "tie bar (below): joins two symbols written as one segment, an affricate or a double articulation",
+      "features": {"modifies": "segment grouping", "value": "the two joined symbols are one segment (affricate or coarticulated double articulation)"},
+      "acoustic_correlates": [
+        {"text": "No sound of its own. For an affricate such as t͜s it marks a single segment: a stop closure released directly into a homorganic fricative, with the fricative portion shorter than an independent [s] and no intervening release burst plus vowel; for a double articulation it marks two simultaneous closures.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "The chart prints this form under 'ts'. IPA number printed in parentheses '(509)' on the number chart and in the symbol list, the number of 'Linking (absence of a break)' ‿ U+203F UNDERTIE (a spacing punctuation character, not this combining mark). It is placed under the boundary between the two letters: the combining mark follows the first letter, e.g. t U+035C s. Same function as U+0361; IPA prints both."
+    },
+    {
+      "symbol": "͡",
+      "codepoints": ["U+0361"],
+      "unicode_name": "COMBINING DOUBLE INVERTED BREVE",
+      "ipa_name": "Top tie bar",
+      "ipa_number": 433,
+      "chart_example": "k͡p",
+      "alt_codepoints": [],
+      "equivalent_to": "U+035C",
+      "articulatory": "tie bar (above): joins two symbols written as one segment, an affricate or a double articulation",
+      "features": {"modifies": "segment grouping", "value": "the two joined symbols are one segment (affricate or coarticulated double articulation)"},
+      "acoustic_correlates": [
+        {"text": "No sound of its own. For a labial-velar stop such as k͡p the two closures overlap so the release is one event: a single silent closure, a release with both velar and labial influence, and formant transitions in the following vowel that are dominated by the labial (falling-F2 type) pattern; for affricates as described under the bottom tie bar.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "The chart prints this form over 'kp'. Unicode NamesList gives the alias 'ligature tie'. Written after the first letter, e.g. k U+0361 p. Same function as U+035C."
+    }
+  ],
+  "references": [
+    {"id": "ipa_chart_page", "title": "The International Phonetic Alphabet and the IPA Chart (origin and revisions, download, copyright and licence)", "author": "International Phonetic Association", "year": "2026 (page as accessed)", "url": "https://www.internationalphoneticassociation.org/content/ipa-chart", "accessed": "2026-10-05", "licence": "Chart: CC BY-SA 4.0; page text: copyright IPA", "read": true, "used_for": "current revision status (revised to 2015/2005, annual re-issue since 2025), licence line"},
+    {"id": "ipa_charts_e_page", "title": "IPA Chart: 4 fonts (download page) and its data scripts charts_fonts.js, ipa_charts_E.js, cp_licence.js", "author": "International Phonetic Association", "year": "2026 (page as accessed)", "url": "https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_E/IPA_charts_E.html", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0 (charts); scripts copyright IPA", "read": true, "used_for": "file names of the sub-charts, number chart and symbol list; statement that the full charts reproduce the 2015 chart and are re-issued annually"},
+    {"id": "ipa_os_subchart", "title": "International Phonetic Alphabet in Doulos SIL: Other symbols (IPA_Doulos_OS.pdf)", "author": "International Phonetic Association", "year": "2026 (revised to 2015/2005)", "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Doulos_OS.pdf", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "exact contents and labels of the Other symbols box"},
+    {"id": "ipa_full_kiel", "title": "International Phonetic Alphabet in IPA Kiel (IPA_Kiel.pdf, full chart)", "author": "International Phonetic Association", "year": "2026 (revised to 2015/2005)", "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Kiel.pdf", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "cross-check of the Other symbols box in the Association's recommended font; footer revision line"},
+    {"id": "ipa_number_chart", "title": "Number Chart of the International Phonetic Alphabet (IPA_number_chart.pdf)", "author": "International Phonetic Association", "year": "2026 (revised to 2015/2005)", "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_number_chart.pdf", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "IPA numbers 169-175, 181-183, (509), 433"},
+    {"id": "ipa_symbol_list", "title": "Symbol list of the International Phonetic Alphabet in Doulos SIL (IPA_Doulos_sl.pdf)", "author": "International Phonetic Association", "year": "2026", "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Doulos_sl.pdf", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "official names, IPA symbol names, IPA numbers and Unicode hex values for every entry, including both tie bars"},
+    {"id": "unicode_ucd_18", "title": "Unicode Character Database 18.0.0: UnicodeData.txt and NamesList.txt", "author": "Unicode, Inc.", "year": "2026", "url": "https://www.unicode.org/Public/UCD/latest/ucd/", "accessed": "2026-10-05", "licence": "Unicode License v3 / Unicode Terms of Use (https://www.unicode.org/terms_of_use.html)", "read": true, "used_for": "exact codepoints and character names; NamesList phonetic annotations (e.g. 02A1 'voiced epiglottal stop', 0361 'ligature tie')"},
+    {"id": "zygis_hamann2003", "title": "Perceptual and acoustic cues of Polish coronal fricatives", "author": "Marzena Żygis and Silke Hamann", "year": "2003", "url": "https://www.fon.hum.uva.nl/silke/articles/Zygis&Hamann_2003.pdf", "accessed": "2026-10-05", "licence": "author copy of ICPhS 15 (Barcelona) proceedings paper; all rights reserved by the authors/publisher (no open licence stated)", "read": true, "used_for": "centre-of-gravity placement of [ɕ] relative to [s], [ʂ] and [ʃʲ]; restriction to voiceless segments"},
+    {"id": "esling1996", "title": "Pharyngeal voice qualities: auditory change with pitch, and fibreoptic filming of aryepiglottic articulations", "author": "John H. Esling", "year": "1996", "url": "https://jcaa.caa-aca.ca/index.php/jcaa/article/download/996/721/1111", "accessed": "2026-10-05", "licence": "Canadian Acoustics 24(3); copyright held by the author, published under the journal's author licensing addendum (no open licence)", "read": true, "used_for": "aryepiglottic folds as articulator, trilling with friction, the 'massive glottal stop', voiced approximant as common value of /ʕ/, pitch and larynx-height effects"},
+    {"id": "unc_ling520_approximants", "title": "Linguistic Phonetics (LING 520), class outline 'Nasals (nasal stops); Approximants', F Oct 24", "author": "UNC Chapel Hill course materials (users.castle.unc.edu/~jlsmith); author name not printed in the file", "year": "not stated", "url": "https://users.castle.unc.edu/~jlsmith/ling520/outlines/1024_nasals_approximants.pdf", "accessed": "2026-10-05", "licence": "not stated (course handout, all rights reserved assumed)", "read": true, "used_for": "glides as short vowels; [w] labial plus velar constrictions like a high back rounded vowel; [j] palatal; laterals: side tube, antiformants, low F1, high F3"},
+    {"id": "mit_ocw_24915_vowels", "title": "24.915/24.963 Linguistic Phonetics, Fall 2015, lecture 5 'The acoustics of vowels'", "author": "MIT OpenCourseWare (instructor name not printed in the file)", "year": "2015", "url": "https://ocw.mit.edu/courses/24-915-linguistic-phonetics-fall-2015/9132fcf389544afbd25e805ea355bbbe_MIT24_915F15_lec5.pdf", "accessed": "2026-10-05", "licence": "MIT OpenCourseWare Creative Commons licence (exact version not checked; several figures marked as excluded, all rights reserved)", "read": true, "used_for": "lip rounding lowers all formants; it lowers the front-cavity resonance, usually F3 in front vowels and F2 in back vowels"},
+    {"id": "wiki_sj_sound", "title": "Sj-sound", "author": "Wikipedia contributors", "year": "2026", "url": "https://en.wikipedia.org/wiki/Sj-sound", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "realisations of ɧ, labialisation, Ladefoged and Maddieson's doubt about simultaneous double friction"},
+    {"id": "wiki_epiglottal_consonant", "title": "Epiglottal consonant", "author": "Wikipedia contributors", "year": "2026", "url": "https://en.wikipedia.org/wiki/Epiglottal_consonant", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "articulation of ʡ ʜ ʢ, trilling, voiced epiglottal stop surfacing as a tap, Esling's manner-not-place analysis"},
+    {"id": "wiki_voiced_alveolar_lateral_flap", "title": "Voiced alveolar lateral flap", "author": "Wikipedia contributors", "year": "2026", "url": "https://en.wikipedia.org/wiki/Voiced_alveolar_lateral_flap", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "articulation of ɺ, history of the symbol, central/lateral indeterminacy"},
+    {"id": "wiki_voiced_labial_palatal_approximant", "title": "Voiced labial–palatal approximant", "author": "Wikipedia contributors", "year": "2026", "url": "https://en.wikipedia.org/wiki/Voiced_labial%E2%80%93palatal_approximant", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "relation of ɥ to [y], compressed vs protruded variants, example languages"},
+    {"id": "wiki_voiceless_labial_velar_fricative", "title": "Voiceless labial–velar fricative", "author": "Wikipedia contributors", "year": "2026", "url": "https://en.wikipedia.org/wiki/Voiceless_labial%E2%80%93velar_fricative", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "fricative vs approximant status of ʍ, 1979 redefinition, English realisations"}
+  ],
+  "problems": [
+    "The chart carries no revision date beyond 'IPA Chart revised to 2015/2005'; the copy read is the 2026 annual re-issue ((c) 2026 IPA). No symbol-level change since 2015 was found.",
+    "ʢ: the chart label says 'Voiced epiglottal fricative' but the IPA's own symbol list names it 'VOICED EPIGLOTTAL FRICATIVE/APPROXIMANT'.",
+    "ʡ: the chart says only 'Epiglottal plosive' (no voicing); the Unicode NamesList annotates U+02A1 as 'voiced epiglottal stop'; Wikipedia describes it as voiceless and says a voiced one may be impossible.",
+    "ɧ: the chart defines it as 'Simultaneous ʃ and x', the IPA symbol list as 'voiceless postalveolar-velar fricative', Unicode as 'coarticulated velar and palatoalveolar fricative'; phoneticians (Ladefoged and Maddieson, via Wikipedia) doubt that double friction occurs, and real Swedish realisations vary. Not checked in Ladefoged and Maddieson directly.",
+    "ʍ: fricative vs approximant status is disputed (Wikipedia reports the IPA Handbook calls it both); the Handbook itself was not opened.",
+    "Bottom tie bar: the number chart and symbol list give it '(509)' in parentheses, the number of 'Linking' ‿ U+203F UNDERTIE; the symbol list also gives both the same AFII code 230F. Recorded here as 509 with U+035C; the suprasegmentals helper should keep U+203F as a separate character.",
+    "Esling (1996, via the Wikipedia article for 2010) treats epiglottals as pharyngeal manners, not a separate place, whereas the chart lists them as epiglottal; features record the chart's place and note Esling's view.",
+    "The IPA symbol list abbreviates Unicode names ('W/' for 'WITH'); the unicode_name values here are the full names from UnicodeData.txt 18.0.0.",
+    "No fetched source gives hertz or millisecond values for ʍ, w, ɥ, ʜ, ʢ, ʡ, ʑ, ɺ or ɧ; those correlates are described in words and the unsupported ones are tagged recalled-unverified. Attempts that failed: Macquarie University 'approximants.pdf' returned 403; an ICPhS 2023 Swedish sj-sound paper URL returned 404.",
+    "The [ɕ] centre-of-gravity ranges were read off the plotted figures of Żygis and Hamann (2003) for one female speaker; their male speaker showed overlap between [ɕ], [ʃʲ] and [ʂ], so these ranges are not general norms.",
+    "Esling (1996): the PDF text layer garbles several phonetic symbols in its Table 1; the symbol-to-description pairing was taken from the rendered page image.",
+    "UNC LING 520 outline: author name and year are not printed in the file; attributed to the course URL only."
+  ]
+}

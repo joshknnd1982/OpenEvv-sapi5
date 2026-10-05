@@ -1,0 +1,1534 @@
+{
+  "section": "tones",
+  "chart": {
+    "title": "The International Phonetic Alphabet (IPA Chart), box \"TONES AND WORD ACCENTS\" (LEVEL and CONTOUR columns)",
+    "revision": "IPA Chart revised to 2015/2005, annual re-issue (c) 2026 IPA. Symbols and wording are those of the 2015 revision (the 2005 chart with minor wording/layout changes); the IPA page says the chart is re-issued every year since 2025 with only the copyright year and symbols updated.",
+    "url": "https://www.internationalphoneticassociation.org/content/ipa-chart",
+    "licence": "Copyright International Phonetic Association; the chart and its parts are available under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).",
+    "how_read": "Opened the IPA chart page (revision history, licence) and the IPA_charts_E.html download page and its data scripts (charts_fonts.js) to find file names. Viewed the Tones and word accents sub-chart image in three fonts (IPA_Kiel_T_0600.png, IPA_Doulos_T_0600.png, IPA_DejaVu_T_0600.png) and the full chart IPA_Kiel.pdf as images; extracted the Unicode text layer of the full charts IPA_Doulos.pdf and IPA_DejaVu.pdf with pdftotext; read pages 12-13 of the IPA's 'List of symbols and diacritics' (IPA_Doulos_sl.pdf) for names, IPA numbers and hex values, and the IPA_number_chart.pdf. Contour letters were checked by measuring their glyphs on the 600 ppi images. All carry '(c) 2026 IPA' and 'IPA Chart revised to 2015/2005'. Character names checked against UnicodeData.txt of the Unicode Character Database 18.0.0."
+  },
+  "count": 24,
+  "count_explanation": "The section prints 5 level tones and 5 contour tones, each in two forms: a diacritic on e and a Chao tone letter (or tone-letter ligature), giving 10 + 10 = 20 entries linked in pairs with equivalent_to. It also prints downstep, upstep, global rise and global fall, one form each: 4 entries. Total 24, the same as the 24 IPA numbers 510-533 that the IPA number chart puts in this box (510-511 arrows, 512-516 level diacritics, 517-518 down/upstep, 519-523 level letters, 524-528 contour diacritics, 529-533 contour letters). Diacritics are entered as the combining mark alone; the carrier e is in chart_example.",
+  "symbols": [
+    {
+      "symbol": "̋",
+      "codepoints": [
+        "U+030B"
+      ],
+      "unicode_name": "COMBINING DOUBLE ACUTE ACCENT",
+      "ipa_name": "Double acute accent (over)",
+      "ipa_number": 512,
+      "chart_example": "e̋",
+      "alt_codepoints": [],
+      "equivalent_to": "˥",
+      "articulatory": "extra high tone (IPA list name: EXTRA HIGH LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the extra high level for the syllable, written as a diacritic over the syllable nucleus",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "extra high",
+        "form": "combining diacritic over the nucleus",
+        "chao_level_on_chart_row": 5
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) at the very top of the speaker's tonal range (level 5 of 5); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a high level tone: Mandarin Tone 1 (described as High-Level) in isolation, eight male Beijing speakers, starts near 130 Hz and stays around that level throughout the syllable; mean duration 247 ms. After a tone with a low offset, the first part of a high level tone rises toward its target instead of being flat.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example printed as e with the mark (e̋, e + U+030B; no precomposed form exists). The chart prints it in the same row as the tone letter ˥ (the full chart prints the word 'or' only in the first row: 'e̋ or ˥'); the Handbook (as quoted in Wikipedia) says the pairing is only a layout convenience: with diacritics a three-level system is é ē è and a four-level system adds the doubled marks e̋ and ȅ, whereas tone letters have five levels, so the row pairing is not an exact equivalence."
+    },
+    {
+      "symbol": "˥",
+      "codepoints": [
+        "U+02E5"
+      ],
+      "unicode_name": "MODIFIER LETTER EXTRA-HIGH TONE BAR",
+      "ipa_name": "Extra-high tone letter",
+      "ipa_number": 519,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "̋",
+      "articulatory": "extra high level tone written as a Chao tone letter (IPA list name: EXTRA HIGH LEVEL TONE (CHAO LETTER)): pitch held at level 5 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "extra high",
+        "form": "Chao tone letter (spacing modifier)",
+        "chao_level": 5
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) at the very top of the speaker's tonal range (level 5 of 5); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a high level tone: Mandarin Tone 1 (described as High-Level) in isolation, eight male Beijing speakers, starts near 130 Hz and stays around that level throughout the syllable; mean duration 247 ms. After a tone with a low offset, the first part of a high level tone rises toward its target instead of being flat.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Printed alone with its stave on the right, in the same chart row as the diacritic. The extra-high/high/mid/low/extra-low names are the chart's; the IPA list calls the letter 'Extra-high tone letter'."
+    },
+    {
+      "symbol": "́",
+      "codepoints": [
+        "U+0301"
+      ],
+      "unicode_name": "COMBINING ACUTE ACCENT",
+      "ipa_name": "Acute accent (over)",
+      "ipa_number": 513,
+      "chart_example": "é",
+      "alt_codepoints": [],
+      "equivalent_to": "˦",
+      "articulatory": "high tone (IPA list name: HIGH LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the high level for the syllable, written as a diacritic over the syllable nucleus",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "high",
+        "form": "combining diacritic over the nucleus",
+        "chao_level_on_chart_row": 4
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) in the upper part of the range (level 4 of 5 with tone letters; with diacritics, the high of a three- or four-level system); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a high level tone: Mandarin Tone 1 (described as High-Level) in isolation, eight male Beijing speakers, starts near 130 Hz and stays around that level throughout the syllable; mean duration 247 ms. After a tone with a low offset, the first part of a high level tone rises toward its target instead of being flat.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example printed as e with the mark (é). In the Doulos chart's text layer the example is the precomposed U+00E9 LATIN SMALL LETTER E WITH ACUTE; decomposed it is e + U+0301. The chart prints it in the same row as the tone letter ˦ (the full chart prints the word 'or' only in the first row: 'e̋ or ˥'); the Handbook (as quoted in Wikipedia) says the pairing is only a layout convenience: with diacritics a three-level system is é ē è and a four-level system adds the doubled marks e̋ and ȅ, whereas tone letters have five levels, so the row pairing is not an exact equivalence."
+    },
+    {
+      "symbol": "˦",
+      "codepoints": [
+        "U+02E6"
+      ],
+      "unicode_name": "MODIFIER LETTER HIGH TONE BAR",
+      "ipa_name": "High tone letter",
+      "ipa_number": 520,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "́",
+      "articulatory": "high level tone written as a Chao tone letter (IPA list name: HIGH LEVEL TONE (CHAO LETTER)): pitch held at level 4 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "high",
+        "form": "Chao tone letter (spacing modifier)",
+        "chao_level": 4
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) in the upper part of the range (level 4 of 5 with tone letters; with diacritics, the high of a three- or four-level system); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a high level tone: Mandarin Tone 1 (described as High-Level) in isolation, eight male Beijing speakers, starts near 130 Hz and stays around that level throughout the syllable; mean duration 247 ms. After a tone with a low offset, the first part of a high level tone rises toward its target instead of being flat.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Printed alone with its stave on the right, in the same chart row as the diacritic. The extra-high/high/mid/low/extra-low names are the chart's; the IPA list calls the letter 'High tone letter'."
+    },
+    {
+      "symbol": "̄",
+      "codepoints": [
+        "U+0304"
+      ],
+      "unicode_name": "COMBINING MACRON",
+      "ipa_name": "Macron",
+      "ipa_number": 514,
+      "chart_example": "ē",
+      "alt_codepoints": [],
+      "equivalent_to": "˧",
+      "articulatory": "mid tone (IPA list name: MID LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the mid level for the syllable, written as a diacritic over the syllable nucleus",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "mid",
+        "form": "combining diacritic over the nucleus",
+        "chao_level_on_chart_row": 3
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) in the middle of the range (level 3 of 5); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example printed as e with the mark (ē). In the Doulos chart's text layer the example is the precomposed U+0113 LATIN SMALL LETTER E WITH MACRON; decomposed it is e + U+0304. The chart prints it in the same row as the tone letter ˧ (the full chart prints the word 'or' only in the first row: 'e̋ or ˥'); the Handbook (as quoted in Wikipedia) says the pairing is only a layout convenience: with diacritics a three-level system is é ē è and a four-level system adds the doubled marks e̋ and ȅ, whereas tone letters have five levels, so the row pairing is not an exact equivalence."
+    },
+    {
+      "symbol": "˧",
+      "codepoints": [
+        "U+02E7"
+      ],
+      "unicode_name": "MODIFIER LETTER MID TONE BAR",
+      "ipa_name": "Mid tone letter",
+      "ipa_number": 521,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "̄",
+      "articulatory": "mid level tone written as a Chao tone letter (IPA list name: MID LEVEL TONE (CHAO LETTER)): pitch held at level 3 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "mid",
+        "form": "Chao tone letter (spacing modifier)",
+        "chao_level": 3
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) in the middle of the range (level 3 of 5); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Printed alone with its stave on the right, in the same chart row as the diacritic. The extra-high/high/mid/low/extra-low names are the chart's; the IPA list calls the letter 'Mid tone letter'."
+    },
+    {
+      "symbol": "̀",
+      "codepoints": [
+        "U+0300"
+      ],
+      "unicode_name": "COMBINING GRAVE ACCENT",
+      "ipa_name": "Grave accent (over)",
+      "ipa_number": 515,
+      "chart_example": "è",
+      "alt_codepoints": [],
+      "equivalent_to": "˨",
+      "articulatory": "low tone (IPA list name: LOW LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the low level for the syllable, written as a diacritic over the syllable nucleus",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "low",
+        "form": "combining diacritic over the nucleus",
+        "chao_level_on_chart_row": 2
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) in the lower part of the range (level 2 of 5 with tone letters; with diacritics, the low of a three- or four-level system); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a low target: Mandarin Tone 3 reaches the lowest F0 of the four tones, about 90 Hz for eight male speakers, at the vowel midpoint; in non-prepausal positions its final rise is usually absent so it behaves as a low tone. Very low F0 often co-occurs with creaky phonation (in Mandarin L tones, creak in 67-84% of tokens depending on boundary).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997",
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example printed as e with the mark (è). In the Doulos chart's text layer the example is the precomposed U+00E8 LATIN SMALL LETTER E WITH GRAVE; decomposed it is e + U+0300. The chart prints it in the same row as the tone letter ˨ (the full chart prints the word 'or' only in the first row: 'e̋ or ˥'); the Handbook (as quoted in Wikipedia) says the pairing is only a layout convenience: with diacritics a three-level system is é ē è and a four-level system adds the doubled marks e̋ and ȅ, whereas tone letters have five levels, so the row pairing is not an exact equivalence."
+    },
+    {
+      "symbol": "˨",
+      "codepoints": [
+        "U+02E8"
+      ],
+      "unicode_name": "MODIFIER LETTER LOW TONE BAR",
+      "ipa_name": "Low tone letter",
+      "ipa_number": 522,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "̀",
+      "articulatory": "low level tone written as a Chao tone letter (IPA list name: LOW LEVEL TONE (CHAO LETTER)): pitch held at level 2 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "low",
+        "form": "Chao tone letter (spacing modifier)",
+        "chao_level": 2
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) in the lower part of the range (level 2 of 5 with tone letters; with diacritics, the low of a three- or four-level system); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a low target: Mandarin Tone 3 reaches the lowest F0 of the four tones, about 90 Hz for eight male speakers, at the vowel midpoint; in non-prepausal positions its final rise is usually absent so it behaves as a low tone. Very low F0 often co-occurs with creaky phonation (in Mandarin L tones, creak in 67-84% of tokens depending on boundary).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997",
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Printed alone with its stave on the right, in the same chart row as the diacritic. The extra-high/high/mid/low/extra-low names are the chart's; the IPA list calls the letter 'Low tone letter'."
+    },
+    {
+      "symbol": "̏",
+      "codepoints": [
+        "U+030F"
+      ],
+      "unicode_name": "COMBINING DOUBLE GRAVE ACCENT",
+      "ipa_name": "Double grave accent (over)",
+      "ipa_number": 516,
+      "chart_example": "ȅ",
+      "alt_codepoints": [],
+      "equivalent_to": "˩",
+      "articulatory": "extra low tone (IPA list name: EXTRA LOW LEVEL TONE (ACCENT MARK)): pitch, i.e. the rate of vocal-fold vibration, held at the extra low level for the syllable, written as a diacritic over the syllable nucleus",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "extra low",
+        "form": "combining diacritic over the nucleus",
+        "chao_level_on_chart_row": 1
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) at the very bottom of the speaker's tonal range (level 1 of 5); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a low target: Mandarin Tone 3 reaches the lowest F0 of the four tones, about 90 Hz for eight male speakers, at the vowel midpoint; in non-prepausal positions its final rise is usually absent so it behaves as a low tone. Very low F0 often co-occurs with creaky phonation (in Mandarin L tones, creak in 67-84% of tokens depending on boundary).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997",
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example printed as e with the mark (ȅ). In the Doulos chart's text layer the example is the precomposed U+0205 LATIN SMALL LETTER E WITH DOUBLE GRAVE; decomposed it is e + U+030F. The chart prints it in the same row as the tone letter ˩ (the full chart prints the word 'or' only in the first row: 'e̋ or ˥'); the Handbook (as quoted in Wikipedia) says the pairing is only a layout convenience: with diacritics a three-level system is é ē è and a four-level system adds the doubled marks e̋ and ȅ, whereas tone letters have five levels, so the row pairing is not an exact equivalence."
+    },
+    {
+      "symbol": "˩",
+      "codepoints": [
+        "U+02E9"
+      ],
+      "unicode_name": "MODIFIER LETTER EXTRA-LOW TONE BAR",
+      "ipa_name": "Extra-low tone letter",
+      "ipa_number": 523,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "̏",
+      "articulatory": "extra low level tone written as a Chao tone letter (IPA list name: EXTRA LOW LEVEL TONE (CHAO LETTER)): pitch held at level 1 of the five-step stave (5 = top, 1 = bottom); written after (or before) the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "level tone",
+        "value": "extra low",
+        "form": "Chao tone letter (spacing modifier)",
+        "chao_level": 1
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 is held approximately flat through the voiced part of the syllable (the vowel/rhyme) at the very bottom of the speaker's tonal range (level 1 of 5); no deliberate rise or fall within the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a low target: Mandarin Tone 3 reaches the lowest F0 of the four tones, about 90 Hz for eight male speakers, at the vowel midpoint; in non-prepausal positions its final rise is usually absent so it behaves as a low tone. Very low F0 often co-occurs with creaky phonation (in Mandarin L tones, creak in 67-84% of tokens depending on boundary).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997",
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Chao's five-level scale divides the speaker's tonal range into five steps; Chao (1956, as reported) spaced the levels about two semitones apart, a later description (Chao 1968, as reported) gave one semitone between levels 1 and 2 and three between 2 and 3; a linear alternative divides the range between the lowest and highest tone F0 into four equal intervals. Use these as starting points, not norms.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Printed alone with its stave on the right, in the same chart row as the diacritic. The extra-high/high/mid/low/extra-low names are the chart's; the IPA list calls the letter 'Extra-low tone letter'."
+    },
+    {
+      "symbol": "̌",
+      "codepoints": [
+        "U+030C"
+      ],
+      "unicode_name": "COMBINING CARON",
+      "ipa_name": "Wedge; háček",
+      "ipa_number": 524,
+      "chart_example": "ě",
+      "alt_codepoints": [],
+      "equivalent_to": "˩˥",
+      "articulatory": "rising contour tone written as a diacritic over the nucleus (IPA list name: RISING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch low to high (L→H) across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "rising",
+        "form": "combining diacritic over the nucleus",
+        "diacritic_pitch_path": "low to high (L→H)"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 moves upward through the syllable from low to high, the rise filling most of the voiced rhyme; the high endpoint is reached at or near the end of the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a rising tone: Mandarin Tone 2 (described as Mid-Rising), eight male speakers in isolation, starts near 110 Hz, dips slightly, and rises from about 20% into the vowel to the end of the syllable; mean duration 273 ms. After a high-offset tone the rise starts later (about 35% into the vowel).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Physiological speed limit on F0 change: a pitch rise of d semitones needs roughly 89.6 + 8.7·d ms (Xu and Sun 2002, as quoted), so a large contour cannot be completed on a very short syllable and is undershot.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example ě (precomposed U+011B LATIN SMALL LETTER E WITH CARON in the Doulos chart's text layer; decomposed e + U+030C). Paired on the chart row with the tone letter sequence ˩˥ (U+02E9 U+02E5). Diacritic levels are coarse (H/M/L); the letter specifies Chao levels 1-5, so the pair is a layout equivalence, not an exact one."
+    },
+    {
+      "symbol": "˩˥",
+      "codepoints": [
+        "U+02E9",
+        "U+02E5"
+      ],
+      "unicode_name": "MODIFIER LETTER EXTRA-LOW TONE BAR + MODIFIER LETTER EXTRA-HIGH TONE BAR",
+      "ipa_name": "Rising tone letter",
+      "ipa_number": 529,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "̌",
+      "articulatory": "rising contour tone written as a Chao tone-letter sequence (IPA list name: RISING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 1 → 5 across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "rising",
+        "form": "Chao tone-letter sequence (ligature)",
+        "chao_levels": [
+          1,
+          5
+        ]
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 moves from Chao level 1 to level 5 (rising) across the voiced rhyme, approaching the end level near the syllable's end; levels are relative steps of the speaker's tonal range (5 = top, 1 = bottom); tone letters are schematics of the pitch contour across the stave.",
+          "provenance": "literature",
+          "refs": [
+            "ipa_symbol_list",
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Reference measurement for a rising tone: Mandarin Tone 2 (described as Mid-Rising), eight male speakers in isolation, starts near 110 Hz, dips slightly, and rises from about 20% into the vowel to the end of the syllable; mean duration 273 ms. After a high-offset tone the rise starts later (about 35% into the vowel).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Physiological speed limit on F0 change: a pitch rise of d semitones needs roughly 89.6 + 8.7·d ms (Xu and Sun 2002, as quoted), so a large contour cannot be completed on a very short syllable and is undershot.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "No single code point: the contour letter is the sequence U+02E9 + U+02E5 (Chao levels 1-5), which IPA-aware fonts draw as one ligated glyph on one stave. Source of the sequence: the IPA's own symbol list (Hex value 02E9 + 02E5)."
+    },
+    {
+      "symbol": "̂",
+      "codepoints": [
+        "U+0302"
+      ],
+      "unicode_name": "COMBINING CIRCUMFLEX ACCENT",
+      "ipa_name": "Circumflex",
+      "ipa_number": 525,
+      "chart_example": "ê",
+      "alt_codepoints": [],
+      "equivalent_to": "˥˩",
+      "articulatory": "falling contour tone written as a diacritic over the nucleus (IPA list name: FALLING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch high to low (H→L) across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "falling",
+        "form": "combining diacritic over the nucleus",
+        "diacritic_pitch_path": "high to low (H→L)"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 moves downward through the syllable from high to low; the low endpoint is reached at or near the end of the syllable.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a falling tone: Mandarin Tone 4 (described as High-Falling), eight male speakers in isolation, starts at the highest F0 of the four tones (about 140 Hz), rises a little to its maximum about one fifth into the vowel, then falls sharply to the end; it is the shortest tone (214 ms mean). After a low-offset tone the fall starts later (about 40% into the vowel).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example ê (precomposed U+00EA LATIN SMALL LETTER E WITH CIRCUMFLEX in the Doulos chart's text layer; decomposed e + U+0302). Paired on the chart row with the tone letter sequence ˥˩ (U+02E5 U+02E9). Diacritic levels are coarse (H/M/L); the letter specifies Chao levels 5-1, so the pair is a layout equivalence, not an exact one."
+    },
+    {
+      "symbol": "˥˩",
+      "codepoints": [
+        "U+02E5",
+        "U+02E9"
+      ],
+      "unicode_name": "MODIFIER LETTER EXTRA-HIGH TONE BAR + MODIFIER LETTER EXTRA-LOW TONE BAR",
+      "ipa_name": "Falling tone letter",
+      "ipa_number": 530,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "̂",
+      "articulatory": "falling contour tone written as a Chao tone-letter sequence (IPA list name: FALLING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 5 → 1 across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "falling",
+        "form": "Chao tone-letter sequence (ligature)",
+        "chao_levels": [
+          5,
+          1
+        ]
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 moves from Chao level 5 to level 1 (falling) across the voiced rhyme, approaching the end level near the syllable's end; levels are relative steps of the speaker's tonal range (5 = top, 1 = bottom); tone letters are schematics of the pitch contour across the stave.",
+          "provenance": "literature",
+          "refs": [
+            "ipa_symbol_list",
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Reference measurement for a falling tone: Mandarin Tone 4 (described as High-Falling), eight male speakers in isolation, starts at the highest F0 of the four tones (about 140 Hz), rises a little to its maximum about one fifth into the vowel, then falls sharply to the end; it is the shortest tone (214 ms mean). After a low-offset tone the fall starts later (about 40% into the vowel).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "No single code point: the contour letter is the sequence U+02E5 + U+02E9 (Chao levels 5-1), which IPA-aware fonts draw as one ligated glyph on one stave. Source of the sequence: the IPA's own symbol list (Hex value 02E5 + 02E9)."
+    },
+    {
+      "symbol": "᷄",
+      "codepoints": [
+        "U+1DC4"
+      ],
+      "unicode_name": "COMBINING MACRON-ACUTE",
+      "ipa_name": "Macron + acute accent",
+      "ipa_number": 526,
+      "chart_example": "e᷄",
+      "alt_codepoints": [],
+      "equivalent_to": "˧˥",
+      "articulatory": "high rising contour tone written as a diacritic over the nucleus (IPA list name: HIGH RISING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch mid to high (M→H) across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "high rising",
+        "form": "combining diacritic over the nucleus",
+        "diacritic_pitch_path": "mid to high (M→H)"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 rises from mid to high (upper half of the range): the start is at mid level, the end at the top.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a rising tone: Mandarin Tone 2 (described as Mid-Rising), eight male speakers in isolation, starts near 110 Hz, dips slightly, and rises from about 20% into the vowel to the end of the syllable; mean duration 273 ms. After a high-offset tone the rise starts later (about 35% into the vowel).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Physiological speed limit on F0 change: a pitch rise of d semitones needs roughly 89.6 + 8.7·d ms (Xu and Sun 2002, as quoted), so a large contour cannot be completed on a very short syllable and is undershot.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example e᷄. Paired on the chart row with the tone letter sequence ˧˥ (U+02E7 U+02E5). Diacritic levels are coarse (H/M/L); the letter specifies Chao levels 3-5, so the pair is a layout equivalence, not an exact one."
+    },
+    {
+      "symbol": "˧˥",
+      "codepoints": [
+        "U+02E7",
+        "U+02E5"
+      ],
+      "unicode_name": "MODIFIER LETTER MID TONE BAR + MODIFIER LETTER EXTRA-HIGH TONE BAR",
+      "ipa_name": "High-rising tone letter",
+      "ipa_number": 531,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "᷄",
+      "articulatory": "high rising contour tone written as a Chao tone-letter sequence (IPA list name: HIGH RISING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 3 → 5 across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "high rising",
+        "form": "Chao tone-letter sequence (ligature)",
+        "chao_levels": [
+          3,
+          5
+        ]
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 moves from Chao level 3 to level 5 (rising) across the voiced rhyme, approaching the end level near the syllable's end; levels are relative steps of the speaker's tonal range (5 = top, 1 = bottom); tone letters are schematics of the pitch contour across the stave.",
+          "provenance": "literature",
+          "refs": [
+            "ipa_symbol_list",
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Reference measurement for a rising tone: Mandarin Tone 2 (described as Mid-Rising), eight male speakers in isolation, starts near 110 Hz, dips slightly, and rises from about 20% into the vowel to the end of the syllable; mean duration 273 ms. After a high-offset tone the rise starts later (about 35% into the vowel).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Physiological speed limit on F0 change: a pitch rise of d semitones needs roughly 89.6 + 8.7·d ms (Xu and Sun 2002, as quoted), so a large contour cannot be completed on a very short syllable and is undershot.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "No single code point: the contour letter is the sequence U+02E7 + U+02E5 (Chao levels 3-5), which IPA-aware fonts draw as one ligated glyph on one stave. Source of the sequence: the IPA's own symbol list (Hex value 02E7 + 02E5). The IPA symbol list's TIPA code for this letter disagrees with its Hex value (see problems); the Hex value was followed."
+    },
+    {
+      "symbol": "᷅",
+      "codepoints": [
+        "U+1DC5"
+      ],
+      "unicode_name": "COMBINING GRAVE-MACRON",
+      "ipa_name": "Grave accent + macron",
+      "ipa_number": 527,
+      "chart_example": "e᷅",
+      "alt_codepoints": [],
+      "equivalent_to": "˩˧",
+      "articulatory": "low rising contour tone written as a diacritic over the nucleus (IPA list name: LOW RISING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch low to mid (L→M) across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "low rising",
+        "form": "combining diacritic over the nucleus",
+        "diacritic_pitch_path": "low to mid (L→M)"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 rises from low to mid (lower half of the range): the start is at the bottom, the end at mid level.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Reference measurement for a rising tone: Mandarin Tone 2 (described as Mid-Rising), eight male speakers in isolation, starts near 110 Hz, dips slightly, and rises from about 20% into the vowel to the end of the syllable; mean duration 273 ms. After a high-offset tone the rise starts later (about 35% into the vowel).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Physiological speed limit on F0 change: a pitch rise of d semitones needs roughly 89.6 + 8.7·d ms (Xu and Sun 2002, as quoted), so a large contour cannot be completed on a very short syllable and is undershot.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example e᷅. Paired on the chart row with the tone letter sequence ˩˧ (U+02E9 U+02E7). Diacritic levels are coarse (H/M/L); the letter specifies Chao levels 1-3, so the pair is a layout equivalence, not an exact one."
+    },
+    {
+      "symbol": "˩˧",
+      "codepoints": [
+        "U+02E9",
+        "U+02E7"
+      ],
+      "unicode_name": "MODIFIER LETTER EXTRA-LOW TONE BAR + MODIFIER LETTER MID TONE BAR",
+      "ipa_name": "Low-rising tone letter",
+      "ipa_number": 532,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "᷅",
+      "articulatory": "low rising contour tone written as a Chao tone-letter sequence (IPA list name: LOW RISING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 1 → 3 across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "low rising",
+        "form": "Chao tone-letter sequence (ligature)",
+        "chao_levels": [
+          1,
+          3
+        ]
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 moves from Chao level 1 to level 3 (rising) across the voiced rhyme, approaching the end level near the syllable's end; levels are relative steps of the speaker's tonal range (5 = top, 1 = bottom); tone letters are schematics of the pitch contour across the stave.",
+          "provenance": "literature",
+          "refs": [
+            "ipa_symbol_list",
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Reference measurement for a rising tone: Mandarin Tone 2 (described as Mid-Rising), eight male speakers in isolation, starts near 110 Hz, dips slightly, and rises from about 20% into the vowel to the end of the syllable; mean duration 273 ms. After a high-offset tone the rise starts later (about 35% into the vowel).",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        },
+        {
+          "text": "Physiological speed limit on F0 change: a pitch rise of d semitones needs roughly 89.6 + 8.7·d ms (Xu and Sun 2002, as quoted), so a large contour cannot be completed on a very short syllable and is undershot.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "No single code point: the contour letter is the sequence U+02E9 + U+02E7 (Chao levels 1-3), which IPA-aware fonts draw as one ligated glyph on one stave. Source of the sequence: the IPA's own symbol list (Hex value 02E9 + 02E7). The IPA symbol list's TIPA code for this letter disagrees with its Hex value (see problems); the Hex value was followed."
+    },
+    {
+      "symbol": "᷈",
+      "codepoints": [
+        "U+1DC8"
+      ],
+      "unicode_name": "COMBINING GRAVE-ACUTE-GRAVE",
+      "ipa_name": "Grave + acute + grave accent",
+      "ipa_number": 528,
+      "chart_example": "e᷈",
+      "alt_codepoints": [],
+      "equivalent_to": "˧˦˨",
+      "articulatory": "rising-falling contour tone written as a diacritic over the nucleus (IPA list name: RISING-FALLING CONTOUR TONE (ACCENT MARK)); the mark's shape traces pitch low-high-low (L→H→L) across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "rising-falling",
+        "form": "combining diacritic over the nucleus",
+        "diacritic_pitch_path": "low-high-low (L→H→L)"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 first rises to a peak inside the syllable and then falls, so there is one F0 maximum well inside the voiced rhyme rather than at an edge.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        },
+        {
+          "text": "Peaking (rise-fall) contours are described as rising then falling pitch within one unit; three-point tone-letter sequences express the start, peak and end levels.",
+          "provenance": "literature",
+          "refs": [
+            "wp_intonation",
+            "wp_ipa"
+          ]
+        },
+        {
+          "text": "Physiological speed limit on F0 change: a pitch rise of d semitones needs roughly 89.6 + 8.7·d ms (Xu and Sun 2002, as quoted), so a large contour cannot be completed on a very short syllable and is undershot.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "Chart example e᷈. Paired on the chart row with the tone letter sequence ˧˦˨ (U+02E7 U+02E6 U+02E8). Diacritic levels are coarse (H/M/L); the letter specifies Chao levels 3-4-2, so the pair is a layout equivalence, not an exact one."
+    },
+    {
+      "symbol": "˧˦˨",
+      "codepoints": [
+        "U+02E7",
+        "U+02E6",
+        "U+02E8"
+      ],
+      "unicode_name": "MODIFIER LETTER MID TONE BAR + MODIFIER LETTER HIGH TONE BAR + MODIFIER LETTER LOW TONE BAR",
+      "ipa_name": "Rising-falling tone letter",
+      "ipa_number": 533,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": "᷈",
+      "articulatory": "rising-falling contour tone written as a Chao tone-letter sequence (IPA list name: RISING-FALLING CONTOUR TONE (CHAO LETTER)): pitch moves through Chao levels 3 → 4 → 2 across the syllable",
+      "features": {
+        "modifies": "pitch",
+        "kind": "contour tone",
+        "value": "rising-falling",
+        "form": "Chao tone-letter sequence (ligature)",
+        "chao_levels": [
+          3,
+          4,
+          2
+        ]
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 starts at mid (level 3), rises to a peak at level 4 (upper-mid) inside the syllable, then falls to level 2 (lower-mid) by the end: a peaking contour that ends lower than it began (tone letters are schematics of the pitch contour across the stave; sequence from the IPA list).",
+          "provenance": "literature",
+          "refs": [
+            "ipa_symbol_list",
+            "wp_tone_letter"
+          ]
+        },
+        {
+          "text": "Peaking (rise-fall) contours are described as rising then falling pitch within one unit; three-point tone-letter sequences express the start, peak and end levels.",
+          "provenance": "literature",
+          "refs": [
+            "wp_intonation",
+            "wp_ipa"
+          ]
+        },
+        {
+          "text": "Physiological speed limit on F0 change: a pitch rise of d semitones needs roughly 89.6 + 8.7·d ms (Xu and Sun 2002, as quoted), so a large contour cannot be completed on a very short syllable and is undershot.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        },
+        {
+          "text": "Context: the start of a tone's F0 track is pulled toward the offset F0 of the preceding tone (carry-over assimilation, as large as 55 Hz at the syllable boundary and still up to 35 Hz at vowel onset and 17 Hz at vowel midpoint in Mandarin), while the following tone has a smaller, mostly dissimilatory effect; the tone's own target is approached over the course of the syllable, most closely near its end.",
+          "provenance": "literature",
+          "refs": [
+            "xu1997"
+          ]
+        }
+      ],
+      "notes": "No single code point: the contour letter is the sequence U+02E7 + U+02E6 + U+02E8 (Chao levels 3-4-2), which IPA-aware fonts draw as one ligated glyph on one stave. Source of the sequence: the IPA's own symbol list (Hex value 02E7 + 02E6 + 02E8). The example has changed between chart editions: Wikipedia reports [˦˥˦] in the 1999 Handbook chart and [˧˦˨] since the 2018 chart. The current IPA symbol list gives 02E7 + 02E6 + 02E8; the Doulos and DejaVu chart images, measured, start at level 3, peak at 4 and end near 2; the IPA Kiel-font image's ligature appears to end nearer level 3 (see problems). The IPA symbol list's TIPA code for this letter disagrees with its Hex value (see problems); the Hex value was followed."
+    },
+    {
+      "symbol": "ꜜ",
+      "codepoints": [
+        "U+A71C"
+      ],
+      "unicode_name": "MODIFIER LETTER RAISED DOWN ARROW",
+      "ipa_name": "Down arrow",
+      "ipa_number": 517,
+      "chart_example": null,
+      "alt_codepoints": [
+        "U+2193",
+        "U+A71D"
+      ],
+      "equivalent_to": null,
+      "articulatory": "downstep: the following tone (typically a high tone) is realised on a lower pitch register than the same tone before it, and that lowered register persists for following tones; written before the affected syllable",
+      "features": {
+        "modifies": "pitch register",
+        "kind": "tone register shift",
+        "value": "downstep (lowering)",
+        "form": "modifier letter placed before the syllable"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Measurable as a drop in F0 between two tones of the same category: the high tone after the mark has a lower F0 maximum than the preceding high tone, with no low tone audibly realised between them (non-automatic downstep, usually from a floating low tone); later high tones stay at or below the new, lower ceiling (terracing).",
+          "provenance": "literature",
+          "refs": [
+            "wp_downstep",
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Phonetically, non-automatic downstep (floating L) and automatic downstep (after an overt L) are reported not to differ (Akan studies cited); size is measured either as the F0 drop between the two high tones or as the difference from the same high tone in an all-high phrase.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Magnitude reference (automatic downstep in Mandarin): the lowering of high tones after a low tone was greater and more robust than plain declination (about 0.25 semitone between adjacent tones in all-high sentences), lasted for 3-5 following high tones, and stayed within about 2.5 semitones before levelling back to the high-tone reference line.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        }
+      ],
+      "notes": "Printed on the chart as a down arrow before the word 'Downstep'. The IPA symbol list identifies it as U+A71C MODIFIER LETTER RAISED DOWN ARROW (the Doulos chart's text layer agrees). Alternatives seen in the literature: a superscript plain arrow U+2193 DOWNWARDS ARROW, and the raised exclamation mark U+A71D used for typographic reasons (Wikipedia notes this collides with a click-release reading)."
+    },
+    {
+      "symbol": "ꜛ",
+      "codepoints": [
+        "U+A71B"
+      ],
+      "unicode_name": "MODIFIER LETTER RAISED UP ARROW",
+      "ipa_name": "Up arrow",
+      "ipa_number": 518,
+      "chart_example": null,
+      "alt_codepoints": [
+        "U+2191",
+        "U+A71E"
+      ],
+      "equivalent_to": null,
+      "articulatory": "upstep: the following tone is realised on a higher pitch register than the same tone before it; also used for pitch reset at the start of a new prosodic chunk; written before the affected syllable",
+      "features": {
+        "modifies": "pitch register",
+        "kind": "tone register shift",
+        "value": "upstep (raising)",
+        "form": "modifier letter placed before the syllable"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "Measurable as an upward step in F0 between two tones of the same category: the tone after the mark has a higher F0 than the same tone before it.",
+          "provenance": "literature",
+          "refs": [
+            "wp_upstep"
+          ]
+        },
+        {
+          "text": "As pitch reset: after a stretch of gradually declining F0 (a chunk with global fall), F0 jumps back up at the start of the next chunk; the Handbook's Portuguese illustration uses the mark this way (as reported).",
+          "provenance": "literature",
+          "refs": [
+            "wp_upstep",
+            "wp_ipa"
+          ]
+        },
+        {
+          "text": "Tone levels are relative, not absolute: 'high' and 'low' are judged against the speaker's own pitch range and against neighbouring syllables, and phrase-level F0 declination can leave a late high tone lower in Hz than an early low tone.",
+          "provenance": "literature",
+          "refs": [
+            "wp_tone_linguistics"
+          ]
+        }
+      ],
+      "notes": "Printed on the chart as an up arrow before the word 'Upstep'. The IPA symbol list identifies it as U+A71B MODIFIER LETTER RAISED UP ARROW. Alternatives seen: a superscript plain U+2191 UPWARDS ARROW, and the raised inverted exclamation mark U+A71E (Wikipedia)."
+    },
+    {
+      "symbol": "↗",
+      "codepoints": [
+        "U+2197"
+      ],
+      "unicode_name": "NORTH EAST ARROW",
+      "ipa_name": "Upward diagonal arrow",
+      "ipa_number": 510,
+      "chart_example": null,
+      "alt_codepoints": [
+        "U+2197 U+FE0E"
+      ],
+      "equivalent_to": null,
+      "articulatory": "global rise: intonation, not lexical tone; the whole prosodic unit (when attached to a boundary mark such as ‖) or the marked word/syllable has rising overall pitch",
+      "features": {
+        "modifies": "intonation (utterance-level pitch)",
+        "kind": "intonation contour",
+        "value": "global rise",
+        "form": "arrow placed before the word/syllable or with a boundary mark"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 rises over the span it applies to (the pitch trend over the intonation unit is upward rather than declining); in English it typically marks yes-no questions or non-final list items, the rise realised mainly on and after the marked syllable.",
+          "provenance": "literature",
+          "refs": [
+            "wp_intonation",
+            "wp_ipa"
+          ]
+        },
+        {
+          "text": "Being superimposed on lexical tones in a tone language, it shifts and tilts the tone targets rather than replacing them; the raised end is relative to the speaker's range.",
+          "provenance": "recalled-unverified",
+          "refs": []
+        }
+      ],
+      "notes": "IPA list: NORTH EAST ARROW, Unicode block Arrows, IPA number 510. U+2197 has an emoji presentation; U+2197 U+FE0E (VARIATION SELECTOR-15) forces text style and is how Wikipedia writes it."
+    },
+    {
+      "symbol": "↘",
+      "codepoints": [
+        "U+2198"
+      ],
+      "unicode_name": "SOUTH EAST ARROW",
+      "ipa_name": "Downward diagonal arrow",
+      "ipa_number": 511,
+      "chart_example": null,
+      "alt_codepoints": [
+        "U+2198 U+FE0E"
+      ],
+      "equivalent_to": null,
+      "articulatory": "global fall: intonation, not lexical tone; the whole prosodic unit (when attached to a boundary mark) or the marked word/syllable has falling overall pitch",
+      "features": {
+        "modifies": "intonation (utterance-level pitch)",
+        "kind": "intonation contour",
+        "value": "global fall",
+        "form": "arrow placed before the word/syllable or with a boundary mark"
+      },
+      "acoustic_correlates": [
+        {
+          "text": "F0 falls over the span it applies to; in English a fall on the last prominent syllable typically marks statements and wh-questions, realised as a down-glide on that syllable if it is final or a step down to the following syllables otherwise.",
+          "provenance": "literature",
+          "refs": [
+            "wp_intonation",
+            "wp_ipa"
+          ]
+        },
+        {
+          "text": "Chunks with gradually declining pitch are the most common prosodic contours; F0 resets upward at the start of the next chunk.",
+          "provenance": "literature",
+          "refs": [
+            "wp_upstep"
+          ]
+        },
+        {
+          "text": "Phrase-level declination itself is small in tone languages (about 0.25 semitone between adjacent high tones in all-high Mandarin sentences), so a marked global fall should be clearly larger than plain declination.",
+          "provenance": "literature",
+          "refs": [
+            "wang2022"
+          ]
+        }
+      ],
+      "notes": "IPA list: SOUTH EAST ARROW, Unicode block Arrows, IPA number 511. U+2198 has an emoji presentation; U+2198 U+FE0E forces text style."
+    }
+  ],
+  "references": [
+    {
+      "id": "ipa_chart_page",
+      "title": "IPA Chart (page: history of revisions, download links, licence)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/content/ipa-chart",
+      "accessed": "2026-10-05",
+      "licence": "Page states the chart is available under CC BY-SA 4.0",
+      "read": true,
+      "used_for": "current revision (revised to 2015/2005, re-issued annually since 2025), licence, file locations"
+    },
+    {
+      "id": "ipa_tones_png_kiel",
+      "title": "IPA Chart, Tones and word accents sub-chart (IPA Kiel font, 600 ppi PNG)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_E/images/IPA_Kiel_T_0600.png",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0 (icons on the image)",
+      "read": true,
+      "used_for": "exact contents and layout of the section; footer '(c) 2026 IPA, IPA Chart revised to 2015/2005'; pixel measurement of contour letters"
+    },
+    {
+      "id": "ipa_tones_png_doulos",
+      "title": "IPA Chart, Tones and word accents sub-chart (Doulos SIL and DejaVu Sans fonts, 600 ppi PNG)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_E/images/IPA_Doulos_T_0600.png",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "cross-check of contents; pixel measurement of the rising-falling letter (also IPA_DejaVu_T_0600.png)"
+    },
+    {
+      "id": "ipa_kiel_pdf",
+      "title": "The International Phonetic Alphabet (full chart, IPA Kiel)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Kiel.pdf",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "full chart: section placement and labels; its text layer uses a legacy font encoding, so symbols were read from the page image"
+    },
+    {
+      "id": "ipa_doulos_pdf",
+      "title": "The International Phonetic Alphabet (full chart, Doulos SIL; also IPA_DejaVu.pdf)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Doulos.pdf",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "Unicode text layer of the tones section: U+030B, U+00E9, U+0113, U+00E8, U+0205, U+02E5..U+02E9, U+011B, U+00EA, e+U+1DC4, e+U+1DC5, e+U+1DC8, U+A71C, U+A71B, U+2197, U+2198; contour letters map to 2 or 3 unmapped glyphs (ligatures)"
+    },
+    {
+      "id": "ipa_symbol_list",
+      "title": "List of symbols and diacritics with descriptions & identifiers (IPA_Doulos_sl.pdf), pages 12-13 Tones and word accents",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Doulos_sl.pdf",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0 (IPA chart materials)",
+      "read": true,
+      "used_for": "names, IPA names, IPA numbers, Unicode names and hex values for all 24 symbols, including the contour-letter sequences 02E9+02E5, 02E5+02E9, 02E7+02E5, 02E9+02E7, 02E7+02E6+02E8"
+    },
+    {
+      "id": "ipa_number_chart",
+      "title": "IPA Number Chart (IPA_number_chart.pdf)",
+      "author": "International Phonetic Association",
+      "year": "2026",
+      "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_number_chart.pdf",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "IPA numbers 510-533 in chart layout (512 or 519 ... 528 533)"
+    },
+    {
+      "id": "unicode_ucd",
+      "title": "Unicode Character Database 18.0.0: UnicodeData.txt and emoji/emoji-variation-sequences.txt",
+      "author": "Unicode Consortium",
+      "year": "2026",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt",
+      "accessed": "2026-10-05",
+      "licence": "Unicode License v3",
+      "read": true,
+      "used_for": "character names of every codepoint; text/emoji variation sequences for U+2197 and U+2198"
+    },
+    {
+      "id": "wp_ipa_number",
+      "title": "IPA number",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/IPA_number",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "cross-check of IPA numbers 510-533 (disagrees on 533, see problems)"
+    },
+    {
+      "id": "wp_ipa",
+      "title": "International Phonetic Alphabet (sections on suprasegmentals, pitch and tone)",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/International_Phonetic_Alphabet",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "history of the rising-falling example; Handbook's statement that diacritic/letter pairing is a layout simplification; use of arrows for global rise/fall and pitch reset"
+    },
+    {
+      "id": "wp_tone_letter",
+      "title": "Tone letter",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Tone_letter",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "five-level stave; mapping of tone levels to F0 (Chao 1956/1968 semitone spacing, linear method) as reported"
+    },
+    {
+      "id": "wp_tone_linguistics",
+      "title": "Tone (linguistics)",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Tone_(linguistics)",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "relative nature of tone levels; declination/downdrift"
+    },
+    {
+      "id": "wp_downstep",
+      "title": "Downstep",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Downstep",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "definition of downstep proper vs downdrift, floating low tone, superscript-! substitute"
+    },
+    {
+      "id": "wp_upstep",
+      "title": "Upstep",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Upstep",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "definition of upstep, pitch reset, substitute symbols"
+    },
+    {
+      "id": "wp_intonation",
+      "title": "Intonation (linguistics)",
+      "author": "Wikipedia contributors",
+      "year": "2026",
+      "url": "https://en.wikipedia.org/wiki/Intonation_(linguistics)",
+      "accessed": "2026-10-05",
+      "licence": "CC BY-SA 4.0",
+      "read": true,
+      "used_for": "IPA global rise/fall marks and their use; English rising/falling intonation placement"
+    },
+    {
+      "id": "xu1997",
+      "title": "Contextual tonal variations in Mandarin",
+      "author": "Yi Xu",
+      "year": "1997",
+      "url": "https://www.homepages.ucl.ac.uk/~uclyyix/yispapers/Xu_JP97.pdf",
+      "accessed": "2026-10-05",
+      "licence": "(c) 1997 Academic Press Limited (Journal of Phonetics 25:61-83); author-hosted copy; facts only, paraphrased",
+      "read": true,
+      "used_for": "F0 shape, level (Hz), turning-point timing and duration of high-level, mid-rising, low and high-falling tones; carry-over/anticipatory effects"
+    },
+    {
+      "id": "wang2022",
+      "title": "The interaction of focus and phrasing with downstep and post-low-bouncing in Mandarin Chinese",
+      "author": "Bei Wang, Frank Kügler, Susanne Genzel",
+      "year": "2022",
+      "url": "https://www.frontiersin.org/articles/10.3389/fpsyg.2022.884102/full",
+      "accessed": "2026-10-05",
+      "licence": "CC BY 4.0",
+      "read": true,
+      "used_for": "downstep measurement and magnitude, automatic vs non-automatic downstep, declination size, creak in low tones, Xu & Sun (2002) pitch-rise time formula as quoted"
+    }
+  ],
+  "problems": [
+    "Rising-falling tone letter: the IPA's own symbol list gives 02E7 + 02E6 + 02E8 (˧˦˨, levels 3-4-2), and pixel measurement of the Doulos SIL and DejaVu Sans sub-chart images agrees (start 3, peak 4, end near 2), as does Wikipedia's IPA article ('since the 2018 revision'). The IPA Kiel-font image (the Association's recommended chart) draws a ligature whose end meets the stave nearer level 3 (˧˦˧). Recorded ˧˦˨; the Kiel glyph may be a font drawing difference.",
+    "Wikipedia's 'IPA number' article lists 533 as ˨˦˨ (2-4-2) and Wikipedia's IPA article says the 1999 Handbook chart had ˦˥˦; both differ from the current IPA list (˧˦˨). The Handbook itself was not opened.",
+    "The IPA symbol list's TIPA codes disagree with its own hex values for three contour letters: high rising \\tone{45} vs 02E7+02E5 (35), low rising \\tone{12} vs 02E9+02E7 (13), rising-falling \\tone{454} vs 02E7+02E6+02E8 (342). The hex values, the chart images and Wikipedia agree, so the hex values were used.",
+    "Contour tone letters have no code points of their own; they are sequences of U+02E5..U+02E9 that fonts ligate. The Doulos chart PDF's text layer maps them to U+FFFD, so the sequences come from the IPA symbol list and image measurement, not from extractable chart text.",
+    "equivalent_to pairs each diacritic with the tone letter printed in the same chart row, as the brief asks. The Handbook (as quoted by Wikipedia, not opened) says this pairing is only a layout simplification: diacritics have at most doubled marks for extra high/low and coarse H/M/L contour points, letters have five levels. A synthesiser should not treat é as exactly ˦ or ě as exactly ˩˥.",
+    "Downstep and upstep: the chart images show plain-looking arrows. The IPA symbol list and the Doulos text layer identify them as U+A71C and U+A71B (raised modifier arrows). U+2193/U+2191 and the raised exclamation marks U+A71D/U+A71E are common substitutes in the literature (listed under alt_codepoints) but are not what the chart encodes.",
+    "Global rise/fall U+2197/U+2198 have emoji presentation sequences in Unicode 18.0; U+FE0E text style is listed as an alternative, not as the chart's code.",
+    "Membership: the section heading is 'Tones and word accents', but no symbol is specific to word accents (pitch accent); all 24 printed symbols are counted. Global rise and fall are intonation marks and downstep and upstep are register shifts, not tones, but the chart prints all four in this section, so they are included here. The word 'or' printed between the first diacritic and letter in the full chart is not an entry.",
+    "Hz and ms values come from Mandarin (Xu 1997: eight male Beijing speakers in isolation; Wang et al. 2022: downstep). No fetched source gives absolute F0 values for the IPA's five levels in general; tone levels are relative to the speaker's range. Chao's semitone spacing is taken from Wikipedia's report, not from Chao (1956, 1968) directly. Xu and Sun (2002)'s pitch-rise time formula is quoted from Wang et al. (2022); the original was not opened.",
+    "No fetched source gave measurements for extra-high, extra-low, low-rising or rising-falling tones specifically, or for upstep magnitude; those correlates are in words and tagged recalled-unverified or rely on general sources."
+  ]
+}

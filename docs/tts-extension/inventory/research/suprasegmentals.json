@@ -1,0 +1,222 @@
+{
+  "section": "suprasegmentals",
+  "chart": {
+    "title": "The International Phonetic Alphabet (IPA chart), IPA Kiel typeface edition",
+    "revision": "IPA Chart revised to 2015/2005; this issue copyright 2026 IPA (the Association says the chart has been re-issued every year since 2025, with the revision note at the bottom)",
+    "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Kiel.pdf",
+    "licence": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), as stated on https://www.internationalphoneticassociation.org/content/ipa-chart and by the CC icons beside '2026 IPA' on the chart",
+    "how_read": "Opened the Association's chart page (https://www.internationalphoneticassociation.org/content/ipa-chart) for revision note, licence and links, then downloaded and read the full-chart PDF IPA_Kiel.pdf. The PDF text layer is in a legacy font encoding (the stress example comes out as garbage such as '®foUn«\"tIS«n'), so the labels were taken from the text layer and the symbols themselves from the rendered page image. Codepoints were then fixed from the Unicode 18.0 code charts (Spacing Modifier Letters, Combining Diacritical Marks, General Punctuation, C0 Controls and Basic Latin) and from the raw wikitext of Wikipedia's 'IPA number' article, whose prosody table encodes the nine marks as U+02C8, U+02CC, U+02D0, U+02D1, U+0306, U+002E, U+007C, U+2016 and U+203F. Python's unicodedata (UCD 13.0) gave the same character names."
+  },
+  "count": 9,
+  "count_explanation": "The Suprasegmentals box of the 2026 issue prints nine rows above the separate 'Tones and word accents' box: Primary stress, Secondary stress, Long, Half-long, Extra-short, Minor (foot) group, Major (intonation) group, Syllable break, Linking (absence of a break). Each row prints exactly one symbol and no row prints two alternative representations, so there are 9 entries. The examples printed beside them (ˌfoʊnəˈtɪʃən, eː, eˑ, ĕ, ɹi.ækt) are examples, not entries. Global rise and Global fall (IPA numbers 510, 511) are printed inside 'Tones and word accents' and belong to the tones helper, even though the IPA numbering puts them in the 500 (prosody) series beside these nine.",
+  "symbols": [
+    {
+      "symbol": "ˈ",
+      "codepoints": ["U+02C8"],
+      "unicode_name": "MODIFIER LETTER VERTICAL LINE",
+      "ipa_name": "Primary stress",
+      "ipa_number": 501,
+      "chart_example": "ˌfoʊnəˈtɪʃən",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "Marks the syllable that carries the word's main stress. The mark is written before the stressed syllable, not before its vowel.",
+      "features": {"modifies": "prominence", "value": "primary stress", "scope": "the following syllable", "placement": "precedes the syllable"},
+      "acoustic_correlates": [
+        {"text": "Longer syllable. In American English two-syllable words with no pitch accent, stressed syllables were about 1.2 to 1.3 times as long as the same syllables unstressed (reiterant speech 189 vs 159 ms and 198 vs 157 ms; real words 184 vs 147 ms and 272 vs 236 ms). With accent removed, duration was the best single cue to stress position.", "provenance": "literature", "refs": ["sluijter1996"]},
+        {"text": "Native English speakers' stressed vowels were on average 1.26 times as long as the unstressed ones in disyllabic words read in isolation.", "provenance": "literature", "refs": ["guo2022"]},
+        {"text": "Flatter spectral tilt (more high-frequency energy, i.e. smaller H1-A2 and H1-A3) in stressed vowels: a sharper glottal closure. Unstressed vowels have more sinusoidal glottal pulses. This was the second-best cue after duration and about as strong.", "provenance": "literature", "refs": ["sluijter1996"]},
+        {"text": "Overall intensity rises only a little from stress alone (about 1 to 3 dB). A much larger rise comes when the syllable also carries a pitch accent.", "provenance": "literature", "refs": ["sluijter1996"]},
+        {"text": "F0: stress alone gives little or no F0 cue. The F0 excursion (rise-fall) belongs to the pitch accent, which in a focused word lands on the primary-stressed syllable. In citation-form English words the stressed syllable had about 13% higher F0 than the unstressed one (S/U ratio 1.13).", "provenance": "literature", "refs": ["sluijter1996", "guo2022"]},
+        {"text": "Fuller, more peripheral vowel quality. Unstressed vowels move toward schwa (more so in English than in Dutch). Some languages, such as Finnish and Spanish, do not reduce unstressed vowels.", "provenance": "literature", "refs": ["sluijter1996", "wiki_stress"]},
+        {"text": "In Finnish, stress adds roughly 100 ms to the vowel of the stressed syllable.", "provenance": "literature", "refs": ["wiki_chroneme"]}
+      ],
+      "notes": "Unicode notes that U+02C8 precedes the letter or syllable it modifies, so the engine must apply the correlates to the following syllable. Within a word the mark also acts as a syllable break (wiki_syllable). Common wrong inputs: U+0027 APOSTROPHE, U+02B9 MODIFIER LETTER PRIME, U+2032 PRIME, U+00B4 ACUTE ACCENT. Unicode also lists 'downstep' as a non-IPA use of U+02C8."
+    },
+    {
+      "symbol": "ˌ",
+      "codepoints": ["U+02CC"],
+      "unicode_name": "MODIFIER LETTER LOW VERTICAL LINE",
+      "ipa_name": "Secondary stress",
+      "ipa_number": 502,
+      "chart_example": "ˌfoʊnəˈtɪʃən",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "Marks a syllable that is stressed relative to unstressed syllables but less strongly than the primary-stressed one. Written before the syllable.",
+      "features": {"modifies": "prominence", "value": "secondary stress", "scope": "the following syllable", "placement": "precedes the syllable"},
+      "acoustic_correlates": [
+        {"text": "Prominence between primary-stressed and unstressed syllables.", "provenance": "literature", "refs": ["wiki_stress"]},
+        {"text": "Expected: a full (unreduced) vowel and a duration between unstressed and primary-stressed, with the flatter spectral tilt of stressed vowels. Because the pitch accent normally goes to the primary stress, there is usually no large F0 excursion, so duration and vowel quality do most of the work. None of the fetched sources measured secondary stress separately.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Unicode notes that U+02CC precedes the letter or syllable it modifies. Common wrong inputs: U+002C COMMA, U+02CF, U+0329 COMBINING VERTICAL LINE BELOW (the syllabic diacritic, which Unicode cross-references)."
+    },
+    {
+      "symbol": "ː",
+      "codepoints": ["U+02D0"],
+      "unicode_name": "MODIFIER LETTER TRIANGULAR COLON",
+      "ipa_name": "Long",
+      "ipa_number": 503,
+      "chart_example": "eː",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "The preceding segment (vowel or consonant) is held longer. On a consonant it marks a long consonant (geminate).",
+      "features": {"modifies": "duration", "value": "long", "scope": "the preceding segment", "placement": "follows the segment"},
+      "acoustic_correlates": [
+        {"text": "Vowels in quantity languages are roughly twice as long or more. Pooled Estonian figures: short stressed vowel 93 ms, long 175 ms, overlong 228 ms, giving long/short ratios of about 1.9 and 2.5. Japanese long vowels are 2.4 to 3.2 times as long as short ones in minimal pairs (normal-rate example: 82 vs 209 ms, ratio 2.55). One read corpus measured 79 vs 167 ms, a ratio of 2.1.", "provenance": "literature", "refs": ["meister2015"]},
+        {"text": "The long/short ratio stays about the same across speaking rates (Japanese 2.55 at slow, normal and fast rates; Estonian stable across studies despite large absolute variation). Length should therefore be applied as a duration ratio, not a fixed number of milliseconds.", "provenance": "literature", "refs": ["meister2015"]},
+        {"text": "Long consonants have longer closure or frication. Estonian geminate/singleton ratios are about 2.0 (long) and 2.4 (overlong): singletons 71 ms, geminates 140 and 173 ms. Japanese geminate stops are about 2.5 to 2.6 times as long as singletons (66.7 vs 176 ms; 93 vs 235 ms).", "provenance": "literature", "refs": ["meister2015"]},
+        {"text": "For reference, phonemically short first-syllable /a/ measured about 85 to 89 ms in Finnish and Japanese production data.", "provenance": "literature", "refs": ["iseijaakkola2004"]},
+        {"text": "Pitch can be a secondary cue to length: in Estonian, F0 shape helps tell the long and overlong degrees apart.", "provenance": "literature", "refs": ["meister2015", "wiki_chroneme"]},
+        {"text": "Non-phonemic length differences are much smaller. The English tense/lax vowel duration ratio is about 1.3.", "provenance": "literature", "refs": ["meister2015"]}
+      ],
+      "notes": "Common wrong input: U+003A COLON, which Unicode cross-references. Doubling the mark (ːː) is an extIPA or informal convention for extra-long and is not on the IPA chart."
+    },
+    {
+      "symbol": "ˑ",
+      "codepoints": ["U+02D1"],
+      "unicode_name": "MODIFIER LETTER HALF TRIANGULAR COLON",
+      "ipa_name": "Half-long",
+      "ipa_number": 504,
+      "chart_example": "eˑ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "The preceding segment is somewhat longer than short but shorter than long.",
+      "features": {"modifies": "duration", "value": "half-long", "scope": "the preceding segment", "placement": "follows the segment"},
+      "acoustic_correlates": [
+        {"text": "Duration between the plain short and the ː-long value of the same segment. No fetched source gives a ratio for ˑ as such.", "provenance": "recalled-unverified", "refs": []},
+        {"text": "Finnish example: a phonemically short vowel in the second syllable after a light (single short vowel) first syllable is called half-long. It is clearly longer than the roughly 40 ms of an ordinary unstressed short vowel (unstressed long vowels are about 70 ms).", "provenance": "literature", "refs": ["wiki_chroneme"]},
+        {"text": "Related Estonian measurement: after a short stressed vowel (Q1 words), the unstressed second-syllable vowel is lengthened to about 111 ms, against 85 ms after a long (Q2) and 63 ms after an overlong (Q3) syllable. (Treating this lengthened vowel as half-long is our interpretation, not the source's.)", "provenance": "literature", "refs": ["meister2015"]},
+        {"text": "An English example in the literature writes ˑ on the stressed vowel of police [pə̆ˈliˑs].", "provenance": "literature", "refs": ["wiki_extrashort"]}
+      ],
+      "notes": "Unicode notes U+02D1 as the half-length mark and cross-references U+00B7 MIDDLE DOT, a common wrong input. Wikipedia's Chroneme article adds that in Estonian the half-long and overlong degrees also differ in pitch contour: half-long rising, overlong falling (wiki_chroneme)."
+    },
+    {
+      "symbol": "̆",
+      "codepoints": ["U+0306"],
+      "unicode_name": "COMBINING BREVE",
+      "ipa_name": "Extra-short",
+      "ipa_number": 505,
+      "chart_example": "ĕ",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "The segment under the mark (usually a vowel) is extra short while keeping its quality. On a consonant the breve can stand for a very brief articulation, for example a flap that has no letter of its own.",
+      "features": {"modifies": "duration", "value": "extra-short", "scope": "the carrier segment", "placement": "combining mark above the segment"},
+      "acoustic_correlates": [
+        {"text": "Very brief segment, shorter than an ordinary short one of the same quality, as in the reduced schwa of police [pə̆ˈliˑs]. On a stop letter it shows a flap-like, very short closure.", "provenance": "literature", "refs": ["wiki_extrashort"]},
+        {"text": "For scale: Finnish unstressed short vowels are about 40 ms. English unstressed monophthongs are reported to be about half as long as stressed ones.", "provenance": "literature", "refs": ["wiki_chroneme", "guo2022"]},
+        {"text": "Expected: weak amplitude, formants that may not reach their targets (centralised), sometimes partly devoiced; often used for epenthetic or transitional vowels. No fetched source gives millisecond values for breve-marked segments.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Unicode gives '= short' for U+0306. NFC normalisation composes e + U+0306 into U+0115 LATIN SMALL LETTER E WITH BREVE (verified with Python unicodedata), so the chart example ĕ may reach the engine precomposed. The same holds for other vowels with precomposed breve forms (ă ĭ ŏ ŭ ...). Do not confuse with U+032F COMBINING INVERTED BREVE BELOW (non-syllabic, a diacritics-section mark), U+0311 COMBINING INVERTED BREVE, or the spacing U+02D8 BREVE. Before 1989 the breve marked non-syllabic vowels (wiki_extrashort)."
+    },
+    {
+      "symbol": "|",
+      "codepoints": ["U+007C"],
+      "unicode_name": "VERTICAL LINE",
+      "ipa_name": "Minor (foot) group",
+      "ipa_number": 507,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "Boundary of a minor prosodic group (foot group). It is a phrasing mark, not an articulation.",
+      "features": {"modifies": "phrasing", "value": "minor (foot) group boundary", "scope": "boundary between groups", "placement": "between words"},
+      "acoustic_correlates": [
+        {"text": "Lengthening before the boundary, usually without a silent pause. In English radio news, at a ToBI break 3 (intermediate phrase) the last syllable of a monosyllabic word was 297 ms, against 160 ms at an ordinary word boundary (break 1) and 223 ms at break 2 (about 1.9 times break 1). The following silence was almost nil (word plus silence 301 ms). In polysyllabic words the figures were 253 vs 195 ms.", "provenance": "literature", "refs": ["wang2019"]},
+        {"text": "In ToBI, break 3 is required wherever a phrase accent ends an intermediate phrase, so a pitch movement (phrase accent) at the end of the group is expected even when there is no pause.", "provenance": "literature", "refs": ["wang2019"]},
+        {"text": "Language-specific: in Mandarin, syllables before a minor phrase boundary were no longer than before higher boundaries (about 253 to 261 ms). The cross-boundary time (syllable plus silence) still increased with boundary strength.", "provenance": "literature", "refs": ["wang2019"]},
+        {"text": "Prosodic-unit boundaries in general are marked by pitch movement, pre-boundary lengthening and pauses, with pitch reset between declination units.", "provenance": "literature", "refs": ["wiki_prosodic_unit"]}
+      ],
+      "notes": "Treating the IPA 'minor (foot) group' as the ToBI intermediate phrase (break 3) is our assumption for borrowing numbers; the IPA chart does not define it acoustically. Do not confuse with U+01C0 LATIN LETTER DENTAL CLICK ǀ, which looks the same (Unicode cross-references it). Wikipedia renders the symbol with the {{pipe}} template, which is U+007C."
+    },
+    {
+      "symbol": "‖",
+      "codepoints": ["U+2016"],
+      "unicode_name": "DOUBLE VERTICAL LINE",
+      "ipa_name": "Major (intonation) group",
+      "ipa_number": 508,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "Boundary of a major prosodic group (intonation phrase). Often coincides with a breath or pause.",
+      "features": {"modifies": "phrasing", "value": "major (intonation) group boundary", "scope": "boundary between groups", "placement": "between words"},
+      "acoustic_correlates": [
+        {"text": "Strongest pre-boundary lengthening plus a silent pause. In English radio news, at a ToBI break 4 (full intonation phrase) monosyllabic words had a final syllable of 350 ms (about 2.2 times the 160 ms at an ordinary word boundary) followed by about 94 ms of silence on average (syllable plus silence 444 ms). Polysyllabic words: 299 ms plus about 104 ms of silence (403 ms).", "provenance": "literature", "refs": ["wang2019"]},
+        {"text": "Stronger boundaries get more pre-boundary lengthening and more often a silent pause. Lengthening and pausing can trade off against each other, and the total time across the boundary is the most consistent marker of boundary strength.", "provenance": "literature", "refs": ["wang2019"]},
+        {"text": "In German radio news, intonation-phrase-final syllables averaged 259 ms unaccented and 383 ms accented. Pauses after them were long enough that the study used 500 ms as the dividing line between weak and strong IP boundaries.", "provenance": "literature", "refs": ["andreeva2020"]},
+        {"text": "F0: a boundary tone at the end of the group, then pitch reset (a restart of declination) at the start of the next group. Breathing occurs only at higher-level boundaries.", "provenance": "literature", "refs": ["wiki_prosodic_unit"]},
+        {"text": "Voice quality: phrase-final creak is common, and after a pause of more than 50 ms a vowel-initial word was glottalised 94 to 100% of the time in American English radio speech. Glottal onsets are also more likely at the start of a full intonation phrase than of an intermediate phrase (shown for reduced vowels).", "provenance": "literature", "refs": ["dilley1995"]}
+      ],
+      "notes": "Do not confuse with U+01C1 LATIN LETTER LATERAL CLICK ǁ (same look), U+2225 PARALLEL TO, or two U+007C characters. Unicode lists U+2016 under general punctuation with no IPA annotation."
+    },
+    {
+      "symbol": ".",
+      "codepoints": ["U+002E"],
+      "unicode_name": "FULL STOP",
+      "ipa_name": "Syllable break",
+      "ipa_number": 506,
+      "chart_example": "ɹi.ækt",
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "Marks where one syllable ends and the next begins. On the chart it separates two vowels in hiatus (re.act), which are therefore not a diphthong.",
+      "features": {"modifies": "syllabification", "value": "syllable boundary", "scope": "boundary between segments", "placement": "between segments"},
+      "acoustic_correlates": [
+        {"text": "No pause and no phrase-level lengthening. The break changes how segments are grouped. In hiatus (ɹi.ækt) each vowel has its own amplitude peak and steady state, with a transition between them instead of one gliding diphthong nucleus. A consonant after the break is realised as an onset (in English, for example, voiceless stops are aspirated at the start of a stressed syllable).", "provenance": "recalled-unverified", "refs": []},
+        {"text": "A vowel that begins a new syllable or word may be marked by a glottal onset (glottal stop, irregular pitch periods, an F0 dip) or just by an amplitude dip that listeners hear as an onset. In American English this happens more often at phrase starts and on pitch-accented syllables.", "provenance": "literature", "refs": ["dilley1995"]},
+        {"text": "Explicit syllable dots are optional in transcription. Inside a word a stress mark also marks a syllable break (/ʌn.dər.ˈstʊd/ = /ʌndərˈstʊd/).", "provenance": "literature", "refs": ["wiki_syllable"]}
+      ],
+      "notes": "The engine must tell a full stop used as a syllable break inside a transcription apart from sentence-final punctuation in running text. Unicode cross-references U+00B7 MIDDLE DOT and U+2024 ONE DOT LEADER, which are also sometimes used for syllable division."
+    },
+    {
+      "symbol": "‿",
+      "codepoints": ["U+203F"],
+      "unicode_name": "UNDERTIE",
+      "ipa_name": "Linking (absence of a break)",
+      "ipa_number": 509,
+      "chart_example": null,
+      "alt_codepoints": [],
+      "equivalent_to": null,
+      "articulatory": "Two words are joined with no break between them, for example a linking or liaison consonant that becomes the onset of the next word's syllable (French les amis /lɛ.z‿a.mi/), or two words forming one phonological unit (hot dog /ˈhɒt‿dɒɡ/).",
+      "features": {"modifies": "phrasing", "value": "linking, no boundary", "scope": "boundary between words", "placement": "between the two linked segments"},
+      "acoustic_correlates": [
+        {"text": "Resyllabification: the word-final consonant is produced as the onset of the next word's first syllable (liaison).", "provenance": "literature", "refs": ["wiki_syllable"]},
+        {"text": "No glottal stop or glottalisation before the vowel-initial second word. Without linking, British English speakers insert a glottal stop before vowel-initial words in up to 50% of cases in some contexts (11.8% after obstruents, 19.0% after sonorants, 29.0% after vowels). American English radio speakers glottalised such vowels only 2 to 15% of the time inside a phrase on unaccented words.", "provenance": "literature", "refs": ["fuchs2015", "dilley1995"]},
+        {"text": "No pause and no pre-boundary lengthening at the junction. Voicing and formant transitions run continuously across the word boundary, as inside a word.", "provenance": "recalled-unverified", "refs": []}
+      ],
+      "notes": "Unicode annotates U+203F only as '= Greek enotikon' and gives it no IPA meaning; the IPA reading comes from the chart label and the Wikipedia IPA number table. The Wikipedia IPA number table also gives 509 to U+035C COMBINING DOUBLE BREVE BELOW (the lower tie bar) under Other symbols, so the two may share one number. Coordinate with the other_symbols helper. Do not confuse with U+2054 INVERTED UNDERTIE, U+2040 CHARACTER TIE or U+2323 SMILE."
+    }
+  ],
+  "references": [
+    {"id": "ipa_chart_page", "title": "IPA Chart (page with downloads, revision note and licence)", "author": "International Phonetic Association", "year": "2026 (accessed)", "url": "https://www.internationalphoneticassociation.org/content/ipa-chart", "accessed": "2026-10-05", "licence": "chart files CC BY-SA 4.0", "read": true, "used_for": "revision note (revised to 2015/2005; re-issued every year since 2025), licence, PDF URL"},
+    {"id": "ipa2026", "title": "The International Phonetic Alphabet (IPA chart, IPA Kiel edition), copyright 2026 IPA", "author": "International Phonetic Association", "year": "2026", "url": "https://www.internationalphoneticassociation.org/IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Kiel.pdf", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "contents of the Suprasegmentals box (labels from the text layer, symbols and examples from the rendered image), count, boundary with Tones and word accents"},
+    {"id": "unicode18_02B0", "title": "Spacing Modifier Letters, Range 02B0-02FF (code chart), The Unicode Standard, Version 18.0", "author": "Unicode, Inc.", "year": "2026", "url": "https://www.unicode.org/Public/18.0.0/charts/PDF/U02B0.pdf", "accessed": "2026-10-05", "licence": "Unicode Terms of Use (copyright Unicode, Inc.)", "read": true, "used_for": "names and annotations of U+02C8 (primary stress, precedes syllable), U+02CC (secondary stress), U+02D0 (length mark), U+02D1 (half-length mark), U+02D8"},
+    {"id": "unicode18_0300", "title": "Combining Diacritical Marks, Range 0300-036F (code chart), The Unicode Standard, Version 18.0", "author": "Unicode, Inc.", "year": "2026", "url": "https://www.unicode.org/Public/18.0.0/charts/PDF/U0300.pdf", "accessed": "2026-10-05", "licence": "Unicode Terms of Use (copyright Unicode, Inc.)", "read": true, "used_for": "U+0306 COMBINING BREVE (= short), U+035C, confusables"},
+    {"id": "unicode18_2000", "title": "General Punctuation, Range 2000-206F (code chart), The Unicode Standard, Version 18.0", "author": "Unicode, Inc.", "year": "2026", "url": "https://www.unicode.org/Public/18.0.0/charts/PDF/U2000.pdf", "accessed": "2026-10-05", "licence": "Unicode Terms of Use (copyright Unicode, Inc.)", "read": true, "used_for": "U+2016 DOUBLE VERTICAL LINE, U+203F UNDERTIE, confusables"},
+    {"id": "unicode18_0000", "title": "C0 Controls and Basic Latin, Range 0000-007F (code chart), The Unicode Standard, Version 18.0", "author": "Unicode, Inc.", "year": "2026", "url": "https://www.unicode.org/Public/18.0.0/charts/PDF/U0000.pdf", "accessed": "2026-10-05", "licence": "Unicode Terms of Use (copyright Unicode, Inc.)", "read": true, "used_for": "U+002E FULL STOP, U+007C VERTICAL LINE (cross-reference to U+01C0 dental click), U+003A and U+0027 confusables"},
+    {"id": "wiki_ipa_number", "title": "IPA number (article and raw wikitext)", "author": "Wikipedia contributors", "year": "2026 (accessed)", "url": "https://en.wikipedia.org/wiki/IPA_number", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "IPA numbers 501-509 (citing the 1999 Handbook); wikitext checked character by character for the codepoints of the nine marks; 509 also listed for U+035C"},
+    {"id": "sluijter1996", "title": "Acoustic correlates of linguistic stress and accent in Dutch and American English (Proc. ICSLP 96, Philadelphia)", "author": "Agaath M. C. Sluijter, Vincent J. van Heuven", "year": "1996", "url": "https://scholarlypublications.universiteitleiden.nl/access/item%3A2883175/download", "accessed": "2026-10-05", "licence": "not stated (ISCA Archive paper, Leiden repository copy)", "read": true, "used_for": "stress: syllable durations, 1-3 dB intensity effect, spectral balance/glottal cues, F0 as an accent cue rather than a stress cue, vowel quality"},
+    {"id": "guo2022", "title": "Acoustic Correlates of English Lexical Stress Produced by Chinese Dialect Speakers Compared to Native English Speakers (Frontiers in Psychology, doi 10.3389/fpsyg.2022.796252)", "author": "Xingrong Guo", "year": "2022", "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.796252/full", "accessed": "2026-10-05", "licence": "CC BY (Frontiers open access)", "read": true, "used_for": "native English stressed/unstressed ratios: duration 1.26, F0 1.13, intensity about 1.0; cited report of unstressed monophthongs being about 50% shorter"},
+    {"id": "meister2015", "title": "Production of Estonian quantity contrasts by Japanese speakers (ESUKA-JEFUL 6-3: 79-96, doi 10.12697/jeful.2015.6.3.03)", "author": "Einar Meister, Rena Nemoto, Lya Meister", "year": "2015", "url": "https://ojs.utlib.ee/index.php/jeful/article/download/jeful.2015.6.3.03/10145", "accessed": "2026-10-05", "licence": "open-access journal; licence not checked", "read": true, "used_for": "long/short duration ratios for Estonian and Japanese vowels and consonants, rate stability, Estonian second-syllable vowel durations, pitch as a secondary quantity cue, English tense/lax ratio"},
+    {"id": "iseijaakkola2004", "title": "Maximum Short Quantity in Japanese and Finnish in Two Perception Tests with F0 and dB variants (Interspeech 2004, doi 10.21437/Interspeech.2004-203)", "author": "Toshiko Isei-Jaakkola", "year": "2004", "url": "https://www.isca-archive.org/interspeech_2004/iseijaakkola04_interspeech.pdf", "accessed": "2026-10-05", "licence": "not stated (ISCA Archive)", "read": true, "used_for": "absolute durations of short vowels in Finnish and Japanese production (about 70-89 ms)"},
+    {"id": "wang2019", "title": "Mandarin and English use different temporal means to mark major prosodic boundaries (ICPhS 2019 proceedings)", "author": "Chengxia Wang, Yi Xu, Jinsong Zhang", "year": "2019", "url": "https://assta.org/proceedings/ICPhS2019Microsite/pdf/full-paper_588.pdf", "accessed": "2026-10-05", "licence": "not stated", "read": true, "used_for": "pre-boundary syllable duration and silence by ToBI break index 1-4 in English and Mandarin; lengthening grows with boundary strength; trading between lengthening and pause"},
+    {"id": "andreeva2020", "title": "Effects of Surprisal and Boundary Strength on Phrase-final Lengthening (Speech Prosody 2020, doi 10.21437/SpeechProsody.2020-30)", "author": "Bistra Andreeva, Bernd Möbius, James Whang", "year": "2020", "url": "https://www.coli.uni-saarland.de/~moebius/documents/andreeva_etal_sp2020.pdf", "accessed": "2026-10-05", "licence": "not stated (ISCA)", "read": true, "used_for": "IP-final syllable durations in German news speech (259 ms unaccented, 383 ms accented); 500 ms pause threshold for strong boundaries"},
+    {"id": "dilley1995", "title": "Variability in glottalization of word onset vowels in American English (Proc. ICPhS 95 Stockholm, vol. 4, 586-589)", "author": "Laura C. Dilley, Stefanie Shattuck-Hufnagel", "year": "1995", "url": "https://www.coli.uni-saarland.de/Phonetics/icphs/ICPhS1995/13_ICPhS_1995_Vol_4/p13.4_586.pdf", "accessed": "2026-10-05", "licence": "not stated", "read": true, "used_for": "glottal onsets at phrase starts and pitch accents, 94-100% after a pause over 50 ms, 2-15% in other contexts, full vs intermediate phrase, amplitude-dip onsets, phrase-final creak"},
+    {"id": "fuchs2015", "title": "Word-initial glottal stop insertion, hiatus resolution and linking in British English (Interspeech 2015; abstract page)", "author": "Robert Fuchs", "year": "2015", "url": "https://www.isca-archive.org/interspeech_2015/fuchs15_interspeech.html", "accessed": "2026-10-05", "licence": "not stated", "read": true, "used_for": "glottal stop insertion rates before vowel-initial words (up to 50%; 11.8/19.0/29.0% by preceding segment). Only the abstract page was read."},
+    {"id": "wiki_stress", "title": "Stress (linguistics)", "author": "Wikipedia contributors", "year": "2026 (accessed)", "url": "https://en.wikipedia.org/wiki/Stress_(linguistics)", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "general correlates of stress, secondary stress definition, placement of ˈ ˌ"},
+    {"id": "wiki_chroneme", "title": "Chroneme", "author": "Wikipedia contributors", "year": "2026 (accessed)", "url": "https://en.wikipedia.org/wiki/Chroneme", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "Finnish durations (unstressed short about 40 ms, unstressed long about 70 ms, stress adds about 100 ms), half-long and overlong allophones, Estonian pitch contours"},
+    {"id": "wiki_extrashort", "title": "Extra-shortness", "author": "Wikipedia contributors", "year": "2026 (accessed)", "url": "https://en.wikipedia.org/wiki/Extra-shortness", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "meaning of the breve, police [pə̆ˈliˑs] example, breve on flaps, pre-1989 usage"},
+    {"id": "wiki_syllable", "title": "Syllable", "author": "Wikipedia contributors", "year": "2026 (accessed)", "url": "https://en.wikipedia.org/wiki/Syllable", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "full stop as syllable break, stress mark as syllable break, undertie in liaison (les amis) and hot dog"},
+    {"id": "wiki_prosodic_unit", "title": "Prosodic unit", "author": "Wikipedia contributors", "year": "2026 (accessed)", "url": "https://en.wikipedia.org/wiki/Prosodic_unit", "accessed": "2026-10-05", "licence": "CC BY-SA 4.0", "read": true, "used_for": "| and ‖ as minor/major breaks; boundary cues (pitch movement, pre-boundary lengthening, pauses, pitch reset, breathing)"}
+  ],
+  "problems": [
+    "The official chart PDF uses a legacy-encoded font, so codepoints cannot be read from it. Symbol identity was read from the rendered image, and codepoints come from glyph identity, the Unicode 18.0 charts and the Wikipedia IPA number wikitext. Unicode itself gives IPA annotations only for ˈ ˌ ː ˑ (and '= short' for U+0306). For . | ‖ ‿, the IPA meaning rests on the chart label plus Wikipedia, not on Unicode.",
+    "Revision disagreement: the IPA site and the 2026 chart say 'revised to 2015/2005' (re-issued every year since 2025), while Wikipedia's International Phonetic Alphabet article calls the official summary chart 'revised in 2020'.",
+    "The 1999 Handbook of the IPA was not opened. IPA numbers 501-509 and the official meaning of minor (foot) group, major (intonation) group and linking are taken from the chart labels and from Wikipedia (which cites the Handbook).",
+    "Wikipedia's IPA number table gives 509 both to the linking undertie ‿ (U+203F) and to the lower tie bar ͜ (U+035C, Other symbols). Whether they really share a number is unverified; the other_symbols helper should check.",
+    "No fetched source measures the IPA 'minor (foot) group' or 'major (intonation) group' as such. The numbers are for ToBI break 3 (intermediate phrase) and break 4 (intonation phrase) in English and Mandarin radio news, and German news. Equating the IPA groups with these categories is an assumption.",
+    "No fetched source gives a duration ratio for half-long (ˑ) or extra-short (breve) as such. The half-long evidence is the Finnish description and Estonian second-syllable vowel durations, and reading those as half-long is an inference. Extra-short has no numbers.",
+    "Secondary stress has no fetched acoustic measurements; its correlates are recalled-unverified.",
+    "The stress sources disagree on F0 and intensity: Sluijter and van Heuven find that F0 and overall intensity cue pitch accent, not stress, while Guo reports a stressed/unstressed F0 ratio of 1.13 for citation-form English words, where stress and accent are confounded.",
+    "Fuchs (2015) was read only as the Interspeech abstract page, not the full paper.",
+    "Licences of the conference papers (ISCA/ICPhS) are not stated on the copies read. The JEFUL article licence was not checked.",
+    "NFC normalisation turns the chart example e + U+0306 into the precomposed U+0115 (ĕ). The engine will meet both forms.",
+    "Arguable membership: Global rise ↗ and Global fall ↘ have IPA numbers 510-511 in the same 500 prosody series but are printed in the Tones and word accents box, so they are left to the tones helper."
+  ]
+}
