@@ -271,9 +271,12 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
 
     closure: the quiet part (RMS 25 dB or more below the stretch's loudest 5 ms) before the burst.
     burst:   the first 1 ms hop after the closure whose energy above 1.5 kHz jumps 12 dB or more
-             over the closure's.
+             over the closure's, and within the stop's own stretch (10 ms of slack): one found
+             later is the next sound's, and then there is no burst, no closure and no VOT rather
+             than a wrong one (the re-review of Phase 1: engb /k/ read -55 ms that way).
     voicing: prevoicing when a voice bar (energy below 400 Hz within 40 dB of the stretch's
-             loudest) runs unbroken for 10 ms or more into the burst: its start is the onset.
+             loudest, periodic in its middle) runs unbroken for 10 ms or more into the burst: its
+             start is the onset.
              Otherwise the first moment after the burst from which F0 is found for 20 ms.
              Voicing carried over from the vowel before, which dies away in the closure, is not
              prevoicing (it made Hindi /p t k/ read -117 to -49 ms: the review of Phase 1).
@@ -290,12 +293,16 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
     db_all = 10 * np.log10(np.convolve(e_all, np.ones(5) / 5, mode='same'))
     db_hi = 10 * np.log10(e_hi)
     quiet = db_all < db_all.max() - 25
+    hi_top = db_hi.max()
     burst = None
-    for i in range(1, n):
+    last = min(n, int((b_ms - a_ms + 10.0) / hop_ms) + 1)
+    for i in range(1, last):
         if quiet[:i].any():
             q = np.nonzero(quiet[:i])[0]
             base = np.median(db_hi[q])
-            if not quiet[i] and db_hi[i] - base >= 12:
+            # the jump alone, not the overall level: a weak release (the dedx templates' /k/) stays
+            # under the "quiet" line for its first hops, and was found 13 ms late
+            if db_hi[i] - base >= 12 and db_hi[i] > hi_top - 40:
                 burst = i
                 break
     closure_ms = None
@@ -317,8 +324,9 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
         j = burst - 1
         while j >= 0 and bar[j]:
             j -= 1
-        if (burst - 1 - j) * hop_ms >= 10:
-            onset = (j + 1) * hop_ms           # prevoiced: the voice bar reaches the burst
+        # prevoiced: a voice bar reaches the burst, and it is voice (periodic), not noise
+        if (burst - 1 - j) * hop_ms >= 10 and f0_at(y, rate, (j + 1 + burst) * hop_ms / 2.0, fmin=75.0, threshold=voicing):
+            onset = (j + 1) * hop_ms
         else:
             t = burst * hop_ms
     total = len(y) * 1000.0 / rate

@@ -17,13 +17,13 @@ A harness that replaces listening with measurement, in `docs/tts-extension/harne
 - **Render** (`engine.py` + `src/tools/evv_render.cpp`, a new tool): text, IPA, eSpeak NG phoneme names, a module's own annotation or the front-end's output in; a WAV plus JSON of every frame the synthesiser received and every phone the engine meant out. Optional `sounds.map` overrides. Each case in a host of its own; the engine's existing logs, no new hook. `evv_render`'s audio is byte-identical to `evv_say`'s (enus, hi).
 - **Analyse** (`analysis.py`, numpy/scipy, MIT): formants (Burg LPC) and trajectories, F0 and tone contours, intensity, fricative moments and band edges, stop closure/burst/VOT, nasal antiformant and murmur, F3 minimum; and what the frames requested per phone.
 - **Self-tests** (`selftest.py`): 72 of 72 pass: the analyser on synthetic signals with known answers, and every engine fact the harness relies on. Praat agrees on 24 of 24 comparisons (`praat_crosscheck.py`, the only GPL file).
-- **Reference store** (`reference/ranges.json`, `reference.py`): 956 cited values from 14 opened sources (US English, German, Spanish, Portuguese, French, Dutch, Australian English vowels; VOT; English fricatives; nasals; /ɹ/; Mandarin tones). Values not found are absent. Check B uses the vowel formants, the fricative and nasal values and /ɹ/'s F3; it cannot use the VOT values (means without a spread, so no range) or the tone values (no tone cases until Phase 4).
+- **Reference store** (`reference/ranges.json`, `reference.py`): 956 cited values from 14 opened sources (US English, German, Spanish, Portuguese, French, Dutch, Australian English vowels; VOT; English fricatives; nasals; /ɹ/; Mandarin tones). Values not found are absent. Check B uses the vowel formants (and /ɹ/'s) and the general nasal ranges; it cannot use the VOT or fricative values (means without a spread, so no range) or the tone values (no tone cases until Phase 4).
 - **ASR round trip** (`asr.py`): Whisper large-v3 on the GPU; sentences from Common Voice (CC0) and Tatoeba (CC BY 2.0 FR), 142 languages. 105 scored, 50 unavailable (reasons recorded).
 - **Golden regression** (`golden.py`, `golden/*.json.gz`): every phoneme every pack maps (borrowed ones too) and every native phone, 16,472 cases, metrics and hashes, not audio; fails loudly on drift, in the frames or in the sound (proven by a planted change); 15 entries it cannot render are listed, not dropped.
 - **Report** (`report.py`): `LANGUAGE_STATUS.md` baseline for all 155 languages and `reports/index.html` (tables, spectrograms with requested vs measured formants, vowel charts against references).
 - **Smoke check** (`smoke.py`, 6 s with facts cached) and a Stop hook script (`stop_hook.py`), not installed: `OPEN_QUESTIONS.md` Q5.
-- An independent review of the diff (R15) found nine problems; the real ones were fixed (D20), among them a VOT measurement bug and a golden that could not see synthesiser changes.
-- Decisions D9 to D20 in `DECISIONS.md`; Phase 1 sources and licences in `REFERENCES.md`; Q5 to Q7 and two measured findings in `OPEN_QUESTIONS.md`.
+- An independent review of the diff (R15) found nine problems; the real ones were fixed (D20), among them a VOT measurement bug and a golden that could not see synthesiser changes. The one re-review R15 allows found the VOT fix incomplete and two doc claims still wrong; fixed (D21).
+- Decisions D9 to D21 in `DECISIONS.md`; Phase 1 sources and licences in `REFERENCES.md`; Q5 to Q7 and two measured findings in `OPEN_QUESTIONS.md`.
 
 ## Phase 1 results in numbers (preset 1, 64-bit, 11025 Hz)
 
@@ -149,10 +149,15 @@ Not run: `build_all.bat`, `engine\build_modules.cmd`, the front-end build, the i
     after the review's fixes (D20), golden.py --record, then golden.py:
         recorded 155 packs in 795 s; 0 not recorded
         golden: 155 packs, 16472 cases, 0 FAILED, 0 changed within tolerance, 882 s     exit 0
+    after the re-review's fixes (D21), the final baseline, golden.py --record, then golden.py:
+        recorded 155 packs in 1123 s; 0 not recorded
+        golden: 155 packs, 16472 cases, 0 FAILED, 0 changed within tolerance, 1216 s    exit 0
+    voiceless stops /p t k c q/ in the golden: 909 cases, 2 with a negative VOT (hyw /p t/, which its map
+    sends to the module's b and d: OPEN_QUESTIONS.md), 13 with no burst found (no VOT reported)
     python docs/tts-extension/harness/golden.py enus engb dede eses esus frfr frca itit jajp plpl   (after the last re-record)
         golden: 10 packs, 416 cases, 0 FAILED, 0 changed within tolerance, 18 s
     python docs/tts-extension/harness/smoke.py
-        selftest --quick: exit 0 (60 checks, 60 passed); golden --smoke: 6 packs, 28 cases, 0 FAILED; smoke: passed in 6 s
+        selftest --quick: exit 0 (60 checks, 60 passed); golden --smoke: 6 packs, 28 cases, 0 FAILED; smoke: passed in 7 s
     python docs/tts-extension/harness/asr.py     (then asr.py sr, after the Serbian transliteration)
         asr: 155 languages, 105 scored, 50 unavailable
     python docs/tts-extension/harness/report.py

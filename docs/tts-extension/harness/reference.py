@@ -15,9 +15,10 @@ A pack matches entries of its own variety, else of the same language (en-US for 
 de), else an entry its source states for languages in general ('cross-language': the nasal
 ranges); never another language's. Preset 1 of every pack is an adult male voice and preset 2 an adult
 female one (language.ini); other presets have no reference group. An entry for the voice's own
-group is preferred; one pooled over speakers ('mixed': the VOT, fricative and nasal sources) is
-used when there is none. The store's tone entries (Chao numbers, F0 turning points) have no
-measure mapped to them yet: tones are checked from Phase 4, when tone cases exist.
+group is preferred; one pooled over speakers ('mixed') is used when there is none. In practice
+the only consonant entries that give a range are the five general nasal ones (min..max): the VOT
+and fricative sources give means without a spread, which by the rule above are not ranges. The
+tone entries have no measure mapped to them yet: tones are checked from Phase 4.
 """
 
 import json

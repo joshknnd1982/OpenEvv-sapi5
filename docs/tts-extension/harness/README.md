@@ -63,6 +63,6 @@ Examples:
 
 - IPA tone letters (˥˦˧˨˩) are not converted yet; a pack's tones come from its text. IPA input for frca, jajp and plpl needs a phone-to-IPA table those modules lack; their annotation input works.
 - Module phones whose names hold `:` or `~` (German `E: a~ E~ o~ oe~`, French nasals) cannot be written in an annotation: the module speaks the annotation as text. The golden reaches them through words, and lists them as `not_covered`.
-- Check B cannot use the store's VOT values (means without a published spread) or its tone values (no tone cases until Phase 4).
+- Check B cannot use the store's VOT or fricative values (means without a published spread) or its tone values (no tone cases until Phase 4); of the consonants, only the general nasal ranges are checked.
 - Nine native modules (all but enus) do not know the accent layer's markup, so their phones are segmented by the array log's runs, labelled only when the input named the phones.
 - IPA, eSpeak-phoneme and override renders of a pack read by eSpeak NG go through `--annotated`: the product's frames (selftest.py proves it), but a different warm-up, so the noise generator's samples differ from the product's.

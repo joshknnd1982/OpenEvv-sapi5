@@ -10,8 +10,8 @@ store, and writes:
 Check A, engine fidelity. Evidence: the frames are the request (the engine is parametric, so what
 it asked the synthesiser for is ground truth), and the sound is measured to see that the
 synthesiser realised them.
-    A0 (trace)   every phone that sounded is the phone asked for, or a piece of it (an affricate
-                 sounded as its stop and its fricative).
+    A0 (trace)   every phone that sounded is the phone asked for, or, for an affricate, its stop
+                 or its fricative (a module sounds C as t then S); nothing else counts as a piece.
     A1 (frames)  every phone the engine meant to sound has frames that sound: voicing or noise.
     A2 (signal)  in every vowel, F1 and F2 measured from the sound match the frames' (F1 within
                  8 % or three quarters of F0, F2 within 8 % or 60 Hz) and F0 the frames' mean over
@@ -78,7 +78,9 @@ def check_a(gold, phone_module):
             if m in (None, '-') or ph['name'] == m:
                 continue
             mi, ni = ipa.get(m), ipa.get(ph['name'])
-            if not (mi and ni and ni in mi):
+            piece = (mi and ni and A.MANNER.get(mi) == 'affricate' and len(ni) < len(mi)
+                     and (mi.startswith(ni) or mi.endswith(ni)))
+            if not piece:
                 substituted.append('%s: %s sounded for %s' % (cid, ph['name'], m))
         for ph in case['phones']:
             if ph['cls'] == 'silence':
