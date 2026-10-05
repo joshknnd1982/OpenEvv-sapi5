@@ -184,6 +184,14 @@ def module_phones(p, annotation):
         body = re.sub(r'\.\d', '', m.group(1))
         i = 0
         while i < len(body):
+            if body[i] == "'":
+                # a phone name in single quotes, as written for E: a~ (DECISIONS.md D30)
+                j = body.find("'", i + 1)
+                if j < 0 or body[i + 1:j] not in names:
+                    raise engine.HarnessError('module %s has no phone %r in %r' % (p.module_tag, body[i:j + 1], annotation))
+                out.append(body[i + 1:j])
+                i = j + 1
+                continue
             k = _longest(body, i, names)
             if k is None:
                 raise engine.HarnessError('module %s has no phone at %r in %r' % (p.module_tag, body[i:], annotation))

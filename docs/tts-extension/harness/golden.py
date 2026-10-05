@@ -7,6 +7,9 @@ Cases, one a phoneme, each in a host of its own (engine.py):
                             vowel V as [t'Vta]
     native pack             every phone the module gives a rule or a settings number
                             (inventory/languages.json), in the module's annotation `[.1aXa]
+    and, from Phase 3 (DESIGN.md 10.4), every consonant again before a voiceless consonant and at
+    the end before the pause, ['aCsa 'aC] (`[.1aXsa] `[.1aX]), case id `x|...`: between two vowels
+    the next sound is always voiced, which is how defect X-1 went unseen.
 
 For each case it keeps, per phone the engine sounded: what was asked of the synthesiser (frames:
 analysis.requested) and what came out (sound: analysis.phone_metrics), the hash of the case's
@@ -15,6 +18,8 @@ frames and of its sound, and the phone sequence. Metrics, not audio.
     python docs/tts-extension/harness/golden.py --record [tags...]    write golden/<tag>.json.gz
     python docs/tts-extension/harness/golden.py [tags...]             compare; exit 1 on drift
     python docs/tts-extension/harness/golden.py --smoke                a few phonemes of a few packs
+    python docs/tts-extension/harness/golden.py --record-new [tags...] compare, and add the cases the
+                                    golden lacks, only if every case it has is unchanged
 
 Drift: a case missing or new, a phone sequence changed, a requested value changed by more than
 REQ_TOL, or a measured value by more than MEAS_TOL. A case whose frames and sound are both
@@ -38,7 +43,11 @@ sys.path.insert(0, HERE)
 import analysis as A   # noqa: E402
 import engine as E     # noqa: E402
 
-GOLDEN = os.path.join(HERE, 'golden')
+# Two goldens, never mixed (DESIGN.md 11.2): golden/ describes the modules in languages/;
+# golden-staged/ the rebuilt modules staged under EVV_STAGE, and is the one that moves when a
+# change to them is approved. --golden names another (the baseline proof compares the staged
+# modules with golden/).
+GOLDEN = os.path.join(HERE, 'golden-staged' if E.STAGE else 'golden')
 ESPEAK_TYPES = {2: 'vowel', 3: 'liquid', 4: 'stop', 5: 'stop', 6: 'fricative', 7: 'fricative', 8: 'nasal'}
 
 # A requested value is the engine's own integer: any change beyond rounding is drift.
@@ -48,6 +57,16 @@ REQ_TOL = dict(rel=0.005, abs=1.0)
 MEAS_TOL = dict(hz=(0.02, 15.0), db=(0.0, 1.0), ms=(0.0, 3.0), other=(0.05, 0.0))
 
 SMOKE = {'enus': 6, 'dede': 4, 'hi': 6, 'cmn': 4, 'sw': 4, 'ar': 4}
+
+# The voiceless consonant a context case puts after C: the first of these the table has.
+FOLLOW = ('s', 't', 'k', 'p')
+
+
+def follower(names):
+    for n in FOLLOW:
+        if n in names:
+            return n
+    return None
 
 
 def table_chain(name):
@@ -103,12 +122,24 @@ def espeak_cases(p):
                 cases.append(('%s|%s' % (kind[0], name), 'espeak', body))
             else:
                 cases.append(('%s|%s|%s' % (kind[0], name, src), 'espeak', '_^_%s %s' % (src, body)))
+            if kind == 'vowel':
+                continue
+            fol = follower(set().union(*({ph['mnemonic'] for ph in tables[t]['phonemes']}
+                                         for t in table_chain(src) if t in tables)))
+            if fol is None:
+                uncovered.append(dict(entry=w[0], reason='context case: table %s has none of %s' % (src, ' '.join(FOLLOW))))
+                continue
+            body = "'a%s%sa 'a%s" % (name, fol, name)
+            if src == own:
+                cases.append(('x|%s' % name, 'espeak', body))
+            else:
+                cases.append(('x|%s|%s' % (name, src), 'espeak', '_^_%s %s' % (src, body)))
     return cases, uncovered
 
 
-# Phones whose names hold ':' or '~' cannot be written in an annotation: the module speaks the
-# annotation as text instead (`[.1aE:a] lasts 5.6 s). They are reached through ordinary words
-# that contain them, segmented by runs and so unlabelled.
+# Phones whose names hold ':' or '~' are spoken as text if written plainly (`[.1aE:a] lasts 5.6 s);
+# in single quotes they are the phone (`[.1a'E:'a], DECISIONS.md D30), which is how they are said
+# from Phase 3. These ordinary words that contain them stay as cases of their own.
 TEXT_CASES = {
     'dede': ['Käse.', 'Mädchen.', 'Restaurant.', 'Bassin.', 'Parfum.', 'Balkon.'],
     'frfr': ['enfant.', 'vin.', 'bon.', 'brun.', 'un.'],
@@ -119,7 +150,9 @@ TEXT_CASES = {
 def is_vowel(p, name):
     """By analysis.phone_class, which also knows the modules without a phone-to-IPA table
     (frca, plpl, jajp: analysis.CLASS_TABLE, JAJP_CLASS)."""
-    return A.phone_class(None, name, p.phone_module) == 'vowel'
+    # E: a~ OE~ ...: in these modules ':' and '~' mark only vowels (long, nasal), and the
+    # phone-to-IPA table does not list them
+    return ':' in name or '~' in name or A.phone_class(None, name, p.phone_module) == 'vowel'
 
 
 def native_cases(p):
@@ -130,8 +163,14 @@ def native_cases(p):
         q = {x['tag']: x for x in json.load(f)['packs']}[p.module_tag]
     names = [ph['name'] for ph in q['phonemes'] if ph['name'] and ph['name'] != '#']
     carrier = 'a' if 'a' in names else names[0]
-    cases = [('m|%s' % n, 'module', ('`[.1t%st]' % n) if is_vowel(p, n) else '`[.1%s%s%s]' % (carrier, n, carrier))
-             for n in names if ':' not in n and '~' not in n]
+    def w(n):
+        return "'%s'" % n if ':' in n or '~' in n else n
+    cases = [('m|%s' % n, 'module', ('`[.1t%st]' % w(n)) if is_vowel(p, n) else '`[.1%s%s%s]' % (carrier, w(n), carrier))
+             for n in names]
+    fol = follower(names)
+    if fol:
+        cases += [('x|%s' % n, 'module', '`[.1%s%s%s%s] `[.1%s%s]' % (carrier, w(n), fol, carrier, carrier, w(n)))
+                  for n in names if not is_vowel(p, n)]
     cases += [('t|%s' % w.rstrip('.'), 'text', w) for w in TEXT_CASES.get(p.tag, [])]
     return cases
 
@@ -143,11 +182,7 @@ def cases_for(tag):
 
 
 def native_uncovered(p):
-    path = os.path.join(E.ROOT, 'docs', 'tts-extension', 'inventory', 'languages.json')
-    with open(path, encoding='utf-8') as f:
-        q = {x['tag']: x for x in json.load(f)['packs']}[p.module_tag]
-    return [dict(entry=ph['name'], reason='cannot be written in an annotation; reached through TEXT_CASES words, unlabelled')
-            for ph in q['phonemes'] if ph['name'] and (':' in ph['name'] or '~' in ph['name'])]
+    return []       # every phone the module declares has a case (names with ':' or '~' quoted)
 
 
 def _num(v):
@@ -283,9 +318,17 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('tags', nargs='*')
     ap.add_argument('--record', action='store_true', help='write the golden files instead of comparing')
+    ap.add_argument('--record-new', action='store_true',
+                    help='compare, and add the cases the golden lacks to it if every case it has is unchanged')
     ap.add_argument('--smoke', action='store_true', help='a few phonemes of a few packs (under a minute)')
     ap.add_argument('--workers', type=int, default=max(1, (os.cpu_count() or 4) // 2))
+    ap.add_argument('--golden', help='the golden folder (default: golden/, or golden-staged/ under EVV_STAGE)')
     a = ap.parse_args()
+    global GOLDEN
+    if a.golden:
+        GOLDEN = os.path.abspath(a.golden)
+    print('modules: %s; golden: %s' % ('staged in %s, else shipped' % E.STAGE if E.STAGE else 'shipped (languages/)',
+                                      os.path.relpath(GOLDEN, HERE)), flush=True)
     if a.smoke:
         plan = list(SMOKE.items())
     else:
@@ -314,6 +357,7 @@ def main():
             write_golden(tag, r)
         print('recorded %d packs in %.0f s; %d not recorded' % (len(results) - fails, time.time() - t0, fails))
         sys.exit(1 if fails else 0)
+    added = 0
     for tag, r in sorted(results.items()):
         if not os.path.exists(golden_path(tag)):
             print('FAIL %s: no golden file (run --record)' % tag)
@@ -322,10 +366,23 @@ def main():
         gold = read_golden(tag)
         if a.smoke:
             gold['cases'] = {k: v for k, v in gold['cases'].items() if k in r['cases'] or k in r['errors']}
-        for cid, sev, msg in compare(gold, r):
+        found = compare(gold, r)
+        new = [cid for cid, sev, msg in found if sev == 'FAIL' and msg == 'new case (not in the golden)']
+        if a.record_new and new and len(new) == sum(sev == 'FAIL' for _c, sev, _m in found):
+            # Every case the golden has is unchanged: the new ones join it, the old ones stay as they were.
+            for cid in new:
+                gold['cases'][cid] = r['cases'][cid]
+            gold['not_covered'] = r.get('not_covered', gold.get('not_covered', []))
+            write_golden(tag, gold)
+            print('ADDED %s: %d new cases; the %d it had are unchanged' % (tag, len(new), len(gold['cases']) - len(new)))
+            added += len(new)
+            found = [f for f in found if f[0] not in new]
+        for cid, sev, msg in found:
             print('%s %s %s: %s' % (sev, tag, cid, msg))
             fails += sev == 'FAIL'
             notes += sev == 'note'
+    if a.record_new:
+        print('record-new: %d cases added' % added)
     n = sum(len(r['cases']) + len(r['errors']) for r in results.values())
     print('golden: %d packs, %d cases, %d FAILED, %d changed within tolerance, %.0f s'
           % (len(results), n, fails, notes, time.time() - t0))

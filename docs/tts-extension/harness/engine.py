@@ -78,6 +78,11 @@ LANGUAGES = os.path.join(ROOT, 'languages')
 # Outside the repository: it sits in OneDrive, which should not sync scratch audio.
 WORK = os.environ.get('EVV_HARNESS_WORK') or os.path.join(tempfile.gettempdir(), 'OpenEvvTests', 'harness')
 
+# Staged modules (DESIGN.md 11.2): a data folder whose languages\<tag>\ holds rebuilt template
+# modules. The product reads it before the shipped languages\ (F16), so a module staged there
+# speaks instead of the shipped one, which is never touched. Unset: the shipped modules.
+STAGE = os.environ.get('EVV_STAGE') or ''
+
 INERT = '{A v=1}'
 
 PARM_NAMES = [
@@ -145,7 +150,9 @@ class Pack(object):
                         self.phone_module = w[1]
 
     def module(self, bits):
-        return os.path.join(LANGUAGES, self.module_tag, 'openevv-%s-x%s.dll' % (self.module_tag, '64' if bits == 64 else '86'))
+        name = 'openevv-%s-x%s.dll' % (self.module_tag, '64' if bits == 64 else '86')
+        staged = os.path.join(STAGE, 'languages', self.module_tag, name) if STAGE else ''
+        return staged if staged and os.path.exists(staged) else os.path.join(LANGUAGES, self.module_tag, name)
 
     def __repr__(self):
         return 'Pack(%s, %s)' % (self.tag, self.kind)
@@ -278,7 +285,7 @@ def _run(p, preset, bits, case_id, text, annotated, d, trace=True, array=False):
     work = os.path.dirname(d)
     env = dict(os.environ)
     env['OPENEVV_SETTINGS'] = _settings(work)
-    env['OPENEVV_DATA'] = os.path.join(work, 'data')
+    env['OPENEVV_DATA'] = STAGE or os.path.join(work, 'data')
     out = dict(tap=os.path.join(d, 'tap.tsv'), trace=os.path.join(d, 'trace.tsv') if trace else None,
                array=os.path.join(d, 'array.txt') if array else None, wav=os.path.join(d, case_id + '.wav'))
     env['EVV_KLATT_TAP'] = out['tap']

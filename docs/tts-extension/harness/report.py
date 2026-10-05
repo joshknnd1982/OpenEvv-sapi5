@@ -154,6 +154,8 @@ def check_b(p, gold, locale):
     import unicodedata
     rows = []
     for cid, case in gold['cases'].items():
+        if cid.startswith('x|'):
+            continue        # the word-final and cluster contexts (A3's); references are of the plain ones
         ipa = case_ipa(p, cid)
         t = target(case, cid)
         if not ipa or t is None:
@@ -346,6 +348,8 @@ def vowel_chart(tag, png, rows):
     st = [r for r in rows if r['tag'] == tag][0]
     fig, ax = plt.subplots(figsize=(5.2, 4.4), dpi=90)
     for cid, case in gold['cases'].items():
+        if cid.startswith('x|'):
+            continue        # the word-final and cluster contexts (A3's); references are of the plain ones
         ipa = case_ipa(p, cid)
         t = target(case, cid)
         if not ipa or not t or t['cls'] != 'vowel':

@@ -1,6 +1,6 @@
-# The measurement harness (Phase 1)
+# The measurement harness (Phase 1; extended in Phase 3)
 
-Replaces listening with measurement. Nothing here changes the engine: it drives the shipped modules through the product's own host and reads the logs the modules already write.
+Replaces listening with measurement. Nothing here changes the engine: it drives the shipped modules (or, under `EVV_STAGE`, rebuilt ones) through the product's own host and reads the logs the modules already write.
 
 ## Setup (once)
 
@@ -27,6 +27,9 @@ Every command below runs from the repository root with that venv's `python` and 
 | Smoke check | `python docs/tts-extension/harness/smoke.py` | < 1 min |
 | Full golden regression (every phoneme of every language) | `python docs/tts-extension/harness/golden.py` (exit 1 on drift) | ~ 7 min |
 | Record the golden again after an intended change (and write it in DECISIONS.md) | `python docs/tts-extension/harness/golden.py --record [tags]` | ~ 7 min |
+| Add cases the golden lacks, only if every case it has is unchanged | `python docs/tts-extension/harness/golden.py --record-new [tags]` | as the golden |
+| Check A3: voiceless sounds and pauses stay unvoiced (with the pack's definitions against without) | `python docs/tts-extension/harness/a3.py [tags]` | ~ 30 min for all |
+| Stage rebuilt template modules in a data folder (never `languages/`) | `python docs/tts-extension/harness/stage.py <built modules> <stage folder> [tags]` | seconds |
 | ASR round trip | `python docs/tts-extension/harness/asr.py [tags]` | ~ 20 min on the GPU |
 | Status of every language: LANGUAGE_STATUS.md, reports/index.html | `python docs/tts-extension/harness/report.py` | ~ 1 min |
 | Second opinion from Praat (GPL file) | `python docs/tts-extension/harness/praat_crosscheck.py` | ~ 20 s |
@@ -36,6 +39,10 @@ Examples:
     python docs/tts-extension/harness/engine.py hi ipa "ʈəˈmaːʈər" %TEMP%\t.wav
     python docs/tts-extension/harness/engine.py enus module "`[.1hEl.0o]" %TEMP%\h.wav --preset 2
     python docs/tts-extension/harness/engine.py hi text "नमस्ते" %TEMP%\n.wav --override "s5 f2=91 vot=80"
+
+## Staged modules (Phase 3, DESIGN.md 11.2)
+
+Changes to the engine reach the product only in rebuilt template modules. They are built outside the repository (`engine/build_modules.sh`), staged with `stage.py` in a data folder, and measured by setting `EVV_STAGE` to that folder: the product reads its `languages\<tag>\` before the shipped one, so the staged module speaks and `languages/` is never touched. Under `EVV_STAGE` the golden reads and writes `golden-staged/` (the staged modules' own golden) and A3 writes `results/a3-staged.json`; `golden.py --golden <folder>` compares with another golden (the baseline proof compares staged modules with `golden/`). `golden/` always describes the modules in `languages/`; at a replacement point the staged modules and their golden replace the shipped ones together.
 
 ## Files
 
@@ -47,7 +54,9 @@ Examples:
 | `synth.py` | Synthetic signals with known answers, for the self-tests |
 | `selftest.py` | The harness's own proof |
 | `reference.py`, `reference/ranges.json` | The reference-range store (cited values only) and check B |
-| `golden.py`, `golden/<tag>.json.gz` | The golden regression: metrics and hashes, not audio; every phoneme a pack maps, borrowed ones through eSpeak NG's table switch; what cannot be rendered is listed per pack as `not_covered` |
+| `golden.py`, `golden/<tag>.json.gz` | The golden regression: metrics and hashes, not audio; every phoneme a pack maps, borrowed ones through eSpeak NG's table switch, and from Phase 3 every consonant again before a voiceless consonant and at the end before the pause (`x|` cases); what cannot be rendered is listed per pack as `not_covered`. `golden-staged/`: the same for staged modules |
+| `a3.py`, `results/a3.json` | Check A3 on the `x|` cases: what is meant voiceless or silent stays so |
+| `stage.py` | Stages rebuilt template modules in a data folder |
 | `asr.py`, `asr/` | The ASR round trip; `asr/sentences.json` (CC0 / CC BY sentences), `asr/whisper_codes.json` |
 | `report.py`, `results/` | Status levels, failure layers, LANGUAGE_STATUS.md, `../reports/index.html` |
 | `smoke.py` | The one-minute check |
@@ -62,7 +71,7 @@ Examples:
 ## Known limits (written down, not hidden)
 
 - IPA tone letters (˥˦˧˨˩) are not converted yet; a pack's tones come from its text. IPA input for frca, jajp and plpl needs a phone-to-IPA table those modules lack; their annotation input works.
-- Module phones whose names hold `:` or `~` (German `E: a~ E~ o~ oe~`, French nasals) are not written by the harness in an annotation: unquoted, the module speaks the annotation as text. The golden reaches them through words, and lists them as `not_covered`. (Phase 2 found that they *can* be written, in single quotes: `` `[.1a'E:'a] ``. The harness does not do it yet; `DECISIONS.md` D30.)
+- Module phones whose names hold `:` or `~` (German `E: a~ E~ o~ oe~`, French nasals): unquoted, the module speaks the annotation as text. From Phase 3 the golden writes them in single quotes (`` `[.1t'E:'t] ``, `DECISIONS.md` D30), so none is `not_covered`; the words that reached them before stay as cases too.
 - Check B cannot use the store's VOT or fricative values (means without a published spread) or its tone values (no tone cases until Phase 4); of the consonants, only the general nasal ranges are checked.
 - Nine native modules (all but enus) do not know the accent layer's markup, so their phones are segmented by the array log's runs, labelled only when the input named the phones.
 - IPA, eSpeak-phoneme and override renders of a pack read by eSpeak NG go through `--annotated`: the product's frames (selftest.py proves it), but a different warm-up, so the noise generator's samples differ from the product's.
