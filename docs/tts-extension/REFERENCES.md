@@ -167,3 +167,10 @@ These readings of licences are ours and are not legal advice.
 ### Looked for and not opened, so nothing rests on them
 
 The full text of Ball (2024), "Changes to certain extIPA diacritics" (doi:10.1080/02699206.2024.2365205; only its metadata was opened); the licence version of the 2021 extIPA chart and any licence for the VoQS chart; Ladefoged & Traill on clicks; Ladefoged & Maddieson (1996); Solé on trills; House & Stevens (1956); Gordon & Ladefoged (2001); Chen (1997) (its figures are as quoted by Styler 2017); Hayes (2009), the book; per-language error rates for Whisper large-v3; the constant in Klatt 1980's `PLSTEP` line (unreadable in the scan).
+
+## Phase 4 (2026-10-06): the master table
+
+Every source an entry of the master table cites is in `ipa/sources.toml` (id, title, authors, year, URL, licence as stated, whether it was opened, access date); an entry's value names its source by id. That file is the list for Phase 4; this section adds only what is not a source of a value.
+
+- **Unicode Character Database 18.0.0** (`UnicodeData.txt`, `Blocks.txt`; `Blocks-18.0.0.txt` dated 2026-07-08), https://www.unicode.org/Public/UCD/latest/ucd/, accessed 2026-10-06. Unicode License v3, which permits copying and redistribution with its notice: the notice is beside the files as `docs/tts-extension/inventory/unicode/LICENSE.txt` (from https://www.unicode.org/license.txt). Downloaded with the human's say-so (`OPEN_QUESTIONS.md` Q16). Used by `engine/ipa/coverage.py` for the Unicode net (the secondary coverage metric, `DESIGN.md` 1): 891 assigned code points in the ten blocks, as the design counted.
+- **Kuronen (2000)** and **Deterding's per-speaker spreadsheets (1997)**: downloaded with the human's say-so (`OPEN_QUESTIONS.md` Q17) into the session's scratch folder only, read for facts; nothing of them is in the repository but the cited numbers. Entries `kuronen2000` and `deterding_data` in `ipa/sources.toml`.
