@@ -318,6 +318,7 @@ typedef struct Accent {
     double  mid_hz;
     int     creak_from, creak_to, creak;
     int     breath_from, breath_to, breath;
+    int     level_from, level_to, level;    /* a tone's `av', dB */
     int     stop_at, stop_for;
 
     int     release_at;         /* when the stop before let go, in what has
@@ -1319,6 +1320,7 @@ static void pitch_plan(Accent *a, const Phone *ph, double t0, int length)
     line_clear(a);
     a->creak = 0;
     a->breath = 0;
+    a->level = 0;
     a->stop_for = 0;
 
     if (ph->pause) {
@@ -1412,6 +1414,11 @@ static void pitch_plan(Accent *a, const Phone *ph, double t0, int length)
                 a->breath = t->brth;
                 a->breath_from = (int)t0;
                 a->breath_to = (int)(t0 + length);
+            }
+            if (t->av != 0) {
+                a->level = t->av;
+                a->level_from = (int)t0;
+                a->level_to = (int)(t0 + length);
             }
             if (t->stop > 0) {
                 a->stop_for = t->stop;
@@ -2094,6 +2101,14 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 int since = (int)at - released;
                 int voiced_at = release_voiced >= 0
                     ? a->sounded + release_voiced * step - released : 9999;
+                /* Whether what follows is voiced at all: the module voices
+                   it, or its own record says so (the second field, 0 for a
+                   voiced phone in every module; a pause and a voiceless
+                   phone are 1). Before a voiceless sound or a pause there
+                   is no voice to begin. */
+                int voiced_phone = !ph->pause && ph->record[0] != 0
+                    && ph->record[1] == 0;
+                int voice_follows = release_voiced >= 0 || voiced_phone;
 
                 if (since >= 0 && since < 25 && f[P_AF] > 0) {
                     if (was->burst != 0)
@@ -2108,7 +2123,8 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 }
 
                 if (was->vot != UNSET && since >= 0) {
-                    if (since >= was->vot - step && since < voiced_at) {
+                    if (since >= was->vot - step && since < voiced_at
+                        && voice_follows) {
                         /* The voice begins here rather than where the
                            module had it: a frame before the moment, so
                            that it is up by then. */
@@ -2143,7 +2159,11 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     /* Breathy voice: the voice and the breath together. */
                     double w = 1.0 - smooth((double)since / was->brth);
 
-                    if (f[P_AV] == 0 && since >= 5)
+                    /* By the record alone: the module's voicing of what
+                       follows may be only the stop's own dying away, which
+                       a breathy release, unlike a voice onset, is not
+                       bounded by. */
+                    if (f[P_AV] == 0 && since >= 5 && voiced_phone)
                         f[P_AV] = (int32_t)(vowel_av - 4);
                     if (f[P_AV] > 0) {
                         f[P_AH] = clamp((int)(f[P_AH]
@@ -2331,6 +2351,12 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
 
             if (f[P_AV] >= 40 && is_vowel(ph) && own)
                 a->vowel_av = f[P_AV];
+            /* A tone's own level, after the vowel's has been noted, so that
+               a voice begun after the next stop is the voice's and not the
+               tone's. */
+            if (a->level != 0 && f[P_AV] > 0 && at >= a->level_from
+                && at <= a->level_to)
+                f[P_AV] = clamp(f[P_AV] + a->level, 0, 80);
 
             if (prof->own)
                 f[P_F0] = pitch_at(a, at, dt, f);

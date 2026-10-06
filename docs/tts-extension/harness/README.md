@@ -28,6 +28,7 @@ Every command below runs from the repository root with that venv's `python` and 
 | Full golden regression (every phoneme of every language) | `python docs/tts-extension/harness/golden.py` (exit 1 on drift) | ~ 7 min |
 | Record the golden again after an intended change (and write it in DECISIONS.md) | `python docs/tts-extension/harness/golden.py --record [tags]` | ~ 7 min |
 | Add cases the golden lacks, only if every case it has is unchanged | `python docs/tts-extension/harness/golden.py --record-new [tags]` | as the golden |
+| Render and compare (or, with `--record-new`, add) only the cases a golden folder lacks | `golden.py ... --only-missing-from <folder>` (also `a3.py`, which then writes `results/a3[-staged]-new.json`) | minutes |
 | Check A3: voiceless sounds and pauses stay unvoiced (with the pack's definitions against without) | `python docs/tts-extension/harness/a3.py [tags]` | ~ 30 min for all |
 | Stage rebuilt template modules in a data folder (never `languages/`) | `python docs/tts-extension/harness/stage.py <built modules> <stage folder> [tags]` | seconds |
 | ASR round trip | `python docs/tts-extension/harness/asr.py [tags]` | ~ 20 min on the GPU |

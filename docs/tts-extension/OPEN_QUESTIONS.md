@@ -126,6 +126,10 @@ The fix is a few lines in the accent layer, but it ships only in rebuilt templat
 
 The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the English diphthong cases) are faults or doubts in single packs. The design does not settle them; they belong to Phase 4 (the sounds) and Phase 6 (triage).
 
+## Added in Phase 3 (2026-10-05)
+
+**Q12. A template module cannot be built in a fresh folder without its parent** (`DECISIONS.md` D36). `itix` and `esex` fail because `tools/module/clone.py` copies a file (`lang/<parent>/rules/constants.letters`) that only a build of the parent writes. Release builds are not affected: `engine/build_modules.cmd` builds every language, parents first. A one-line fix, in `engine/build_modules.sh` (run `python3 tools/rules/letters.py write <parent>` before `clone.py` when `lang/<parent>/letters` exists) or in `clone.py` itself, would make each template buildable alone. *Recommended default: make the fix in `engine/build_modules.sh` (ours, MIT) in Phase 3, prove it by building one template in a fresh folder, and leave `openevv/tools` as it is.*
+
 ## For Phase 2 (found by measuring in Phase 1)
 
 - Quechua (`qu`): in the golden case `s|t\``, the engine meant a final vowel `a` and gave it 11 frames with neither voicing nor noise (silent). Check whether the map or the template devoices it deliberately.
