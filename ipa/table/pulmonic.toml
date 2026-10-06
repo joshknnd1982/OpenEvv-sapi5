@@ -22,6 +22,10 @@ vot_ms = { v = 20, tag = "literature", ref = "stoakes2013", note = "stoakes2013 
 [sound."U+0070".tests]
 checks = ["T-stop"]
 contrast = [{ with = "U+0074", measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+0070.json"
+
+[sound."U+0070".realization.openevv]
+trim.dedx = [{ key = "vot", v = 30.0, scale = false, tag = "measured", proof = "ipa/proofs/U+0070.json" }]
 
 [sound."U+0062"]
 ipa = "b"
@@ -451,7 +455,7 @@ contrast = [{ with = "U+014B", measure = "edge_F2", sign = -1 }, { with = "U+014
 proof = "ipa/proofs/U+0274.json"
 
 [sound."U+0274".realization.openevv]
-trim.dedx = [{ key = "f1", v = 133.6, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }, { key = "f2", v = 108.5, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }, { key = "f3", v = 111.8, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }]
+trim.dedx = [{ key = "f1", v = 114.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }, { key = "f2", v = 108.5, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }, { key = "f3", v = 111.8, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }]
 
 [sound."U+0299"]
 ipa = "ʙ"

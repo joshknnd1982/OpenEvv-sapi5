@@ -237,6 +237,7 @@ typedef struct {
 	char made;
 	int nucleus;      /* 1: this phone is the vowel its syllable is built on */
 	int stress;       /* 0, 1 primary, 2 secondary: meaningful on a nucleus */
+	int brk;          /* 1: a syllable begins here, as IPA typed it (`.') */
 } EvvPhone;
 
 typedef struct {

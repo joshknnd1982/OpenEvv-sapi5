@@ -1501,6 +1501,12 @@ static size_t annotate(const EvvWord *w, const EvvMap *map, char *out, size_t ro
 		for (int i = a; i <= b; i++)
 			if (evv_map_is_vowel(map, w->ph[real[i]].phone) && s <= i)
 				s = i + 1;
+		/* a syllable break typed in IPA (`.') says where the syllable begins */
+		for (int i = a; i <= nuc[k]; i++)
+			if (w->ph[real[i]].brk) {
+				s = i;
+				break;
+			}
 		if (s > nuc[k])
 			s = nuc[k];
 		start[k] = s;

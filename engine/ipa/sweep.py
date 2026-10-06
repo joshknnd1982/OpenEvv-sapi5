@@ -36,6 +36,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, 'docs', 'tts-extension', 'harness'))
 import adapter as AD  # noqa: E402
 import compose_test as CT  # noqa: E402
+import prosody as PZ  # noqa: E402
 import prove as PR  # noqa: E402
 import table as T  # noqa: E402
 import analysis as A  # noqa: E402
@@ -70,6 +71,9 @@ def contexts(t, sid):
     inputs of an entry. A letter alone and in three contexts; a mark on the bases its tests name."""
     e = t.sounds[sid]
     tests = e.get('tests') or {}
+    if PZ.check_of(e):
+        # tones, stress, boundaries, syllable breaks, ties: prosody.py
+        return PZ.contexts(t, sid)
     if e['kind'] == 'base':
         x = e['ipa']
         if manner(e) == 'vowel':
@@ -443,8 +447,10 @@ def judge(t, sid, cases, diags, said_as):
             d['kind'] == 'composed' or d['kind'] == 'tone-made' for d in c['diag'] + c.get('fe_diag', []))]
         if unc and marked:
             a0 = dict(a0, passed=False, not_composed=unc[:6])
+    elif PZ.check_of(e):
+        b3, s = PZ.judge(t, sid, cases)
     else:
-        # no check is written for this kind of entry yet (tones, stress, boundaries): nothing passes
+        # no check is written for this kind of entry: nothing passes
         b3 = dict(passed=False, empty=False, targets={}, unchecked=True)
     return dict(manner=man, summary=s, A0=a0, A1=a1, A2=a2, B3=b3)
 
@@ -528,6 +534,9 @@ def say_entry(t, sid, template, pack):
         diags += r_['diag'][len(d):] if r_['diag'][:len(d)] == d else r_['diag']
         c = measure(r_, p, cid, manner(e) if e['kind'] == 'base' else None, layer)
         c.update(ipa=text, said=out, diag=r_['diag'], fe_diag=d, wav_sha256=r_['wav_sha256'])
+        if PZ.check_of(e):
+            x_, rate_ = E.read_wav(r_['wav'])
+            c['pros'] = PZ.measure(x_, rate_, c['phones'], r_['frames'])
         cases[cid] = c
     verdict = judge(t, sid, cases, diags, said_as)
     return dict(id=sid, ipa=e['ipa'], name=e['name'], template=template, pack=pack, staged=E.STAGE or None,

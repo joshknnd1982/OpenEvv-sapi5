@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "fa5760047287b22ca3f040366fb96252c476c086059632d0fcd9bef1f369d466",
+ "map_sha256": "aecc58235b2d7b43d74657822a312a3bf4b425a1a4046504b777d0265ad7ce1f",
  "said_as": {
   "pack": "hi",
   "carrier": "p",
@@ -908,7 +908,31 @@
  "rounds": [
   {
    "round": 1,
-   "trims": {},
+   "trims": {
+    "vot": 30.0
+   },
+   "B3": {
+    "vot_ms": {
+     "target": 20,
+     "measured": 30.0,
+     "within": false
+    },
+    "locus F2 (frames)": {
+     "target": 843,
+     "measured": 840.0,
+     "within": true
+    }
+   },
+   "keys": {
+    "f2": 105,
+    "vot": 30
+   }
+  },
+  {
+   "round": 2,
+   "trims": {
+    "vot": 20.0
+   },
    "B3": {
     "vot_ms": {
      "target": 20,
@@ -927,7 +951,7 @@
    }
   },
   {
-   "round": 2,
+   "round": 3,
    "trims": {
     "vot": 28.0
    },

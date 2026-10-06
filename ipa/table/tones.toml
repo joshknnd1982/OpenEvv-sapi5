@@ -12,15 +12,19 @@ kind = "tone"
 levels = [5]
 placement = "over"
 equivalent_to = "U+02E5"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+030B".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+stave_span_st = { v = 7.65, tag = "derived", rule = "12 log2(140 / 90): the highest and lowest F0 of the Mandarin tones said alone on /ma/ by 8 male Beijing speakers, tone 4 starting near 140 Hz and tone 3 bottoming out about 90 Hz (xu1997 pp. 66-67, Fig. 2; the text gives them as near and about)", note = "the span of the voice's five levels, level 5 above level 1, checked on the ends of the stave (within a quarter)" }
 
 [sound."U+030B".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+030B.json"
 
 [sound."U+02E5"]
 ipa = "˥"
@@ -32,15 +36,19 @@ kind = "tone"
 levels = [5]
 placement = "after"
 equivalent_to = "U+030B"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+02E5".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+stave_span_st = { v = 7.65, tag = "derived", rule = "12 log2(140 / 90): the highest and lowest F0 of the Mandarin tones said alone on /ma/ by 8 male Beijing speakers, tone 4 starting near 140 Hz and tone 3 bottoming out about 90 Hz (xu1997 pp. 66-67, Fig. 2; the text gives them as near and about)", note = "the span of the voice's five levels, level 5 above level 1, checked on the ends of the stave (within a quarter)" }
 
 [sound."U+02E5".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E5.json"
 
 [sound."U+0301"]
 ipa = "́"
@@ -52,15 +60,18 @@ kind = "tone"
 levels = [4]
 placement = "over"
 equivalent_to = "U+02E6"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+0301".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
 
 [sound."U+0301".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+0301.json"
 
 [sound."U+02E6"]
 ipa = "˦"
@@ -72,15 +83,18 @@ kind = "tone"
 levels = [4]
 placement = "after"
 equivalent_to = "U+0301"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+02E6".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
 
 [sound."U+02E6".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E6.json"
 
 [sound."U+0304"]
 ipa = "̄"
@@ -92,15 +106,18 @@ kind = "tone"
 levels = [3]
 placement = "over"
 equivalent_to = "U+02E7"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+0304".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
 
 [sound."U+0304".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+0304.json"
 
 [sound."U+02E7"]
 ipa = "˧"
@@ -112,15 +129,18 @@ kind = "tone"
 levels = [3]
 placement = "after"
 equivalent_to = "U+0304"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+02E7".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
 
 [sound."U+02E7".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E7.json"
 
 [sound."U+0300"]
 ipa = "̀"
@@ -132,15 +152,18 @@ kind = "tone"
 levels = [2]
 placement = "over"
 equivalent_to = "U+02E8"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+0300".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
 
 [sound."U+0300".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+0300.json"
 
 [sound."U+02E8"]
 ipa = "˨"
@@ -152,15 +175,18 @@ kind = "tone"
 levels = [2]
 placement = "after"
 equivalent_to = "U+0300"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+02E8".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
 
 [sound."U+02E8".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E8.json"
 
 [sound."U+030F"]
 ipa = "̏"
@@ -172,15 +198,19 @@ kind = "tone"
 levels = [1]
 placement = "over"
 equivalent_to = "U+02E9"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+030F".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+stave_span_st = { v = 7.65, tag = "derived", rule = "12 log2(140 / 90): the highest and lowest F0 of the Mandarin tones said alone on /ma/ by 8 male Beijing speakers, tone 4 starting near 140 Hz and tone 3 bottoming out about 90 Hz (xu1997 pp. 66-67, Fig. 2; the text gives them as near and about)", note = "the span of the voice's five levels, level 5 above level 1, checked on the ends of the stave (within a quarter)" }
 
 [sound."U+030F".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+030F.json"
 
 [sound."U+02E9"]
 ipa = "˩"
@@ -192,15 +222,19 @@ kind = "tone"
 levels = [1]
 placement = "after"
 equivalent_to = "U+030F"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X11"], builds = [] }
 
 [sound."U+02E9".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+stave_span_st = { v = 7.65, tag = "derived", rule = "12 log2(140 / 90): the highest and lowest F0 of the Mandarin tones said alone on /ma/ by 8 male Beijing speakers, tone 4 starting near 140 Hz and tone 3 bottoming out about 90 Hz (xu1997 pp. 66-67, Fig. 2; the text gives them as near and about)", note = "the span of the voice's five levels, level 5 above level 1, checked on the ends of the stave (within a quarter)" }
 
 [sound."U+02E9".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E9.json"
 
 [sound."U+030C"]
 ipa = "̌"
@@ -212,15 +246,20 @@ kind = "tone"
 levels = [1, 5]
 placement = "over"
 equivalent_to = "U+02E9+U+02E5"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+030C".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+030C".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+030C.json"
 
 [sound."U+02E9+U+02E5"]
 ipa = "˩˥"
@@ -232,15 +271,20 @@ kind = "tone"
 levels = [1, 5]
 placement = "after"
 equivalent_to = "U+030C"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+02E9+U+02E5".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+02E9+U+02E5".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E9+U+02E5.json"
 
 [sound."U+0302"]
 ipa = "̂"
@@ -252,15 +296,20 @@ kind = "tone"
 levels = [5, 1]
 placement = "over"
 equivalent_to = "U+02E5+U+02E9"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+0302".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+0302".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+0302.json"
 
 [sound."U+02E5+U+02E9"]
 ipa = "˥˩"
@@ -272,15 +321,20 @@ kind = "tone"
 levels = [5, 1]
 placement = "after"
 equivalent_to = "U+0302"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+02E5+U+02E9".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+02E5+U+02E9".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E5+U+02E9.json"
 
 [sound."U+1DC4"]
 ipa = "᷄"
@@ -292,15 +346,20 @@ kind = "tone"
 levels = [3, 5]
 placement = "over"
 equivalent_to = "U+02E7+U+02E5"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+1DC4".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+1DC4".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+1DC4.json"
 
 [sound."U+02E7+U+02E5"]
 ipa = "˧˥"
@@ -312,15 +371,20 @@ kind = "tone"
 levels = [3, 5]
 placement = "after"
 equivalent_to = "U+1DC4"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+02E7+U+02E5".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+02E7+U+02E5".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E7+U+02E5.json"
 
 [sound."U+1DC5"]
 ipa = "᷅"
@@ -332,15 +396,20 @@ kind = "tone"
 levels = [1, 3]
 placement = "over"
 equivalent_to = "U+02E9+U+02E7"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+1DC5".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+1DC5".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+1DC5.json"
 
 [sound."U+02E9+U+02E7"]
 ipa = "˩˧"
@@ -352,15 +421,20 @@ kind = "tone"
 levels = [1, 3]
 placement = "after"
 equivalent_to = "U+1DC5"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+02E9+U+02E7".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+02E9+U+02E7".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E9+U+02E7.json"
 
 [sound."U+1DC8"]
 ipa = "᷈"
@@ -372,15 +446,20 @@ kind = "tone"
 levels = [3, 4, 2]
 placement = "over"
 equivalent_to = "U+02E7+U+02E6+U+02E8"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+1DC8".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+1DC8".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+1DC8.json"
 
 [sound."U+02E7+U+02E6+U+02E8"]
 ipa = "˧˦˨"
@@ -392,15 +471,20 @@ kind = "tone"
 levels = [3, 4, 2]
 placement = "after"
 equivalent_to = "U+1DC8"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X11"], builds = [] }
 
 [sound."U+02E7+U+02E6+U+02E8".spec]
+pitch = { v = "Chao", tag = "derived", rule = "Chao's five levels are the speaker's own pitch range, 5 its top and 1 its bottom (mok_zuo_wong_2013_lvc p. 342, after Chao 1930 and 1947), and F0 maps to them in equal steps of log frequency over that range, T = 5 (lg f - lg min) / (lg max - lg min) (zhang_liu_2023 p. 408, after Shi 1990 and Zhu 2004): level L lies (L - 1) / 4 of the span above the bottom, in semitones", note = "the target of each point of the tone is the voice's own stave measured on the same syllable in the same run, so the voice's pitch, declination and phrase ending cancel" }
+tolerance_steps = { v = 0.5, tag = "derived", rule = "half a level: nearer the level named than either neighbour" }
+min_rate_st_s = { rise = { v = 19, tag = "derived", rule = "half the mean speed of the Mandarin rising tone, 158 to 201 Hz (4.2 st) from its low point 117 ms after the syllable onset to its peak 29 ms after its end, 110 ms (xu1999 Tables IX, XIII; 4 M + 4 F pooled): 37.9 st/s; half, since a short vowel shows less than the whole movement and a synthetic voice's speed is not a speaker's" }, fall = { v = 21.6, tag = "derived", rule = "half the mean speed of the Mandarin falling tone, 204 to 163 Hz (3.9 st) from its peak 117 ms after onset to its low 7 ms after the end, 90 ms (xu1999 Tables XIV, XI): 43.2 st/s" } }
+legs_min_st = { v = 0.5, tag = "derived", rule = "a three-level contour: each leg moves at least half a semitone its way, above what the F0 measure tells from its own error" }
 
 [sound."U+02E7+U+02E6+U+02E8".tests]
 checks = ["T-tone"]
+proof = "ipa/proofs/U+02E7+U+02E6+U+02E8.json"
 
 [sound."U+A71C"]
 ipa = "ꜜ"
@@ -411,16 +495,17 @@ tier = "A"
 kind = "tone"
 register = "down"
 placement = "before"
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X11"], builds = ["C5"] }
 
 [sound."U+A71C".spec]
-step_st = { v = -2.5, tag = "estimated", note = "no measured downstep size was found in a source that could be opened (Connell and Ladd 1990, Laniran and Clements 2003 not opened); the one figure seen, a Mandarin range of downstep below 2.5 st (Wang, Kugler and Genzel 2022), was read only through a summary and is unverified. Queued for verification." }
+step_st = { v = -3.15, tag = "derived", rule = "12 log2(151.1 / 181.2): a high tone after a floating low against the high before it, one male speaker of Chumburung, 10 tokens (snider2007 p. 110, examples 9 and 10)", note = "the female speaker of the same study: -4.93 st (297.4 to 223.7 Hz); a downstep after a pronounced low tone did not differ significantly in size (p. 111). One language, two speakers: queued for more." }
 
 [sound."U+A71C".tests]
 checks = ["T-register"]
+proof = "ipa/proofs/U+A71C.json"
 
 [sound."U+A71B"]
 ipa = "ꜛ"
@@ -431,16 +516,17 @@ tier = "A"
 kind = "tone"
 register = "up"
 placement = "before"
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X11"], builds = ["C5"] }
 
 [sound."U+A71B".spec]
-step_st = { v = 2.5, tag = "estimated", note = "set equal and opposite to downstep; no upstep size found in an opened source. Queued for verification." }
+step_st = { v = 3.15, tag = "estimated", note = "set equal and opposite to the measured male downstep (snider2007, -3.15 st); no measured upstep was found in a source that could be opened. Queued for verification." }
 
 [sound."U+A71B".tests]
 checks = ["T-register"]
+proof = "ipa/proofs/U+A71B.json"
 
 [sound."U+2197"]
 ipa = "↗"
@@ -451,8 +537,8 @@ tier = "A"
 kind = "tone"
 slope = "rise"
 placement = "before"
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X11", "X12"], builds = ["C5"] }
 
@@ -461,6 +547,7 @@ st_per_syllable = { v = 1.0, tag = "estimated", note = "no measured size of a ma
 
 [sound."U+2197".tests]
 checks = ["T-slope"]
+proof = "ipa/proofs/U+2197.json"
 
 [sound."U+2198"]
 ipa = "↘"
@@ -471,8 +558,8 @@ tier = "A"
 kind = "tone"
 slope = "fall"
 placement = "before"
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X11", "X12"], builds = ["C5"] }
 
@@ -481,3 +568,4 @@ st_per_syllable = { v = -1.0, tag = "estimated", note = "no measured size of a m
 
 [sound."U+2198".tests]
 checks = ["T-slope"]
+proof = "ipa/proofs/U+2198.json"

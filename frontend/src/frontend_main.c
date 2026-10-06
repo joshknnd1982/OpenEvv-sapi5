@@ -652,7 +652,12 @@ static void put_header(void)
    upstep) moves every tone after it to the end of the phrase; a global rise
    or fall gives each syllable after it to the end of the phrase a tone a step
    higher or lower than the one before. `|' ends a minor group and `‖' a major
-   one (a phrase each); `‿' links, and is otherwise nothing. */
+   one (a phrase each); `‿' links, and is otherwise nothing. A `.' inside a
+   word says where the next syllable begins. A tie bar (U+0361 above, U+035C
+   below) makes the letters on each side one segment, looked up whole (an
+   affricate the template has, `t͡s'); a tied pair the map has no line for is
+   said by the lookup's own fallback, its letters one after the other, the tie
+   reported as skipped. */
 static int utf8_char_len(unsigned char c)
 {
 	return c < 0x80 ? 1 : (c & 0xe0) == 0xc0 ? 2 : (c & 0xf0) == 0xe0 ? 3 : (c & 0xf8) == 0xf0 ? 4 : 1;
@@ -767,6 +772,7 @@ static int translate_ipa(const char *given)
 	n_clause_words = 0;
 	ClauseWord *cw = NULL;
 	int stress = 0, chars = 0;
+	int brk_next = 0;               /* a `.' typed: the next segment begins a syllable */
 	int levels[8], n_levels = 0;    /* the tone typed for the syllable being read */
 	int next_levels[8], n_next = 0; /* a tone mark on a consonant, for the nucleus after it */
 	int reg = 0, slope = 0, slope_at = 0;
@@ -775,6 +781,7 @@ static int translate_ipa(const char *given)
 		int l = utf8_char_len((unsigned char)*p);
 		if (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
 			cw = NULL;
+			brk_next = 0;
 			p++;
 			chars++;
 			continue;
@@ -849,6 +856,7 @@ static int translate_ipa(const char *given)
 			continue;
 		}
 		if (*p == '.') {
+			brk_next = 1;
 			p++;
 			chars++;
 			continue;
@@ -860,7 +868,7 @@ static int translate_ipa(const char *given)
 		const EvvLetter *letter = evv_map_letter(&g_map, p, (size_t)l);
 		int seg_tone[8], n_seg_tone = 0;
 		char seg[64];
-		int seg_len = 0, cut = 0;
+		int seg_len = 0, cut = 0, tied = 0;
 		memcpy(seg, p, (size_t)l);
 		seg_len = l;
 		p += l;
@@ -868,12 +876,18 @@ static int translate_ipa(const char *given)
 		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && *p != '.' && *p != '|') {
 			int ml = utf8_char_len((unsigned char)*p);
 			const EvvToneMark *m = evv_map_tonemark(&g_map, p, (size_t)ml);
-			if (evv_map_letter(&g_map, p, (size_t)ml) ||
+			if (tied && evv_map_letter(&g_map, p, (size_t)ml)) {
+				/* the letter after a tie bar belongs to this segment */
+				tied = 0;
+			} else if (evv_map_letter(&g_map, p, (size_t)ml) ||
 			    (ml == 2 && (unsigned char)p[0] == 0xcb && ((unsigned char)p[1] == 0x88 || (unsigned char)p[1] == 0x8c)) ||
 			    (m && !(m->kind == 't' && is_combining((const unsigned char *)p, ml))) ||
 			    (ml == 3 && (unsigned char)p[0] == 0xe2 && (unsigned char)p[1] == 0x80 &&
 			     ((unsigned char)p[2] == 0x96 || (unsigned char)p[2] == 0xbf)))
 				break;
+			if (ml == 2 && (unsigned char)p[0] == 0xcd && ((unsigned char)p[1] == 0xa1 || (unsigned char)p[1] == 0x9c)) {
+				tied = 1;
+			}
 			if (m) {
 				for (int i = 0; i < m->n && n_seg_tone < 8; i++)
 					seg_tone[n_seg_tone++] = m->levels[i];
@@ -923,7 +937,16 @@ static int translate_ipa(const char *given)
 		}
 		if (n == 0)
 			continue;
+		int first = cw->w.n;
 		evv_word_add(&cw->w, &g_map, phones, n, syllabic, vowel, syllabic ? stress : 0, NULL);
+		if (brk_next) {
+			for (int i = first; i < cw->w.n; i++)
+				if (!cw->w.ph[i].made) {
+					cw->w.ph[i].brk = 1;
+					break;
+				}
+			brk_next = 0;
+		}
 		cw->src_len = chars - cw->src;
 		if (syllabic) {
 			stress = 0;

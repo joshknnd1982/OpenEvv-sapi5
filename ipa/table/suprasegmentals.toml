@@ -17,9 +17,11 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X10"], builds = [] }
 
 [sound."U+02C8".spec]
+duration_ratio = { v = 1.6, tag = "derived", rule = "227 / 142 ms: the first syllable of Dutch kanon stressed against unstressed, not accented, 4 M + 6 F (sluijter_vanheuven_1996_jasa Table I, p. 2475)", note = "accented: 254 / 151 = 1.68; stressed syllables are also louder, about 2 dB unaccented and 5 dB accented, the bands above 500 Hz by 5 to 10 dB (pp. 2476, 2482): measured and reported here, the length is what is required (within a quarter)" }
 
 [sound."U+02C8".tests]
 checks = ["T-stress"]
+proof = "ipa/proofs/U+02C8.json"
 
 [sound."U+02CC"]
 ipa = "ˌ"
@@ -36,9 +38,11 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X10"], builds = [] }
 
 [sound."U+02CC".spec]
+primary_minus_secondary_ms = { v = 8, tag = "literature", ref = "torresquintero2016", note = "one male speaker of American English: primary-stressed vowels 8 ms longer than secondary, 2.4 to 2.7 dB louder, F0 3.8 Hz higher (not significant) (pp. 16-17); one speaker, so the check asks only the order: secondary longer than unstressed, primary longer than secondary, each by the contrast minimum (8 ms)" }
 
 [sound."U+02CC".tests]
 checks = ["T-stress"]
+proof = "ipa/proofs/U+02CC.json"
 
 [sound."U+02D0"]
 ipa = "ː"
@@ -49,8 +53,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { length = "long" }, vowel = { length = "long" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds = [] }
 
@@ -64,8 +68,9 @@ duration = { inherent_ms = { scale = 2.0, tag = "derived", rule = "Finnish /m p 
 
 [sound."U+02D0".tests]
 checks = ["T-length"]
-bases = ["U+0061", "U+0069", "U+006E", "U+0073"]
+bases = ["U+0061", "U+0065", "U+006E", "U+0073"]
 shift = [{ measure = "duration_ms", sign = 1 }]
+proof = "ipa/proofs/U+02D0.json"
 
 [sound."U+02D1"]
 ipa = "ˑ"
@@ -119,7 +124,7 @@ duration = { inherent_ms = { scale = 0.6, tag = "estimated", note = "extra-short
 
 [sound."U+0306".tests]
 checks = ["T-length"]
-bases = ["U+0061", "U+0069", "U+006E"]
+bases = ["U+0061", "U+0065", "U+006E"]
 shift = [{ measure = "duration_ms", sign = -1 }]
 proof = "ipa/proofs/U+0306.json"
 
@@ -132,15 +137,19 @@ tier = "A"
 kind = "boundary"
 boundary = "minor"
 placement = "between"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X12"], builds = [] }
 
 [sound."U+007C".spec]
+pause_min_ms = { v = 5, tag = "derived", rule = "the smaller of the two languages below: English B3, 0.258 - 0.253 s" }
+pause_max_ms = { v = 430, tag = "derived", rule = "at an intermediate-phrase boundary (B3) English radio news has almost no pause (syllable 0.253 s, with pause 0.258 s, polysyllables, Table 2) and Mandarin about 0.43 s (syllable with pause 0.686 s less the syllable 0.261 s, section 3.1) (wang_xu_zhang_2019_icphs)" }
+prelengthening_ratio = { v = 1.3, tag = "derived", rule = "0.253 / 0.195 s: English polysyllables, the syllable before B3 against before B1 (wang_xu_zhang_2019_icphs Table 2); reported, the lengthening itself is required (8 ms)" }
 
 [sound."U+007C".tests]
 checks = ["T-boundary"]
+proof = "ipa/proofs/U+007C.json"
 
 [sound."U+2016"]
 ipa = "‖"
@@ -151,15 +160,19 @@ tier = "A"
 kind = "boundary"
 boundary = "major"
 placement = "between"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X12"], builds = [] }
 
 [sound."U+2016".spec]
+pause_min_ms = { v = 94, tag = "derived", rule = "the smaller of the two languages below" }
+pause_max_ms = { v = 660, tag = "derived", rule = "at an intonation-phrase boundary (B4): English monosyllables 0.444 - 0.350 s = 94 ms (Table 1); Mandarin about 0.66 s (0.912 - 0.251 s, section 3.1) (wang_xu_zhang_2019_icphs)" }
+prelengthening_ratio = { v = 1.53, tag = "derived", rule = "0.299 / 0.195 s: English polysyllables, before B4 against before B1 (wang_xu_zhang_2019_icphs Table 2); reported, the lengthening itself is required (8 ms)" }
 
 [sound."U+2016".tests]
 checks = ["T-boundary"]
+proof = "ipa/proofs/U+2016.json"
 
 [sound."U+002E"]
 ipa = "."
@@ -170,15 +183,17 @@ tier = "A"
 kind = "boundary"
 boundary = "syllable"
 placement = "between"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X13"], builds = [] }
 
 [sound."U+002E".spec]
+onset_at_mark = { v = true, tag = "derived", rule = "the chart's definition: the mark separates two syllables, so what follows it begins the next one (checklist entry)", note = "no measured cue of syllable division was found in a source that could be opened (onset against coda: Lehiste 1960, Nakatani and Dukes 1977, Turk and Shattuck-Hufnagel 2000 not opened); the check asks that the division reaches the engine and that the sound differs from the other division (8 ms). Queued." }
 
 [sound."U+002E".tests]
 checks = ["T-syllable"]
+proof = "ipa/proofs/U+002E.json"
 
 [sound."U+203F"]
 ipa = "‿"
@@ -189,12 +204,14 @@ tier = "A"
 kind = "boundary"
 boundary = "linked"
 placement = "between"
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X13"], builds = [] }
 
 [sound."U+203F".spec]
+onset_across_link = { v = true, tag = "derived", rule = "the chart's definition: no break between the words, a linking consonant becoming the onset of the next syllable (checklist entry)", note = "no measured value opened: Spinelli, McQueen and Cutler 2003 (JML 48) report liaison consonants shorter than word-initial ones, in the abstract only, with no figure. The check: no pause, the consonant begins the next syllable, and its length differs from the unlinked one (8 ms). Queued." }
 
 [sound."U+203F".tests]
 checks = ["T-boundary"]
+proof = "ipa/proofs/U+203F.json"

@@ -239,16 +239,19 @@ tier = "A"
 kind = "tie"
 placement = "over"
 equivalent_to = "U+0361"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X13", "X4", "X9"], builds = [] }
 
 [sound."U+035C".spec]
 duration = { inherent_ms = { v = 190, tag = "estimated", note = "An estimate for a tied affricate as one segment, not a measured value: DESIGN.md (the affricate row) says the stop closure is released straight into a friction shorter than a plain fricative's. Taken as the adult-male t closure (106 ms, nicolaidis_etal_greek Table 1) plus about half of the plain ʃ frication (178 ms, jongman2000 Table VI); the one-half is an assumption. No affricate duration was found in the research notes." } }
+friction_shorter = { v = true, tag = "derived", rule = "DESIGN.md 2.4: an affricate's friction is shorter than a plain fricative's; checked against the plain fricative in the same context (8 ms)" }
 
 [sound."U+035C".tests]
 checks = ["T-sequence"]
+pairs = ["t͡s", "t͡ʃ", "p͡f", "d͡ʒ"]
+proof = "ipa/proofs/U+035C.json"
 
 [sound."U+0361"]
 ipa = "͡"
@@ -259,13 +262,22 @@ tier = "A"
 kind = "tie"
 placement = "over"
 equivalent_to = "U+035C"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X13", "X4", "X9"], builds = [] }
 
 [sound."U+0361".spec]
 duration = { inherent_ms = { v = 190, tag = "estimated", note = "An estimate for a tied affricate as one segment, not a measured value: DESIGN.md (the affricate row) says the stop closure is released straight into a friction shorter than a plain fricative's. Taken as the adult-male t closure (106 ms, nicolaidis_etal_greek Table 1) plus about half of the plain ʃ frication (178 ms, jongman2000 Table VI); the one-half is an assumption. No affricate duration was found in the research notes." } }
+friction_shorter = { v = true, tag = "derived", rule = "DESIGN.md 2.4: an affricate's friction is shorter than a plain fricative's; checked against the plain fricative in the same context (8 ms)" }
 
 [sound."U+0361".tests]
 checks = ["T-sequence"]
+pairs = ["t͡s", "t͡ʃ", "p͡f", "d͡ʒ"]
+proof = "ipa/proofs/U+0361.json"
+
+[sound."U+0361".realization.openevv]
+# the affricates the template has, one phone each: what the pack generator's `says' lines tell the accent layer
+# for dedx (C = t S, J = d Z, P = p f, T = t s); a tied pair the template has no phone for is said as its two
+# letters in a row by the lookup's fallback, the tie reported as skipped (`ipa-char-skipped', a loss)
+tied = { dedx = { "t͡s" = "T", "t͡ʃ" = "C", "p͡f" = "P", "d͡ʒ" = "J" } }

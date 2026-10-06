@@ -29,7 +29,7 @@ sound u006e f1=249 f2=90 f3=95 f4=104 hold=163    # U+006E voiced dental or alve
 n            n=u006e
 sound u006f f1=109 f2=93 f3=108    # U+006F close-mid back rounded vowel
 o            o=u006f
-sound u0070 f2=105 vot=20    # U+0070 voiceless bilabial plosive
+sound u0070 f2=105 vot=30    # U+0070 voiceless bilabial plosive
 p            p=u0070
 sound u0071 f2=58    # U+0071 voiceless uvular plosive
 q            k=u0071
@@ -139,7 +139,7 @@ sound u0272 f1=181 f2=95 f3=99 f4=104 hold=181    # U+0272 voiced palatal nasal
 ɲ            n=u0272
 sound u0273 f1=217 f2=77 f3=93 f4=100 hold=71    # U+0273 voiced retroflex nasal
 ɳ            n=u0273
-sound u0274 f1=200 f2=63 f3=103    # U+0274 voiced uvular nasal
+sound u0274 f1=171 f2=63 f3=103    # U+0274 voiced uvular nasal
 ɴ            G=u0274
 sound u0275 f1=91 f2=76 f3=100    # U+0275 close-mid central rounded vowel
 ɵ            @=u0275
@@ -218,6 +218,18 @@ sound u03c7 a2=70 a3=0 a4=50 a5=0 a6=0 f2=102    # U+03C7 voiceless uvular frica
 χ            x=u03c7
 sound u2c71 tap=1 tapms=18    # U+2C71 voiced labiodental flap
 ⱱ            w=u2c71
+
+# tied pairs said as one phone of the module (͜ U+035C)
+d͜ʒ          J
+p͜f          P
+t͜s          T
+t͜ʃ          C
+
+# tied pairs said as one phone of the module (͡ U+0361)
+d͡ʒ          J
+p͡f          P
+t͡s          T
+t͡ʃ          C
 
 # composition when speaking (C4): read only by a map with `version 2`
 version 2
@@ -398,5 +410,5 @@ tonemark ᷅ 13    # U+1DC5
 tonemark ᷈ 342    # U+1DC8
 slope ↗ 4    # U+2197, 1 semitones a syllable
 slope ↘ -4    # U+2198, -1 semitones a syllable
-register ꜛ 11    # U+A71B, 2.5 semitones
-register ꜜ -11    # U+A71C, -2.5 semitones
+register ꜛ 14    # U+A71B, 3.15 semitones
+register ꜜ -14    # U+A71C, -3.15 semitones

@@ -399,6 +399,17 @@ def write(t, template, quiet=False):
             unrealised += 1
         lines.append('%-12s %s' % (e['ipa'], said))
         n += 1
+    # tied pairs (DESIGN.md 2.4): an affricate the template has is one segment, said as its phone;
+    # the tie below says the same as the tie above
+    for sid, e in sorted(t.sounds.items()):
+        if e.get('kind') != 'tie':
+            continue
+        src = e if (e.get('realization') or {}).get('openevv', {}).get('tied') else t.sounds.get(e.get('equivalent_to'), {})
+        pairs = ((src.get('realization') or {}).get('openevv', {}).get('tied') or {}).get(template, {})
+        if pairs:
+            lines += ['', '# tied pairs said as one phone of the module (%s %s)' % (e['ipa'], sid)]
+        for pair, phone in sorted(pairs.items()):
+            lines.append('%-12s %s' % (pair.replace('͡', e['ipa']), phone))
     # C4: what the front-end needs to compose when speaking, and to fall back with a warning
     lines += ['', '# composition when speaking (C4): read only by a map with `version 2`',
               'version 2', weights_line(t)]

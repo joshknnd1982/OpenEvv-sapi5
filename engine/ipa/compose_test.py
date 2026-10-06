@@ -94,7 +94,10 @@ def main():
     # one at a time and in pairs
     # (not ɯ: its line is taken out, to show the fallback below)
     letters = [sid for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'base' and e.get('spec') and e['ipa'] != 'ɯ']
-    mods = [sid for sid, e in sorted(t.sounds.items()) if e.get('transform')]
+    # marks written after a letter; the stress mark is not one of them (it stands before a
+    # syllable), and is tested on its own below
+    mods = [sid for sid, e in sorted(t.sounds.items()) if e.get('transform') and e.get('kind') == 'modifier']
+    stress = [sid for sid, e in sorted(t.sounds.items()) if e.get('transform') and e.get('kind') == 'syllable-mark']
     sample = []
     for b in letters:
         cls = t.sounds[b]['features']['class']
@@ -102,11 +105,19 @@ def main():
         for k in (1, 2):
             for ms in itertools.combinations(usable, k):
                 sample.append((b, list(ms)))
+        for m in stress:
+            if cls in t.sounds[m]['transform']:
+                sample.append((b, [m]))
     failures, compared = [], 0
     for b, ms in sample:
         ipa = t.sounds[b]['ipa'] + ''.join(t.sounds[m]['ipa'] for m in ms)
         want = AD.compose(t, b, ms, a.template, _carrier_meas(b))
-        code, out, diags = say_ipa(p, map_path, ipa)
+        if ms and t.sounds[ms[0]].get('kind') == 'syllable-mark':
+            # a stressed vowel: the front-end composes its nucleus with the stress mark after it
+            code, out, diags = say_ipa(p, map_path, ms and t.sounds[ms[0]]['ipa'] + t.sounds[b]['ipa'])
+        else:
+            # after a stressed syllable, so that the letter under test carries no stress of its own
+            code, out, diags = say_ipa(p, map_path, 'ˈpa' + ipa)
         # the front-end puts marks in canonical order (a mark below before a mark above)
         got = composed_keys(diags).get(fe_form(ipa))
         losses = [d for d in diags if d['level'] == 'loss']
