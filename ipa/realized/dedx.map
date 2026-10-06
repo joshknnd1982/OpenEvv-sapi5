@@ -1,106 +1,96 @@
 # The master table realised for dedx (engine/ipa/adapter.py --write). Generated: do not edit.
 # Each letter: its sound line (if it differs from the carrier), and its IPA said as the carrier.
 
-sound u0061 f1=118 f2=125 f3=110    # U+0061 open front unrounded vowel
+sound u0061 f1=127 f2=125 f3=110    # U+0061 open front unrounded vowel
 a            A=u0061
-#   U+0062 voiced bilabial plosive: the carrier as it is
-b            b
-#   U+0063 voiceless palatal plosive: the carrier as it is
-#   SUBSTITUTE: the carrier k is 1 feature steps away and nothing moves it
-c            k
-#   U+0064 voiced dental or alveolar plosive: the carrier as it is
-d            d
+sound u0062 f2=85    # U+0062 voiced bilabial plosive
+b            b=u0062
+sound u0063 f2=114 vot=34    # U+0063 voiceless palatal plosive
+c            k=u0063
+sound u0064 f2=104    # U+0064 voiced dental or alveolar plosive
+d            d=u0064
 sound u0065 f1=113 f2=118 f3=109    # U+0065 close-mid front unrounded vowel
 e            e=u0065
-#   U+0066 voiceless labiodental fricative: the carrier as it is
-f            f
-sound u0068 whisper=44    # U+0068 voiceless glottal fricative
+sound u0066 f2=163 hold=138    # U+0066 voiceless labiodental fricative
+f            f=u0066
+sound u0068 ms=102 whisper=44    # U+0068 voiceless glottal fricative
 h            <h=u0068
 sound u0069 f1=82 f2=129 f3=126    # U+0069 close front unrounded vowel
 i            i=u0069
-#   U+006A voiced palatal approximant: the carrier as it is
-j            j
-#   U+006B voiceless velar plosive: the carrier as it is
-k            k
-#   U+006C voiced dental or alveolar lateral approximant: the carrier as it is
-l            l
-#   U+006D voiced bilabial nasal: the carrier as it is
-m            m
-#   U+006E voiced dental or alveolar nasal: the carrier as it is
-n            n
+sound u006a f1=65 f2=135 f3=110 f4=102 hold=78    # U+006A voiced palatal approximant
+j            j=u006a
+sound u006b f2=64 vot=32    # U+006B voiceless velar plosive
+k            k=u006b
+sound u006c f1=92 f2=138 f3=88 hold=50    # U+006C voiced dental or alveolar lateral approximant
+l            l=u006c
+sound u006d f1=110 f2=164 f3=95 f4=97 hold=130    # U+006D voiced bilabial nasal
+m            m=u006d
+sound u006e f1=249 f2=90 f3=95 f4=104 hold=163    # U+006E voiced dental or alveolar nasal
+n            n=u006e
 sound u006f f1=109 f2=93 f3=108    # U+006F close-mid back rounded vowel
 o            o=u006f
-#   U+0070 voiceless bilabial plosive: the carrier as it is
-p            p
-#   U+0071 voiceless uvular plosive: the carrier as it is
-#   SUBSTITUTE: the carrier k is 1 feature steps away and nothing moves it
-q            k
-sound u0072 tdepth=20    # U+0072 voiced dental or alveolar trill
+sound u0070 f2=105 vot=28    # U+0070 voiceless bilabial plosive
+p            p=u0070
+sound u0071 f2=58    # U+0071 voiceless uvular plosive
+q            k=u0071
+sound u0072 f1=143 f2=100 f3=79 hold=104 tapms=20 tdepth=20 trate=28    # U+0072 voiced dental or alveolar trill
 r            l=u0072
-#   U+0073 voiceless alveolar fricative: the carrier as it is
-s            s
-sound u0074 vot=15    # U+0074 voiceless dental or alveolar plosive
+sound u0073 a2=0 a3=0 a4=50 a5=30 a6=0 f2=113 f3=111 f4=135 hold=132    # U+0073 voiceless alveolar fricative
+s            s=u0073
+sound u0074 f2=102 vot=15    # U+0074 voiceless dental or alveolar plosive
 #   NOT PROVED: ipa/proofs/loop/U+0074.json did not reach its targets on dedx
 t            t=u0074
 sound u0075 f1=123 f2=77 f3=103    # U+0075 close back rounded vowel
 u            u=u0075
-#   U+0076 voiced labiodental fricative: the carrier as it is
-v            v
-#   U+0077 voiced labial-velar approximant: the carrier as it is
-w            w
-#   U+0078 voiceless velar fricative: the carrier as it is
-x            x
+sound u0076 f2=188 hold=84    # U+0076 voiced labiodental fricative
+v            v=u0076
+sound u0077 f1=98 f2=84 f3=100 f4=98    # U+0077 voiced labial-velar approximant
+w            w=u0077
+sound u0078 a2=50 a3=70 a4=50 a5=0 a6=0 f3=88 hold=100    # U+0078 voiceless velar fricative
+x            x=u0078
 sound u0079 f1=83 f2=124 f3=116    # U+0079 close front rounded vowel
 y            y=u0079
-#   U+007A voiced alveolar fricative: the carrier as it is
-z            z
+sound u007a f2=122 hold=98    # U+007A voiced alveolar fricative
+z            z=u007a
 sound u00e6 f1=81 f2=137 f3=100    # U+00E6 near-open front unrounded vowel
 æ            A=u00e6
-#   U+00E7 voiceless palatal fricative: the carrier as it is
-ç            X
-#   U+00F0 voiced dental fricative: the carrier as it is
-#   SUBSTITUTE: the carrier v is 2 feature steps away and nothing moves it
-ð            v
+sound u00e7 a2=36 a3=36 a4=56 a5=0 a6=0 f4=114 hold=101    # U+00E7 voiceless palatal fricative
+ç            X=u00e7
+sound u00f0 f2=212 hold=93    # U+00F0 voiced dental fricative
+ð            v=u00f0
 sound u00f8 f1=111 f2=134 f3=123    # U+00F8 close-mid front rounded vowel
 ø            oe=u00f8
-sound u0127 whisper=48    # U+0127 voiceless pharyngeal fricative
+sound u0127 ms=105 whisper=48    # U+0127 voiceless pharyngeal fricative
+#   not realised: locus: the layer-made carrier <h takes no ratio
 ħ            <h=u0127
-#   U+014B voiced velar nasal: the carrier as it is
-ŋ            G
+sound u014b f1=158 f2=72 f3=103 f4=106 hold=117    # U+014B voiced velar nasal
+ŋ            G=u014b
 sound u0153 f1=95 f2=131 f3=115    # U+0153 open-mid front rounded vowel
 œ            OE=u0153
-#   U+01C0 dental click (chart label: Dental); laminal tongue-tip/blade front closure at the teeth, released with friction; rear closure set by the accompaniment: the carrier as it is
-#   SUBSTITUTE: the carrier d is 11 feature steps away and nothing moves it
-ǀ            d
-#   U+01C1 alveolar lateral click (chart label: Alveolar lateral); front closure at the alveolar ridge released at the side(s) of the tongue; rear closure set by the accompaniment: the carrier as it is
-#   SUBSTITUTE: the carrier d is 14 feature steps away and nothing moves it
-ǁ            d
-#   U+01C2 palatoalveolar click (chart label: Palatoalveolar; often called the palatal click); laminal front closure from the alveolar ridge to the hard palate, released fairly abruptly; rear closure set by the accompaniment: the carrier as it is
-#   SUBSTITUTE: the carrier g is 11 feature steps away and nothing moves it
-ǂ            g
-#   U+01C3 (post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment: the carrier as it is
-#   SUBSTITUTE: the carrier d is 11 feature steps away and nothing moves it
-ǃ            d
+sound u01c0 vot=26    # U+01C0 dental click (chart label: Dental); laminal tongue-tip/blade front closure at the teeth, released with friction; rear closure set by the accompaniment
+ǀ            d=u01c0
+sound u01c1 vot=26    # U+01C1 alveolar lateral click (chart label: Alveolar lateral); front closure at the alveolar ridge released at the side(s) of the tongue; rear closure set by the accompaniment
+ǁ            d=u01c1
+sound u01c2 vot=13    # U+01C2 palatoalveolar click (chart label: Palatoalveolar; often called the palatal click); laminal front closure from the alveolar ridge to the hard palate, released fairly abruptly; rear closure set by the accompaniment
+ǂ            g=u01c2
+sound u01c3 vot=13    # U+01C3 (post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment
+ǃ            d=u01c3
 sound u0250 f1=165 f2=87 f3=103    # U+0250 near-open central vowel
 ɐ            @=u0250
 sound u0251 f1=130 f2=111 f3=119    # U+0251 open back unrounded vowel
 ɑ            O=u0251
 sound u0252 f1=119 f2=103 f3=120    # U+0252 open back rounded vowel
 ɒ            O=u0252
-#   U+0253 voiced bilabial implosive (chart label: Bilabial): the carrier as it is
-#   SUBSTITUTE: the carrier b is 6 feature steps away and nothing moves it
-ɓ            b
+sound u0253 f2=85    # U+0253 voiced bilabial implosive (chart label: Bilabial)
+ɓ            b=u0253
 sound u0254 f1=94 f2=89 f3=106    # U+0254 open-mid back rounded vowel
 ɔ            O=u0254
-#   U+0255 voiceless alveolo-palatal fricative: the carrier as it is
-#   SUBSTITUTE: the carrier S is 2 feature steps away and nothing moves it
-ɕ            S
-#   U+0256 voiced retroflex plosive: the carrier as it is
-#   SUBSTITUTE: the carrier d is 2 feature steps away and nothing moves it
-ɖ            d
-#   U+0257 voiced dental/alveolar implosive (chart label: Dental/alveolar): the carrier as it is
-#   SUBSTITUTE: the carrier d is 6 feature steps away and nothing moves it
-ɗ            d
+sound u0255 a2=42 a3=42 a4=62 a5=0 a6=0 f4=94    # U+0255 voiceless alveolo-palatal fricative
+ɕ            S=u0255
+sound u0256 f2=90 f3=69    # U+0256 voiced retroflex plosive
+ɖ            d=u0256
+sound u0257 f2=104    # U+0257 voiced dental/alveolar implosive (chart label: Dental/alveolar)
+ɗ            d=u0257
 sound u0258 f1=99 f2=106 f3=109    # U+0258 close-mid central unrounded vowel
 ɘ            @=u0258
 sound u0259 f1=104 f2=91 f3=97    # U+0259 mid central vowel
@@ -111,161 +101,128 @@ sound u025c dur=205 f1=125 f2=87 f3=99    # U+025C open-mid central unrounded vo
 ɜ            @=u025c
 sound u025e f1=116 f2=80 f3=103    # U+025E open-mid central rounded vowel
 ɞ            @=u025e
-#   U+025F voiced palatal plosive: the carrier as it is
-#   SUBSTITUTE: the carrier g is 1 feature steps away and nothing moves it
-ɟ            g
-#   U+0260 voiced velar implosive (chart label: Velar): the carrier as it is
-#   SUBSTITUTE: the carrier g is 6 feature steps away and nothing moves it
-ɠ            g
-#   U+0261 voiced velar plosive: the carrier as it is
-ɡ            g
-#   U+0262 voiced uvular plosive: the carrier as it is
-#   SUBSTITUTE: the carrier g is 1 feature steps away and nothing moves it
-ɢ            g
-sound u0263 voi=1    # U+0263 voiced velar fricative
+sound u025f f2=119    # U+025F voiced palatal plosive
+ɟ            g=u025f
+sound u0260 f2=64    # U+0260 voiced velar implosive (chart label: Velar)
+ɠ            g=u0260
+sound u0261 f2=64    # U+0261 voiced velar plosive
+ɡ            g=u0261
+sound u0262 f2=58    # U+0262 voiced uvular plosive
+ɢ            g=u0262
+sound u0263 hold=68 voi=1    # U+0263 voiced velar fricative
 ɣ            x=u0263
 sound u0264 f1=122 f2=115 f3=104    # U+0264 close-mid back unrounded vowel
 ɤ            o=u0264
-#   U+0265 voiced labial-palatal approximant: the carrier as it is
-#   SUBSTITUTE: the carrier w is 2 feature steps away and nothing moves it
-ɥ            w
-sound u0266 voi=1 whisper=38    # U+0266 voiced glottal fricative
+sound u0265 f1=60 f2=184 f3=99    # U+0265 voiced labial-palatal approximant
+ɥ            w=u0265
+sound u0266 ms=102 voi=1 whisper=38    # U+0266 voiced glottal fricative
 ɦ            <h=u0266
-#   U+0267 simultaneous ʃ and x (IPA symbol list: voiceless postalveolar-velar fricative): the carrier as it is
-#   SUBSTITUTE: the carrier S is 5 feature steps away and nothing moves it
-ɧ            S
+sound u0267 a2=62 a3=42 a4=42 a5=0 a6=0 f2=111    # U+0267 simultaneous ʃ and x (IPA symbol list: voiceless postalveolar-velar fricative)
+ɧ            S=u0267
 sound u0268 f1=81 f2=97 f3=93    # U+0268 close central unrounded vowel
 ɨ            I=u0268
 sound u026a f1=90 f2=90 f3=89    # U+026A near-close near-front unrounded vowel
 ɪ            I=u026a
-#   U+026C voiceless dental or alveolar lateral fricative: the carrier as it is
-#   SUBSTITUTE: the carrier s is 7 feature steps away and nothing moves it
-ɬ            s
-#   U+026D voiced retroflex lateral approximant: the carrier as it is
-#   SUBSTITUTE: the carrier l is 2 feature steps away and nothing moves it
-ɭ            l
-#   U+026E voiced dental or alveolar lateral fricative: the carrier as it is
-#   SUBSTITUTE: the carrier z is 7 feature steps away and nothing moves it
-ɮ            z
+sound u026c a2=0 a3=50 a4=0 a5=30 a6=0 f2=96 f3=102 hold=131    # U+026C voiceless dental or alveolar lateral fricative
+ɬ            s=u026c
+sound u026d f1=109 f2=106 f3=81 hold=41    # U+026D voiced retroflex lateral approximant
+ɭ            l=u026d
+sound u026e a2=0 a3=50 a4=30 a5=30 a6=0 f3=102    # U+026E voiced dental or alveolar lateral fricative
+ɮ            z=u026e
 sound u026f f1=148 f2=108 f3=105    # U+026F close back unrounded vowel
 ɯ            u=u026f
-#   U+0270 voiced velar approximant: the carrier as it is
-#   SUBSTITUTE: the carrier j is 1 feature steps away and nothing moves it
-ɰ            j
-#   U+0271 voiced labiodental nasal: the carrier as it is
-#   SUBSTITUTE: the carrier m is 1 feature steps away and nothing moves it
-ɱ            m
-#   U+0272 voiced palatal nasal: the carrier as it is
-#   SUBSTITUTE: the carrier n is 4 feature steps away and nothing moves it
-ɲ            n
-#   U+0273 voiced retroflex nasal: the carrier as it is
-#   SUBSTITUTE: the carrier n is 2 feature steps away and nothing moves it
-ɳ            n
-#   U+0274 voiced uvular nasal: the carrier as it is
-#   SUBSTITUTE: the carrier G is 1 feature steps away and nothing moves it
-ɴ            G
+sound u0270 f1=92 f2=77 f3=94    # U+0270 voiced velar approximant
+ɰ            j=u0270
+sound u0271 f1=158 f2=181 f3=99 f4=101 hold=141    # U+0271 voiced labiodental nasal
+ɱ            m=u0271
+sound u0272 f1=181 f2=95 f3=99 f4=104 hold=181    # U+0272 voiced palatal nasal
+ɲ            n=u0272
+sound u0273 f1=217 f2=77 f3=93 f4=100 hold=71    # U+0273 voiced retroflex nasal
+ɳ            n=u0273
+sound u0274 f1=200 f2=63 f3=103    # U+0274 voiced uvular nasal
+ɴ            G=u0274
 sound u0275 f1=94 f2=83 f3=101    # U+0275 close-mid central rounded vowel
 ɵ            @=u0275
 sound u0276 f1=87 f2=110 f3=105    # U+0276 open front rounded vowel
 ɶ            A=u0276
-#   U+0278 voiceless bilabial fricative: the carrier as it is
-#   SUBSTITUTE: the carrier f is 1 feature steps away and nothing moves it
-ɸ            f
-#   U+0279 voiced dental or alveolar approximant: the carrier as it is
-#   SUBSTITUTE: the carrier r is 14 feature steps away and nothing moves it
-ɹ            r
-#   U+027A voiced alveolar lateral flap: the carrier as it is
-#   SUBSTITUTE: the carrier l is 8 feature steps away and nothing moves it
-ɺ            l
-#   U+027B voiced retroflex approximant: the carrier as it is
-#   SUBSTITUTE: the carrier r is 12 feature steps away and nothing moves it
-ɻ            r
-#   U+027D voiced retroflex flap: the carrier as it is
-#   SUBSTITUTE: the carrier l is 14 feature steps away and nothing moves it
-ɽ            l
-#   U+027E voiced dental or alveolar tap: the carrier as it is
-#   SUBSTITUTE: the carrier l is 12 feature steps away and nothing moves it
-ɾ            l
-sound u0280 tdepth=20    # U+0280 voiced uvular trill
+sound u0278 f2=91    # U+0278 voiceless bilabial fricative
+ɸ            f=u0278
+sound u0279 f1=105 f2=97 f3=85 f4=93    # U+0279 voiced dental or alveolar approximant
+ɹ            r=u0279
+sound u027a tap=1 tapms=25    # U+027A voiced alveolar lateral flap
+ɺ            l=u027a
+sound u027b f1=112 f2=114 f3=88 f4=84    # U+027B voiced retroflex approximant
+ɻ            r=u027b
+sound u027d tap=1 tapms=25    # U+027D voiced retroflex flap
+ɽ            l=u027d
+sound u027e f1=95 f2=142 f3=86 tap=1 tapms=31    # U+027E voiced dental or alveolar tap
+ɾ            l=u027e
+sound u0280 hold=169 tdepth=20 trate=19    # U+0280 voiced uvular trill
 ʀ            r=u0280
-#   U+0281 voiced uvular fricative: the carrier as it is
-ʁ            r
-#   U+0282 voiceless retroflex fricative: the carrier as it is
-#   SUBSTITUTE: the carrier S is 1 feature steps away and nothing moves it
-ʂ            S
-sound u0283 f2=106 f3=106 f4=106    # U+0283 voiceless postalveolar fricative
+sound u0281 a2=60 a3=0 a4=0 a5=0 a6=0 f2=98    # U+0281 voiced uvular fricative
+ʁ            r=u0281
+sound u0282 a2=42 a3=62 a4=42 a5=0 a6=0 f3=117    # U+0282 voiceless retroflex fricative
+ʂ            S=u0282
+sound u0283 a2=42 a3=42 a4=62 a5=0 a6=0 f2=103 f3=93 f4=106 hold=115    # U+0283 voiceless postalveolar fricative
 ʃ            S=u0283
-#   U+0284 voiced palatal implosive (chart label: Palatal): the carrier as it is
-#   SUBSTITUTE: the carrier g is 7 feature steps away and nothing moves it
-ʄ            g
-#   U+0288 voiceless retroflex plosive: the carrier as it is
-#   SUBSTITUTE: the carrier t is 2 feature steps away and nothing moves it
-ʈ            t
+sound u0284 f2=119    # U+0284 voiced palatal implosive (chart label: Palatal)
+ʄ            g=u0284
+sound u0288 f2=93 f3=72 vot=17    # U+0288 voiceless retroflex plosive
+ʈ            t=u0288
 sound u0289 f1=73 f2=108 f3=100    # U+0289 close central rounded vowel
 ʉ            U=u0289
 sound u028a f1=91 f2=114 f3=98    # U+028A near-close near-back rounded vowel
 ʊ            U=u028a
-#   U+028B voiced labiodental approximant: the carrier as it is
-#   SUBSTITUTE: the carrier w is 3 feature steps away and nothing moves it
-ʋ            w
+sound u028b f2=137 hold=48    # U+028B voiced labiodental approximant
+ʋ            w=u028b
 sound u028c f1=104 f2=101 f3=112    # U+028C open-mid back unrounded vowel
 ʌ            O=u028c
-sound u028d voi=0 whisper=44    # U+028D voiceless labial-velar fricative
+sound u028d f2=90 voi=0 whisper=44    # U+028D voiceless labial-velar fricative
 ʍ            w=u028d
-#   U+028E voiced palatal lateral approximant: the carrier as it is
-#   SUBSTITUTE: the carrier l is 4 feature steps away and nothing moves it
-ʎ            l
+sound u028e f1=88 f2=161 f3=99 hold=85    # U+028E voiced palatal lateral approximant
+ʎ            l=u028e
 sound u028f f1=94 f2=97 f3=109    # U+028F near-close near-front rounded vowel
 ʏ            Y=u028f
-#   U+0290 voiced retroflex fricative: the carrier as it is
-#   SUBSTITUTE: the carrier Z is 1 feature steps away and nothing moves it
-ʐ            Z
-#   U+0291 voiced alveolo-palatal fricative: the carrier as it is
-#   SUBSTITUTE: the carrier Z is 2 feature steps away and nothing moves it
-ʑ            Z
-#   U+0292 voiced postalveolar fricative: the carrier as it is
-ʒ            Z
-sound u0294 hush=1    # U+0294 glottal plosive (glottal stop)
+sound u0290 a2=0 a3=62 a4=42 a5=0 a6=0 f3=122    # U+0290 voiced retroflex fricative
+ʐ            Z=u0290
+sound u0291 a2=0 a3=42 a4=62 a5=0 a6=0 f4=94    # U+0291 voiced alveolo-palatal fricative
+ʑ            Z=u0291
+sound u0292 a2=0 a3=42 a4=62 a5=0 a6=0 f2=109 f4=106 hold=95    # U+0292 voiced postalveolar fricative
+ʒ            Z=u0292
+sound u0294 hush=1 ms=45    # U+0294 glottal plosive (glottal stop)
 ʔ            <q=u0294
-sound u0295 voi=1 whisper=30    # U+0295 voiced pharyngeal fricative (often an approximant)
+sound u0295 ms=105 voi=1 whisper=30    # U+0295 voiced pharyngeal fricative (often an approximant)
+#   not realised: locus: the layer-made carrier <h takes no ratio
 ʕ            <h=u0295
-#   U+0298 bilabial click (chart label: Bilabial); the letter gives the front (lip) closure only; the rear closure and its accompaniment (voiceless, voiced, nasal, aspirated...) need another letter: the carrier as it is
-#   SUBSTITUTE: the carrier b is 10 feature steps away and nothing moves it
-ʘ            b
-sound u0299 tdepth=20    # U+0299 voiced bilabial trill
+sound u0298 vot=26    # U+0298 bilabial click (chart label: Bilabial); the letter gives the front (lip) closure only; the rear closure and its accompaniment (voiceless, voiced, nasal, aspirated...) need another letter
+ʘ            b=u0298
+sound u0299 tdepth=20 trate=19    # U+0299 voiced bilabial trill
 ʙ            w=u0299
-#   U+029B voiced uvular implosive (chart label: Uvular): the carrier as it is
-#   SUBSTITUTE: the carrier g is 7 feature steps away and nothing moves it
-ʛ            g
-sound u029c whisper=48    # U+029C voiceless epiglottal fricative
-ʜ            <h=u029c
-sound u029d voi=1    # U+029D voiced palatal fricative
+sound u029b f2=58    # U+029B voiced uvular implosive (chart label: Uvular)
+ʛ            g=u029b
+sound u029c hold=187 tdepth=20 trate=40    # U+029C voiceless epiglottal fricative
+ʜ            x=u029c
+sound u029d hold=73 voi=1    # U+029D voiced palatal fricative
 ʝ            X=u029d
-#   U+029F voiced velar lateral approximant: the carrier as it is
-#   SUBSTITUTE: the carrier l is 5 feature steps away and nothing moves it
-ʟ            l
-#   U+02A1 epiglottal plosive (voicing not specified on the chart): the carrier as it is
-#   SUBSTITUTE: the carrier g is 5 feature steps away and nothing moves it
-ʡ            g
-sound u02a2 voi=1 whisper=30    # U+02A2 voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant)
-ʢ            <h=u02a2
-#   U+03B2 voiced bilabial fricative: the carrier as it is
-#   SUBSTITUTE: the carrier v is 1 feature steps away and nothing moves it
-β            v
-#   U+03B8 voiceless dental fricative: the carrier as it is
-#   SUBSTITUTE: the carrier f is 2 feature steps away and nothing moves it
-θ            f
-#   U+03C7 voiceless uvular fricative: the carrier as it is
-#   SUBSTITUTE: the carrier x is 1 feature steps away and nothing moves it
-χ            x
-#   U+2C71 voiced labiodental flap: the carrier as it is
-#   SUBSTITUTE: the carrier w is 11 feature steps away and nothing moves it
-ⱱ            w
+sound u029f f1=110 f2=110 f3=86    # U+029F voiced velar lateral approximant
+ʟ            l=u029f
+sound u02a1 f2=72    # U+02A1 epiglottal plosive (voicing not specified on the chart)
+ʡ            g=u02a1
+sound u02a2 tdepth=20 trate=53    # U+02A2 voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant)
+ʢ            r=u02a2
+sound u03b2 f2=105    # U+03B2 voiced bilabial fricative
+β            v=u03b2
+sound u03b8 f2=184 hold=136    # U+03B8 voiceless dental fricative
+θ            f=u03b8
+sound u03c7 a2=70 a3=0 a4=50 a5=0 a6=0 f2=102    # U+03C7 voiceless uvular fricative
+χ            x=u03c7
+sound u2c71 tap=1 tapms=18    # U+2C71 voiced labiodental flap
+ⱱ            w=u2c71
 
 # composition when speaking (C4): read only by a map with `version 2`
 version 2
 weights stricture=8 airstream=6 nasal=6 lateral=4 sibilant=3 place_step=1 place2=2 voicing=2 height_step=2 backness_step=2 rounding=1 class=50
-letter a v height=6 backness=0 rounding=unrounded f1hz=920 f2hz=1562 f3hz=2750
+letter a v height=6 backness=0 rounding=unrounded f1hz=991 f2hz=1562 f3hz=2750
 letter b c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter c c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter d c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
@@ -372,7 +329,9 @@ letter β c place=0 stricture=friction airstream=pulmonic nasal=false lateral=fa
 letter θ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter χ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+mod ʰ c vot+64    # U+02B0
 mod ʲ c f2*143    # U+02B2
+mod ʷ c f2*85    # U+02B7
 mod ː c hold*200    # U+02D0
 mod ː v dur*230    # U+02D0
 mod ˑ c hold*140    # U+02D1

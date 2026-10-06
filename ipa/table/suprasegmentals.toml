@@ -76,8 +76,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { length = "half-long" }, vowel = { length = "half-long" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds = [] }
 
@@ -93,6 +93,7 @@ duration = { inherent_ms = { scale = 1.4, tag = "estimated", note = "between sho
 checks = ["T-length"]
 bases = ["U+0061", "U+006E"]
 shift = [{ measure = "duration_ms", sign = 1 }]
+proof = "ipa/proofs/U+02D1.json"
 
 [sound."U+0306"]
 ipa = "̆"
@@ -103,8 +104,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { length = "extra-short" }, vowel = { length = "extra-short" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds = [] }
 
@@ -120,6 +121,7 @@ duration = { inherent_ms = { scale = 0.6, tag = "estimated", note = "extra-short
 checks = ["T-length"]
 bases = ["U+0061", "U+0069", "U+006E"]
 shift = [{ measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+0306.json"
 
 [sound."U+007C"]
 ipa = "|"

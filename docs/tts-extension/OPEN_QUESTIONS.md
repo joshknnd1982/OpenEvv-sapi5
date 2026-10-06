@@ -134,6 +134,80 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 **Q14. The accent layer does not report phones the markup asked for that are never placed** (the R15 review of 3A, `DECISIONS.md` D52). `phone-unsounded` covers a phone passed over before a later one is matched; one still in the queue when the text ends or is stopped is dropped with the queue and not reported. *Recommended default: Claude adds the report (at the queue's end, saying whether the text ended or was stopped) at the next rebuild of the template modules, which Phase 4 needs anyway for the first mechanism of 3B, and counts it over the golden then.*
 
+## Added in Phase 4 (2026-10-06)
+
+**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 96 values on 2026-10-06:
+
+- `U+0078` x: `spec.noise.peak_hz`
+- `U+00E7` ç: `spec.noise.peak_hz`
+- `U+01C0` ǀ: `spec.vot_ms`
+- `U+01C2` ǂ: `spec.vot_ms`
+- `U+0253` ɓ: `spec.locus.F2`
+- `U+0256` ɖ: `spec.locus.F3`
+- `U+0257` ɗ: `spec.locus.F2`
+- `U+0258` ɘ: `spec.formants.F1`, `spec.formants.F2`, `spec.formants.F3`
+- `U+025E` ɞ: `spec.formants.F1`, `spec.formants.F2`, `spec.formants.F3`
+- `U+0260` ɠ: `spec.locus.F2`
+- `U+0261` ɡ: `spec.locus.F2`
+- `U+0262` ɢ: `spec.locus.F2`
+- `U+0265` ɥ: `spec.formants.F1`, `spec.formants.F2`, `spec.formants.F3`
+- `U+0266` ɦ: `spec.duration.inherent_ms`
+- `U+0267` ɧ: `spec.noise.peak_hz`
+- `U+026E` ɮ: `spec.noise.peak_hz`
+- `U+0270` ɰ: `spec.formants.F1`, `spec.formants.F2`, `spec.formants.F3`
+- `U+0274` ɴ: `spec.formants.F1`, `spec.formants.F2`, `spec.formants.F3`
+- `U+0275` ɵ: `spec.formants.F1`, `spec.formants.F2`, `spec.formants.F3`
+- `U+0278` ɸ: `spec.locus.F2`
+- `U+027A` ɺ: `spec.tap.closed_ms`
+- `U+0281` ʁ: `spec.noise.peak_hz`
+- `U+0284` ʄ: `spec.locus.F2`
+- `U+0288` ʈ: `spec.locus.F3`
+- `U+028D` ʍ: `spec.locus.F2`
+- `U+0290` ʐ: `spec.noise.peak_hz`
+- `U+0291` ʑ: `spec.noise.peak_hz`
+- `U+0298` ʘ: `spec.vot_ms`
+- `U+029B` ʛ: `spec.locus.F2`
+- `U+029F` ʟ: `spec.formants.F1`, `spec.formants.F2`, `spec.formants.F3`
+- `U+02B2` ʲ: `transform.consonant.locus.F2`
+- `U+02B7` ʷ: `transform.consonant.formants.F2`
+- `U+02D1` ˑ: `transform.vowel.duration.inherent_ms`, `transform.consonant.duration.inherent_ms`
+- `U+02E4` ˤ: `transform.consonant.locus.F1`
+- `U+0303` ̃: `transform.vowel.nasal.open_pct`, `transform.consonant.nasal.open_pct`
+- `U+0306` ̆: `transform.vowel.duration.inherent_ms`, `transform.consonant.duration.inherent_ms`
+- `U+0308` ̈: `transform.vowel.formants.F2`
+- `U+030A` ̊: `transform.consonant.breath.whisper_db`, `transform.vowel.breath.whisper_db`
+- `U+0318` ̘: `transform.vowel.formants.F1`, `transform.consonant.formants.F1`
+- `U+0319` ̙: `transform.vowel.formants.F1`, `transform.vowel.formants.F2`, `transform.consonant.formants.F1`
+- `U+031C` ̜: `transform.vowel.formants.F2`, `transform.vowel.formants.F3`
+- `U+031D` ̝: `transform.vowel.formants.F1`, `transform.consonant.formants.F1`
+- `U+031E` ̞: `transform.vowel.formants.F1`, `transform.consonant.formants.F1`
+- `U+031F` ̟: `transform.vowel.formants.F2`, `transform.consonant.locus.F2`
+- `U+0320` ̠: `transform.vowel.formants.F2`, `transform.consonant.locus.F2`
+- `U+0324` ̤: `transform.vowel.phonation.breathy_pct`, `transform.consonant.phonation.breathy_pct`
+- `U+0325` ̥: `transform.consonant.breath.whisper_db`, `transform.vowel.breath.whisper_db`
+- `U+0329` ̩: `transform.consonant.duration.inherent_ms`
+- `U+032A` ̪: `transform.consonant.locus.F2`
+- `U+032F` ̯: `transform.vowel.duration.inherent_ms`
+- `U+0330` ̰: `transform.vowel.phonation.creaky_pct`, `transform.consonant.phonation.creaky_pct`
+- `U+0339` ̹: `transform.vowel.formants.F2`, `transform.vowel.formants.F3`
+- `U+033A` ̺: `transform.consonant.locus.F3`
+- `U+033B` ̻: `transform.consonant.locus.F2`
+- `U+033C` ̼: `transform.consonant.locus.F2`
+- `U+033D` ̽: `transform.vowel.formants.F1`, `transform.vowel.formants.F2`
+- `U+035C` ͜: `spec.duration.inherent_ms`
+- `U+0361` ͡: `spec.duration.inherent_ms`
+- `U+03B2` β: `spec.locus.F2`
+- `U+03C7` χ: `spec.noise.peak_hz`
+- `U+2197` ↗: `spec.st_per_syllable`
+- `U+2198` ↘: `spec.st_per_syllable`
+- `U+2C71` ⱱ: `spec.tap.closed_ms`
+- `U+A71B` ꜛ: `spec.step_st`
+- `U+A71C` ꜜ: `spec.step_st`
+
+**Q16. May Claude download Unicode's two data files?** The secondary coverage metric (`DESIGN.md` 1, the "Unicode net") classifies every code point of ten Unicode blocks; Python 3.10 here knows only Unicode 13, so the script reads Unicode's own `UnicodeData.txt` (about 2 MB) and `Blocks.txt` (about 10 kB) from https://www.unicode.org/Public/UCD/latest/ucd/ (Unicode License v3, which permits copying with its notice). Downloading a file needs your say-so. *Recommended default: yes, into `docs/tts-extension/inventory/unicode/` with the licence notice beside them.*
+
+**Q17. May Claude download two research data files the vowel helper found?** Kuronen (2000), a thesis with Swedish vowel formants (for ʉ and ɵ, which have no measured male values yet), and Deterding's per-speaker spreadsheets of Standard Southern British English vowels (for ɜ ɒ ʌ), both linked from their authors' pages. *Recommended default: yes, read only for the facts, nothing copied into the repository but the cited numbers.*
+
 ## For Phase 2 (found by measuring in Phase 1)
 
 - Quechua (`qu`): in the golden case `s|t\``, the engine meant a final vowel `a` and gave it 11 frames with neither voicing nor noise (silent). Check whether the map or the template devoices it deliberately.

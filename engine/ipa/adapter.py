@@ -20,6 +20,7 @@ in `unrealised`, never dropped: the entry then says `approximate` with that devi
 """
 
 import json
+import math
 import re
 import os
 import sys
@@ -114,6 +115,7 @@ def realize(t, sid, template, carrier_meas=None):
         raise ValueError('%s has no chassis measurement in %s' % (car, template))
     cls = e['features']['class']
     keys, unrealised, rules = {}, [], []
+    keys_peak = None
 
     def ratio(key, hz, base, what):
         if hz > MAX_FORMANT_HZ:
@@ -155,13 +157,19 @@ def realize(t, sid, template, carrier_meas=None):
                 rules.append('g%d = glide end %s %s / carrier %s %d Hz' % (i + 1, k, _v(glide[k]), car, ch['f'][i]))
         peak = (spec.get('noise') or {}).get('peak_hz')
         if peak is not None:
-            if not carrier_meas or not carrier_meas.get('peak_hz'):
-                unrealised.append('noise peak: the carrier %s has no measured peak to move from' % car)
-            else:
-                r = _v(peak) / carrier_meas['peak_hz']
-                for i in (1, 2, 3):
-                    keys['f%d' % (i + 1)] = int(round(100.0 * r))
-                rules.append('f2..f4 = noise peak %s / carrier %s peak %.0f Hz' % (_v(peak), car, carrier_meas['peak_hz']))
+            # The noise on one resonance: the one of F2 to F4 nearest the peak is moved to it and
+            # carries the noise, the others 20 dB under it. Moving all of them together leaves
+            # a module's two noise peaks, and a measured peak that jumps between them (D58).
+            hz = _v(peak)
+            j = min((1, 2, 3), key=lambda i: abs(math.log(hz / ch['f'][i])))
+            keys['f%d' % (j + 1)] = int(round(100.0 * hz / ch['f'][j]))
+            level = max([a for a in ch.get('amp', [])[:5] if a] or [60])
+            for i in range(5):
+                own = (ch.get('amp') or [0] * 6)[i] or 0
+                keys['a%d' % (i + 2)] = level if i == j - 1 else min(own, max(0, level - 20))
+            rules.append('f%d = noise peak %s / carrier %s F%d %d Hz; the noise on it (a%d=%d, the others at most %d)' % (
+                j + 1, hz, car, j + 1, ch['f'][j], j + 1, level, max(0, level - 20)))
+            keys_peak = 'f%d' % (j + 1)
     dur = (spec.get('duration') or {}).get('inherent_ms')
     if dur is not None:
         if layer:
@@ -209,7 +217,7 @@ def realize(t, sid, template, carrier_meas=None):
         keys[tr['key']] = keys.get(tr['key'], 100 if tr['key'] in RATIO_KEYS or tr['key'][0] in 'fbg' else 0)
         keys[tr['key']] = int(round(keys[tr['key']] * tr['v'] / 100.0)) if tr.get('scale') else int(tr['v'])
         rules.append('trim %s %s (%s)' % (tr['key'], tr['v'], tr.get('tag')))
-    return dict(keys=keys, carrier=car, distance=dist, unrealised=unrealised, rules=rules)
+    return dict(keys=keys, carrier=car, distance=dist, unrealised=unrealised, rules=rules, peak_key=keys_peak)
 
 
 def sound_line(name, keys):

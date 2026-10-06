@@ -10,15 +10,18 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "bilabial", place2 = "velar", stricture = "friction", voicing = "voiceless" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X7"], builds = [] }
 
 [sound."U+028D".spec]
+locus = { F2 = { v = 848, tag = "estimated", note = "Set to the F2 of w (848 Hz, espy_wilson_1992): ʍ has the same labial-velar articulation, voiceless and with friction. No ʍ value was found." } }
 
 [sound."U+028D".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0077", measure = "voiced_frac", sign = -1 }]
+proof = "ipa/proofs/U+028D.json"
 
 [sound."U+028D".realization.openevv]
 # a voiceless labial-velar approximant: w said without voice
@@ -33,15 +36,20 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "bilabial", place2 = "velar", stricture = "approximation", voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0077".spec]
+formants = { F1 = { v = 381, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F2 minimum" }, F2 = { v = 848, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F2 minimum" }, F3 = { v = 2320, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F2 minimum" }, F4 = { v = 3525, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F2 minimum" } }
 
 [sound."U+0077".tests]
 checks = ["T-approx"]
+proof = "ipa/proofs/U+0077.json"
+
+[sound."U+0077".realization.openevv]
+trim.dedx = [{ key = "f1", v = 126.9, scale = true, tag = "measured", proof = "ipa/proofs/U+0077.json" }]
 
 [sound."U+0265"]
 ipa = "ɥ"
@@ -51,15 +59,18 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "bilabial", place2 = "palatal", stricture = "approximation", voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds = [] }
 
 [sound."U+0265".spec]
+formants = { F1 = { v = 300, tag = "estimated", note = "No ɥ value was found. Set near j (317 Hz, espy_wilson_1992): the same close palatal constriction." }, F2 = { v = 1850, tag = "estimated", note = "Rests on j (2142 Hz, espy_wilson_1992) lowered by lip rounding (plain acoustics), kept well above w (848 Hz)." }, F3 = { v = 2300, tag = "estimated", note = "Rests on j (2827 Hz) lowered by lip rounding, which lowers F3 most for front articulations (plain acoustics)." } }
 
 [sound."U+0265".tests]
 checks = ["T-approx", "T-contrast"]
+contrast = [{ with = "U+006A", measure = "F2_50_hz", sign = -1 }, { with = "U+006A", measure = "F3_50_hz", sign = -1 }, { with = "U+0077", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0265.json"
 
 [sound."U+029C"]
 ipa = "ʜ"
@@ -75,15 +86,17 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X3"], builds = ["C11?", "C6?"] }
 
 [sound."U+029C".spec]
+trill = { rate_hz = { v = 40, tag = "literature", ref = "heap1997_wplc", note = "section 2: voiceless aryepiglottic trill at about 40 per second, one phonetician in isolation, sex not stated, no spread. moisik_esling2010_ca estimates the epiglottal oscillation of Somali voiceless pharyngeals at about 30-40 Hz (1 speaker)." } }
+duration = { inherent_ms = { v = 234, tag = "literature", ref = "moisik_esling2010_ca", note = "section 1, Fig. 2: one example token (a Somali word), 1 speaker, sex not stated; a single token, not a mean." } }
 
 [sound."U+029C".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0127", measure = "mod_dips", sign = 1 }]
 
 [sound."U+029C".realization.openevv]
-# h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants; an epiglottal fricative is breath with the pharyngeal shape
-carrier = "<h"
-keys = { whisper = { v = 48, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" } }
-
+# a voiceless epiglottal trill or fricative: the module's voiceless velar fricative, shaped back and trilled at its rate (C11 acts on a phone's own frames, not on a sound the layer makes)
+carrier = "x"
+keys = { tdepth = { v = 20, tag = "derived", rule = "as for r: a closure takes the level down about as far as the module tap does" } }
 [sound."U+02A2"]
 ipa = "ʢ"
 codepoints = ["U+02A2"]
@@ -98,15 +111,16 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X4", "X7"], builds = ["C11?", "C6?"] }
 
 [sound."U+02A2".spec]
+trill = { rate_hz = { v = 53, tag = "derived", rule = "1 / 0.019 s, the period of the voiced aryepiglottic trill shown in heap1997_wplc section 2, Fig. 4", note = "the text gives about 50 per second; one phonetician, isolation, sex not stated. Lingual trills are given as about 25 per second in the same text." } }
 
 [sound."U+02A2".tests]
 checks = ["T-approx", "T-phonation", "T-contrast"]
+contrast = [{ with = "U+0295", measure = "mod_dips", sign = 1 }, { with = "U+029C", measure = "voiced_frac", sign = 1 }]
 
 [sound."U+02A2".realization.openevv]
-# h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
-carrier = "<h"
-keys = { whisper = { v = 30, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" }, voi = { v = 1, tag = "derived", rule = "voiced" } }
-
+# a voiced epiglottal trill or fricative: the module's voiced uvular approximant, shaped back and trilled at its rate (C11)
+carrier = "r"
+keys = { tdepth = { v = 20, tag = "derived", rule = "as for r: a closure takes the level down about as far as the module tap does" } }
 [sound."U+02A1"]
 ipa = "ʡ"
 codepoints = ["U+02A1"]
@@ -115,15 +129,18 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "epiglottal", stricture = "closure", voicing = "unspecified" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X5", "X2"], builds = ["C10"] }
 
 [sound."U+02A1".spec]
+locus = { F2 = { v = 1145, tag = "literature", ref = "sylak2013_chechen", note = "table (16): F2 of a low vowel (a, aː) after ʡ, regression estimate (model intercept plus the effect of ʡ against ʔ), Chechen, 5 M; F1 810 Hz. Front non-low vowels 1903 Hz (F1 432), back non-low 1011 Hz (F1 584). The measurement point within the vowel is not stated in the research notes." } }
 
 [sound."U+02A1".tests]
 checks = ["T-stop", "T-contrast"]
+contrast = [{ with = "U+0294", measure = "duration_ms", sign = 1 }, { with = "U+0294", measure = "edge_F1", sign = 1 }]
+proof = "ipa/proofs/U+02A1.json"
 
 [sound."U+0255"]
 ipa = "ɕ"
@@ -133,15 +150,18 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "alveolo-palatal", stricture = "friction", sibilant = true, voicing = "voiceless" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+0255".spec]
+noise = { peak_hz = { v = 3392, tag = "literature", ref = "chiu2009", note = "Table 1: frequency of maximum amplitude (searched 500 Hz-20 kHz), Polish, 1 M, 15 tokens; 3391.62 Hz, below 5.5 kHz. Taiwan Mandarin ɕ (2 M) peaks at 6098 Hz, outside the band. [RECONSTRUCTED TABLE: chiu2009 Table 1: IPA glyphs garbled, row order s, ʂ, ɕ inferred]" } }
 
 [sound."U+0255".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0282", measure = "peak_hz", sign = 1 }, { with = "U+0283", measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/U+0255.json"
 
 [sound."U+0291"]
 ipa = "ʑ"
@@ -151,15 +171,18 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "alveolo-palatal", stricture = "friction", sibilant = true, voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+0291".spec]
+noise = { peak_hz = { v = 3392, tag = "estimated", note = "Set equal to the ɕ peak (3392 Hz, chiu2009, 1 M): voicing does not move the place resonance (jongman2000 pools ʃ and ʒ). No ʑ value was found." } }
 
 [sound."U+0291".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0255", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+0291.json"
 
 [sound."U+027A"]
 ipa = "ɺ"
@@ -169,15 +192,18 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "alveolar", stricture = "tap", lateral = true, voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], builds = [] }
 
 [sound."U+027A".spec]
+tap = { closures = { v = 1, tag = "derived", rule = "one contact, by the definition of the tap/flap row of the IPA chart; punnoose_2010 and bradley_willis_2012 measure taps as single contacts" }, closed_ms = { v = 25, tag = "estimated", note = "arai_2013 section 2.2 says only that the Japanese lateral flap is as short as the other Japanese /r/ sounds (about 20-30 ms, 1 M); no number for ɺ itself." } }
 
 [sound."U+027A".tests]
 checks = ["T-tap", "T-contrast"]
+contrast = [{ with = "U+006C", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+027A.json"
 
 [sound."U+027A".realization.openevv]
 # a lateral flap: l with one brief closure
@@ -191,15 +217,18 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "postalveolar", place2 = "velar", stricture = "friction", voicing = "voiceless" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+0267".spec]
+noise = { peak_hz = { v = 2000, tag = "estimated", note = "No value for ɧ was found (the Swedish sj-sound paper, ICPhS 2023 paper 906, could not be opened). Placed between the x estimate (2200 Hz) and below ʃ (3820 Hz, jongman2000), on the chart's description of ɧ as simultaneous ʃ and x; wholly a guess to be measured." } }
 
 [sound."U+0267".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0283", measure = "peak_hz", sign = -1 }]
+proof = "ipa/proofs/U+0267.json"
 
 [sound."U+035C"]
 ipa = "͜"
@@ -216,6 +245,7 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X13", "X4", "X9"], builds = [] }
 
 [sound."U+035C".spec]
+duration = { inherent_ms = { v = 190, tag = "estimated", note = "An estimate for a tied affricate as one segment, not a measured value: DESIGN.md (the affricate row) says the stop closure is released straight into a friction shorter than a plain fricative's. Taken as the adult-male t closure (106 ms, nicolaidis_etal_greek Table 1) plus about half of the plain ʃ frication (178 ms, jongman2000 Table VI); the one-half is an assumption. No affricate duration was found in the research notes." } }
 
 [sound."U+035C".tests]
 checks = ["T-sequence"]
@@ -235,6 +265,7 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X13", "X4", "X9"], builds = [] }
 
 [sound."U+0361".spec]
+duration = { inherent_ms = { v = 190, tag = "estimated", note = "An estimate for a tied affricate as one segment, not a measured value: DESIGN.md (the affricate row) says the stop closure is released straight into a friction shorter than a plain fricative's. Taken as the adult-male t closure (106 ms, nicolaidis_etal_greek Table 1) plus about half of the plain ʃ frication (178 ms, jongman2000 Table VI); the one-half is an assumption. No affricate duration was found in the research notes." } }
 
 [sound."U+0361".tests]
 checks = ["T-sequence"]

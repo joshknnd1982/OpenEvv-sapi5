@@ -30,8 +30,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close", backness = "front", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -41,6 +41,7 @@ formants = { F1 = { v = 249, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0079".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0069", measure = "F2_50_hz", sign = -1 }, { with = "U+028F", measure = "F1_50_hz", sign = -1 }, { with = "U+0289", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0079.json"
 
 [sound."U+0268"]
 ipa = "ɨ"
@@ -50,8 +51,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close", backness = "central", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -61,6 +62,7 @@ formants = { F1 = { v = 309, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0268".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0069", measure = "F2_50_hz", sign = -1 }, { with = "U+026F", measure = "F2_50_hz", sign = 1 }, { with = "U+0289", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0268.json"
 
 [sound."U+0289"]
 ipa = "ʉ"
@@ -70,8 +72,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close", backness = "central", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -81,6 +83,7 @@ formants = { F1 = { v = 306, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0289".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0268", measure = "F2_50_hz", sign = -1 }, { with = "U+0075", measure = "F2_50_hz", sign = 1 }, { with = "U+0079", measure = "F2_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0289.json"
 
 [sound."U+026F"]
 ipa = "ɯ"
@@ -90,8 +93,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close", backness = "back", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -101,6 +104,7 @@ formants = { F1 = { v = 369, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+026F".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0075", measure = "F2_50_hz", sign = 1 }, { with = "U+0268", measure = "F2_50_hz", sign = -1 }, { with = "U+0264", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+026F.json"
 
 [sound."U+0075"]
 ipa = "u"
@@ -110,8 +114,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close", backness = "back", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -121,6 +125,7 @@ formants = { F1 = { v = 308, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0075".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+026F", measure = "F2_50_hz", sign = -1 }, { with = "U+028A", measure = "F1_50_hz", sign = -1 }, { with = "U+006F", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0075.json"
 
 [sound."U+026A"]
 ipa = "ɪ"
@@ -130,8 +135,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "near-close", backness = "near-front", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -141,6 +146,7 @@ formants = { F1 = { v = 343, tag = "literature", ref = "paetzold_simpson1997", n
 [sound."U+026A".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0069", measure = "F1_50_hz", sign = 1 }, { with = "U+0065", measure = "F1_50_hz", sign = -1 }, { with = "U+028F", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+026A.json"
 
 [sound."U+028F"]
 ipa = "ʏ"
@@ -150,8 +156,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "near-close", backness = "near-front", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -161,6 +167,7 @@ formants = { F1 = { v = 374, tag = "literature", ref = "paetzold_simpson1997", n
 [sound."U+028F".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0079", measure = "F1_50_hz", sign = 1 }, { with = "U+026A", measure = "F2_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+028F.json"
 
 [sound."U+028A"]
 ipa = "ʊ"
@@ -170,8 +177,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "near-close", backness = "near-back", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -181,6 +188,7 @@ formants = { F1 = { v = 382, tag = "literature", ref = "paetzold_simpson1997", n
 [sound."U+028A".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0075", measure = "F1_50_hz", sign = 1 }, { with = "U+0075", measure = "F2_50_hz", sign = 1 }, { with = "U+006F", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+028A.json"
 
 [sound."U+0065"]
 ipa = "e"
@@ -190,8 +198,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close-mid", backness = "front", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -201,6 +209,7 @@ formants = { F1 = { v = 417, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0065".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0069", measure = "F1_50_hz", sign = 1 }, { with = "U+025B", measure = "F1_50_hz", sign = -1 }, { with = "U+00F8", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0065.json"
 
 [sound."U+00F8"]
 ipa = "ø"
@@ -210,8 +219,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close-mid", backness = "front", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -221,6 +230,7 @@ formants = { F1 = { v = 422, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+00F8".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0065", measure = "F2_50_hz", sign = -1 }, { with = "U+0079", measure = "F1_50_hz", sign = 1 }, { with = "U+0153", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+00F8.json"
 
 [sound."U+0258"]
 ipa = "ɘ"
@@ -230,8 +240,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close-mid", backness = "central", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -241,6 +251,7 @@ formants = { F1 = { v = 446.0, tag = "estimated", note = "Estimated: midpoint of
 [sound."U+0258".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0065", measure = "F2_50_hz", sign = -1 }, { with = "U+0268", measure = "F1_50_hz", sign = 1 }, { with = "U+0275", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0258.json"
 
 [sound."U+0275"]
 ipa = "ɵ"
@@ -250,8 +261,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close-mid", backness = "central", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -261,6 +272,7 @@ formants = { F1 = { v = 424.5, tag = "estimated", note = "Estimated: midpoint of
 [sound."U+0275".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0258", measure = "F2_50_hz", sign = -1 }, { with = "U+0289", measure = "F1_50_hz", sign = 1 }, { with = "U+025E", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0275.json"
 
 [sound."U+0264"]
 ipa = "ɤ"
@@ -270,8 +282,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close-mid", backness = "back", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -281,6 +293,7 @@ formants = { F1 = { v = 475, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0264".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+026F", measure = "F1_50_hz", sign = 1 }, { with = "U+006F", measure = "F2_50_hz", sign = 1 }, { with = "U+028C", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0264.json"
 
 [sound."U+006F"]
 ipa = "o"
@@ -290,8 +303,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close-mid", backness = "back", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -301,6 +314,7 @@ formants = { F1 = { v = 427, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+006F".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0075", measure = "F1_50_hz", sign = 1 }, { with = "U+0264", measure = "F2_50_hz", sign = -1 }, { with = "U+0254", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+006F.json"
 
 [sound."U+0259"]
 ipa = "ə"
@@ -310,8 +324,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "mid", backness = "central", rounding = "unspecified" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -321,6 +335,7 @@ formants = { F1 = { v = 467.0, tag = "derived", rule = "mean of paetzold_simpson
 [sound."U+0259".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+025C", measure = "F1_50_hz", sign = -1 }, { with = "U+0250", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0259.json"
 
 [sound."U+025B"]
 ipa = "ɛ"
@@ -350,8 +365,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open-mid", backness = "front", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -361,6 +376,7 @@ formants = { F1 = { v = 511, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0153".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+025B", measure = "F2_50_hz", sign = -1 }, { with = "U+00F8", measure = "F1_50_hz", sign = 1 }, { with = "U+0276", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0153.json"
 
 [sound."U+025C"]
 ipa = "ɜ"
@@ -370,8 +386,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open-mid", backness = "central", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -382,6 +398,7 @@ duration = { inherent_ms = { v = 154, tag = "literature", ref = "williams2013", 
 [sound."U+025C".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+025B", measure = "F2_50_hz", sign = -1 }, { with = "U+0259", measure = "F1_50_hz", sign = 1 }, { with = "U+028C", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+025C.json"
 
 [sound."U+025E"]
 ipa = "ɞ"
@@ -391,8 +408,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open-mid", backness = "central", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -402,6 +419,7 @@ formants = { F1 = { v = 523.0, tag = "estimated", note = "Estimated: midpoint of
 [sound."U+025E".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+025C", measure = "F2_50_hz", sign = -1 }, { with = "U+0275", measure = "F1_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+025E.json"
 
 [sound."U+028C"]
 ipa = "ʌ"
@@ -411,8 +429,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open-mid", backness = "back", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -422,6 +440,7 @@ formants = { F1 = { v = 591, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+028C".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0254", measure = "F2_50_hz", sign = 1 }, { with = "U+0264", measure = "F1_50_hz", sign = 1 }, { with = "U+0251", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+028C.json"
 
 [sound."U+0254"]
 ipa = "ɔ"
@@ -431,8 +450,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open-mid", backness = "back", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -442,6 +461,7 @@ formants = { F1 = { v = 535, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0254".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+006F", measure = "F1_50_hz", sign = 1 }, { with = "U+028C", measure = "F2_50_hz", sign = -1 }, { with = "U+0252", measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0254.json"
 
 [sound."U+00E6"]
 ipa = "æ"
@@ -471,8 +491,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "near-open", backness = "central", rounding = "unspecified" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -482,6 +502,7 @@ formants = { F1 = { v = 743, tag = "literature", ref = "alispahic2017", note = "
 [sound."U+0250".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+025C", measure = "F1_50_hz", sign = 1 }, { with = "U+0061", measure = "F1_50_hz", sign = -1 }, { with = "U+0251", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0250.json"
 
 [sound."U+0061"]
 ipa = "a"
@@ -491,8 +512,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open", backness = "front", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -502,6 +523,10 @@ formants = { F1 = { v = 921, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0061".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+00E6", measure = "F1_50_hz", sign = 1 }, { with = "U+0276", measure = "F2_50_hz", sign = 1 }, { with = "U+0251", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0061.json"
+
+[sound."U+0061".realization.openevv]
+trim.dedx = [{ key = "f1", v = 108.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0061.json" }]
 
 [sound."U+0276"]
 ipa = "ɶ"
@@ -511,8 +536,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open", backness = "front", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -522,6 +547,7 @@ formants = { F1 = { v = 676, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0276".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0061", measure = "F2_50_hz", sign = -1 }, { with = "U+0153", measure = "F1_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0276.json"
 
 [sound."U+0251"]
 ipa = "ɑ"
@@ -531,8 +557,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open", backness = "back", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -542,6 +568,7 @@ formants = { F1 = { v = 740, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0251".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0252", measure = "F2_50_hz", sign = 1 }, { with = "U+0061", measure = "F2_50_hz", sign = -1 }, { with = "U+028C", measure = "F1_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0251.json"
 
 [sound."U+0252"]
 ipa = "ɒ"
@@ -551,8 +578,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open", backness = "back", rounding = "rounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -562,3 +589,4 @@ formants = { F1 = { v = 680, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0252".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0251", measure = "F2_50_hz", sign = -1 }, { with = "U+0254", measure = "F1_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0252.json"

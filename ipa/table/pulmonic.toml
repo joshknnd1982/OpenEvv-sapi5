@@ -16,9 +16,12 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0070".spec]
+locus = { F2 = { v = 843, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for fortis /p/ in stoakes2013 Table 6.15, Bininj Gun-wok: (806.5 + 880.2) / 2 = 843 Hz", note = "speakers HK and OK, locus-equation slopes 0.74 / 0.76; lenis /b/ 656.1 / 1018 Hz. No F3 locus in an opened primary source (hamann2003 quotes 2500 Hz for Gooniyandi, a secondary quote of McGregor 1990, not used)." } }
+vot_ms = { v = 20, tag = "literature", ref = "stoakes2013", note = "stoakes2013 Table 6.13, p. 190: fortis (voiceless unaspirated) word-medial stop, Bininj Gun-wok, 10 speakers of mixed sex, no spread printed. Taken from one study for p t ʈ c k so that the place differences are internally consistent; the adult-male value is 14 ms (SD 4; Greek, 6 M, word-medial; nicolaidis_etal_greek Table 1); Hindi release duration 17 ms (SD 13; samudravijaya2003 Table 1)." }
 
 [sound."U+0070".tests]
 checks = ["T-stop"]
+contrast = [{ with = "U+0074", measure = "edge_F2", sign = -1 }]
 
 [sound."U+0062"]
 ipa = "b"
@@ -28,15 +31,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "bilabial", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds = [] }
 
 [sound."U+0062".spec]
+locus = { F2 = { v = 837, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for lenis /b/ in stoakes2013 Table 6.15, Bininj Gun-wok: (656.1 + 1018) / 2 = 837 Hz", note = "the two speakers differ by 360 Hz; treat as about 650-1000 Hz." } }
 
 [sound."U+0062".tests]
 checks = ["T-stop"]
+contrast = [{ with = "U+0070", measure = "voiced_frac", sign = 1 }, { with = "U+0070", measure = "vot_ms", sign = -1 }]
+proof = "ipa/proofs/U+0062.json"
 
 [sound."U+0074"]
 ipa = "t"
@@ -46,16 +52,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0074".spec]
+locus = { F2 = { v = 1628, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for fortis /t/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1533 + 1723) / 2 = 1628 Hz", note = "lenis /d/ 1538 / 1804 Hz; Gooniyandi secondary quote via hamann2003 is 1750 / 2750 Hz (F2 / F3), not used." } }
 vot_ms = { v = 15, tag = "derived", rule = "the median of the seven unaspirated /t/ means in Cho and Ladefoged (1997) Table 1 (nl 15, es-PR 9, hu 16, yue 14, hy 15, ko 25, ta 8 ms)" }
 
 [sound."U+0074".tests]
 checks = ["T-stop"]
+proof = "ipa/proofs/U+0074.json"
 
 [sound."U+0064"]
 ipa = "d"
@@ -65,15 +73,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds = [] }
 
 [sound."U+0064".spec]
+locus = { F2 = { v = 1671, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for lenis /d/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1538 + 1804) / 2 = 1671 Hz", note = "stoakes2013 p. 216 says the lenis alveolar locus, about 1800 Hz in the male speakers, is the most consistent of all places." } }
 
 [sound."U+0064".tests]
 checks = ["T-stop"]
+contrast = [{ with = "U+0074", measure = "voiced_frac", sign = 1 }, { with = "U+0074", measure = "vot_ms", sign = -1 }]
+proof = "ipa/proofs/U+0064.json"
 
 [sound."U+0288"]
 ipa = "ʈ"
@@ -89,9 +100,12 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0288".spec]
+locus = { F2 = { v = 1482, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for fortis /ʈ/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1455 + 1509) / 2 = 1482 Hz", note = "slopes 0.68 / 0.75; few tokens." }, F3 = { v = 1800, tag = "estimated", note = "No F3 locus for a retroflex stop was found in an opened primary source. The value rests on (1) the Gooniyandi stop locus F3 1800 Hz (vs 2750 Hz for t), a secondary quote of McGregor 1990 in hamann2003 Table 3.1, not opened; (2) the retroflex lateral of Tamil, F3 1800 Hz (narayanan_byrd_kaun_1999 Table III, 1 M); (3) the general finding that retroflexion lowers F3 at the vowel edge. Queue for measurement." } }
+vot_ms = { v = 17, tag = "literature", ref = "stoakes2013", note = "stoakes2013 Table 6.13, p. 190: fortis (voiceless unaspirated) word-medial stop, Bininj Gun-wok, 10 speakers of mixed sex, no spread printed. Taken from one study for p t ʈ c k so that the place differences are internally consistent; few retroflex tokens. Hindi retroflex release duration 16 ms (SD 16; samudravijaya2003 Table 1, symbol mapping taken from the OCR of the retroflex block)." }
 
 [sound."U+0288".tests]
 checks = ["T-stop", "T-contrast"]
+contrast = [{ with = "U+0074", measure = "edge_F3", sign = -1 }, { with = "U+0074", measure = "edge_F2", sign = -1 }]
 
 [sound."U+0256"]
 ipa = "ɖ"
@@ -101,15 +115,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "retroflex", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0256".spec]
+locus = { F2 = { v = 1434, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for lenis /ɖ/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1488 + 1380) / 2 = 1434 Hz", note = "slopes 0.87 / 0.72." }, F3 = { v = 1800, tag = "estimated", note = "No F3 locus for a retroflex stop was found in an opened primary source. The value rests on (1) the Gooniyandi stop locus F3 1800 Hz (vs 2750 Hz for t), a secondary quote of McGregor 1990 in hamann2003 Table 3.1, not opened; (2) the retroflex lateral of Tamil, F3 1800 Hz (narayanan_byrd_kaun_1999 Table III, 1 M); (3) the general finding that retroflexion lowers F3 at the vowel edge. Queue for measurement. Voicing is not expected to move the F3 locus, so the ʈ estimate is used." } }
 
 [sound."U+0256".tests]
 checks = ["T-stop", "T-contrast"]
+contrast = [{ with = "U+0064", measure = "edge_F3", sign = -1 }, { with = "U+0288", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+0256.json"
 
 [sound."U+0063"]
 ipa = "c"
@@ -125,9 +142,12 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0063".spec]
+locus = { F2 = { v = 1828, tag = "literature", ref = "stoakes2013", note = "Table 6.15, fortis /c/, CV, speaker OK (1 M), slope 0.34, Bininj Gun-wok. Speaker HK's fit (727 Hz, r2 0.35, not significant) is not used; VC loci 1996 / 1908 Hz (Table 6.14)." } }
+vot_ms = { v = 34, tag = "literature", ref = "stoakes2013", note = "stoakes2013 Table 6.13, p. 190: fortis (voiceless unaspirated) word-medial stop, Bininj Gun-wok, 10 speakers of mixed sex, no spread printed. Taken from one study for p t ʈ c k so that the place differences are internally consistent; the palatal has the longest fortis VOT. Greek [c] (/k/ before /i/) 63 ms, the longest of the Greek stops, but pooled over 12 adults and 12 children (nicolaidis_etal_greek 3.1)." }
 
 [sound."U+0063".tests]
 checks = ["T-stop", "T-contrast"]
+contrast = [{ with = "U+006B", measure = "edge_F2", sign = 1 }, { with = "U+006B", measure = "vot_ms", sign = 1 }]
 
 [sound."U+025F"]
 ipa = "ɟ"
@@ -137,15 +157,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "palatal", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+025F".spec]
+locus = { F2 = { v = 1898, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for lenis /ɟ/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1873 + 1923) / 2 = 1898 Hz", note = "low slopes 0.54 / 0.64 (weak coarticulation)." } }
 
 [sound."U+025F".tests]
 checks = ["T-stop", "T-contrast"]
+contrast = [{ with = "U+0063", measure = "voiced_frac", sign = 1 }, { with = "U+0261", measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/U+025F.json"
 
 [sound."U+006B"]
 ipa = "k"
@@ -155,15 +178,21 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+006B".spec]
+locus = { F2 = { v = 1026, tag = "literature", ref = "stoakes2013", note = "Table 6.15, fortis /k/, CV, speaker HK (1 M), slope 0.86, Bininj Gun-wok. Speaker OK's fit is invalid (-1668 Hz). The author calls the velar loci very inconsistent (p. 216): a velar F2 at the edge follows the vowel (secondary Gooniyandi via hamann2003: about 1500 Hz before front, 750 Hz before back vowels), so this is a mid-vowel value only." } }
+vot_ms = { v = 23, tag = "literature", ref = "stoakes2013", note = "stoakes2013 Table 6.13, p. 190: fortis (voiceless unaspirated) word-medial stop, Bininj Gun-wok, 10 speakers of mixed sex, no spread printed. Taken from one study for p t ʈ c k so that the place differences are internally consistent; adult males, Greek: 47 ms (SD 20, word-medial, pooled over /i/ and /a/, the /i/ tokens being palatal [c]; nicolaidis_etal_greek Table 1); 41 / 28 ms initial / intervocalic (tamim_hamann2021 Table 3, 4 M + 4 F)." }
 
 [sound."U+006B".tests]
 checks = ["T-stop"]
+proof = "ipa/proofs/U+006B.json"
+
+[sound."U+006B".realization.openevv]
+trim.dedx = [{ key = "vot", v = 32.0, scale = false, tag = "measured", proof = "ipa/proofs/U+006B.json" }]
 
 [sound."U+0261"]
 ipa = "ɡ"
@@ -173,15 +202,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds = [] }
 
 [sound."U+0261".spec]
+locus = { F2 = { v = 1026, tag = "estimated", note = "Set equal to the k locus (stoakes2013, speaker HK, 1026 Hz): voicing does not move the place of closure, and no ɡ locus was found in an opened source (stoakes2013 gives the lenis velar's VOT only). Inherits the k caveat that a velar locus follows the vowel." } }
 
 [sound."U+0261".tests]
 checks = ["T-stop"]
+contrast = [{ with = "U+006B", measure = "voiced_frac", sign = 1 }, { with = "U+006B", measure = "vot_ms", sign = -1 }]
+proof = "ipa/proofs/U+0261.json"
 
 [sound."U+0071"]
 ipa = "q"
@@ -197,9 +229,11 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0071".spec]
+locus = { F2 = { v = 929, tag = "derived", rule = "k locus F2 (stoakes2013, 1026 Hz) x the ratio of back-vowel F2 at onset after a uvular to after a velar in gallagher2014 4.5.3 (1069 / 1181 = 0.905) = 929 Hz", note = "gallagher2014 is Cochabamba Quechua, 9 F + 2 M (mostly female); the ratio is applied to the male k base so that q and k stay consistent." } }
 
 [sound."U+0071".tests]
 checks = ["T-stop", "T-contrast"]
+contrast = [{ with = "U+006B", measure = "edge_F2", sign = -1 }, { with = "U+006B", measure = "edge_F1", sign = 1 }]
 
 [sound."U+0262"]
 ipa = "ɢ"
@@ -215,9 +249,11 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0262".spec]
+locus = { F2 = { v = 929, tag = "estimated", note = "Set equal to the q value (929 Hz, derived from stoakes2013 and gallagher2014): voicing does not move the place; no value for ɢ was found in any opened source." } }
 
 [sound."U+0262".tests]
 checks = ["T-stop", "T-contrast"]
+contrast = [{ with = "U+0071", measure = "voiced_frac", sign = 1 }, { with = "U+0261", measure = "edge_F2", sign = -1 }, { with = "U+0261", measure = "edge_F1", sign = 1 }]
 
 [sound."U+0294"]
 ipa = "ʔ"
@@ -233,6 +269,7 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X5"], builds = ["C6?"] }
 
 [sound."U+0294".spec]
+duration = { inherent_ms = { v = 45, tag = "derived", rule = "midpoint of the about 40-50 ms closure of a full [ʔ] in the natural American English word stimuli of garellek2013 ch. 4 (one phonetician talker)", note = "shortened incomplete [ʔ] stimuli were 20-25 ms; elicited hyperarticulated glottal stops under laryngoscopy averaged 185.5 ms (3 M + 2 F; garellek2013 3.3.1, Table 3.2), not used." } }
 
 [sound."U+0294".tests]
 checks = ["T-stop", "T-phonation"]
@@ -250,15 +287,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "bilabial", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+006D".spec]
+formants = { F1 = { v = 331, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B1 149 Hz" }, F2 = { v = 1347, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B2 627 Hz" }, F3 = { v = 2365, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B3 428 Hz" }, F4 = { v = 3501, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B4 625 Hz" } }
+duration = { inherent_ms = { v = 117, tag = "literature", ref = "maselli_etal2026", note = "Appendix pt. 2, segment duration, North Boma, 4 M; the text gives about 110 +- 55 ms for the non-retroflex nasals; medial singleton /m/ in Bininj Gun-wok 112 ms (SD 60; stoakes2013 Table 9.1)." } }
 
 [sound."U+006D".tests]
 checks = ["T-nasal"]
+contrast = [{ with = "U+006E", measure = "F2_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+006D.json"
 
 [sound."U+0271"]
 ipa = "ɱ"
@@ -268,15 +309,22 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "labiodental", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = ["C9?"] }
 
 [sound."U+0271".spec]
+formants = { F1 = { v = 367, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B1 146 Hz; allophonic [ɱ] before labiodentals" }, F2 = { v = 1488, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B2 637 Hz" }, F3 = { v = 2477, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B3 461 Hz" }, F4 = { v = 3634, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B4 640 Hz" } }
+duration = { inherent_ms = { v = 127, tag = "literature", ref = "maselli_etal2026", note = "Appendix pt. 2, segment duration, North Boma, 4 M." } }
 
 [sound."U+0271".tests]
 checks = ["T-nasal", "T-contrast"]
+contrast = [{ with = "U+006D", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0271.json"
+
+[sound."U+0271".realization.openevv]
+trim.dedx = [{ key = "f1", v = 129.5, scale = true, tag = "measured", proof = "ipa/proofs/U+0271.json" }]
 
 [sound."U+006E"]
 ipa = "n"
@@ -286,15 +334,21 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+006E".spec]
+formants = { F1 = { v = 361, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B1 125 Hz" }, F2 = { v = 1410, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B2 559 Hz" }, F3 = { v = 2369, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B3 359 Hz" }, F4 = { v = 3504, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B4 480 Hz" } }
+duration = { inherent_ms = { v = 114, tag = "literature", ref = "maselli_etal2026", note = "Appendix pt. 2, segment duration, North Boma, 4 M; medial /n/ in Bininj Gun-wok 95 ms (SD 54; stoakes2013 Table 9.1)." } }
 
 [sound."U+006E".tests]
 checks = ["T-nasal"]
+proof = "ipa/proofs/U+006E.json"
+
+[sound."U+006E".realization.openevv]
+trim.dedx = [{ key = "f1", v = 169.5, scale = true, tag = "measured", proof = "ipa/proofs/U+006E.json" }]
 
 [sound."U+0273"]
 ipa = "ɳ"
@@ -304,15 +358,22 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "retroflex", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = ["C9?"] }
 
 [sound."U+0273".spec]
+formants = { F1 = { v = 394, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B1 251 Hz; flap-like realisation" }, F2 = { v = 1213, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B2 377 Hz" }, F3 = { v = 2314, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B3 295 Hz; F3 at 10 % of the segment 2330 Hz vs 2367 for n" }, F4 = { v = 3356, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B4 566 Hz" } }
+duration = { inherent_ms = { v = 50, tag = "literature", ref = "maselli_etal2026", note = "Appendix pt. 2 and section 4: about 50 +- 20 ms, about half of the other nasals, North Boma, 4 M. Bininj Gun-wok agrees: 50 ms (SD 8.8, n 10, one pre-tonic word; stoakes2013 Table 9.1)." } }
 
 [sound."U+0273".tests]
 checks = ["T-nasal", "T-contrast"]
+contrast = [{ with = "U+006E", measure = "F3_50_hz", sign = -1 }, { with = "U+006E", measure = "F2_50_hz", sign = -1 }, { with = "U+006E", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+0273.json"
+
+[sound."U+0273".realization.openevv]
+trim.dedx = [{ key = "f1", v = 134.5, scale = true, tag = "measured", proof = "ipa/proofs/U+0273.json" }]
 
 [sound."U+0272"]
 ipa = "ɲ"
@@ -322,19 +383,24 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "palatal", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds = ["C9?"] }
 
 [sound."U+0272".spec]
+formants = { F1 = { v = 338, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B1 119 Hz" }, F2 = { v = 1502, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B2 782 Hz" }, F3 = { v = 2481, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B3 363 Hz" }, F4 = { v = 3493, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B4 409 Hz" } }
+duration = { inherent_ms = { v = 127, tag = "literature", ref = "maselli_etal2026", note = "Appendix pt. 2, segment duration, North Boma, 4 M; Bininj Gun-wok 91 ms (SD 36; stoakes2013 Table 9.1)." } }
 
 [sound."U+0272".tests]
 checks = ["T-nasal", "T-contrast"]
+contrast = [{ with = "U+006E", measure = "F2_50_hz", sign = 1 }, { with = "U+006E", measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/U+0272.json"
 
 [sound."U+0272".realization.openevv]
 # a palatal nasal is an n with the tongue further back (engine/accent/sounds.py MADE_OF), not the velar nasal its formants resemble
 carrier = "n"
+trim.dedx = [{ key = "f1", v = 131.4, scale = true, tag = "measured", proof = "ipa/proofs/U+0272.json" }]
 
 [sound."U+014B"]
 ipa = "ŋ"
@@ -344,15 +410,21 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+014B".spec]
+formants = { F1 = { v = 361, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B1 117 Hz" }, F2 = { v = 1294, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B2 788 Hz" }, F3 = { v = 2388, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B3 338 Hz" }, F4 = { v = 3603, tag = "literature", ref = "maselli_etal2026", note = "maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B4 688 Hz" } }
+duration = { inherent_ms = { v = 117, tag = "literature", ref = "maselli_etal2026", note = "Appendix pt. 2, segment duration, North Boma, 4 M; Bininj Gun-wok 84 ms (SD 28; stoakes2013 Table 9.1)." } }
 
 [sound."U+014B".tests]
 checks = ["T-nasal"]
+proof = "ipa/proofs/U+014B.json"
+
+[sound."U+014B".realization.openevv]
+trim.dedx = [{ key = "f1", v = 132.0, scale = true, tag = "measured", proof = "ipa/proofs/U+014B.json" }, { key = "f2", v = 110.8, scale = true, tag = "measured", proof = "ipa/proofs/U+014B.json" }, { key = "f3", v = 112.3, scale = true, tag = "measured", proof = "ipa/proofs/U+014B.json" }]
 
 [sound."U+0274"]
 ipa = "ɴ"
@@ -362,15 +434,21 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "uvular", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = ["C9?"] }
 
 [sound."U+0274".spec]
+formants = { F1 = { v = 450, tag = "estimated", note = "No measured uvular nasal was found. Rests on ŋ F1 361 Hz (maselli_etal2026, 4 M) raised as uvulars raise F1 at vowel edges (gallagher2014: about +100 to +190 Hz)." }, F2 = { v = 1150, tag = "estimated", note = "Rests on the one illustrative uvular-nasal token in hoole_nasal_notes (F1 and F2 about 700 Hz apart, speaker not described; weak) added to the F1 estimate, and on uvulars lowering F2 (gallagher2014); below ŋ's 1294 Hz (maselli_etal2026)." }, F3 = { v = 2400, tag = "estimated", note = "Set near ŋ's F3 (2388 Hz, maselli_etal2026); nothing measured." } }
 
 [sound."U+0274".tests]
 checks = ["T-nasal", "T-contrast"]
+contrast = [{ with = "U+014B", measure = "edge_F2", sign = -1 }, { with = "U+014B", measure = "edge_F1", sign = 1 }]
+proof = "ipa/proofs/U+0274.json"
+
+[sound."U+0274".realization.openevv]
+trim.dedx = [{ key = "f1", v = 133.6, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }, { key = "f2", v = 108.5, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }, { key = "f3", v = 111.8, scale = true, tag = "measured", proof = "ipa/proofs/U+0274.json" }]
 
 [sound."U+0299"]
 ipa = "ʙ"
@@ -380,15 +458,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "bilabial", stricture = "trill", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X2"], builds = ["C11"] }
 
 [sound."U+0299".spec]
+trill = { rate_hz = { v = 19.2, tag = "literature", ref = "olson_2023", note = "Table 4: rate of the first trill period after the release of /bʙ/ (period 52.4 ms, SD 4.4), SD 1.6 Hz, n 12; Mangbetu (DRC), 1 M about 35 years, careful speech. [RECONSTRUCTED TABLE: olson_2023 Table 4 (the n of one row is garbled in the extraction)]" } }
 
 [sound."U+0299".tests]
 checks = ["T-trill", "T-contrast"]
+contrast = [{ with = "U+2C71", measure = "mod_dips", sign = 1 }]
+proof = "ipa/proofs/U+0299.json"
 
 [sound."U+0299".realization.openevv]
 # a bilabial trill: the module's labial sonorant w, modulated (C11)
@@ -403,20 +484,26 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "trill", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "mapped", uses = ["X1", "X2", "X6"], builds = ["C11"] }
 
 [sound."U+0072".spec]
+trill = { rate_hz = { v = 27.8, tag = "derived", rule = "1000 / 36 ms, the median inter-closure period over all corpora in camara_alcala_2026 section 5.1", note = "Spanish, 3560 well-formed tokens, 356 speakers (141 M, 76 F labelled), no robust sex effect; preprint, not peer reviewed. Rates by context 22.8 Hz intervocalic, 27.6 Hz after n l s (section 5.2). [RECONSTRUCTED TABLE: camara_alcala_2026 Table 2, token-count column misaligned; the medians used are from the section 5.1 text]" }, closures = { v = 2, tag = "literature", ref = "camara_alcala_2026", note = "section 5.1: median 2, mean 2.03 (SD 0.83) closures, Spanish, 356 speakers; preprint. bradley_willis_2012 (Veracruz, 5 M + 5 F): 88 % of 339 trills had two or fewer contacts." }, closed_ms = { v = 20, tag = "literature", ref = "zygis_2004", note = "p. 146, example (7): closed phase of the 2nd and 3rd cycles about 20 ms, one Polish word-initial token, speaker sex not stated (single token: weak). Palatalized trills agree: 16.7 / 15.8 ms first / second constriction (Russian, 2 speakers, 100 tokens; jaworski_2017 p. 58)." } }
+formants = { F1 = { v = 493, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Table 22, apico-alveolar trill realised as a trill: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 73" }, F2 = { v = 1235, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Table 22: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 138" }, F3 = { v = 2294, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Table 22: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 252" } }
+duration = { inherent_ms = { v = 80, tag = "literature", ref = "camara_alcala_2026", note = "section 5.1: median token duration 80 ms (inclusion window 50-200 ms), Spanish; word-initial 91 ms. Veracruz males 64-83 ms word-medial (bradley_willis_2012 Table 5); Malayalam trill 37.5 ms (punnoose_2010 Table 21)." } }
 
 [sound."U+0072".tests]
 checks = ["T-trill"]
+contrast = [{ with = "U+027E", measure = "mod_dips", sign = 1 }, { with = "U+027E", measure = "duration_ms", sign = 1 }]
+proof = "ipa/proofs/U+0072.json"
 
 [sound."U+0072".realization.openevv]
 # an alveolar trill is a voiced alveolar sonorant closed and opened at its rate: the module's alveolar sonorant l, modulated (C11)
 carrier = "l"
 keys = { tdepth = { v = 20, tag = "derived", rule = "a closure takes the level down about as far as the module's own tap does (measured on the development stage: 18 dB at tdepth 20)" } }
+trim.dedx = [{ key = "f1", v = 116.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0072.json" }, { key = "hold", v = 130.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0072.json" }]
 
 [sound."U+0280"]
 ipa = "ʀ"
@@ -426,20 +513,24 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "uvular", stricture = "trill", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X2", "X3", "X6"], builds = ["C11"] }
 
 [sound."U+0280".spec]
+trill = { rate_hz = { v = 23.2, tag = "literature", ref = "kochetov_howson_2015", note = "Table 1: sustained uvular trill, word-initial, Russian speaker for whom the uvular is an idiolectal variant, 1 M, phonetically trained; final 23.5 Hz; 17 cycles in 760 ms (sustained, not a citation segment). [RECONSTRUCTED TABLE: kochetov_howson_2015 Table 1, columns realigned from the extracted text]" } }
 
 [sound."U+0280".tests]
 checks = ["T-trill", "T-contrast"]
+contrast = [{ with = "U+0072", measure = "mod_rate_hz", sign = -1 }, { with = "U+0072", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0280.json"
 
 [sound."U+0280".realization.openevv]
 # a uvular trill: the module's uvular approximant, modulated (C11)
 carrier = "r"
 keys = { tdepth = { v = 20, tag = "derived", rule = "as for r" } }
+trim.dedx = [{ key = "hold", v = 169.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0280.json" }, { key = "trate", v = 19.0, scale = false, tag = "measured", proof = "ipa/proofs/U+0280.json" }]
 
 [sound."U+2C71"]
 ipa = "ⱱ"
@@ -449,19 +540,23 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "labiodental", stricture = "tap", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], builds = [] }
 
 [sound."U+2C71".spec]
+tap = { closures = { v = 1, tag = "derived", rule = "one contact, by the definition of the tap/flap row of the IPA chart; punnoose_2010 and bradley_willis_2012 measure taps as single contacts" }, closed_ms = { v = 25, tag = "estimated", note = "No duration for the labiodental flap was found (olson_hajek_2004 has lexical data only; Olson & Hajek 1999 not opened). Set from the measured alveolar and retroflex taps: 31 ms (punnoose_2010, 8 M), 20-30 ms (arai_2013, 1 M). The lip strike may well differ." } }
 
 [sound."U+2C71".tests]
 checks = ["T-tap", "T-contrast"]
+contrast = [{ with = "U+028B", measure = "mod_dips", sign = 1 }]
+proof = "ipa/proofs/U+2C71.json"
 
 [sound."U+2C71".realization.openevv]
 # a labiodental flap: the labial sonorant with one brief closure
 carrier = "w"
+trim.dedx = [{ key = "tapms", v = 18.7, scale = false, tag = "measured", proof = "ipa/proofs/U+2C71.json" }]
 
 [sound."U+027E"]
 ipa = "ɾ"
@@ -471,15 +566,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "tap", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X6"], builds = [] }
 
 [sound."U+027E".spec]
+tap = { closures = { v = 1, tag = "derived", rule = "one contact, by the definition of the tap/flap row of the IPA chart; punnoose_2010 and bradley_willis_2012 measure taps as single contacts" }, closed_ms = { v = 31.2, tag = "literature", ref = "punnoose_2010", note = "Table 21: duration of the lamino-alveolar tap realised as a tap, Malayalam, 8 M, SD 10.26. Agrees with the token-weighted mean of the five Veracruz males in bradley_willis_2012 Table 5 (17, 29, 36, 34, 25 ms; n 3, 24, 23, 1, 2) = 31.3 ms; all 10 speakers 27.7 ms, median 29 ms; Japanese flap 20-30 ms (arai_2013)." } }
+formants = { F1 = { v = 380, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Table 22, lamino-alveolar tap realised as a tap: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 51" }, F2 = { v = 1750, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Table 22: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 214; Table 19 gives 1727 for another subset" }, F3 = { v = 2492, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Table 22: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 236" } }
 
 [sound."U+027E".tests]
 checks = ["T-tap"]
+contrast = [{ with = "U+0064", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+027E.json"
 
 [sound."U+027E".realization.openevv]
 # an alveolar tap: the module's alveolar sonorant l with one brief closure
@@ -493,15 +592,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "retroflex", stricture = "tap", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], builds = [] }
 
 [sound."U+027D".spec]
+tap = { closures = { v = 1, tag = "derived", rule = "one contact, by the definition of the tap/flap row of the IPA chart; punnoose_2010 and bradley_willis_2012 measure taps as single contacts" }, closed_ms = { v = 25, tag = "derived", rule = "midpoint of the about 20-30 ms closure of the Japanese flap variants in arai_2013 section 2.2 (1 adult M)", note = "arai_2013 includes retroflex-flap variants only qualitatively; no measured ɽ value was found." } }
 
 [sound."U+027D".tests]
 checks = ["T-tap", "T-contrast"]
+contrast = [{ with = "U+027E", measure = "edge_F3", sign = -1 }, { with = "U+0256", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+027D.json"
 
 [sound."U+027D".realization.openevv]
 # a retroflex flap: l with one brief closure and the retroflex F3
@@ -515,15 +617,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "bilabial", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+0278".spec]
+locus = { F2 = { v = 843, tag = "estimated", note = "Set equal to the p locus (843 Hz, derived from stoakes2013, 2 M): the same lip constriction. No acoustic value for ɸ was found (maddieson_ewe is lip kinematics only)." } }
 
 [sound."U+0278".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0066", measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+0278.json"
 
 [sound."U+03B2"]
 ipa = "β"
@@ -533,15 +638,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "bilabial", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+03B2".spec]
+locus = { F2 = { v = 843, tag = "estimated", note = "Set equal to the p/ɸ value (843 Hz, from stoakes2013): same place; the b locus in the same study is 837 Hz. Nothing measured for β." } }
 
 [sound."U+03B2".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0278", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+03B2.json"
 
 [sound."U+0066"]
 ipa = "f"
@@ -551,15 +659,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "labiodental", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0066".spec]
+locus = { F2 = { v = 1509, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, f pooled with v (the source pools voicing). Locus equation, males: slope 0.770, intercept 299 Hz (Table III)." } }
+duration = { inherent_ms = { v = 166, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase; normalized 0.420 of the word." } }
 
 [sound."U+0066".tests]
 checks = ["T-fric"]
+proof = "ipa/proofs/U+0066.json"
 
 [sound."U+0076"]
 ipa = "v"
@@ -569,15 +680,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "labiodental", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0076".spec]
+locus = { F2 = { v = 1509, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, v pooled with f (the source pools voicing)" } }
+duration = { inherent_ms = { v = 80, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+0076".tests]
 checks = ["T-fric"]
+contrast = [{ with = "U+0066", measure = "voiced_frac", sign = 1 }, { with = "U+0066", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+0076.json"
 
 [sound."U+03B8"]
 ipa = "θ"
@@ -587,15 +702,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "dental", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+03B8".spec]
+locus = { F2 = { v = 1701, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, θ pooled with ð (the source pools voicing). Locus equation, males: slope 0.529, intercept 819 Hz." } }
+duration = { inherent_ms = { v = 163, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+03B8".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0066", measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/U+03B8.json"
 
 [sound."U+00F0"]
 ipa = "ð"
@@ -605,15 +724,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "dental", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+00F0".spec]
+locus = { F2 = { v = 1701, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, ð pooled with θ (the source pools voicing)" } }
+duration = { inherent_ms = { v = 88, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+00F0".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+03B8", measure = "voiced_frac", sign = 1 }, { with = "U+03B8", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+00F0.json"
 
 [sound."U+0073"]
 ipa = "s"
@@ -623,15 +746,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", sibilant = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0073".spec]
+noise = { peak_hz = { v = 4591, tag = "literature", ref = "chong2022", note = "section 3.1 text (Fig. 7): spectral peak, Francoprovençal (Nendaz), elderly speakers (1 F + 3 M; one male's /s/ excluded), multitaper over the middle 50 %, band-passed 550-10000 Hz; the peak lies below 5.5 kHz. LTAS peak region 4000-5000 Hz. English s/z peak 6839 Hz (jongman2000) lies outside the band." } }
+locus = { F2 = { v = 1697, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, s pooled with z (the source pools voicing). Locus equation, males: slope 0.533, intercept 825 Hz." }, F3 = { v = 2893, tag = "literature", ref = "chong2022", note = "Table 6: F3 at the onset of the following [a]/[ɑ], SD 30.5, Francoprovençal, 1 F + 3 M, elderly." } }
+duration = { inherent_ms = { v = 178, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+0073".tests]
 checks = ["T-fric"]
+proof = "ipa/proofs/U+0073.json"
 
 [sound."U+007A"]
 ipa = "z"
@@ -641,15 +768,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiced", airstream = "pulmonic", sibilant = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+007A".spec]
+locus = { F2 = { v = 1697, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, z pooled with s (the source pools voicing)" } }
+duration = { inherent_ms = { v = 118, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+007A".tests]
 checks = ["T-fric"]
+contrast = [{ with = "U+0073", measure = "voiced_frac", sign = 1 }, { with = "U+0073", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+007A.json"
 
 [sound."U+0283"]
 ipa = "ʃ"
@@ -659,16 +790,20 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "postalveolar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", sibilant = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0283".spec]
 noise = { peak_hz = { v = 3820, tag = "literature", ref = "jongman2000", note = "American English, 20 speakers, men and women together; the peak lies inside the 0-5.5 kHz the engine makes (DESIGN.md 10.1, the bandwidth rule), where the paper's centroid, over a wider band, would not be comparable" } }
+locus = { F2 = { v = 1849, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, ʃ pooled with ʒ (the source pools voicing). Locus equation, males: slope 0.557, intercept 887 Hz." }, F3 = { v = 2234, tag = "literature", ref = "chong2022", note = "Table 6: F3 at the onset of the following [a]/[ɑ], SD 37.5, Francoprovençal, 1 F + 3 M, elderly." } }
+duration = { inherent_ms = { v = 178, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+0283".tests]
 checks = ["T-fric"]
+contrast = [{ with = "U+0073", measure = "peak_hz", sign = -1 }, { with = "U+0073", measure = "edge_F3", sign = -1 }]
+proof = "ipa/proofs/U+0283.json"
 
 [sound."U+0292"]
 ipa = "ʒ"
@@ -678,15 +813,20 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "postalveolar", stricture = "friction", voicing = "voiced", airstream = "pulmonic", sibilant = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0292".spec]
+noise = { peak_hz = { v = 3820, tag = "literature", ref = "jongman2000", note = "p. 1256: spectral peak of ʃ and ʒ pooled (voicing pooled), American English, 10 F + 10 M pooled, 40 ms window mid-fricative, 22 kHz sampling with 11 kHz low-pass; the peak lies below 5.5 kHz." } }
+locus = { F2 = { v = 1849, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, ʒ pooled with ʃ (the source pools voicing)" } }
+duration = { inherent_ms = { v = 123, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+0292".tests]
 checks = ["T-fric"]
+contrast = [{ with = "U+0283", measure = "voiced_frac", sign = 1 }, { with = "U+0283", measure = "duration_ms", sign = -1 }, { with = "U+007A", measure = "peak_hz", sign = -1 }]
+proof = "ipa/proofs/U+0292.json"
 
 [sound."U+0282"]
 ipa = "ʂ"
@@ -696,15 +836,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "retroflex", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", sibilant = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+0282".spec]
+noise = { peak_hz = { v = 2812, tag = "literature", ref = "chiu2009", note = "Table 1: frequency of maximum amplitude (searched 500 Hz-20 kHz), Polish, 1 M, 15 tokens, LPC over 100 ms mid-token, 44.1 kHz; the peak lies below 5.5 kHz. Taiwan Mandarin ʂ, 2 M: 4597 Hz. [RECONSTRUCTED TABLE: chiu2009 Table 1: the IPA glyphs are garbled in the PDF; the row order s, ʂ, ɕ was inferred from the paper's listing order]" } }
 
 [sound."U+0282".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0283", measure = "peak_hz", sign = -1 }]
+proof = "ipa/proofs/U+0282.json"
 
 [sound."U+0290"]
 ipa = "ʐ"
@@ -714,15 +857,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "retroflex", stricture = "friction", voicing = "voiced", airstream = "pulmonic", sibilant = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+0290".spec]
+noise = { peak_hz = { v = 2812, tag = "estimated", note = "Set equal to the ʂ peak (2812 Hz, chiu2009 Polish, 1 M): the cavity resonance is set by the place, not voicing (jongman2000 pools ʃ and ʒ). No onset ʐ value was found; Standard Chinese ʐ has its energy below about 1 kHz (svantesson1983 prose, 4 M), i.e. it is approximant-like there." } }
 
 [sound."U+0290".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0282", measure = "voiced_frac", sign = 1 }, { with = "U+0292", measure = "peak_hz", sign = -1 }]
+proof = "ipa/proofs/U+0290.json"
 
 [sound."U+00E7"]
 ipa = "ç"
@@ -738,9 +884,12 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+00E7".spec]
+noise = { peak_hz = { v = 4000, tag = "estimated", note = "No in-band peak for ç was found. Rests on (1) palatal stop bursts peaking at about 3-4 kHz (tabain_etal2013_interspeech, 8 F + 1 M) for the same place; (2) the requirement that ç lie above ʃ (3820 Hz, jongman2000), see the contrast. Greek ç has a CoG of 6094 Hz over a band up to 22 kHz, female speakers only (themistocleous2017), not usable directly." } }
+duration = { inherent_ms = { v = 121, tag = "literature", ref = "nirgianaki_icgl", note = "nirgianaki_icgl section 3 text: duration of word-initial stressed CV fricatives, Athenian Greek, 2 F + 2 M pooled (the male-only means are given only per place, voicing pooled); the paper's author order and year are uncertain in the extraction; voiceless palatal 121.02 ms vs voiced 87.92 ms." } }
 
 [sound."U+00E7".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0283", measure = "peak_hz", sign = 1 }]
 
 [sound."U+00E7".realization.openevv]
 # the German module has ç as a phone of its own (ich-Laut)
@@ -754,15 +903,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "palatal", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X3", "X4"], builds = [] }
 
 [sound."U+029D".spec]
+duration = { inherent_ms = { v = 88, tag = "literature", ref = "nirgianaki_icgl", note = "nirgianaki_icgl section 3 text: duration of word-initial stressed CV fricatives, Athenian Greek, 2 F + 2 M pooled (the male-only means are given only per place, voicing pooled); the paper's author order and year are uncertain in the extraction; voiced palatal 87.92 ms." } }
 
 [sound."U+029D".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+00E7", measure = "voiced_frac", sign = 1 }, { with = "U+00E7", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+029D.json"
 
 [sound."U+029D".realization.openevv]
 # a voiced palatal fricative: the module's ç voiced
@@ -777,15 +929,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "velar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X3"], builds = [] }
 
 [sound."U+0078".spec]
+noise = { peak_hz = { v = 2200, tag = "estimated", note = "No spectral peak in Hz for x was found in an opened source. Rests on the spectral mean (M1) of Spain Spanish x in CV contexts i / a / u, 2.00 / 3.05 / 1.50 kHz (redmon2018 Table III, 2 M + 2 F, band 0-11 kHz), mean 2.18 kHz; M1 is a mean, not a peak, and redmon2018 shows M1 falls when the uvula vibrates." } }
+duration = { inherent_ms = { v = 125, tag = "literature", ref = "nirgianaki_icgl", note = "nirgianaki_icgl section 3 text: duration of word-initial stressed CV fricatives, Athenian Greek, 2 F + 2 M pooled (the male-only means are given only per place, voicing pooled); the paper's author order and year are uncertain in the extraction; voiceless velar 125.21 ms vs voiced 85.48 ms." } }
 
 [sound."U+0078".tests]
 checks = ["T-fric"]
+proof = "ipa/proofs/U+0078.json"
 
 [sound."U+0263"]
 ipa = "ɣ"
@@ -795,15 +950,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "velar", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0263".spec]
+duration = { inherent_ms = { v = 85, tag = "literature", ref = "nirgianaki_icgl", note = "nirgianaki_icgl section 3 text: duration of word-initial stressed CV fricatives, Athenian Greek, 2 F + 2 M pooled (the male-only means are given only per place, voicing pooled); the paper's author order and year are uncertain in the extraction; voiced velar 85.48 ms." } }
 
 [sound."U+0263".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0078", measure = "voiced_frac", sign = 1 }, { with = "U+0078", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+0263.json"
 
 [sound."U+0263".realization.openevv]
 # a voiced velar fricative: the module's x voiced
@@ -818,15 +976,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "uvular", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+03C7".spec]
+noise = { peak_hz = { v = 1300, tag = "estimated", note = "Rests on the uvular spectral peaks quoted from Alwan 1986 in redmon2018 (Arabic, 4 M: /a/ context 1.1-1.5 kHz; /i/ 1.5-1.8, /u/ 0.7-1.0 kHz), a secondary quote whose original was not opened, and on the x~χ M1 next to /a/ of 0.74 kHz (Persian) and 1.60 kHz (Arabic) in redmon2018 Table III (mixed sex)." } }
 
 [sound."U+03C7".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0078", measure = "peak_hz", sign = -1 }, { with = "U+0078", measure = "edge_F1", sign = 1 }]
+proof = "ipa/proofs/U+03C7.json"
 
 [sound."U+0281"]
 ipa = "ʁ"
@@ -836,15 +997,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "uvular", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+0281".spec]
+noise = { peak_hz = { v = 1300, tag = "estimated", note = "Set equal to the χ estimate (1300 Hz): same place; no value at all was found for ʁ (R2 gaps)." } }
 
 [sound."U+0281".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+03C7", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+0281.json"
 
 [sound."U+0127"]
 ipa = "ħ"
@@ -854,15 +1018,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "pharyngeal", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2"], builds = [] }
 
 [sound."U+0127".spec]
+locus = { F2 = { v = 1598, tag = "literature", ref = "karaoui2021", note = "karaoui2021 Table 3: formants of /a/ next to ħ (measurement point within the vowel not stated in the research notes), Moroccan Arabic, 1 M; SD 241.87. [RECONSTRUCTED TABLE: karaoui2021 Table 3: the pharyngeal symbols are printed in a font mapping (ħ as è, ʕ as Q) and the reference F2 is misprinted 11573.43]" }, F3 = { v = 2474, tag = "literature", ref = "karaoui2021", note = "karaoui2021 Table 3: formants of /a/ next to ħ (measurement point within the vowel not stated in the research notes), Moroccan Arabic, 1 M; SD 181.6. [RECONSTRUCTED TABLE: karaoui2021 Table 3: the pharyngeal symbols are printed in a font mapping (ħ as è, ʕ as Q) and the reference F2 is misprinted 11573.43]" } }
+duration = { inherent_ms = { v = 105, tag = "literature", ref = "djeradi1991", note = "section 5.2 text: consonantal phase (V1 formant offset to V2 formant onset) pooled over ħ, ʕ and h in short-vowel contexts (125 ms in long-vowel contexts), Algerian Arabic, 1 M, 13 repetitions; per-consonant values are only in an image table." } }
 
 [sound."U+0127".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0068", measure = "edge_F1", sign = 1 }]
+proof = "ipa/proofs/U+0127.json"
 
 [sound."U+0127".realization.openevv]
 # h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
@@ -877,15 +1045,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "pharyngeal", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X4"], builds = ["C6?"] }
 
 [sound."U+0295".spec]
+locus = { F2 = { v = 1706, tag = "literature", ref = "karaoui2021", note = "karaoui2021 Table 3: formants of /a/ next to ʕ (measurement point within the vowel not stated in the research notes), Moroccan Arabic, 1 M; SD 159.46. [RECONSTRUCTED TABLE: karaoui2021 Table 3: the pharyngeal symbols are printed in a font mapping (ħ as è, ʕ as Q) and the reference F2 is misprinted 11573.43]" }, F3 = { v = 2540, tag = "literature", ref = "karaoui2021", note = "karaoui2021 Table 3: formants of /a/ next to ʕ (measurement point within the vowel not stated in the research notes), Moroccan Arabic, 1 M; SD 66.43. [RECONSTRUCTED TABLE: karaoui2021 Table 3: the pharyngeal symbols are printed in a font mapping (ħ as è, ʕ as Q) and the reference F2 is misprinted 11573.43]" } }
+duration = { inherent_ms = { v = 105, tag = "literature", ref = "djeradi1991", note = "section 5.2 text: consonantal phase pooled over ħ, ʕ and h (short-vowel contexts), Algerian Arabic, 1 M." } }
 
 [sound."U+0295".tests]
 checks = ["T-approx", "T-contrast"]
+contrast = [{ with = "U+0127", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+0295.json"
 
 [sound."U+0295".realization.openevv]
 # h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
@@ -900,15 +1072,17 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "glottal", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X5"], builds = [] }
 
 [sound."U+0068".spec]
+duration = { inherent_ms = { v = 102.5, tag = "derived", rule = "mean of the two male speakers' h durations in chowbabel2024 Table 1: (86 + 119) / 2", note = "Gitksan; the female speaker 82 ms. Welsh word-initial h 148 ms (baran2024, 3 M + 3 F); pooled ħ ʕ h phase 105 ms (djeradi1991, 1 M)." } }
 
 [sound."U+0068".tests]
 checks = ["T-fric"]
+proof = "ipa/proofs/U+0068.json"
 
 [sound."U+0068".realization.openevv]
 # h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
@@ -923,15 +1097,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "glottal", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X5", "X4"], builds = ["C6?"] }
 
 [sound."U+0266".spec]
+duration = { inherent_ms = { v = 102.5, tag = "estimated", note = "Set equal to the h value (derived from chowbabel2024, 2 M): no ɦ duration was found." } }
 
 [sound."U+0266".tests]
 checks = ["T-phonation", "T-contrast"]
+contrast = [{ with = "U+0068", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+0266.json"
 
 [sound."U+0266".realization.openevv]
 # h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
@@ -946,15 +1123,20 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", lateral = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X3", "X7"], builds = [] }
 
 [sound."U+026C".spec]
+noise = { peak_hz = { v = 2655, tag = "literature", ref = "chong2022", note = "section 3.1 text: spectral peak, Francoprovençal (Nendaz), 1 F + 3 M, elderly, band-passed 550-10000 Hz; the peak lies below 5.5 kHz; LTAS peak about 2500-2700 Hz (Fig. 5). The authors judge this ɬ to lie between a fricative and an approximant." } }
+locus = { F2 = { v = 1437, tag = "literature", ref = "chong2022", note = "Table 6: F2 at the onset of the following vowel, SD 118, 1 F + 3 M." }, F3 = { v = 2699, tag = "literature", ref = "chong2022", note = "Table 6: F3 at the onset of the following vowel, SD 135." } }
+duration = { inherent_ms = { v = 177.5, tag = "derived", rule = "mean of the two male speakers' ɬ durations in chowbabel2024 Table 1: (141 + 214) / 2", note = "Gitksan; the female 148 ms. Welsh word-initial 195 ms total, friction 157 ms + aspiration 30 ms (baran2024, 3 M + 3 F)." } }
 
 [sound."U+026C".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0073", measure = "peak_hz", sign = -1 }, { with = "U+006C", measure = "voiced_frac", sign = -1 }]
+proof = "ipa/proofs/U+026C.json"
 
 [sound."U+026C".realization.openevv]
 # a voiceless lateral fricative: the module's s with its noise peak moved
@@ -968,15 +1150,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiced", airstream = "pulmonic", lateral = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X3"], builds = [] }
 
 [sound."U+026E".spec]
+noise = { peak_hz = { v = 2655, tag = "estimated", note = "Set equal to the ɬ peak (2655 Hz, chong2022): same constriction; no ɮ value was found (Zulu and Navajo sources not opened)." } }
 
 [sound."U+026E".tests]
 checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+026C", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+026E.json"
 
 [sound."U+026E".realization.openevv]
 # a voiced lateral fricative: the module's z with its noise peak moved
@@ -990,15 +1175,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "labiodental", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X3"], builds = [] }
 
 [sound."U+028B".spec]
+formants = { F2 = { v = 1381, tag = "literature", ref = "colombo_2015", note = "Table 8: mean F2 of onset <w>, Dutch, 19 speakers (7 M, 12 F), read text, 95 % CI 1244-1514 Hz (SD column alignment uncertain); coda 1209 Hz." } }
+duration = { inherent_ms = { v = 55, tag = "literature", ref = "colombo_2015", note = "Tables 5-6: onset <w> (V#wV), model estimate, 95 % CI 49-61 ms, 7 M + 12 F; coda 8 ms longer." } }
 
 [sound."U+028B".tests]
 checks = ["T-approx", "T-contrast"]
+contrast = [{ with = "U+0076", measure = "centroid_hz", sign = -1 }, { with = "U+0077", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+028B.json"
 
 [sound."U+0279"]
 ipa = "ɹ"
@@ -1008,15 +1197,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds = [] }
 
 [sound."U+0279".spec]
+formants = { F1 = { v = 419, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F3 minimum" }, F2 = { v = 1285, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F3 minimum" }, F3 = { v = 1779, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F3 minimum; F3 - F2 = 493 Hz" }, F4 = { v = 3350, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F3 minimum" } }
 
 [sound."U+0279".tests]
 checks = ["T-approx"]
+contrast = [{ with = "U+006C", measure = "F3_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0279.json"
 
 [sound."U+0279".realization.openevv]
 # an alveolar approximant: the module's only central sonorant with a low F3 (its uvular approximant, F3 2100 Hz) is the nearest to move from
@@ -1030,15 +1222,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "retroflex", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = [] }
 
 [sound."U+027B".spec]
+formants = { F1 = { v = 450, tag = "literature", ref = "narayanan_byrd_kaun_1999", note = "Table III, observed: Tamil \"zh\", sustained /paC/, 1 M (Brahmin dialect); no peaks above 3000 Hz apart from F4." }, F2 = { v = 1500, tag = "literature", ref = "narayanan_byrd_kaun_1999", note = "Table III, observed, Tamil, 1 M." }, F3 = { v = 1850, tag = "literature", ref = "narayanan_byrd_kaun_1999", note = "Table III, observed, Tamil, 1 M." }, F4 = { v = 3025, tag = "literature", ref = "narayanan_byrd_kaun_1999", note = "Table III, observed, Tamil, 1 M." } }
 
 [sound."U+027B".tests]
 checks = ["T-approx", "T-contrast"]
+contrast = [{ with = "U+0279", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+027B.json"
 
 [sound."U+027B".realization.openevv]
 # as ɹ
@@ -1052,15 +1247,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "palatal", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+006A".spec]
+formants = { F1 = { v = 317, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F2 maximum" }, F2 = { v = 2142, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F2 maximum" }, F3 = { v = 2827, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F2 maximum" }, F4 = { v = 3661, tag = "literature", ref = "espy_wilson_1992", note = "espy_wilson_1992 Table VI, p. 747, prevocalic, American English, 2 M + 2 F averaged (so above a male-only mean), no spread given, measured at the F2 maximum" } }
+duration = { inherent_ms = { v = 74, tag = "literature", ref = "rost_2017", note = "Table 4: palatal approximant allophone of Spanish /ʝ/, 74.44 ms (SD 22.81), 3 M; transitions about 26 ms." } }
 
 [sound."U+006A".tests]
 checks = ["T-approx"]
+proof = "ipa/proofs/U+006A.json"
 
 [sound."U+0270"]
 ipa = "ɰ"
@@ -1070,15 +1268,21 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "velar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = [] }
 
 [sound."U+0270".spec]
+formants = { F1 = { v = 350, tag = "estimated", note = "No ɰ value was found. Set between the measured j (317 Hz) and w (381 Hz) of espy_wilson_1992: a close approximant constriction." }, F2 = { v = 1300, tag = "estimated", note = "Rests on w (848 Hz, espy_wilson_1992), the rounded velar approximant, raised because ɰ has no lip rounding (plain acoustics), and kept well below j (2142 Hz)." }, F3 = { v = 2400, tag = "estimated", note = "Set between w (2320 Hz) and j (2827 Hz) of espy_wilson_1992." } }
 
 [sound."U+0270".tests]
 checks = ["T-approx", "T-contrast"]
+contrast = [{ with = "U+006A", measure = "F2_50_hz", sign = -1 }, { with = "U+0077", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0270.json"
+
+[sound."U+0270".realization.openevv]
+trim.dedx = [{ key = "f1", v = 127.5, scale = true, tag = "measured", proof = "ipa/proofs/U+0270.json" }, { key = "f2", v = 94.1, scale = true, tag = "measured", proof = "ipa/proofs/U+0270.json" }]
 
 [sound."U+006C"]
 ipa = "l"
@@ -1088,15 +1292,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "alveolar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", lateral = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+006C".spec]
+formants = { F1 = { v = 369, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Tables 14, 19, 23, lamino-alveolar lateral: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 40" }, F2 = { v = 1698, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Tables 14, 19, 23: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 253" }, F3 = { v = 2556, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Tables 14, 19, 23: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 257" } }
+duration = { inherent_ms = { v = 50, tag = "literature", ref = "punnoose_2010", note = "Table 21: 50.39 ms (SD 10.19), Malayalam, 8 M, word-medial." } }
 
 [sound."U+006C".tests]
 checks = ["T-approx"]
+proof = "ipa/proofs/U+006C.json"
 
 [sound."U+026D"]
 ipa = "ɭ"
@@ -1106,15 +1313,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "retroflex", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", lateral = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = [] }
 
 [sound."U+026D".spec]
+formants = { F1 = { v = 436, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Tables 14, 23, sub-apical retroflex lateral: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 78" }, F2 = { v = 1309, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Tables 14, 23: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 219" }, F3 = { v = 2356, tag = "literature", ref = "punnoose_2010", note = "punnoose_2010 Tables 14, 23: Malayalam, 8 M, word lists in a carrier phrase, consonant midpoint; SD 259" } }
+duration = { inherent_ms = { v = 41, tag = "literature", ref = "punnoose_2010", note = "Table 21: 40.83 ms (SD 12.29), Malayalam, 8 M." } }
 
 [sound."U+026D".tests]
 checks = ["T-approx", "T-contrast"]
+contrast = [{ with = "U+006C", measure = "F3_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+026D.json"
 
 [sound."U+028E"]
 ipa = "ʎ"
@@ -1124,15 +1335,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "palatal", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", lateral = true }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds = [] }
 
 [sound."U+028E".spec]
+formants = { F1 = { v = 351, tag = "literature", ref = "rost_2009", note = "Tabla 3: /ʎ/ in palatal context, Castilian Spanish, 1 M. [RECONSTRUCTED TABLE: rost_2009 Tables 2-3, the SDs are garbled in the extraction]" }, F2 = { v = 1981, tag = "literature", ref = "rost_2009", note = "Tabla 3, Castilian Spanish, 1 M. [RECONSTRUCTED TABLE: rost_2009 Tables 2-3]" }, F3 = { v = 2878, tag = "literature", ref = "rost_2009", note = "Tabla 3, Castilian Spanish, 1 M. [RECONSTRUCTED TABLE: rost_2009 Tables 2-3]" } }
+duration = { inherent_ms = { v = 85, tag = "literature", ref = "rost_2009", note = "Tabla 2: 84.72 ms (SD 25.96, n 180), 1 M; transitions 29.5 ms. [RECONSTRUCTED TABLE: rost_2009 Tables 2-3]" } }
 
 [sound."U+028E".tests]
 checks = ["T-approx", "T-contrast"]
+contrast = [{ with = "U+006C", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+028E.json"
 
 [sound."U+028E".realization.openevv]
 # a palatal lateral: the module's lateral, its F2 raised (a lateral, not the glide j)
@@ -1146,15 +1361,18 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "velar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", lateral = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = [] }
 
 [sound."U+029F".spec]
+formants = { F1 = { v = 440, tag = "estimated", note = "No voiced velar lateral approximant was measured. Rests on the overall lateral F1 of Kuman /ʟ/, about 438.6 Hz (SD 156.8), steed_hardie_2004 Table 1, 1 M, a table misaligned in the extraction (the research says use only with caution)." }, F2 = { v = 1350, tag = "estimated", note = "Rests on the same misaligned steed_hardie_2004 Table 1 (overall lateral F2 about 1349.3 Hz, SD 490.8); also below the clear l (1698 Hz, punnoose_2010) as velar contact backs the tongue body (cf. dark l F2 800-1300 Hz, recasens_2011)." }, F3 = { v = 2500, tag = "estimated", note = "Rests on the F3 of about 2.5 kHz, relatively stable, of the voiceless velar lateral fricative allophone of Kuman /ʟ/ (steed_hardie_2004 sections 3.2, 5, 6; 1 M)." } }
 
 [sound."U+029F".tests]
 checks = ["T-approx", "T-contrast"]
+contrast = [{ with = "U+006C", measure = "F2_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+029F.json"
 
 [sound."U+029F".realization.openevv]
 # a velar lateral: the module's lateral, its F2 lowered

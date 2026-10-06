@@ -63,7 +63,8 @@ def recipe(t, sid, template):
         for cls, tr in (e.get('transform') or {}).items():
             import adapter as AD
             o, _ = AD.mod_ops(t, sid, cls)
-            ops.append('%s:%s' % (cls[0], ','.join('%s%s%g' % op for op in (o or []))))
+            ops.append('%s:%s' % (cls[0], ','.join(('%s~%g:%g' % (op[0], op[2][0], op[2][1])) if op[1] == '~'
+                                                   else '%s%s%g' % op for op in (o or []))))
         return 'mod ' + ' '.join(ops) if ops else 'no transform'
     if e['kind'] == 'tone':
         if e.get('levels'):

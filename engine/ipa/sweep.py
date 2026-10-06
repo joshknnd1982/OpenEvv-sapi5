@@ -115,19 +115,60 @@ def ph_is_schwa(ph):
     return ph['name'] == '@' and ph.get('sound') in (None, '-')
 
 
-def measure(r, p, case_id):
+def measure(r, p, case_id, man=None, layer=None):
     """The case measured: the harness's per-phone measures, the target and its neighbours, and the
     measures of DESIGN.md 10.2 that the class needs."""
     m = G.measure_case(r, p.phone_module)
     x, rate = E.read_wav(r['wav'])
     phones = m['phones']
     idx, before, after = target_phones(phones, case_id, None)
+    if layer and layer.get('name') and case_id != 'alone' and len(idx) >= 2:
+        # A sound the accent layer makes out of the start of the vowel after it (`<h', `<q') is
+        # inside that vowel's phone: it is the stretch from the vowel's start while the frames
+        # are its own (no voice, or, voiced, breath on the voice), at most the time it was given.
+        v = phones[idx[1]]
+        tt = E.frame_times(r['frames'])
+        fr = r['frames']
+        k = [i for i in range(len(tt)) if v['start_ms'] <= tt[i] < v['end_ms']]
+        n = 0
+        for i in k:
+            av, ah = fr[i, E.P['av']], fr[i, E.P['ah']]
+            mine = av == 0 or (layer.get('voi') and ah > 0)
+            if not mine or tt[i] - v['start_ms'] >= layer['ms'] + 10:
+                break
+            n += 1
+        made_end = v['start_ms'] + sum(fr[i, 0] for i in k[:n])
+        made = dict(name=layer['name'], sound=v.get('sound'), cls='made', start_ms=v['start_ms'], end_ms=made_end,
+                    meas=dict(A.phone_metrics(x, rate, dict(start_ms=v['start_ms'], end_ms=max(made_end, v['start_ms'] + 5)),
+                                              'fricative')),
+                    req=A.requested(r['frames'], tt, dict(start_ms=v['start_ms'], end_ms=max(made_end, v['start_ms'] + 5))))
+        made['meas'] = {a: b for a, b in made['meas'].items() if not isinstance(b, list)}
+        phones = phones[:idx[1]] + [made, dict(v, start_ms=made_end)] + phones[idx[1] + 1:]
+        m = dict(m, phones=phones)
+        idx, before, after = [idx[1]], idx[0], idx[1] + 1
     tgt = [phones[i] for i in idx]
     out = dict(phones=[dict(name=ph['name'], sound=ph.get('sound'), cls=ph['cls'], start_ms=ph['start_ms'],
                             end_ms=ph['end_ms'], meas=ph.get('meas'), req={k: v for k, v in (ph.get('req') or {}).items()
                                                                            if not isinstance(v, list)})
                        for ph in phones],
                target=idx, before=before, after=after, gold=m)
+    if tgt and man in ('approximant', 'trill', 'tap', 'nasal'):
+        for ph in tgt:
+            me = ph.setdefault('meas', {}) if ph.get('meas') is not None else ph.setdefault('meas', {})
+            if me.get('F1_50_hz') is None and ph['end_ms'] - ph['start_ms'] >= 20:
+                fs = A.formants(x, rate, (ph['start_ms'] + ph['end_ms']) / 2.0)
+                for i in range(3):
+                    me['F%d_50_hz' % (i + 1)] = fs[i][0] if len(fs) > i else None
+    if tgt and man == 'fricative':
+        # the noise peak above the voice: a voiced fricative's own spectrum below 800 Hz is the
+        # voice's (it read 601 Hz for every one); the literature's peaks are of the noise
+        for ph in tgt:
+            a_, b_ = ph['start_ms'], ph['end_ms']
+            sm = A.spectrum_moments(x, rate, a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_),
+                                    fmin=max(800.0, 0.6 * (layer or {}).get('peak_target', 0)))
+            if sm:
+                ph.setdefault('meas', {})['peak_hz'] = sm['peak_hz']
+                ph['meas']['centroid_hz'] = sm['centroid_hz']
     if tgt:
         a, b = tgt[0]['start_ms'], tgt[-1]['end_ms']
         ex = dict(span_ms=[a, b])
@@ -149,13 +190,16 @@ def measure(r, p, case_id):
                 ex['a1_p0_db'] = A.a1_p0(x, rate, mid, f1)
         ex['schwa_ms'] = sum(ph['end_ms'] - ph['start_ms'] for ph in tgt if ph['name'] == '@')
         out['extra'] = ex
+    # the vowels' formants at the consonant's edges, 12 ms from the boundary over 20 ms: where a
+    # locus shows; at 20 per cent into the vowel the transition is mostly over
     edges = {}
-    if before is not None:
+    for which, i, at in (('prev', before, -12.0), ('next', after, 12.0)):
+        if i is None or phones[i]['cls'] == 'silence' or phones[i]['end_ms'] - phones[i]['start_ms'] < 30:
+            continue
+        t_ = (phones[i]['end_ms'] if at < 0 else phones[i]['start_ms']) + at
+        fs = A.formants(x, rate, t_, win_ms=20.0)
         for k in (1, 2, 3):
-            edges['prev_F%d_80' % k] = (phones[before].get('meas') or {}).get('F%d_80_hz' % k)
-    if after is not None:
-        for k in (1, 2, 3):
-            edges['next_F%d_20' % k] = (phones[after].get('meas') or {}).get('F%d_20_hz' % k)
+            edges['%s_F%d_%s' % (which, k, '80' if at < 0 else '20')] = fs[k - 1][0] if len(fs) >= k else None
     out['edges'] = edges
     return out
 
@@ -187,10 +231,12 @@ def summary(cases, man):
 
     s = {}
     for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'F3_min_hz', 'peak_hz', 'centroid_hz', 'vot_ms', 'closure_ms',
-              'murmur_F1_hz', 'antiformant_hz', 'intensity_db'):
+              'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz'):
         v = vals(tmeas(k))
         if v is not None:
             s[k] = round(v, 1)
+    if s.get('f0_50_hz'):
+        s['f0_hz'] = s['f0_50_hz']
     s['duration_ms'] = vals(lambda c: (c['phones'][c['target'][-1]]['end_ms'] - c['phones'][c['target'][0]]['start_ms'])
                             if c['target'] else None)
     for k in (1, 2, 3):
@@ -235,6 +281,10 @@ def check_a1(cases, man):
             bad.append('%s: nothing sounded' % cid)
             continue
         ts = [c['phones'][i] for i in c['target']]
+        if all(ph['cls'] == 'made' for ph in ts):
+            if not any(ph['end_ms'] > ph['start_ms'] for ph in ts):
+                bad.append('%s: the made sound has no frame of its own' % cid)
+            continue
         if man in ('stop', 'click') or all(ph['cls'] == 'stop' for ph in ts):
             if not any((ph.get('meas') or {}).get('burst_ms') is not None or (ph.get('meas') or {}).get('closure_ms')
                        for ph in ts) and cid != 'alone':
@@ -252,7 +302,8 @@ def check_b3(e, s):
     v = lambda x: x['v'] if isinstance(x, dict) else x  # noqa: E731
     want = {}
     for k, x in (spec.get('formants') or {}).items():
-        want[k] = ('%s_50_hz' % k, v(x))
+        if k != 'F4':   # realised, but the harness measures F1 to F3 only
+            want[k] = ('%s_50_hz' % k, v(x))
     if 'vot_ms' in spec:
         want['vot_ms'] = ('vot_ms', v(spec['vot_ms']))
     if 'peak_hz' in (spec.get('noise') or {}):
@@ -272,7 +323,12 @@ def check_b3(e, s):
                                            within=got is not None and abs(got - w) <= 0.4 * w)
     for k, (mk, w) in want.items():
         got = s.get(mk)
-        out[k] = dict(target=w, measured=got, within=PR.within(k if k != 'peak_hz' else 'peak', got, w))
+        ok = PR.within(k if k != 'peak_hz' else 'peak', got, w)
+        if k == 'F1' and got is not None:
+            # a low F1 sits among the voice's harmonics, where the tracker is known to err (D15):
+            # the tolerance check A uses for F1, the larger of 8 per cent and 0.75 F0
+            ok = abs(got - w) <= max(0.08 * w, 0.75 * s.get('f0_hz', 110.0))
+        out[k] = dict(target=w, measured=got, within=ok)
     if dur is not None:
         # a length is set as a share of the carrier's and the module's rhythm moves it by context:
         # within a quarter
@@ -283,10 +339,51 @@ def check_b3(e, s):
     return dict(passed=bool(spec) and all(o['within'] for o in out.values()), targets=out, empty=not spec)
 
 
-def contrast_ok(measure, mine, theirs, sign):
+SPEC_OF = {'peak_hz': ('noise', 'peak_hz'), 'centroid_hz': ('noise', 'peak_hz'), 'vot_ms': ('vot_ms',),
+           'duration_ms': ('duration', 'inherent_ms'), 'mod_rate_hz': ('trill', 'rate_hz')}
+for _k in (1, 2, 3):
+    SPEC_OF['F%d_50_hz' % _k] = ('formants', 'F%d' % _k)
+    SPEC_OF['edge_F%d' % _k] = ('locus', 'F%d' % _k)
+
+
+def _spec_value(t, sid, path):
+    node = t.sounds[sid].get('spec') or {}
+    for k in path:
+        node = node.get(k) if isinstance(node, dict) else None
+        if node is None:
+            return None
+    return node['v'] if isinstance(node, dict) else node
+
+
+def specified(t, sid, c):
+    """True when the two entries' specifications set this measure apart in the stated direction
+    (by the contrast minimum), so that the engine must show it; otherwise why it is only reported.
+    Voicing is a feature, always specified."""
+    if c['measure'] == 'voiced_frac':
+        return True
+    path = SPEC_OF.get(c['measure'])
+    if path is None:
+        return 'no specification field for %s' % c['measure']
+    mine, theirs = _spec_value(t, sid, path), _spec_value(t, c['with'], path)
+    if mine is None or theirs is None:
+        return 'reported only: %s has no %s in its specification' % (
+            t.sounds[sid if mine is None else c['with']]['ipa'], '.'.join(path))
+    ok, _ = contrast_ok(c['measure'], mine, theirs, c['sign'])
+    return True if ok else 'reported only: the specifications differ by less than the contrast minimum (%s, %s)' % (
+        mine, theirs)
+
+
+def contrast_ok(measure, mine, theirs, sign, same_base=False):
     if mine is None or theirs is None:
         return False, None
     d = mine - theirs
+    if measure == 'voiced_frac':
+        # a share of the frames: a fifth of the sound voiced or not is the least that counts
+        return (d * sign >= 0.2), round(d, 2)
+    if same_base and not (measure.endswith('_ms') or measure.endswith('_db') or measure.startswith('mod_dips')):
+        # a mark against its own base in the same context: the context's variation cancels, so
+        # a smaller move is real (1.5 per cent, at least 15 Hz)
+        return (d * sign >= max(0.015 * abs(theirs), 15.0)), round(d, 1)
     if measure.endswith('_ms') or measure in ('duration_ms',):
         need = CONTRAST_MIN['ms']
     elif measure.endswith('_db'):
@@ -306,9 +403,15 @@ def judge(t, sid, cases, diags, said_as):
     a0 = dict(passed=not losses and not said_as.get('substitute'), losses=losses[:20],
               substitute=said_as.get('substitute'))
     a1 = check_a1(cases, man)
-    a2 = RP.check_a(dict(cases={cid: c['gold'] for cid, c in cases.items()}), E.pack(said_as['pack']).phone_module)
-    a2 = {k: a2[k] for k in ('passed', 'a1_phones', 'a1_silent', 'a2_checks', 'a2_ok', 'a2_rate', 'substituted',
-                             'problems')}
+    # A2 on the phones under test: the vowels around a consonant are the context, not the sound
+    # (a cardinal [i]'s F1, 217 Hz, sits on the voice's second harmonic, where the tracker fails, D15)
+    a2 = RP.check_a(dict(cases={cid: dict(c['gold'], phones=[c['gold']['phones'][i] for i in c['target']
+                                                              if i < len(c['gold']['phones'])])
+                                for cid, c in cases.items()}), E.pack(said_as['pack']).phone_module)
+    if a2['a1_phones'] == 0 and not a2['substituted']:
+        a2 = dict(a2, passed=True, note='nothing check A measures in the sound under test (a stop, a made sound)')
+    a2 = {k: a2[k] for k in ('passed', 'note', 'a1_phones', 'a1_silent', 'a2_checks', 'a2_ok', 'a2_rate', 'substituted',
+                             'problems') if k in a2}
     if e['kind'] == 'base':
         b3 = check_b3(e, s)
     elif e['kind'] == 'modifier':
@@ -317,7 +420,7 @@ def judge(t, sid, cases, diags, said_as):
         # every marked case must have been composed with the mark, not said without it
         marked = [c for cid, c in cases.items() if '_marked_' in cid]
         unc = [cid for cid, c in cases.items() if '_marked_' in cid and not any(
-            d['kind'] == 'composed' or d['kind'] == 'tone-made' for d in c['diag'])]
+            d['kind'] == 'composed' or d['kind'] == 'tone-made' for d in c['diag'] + c.get('fe_diag', []))]
         if unc and marked:
             a0 = dict(a0, passed=False, not_composed=unc[:6])
     else:
@@ -341,7 +444,7 @@ def check_shift(t, sid, cases):
             m = sh['measure']
             if sp.get(m) is None and sm.get(m) is None:
                 continue
-            ok, d = contrast_ok(m, sm.get(m), sp.get(m), sh['sign']) if m != 'burst_found' else (
+            ok, d = contrast_ok(m, sm.get(m), sp.get(m), sh['sign'], same_base=True) if m != 'burst_found' else (
                 (sm.get(m) is not None and sp.get(m) is not None and (sm[m] - sp[m]) * sh['sign'] >= 1),
                 None if sm.get(m) is None or sp.get(m) is None else sm[m] - sp[m])
             targets['%s %s' % (t.sounds[base]['ipa'], m)] = dict(target='%+d' % sh['sign'], measured=d, within=ok,
@@ -380,7 +483,16 @@ def say_entry(t, sid, template, pack):
     said_as = dict(pack=pack, carrier=r['carrier'] if r else None, keys=r['keys'] if r else None,
                    distance=r['distance'] if r else None,
                    substitute=('%s is said as the module phone %s, %s feature steps away, unmoved' % (
-                       e['ipa'], r['carrier'], r['distance'])) if r and r['distance'] and not r['keys'] else None)
+                       e['ipa'], r['carrier'], r['distance'])) if r and r['distance'] and not r['keys'] else None,
+                   peak_key=r.get('peak_key') if r else None)
+    layer = None
+    if r and r['carrier'].startswith('<'):
+        layer = dict(name=r['carrier'], ms=r['keys'].get('ms', 60), voi=r['keys'].get('voi') == 1)
+    pk = ((e.get('spec') or {}).get('noise') or {}).get('peak_hz')
+    if pk is not None:
+        # the band a noise peak is looked for in starts at 60 per cent of its target: below it
+        # are the voice's own formants, which a voiced fricative's spectrum is full of
+        layer = dict(layer or {}, peak_target=pk['v'] if isinstance(pk, dict) else pk)
     inputs, diags = [], []
     for cid, text in contexts(t, sid):
         rc, out, d = CT.say_ipa(p, map_path, text)
@@ -393,8 +505,8 @@ def say_entry(t, sid, template, pack):
     cases = {}
     for (cid, text, out, d), r_ in zip(inputs, rend):
         diags += r_['diag'][len(d):] if r_['diag'][:len(d)] == d else r_['diag']
-        c = measure(r_, p, cid)
-        c.update(ipa=text, said=out, diag=r_['diag'], wav_sha256=r_['wav_sha256'])
+        c = measure(r_, p, cid, manner(e) if e['kind'] == 'base' else None, layer)
+        c.update(ipa=text, said=out, diag=r_['diag'], fe_diag=d, wav_sha256=r_['wav_sha256'])
         cases[cid] = c
     verdict = judge(t, sid, cases, diags, said_as)
     return dict(id=sid, ipa=e['ipa'], name=e['name'], template=template, pack=pack, staged=E.STAGE or None,
@@ -406,6 +518,7 @@ def say_entry(t, sid, template, pack):
 # and the entry said again, at most five rounds. A correction is a `trim' for this template only:
 # the specification is never touched (DESIGN.md 5).
 ROUNDS = 5
+ABS_KEYS = ('vot', 'trate', 'tapms')     # corrected as values; every other key as a ratio
 TRIM_KEYS = {'F1': ['f1'], 'F2': ['f2'], 'F3': ['f3'], 'peak_hz': ['f2', 'f3', 'f4']}
 
 
@@ -414,11 +527,32 @@ def corrections(res, trims):
     when nothing can be corrected this way."""
     out, any_ = dict(trims), False
     for k, tg in res['B3']['targets'].items():
+        if k == 'vot_ms' and not tg['within'] and tg['measured'] is not None:
+            # the voice onset: the key moved by what was missed (it has a floor, the module's own
+            # onset in that context: D47, Q13; a key below nought is not asked for)
+            cur = out.get('vot', (res['said_as']['keys'] or {}).get('vot', tg['target']))
+            nxt = cur + (tg['target'] - tg['measured'])
+            if nxt >= 0:
+                out['vot'] = nxt
+                any_ = True
+            continue
         if tg['within'] or not tg['measured'] or k not in TRIM_KEYS:
             continue
-        f = tg['target'] / tg['measured']
-        for key in TRIM_KEYS[k]:
+        f = (tg['target'] / tg['measured']) ** 0.7   # damped: a measure that jumps must not flip the key
+        for key in ([res['said_as'].get('peak_key')] if k == 'peak_hz' and res['said_as'].get('peak_key')
+                    else TRIM_KEYS[k]):
             out[key] = out.get(key, 100.0) * f
+        any_ = True
+    for k, key in (('trill_rate_hz', 'trate'), ('tap_closed_ms', 'tapms'), ('trill_closed_ms', 'tapms')):
+        tg = res['B3']['targets'].get(k)
+        if tg and not tg['within'] and tg['measured']:
+            cur = out.get(key, (res['said_as']['keys'] or {}).get(key, tg['target']))
+            out[key] = max(1.0, cur * (tg['target'] / tg['measured']) ** 0.7)
+            any_ = True
+    tg = res['B3']['targets'].get('trill_rate_hz')
+    if tg and not tg['within'] and tg['measured'] is None:
+        # fewer than two closures: the sound is too short to trill at its rate; lengthen it
+        out['hold'] = out.get('hold', 100.0) * 1.3
         any_ = True
     return out if any_ else None
 
@@ -426,14 +560,14 @@ def corrections(res, trims):
 def with_trims(t, sid, template, trims):
     e = t.sounds[sid]
     ov = e.setdefault('realization', {}).setdefault('openevv', {})
-    ov.setdefault('trim', {})[template] = [dict(key=k, v=round(v, 1), scale=True, tag='measured',
+    ov.setdefault('trim', {})[template] = [dict(key=k, v=round(v, 1), scale=k not in ABS_KEYS, tag='measured',
                                                 proof='ipa/proofs/%s.json' % sid) for k, v in sorted(trims.items())]
 
 
 def prove_entry(t, sid, template, pack, rounds=ROUNDS):
     """Say an entry; while a specification target is missed, correct and say it again."""
     old = ((t.sounds[sid].get('realization') or {}).get('openevv') or {}).get('trim', {}).get(template)
-    trims = {tr['key']: tr['v'] for tr in old or [] if tr.get('scale')}
+    trims = {tr['key']: tr['v'] for tr in old or []}
     history = []
     res = say_entry(t, sid, template, pack)
     while True:
@@ -478,8 +612,10 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
                 other = json.load(open(path, encoding='utf-8')) if os.path.exists(path) else None
             theirs = (other or {}).get('summary', {}).get(c['measure'])
             ok, d = contrast_ok(c['measure'], res['summary'].get(c['measure']), theirs, c['sign'])
-            b2.append(dict(c, mine=res['summary'].get(c['measure']), theirs=theirs, difference=d, holds=ok))
-        res['B2'] = dict(passed=all(x['holds'] for x in b2), contrasts=b2)
+            why = specified(t, sid, c)
+            b2.append(dict(c, mine=res['summary'].get(c['measure']), theirs=theirs, difference=d, holds=ok,
+                           required=why is True, basis=why if why is not True else 'the specifications differ so'))
+        res['B2'] = dict(passed=all(x['holds'] for x in b2 if x['required']), contrasts=b2)
         res['passed'] = all(res[k]['passed'] for k in ('A0', 'A1', 'A2', 'B3', 'B2'))
     os.makedirs(PROOFS, exist_ok=True)
     for sid, res in results.items():
@@ -506,7 +642,8 @@ def save_trims(t, results, template):
         with open(path, encoding='utf-8') as f:
             text = f.read()
         line = 'trim.%s = [%s]' % (template, ', '.join(
-            '{ key = "%s", v = %s, scale = true, tag = "measured", proof = "ipa/proofs/%s.json" }' % (k, v, sid)
+            '{ key = "%s", v = %s, scale = %s, tag = "measured", proof = "ipa/proofs/%s.json" }' % (
+                k, v, 'false' if k in ABS_KEYS else 'true', sid)
             for k, v in sorted(res['trims'].items())))
         head = '[sound."%s".realization.openevv]' % sid
         if head in text:
@@ -541,8 +678,9 @@ def apply_states(t, results):
         for sid, state in items:
             head = '[sound."%s"]' % sid
             a = text.index(head)
-            b = text.find('\n[sound."', a + len(head))
-            b = len(text) if b < 0 else b
+            # the entry ends where another entry begins, not at its own sub-tables ([sound."X".spec])
+            m = re.compile(r'\n\[sound\."(?!%s")' % re.escape(sid)).search(text, a + len(head))
+            b = m.start() if m else len(text)
             block = text[a:b]
             block = re.sub(r'(?m)^state = ".*"$', 'state = "%s"' % state, block, count=1)
             block = re.sub(r'(?m)^level = \d+$', 'level = 2', block, count=1)
@@ -577,7 +715,7 @@ def fmt(res):
         why.append('no specification')
     why += ['%s %s≠%s' % (k, v['measured'], v['target']) for k, v in res['B3']['targets'].items() if not v['within']]
     why += ['%s %s vs %s %s' % (c['measure'], c['mine'], c['with'], c['theirs']) for c in res['B2']['contrasts']
-            if not c['holds']]
+            if not c['holds'] and c['required']]
     return '%-8s %-3s %-4s %s  %s%s' % (res['id'], res['ipa'], 'PASS' if res['passed'] else 'fail', flags,
                                        ' '.join('%s=%s' % (k, round(s[k])) for k in keys),
                                        ('  [' + '; '.join(why) + ']') if why else '')

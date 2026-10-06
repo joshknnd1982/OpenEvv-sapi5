@@ -16,9 +16,11 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
 
 [sound."U+0298".spec]
+vot_ms = { v = 26, tag = "estimated", note = "No burst or VOT duration for ʘ was found. miller_nuu2007 Fig. 7 groups ʘ with the noisy releases ǀ and ǁ, and miller_shah2009 (Mangetti Dune !Xung, 2 M + 2 F) found the bursts of ǀ and ǁ longer, slower to rise and weaker than those of ǃ and ǂ (sections 3.1.1-3.1.3; numbers only in figures); set equal to the measured ǁ value (25.9 ms, derived from mo_sands2000)." }
 
 [sound."U+0298".tests]
 checks = ["T-click", "T-contrast"]
+contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }]
 
 [sound."U+01C0"]
 ipa = "ǀ"
@@ -34,9 +36,11 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
 
 [sound."U+01C0".spec]
+vot_ms = { v = 26, tag = "estimated", note = "miller_shah2009 (Mangetti Dune !Xung, 2 M + 2 F) found the bursts of ǀ and ǁ longer, slower to rise and weaker than those of ǃ and ǂ (sections 3.1.1-3.1.3; numbers only in figures); set equal to the measured ǁ value (25.9 ms, derived from mo_sands2000)." }
 
 [sound."U+01C0".tests]
 checks = ["T-click", "T-contrast"]
+contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }]
 
 [sound."U+01C3"]
 ipa = "ǃ"
@@ -52,6 +56,7 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10", "C12?"] }
 
 [sound."U+01C3".spec]
+vot_ms = { v = 13.1, tag = "derived", rule = "mean of the five ǃ means (burst onset to voice onset) in mo_sands2000 table (4): (11.21 + 15.06 + 13.32 + 11.2 + 14.82) / 5", note = "4 Ju|'hoansi speakers (3 F + 1 M) and 1 Mangetti Dune !Xung female; SDs 3.3-5.7. [RECONSTRUCTED TABLE: mo_sands2000 table (4): the column alignment is garbled, so the five means cannot be mapped to speakers]" }
 
 [sound."U+01C3".tests]
 checks = ["T-click", "T-contrast"]
@@ -70,9 +75,11 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10", "C12?"] }
 
 [sound."U+01C2".spec]
+vot_ms = { v = 13, tag = "estimated", note = "miller_shah2009 (Mangetti Dune !Xung, 2 M + 2 F) found the bursts of ǀ and ǁ longer, slower to rise and weaker than those of ǃ and ǂ (sections 3.1.1-3.1.3; numbers only in figures); ǂ is grouped with the abrupt ǃ, and its burst is about half as long as ǃ for some speakers and similar for others; set equal to the ǃ value (13.1 ms, derived from mo_sands2000)." }
 
 [sound."U+01C2".tests]
 checks = ["T-click", "T-contrast"]
+contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }]
 
 [sound."U+01C1"]
 ipa = "ǁ"
@@ -88,9 +95,11 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
 
 [sound."U+01C1".spec]
+vot_ms = { v = 25.9, tag = "derived", rule = "mean of the four Ju|'hoansi speakers' ǁ burst durations (burst onset to voice onset) in mo_sands2000 table (4): (22.8 + 24.6 + 28.7 + 27.4) / 4", note = "speakers DX, DK, KK, NC (3 F + 1 M), SDs 7-12 ms; the !Xung female SR probably 19.1 ms. [RECONSTRUCTED TABLE: mo_sands2000 table (4): the column alignment is garbled]" }
 
 [sound."U+01C1".tests]
 checks = ["T-click", "T-contrast"]
+contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }]
 
 [sound."U+0253"]
 ipa = "ɓ"
@@ -106,9 +115,11 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
 
 [sound."U+0253".spec]
+locus = { F2 = { v = 837, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (b, 837 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 
 [sound."U+0253".tests]
 checks = ["T-airstream", "T-contrast"]
+contrast = [{ with = "U+0062", measure = "duration_ms", sign = -1 }]
 
 [sound."U+0257"]
 ipa = "ɗ"
@@ -124,9 +135,11 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
 
 [sound."U+0257".spec]
+locus = { F2 = { v = 1671, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (d, 1671 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 
 [sound."U+0257".tests]
 checks = ["T-airstream", "T-contrast"]
+contrast = [{ with = "U+0064", measure = "duration_ms", sign = -1 }]
 
 [sound."U+0284"]
 ipa = "ʄ"
@@ -142,9 +155,11 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X2", "X4"], builds = ["C5?"] }
 
 [sound."U+0284".spec]
+locus = { F2 = { v = 1898, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɟ, 1898 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 
 [sound."U+0284".tests]
 checks = ["T-airstream", "T-contrast"]
+contrast = [{ with = "U+025F", measure = "duration_ms", sign = -1 }]
 
 [sound."U+0260"]
 ipa = "ɠ"
@@ -160,9 +175,11 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
 
 [sound."U+0260".spec]
+locus = { F2 = { v = 1026, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɡ, itself estimated from k, 1026 Hz, stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 
 [sound."U+0260".tests]
 checks = ["T-airstream", "T-contrast"]
+contrast = [{ with = "U+0261", measure = "duration_ms", sign = -1 }]
 
 [sound."U+029B"]
 ipa = "ʛ"
@@ -178,9 +195,11 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X2", "X4"], builds = ["C5?"] }
 
 [sound."U+029B".spec]
+locus = { F2 = { v = 929, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɢ, itself estimated from q, 929 Hz): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 
 [sound."U+029B".tests]
 checks = ["T-airstream", "T-contrast"]
+contrast = [{ with = "U+0262", measure = "duration_ms", sign = -1 }]
 
 [sound."U+02BC"]
 ipa = "ʼ"
@@ -197,6 +216,8 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4", "X5", "X9"], builds = ["C5?", "C6?"] }
 
 [sound."U+02BC".spec]
+vot_ms = { v = 109, tag = "derived", rule = "mean of the six Aymara tokens of pʼ, tʼ and kʼ (burst plus silent gap to voicing) in park_kim2015_aymara Table 3: (77 + 101 + 107 + 74 + 150 + 144) / 6 = 108.8", note = "Aymara, 1 M (40s), word-initial before /a/, 2 tokens per stop; with cʼ (188 / 219) and qʼ (138 / 165) the mean would be higher. Other studies are female or unsexed: Georgian pooled 33 ms (5 F, vicenik2008_georgian), Tsilhqut'in pooled 102 ms (mostly F, ham2008_tsilhqotin Table 8), Yapese casual 29 / 35 / 61 ms for pʼ tʼ kʼ (maddieson2001_vot)." }
 
 [sound."U+02BC".tests]
 checks = ["T-airstream", "T-contrast"]
+contrast = [{ with = "U+0074", measure = "vot_ms", sign = 1 }]

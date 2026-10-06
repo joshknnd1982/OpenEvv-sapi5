@@ -11,8 +11,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { voicing = "voiceless" }, vowel = { voicing = "voiceless" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4", "X7"], builds = [] }
 
@@ -31,6 +31,7 @@ breath = { whisper_db = { set = 44, tag = "estimated", note = "as for consonants
 checks = ["T-shift"]
 bases = ["U+006E", "U+006C", "U+0061"]
 shift = [{ measure = "voiced_frac", sign = -1 }]
+proof = "ipa/proofs/U+0325.json"
 
 [sound."U+030A"]
 ipa = "̊"
@@ -42,8 +43,8 @@ kind = "modifier"
 edit = { consonant = { voicing = "voiceless" }, vowel = { voicing = "voiceless" } }
 placement = "over"
 equivalent_to = "U+0325"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4", "X7"], builds = [] }
 
@@ -62,6 +63,7 @@ breath = { whisper_db = { set = 44, tag = "estimated", note = "as for consonants
 checks = ["T-shift"]
 bases = ["U+006E", "U+006C", "U+0061"]
 shift = [{ measure = "voiced_frac", sign = -1 }]
+proof = "ipa/proofs/U+030A.json"
 
 [sound."U+032C"]
 ipa = "̬"
@@ -72,8 +74,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { voicing = "voiced" }, vowel = { voicing = "voiced" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds = [] }
 
@@ -86,6 +88,7 @@ voicing = { voiced = { set = 1, tag = "derived", rule = "the mark itself: voicin
 checks = ["T-shift"]
 bases = ["U+0074", "U+0070", "U+0073"]
 shift = [{ measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+032C.json"
 
 [sound."U+02B0"]
 ipa = "ʰ"
@@ -96,17 +99,21 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { aspiration = "after" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds = [] }
 
 [sound."U+02B0".spec]
 
+[sound."U+02B0".transform.consonant]
+vot_ms = { add = 63.5, tag = "derived", rule = "the median of the differences between aspirated and plain voiceless stops at the three places in Cho and Ladefoged (1997): pʰ-p 77.5-9 = 68.5, tʰ-t 72.5-15 = 57.5, kʰ-k 92.5-29 = 63.5 ms (each a median over the languages of their tables)" }
+
 [sound."U+02B0".tests]
 checks = ["T-shift"]
 bases = ["U+0074", "U+0070", "U+006B"]
 shift = [{ measure = "vot_long_ms", sign = 1 }]
+proof = "ipa/proofs/U+02B0.json"
 
 [sound."U+0339"]
 ipa = "̹"
@@ -117,8 +124,8 @@ tier = "A"
 kind = "modifier"
 edit = { vowel = { rounding_shift = "more" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = [] }
 
@@ -131,6 +138,7 @@ formants = { F2 = { scale = 0.93, tag = "estimated", note = "more lip rounding l
 checks = ["T-shift"]
 bases = ["U+006F", "U+0075", "U+0254"]
 shift = [{ measure = "F2_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0339.json"
 
 [sound."U+031C"]
 ipa = "̜"
@@ -141,8 +149,8 @@ tier = "A"
 kind = "modifier"
 edit = { vowel = { rounding_shift = "less" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = [] }
 
@@ -155,6 +163,7 @@ formants = { F2 = { scale = 1.07, tag = "estimated", note = "less rounding raise
 checks = ["T-shift"]
 bases = ["U+006F", "U+0075", "U+0254"]
 shift = [{ measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+031C.json"
 
 [sound."U+031F"]
 ipa = "̟"
@@ -192,8 +201,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { place_shift = "retracted" }, vowel = { quality_shift = "retracted" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
 
@@ -209,6 +218,7 @@ locus = { F2 = { scale = 0.94, tag = "estimated", note = "a place further back l
 checks = ["T-shift"]
 bases = ["U+0061", "U+0069", "U+0074", "U+0073"]
 shift = [{ measure = "F2_50_hz", sign = -1 }, { measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+0320.json"
 
 [sound."U+0308"]
 ipa = "̈"
@@ -219,8 +229,8 @@ tier = "A"
 kind = "modifier"
 edit = { vowel = { quality_shift = "centralized" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = [] }
 
@@ -233,6 +243,7 @@ formants = { F2 = { toward = 1454, tag = "estimated", note = "half of the way to
 checks = ["T-shift"]
 bases = ["U+0069", "U+0075", "U+0065"]
 shift = [{ measure = "F2_toward_centre", sign = 1 }]
+proof = "ipa/proofs/U+0308.json"
 
 [sound."U+033D"]
 ipa = "̽"
@@ -243,8 +254,8 @@ tier = "A"
 kind = "modifier"
 edit = { vowel = { quality_shift = "mid-centralized" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = [] }
 
@@ -257,6 +268,7 @@ formants = { F1 = { toward = 467, tag = "estimated", note = "half of the way to 
 checks = ["T-shift"]
 bases = ["U+0069", "U+0061", "U+0075"]
 shift = [{ measure = "F2_toward_centre", sign = 1 }]
+proof = "ipa/proofs/U+033D.json"
 
 [sound."U+0329"]
 ipa = "̩"
@@ -267,8 +279,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { syllabic = "syllabic" }, vowel = { syllabic = "syllabic" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "composed", uses = ["X9", "X13"], builds = ["C7"] }
 
@@ -281,6 +293,7 @@ duration = { inherent_ms = { scale = 1.5, tag = "estimated", note = "a syllabic 
 checks = ["T-syllable"]
 bases = ["U+006E", "U+006C", "U+006D"]
 shift = [{ measure = "duration_ms", sign = 1 }]
+proof = "ipa/proofs/U+0329.json"
 
 [sound."U+032F"]
 ipa = "̯"
@@ -315,8 +328,8 @@ tier = "A"
 kind = "modifier"
 edit = { vowel = { rhotic = true } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
 
@@ -329,6 +342,7 @@ formants = { F3 = { toward = 1679, part = 70, tag = "literature", ref = "hagiwar
 checks = ["T-shift"]
 bases = ["U+0259", "U+0061"]
 shift = [{ measure = "F3_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+02DE.json"
 
 [sound."U+0324"]
 ipa = "̤"
@@ -339,8 +353,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { voicing = "breathy" }, vowel = { voicing = "breathy" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "composed", uses = ["X7"], builds = ["C6"] }
 
@@ -356,6 +370,7 @@ phonation = { breathy_pct = { set = 80, tag = "estimated", note = "as for vowels
 checks = ["T-phonation"]
 bases = ["U+0061", "U+0069", "U+006D"]
 shift = [{ measure = "h1h2_db", sign = 1 }]
+proof = "ipa/proofs/U+0324.json"
 
 [sound."U+0330"]
 ipa = "̰"
@@ -393,8 +408,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { place = "linguolabial" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
 
@@ -407,6 +422,7 @@ locus = { F2 = { scale = 0.75, tag = "estimated", note = "the tongue tip on the 
 checks = ["T-shift"]
 bases = ["U+0074", "U+0064", "U+006E"]
 shift = [{ measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+033C.json"
 
 [sound."U+02B7"]
 ipa = "ʷ"
@@ -424,6 +440,9 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+02B7".spec]
 
+[sound."U+02B7".transform.consonant]
+formants = { F2 = { scale = 0.85, tag = "estimated", note = "lip rounding lowers F2 at the release; the size is a guess to be replaced from a source in Phase 4" } }
+
 [sound."U+02B7".tests]
 checks = ["T-shift"]
 bases = ["U+0074", "U+0070", "U+006B", "U+0073"]
@@ -438,8 +457,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { secondary = "+palatalized" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
 
@@ -452,6 +471,7 @@ locus = { F2 = { scale = 1.43, tag = "estimated", note = "F2 at /a/ onset after 
 checks = ["T-shift"]
 bases = ["U+0074", "U+0070", "U+0073", "U+006C"]
 shift = [{ measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/U+02B2.json"
 
 [sound."U+02E0"]
 ipa = "ˠ"
@@ -462,20 +482,21 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { secondary = "+velarized" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
 
 [sound."U+02E0".spec]
 
 [sound."U+02E0".transform.consonant]
-locus = { F2 = { scale = 0.6, tag = "derived", rule = "dark against clear /l/ F2, midpoints of the ranges 800-1300 and 1500-2000 Hz over 23 languages, male speakers (recasens_2011_icphs_slides, slides 25-26): 1050 / 1750" } }
+locus = { F2 = { scale = 0.6, tag = "derived", rule = "dark against clear /l/ F2, midpoints of the ranges 800-1300 and 1500-2000 Hz over 23 languages, male speakers (recasens_2011, slides 25-26): 1050 / 1750" } }
 
 [sound."U+02E0".tests]
 checks = ["T-shift"]
 bases = ["U+006C", "U+0074", "U+0073"]
 shift = [{ measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+02E0.json"
 
 [sound."U+02E4"]
 ipa = "ˤ"
@@ -486,8 +507,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { secondary = "+pharyngealized" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
 
@@ -500,6 +521,7 @@ locus = { F2 = { scale = 0.68, tag = "derived", rule = "the F2 of the vowel in a
 checks = ["T-shift"]
 bases = ["U+0074", "U+0073", "U+0064"]
 shift = [{ measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+02E4.json"
 
 [sound."U+0334"]
 ipa = "̴"
@@ -510,8 +532,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { secondary = "+velarized-or-pharyngealized" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
 
@@ -524,6 +546,7 @@ locus = { F2 = { scale = 0.64, tag = "derived", rule = "the mark leaves velarize
 checks = ["T-shift"]
 bases = ["U+006C", "U+0074"]
 shift = [{ measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+0334.json"
 
 [sound."U+031D"]
 ipa = "̝"
@@ -534,8 +557,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { stricture_shift = "raised" }, vowel = { quality_shift = "raised" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
 
@@ -551,6 +574,7 @@ formants = { F1 = { scale = 0.9, tag = "estimated", note = "a closer constrictio
 checks = ["T-shift"]
 bases = ["U+0065", "U+006F", "U+0061"]
 shift = [{ measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+031D.json"
 
 [sound."U+031E"]
 ipa = "̞"
@@ -588,8 +612,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { tongue_root = "advanced" }, vowel = { tongue_root = "advanced" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C6?"] }
 
@@ -605,6 +629,7 @@ formants = { F1 = { scale = 0.95, tag = "estimated", note = "as for vowels, weak
 checks = ["T-shift"]
 bases = ["U+0065", "U+006F", "U+0061"]
 shift = [{ measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/U+0318.json"
 
 [sound."U+0319"]
 ipa = "̙"
@@ -642,8 +667,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { place = "dental" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
 
@@ -656,6 +681,7 @@ locus = { F2 = { scale = 0.93, tag = "estimated", note = "a dental place lowers 
 checks = ["T-shift"]
 bases = ["U+0074", "U+0064", "U+006E"]
 shift = [{ measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+032A.json"
 
 [sound."U+033A"]
 ipa = "̺"
@@ -666,8 +692,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { tongue_part = "apical" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X3"], builds = [] }
 
@@ -680,6 +706,7 @@ locus = { F3 = { scale = 0.95, tag = "estimated", note = "the tip, not the blade
 checks = ["T-shift"]
 bases = ["U+0074", "U+0073", "U+006E"]
 shift = [{ measure = "edge_F3", sign = -1 }]
+proof = "ipa/proofs/U+033A.json"
 
 [sound."U+033B"]
 ipa = "̻"
@@ -690,8 +717,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { tongue_part = "laminal" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X3"], builds = [] }
 
@@ -704,6 +731,7 @@ locus = { F2 = { scale = 1.05, tag = "estimated", note = "the blade: a slightly 
 checks = ["T-shift"]
 bases = ["U+0074", "U+0073", "U+006E"]
 shift = [{ measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/U+033B.json"
 
 [sound."U+0303"]
 ipa = "̃"
