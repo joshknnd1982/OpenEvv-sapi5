@@ -32,6 +32,13 @@ Every command below runs from the repository root with that venv's `python` and 
 | Check A3: voiceless sounds and pauses stay unvoiced (with the pack's definitions against without) | `python docs/tts-extension/harness/a3.py [tags]` | ~ 30 min for all |
 | Stage rebuilt template modules in a data folder (never `languages/`) | `python docs/tts-extension/harness/stage.py <built modules> <stage folder> [tags]` | seconds |
 | What the front-end loses on the way (C1): count it over every golden input and sentence; `--compare OLD.exe` also proves the output byte-identical to an older front-end's; `--plant` plants each kind of fault and checks it is reported | `python docs/tts-extension/harness/diag.py [--compare OLD.exe \| --plant] [tags]` | ~ 5 s |
+| The same for the accent layer, through the staged modules (planted markup faults, each must be reported) | `python docs/tts-extension/harness/diag.py --plant-accent` (needs `EVV_STAGE`) | ~ 5 s |
+| The template comparison: five languages built for all seven templates in a scratch stage, checks A, B and ASR (DESIGN.md 13.2) | `python docs/tts-extension/harness/template_compare.py [--langs ...] [--no-asr]` (needs `EVV_STAGE`) | ~ 15 min |
+| The master table: validate it, its self-test, coverage of the chart | `python engine/ipa/table.py [--selftest]`, `python engine/ipa/coverage.py` | seconds |
+| Read IPA (C2), and its tests | `python engine/ipa/reader.py "<IPA>"`, `python engine/ipa/reader.py --test` | seconds |
+| Realise an entry for a template; write ipa/realized/<template>.map | `python engine/ipa/adapter.py <id> [template]`, `adapter.py --write <template>` | seconds |
+| Realise, render, measure, correct (up to five rounds): ipa/proofs/<id>.json | `python engine/ipa/prove.py <id> [--template dedx] [--pack hi]` | ~ 1 min |
+| Composition when speaking (C4): the front-end against the adapter, and the fallbacks | `python engine/ipa/compose_test.py` | seconds |
 | ASR round trip | `python docs/tts-extension/harness/asr.py [tags]` | ~ 20 min on the GPU |
 | Status of every language: LANGUAGE_STATUS.md, reports/index.html | `python docs/tts-extension/harness/report.py` | ~ 1 min |
 | Second opinion from Praat (GPL file) | `python docs/tts-extension/harness/praat_crosscheck.py` | ~ 20 s |
@@ -62,6 +69,8 @@ Changes to the engine reach the product only in rebuilt template modules. They a
 | `diag.py`, `results/diag.json` | C1: what the front-end loses on the way, per pack; the planted faults |
 | `asr.py`, `asr/` | The ASR round trip; `asr/sentences.json` (CC0 / CC BY sentences), `asr/whisper_codes.json` |
 | `report.py`, `results/` | Status levels, failure layers, LANGUAGE_STATUS.md, `../reports/index.html` |
+| `template_compare.py`, `results/template_compare.json` | The template comparison of Phase 3A |
+| `results/diag-golden[-staged].json` | What the front-end and the accent layer reported over a full golden run (C1), per pack |
 | `smoke.py` | The one-minute check |
 | `praat_crosscheck.py` | **GPL v3 or later** (imports Parselmouth); everything else here is MIT |
 

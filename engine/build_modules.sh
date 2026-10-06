@@ -60,6 +60,14 @@ cp -au "$SRC/." "$WORK/"
 cd "$WORK"
 for tag in $TAGS; do
   if [ -f "accents/$tag/recipe" ]; then
+    # clone.py copies the parent's rules/constants.letters, which only a build of the parent
+    # writes (its rulecode step): write it here, so that a template builds without its parent
+    # having been built first in this folder (docs/tts-extension/OPEN_QUESTIONS.md Q12)
+    parent=$(sed -n 's/^template[[:space:]]\+//p' "accents/$tag/recipe" | head -n 1)
+    if [ -n "$parent" ] && [ -f "lang/$parent/letters" ] && [ ! -f "lang/$parent/rules/constants.letters" ]; then
+      python3 tools/rules/letters.py write "$parent" >/dev/null \
+        || { echo "build_modules: the letters of $parent could not be written" >&2; exit 1; }
+    fi
     python3 tools/module/clone.py "$tag" || { echo "build_modules: $tag could not be made from its recipe" >&2; exit 1; }
   fi
   [ -d "lang/$tag" ] || { echo "build_modules: no language $tag in the sources" >&2; exit 1; }
