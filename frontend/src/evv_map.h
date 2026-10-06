@@ -38,7 +38,7 @@ typedef struct {
 } EvvMapPhone;
 
 typedef struct {
-	char key[48];                          /* IPA, or "@table:mnemonic" */
+	char key[64];                          /* IPA, or "@table:mnemonic" */
 	int n;
 	EvvMapPhone phones[EVV_MAX_PHONES];
 } EvvMapEntry;
@@ -55,6 +55,34 @@ typedef struct {
 	char *group;
 	int used;
 } EvvDefined;
+
+/* Composition when speaking (DESIGN.md 2.3, C4), read only from a map with
+   `version 2`: every chart letter's features, for the nearest-letter
+   fallback, and each modifier's transform in the engine's own terms. */
+typedef struct {
+	char ipa[8];
+	char cls;                /* 'c' consonant, 'v' vowel */
+	int place, height, backness;
+	char f[7][16];           /* consonant: stricture airstream nasal lateral sibilant place2
+	                            voicing; vowel: rounding in f[0] */
+} EvvLetter;
+
+#define EVV_MAX_OPS 8
+typedef struct {
+	char key[8];
+	char op;                 /* '*' a ratio, multiplied; '+' a time, added */
+	double v;
+} EvvOp;
+
+typedef struct {
+	char mark[16];
+	char cls;
+	int n;
+	EvvOp ops[EVV_MAX_OPS];
+} EvvMod;
+
+enum { W_STRICTURE, W_AIRSTREAM, W_NASAL, W_LATERAL, W_SIBILANT, W_PLACE, W_PLACE2, W_VOICING, W_HEIGHT,
+       W_BACKNESS, W_ROUNDING, W_CLASS, W_COUNT };
 
 typedef struct {
 	char tmpl[16];          /* the openevv module the phones are for, e.g. "itit" */
@@ -101,7 +129,18 @@ typedef struct {
 	int n_entries;
 	int cap_entries;
 	int max_key_len;
+	int version;                      /* 2: compose when speaking (C4); 0: as before */
+	int weights[W_COUNT];
+	EvvLetter *letters;
+	int n_letters, cap_letters;
+	EvvMod *mods;
+	int n_mods, cap_mods;
+	int n_composed;
 } EvvMap;
+
+/* Whether a character (UTF-8, one code point) is a chart letter the map
+   lists, and which. */
+const EvvLetter *evv_map_letter(const EvvMap *map, const char *ch, size_t len);
 
 /* Reads a phonemes.map file. Returns 0, or -1 with a message in err. */
 int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen);

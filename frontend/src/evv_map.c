@@ -12,6 +12,7 @@
 #include "evv_map.h"
 
 #include <ctype.h>
+#include <math.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -183,7 +184,7 @@ static int buffer_group(Buffer *b, const char *letter, const char *rest)
 	/* one space between words, none at either end */
 	if (buffer_put(b, "{") || buffer_put(b, letter))
 		return -1;
-	char copy[1024];
+	char copy[4096];
 	copy_checked(copy, rest, sizeof(copy), "line");
 	char *p = copy, *w;
 	while ((w = next_word(&p)) != NULL) {
@@ -227,7 +228,7 @@ static int add_defined(EvvDefined **list, int *n, int *cap, const char *id, cons
 static int define(EvvDefined **list, int *n, int *cap, const char *letter, const char *rest)
 {
 	Buffer b = {0};
-	char copy[1024];
+	char copy[4096];
 	copy_name(copy, rest, sizeof(copy));
 	char *q = copy;
 	char *id = next_word(&q);
@@ -324,6 +325,88 @@ static void read_phone(EvvMapPhone *ph, char *w)
 	copy_checked(ph->name, w, EVV_PHONE_LEN, "phone");
 }
 
+/* `letter IPA c|v name=value ...' */
+static int read_letter(EvvMap *map, char *rest)
+{
+	static const char *cons[7] = {"stricture", "airstream", "nasal", "lateral", "sibilant", "place2", "voicing"};
+	char *ipa = next_word(&rest), *cls = next_word(&rest), *w;
+	if (!ipa || !cls) {
+		evv_diag(EVV_DIAG_LOSS, "map-ignored", "a letter line needs a letter and a class");
+		return 0;
+	}
+	if (map->n_letters == map->cap_letters) {
+		int cap = map->cap_letters ? map->cap_letters * 2 : 128;
+		EvvLetter *t = (EvvLetter *)realloc(map->letters, (size_t)cap * sizeof(EvvLetter));
+		if (!t)
+			return -1;
+		map->letters = t;
+		map->cap_letters = cap;
+	}
+	EvvLetter *l = &map->letters[map->n_letters++];
+	memset(l, 0, sizeof(*l));
+	copy_checked(l->ipa, ipa, sizeof(l->ipa), "letter");
+	l->cls = cls[0];
+	while ((w = next_word(&rest)) != NULL) {
+		char *eq = strchr(w, '=');
+		if (!eq)
+			continue;
+		*eq++ = 0;
+		if (strcmp(w, "place") == 0)
+			l->place = atoi(eq);
+		else if (strcmp(w, "height") == 0)
+			l->height = atoi(eq);
+		else if (strcmp(w, "backness") == 0)
+			l->backness = atoi(eq);
+		else if (strcmp(w, "rounding") == 0)
+			copy_checked(l->f[0], eq, sizeof(l->f[0]), "feature");
+		else {
+			int k;
+			for (k = 0; k < 7 && strcmp(cons[k], w) != 0; k++)
+				;
+			if (k < 7)
+				copy_checked(l->f[k], eq, sizeof(l->f[k]), "feature");
+			else
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "letter %s: no feature %s", ipa, w);
+		}
+	}
+	return 0;
+}
+
+/* `mod MARK c|v key*value key+value ...' */
+static int read_mod(EvvMap *map, char *rest)
+{
+	char *mark = next_word(&rest), *cls = next_word(&rest), *w;
+	if (!mark || !cls) {
+		evv_diag(EVV_DIAG_LOSS, "map-ignored", "a mod line needs a mark and a class");
+		return 0;
+	}
+	if (map->n_mods == map->cap_mods) {
+		int cap = map->cap_mods ? map->cap_mods * 2 : 32;
+		EvvMod *t = (EvvMod *)realloc(map->mods, (size_t)cap * sizeof(EvvMod));
+		if (!t)
+			return -1;
+		map->mods = t;
+		map->cap_mods = cap;
+	}
+	EvvMod *m = &map->mods[map->n_mods++];
+	memset(m, 0, sizeof(*m));
+	copy_checked(m->mark, mark, sizeof(m->mark), "mark");
+	m->cls = cls[0];
+	while ((w = next_word(&rest)) != NULL) {
+		char *op = strpbrk(w, "*+");
+		if (!op || op == w || m->n >= EVV_MAX_OPS) {
+			evv_diag(EVV_DIAG_LOSS, "map-ignored", "mod %s: `%s' is not key*value or key+value, or one too many", mark, w);
+			continue;
+		}
+		EvvOp *o = &m->ops[m->n++];
+		o->op = *op;
+		*op = 0;
+		copy_checked(o->key, w, sizeof(o->key), "key");
+		o->v = atof(op + 1);
+	}
+	return 0;
+}
+
 int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 {
 	memset(map, 0, sizeof(*map));
@@ -334,7 +417,7 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 		return -1;
 	}
 	Buffer accent = {0}, rest_of = {0};
-	char line[1024];
+	char line[4096];
 	int lineno = 0;
 	int failed = 0;
 	int accents = 0;
@@ -428,7 +511,7 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 		}
 		if (strcmp(key, "accent") == 0) {
 			/* what kind of language it is: the first thing the engine is told */
-			char all[1024];
+			char all[4096];
 			if (accents++)
 				evv_diag(EVV_DIAG_LOSS, "map-ignored", "a second accent line; it replaces the first");
 			if (snprintf(all, sizeof(all), "v=1 %s", rest) >= (int)sizeof(all))
@@ -446,7 +529,7 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			continue;
 		}
 		if (strcmp(key, "tone") == 0) {
-			char copy[1024];
+			char copy[4096];
 			copy_name(copy, rest, sizeof(copy));
 			char *q = copy;
 			char *id = next_word(&q);
@@ -499,6 +582,39 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 				failed |= add_tone_name(map, from, to);
 			else
 				evv_diag(EVV_DIAG_LOSS, "map-ignored", "a tonename line needs two names");
+			continue;
+		}
+		if (strcmp(key, "version") == 0) {
+			char *w = next_word(&rest);
+			map->version = w ? atoi(w) : 0;
+			continue;
+		}
+		if (strcmp(key, "weights") == 0) {
+			static const char *names[W_COUNT] = {"stricture", "airstream", "nasal", "lateral", "sibilant",
+			                                     "place_step", "place2", "voicing", "height_step",
+			                                     "backness_step", "rounding", "class"};
+			char *w;
+			while ((w = next_word(&rest)) != NULL) {
+				char *eq = strchr(w, '=');
+				int k;
+				if (!eq)
+					continue;
+				*eq = 0;
+				for (k = 0; k < W_COUNT && strcmp(names[k], w) != 0; k++)
+					;
+				if (k < W_COUNT)
+					map->weights[k] = atoi(eq + 1);
+				else
+					evv_diag(EVV_DIAG_LOSS, "map-ignored", "weights: no weight %s", w);
+			}
+			continue;
+		}
+		if (strcmp(key, "letter") == 0) {
+			failed |= read_letter(map, rest);
+			continue;
+		}
+		if (strcmp(key, "mod") == 0) {
+			failed |= read_mod(map, rest);
 			continue;
 		}
 		if (strcmp(key, "says") == 0) {
@@ -629,6 +745,8 @@ void evv_map_free(EvvMap *map)
 	free(map->header);
 	free(map->tones);
 	free(map->tone_ids);
+	free(map->letters);
+	free(map->mods);
 	memset(map, 0, sizeof(*map));
 }
 
@@ -741,6 +859,169 @@ static int utf8_len(unsigned char c)
 	return 1;
 }
 
+const EvvLetter *evv_map_letter(const EvvMap *map, const char *ch, size_t len)
+{
+	for (int i = 0; i < map->n_letters; i++)
+		if (strlen(map->letters[i].ipa) == len && memcmp(map->letters[i].ipa, ch, len) == 0)
+			return &map->letters[i];
+	return NULL;
+}
+
+static const EvvMod *find_mod(const EvvMap *map, const char *mark, size_t len, char cls)
+{
+	for (int i = 0; i < map->n_mods; i++)
+		if (map->mods[i].cls == cls && strlen(map->mods[i].mark) == len && memcmp(map->mods[i].mark, mark, len) == 0)
+			return &map->mods[i];
+	return NULL;
+}
+
+/* The nearest-letter cost of ipa/features.toml (engine/ipa/adapter.py's
+   `distance', in the same weights). */
+static int letter_distance(const EvvMap *map, const EvvLetter *a, const EvvLetter *b)
+{
+	const int *w = map->weights;
+	if (a->cls != b->cls)
+		return w[W_CLASS];
+	if (a->cls == 'v')
+		return w[W_HEIGHT] * abs(a->height - b->height) + w[W_BACKNESS] * abs(a->backness - b->backness) +
+		       w[W_ROUNDING] * (strcmp(a->f[0], b->f[0]) != 0);
+	static const int k[7] = {W_STRICTURE, W_AIRSTREAM, W_NASAL, W_LATERAL, W_SIBILANT, W_PLACE2, W_VOICING};
+	int d = w[W_PLACE] * abs(a->place - b->place);
+	for (int i = 0; i < 7; i++)
+		d += w[k[i]] * (strcmp(a->f[i], b->f[i]) != 0);
+	return d;
+}
+
+/* The keys of a sound the map defines, from its group "{D id k=v ...}". */
+static int sound_keys(const EvvMap *map, const char *id, char keys[][8], double *vals, int max)
+{
+	int n = 0;
+	for (int i = 0; i < map->n_sounds; i++) {
+		if (strcmp(map->sounds[i].id, id) != 0)
+			continue;
+		char copy[4096];
+		copy_name(copy, map->sounds[i].group + 2, sizeof(copy)); /* past "{D" */
+		char *p = copy, *w;
+		size_t l = strlen(copy);
+		if (l && copy[l - 1] == '}')
+			copy[l - 1] = 0;
+		next_word(&p); /* the id */
+		while ((w = next_word(&p)) != NULL && n < max) {
+			char *eq = strchr(w, '=');
+			if (!eq)
+				continue;
+			*eq = 0;
+			copy_name(keys[n], w, 8);
+			vals[n++] = atof(eq + 1);
+		}
+		break;
+	}
+	return n;
+}
+
+/* A letter with marks, said as the letter's line with each mark's `mod' line
+   merged into its sound: ratios multiplied, times added (DESIGN.md 2.3). A
+   letter the map has no line for is said as the nearest letter it has; a
+   mark with no line for the letter's class is left off. Both are losses and
+   reported. The result is kept as an entry of its own, so the same string is
+   composed once. Returns the phones written, or -1 when `ipa' is not one
+   letter and its marks (the old way then takes it apart). */
+static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
+{
+	int bl = utf8_len((unsigned char)ipa[0]);
+	const EvvLetter *letter = evv_map_letter(map, ipa, (size_t)bl);
+	if (!letter)
+		return -1;
+	for (const char *p = ipa + bl; *p; p += utf8_len((unsigned char)*p))
+		if (evv_map_letter(map, p, (size_t)utf8_len((unsigned char)*p)))
+			return -1; /* two letters: an affricate or a sequence */
+	const EvvMapEntry *base = find(map, ipa, (size_t)bl);
+	if (!base) {
+		int best = -1, best_d = 0;
+		for (int i = 0; i < map->n_letters; i++) {
+			if (!find(map, map->letters[i].ipa, strlen(map->letters[i].ipa)))
+				continue;
+			int d = letter_distance(map, letter, &map->letters[i]);
+			if (best < 0 || d < best_d) {
+				best = i;
+				best_d = d;
+			}
+		}
+		if (best < 0)
+			return -1;
+		evv_diag(EVV_DIAG_LOSS, "nearest-letter", "/%.*s/ has no line: said as /%s/, %d away by features", bl, ipa,
+		         map->letters[best].ipa, best_d);
+		base = find(map, map->letters[best].ipa, strlen(map->letters[best].ipa));
+	}
+	char keys[32][8];
+	double vals[32];
+	int nk = 0, carrier = 0;
+	for (int i = 0; i < base->n; i++)
+		if (base->phones[i].sound[0]) {
+			nk = sound_keys(map, base->phones[i].sound, keys, vals, 24);
+			carrier = i;
+			break;
+		}
+	int applied = 0;
+	for (const char *p = ipa + bl; *p;) {
+		int ml = utf8_len((unsigned char)*p);
+		const EvvMod *m = find_mod(map, p, (size_t)ml, letter->cls);
+		if (!m) {
+			evv_diag(EVV_DIAG_LOSS, "mark-left-off", "U+%04lX %.*s on /%s/: no mod line for a %s; left off",
+			         code_point((const unsigned char *)p, ml), ml, p, ipa, letter->cls == 'v' ? "vowel" : "consonant");
+			p += ml;
+			continue;
+		}
+		for (int o = 0; o < m->n; o++) {
+			int k;
+			for (k = 0; k < nk && strcmp(keys[k], m->ops[o].key) != 0; k++)
+				;
+			if (k == nk && m->ops[o].op == '+') {
+				evv_diag(EVV_DIAG_LOSS, "mark-left-off", "%s on /%s/: %s+%g has no %s to add to", m->mark, ipa,
+				         m->ops[o].key, m->ops[o].v, m->ops[o].key);
+				continue;
+			}
+			if (k == nk) {
+				copy_name(keys[nk], m->ops[o].key, 8);
+				vals[nk++] = 100;
+			}
+			vals[k] = m->ops[o].op == '*' ? vals[k] * m->ops[o].v / 100.0 : vals[k] + m->ops[o].v;
+		}
+		applied++;
+		p += ml;
+	}
+	/* the composed sound, under an id of its own, and the string as an entry
+	   (the base copied first: the entries may move when they grow) */
+	EvvMapEntry base_copy = *base;
+	char id[EVV_ID_LEN], group[512];
+	snprintf(id, sizeof(id), "c%d", ++map->n_composed);
+	size_t at = (size_t)snprintf(group, sizeof(group), "{D %s", id);
+	for (int k = 0; k < nk && at < sizeof(group); k++)
+		at += (size_t)snprintf(group + at, sizeof(group) - at, " %s=%ld", keys[k], lround(vals[k]));
+	if (at < sizeof(group))
+		snprintf(group + at, sizeof(group) - at, "}");
+	if (add_defined(&map->sounds, &map->n_sounds, &map->cap_sounds, id, group) != 0)
+		return -1;
+	if (map->n_entries == map->cap_entries) {
+		int cap = map->cap_entries ? map->cap_entries * 2 : 256;
+		EvvMapEntry *t = (EvvMapEntry *)realloc(map->entries, sizeof(EvvMapEntry) * (size_t)cap);
+		if (!t)
+			return -1;
+		map->entries = t;
+		map->cap_entries = cap;
+	}
+	EvvMapEntry *e = &map->entries[map->n_entries];
+	*e = base_copy;
+	copy_checked(e->key, ipa, sizeof(e->key), "key");
+	if (e->n > 0)
+		copy_name(e->phones[carrier].sound, id, EVV_ID_LEN);
+	map->n_entries++;
+	if ((int)strlen(e->key) > map->max_key_len)
+		map->max_key_len = (int)strlen(e->key);
+	evv_diag(EVV_DIAG_NOTE, "composed", "/%s/ = /%s/ and %d mark(s), as %s", ipa, base_copy.key, applied, group);
+	return emit(e, out, 0, max_out, ipa);
+}
+
 int evv_map_lookup(const EvvMap *map, const char *table, const char *mnemonic, const char *ipa,
                    EvvMapPhone *out, int max_out)
 {
@@ -767,6 +1048,14 @@ int evv_map_lookup_ex(const EvvMap *map, const char *table, const char *mnemonic
 	if ((e = find(map, ipa, strlen(ipa))) != NULL) {
 		*matched = 1;
 		return emit(e, out, 0, max_out, ipa);
+	}
+	if (map->version >= 2) {
+		/* a letter and its marks, composed when speaking (C4) */
+		int n = compose((EvvMap *)map, ipa, out, max_out);
+		if (n >= 0) {
+			*matched = 1;
+			return n;
+		}
 	}
 	/* taken apart from the left, longest key first; a character no key
 	   starts with is skipped, and reported if the rest is said */

@@ -76,6 +76,9 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds
 
 [sound."U+02B0".spec]
 
+[sound."U+02B0".transform.consonant]
+vot_ms = { add = 63.5, tag = "derived", rule = "the median of the differences between aspirated and plain voiceless stops at the three places in Cho and Ladefoged (1997): pʰ-p 77.5-9 = 68.5, tʰ-t 72.5-15 = 57.5, kʰ-k 92.5-29 = 63.5 ms (each a median over the languages of their tables)" }
+
 [sound."U+02B0".tests]
 checks = ["T-shift"]
 
@@ -322,6 +325,9 @@ approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
 
 [sound."U+02B7".spec]
+
+[sound."U+02B7".transform.consonant]
+formants = { F2 = { scale = 0.85, tag = "estimated", note = "lip rounding lowers F2 at the release; the size is a guess to be replaced from a source in Phase 4" } }
 
 [sound."U+02B7".tests]
 checks = ["T-shift"]

@@ -28,8 +28,10 @@ STATES = {'MISSING', 'mapped', 'composed', 'created', 'BLOCKED'}
 TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximate'}
 FIELDS = {'ipa', 'codepoints', 'name', 'section', 'tier', 'kind', 'features', 'edit', 'levels', 'register',
           'slope', 'stress', 'boundary', 'placement', 'equivalent_to', 'state', 'level', 'approximate',
-          'deviation', 'plan', 'spec', 'realization', 'tests', 'history', 'registry'}
+          'deviation', 'plan', 'spec', 'transform', 'realization', 'tests', 'history', 'registry'}
 VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation'}
+# a modifier's transform of a value (DESIGN.md 2.2): scale it, or add to it
+TRANSFORM_OPS = {'scale', 'add'}
 PLACEMENTS = {'before', 'after', 'over', 'between'}
 
 
@@ -82,7 +84,7 @@ def _vocab(features, cls):
 
 def _check_value(sid, path, val, t, problems, estimated):
     """A number of the specification: { v, tag, ref?, note?, proof?, rule?, deviation? }."""
-    if isinstance(val, dict) and 'v' not in val and 'tag' not in val:
+    if isinstance(val, dict) and 'tag' not in val and not (set(val) & ({'v'} | TRANSFORM_OPS)):
         for k, x in val.items():
             _check_value(sid, path + '.' + k, x, t, problems, estimated)
         return
@@ -93,8 +95,11 @@ def _check_value(sid, path, val, t, problems, estimated):
     if not isinstance(val, dict):
         problems.append('%s %s: a value without a provenance tag' % (sid, path))
         return
+    ops = set(val) & TRANSFORM_OPS
+    if path.startswith('transform') and len(ops) != 1:
+        problems.append('%s %s: a transform needs one of scale or add' % (sid, path))
     for k in val:
-        if k not in VALUE_FIELDS:
+        if k not in VALUE_FIELDS and k not in TRANSFORM_OPS:
             problems.append('%s %s: unknown field %s' % (sid, path, k))
     tag = val.get('tag')
     if tag not in TAGS:
@@ -189,6 +194,11 @@ def validate(t):
                 problems.append('%s: state %s with no proof file' % (sid, e.get('state')))
         for k, v in (e.get('spec') or {}).items():
             _check_value(sid, 'spec.' + k, v, t, problems, estimated)
+        for cls, tr in (e.get('transform') or {}).items():
+            if kind != 'modifier' or cls not in (e.get('edit') or {}):
+                problems.append('%s: a transform for %s, which is not a class this modifier edits' % (sid, cls))
+            for k, v in tr.items():
+                _check_value(sid, 'transform.%s.%s' % (cls, k), v, t, problems, estimated)
         for tmpl, trims in ((e.get('realization') or {}).get('openevv', {}).get('trim') or {}).items():
             _check_value(sid, 'trim.' + tmpl, trims, t, problems, estimated)
     return problems, estimated
@@ -238,6 +248,8 @@ def _plants(t):
         ('a state with no proof', setv(p, ['state'], 'mapped')),
         ('an id that is not its code points', setv(p, ['codepoints'], ['U+0071'])),
         ('a tone with bad levels', setv('U+02E5', ['levels'], [6])),
+        ('a transform with no operation', setv('U+02B0', ['transform', 'consonant', 'vot_ms'], {'v': 60, 'tag': 'estimated'})),
+        ('a transform for a class not edited', setv('U+02B0', ['transform', 'vowel'], {'vot_ms': {'add': 1, 'tag': 'estimated'}})),
     ]
 
 

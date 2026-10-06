@@ -45,6 +45,7 @@
 /* flags of a translate request */
 #define EVV_FE_FLAG_PUNCTUATION 1u /* say the names of punctuation marks, as spelling wants */
 #define EVV_FE_FLAG_SPELL 2u       /* the whole text is to be spelled: every character by its name */
+#define EVV_FE_FLAG_IPA 4u         /* the text is IPA, read by the map's letters and marks (C4) */
 
 enum {
 	EVV_FE_VOICE = 1,

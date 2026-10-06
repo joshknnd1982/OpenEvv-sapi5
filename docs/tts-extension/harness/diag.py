@@ -147,7 +147,7 @@ PLANTS = [
     ('map-ignored', 'hi', _add('accent f0=own'), "[['asa]]", True, None),
     ('map-list-full', 'hi', _add(*['cluster p r'] * 17), "[['asa]]", True, None),
     ('map-name-cut', 'hi', _both(_drop(*S), _add('s sssssssss')), "[['asa]]", True, None),
-    ('map-line-long', 'hi', _add('says a' + ' ' * 1100 + 'b'), "[['asa]]", True, None),
+    ('map-line-long', 'hi', _add('says a' + ' ' * 4200 + 'b'), "[['asa]]", True, None),
     ('map-tone-undefined', 'cmn', _add('tonename 99 77'), '妈', False, None),
     ('tone-unknown', 'cmn', _drop_line('tone 55 p=0:48,100:50'), '妈', False, None),
     ('tone-unsupported', 'cmn', _drop('tone', 'weaktones'), '妈', False, None),

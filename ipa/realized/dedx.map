@@ -7,3 +7,118 @@ sound u0074 vot=15    # U+0074 voiceless dental or alveolar plosive
 t            t=u0074
 sound u0283 f2=106 f3=106 f4=106    # U+0283 voiceless postalveolar fricative
 ʃ            S=u0283
+
+# composition when speaking (C4): read only by a map with `version 2`
+version 2
+weights stricture=8 airstream=6 nasal=6 lateral=4 sibilant=3 place_step=1 place2=2 voicing=2 height_step=2 backness_step=2 rounding=1 class=50
+letter a v height=6 backness=0 rounding=unrounded
+letter b c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter c c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter d c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter e v height=2 backness=0 rounding=unrounded
+letter f c place=1 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter h c place=13 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter i v height=0 backness=0 rounding=unrounded
+letter j c place=8 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter k c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter l c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
+letter m c place=0 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter n c place=4 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter o v height=2 backness=4 rounding=rounded
+letter p c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter q c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter r c place=4 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter s c place=4 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
+letter t c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter u v height=0 backness=4 rounding=rounded
+letter v c place=1 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter w c place=0 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiced
+letter x c place=9 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter y v height=0 backness=0 rounding=rounded
+letter z c place=4 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
+letter æ v height=5 backness=0 rounding=unrounded
+letter ç c place=8 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ð c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ø v height=2 backness=0 rounding=rounded
+letter ħ c place=11 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ŋ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter œ v height=4 backness=0 rounding=rounded
+letter ǀ c place=3 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
+letter ǁ c place=4 stricture=closure airstream=click nasal=false lateral=true sibilant=false place2=velar voicing=unspecified
+letter ǂ c place=8 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
+letter ǃ c place=5 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
+letter ɐ v height=5 backness=2 rounding=unspecified
+letter ɑ v height=6 backness=4 rounding=unrounded
+letter ɒ v height=6 backness=4 rounding=rounded
+letter ɓ c place=0 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɔ v height=4 backness=4 rounding=rounded
+letter ɕ c place=7 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
+letter ɖ c place=6 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɗ c place=4 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɘ v height=2 backness=2 rounding=unrounded
+letter ə v height=3 backness=2 rounding=unspecified
+letter ɛ v height=4 backness=0 rounding=unrounded
+letter ɜ v height=4 backness=2 rounding=unrounded
+letter ɞ v height=4 backness=2 rounding=rounded
+letter ɟ c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɠ c place=9 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɡ c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɢ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɣ c place=9 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɤ v height=2 backness=4 rounding=unrounded
+letter ɥ c place=0 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=palatal voicing=voiced
+letter ɦ c place=13 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɧ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiceless
+letter ɨ v height=0 backness=2 rounding=unrounded
+letter ɪ v height=1 backness=1 rounding=unrounded
+letter ɬ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
+letter ɭ c place=6 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
+letter ɮ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
+letter ɯ v height=0 backness=4 rounding=unrounded
+letter ɰ c place=9 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɱ c place=1 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter ɲ c place=8 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter ɳ c place=6 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter ɴ c place=10 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter ɵ v height=2 backness=2 rounding=rounded
+letter ɶ v height=6 backness=0 rounding=rounded
+letter ɸ c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ɹ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɺ c place=4 stricture=tap airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
+letter ɻ c place=6 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɽ c place=6 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɾ c place=4 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʀ c place=10 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʁ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʂ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
+letter ʃ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
+letter ʄ c place=8 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʈ c place=6 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ʉ v height=0 backness=2 rounding=rounded
+letter ʊ v height=1 backness=3 rounding=rounded
+letter ʋ c place=1 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʌ v height=4 backness=4 rounding=unrounded
+letter ʍ c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiceless
+letter ʎ c place=8 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
+letter ʏ v height=1 backness=1 rounding=rounded
+letter ʐ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
+letter ʑ c place=7 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
+letter ʒ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
+letter ʔ c place=13 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ʕ c place=11 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʘ c place=0 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
+letter ʙ c place=0 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʛ c place=10 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʜ c place=12 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ʝ c place=8 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʟ c place=9 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
+letter ʡ c place=12 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=unspecified
+letter ʢ c place=12 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter β c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter θ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter χ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+mod ʰ c vot+64    # U+02B0
+mod ʷ c f2*85    # U+02B7
+mod ː c dur*180    # U+02D0
+mod ː v dur*180    # U+02D0

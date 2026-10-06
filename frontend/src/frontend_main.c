@@ -556,6 +556,8 @@ static void translate_clause_phonemes(int terminator, int clause_tone)
 #define SPELL_ON "\001" "18Y"
 #define SPELL_ON_LEN 4
 
+static void put_header(void);
+
 static int translate_text(const char *utf8, uint32_t flags)
 {
 	out_reset();
@@ -602,9 +604,15 @@ static int translate_text(const char *utf8, uint32_t flags)
 		translate_clause_phonemes(terminator, tone);
 	}
 	free(spelled);
-	/* What the phones were meant to be begins the text: the language, and
-	   those of its sounds and tones that these words have in them. It is
-	   written last, when it is known which they are, and put first. */
+	put_header();
+	return 0;
+}
+
+/* What the phones were meant to be begins the text: the language, and
+   those of its sounds and tones that these words have in them. It is
+   written last, when it is known which they are, and put first. */
+static void put_header(void)
+{
 	if (g_map_loaded && g_map.accent && !g_counting && out.len > 0) {
 		size_t hl = 0;
 		char *h = evv_map_begin(&g_map, &hl);
@@ -621,6 +629,157 @@ static int translate_text(const char *utf8, uint32_t flags)
 		}
 		free(h);
 	}
+}
+
+/* IPA in (C4, the serving front-end's half of the IPA reader of C2): words
+   by spaces, ˈ and ˌ for the stress of the syllable they stand before, `.'
+   between syllables, and each segment a chart letter with the marks after it,
+   looked up whole and otherwise composed (evv_map.c). Anything that is not a
+   letter the map lists and stands where a letter should is reported. Tones
+   typed as letters or marks are not read yet: a mark with no `mod' line is
+   left off and reported, never dropped without a word. */
+static int utf8_char_len(unsigned char c)
+{
+	return c < 0x80 ? 1 : (c & 0xe0) == 0xc0 ? 2 : (c & 0xf0) == 0xe0 ? 3 : (c & 0xf8) == 0xf0 ? 4 : 1;
+}
+
+#ifdef _WIN32
+#pragma comment(lib, "Normaliz.lib")
+#endif
+
+/* IPA as the reader of C2 takes it (engine/ipa/reader.py, ipa/aliases.toml):
+   Unicode's canonical decomposition, then c and a cedilla put back together
+   as the one chart letter it would break, and Latin g read as the chart's
+   script g. Canonically equal input therefore reads the same. The caller
+   frees the result. */
+static char *ipa_normalize(const char *utf8)
+{
+	char *out = NULL;
+#ifdef _WIN32
+	int wn = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);
+	wchar_t *w = (wchar_t *)malloc(sizeof(wchar_t) * (size_t)wn);
+	if (w && MultiByteToWideChar(CP_UTF8, 0, utf8, -1, w, wn) > 0) {
+		int dn = NormalizeString(NormalizationD, w, -1, NULL, 0);
+		wchar_t *d = dn > 0 ? (wchar_t *)malloc(sizeof(wchar_t) * (size_t)dn) : NULL;
+		if (d && (dn = NormalizeString(NormalizationD, w, -1, d, dn)) > 0) {
+			int k = 0;
+			for (int i = 0; d[i]; i++) {
+				if (d[i] == L'c' && d[i + 1] == 0x0327) {
+					d[k++] = 0x00e7;
+					i++;
+				} else
+					d[k++] = d[i] == L'g' ? 0x0261 : d[i];
+			}
+			d[k] = 0;
+			int un = WideCharToMultiByte(CP_UTF8, 0, d, -1, NULL, 0, NULL, NULL);
+			out = (char *)malloc((size_t)un);
+			if (out)
+				WideCharToMultiByte(CP_UTF8, 0, d, -1, out, un, NULL, NULL);
+		} else {
+			evv_diag(EVV_DIAG_LOSS, "ipa-not-normalized", "the text could not be put in canonical form; read as given");
+		}
+		free(d);
+	}
+	free(w);
+#endif
+	if (!out) {
+		size_t n = strlen(utf8) + 1;
+		out = (char *)malloc(n);
+		if (out)
+			memcpy(out, utf8, n);
+	}
+	return out;
+}
+
+static int translate_ipa(const char *given)
+{
+	EvvMapPhone phones[EVV_MAX_PHONES];
+	char *utf8 = NULL;
+	out_reset();
+	if (!g_load_reported)
+		g_load_reported = 1;
+	else
+		evv_diag_clear();
+	g_src_shift = 0;
+	if (!g_map_loaded)
+		return -1;
+	utf8 = ipa_normalize(given);
+	if (!utf8)
+		return -1;
+	/* positions are counted in the text as normalised */
+	g_input = utf8;
+	n_clause_words = 0;
+	ClauseWord *cw = NULL;
+	int stress = 0, chars = 0;
+	for (const char *p = utf8; *p;) {
+		int l = utf8_char_len((unsigned char)*p);
+		if (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
+			cw = NULL;
+			p++;
+			chars++;
+			continue;
+		}
+		if (cw == NULL) {
+			/* a word with no stress mark has its first syllable stressed */
+			const char *e = p;
+			while (*e && *e != ' ' && *e != '\t' && *e != '\n' && *e != '\r')
+				e++;
+			stress = 1;
+			for (const char *q = p; q + 1 < e; q++)
+				if ((unsigned char)q[0] == 0xcb && ((unsigned char)q[1] == 0x88 || (unsigned char)q[1] == 0x8c))
+					stress = 0;
+			cw = new_word(chars, 0);
+		}
+		if (l == 2 && (unsigned char)p[0] == 0xcb && (unsigned char)p[1] == 0x88) { /* ˈ */
+			stress = 1;
+			p += l;
+			chars++;
+			continue;
+		}
+		if (l == 2 && (unsigned char)p[0] == 0xcb && (unsigned char)p[1] == 0x8c) { /* ˌ */
+			stress = 2;
+			p += l;
+			chars++;
+			continue;
+		}
+		if (*p == '.') {
+			p++;
+			chars++;
+			continue;
+		}
+		/* one segment: this character and the marks after it */
+		const char *s = p;
+		const EvvLetter *letter = evv_map_letter(&g_map, p, (size_t)l);
+		p += l;
+		chars++;
+		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && *p != '.') {
+			int ml = utf8_char_len((unsigned char)*p);
+			if (evv_map_letter(&g_map, p, (size_t)ml) ||
+			    (ml == 2 && (unsigned char)p[0] == 0xcb && ((unsigned char)p[1] == 0x88 || (unsigned char)p[1] == 0x8c)))
+				break;
+			p += ml;
+			chars++;
+		}
+		char seg[64];
+		snprintf(seg, sizeof(seg), "%.*s", (int)(p - s), s);
+		if (!letter)
+			evv_diag(EVV_DIAG_LOSS, "ipa-not-a-letter", "`%s' does not begin with a letter the map lists", seg);
+		int matched = 0;
+		int n = evv_map_lookup_ex(&g_map, NULL, NULL, seg, phones, EVV_MAX_PHONES, &matched);
+		if (!matched)
+			evv_diag(EVV_DIAG_LOSS, "phoneme-dropped", "/%s/ has no line in the map and cannot be composed", seg);
+		if (n == 0)
+			continue;
+		int vowel = letter && letter->cls == 'v';
+		evv_word_add(&cw->w, &g_map, phones, n, vowel, vowel, vowel ? stress : 0, NULL);
+		cw->src_len = chars - cw->src;
+		if (vowel)
+			stress = 0;
+	}
+	write_clause(CLAUSE_PERIOD);
+	put_header();
+	g_input = NULL;
+	free(utf8);
 	return 0;
 }
 
@@ -797,7 +956,7 @@ static int serve(void)
 			const char *text = payload + sizeof(uint32_t);
 			uint32_t flags;
 			memcpy(&flags, payload, sizeof flags);
-			int failed = translate_text(text, flags);
+			int failed = (flags & EVV_FE_FLAG_IPA) ? translate_ipa(text) : translate_text(text, flags);
 			if (failed != 0) {
 				reply_status(stdout, 0, failed == -2 ? "the text could not be decoded" : "no voice has been set");
 				continue;
@@ -970,8 +1129,11 @@ int main(int argc, char **argv)
 	/* for whoever measures a sound: [[...]] in the text is eSpeak NG's own
 	   phoneme names, said as they stand */
 	option_phoneme_input = has_arg(argc, argv, "--phonemes");
-	translate_text(text, (has_arg(argc, argv, "--punctuation") ? EVV_FE_FLAG_PUNCTUATION : 0) |
-	                         (has_arg(argc, argv, "--spell") ? EVV_FE_FLAG_SPELL : 0));
+	if (has_arg(argc, argv, "--ipa"))
+		translate_ipa(text);
+	else
+		translate_text(text, (has_arg(argc, argv, "--punctuation") ? EVV_FE_FLAG_PUNCTUATION : 0) |
+		                         (has_arg(argc, argv, "--spell") ? EVV_FE_FLAG_SPELL : 0));
 	if (has_arg(argc, argv, "--anchors")) {
 		for (size_t i = 0; i < out.n_anchors; i++)
 			printf("%u\t%u+%u\n", out.anchors[i].out_offset, out.anchors[i].src_offset, out.anchors[i].src_length);

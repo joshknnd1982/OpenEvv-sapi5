@@ -56,6 +56,12 @@ plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds
 
 [sound."U+02D0".spec]
 
+[sound."U+02D0".transform.vowel]
+duration = { inherent_ms = { scale = 1.8, tag = "estimated", note = "a long vowel taken as 1.8 times the short one; languages differ (1.5 to 2.5 is the usual span); Phase 4 takes a source" } }
+
+[sound."U+02D0".transform.consonant]
+duration = { inherent_ms = { scale = 1.8, tag = "estimated", note = "a geminate taken as 1.8 times the single consonant; Phase 4 takes a source" } }
+
 [sound."U+02D0".tests]
 checks = ["T-length"]
 

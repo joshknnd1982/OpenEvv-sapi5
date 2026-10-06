@@ -145,6 +145,92 @@ def sound_line(name, keys):
     return 'sound %s %s' % (name, ' '.join('%s=%d' % kv for kv in sorted(keys.items())))
 
 
+# ---- C4: composition when speaking (DESIGN.md 2.3) -----------------------------------------------
+# A modifier's transform (ipa/table: `transform.<class>`) in the engine's own terms: a ratio key is
+# multiplied, a time is added. The front-end merges these into a base letter's line; the adapter
+# composes the same thing exactly; a test holds the two together (compose_test.py).
+OPS = {('vot_ms', 'add'): ('vot', '+'), ('duration.inherent_ms', 'scale'): ('dur', '*')}
+for _i in (1, 2, 3, 4):
+    OPS[('formants.F%d' % _i, 'scale')] = ('f%d' % _i, '*')
+RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur'}      # absent means the carrier's own: 100
+
+
+def _flat(tr, prefix=''):
+    for k, v in tr.items():
+        if isinstance(v, dict) and not ({'add', 'scale'} & set(v)):
+            yield from _flat(v, prefix + k + '.')
+        else:
+            yield prefix + k, v
+
+
+def mod_ops(t, mid, cls):
+    """[(key, op, value)] for one modifier and class, or None if it has no transform for it;
+    with what it could not express."""
+    tr = ((t.sounds[mid].get('transform') or {}).get(cls))
+    if tr is None:
+        return None, []
+    ops, lost = [], []
+    for path, v in _flat(tr):
+        op = 'add' if 'add' in v else 'scale'
+        key = OPS.get((path, op))
+        if key is None:
+            lost.append('%s %s: no engine key' % (path, op))
+            continue
+        ops.append((key[0], key[1], v[op] * (100.0 if key[1] == '*' else 1.0)))
+    return ops, lost
+
+
+def merge(keys, ops, exact=False):
+    """A base's keys with a modifier's ops. Ratios multiply (absent = 100), times add (absent: lost,
+    since the module's own value is not known here). Returns (keys, lost)."""
+    out, lost = dict(keys), []
+    for key, op, val in ops:
+        if op == '*':
+            out[key] = out.get(key, 100) * val / 100.0
+        elif key in out:
+            out[key] = out[key] + val
+        else:
+            lost.append('%s+%s: the base has no %s to add to' % (key, val, key))
+    return ({k: v if exact else int(round(v)) for k, v in out.items()}, lost)
+
+
+def compose(t, base_sid, mod_sids, template, carrier_meas=None):
+    """The adapter's own composition: the base realised unrounded, each modifier applied, rounded
+    once at the end (the front-end rounds the base and each op first: they may differ by 1)."""
+    r = realize(t, base_sid, template, carrier_meas)
+    keys = dict(r['keys'])
+    cls = t.sounds[base_sid]['features']['class']
+    lost = []
+    for m in mod_sids:
+        ops, l1 = mod_ops(t, m, cls)
+        lost += l1
+        if ops is None:
+            lost.append('%s has no transform for a %s' % (t.sounds[m]['ipa'], cls))
+            continue
+        keys, l2 = merge(keys, ops, exact=True)
+        lost += l2
+    return dict(keys={k: int(round(v + 1e-9)) for k, v in keys.items()}, carrier=r['carrier'], lost=lost)
+
+
+def letter_line(t, sid):
+    f = T.full_bundle(t, t.sounds[sid]['features'])
+    if f['class'] == 'vowel':
+        v = t.features['vowel']
+        return 'letter %s v height=%d backness=%d rounding=%s' % (
+            t.sounds[sid]['ipa'], v['height']['scale'].index(f['height']), v['backness']['scale'].index(f['backness']),
+            f['rounding'])
+    c = t.features['consonant']
+    return 'letter %s c place=%d %s' % (t.sounds[sid]['ipa'], c['place']['scale'].index(f['place']), ' '.join(
+        '%s=%s' % (k, str(f[k]).lower()) for k in ('stricture', 'airstream', 'nasal', 'lateral', 'sibilant', 'place2',
+                                                    'voicing')))
+
+
+def weights_line(t):
+    w = t.features['weights']
+    return 'weights %s class=%d' % (' '.join('%s=%d' % kv for kv in list(w['consonant'].items()) +
+                                             list(w['vowel'].items())), w['class'])
+
+
 def map_name(sid):
     """The name a realised entry has in a map: `u` and its code points, within the 11 bytes a
     sound id may have (EVV_ID_LEN)."""
@@ -175,6 +261,21 @@ def write(t, template):
             unrealised += 1
         lines.append('%-12s %s=%s' % (e['ipa'], r['carrier'], name))
         n += 1
+    # C4: what the front-end needs to compose when speaking, and to fall back with a warning
+    lines += ['', '# composition when speaking (C4): read only by a map with `version 2`',
+              'version 2', weights_line(t)]
+    for sid, e in sorted(t.sounds.items()):
+        if e.get('kind') == 'base':
+            lines.append(letter_line(t, sid))
+    for sid, e in sorted(t.sounds.items()):
+        for cls in sorted((e.get('transform') or {})):
+            ops, lost = mod_ops(t, sid, cls)
+            for l in lost:
+                lines.append('#   not realised: %s %s' % (e['ipa'], l))
+                unrealised += 1
+            if ops:
+                lines.append('mod %s %s %s    # %s' % (e['ipa'], cls[0], ' '.join(
+                    '%s%s%d' % (k, op, int(round(v))) for k, op, v in ops), sid))
     os.makedirs(os.path.join(ROOT, 'ipa', 'realized'), exist_ok=True)
     path = os.path.join(ROOT, 'ipa', 'realized', template + '.map')
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
