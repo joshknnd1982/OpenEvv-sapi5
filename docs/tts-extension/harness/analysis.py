@@ -343,6 +343,218 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
     return out
 
 
+# ---- Phase 3A measures (DESIGN.md 10.2), each proved on a synthetic signal first (selftest.py) ---
+# Not part of phone_metrics, so the golden's recorded measures stay exactly as they were; the
+# proofs of Phase 4 call them for the tests that name them.
+
+def envelope_db(x, rate, a_ms, b_ms, hop_ms=1.0, win_ms=10.0):
+    """The level of a stretch in dB (RMS over win_ms, centred), and the real step between values
+    in ms (a hop is a whole number of samples: 0.5 ms at 11025 Hz is 6 samples, 0.544 ms). The
+    window should hold a pitch period or more, or the gaps between pulses read as dips."""
+    y = _seg(x, rate, a_ms, b_ms)
+    hop = max(1, int(round(hop_ms * rate / 1000.0)))
+    win = max(hop, int(round(win_ms * rate / 1000.0)))
+    n = max(0, (len(y) - win) // hop + 1)
+    e = np.array([np.sqrt(np.mean(y[i * hop:i * hop + win] ** 2)) for i in range(n)])
+    return 20 * np.log10(e + 1e-9), hop * 1000.0 / rate
+
+
+def modulation(x, rate, a_ms, b_ms, depth_db=6.0):
+    """T-tap, T-trill: the dips of the level envelope. A dip is a stretch at least depth_db under
+    the stretch's own median level, with the level above that line on both sides. Returns the
+    number of dips, their rate (dips per second from the first dip's middle to the last's, or
+    None for fewer than two), the mean depth below the median in dB, and the mean dip length."""
+    env, step = envelope_db(x, rate, a_ms, b_ms, hop_ms=1.0, win_ms=10.0)
+    if len(env) < 10:
+        return None
+    line = np.median(env) - depth_db
+    low = env < line
+    dips, i = [], 0
+    while i < len(low):
+        if low[i]:
+            j = i
+            while j < len(low) and low[j]:
+                j += 1
+            if i > 0 and j < len(low):           # closed on both sides
+                dips.append((i, j, float(np.median(env) - env[i:j].min())))
+            i = j
+        else:
+            i += 1
+    # the closed time on linear power: a box-smoothed step crosses half its height exactly at the
+    # step, so the width under half the median power is the gap's own (for a gap longer than the
+    # window); the dB line above only finds the dips
+    power = 10 ** (env / 10.0)
+    half = np.median(power) / 2.0
+    widths = []
+    for i, j, _ in dips:
+        lo, hi = i, j
+        while lo > 0 and power[lo - 1] < half:
+            lo -= 1
+        while hi < len(power) and power[hi] < half:
+            hi += 1
+        widths.append((hi - lo) * step)
+    mids = [(d[0] + d[1]) / 2.0 for d in dips]
+    rate_hz = (len(mids) - 1) / ((mids[-1] - mids[0]) * step / 1000.0) if len(mids) >= 2 else None
+    return dict(dips=len(dips), rate_hz=rate_hz,
+                depth_db=float(np.mean([d[2] for d in dips])) if dips else 0.0,
+                closed_ms=float(np.mean(widths)) if dips else 0.0)
+
+
+def harmonic_db(x, rate, t_ms, f_hz, f0, win_ms=40.0):
+    """The level in dB of the strongest spectral component within a quarter of F0 of f_hz."""
+    y = _frame(x, rate, t_ms, win_ms)
+    if y is None or len(y) == 0:
+        return None
+    n = 1 << int(math.ceil(math.log2(max(len(y), 2) * 8)))
+    spec = np.abs(np.fft.rfft(y * np.hanning(len(y)), n))
+    f = np.fft.rfftfreq(n, 1.0 / rate)
+    band = (f >= f_hz - f0 / 4.0) & (f <= f_hz + f0 / 4.0)
+    if not band.any():
+        return None
+    return 20 * math.log10(spec[band].max() + 1e-12)
+
+
+def h1_h2(x, rate, t_ms, f0=None):
+    """T-phonation: the first harmonic's level minus the second's (dB); higher is breathier."""
+    f0 = f0 or f0_at(x, rate, t_ms, fmin=75.0)
+    if not f0:
+        return None
+    a, b = harmonic_db(x, rate, t_ms, f0, f0), harmonic_db(x, rate, t_ms, 2 * f0, f0)
+    return None if a is None or b is None else a - b
+
+
+def hnr_db(x, rate, a_ms, b_ms, fmin=75.0, fmax=500.0):
+    """T-phonation: harmonics-to-noise ratio from the normalised autocorrelation's highest peak in
+    the pitch range (Boersma 1993's idea, without its window correction): 10 log10(r / (1 - r))."""
+    y = _seg(x, rate, a_ms, b_ms)
+    if len(y) < rate / fmin * 2:
+        return None
+    y = y - y.mean()
+    ac = np.correlate(y, y, 'full')[len(y) - 1:]
+    if ac[0] <= 0:
+        return None
+    ac = ac / ac[0]
+    # unbiased: each lag's sum covers fewer samples
+    ac = ac * len(y) / (len(y) - np.arange(len(ac)))
+    lo, hi = int(rate / fmax), int(rate / fmin)
+    r = float(ac[lo:hi].max())
+    r = min(r, 0.999999)
+    return 10 * math.log10(r / (1 - r)) if r > 0 else None
+
+
+def jitter_pct(x, rate, a_ms, b_ms):
+    """T-phonation: period regularity. Each period by waveform matching: from the start of a cycle,
+    the lag in 0.7 to 1.3 of the mean period at which the cycle best repeats (normalised
+    correlation, refined between samples by a parabola); the next cycle starts there. Local
+    jitter = mean |T(i) - T(i-1)| / mean T, in per cent."""
+    y = _seg(x, rate, a_ms, b_ms)
+    f0 = f0_at(x, rate, (a_ms + b_ms) / 2.0, fmin=75.0)
+    if not f0 or len(y) < 4 * rate / f0:
+        return None
+    t0 = rate / f0
+    n = int(round(t0))
+    p = int(np.argmax(np.abs(y[:n])))
+    lo, hi = int(0.7 * t0), int(1.3 * t0) + 1
+    periods = []
+    while p + hi + n < len(y):
+        w = y[p:p + n]
+        nw = np.sqrt(np.dot(w, w)) + 1e-9
+        c = np.array([np.dot(w, y[p + k:p + k + n]) / (nw * (np.sqrt(np.dot(y[p + k:p + k + n], y[p + k:p + k + n])) + 1e-9))
+                      for k in range(lo, hi)])
+        b = int(np.argmax(c))
+        frac = 0.0
+        if 0 < b < len(c) - 1:
+            den = c[b - 1] - 2 * c[b] + c[b + 1]
+            frac = 0.5 * (c[b - 1] - c[b + 1]) / den if den != 0 else 0.0
+        periods.append(lo + b + frac)
+        p += lo + b
+    if len(periods) < 3:
+        return None
+    t = np.array(periods)
+    return float(100.0 * np.mean(np.abs(np.diff(t))) / np.mean(t))
+
+
+def a1_p0(x, rate, t_ms, f1_hz, p0_hz=250.0, f0=None):
+    """T-nasality: A1, the level of the harmonic nearest F1, minus P0, the level of the low nasal
+    peak's harmonic (about 250 Hz; Chen 1997's measure). Lower is more nasal."""
+    f0 = f0 or f0_at(x, rate, t_ms, fmin=75.0)
+    if not f0:
+        return None
+    h1 = round(f1_hz / f0) * f0
+    h0 = max(1, round(p0_hz / f0)) * f0
+    a, b = harmonic_db(x, rate, t_ms, h1, f0), harmonic_db(x, rate, t_ms, h0, f0)
+    return None if a is None or b is None else a - b
+
+
+def voicing_slope(x, rate, a_ms, b_ms):
+    """T-airstream: how the level below 400 Hz moves through a closure, dB per 10 ms (a least-
+    squares line): an implosive's voicing swells (positive), a plain voiced stop's fades."""
+    y = _seg(x, rate, a_ms, b_ms)
+    if len(y) < rate * 0.02:
+        return None
+    lo = signal.sosfilt(signal.butter(4, 400.0 / (rate / 2.0), 'low', output='sos'), y)
+    env, step = envelope_db(lo, rate, 0, (b_ms - a_ms), hop_ms=1.0, win_ms=10.0)
+    if len(env) < 5:
+        return None
+    k = np.polyfit(np.arange(len(env)) * step, env, 1)[0]
+    return float(k * 10.0)
+
+
+def burst(x, rate, a_ms, b_ms, ref_db=None, floor_db=30.0):
+    """T-click: the transient in a stretch. Its start (the first ms more than floor_db over the
+    stretch's quietest 5 ms), its length (until the level falls back under that line), its peak
+    level against ref_db (an open vowel's, when given) and its spectral peak and centroid."""
+    env, step = envelope_db(x, rate, a_ms, b_ms, hop_ms=0.5, win_ms=1.0)
+    if len(env) < 10:
+        return None
+    quiet = np.sort(env)[:10].mean()
+    over = np.nonzero(env > quiet + floor_db)[0]
+    if len(over) == 0:
+        return None
+    start, end = over[0], over[0]
+    while end + 1 < len(env) and env[end + 1] > quiet + floor_db:
+        end += 1
+    # a window counts from its first sample; the burst begins where the window reaching it ends
+    s_ms, e_ms = a_ms + start * step + 1.0, a_ms + end * step + 1.0
+    f, pxx = spectrum(x, rate, s_ms, e_ms, win_ms=max(2.0, min(10.0, e_ms - s_ms)))
+    band = f >= 300
+    cent = float((f[band] * pxx[band]).sum() / pxx[band].sum()) if pxx[band].sum() > 0 else None
+    peak_level = float(env[start:end + 1].max())
+    return dict(start_ms=s_ms, length_ms=e_ms - s_ms, peak_hz=float(f[band][np.argmax(pxx[band])]),
+                centroid_hz=cent, level_db=peak_level - ref_db if ref_db is not None else peak_level)
+
+
+def vot_long(x, rate, a_ms, b_ms, after_ms=250.0):
+    """VOT of a stop whose voice begins well into the next phone (an aspirated stop): stop_timing
+    looking after_ms past the stop instead of 80 (D48)."""
+    st = stop_timing(x, rate, a_ms, b_ms, after_ms=after_ms)
+    return st and st.get('vot_ms')
+
+
+def syllable_peaks(x, rate, a_ms, b_ms, drop_db=6.0, min_gap_ms=60.0):
+    """T-syllable: the number of level peaks (syllable nuclei): maxima of the 20 ms envelope that
+    stand drop_db above the lowest point on each side before the next peak, min_gap_ms apart."""
+    env, step = envelope_db(x, rate, a_ms, b_ms, hop_ms=2.0, win_ms=20.0)
+    if len(env) < 5:
+        return None
+    peaks, props = signal.find_peaks(env, prominence=drop_db, distance=max(1, int(min_gap_ms / step)))
+    return int(len(peaks))
+
+
+def f0_slope(x, rate, a_ms, b_ms, step_ms=10.0):
+    """T-slope, T-register: the straight line through F0 (semitones against 100 Hz) over a stretch,
+    in semitones per second, and its level at the middle; voiceless frames are left out."""
+    tr = f0_track(x, rate, a_ms, b_ms, step_ms=step_ms)
+    pts = [(t, semitones(f, 100.0)) for t, f in tr if f]
+    if len(pts) < 5:
+        return None
+    t = np.array([p[0] for p in pts]) / 1000.0
+    st = np.array([p[1] for p in pts])
+    k, c = np.polyfit(t, st, 1)
+    mid = (a_ms + b_ms) / 2000.0
+    return dict(st_per_s=float(k), level_st=float(k * mid + c))
+
+
 # ---- per phone -----------------------------------------------------------------------------------
 
 # Manner by IPA. The module's own phone record (class.voicing.sonority.manner.place in the accent

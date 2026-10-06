@@ -219,6 +219,105 @@ def test_engine(quick):
                   '%.0f' % m if m else None)
 
 
+def test_phase3():
+    """The measures added in Phase 3A (analysis.py, DESIGN.md 10.2), each on a signal whose answer
+    is known."""
+    R = S.RATE
+    t = np.arange(int(0.4 * R)) / R
+    rng = np.random.default_rng(7)
+    # T-trill: a vowel shut for 12 ms every 40 ms, three times (25 Hz)
+    v = S.vowel([(600, 80), (1100, 90), (2500, 150)], dur_ms=400.0)
+    gate = np.ones(len(v))
+    for k in range(3):
+        a = int((0.15 + 0.04 * k) * R)
+        gate[a:a + int(0.012 * R)] = 0.05
+    m = A.modulation(v * gate, R, 20, 380)
+    check('trill dips (3 closures, 25 Hz)', m and m['dips'] == 3 and near(m['rate_hz'], 25.0, absol=2.5)
+          and near(m['closed_ms'], 12.0, absol=5), '3 dips, 25 +-2.5 Hz, 12 +-5 ms',
+          m and '%d dips, %s Hz, %.0f ms' % (m['dips'], m['rate_hz'] and round(m['rate_hz'], 1), m['closed_ms']))
+    # T-phonation: H1-H2 of two harmonics 6.02 dB apart; and a longer open phase gives a larger one
+    y = 8000 * np.sin(2 * np.pi * 120 * t) + 4000 * np.sin(2 * np.pi * 240 * t)
+    h = A.h1_h2(y, R, 200, f0=120.0)
+    check('H1-H2 of known harmonics', near(h, 6.02, absol=0.5), '6.0 +-0.5 dB', h and round(h, 2))
+    hs = []
+    for oq in (0.3, 0.8):
+        y = S.resonator(S.pulses(120.0, 400.0, R, open_q=oq), 700, 80, R) * 20000
+        hs.append(A.h1_h2(y, R, 200, f0=120.0))
+    check('H1-H2 rises with the open phase', hs[0] is not None and hs[1] is not None and hs[1] > hs[0] + 3,
+          'open 0.8 > open 0.3 + 3 dB', ' / '.join('%.1f' % x if x is not None else '-' for x in hs))
+    # T-phonation: harmonics-to-noise of a tone in white noise at a known ratio
+    for snr in (20.0, 10.0):
+        sig = 8000 * np.sin(2 * np.pi * 150 * t)
+        noise = rng.standard_normal(len(t)) * np.sqrt(np.mean(sig ** 2) / 10 ** (snr / 10.0))
+        h = A.hnr_db(sig + noise, R, 50, 350)
+        check('HNR of a tone at %d dB SNR' % snr, near(h, snr, absol=2.0), '%d +-2 dB' % snr, h and round(h, 1))
+    # T-phonation: jitter of glottal pulses whose periods alternate 3 % either side. Each pulse has
+    # the same open phase (46 samples), so its closure, the sharp event of a cycle, alternates as
+    # its start does (with the open phase a share of each period, the closures would be evenly
+    # spaced and the true jitter about nought: a fault found in the first version of this test)
+    starts, tt = [], 0.0
+    while tt < 0.4:
+        starts.append(int(tt * R))
+        tt += (0.97 if len(starts) % 2 else 1.03) / 120.0
+    src = np.zeros(int(0.4 * R) + 64)
+    for a in starts:
+        src[a:a + 46] += 0.5 * (1 - np.cos(np.pi * np.arange(46) / 46.0))
+    y = np.diff(src, prepend=0.0)
+    for f, bw in ((600, 80), (1100, 90), (2500, 150)):
+        y = S.resonator(y, f, bw, R)
+    y = 20000 * y / np.max(np.abs(y))
+    at = np.array([a + 46 for a in starts if int(0.05 * R) <= a < int(0.35 * R)])
+    per = np.diff(at).astype(float)
+    truth = 100.0 * np.mean(np.abs(np.diff(per))) / np.mean(per)
+    j = A.jitter_pct(y, R, 50, 350)
+    check('jitter of periods alternating +-3 %', near(j, truth, absol=1.0), '%.2f +-1 %%' % truth, j and round(j, 2))
+    y = S.vowel([(600, 80), (1100, 90), (2500, 150)], f0=120.0, dur_ms=400.0)
+    j0 = A.jitter_pct(y, R, 50, 350)
+    check('jitter of a steady 120 Hz voice', j0 is not None and j0 < 1.0, 'under 1 %', j0 and round(j0, 2))
+    # T-nasality: A1-P0 of harmonics whose levels are set
+    y = np.zeros(len(t))
+    for hk in range(1, 30):
+        amp = {2: 2000.0, 5: 4000.0}.get(hk, 300.0)
+        y += amp * np.sin(2 * np.pi * 100 * hk * t)
+    an = A.a1_p0(y, R, 200, 500.0, p0_hz=200.0, f0=100.0)
+    check('A1-P0 of set harmonics', near(an, 6.02, absol=0.5), '6.0 +-0.5 dB', an and round(an, 2))
+    # T-airstream: voicing that swells 20 dB over 100 ms, and one that fades
+    tt = np.arange(int(0.1 * R)) / R
+    for sign, label in ((1, 'swelling'), (-1, 'fading')):
+        amp = 10 ** (sign * 20 * tt / 0.1 / 20.0)
+        y = 3000 * amp * np.sin(2 * np.pi * 120 * tt)
+        sl = A.voicing_slope(y, R, 0, 100)
+        check('voicing slope, %s 2 dB/10 ms' % label, near(sl, 2.0 * sign, absol=0.4), '%+.1f +-0.4' % (2.0 * sign),
+              sl and round(sl, 2))
+    # T-click: a 5 ms transient at 2 kHz, decaying 40 dB, in near-silence
+    y = rng.standard_normal(int(0.1 * R)) * 2.0
+    a = int(0.04 * R)
+    tb = np.arange(int(0.005 * R)) / R
+    y[a:a + len(tb)] += 20000 * np.exp(-tb / 0.005 * math.log(100)) * np.sin(2 * np.pi * 2000 * tb)
+    b = A.burst(y, R, 0, 100)
+    check('click burst: start, length, peak', b and near(b['start_ms'], 40.0, absol=1.5) and
+          near(b['length_ms'], 5.0, absol=3.0) and near(b['peak_hz'], 2000.0, 0.12),
+          '40 +-1.5 ms, 5 +-3 ms, 2000 +-12 %', b and '%.1f ms, %.1f ms, %.0f Hz' % (b['start_ms'], b['length_ms'], b['peak_hz']))
+    # VOT past the stop's own stretch (D48): a 120 ms aspiration, the stop's span ending 10 ms after the burst
+    y, truth = S.stop_cv(closure_ms=80, vot_ms=120)
+    end = truth['burst_ms'] + 10.0
+    short = A.stop_timing(y, R, truth['closure_start_ms'], end)
+    long_ = A.vot_long(y, R, truth['closure_start_ms'], end)
+    check('VOT found past the stop (aspirated 123 ms)', near(long_, truth['vot_ms'], absol=8),
+          '%.0f +-8 ms (80 ms reach: %s)' % (truth['vot_ms'], short and short.get('vot_ms')), long_)
+    # T-syllable: three vowels with silence between
+    v = S.vowel([(700, 80), (1200, 90), (2600, 150)], dur_ms=150.0)
+    gap = np.zeros(int(0.08 * R))
+    y = np.concatenate([gap, v, gap, v, gap, v, gap])
+    n = A.syllable_peaks(y, R, 0, len(y) * 1000.0 / R)
+    check('syllable peaks (three vowels)', n == 3, '3', n)
+    # T-slope: F0 gliding 100 -> 200 Hz over 1 s is 12 semitones a second
+    y = S.vowel([(600, 80), (1100, 90), (2500, 150)], f0=lambda s: 100.0 * 2 ** s, dur_ms=1000.0)
+    sl = A.f0_slope(y, R, 100, 900)
+    check('F0 slope of a 1-octave-a-second glide', sl and near(sl['st_per_s'], 12.0, absol=1.0), '12 +-1 st/s',
+          sl and round(sl['st_per_s'], 2))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--quick', action='store_true')
@@ -230,6 +329,7 @@ def main():
     test_fricatives()
     test_stops()
     test_nasal()
+    test_phase3()
     if not a.no_engine:
         print('== part 2: the engine path')
         test_engine(a.quick)
