@@ -20,6 +20,7 @@ in `unrealised`, never dropped: the entry then says `approximate` with that devi
 """
 
 import json
+import re
 import os
 import sys
 
@@ -80,9 +81,12 @@ def distance(t, a, b):
 
 def carrier(t, entry, template):
     own = ((entry.get('realization') or {}).get('openevv') or {}).get('carrier')
-    if own:
-        return own, 0
     f = T.full_bundle(t, entry['features'])
+    if own:
+        # a phone the layer makes beside a vowel is made for the entry; a module phone named by
+        # the entry is still that phone, as far from the letter as its features say
+        phones = module_phones(template)
+        return own, 0 if own.startswith('<') or own not in phones else distance(t, f, T.full_bundle(t, phones[own]))
     measured = chassis(template)
     best = min(((distance(t, f, T.full_bundle(t, g)), name) for name, g in module_phones(template).items()
                 if name in measured))
@@ -178,11 +182,22 @@ def realize(t, sid, template, carrier_meas=None):
     if 'closed_ms' in tap:
         keys['tapms'] = int(round(_v(tap['closed_ms'])))
         rules.append('tapms = %s ms' % _v(tap['closed_ms']))
+    trill = spec.get('trill') or {}
+    if 'rate_hz' in trill:
+        # C11: closures at a stated rate, the count as the sound's length allows
+        keys['trate'] = int(round(_v(trill['rate_hz'])))
+        rules.append('trate = %s closures a second' % _v(trill['rate_hz']))
+    if 'closures' in trill and 'rate_hz' not in trill:
+        keys['tap'] = int(_v(trill['closures']))
+        rules.append('tap = %s closures' % _v(trill['closures']))
+    if 'closed_ms' in trill:
+        keys['tapms'] = int(round(_v(trill['closed_ms'])))
+        rules.append('tapms = %s ms' % _v(trill['closed_ms']))
     nas = (spec.get('nasal') or {}).get('open_pct')
     if nas is not None:
         keys['nas'] = int(round(_v(nas)))
         rules.append('nas = %s per cent' % _v(nas))
-    known = {'formants', 'locus', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap', 'nasal'}
+    known = {'formants', 'locus', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap', 'nasal', 'trill'}
     for k in spec:
         if k not in known:
             unrealised.append('%s: the adapter has no key for it yet' % k)
@@ -208,12 +223,23 @@ def sound_line(name, keys):
 OPS = {('vot_ms', 'add'): ('vot', '+'), ('duration.inherent_ms', 'scale'): ('dur', '*')}
 for _i in (1, 2, 3, 4):
     OPS[('formants.F%d' % _i, 'scale')] = ('f%d' % _i, '*')
-RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur'}      # absent means the carrier's own: 100
+    OPS[('locus.F%d' % _i, 'scale')] = ('f%d' % _i, '*')
+# set: a value the sound takes whatever the base had (DESIGN.md 2.2's fourth operation). These
+# are engine-neutral in meaning and proportional in this engine's own units: the nose open so far,
+# phonation so far from modal, voicing on or off, the release there or not.
+OPS.update({('nasal.open_pct', 'set'): ('nas', '='), ('phonation.breathy_pct', 'set'): ('breathy', '='),
+            ('phonation.creaky_pct', 'set'): ('creak', '='), ('voicing.voiced', 'set'): ('voi', '='),
+            ('release.unreleased', 'set'): ('noburst', '='), ('release.ejective_silence_ms', 'set'): ('ej', '='),
+            ('release.implosive', 'set'): ('impl', '='), ('breath.whisper_db', 'set'): ('whisper', '='),
+            ('trill.rate_hz', 'set'): ('trate', '='), ('tap.closures', 'set'): ('tap', '=')})
+# a consonant's length is `hold', a vowel's `dur'
+CLASS_KEY = {('consonant', 'dur'): 'hold'}
+RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur', 'hold'}      # absent means the carrier's own: 100
 
 
 def _flat(tr, prefix=''):
     for k, v in tr.items():
-        if isinstance(v, dict) and not ({'add', 'scale'} & set(v)):
+        if isinstance(v, dict) and not ({'add', 'scale', 'set', 'toward'} & set(v)):
             yield from _flat(v, prefix + k + '.')
         else:
             yield prefix + k, v
@@ -227,22 +253,37 @@ def mod_ops(t, mid, cls):
         return None, []
     ops, lost = [], []
     for path, v in _flat(tr):
-        op = 'add' if 'add' in v else 'scale'
+        op = 'add' if 'add' in v else 'set' if 'set' in v else 'toward' if 'toward' in v else 'scale'
+        if op == 'toward':
+            m = re.match(r'(formants|locus)\.F([1-4])$', path)
+            if not m:
+                lost.append('%s toward: only a formant moves towards a target' % path)
+                continue
+            ops.append(('f' + m.group(2), '~', (v['toward'], v.get('part', 50))))
+            continue
         key = OPS.get((path, op))
         if key is None:
             lost.append('%s %s: no engine key' % (path, op))
             continue
-        ops.append((key[0], key[1], v[op] * (100.0 if key[1] == '*' else 1.0)))
+        ops.append((CLASS_KEY.get((cls, key[0]), key[0]), key[1], v[op] * (100.0 if key[1] == '*' else 1.0)))
     return ops, lost
 
 
-def merge(keys, ops, exact=False):
+def merge(keys, ops, exact=False, base_hz=None):
     """A base's keys with a modifier's ops. Ratios multiply (absent = 100), times add (absent: lost,
     since the module's own value is not known here). Returns (keys, lost)."""
     out, lost = dict(keys), []
     for key, op, val in ops:
         if op == '*':
             out[key] = out.get(key, 100) * val / 100.0
+        elif op == '~':
+            hz = (base_hz or {}).get(key)
+            if not hz:
+                lost.append('%s~: the letter has no %shz to move from' % (key, key))
+                continue
+            out[key] = out.get(key, 100) * (hz + (val[0] - hz) * val[1] / 100.0) / hz
+        elif op == '=':
+            out[key] = val
         elif key in out:
             out[key] = out[key] + val
         else:
@@ -263,18 +304,29 @@ def compose(t, base_sid, mod_sids, template, carrier_meas=None):
         if ops is None:
             lost.append('%s has no transform for a %s' % (t.sounds[m]['ipa'], cls))
             continue
-        keys, l2 = merge(keys, ops, exact=True)
+        hz = realised_hz(t, base_sid, template) if cls == 'vowel' else None
+        keys, l2 = merge(keys, ops, exact=True, base_hz={'f%d' % (i + 1): x for i, x in enumerate(hz or [])})
         lost += l2
     return dict(keys={k: int(round(v + 1e-9)) for k, v in keys.items()}, carrier=r['carrier'], lost=lost)
 
 
-def letter_line(t, sid):
+def realised_hz(t, sid, template):
+    """A vowel's F1 to F3 as its line realises it: the carrier's chassis times the entry's ratios."""
+    r = realize(t, sid, template)
+    ch = chassis(template).get(r['carrier'])
+    if not ch or r['carrier'].startswith('<'):
+        return None
+    return [int(round(ch['f'][i] * r['keys'].get('f%d' % (i + 1), 100) / 100.0)) for i in range(3)]
+
+
+def letter_line(t, sid, template='dedx'):
     f = T.full_bundle(t, t.sounds[sid]['features'])
     if f['class'] == 'vowel':
         v = t.features['vowel']
-        return 'letter %s v height=%d backness=%d rounding=%s' % (
+        hz = realised_hz(t, sid, template)
+        return 'letter %s v height=%d backness=%d rounding=%s%s' % (
             t.sounds[sid]['ipa'], v['height']['scale'].index(f['height']), v['backness']['scale'].index(f['backness']),
-            f['rounding'])
+            f['rounding'], ''.join(' f%dhz=%d' % (i + 1, x) for i, x in enumerate(hz or [])))
     c = t.features['consonant']
     return 'letter %s c place=%d %s' % (t.sounds[sid]['ipa'], c['place']['scale'].index(f['place']), ' '.join(
         '%s=%s' % (k, str(f[k]).lower()) for k in ('stricture', 'airstream', 'nasal', 'lateral', 'sibilant', 'place2',
@@ -304,7 +356,7 @@ def loop_proof(sid):
         return json.load(f)
 
 
-def write(t, template):
+def write(t, template, quiet=False):
     """ipa/realized/<template>.map: every letter of the table as this template's lines, so that the
     front-end can say any of them: the carrier, and a sound line where the entry moves it. A noise
     target uses the carrier's peak as the entry's loop measured it. A carrier at a feature distance
@@ -344,7 +396,7 @@ def write(t, template):
               'version 2', weights_line(t)]
     for sid, e in sorted(t.sounds.items()):
         if e.get('kind') == 'base':
-            lines.append(letter_line(t, sid))
+            lines.append(letter_line(t, sid, template))
     for sid, e in sorted(t.sounds.items()):
         for cls in sorted((e.get('transform') or {})):
             ops, lost = mod_ops(t, sid, cls)
@@ -353,13 +405,53 @@ def write(t, template):
                 unrealised += 1
             if ops:
                 lines.append('mod %s %s %s    # %s' % (e['ipa'], cls[0], ' '.join(
-                    '%s%s%d' % (k, op, int(round(v))) for k, op, v in ops), sid))
+                    ('%s~%d:%d' % (k, v[0], v[1])) if op == '~' else '%s%s%d' % (k, op, int(round(v)))
+                    for k, op, v in ops), sid))
+    lines += pitch_lines(t)
+    syl = ((t.sounds.get('U+0329') or {}).get('realization') or {}).get('openevv', {}).get('schwa_keys')
+    if syl:
+        lines += ['', '# a consonant marked syllabic (C7): the schwa that carries its syllable, said this short',
+                  'sound usyl %s' % ' '.join('%s=%d' % (k, int(x['v'])) for k, x in sorted(syl.items())),
+                  'syllabic usyl']
     os.makedirs(os.path.join(ROOT, 'ipa', 'realized'), exist_ok=True)
     path = os.path.join(ROOT, 'ipa', 'realized', template + '.map')
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(lines) + '\n')
-    print('%s: %d letters realised, %d targets not realised, %d carriers standing in unmoved' % (
-        os.path.relpath(path, ROOT), n, unrealised, bare))
+    if not quiet:
+        print('%s: %d letters realised, %d targets not realised, %d carriers standing in unmoved' % (
+            os.path.relpath(path, ROOT), n, unrealised, bare))
+
+
+# The pitch marks typed in IPA (C2, C5). The front-end works in tenths of a Chao level; a voice's
+# five levels span `range` tenths of a semitone (the accent line's key: 90 in the packs this is
+# proved with), so a semitone is 40 / (range / 10) tenths of a level.
+RANGE_ST = 9.0
+
+
+def pitch_lines(t, range_st=RANGE_ST):
+    per_st = 40.0 / range_st
+    out = ['', '# pitch typed in IPA (C2, C5): tone letters and marks, register steps, slopes; tenths of a Chao',
+           '# level, a semitone being %.2f of them (a range of %g semitones)' % (per_st, range_st)]
+    for sid, e in sorted(t.sounds.items()):
+        if e.get('kind') != 'tone' or len(e['codepoints']) != 1:
+            continue
+        spec = e.get('spec') or {}
+        if e.get('levels'):
+            out.append('tonemark %s %s    # %s' % (e['ipa'], ''.join(str(x) for x in e['levels']), sid))
+        elif e.get('register'):
+            st = (spec.get('step_st') or {}).get('v')
+            if st is None:
+                out.append('#   not realised: %s %s: no step in its specification' % (e['ipa'], sid))
+            else:
+                out.append('register %s %d    # %s, %g semitones' % (e['ipa'], int(round(st * per_st)), sid, st))
+        elif e.get('slope'):
+            st = (spec.get('st_per_syllable') or {}).get('v')
+            if st is None:
+                out.append('#   not realised: %s %s: no slope in its specification' % (e['ipa'], sid))
+            else:
+                out.append('slope %s %d    # %s, %g semitones a syllable' % (e['ipa'], int(round(st * per_st)), sid,
+                                                                            st))
+    return out
 
 
 def main():

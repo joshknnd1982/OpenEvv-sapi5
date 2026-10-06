@@ -368,7 +368,7 @@ static const char *keyword_like(const char *key)
 {
 	static const char *words[] = {"template", "style", "vowels", "glides", "secondary", "schwa", "words", "cluster",
 	                              "onset", "accent", "sound", "tone", "whwords", "weaktones", "tonename", "says",
-	                              "version", "weights", "letter"};
+	                              "version", "weights", "letter", "tonemark", "register", "slope", "syllabic"};
 	size_t n = strlen(key);
 	if (n < 4)
 		return NULL;
@@ -415,6 +415,8 @@ static int read_letter(EvvMap *map, char *rest)
 			l->backness = atoi(eq);
 		else if (strcmp(w, "rounding") == 0)
 			copy_checked(l->f[0], eq, sizeof(l->f[0]), "feature");
+		else if (w[0] == 'f' && w[1] >= '1' && w[1] <= '4' && strcmp(w + 2, "hz") == 0)
+			l->hz[w[1] - '1'] = atoi(eq); /* the letter as realised, for a mark that moves towards a target */
 		else {
 			int k;
 			for (k = 0; k < 7 && strcmp(cons[k], w) != 0; k++)
@@ -426,6 +428,92 @@ static int read_letter(EvvMap *map, char *rest)
 		}
 	}
 	return 0;
+}
+
+/* `tonemark MARK LEVELS', `register MARK TENTHS', `slope MARK TENTHS'
+   (version 2; DESIGN.md 4.3, C2 and C5) */
+static int read_tonemark(EvvMap *map, char kind, char *rest)
+{
+	char *mark = next_word(&rest), *v = next_word(&rest);
+	if (!mark || !v) {
+		evv_diag(EVV_DIAG_LOSS, "map-ignored", "a %s line needs a mark and a value",
+		         kind == 't' ? "tonemark" : kind == 'r' ? "register" : "slope");
+		return 0;
+	}
+	if (map->n_tonemarks == map->cap_tonemarks) {
+		int cap = map->cap_tonemarks ? map->cap_tonemarks * 2 : 32;
+		EvvToneMark *t = (EvvToneMark *)realloc(map->tonemarks, (size_t)cap * sizeof(EvvToneMark));
+		if (!t)
+			return -1;
+		map->tonemarks = t;
+		map->cap_tonemarks = cap;
+	}
+	EvvToneMark *m = &map->tonemarks[map->n_tonemarks++];
+	memset(m, 0, sizeof(*m));
+	copy_checked(m->mark, mark, sizeof(m->mark), "mark");
+	m->kind = kind;
+	if (kind == 't') {
+		for (const char *d = v; *d; d++) {
+			if (*d < '1' || *d > '5' || m->n >= 4) {
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "tonemark %s: levels `%s' are not 1 to 5, at most four", mark, v);
+				map->n_tonemarks--;
+				return 0;
+			}
+			m->levels[m->n++] = *d - '0';
+		}
+	} else {
+		m->value = atoi(v);
+	}
+	return 0;
+}
+
+const EvvToneMark *evv_map_tonemark(const EvvMap *map, const char *ch, size_t len)
+{
+	for (int i = 0; i < map->n_tonemarks; i++)
+		if (strlen(map->tonemarks[i].mark) == len && memcmp(map->tonemarks[i].mark, ch, len) == 0)
+			return &map->tonemarks[i];
+	return NULL;
+}
+
+/* A tone made for typed IPA: its points spread evenly over the nucleus, in
+   tenths of a Chao level, moved by the register and the slope. Kept as a
+   tone definition like a map's own, and found again by what it says. */
+const char *evv_map_ipa_tone(EvvMap *map, const int *levels, int n, int from, int to)
+{
+	char body[160];
+	size_t at = 0;
+	int pts = n == 1 ? 2 : n;
+	at += (size_t)snprintf(body + at, sizeof(body) - at, "p=");
+	for (int i = 0; i < pts && at < sizeof(body); i++) {
+		int lv = levels[n == 1 ? 0 : i];
+		int pos = i * 100 / (pts - 1);
+		int off = from + (to - from) * pos / 100;
+		int v = lv * 10 + off;
+		if (v < 0 || v > 60) {
+			evv_diag(EVV_DIAG_LOSS, "tone-clamped", "level %d moved by %d tenths is off the voice; held at its edge",
+			         lv, off);
+			v = v < 0 ? 0 : 60;
+		}
+		at += (size_t)snprintf(body + at, sizeof(body) - at, "%s%d:%d", i ? "," : "", pos, v);
+	}
+	char want[200];
+	snprintf(want, sizeof(want), " %s}", body);
+	for (int i = 0; i < map->n_tone_defs; i++) {
+		/* `{T id p=...}': what follows the id */
+		const char *g = map->tone_defs[i].group;
+		const char *sp = strchr(g, ' ');
+		sp = sp ? strchr(sp + 1, ' ') : NULL;
+		if (strncmp(map->tone_defs[i].id, "ipa", 3) == 0 && sp && strcmp(sp, want) == 0)
+			return map->tone_defs[i].id;
+	}
+	char line[200];
+	char id[EVV_ID_LEN];
+	snprintf(id, sizeof(id), "ipa%d", ++map->n_ipa_tones);
+	snprintf(line, sizeof(line), "%s %s", id, body);
+	if (define(&map->tone_defs, &map->n_tone_defs, &map->cap_tone_defs, "T", line) != 0)
+		return NULL;
+	evv_diag(EVV_DIAG_NOTE, "tone-made", "%s %s", id, body);
+	return map->tone_defs[map->n_tone_defs - 1].id;
 }
 
 /* `mod MARK c|v key*value key+value ...' */
@@ -449,9 +537,10 @@ static int read_mod(EvvMap *map, char *rest)
 	copy_checked(m->mark, mark, sizeof(m->mark), "mark");
 	m->cls = cls[0];
 	while ((w = next_word(&rest)) != NULL) {
-		char *op = strpbrk(w, "*+");
+		char *op = strpbrk(w, "*+=~");
 		if (!op || op == w || m->n >= EVV_MAX_OPS) {
-			evv_diag(EVV_DIAG_LOSS, "map-ignored", "mod %s: `%s' is not key*value or key+value, or one too many", mark, w);
+			evv_diag(EVV_DIAG_LOSS, "map-ignored", "mod %s: `%s' is not key*value, key+value or key=value, or one too "
+			         "many", mark, w);
 			continue;
 		}
 		EvvOp *o = &m->ops[m->n++];
@@ -459,6 +548,11 @@ static int read_mod(EvvMap *map, char *rest)
 		*op = 0;
 		copy_checked(o->key, w, sizeof(o->key), "key");
 		o->v = atof(op + 1);
+		if (o->op == '~') {
+			/* `f2~1450:50': half of the way towards 1450 Hz */
+			char *c = strchr(op + 1, ':');
+			o->part = c ? atof(c + 1) : 50.0;
+		}
 	}
 	return 0;
 }
@@ -536,6 +630,14 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			char *w = next_word(&rest);
 			if (w)
 				copy_checked(map->schwa, w, EVV_PHONE_LEN, "phone");
+			continue;
+		}
+		if (strcmp(key, "syllabic") == 0) {
+			/* version 2 (C7): the sound the schwa is said with when it only carries
+			   the syllable of a consonant marked syllabic */
+			char *w = next_word(&rest);
+			if (w)
+				copy_checked(map->syl_sound, w, EVV_ID_LEN, "sound id");
 			continue;
 		}
 		if (strcmp(key, "words") == 0) {
@@ -673,6 +775,10 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			failed |= read_mod(map, rest);
 			continue;
 		}
+		if (strcmp(key, "tonemark") == 0 || strcmp(key, "register") == 0 || strcmp(key, "slope") == 0) {
+			failed |= read_tonemark(map, key[0] == 't' ? 't' : key[0] == 'r' ? 'r' : 's', rest);
+			continue;
+		}
 		if (strcmp(key, "says") == 0) {
 			failed |= buffer_group(&rest_of, "X", rest);
 			continue;
@@ -807,6 +913,7 @@ void evv_map_free(EvvMap *map)
 	free(map->tone_ids);
 	free(map->letters);
 	free(map->mods);
+	free(map->tonemarks);
 	for (int i = 0; i < map->n_comp; i++)
 		free(map->composed[i].group);
 	free(map->composed);
@@ -1049,14 +1156,33 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 				         m->ops[o].key, m->ops[o].v, m->ops[o].key);
 				continue;
 			}
-			if (k == nk) {
+			if (k == nk || m->ops[o].op == '=') {
+				if (k < nk) { /* a value set: the base's own gives way */
+					vals[k] = m->ops[o].v;
+					continue;
+				}
 				if (nk >= 32) {
 					evv_diag(EVV_DIAG_LOSS, "compose-full", "%s on /%s/: no room for key %s; left off", m->mark, ipa,
 					         m->ops[o].key);
 					continue;
 				}
 				copy_name(keys[nk], m->ops[o].key, 8);
-				vals[nk++] = 100;
+				vals[nk++] = m->ops[o].op == '=' ? m->ops[o].v : 100;
+				if (m->ops[o].op == '=')
+					continue;
+			}
+			if (m->ops[o].op == '~') {
+				/* towards a target: the letter's own frequency (its `fNhz') moved by
+				   the part asked, as a ratio of what the base already has */
+				int f = m->ops[o].key[0] == 'f' ? m->ops[o].key[1] - '1' : -1;
+				double hz = f >= 0 && f < 4 ? letter->hz[f] : 0;
+				if (hz <= 0) {
+					evv_diag(EVV_DIAG_LOSS, "mark-left-off", "%s on /%s/: %s~ and the letter has no %shz to move from",
+					         m->mark, ipa, m->ops[o].key, m->ops[o].key);
+					continue;
+				}
+				vals[k] = vals[k] * (hz + (m->ops[o].v - hz) * m->ops[o].part / 100.0) / hz;
+				continue;
 			}
 			vals[k] = m->ops[o].op == '*' ? vals[k] * m->ops[o].v / 100.0 : vals[k] + m->ops[o].v;
 		}
@@ -1218,7 +1344,7 @@ void evv_word_add(EvvWord *w, const EvvMap *map, const EvvMapPhone *phones, int 
 		   consonant: the syllable is carried by the map's schwa */
 		if (map->schwa[0]) {
 			evv_diag(EVV_DIAG_NOTE, "schwa-inserted", "%s before syllabic %s", map->schwa, n ? phones[0].name : "");
-			EvvPhone *p = push(w, map->schwa, NULL, 0, 1, stress);
+			EvvPhone *p = push(w, map->schwa, map->syl_sound[0] ? map->syl_sound : NULL, 0, 1, stress);
 			if (p && tone)
 				copy_name(p->tone, tone, EVV_ID_LEN);
 		} else {

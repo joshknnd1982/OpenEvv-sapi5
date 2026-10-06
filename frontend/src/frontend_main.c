@@ -644,9 +644,15 @@ static void put_header(void)
    by spaces, ˈ and ˌ for the stress of the syllable they stand before, `.'
    between syllables, and each segment a chart letter with the marks after it,
    looked up whole and otherwise composed (evv_map.c). Anything that is not a
-   letter the map lists and stands where a letter should is reported. Tones
-   typed as letters or marks are not read yet: a mark with no `mod' line is
-   left off and reported, never dropped without a word. */
+   letter the map lists and stands where a letter should is reported. A mark
+   with no `mod' line is left off and reported, never dropped without a word.
+   Pitch typed in IPA (C2, C5), from a map with `tonemark', `register' and
+   `slope' lines: tone letters and tone diacritics give the syllable they
+   belong to a tone of its own, made on the spot; a register step (downstep,
+   upstep) moves every tone after it to the end of the phrase; a global rise
+   or fall gives each syllable after it to the end of the phrase a tone a step
+   higher or lower than the one before. `|' ends a minor group and `‖' a major
+   one (a phrase each); `‿' links, and is otherwise nothing. */
 static int utf8_char_len(unsigned char c)
 {
 	return c < 0x80 ? 1 : (c & 0xe0) == 0xc0 ? 2 : (c & 0xf0) == 0xe0 ? 3 : (c & 0xf8) == 0xf0 ? 4 : 1;
@@ -700,6 +706,36 @@ static char *ipa_normalize(const char *utf8)
 	return out;
 }
 
+/* A combining mark: U+0300 to 036F, U+1DC0 to 1DFF. */
+static int is_combining(const unsigned char *p, int l)
+{
+	if (l == 2 && (p[0] == 0xcc || (p[0] == 0xcd && p[1] <= 0xaf)))
+		return 1;
+	return l == 3 && p[0] == 0xe1 && p[1] == 0xb7;
+}
+
+/* The tone typed for a syllable, put on its nucleus: the levels typed, or,
+   under a slope with none typed, the middle of the voice; moved by the
+   register and by how far the slope has gone. */
+static void put_tone(EvvPhone *nuc, int *levels, int *n, int reg, int slope, int *slope_at)
+{
+	if (nuc == NULL || (*n == 0 && slope == 0)) {
+		if (nuc != NULL)
+			*n = 0;
+		return;
+	}
+	int mid[1] = {3};
+	const int *lv = *n ? levels : mid;
+	int k = *n ? *n : 1;
+	const char *id = evv_map_ipa_tone(&g_map, lv, k, reg + *slope_at, reg + *slope_at + slope);
+	if (id)
+		snprintf(nuc->tone, sizeof(nuc->tone), "%s", id);
+	else
+		evv_diag(EVV_DIAG_LOSS, "tone-dropped", "no room for another tone; a syllable is said without its own");
+	*slope_at += slope;
+	*n = 0;
+}
+
 static int translate_ipa(const char *given)
 {
 	EvvMapPhone phones[EVV_MAX_PHONES];
@@ -720,11 +756,54 @@ static int translate_ipa(const char *given)
 	n_clause_words = 0;
 	ClauseWord *cw = NULL;
 	int stress = 0, chars = 0;
+	int levels[8], n_levels = 0;    /* the tone typed for the syllable being read */
+	int reg = 0, slope = 0, slope_at = 0;
+	EvvPhone *nuc = NULL;           /* the nucleus that typed tone goes to */
 	for (const char *p = utf8; *p;) {
 		int l = utf8_char_len((unsigned char)*p);
 		if (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
 			cw = NULL;
 			p++;
+			chars++;
+			continue;
+		}
+		/* a group boundary ends the phrase: its pitch, its register, its slope */
+		int minor = *p == '|' && p[1] != '|';
+		int major = (l == 3 && (unsigned char)p[0] == 0xe2 && (unsigned char)p[1] == 0x80 &&
+		             (unsigned char)p[2] == 0x96) || (*p == '|' && p[1] == '|');
+		if (minor || major) {
+			put_tone(nuc, levels, &n_levels, reg, slope, &slope_at);
+			write_clause(major ? CLAUSE_PERIOD : CLAUSE_COMMA);
+			reg = slope = slope_at = 0;
+			nuc = NULL;
+			cw = NULL;
+			int two = major && *p == '|'; /* `||' typed for ‖ */
+			p += two ? 2 : l;
+			chars += two ? 2 : 1;
+			continue;
+		}
+		if (l == 3 && (unsigned char)p[0] == 0xe2 && (unsigned char)p[1] == 0x80 && (unsigned char)p[2] == 0xbf) {
+			p += l; /* ‿ links: the words are one already where nothing parts them */
+			chars++;
+			continue;
+		}
+		const EvvToneMark *tm = evv_map_tonemark(&g_map, p, (size_t)l);
+		if (tm) {
+			if (tm->kind == 'r') {
+				/* the syllable before is done before the register moves */
+				put_tone(nuc, levels, &n_levels, reg, slope, &slope_at);
+				nuc = NULL;
+				reg += tm->value;
+			} else if (tm->kind == 's') {
+				put_tone(nuc, levels, &n_levels, reg, slope, &slope_at);
+				nuc = NULL;
+				slope = tm->value;
+				slope_at = 0;
+			} else {
+				for (int i = 0; i < tm->n && n_levels < 8; i++)
+					levels[n_levels++] = tm->levels[i];
+			}
+			p += l;
 			chars++;
 			continue;
 		}
@@ -756,44 +835,80 @@ static int translate_ipa(const char *given)
 			chars++;
 			continue;
 		}
-		/* one segment: this character and the marks after it */
+		/* one segment: this character and the marks after it; a tone
+		   diacritic among them is the syllable's tone, not a mark of the
+		   segment */
 		const char *s = p;
 		const EvvLetter *letter = evv_map_letter(&g_map, p, (size_t)l);
+		int seg_tone[8], n_seg_tone = 0;
+		char seg[64];
+		int seg_len = 0, cut = 0;
+		memcpy(seg, p, (size_t)l);
+		seg_len = l;
 		p += l;
 		chars++;
-		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && *p != '.') {
+		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && *p != '.' && *p != '|') {
 			int ml = utf8_char_len((unsigned char)*p);
+			const EvvToneMark *m = evv_map_tonemark(&g_map, p, (size_t)ml);
 			if (evv_map_letter(&g_map, p, (size_t)ml) ||
-			    (ml == 2 && (unsigned char)p[0] == 0xcb && ((unsigned char)p[1] == 0x88 || (unsigned char)p[1] == 0x8c)))
+			    (ml == 2 && (unsigned char)p[0] == 0xcb && ((unsigned char)p[1] == 0x88 || (unsigned char)p[1] == 0x8c)) ||
+			    (m && !(m->kind == 't' && is_combining((const unsigned char *)p, ml))) ||
+			    (ml == 3 && (unsigned char)p[0] == 0xe2 && (unsigned char)p[1] == 0x80 &&
+			     ((unsigned char)p[2] == 0x96 || (unsigned char)p[2] == 0xbf)))
 				break;
+			if (m) {
+				for (int i = 0; i < m->n && n_seg_tone < 8; i++)
+					seg_tone[n_seg_tone++] = m->levels[i];
+			} else if (seg_len + ml < (int)sizeof(seg)) {
+				memcpy(seg + seg_len, p, (size_t)ml);
+				seg_len += ml;
+			} else {
+				cut = 1;
+			}
 			p += ml;
 			chars++;
 		}
-		char seg[64];
-		int seg_len = (int)(p - s);
-		if (seg_len >= (int)sizeof(seg)) {
-			int keep = (int)sizeof(seg) - 1;
-			while (keep > 0 && ((unsigned char)s[keep] & 0xc0) == 0x80)
-				keep--; /* not inside a character */
-			evv_diag(EVV_DIAG_LOSS, "ipa-segment-cut", "a letter with %d bytes of marks: cut to %d, the rest left off",
-			         seg_len, keep);
-			seg_len = keep;
-		}
-		snprintf(seg, sizeof(seg), "%.*s", seg_len, s);
+		seg[seg_len] = 0;
+		if (cut)
+			evv_diag(EVV_DIAG_LOSS, "ipa-segment-cut", "a letter with more than %d bytes of marks: cut to %d, the rest "
+			         "left off", (int)sizeof(seg) - 1, seg_len);
+		(void)s;
 		if (!letter)
 			evv_diag(EVV_DIAG_LOSS, "ipa-not-a-letter", "`%s' does not begin with a letter the map lists", seg);
 		int matched = 0;
 		int n = evv_map_lookup_ex(&g_map, NULL, NULL, seg, phones, EVV_MAX_PHONES, &matched);
 		if (!matched)
 			evv_diag(EVV_DIAG_LOSS, "phoneme-dropped", "/%s/ has no line in the map and cannot be composed", seg);
+		int vowel = letter && letter->cls == 'v';
+		/* C7: a consonant marked syllabic (U+0329) carries a syllable of its own; a
+		   vowel marked non-syllabic (U+032F) carries none */
+		int syllabic = vowel;
+		if (strstr(seg, "\xcc\xa9"))
+			syllabic = 1;
+		if (vowel && strstr(seg, "\xcc\xaf"))
+			syllabic = vowel = 0;
+		if (syllabic && nuc != NULL)
+			put_tone(nuc, levels, &n_levels, reg, slope, &slope_at); /* the syllable before is done */
+		for (int i = 0; i < n_seg_tone && n_levels < 8; i++)
+			levels[n_levels++] = seg_tone[i];
+		if (n_seg_tone && !vowel)
+			evv_diag(EVV_DIAG_NOTE, "tone-on-consonant", "a tone mark on /%s/ goes to its syllable's vowel", seg);
 		if (n == 0)
 			continue;
-		int vowel = letter && letter->cls == 'v';
-		evv_word_add(&cw->w, &g_map, phones, n, vowel, vowel, vowel ? stress : 0, NULL);
+		evv_word_add(&cw->w, &g_map, phones, n, syllabic, vowel, syllabic ? stress : 0, NULL);
 		cw->src_len = chars - cw->src;
-		if (vowel)
+		if (syllabic) {
 			stress = 0;
+			for (int i = cw->w.n - 1; i >= 0; i--)
+				if (cw->w.ph[i].nucleus) {
+					nuc = &cw->w.ph[i];
+					break;
+				}
+		}
 	}
+	if (n_levels && nuc == NULL)
+		evv_diag(EVV_DIAG_LOSS, "tone-no-syllable", "a tone with no syllable to carry it is left off");
+	put_tone(nuc, levels, &n_levels, reg, slope, &slope_at);
 	write_clause(CLAUSE_PERIOD);
 	put_header();
 	g_input = NULL;

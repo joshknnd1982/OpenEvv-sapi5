@@ -20,6 +20,11 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X7"], builds 
 [sound."U+028D".tests]
 checks = ["T-fric", "T-contrast"]
 
+[sound."U+028D".realization.openevv]
+# a voiceless labial-velar approximant: w said without voice
+carrier = "w"
+keys = { voi = { v = 0, tag = "derived", rule = "voiceless" }, whisper = { v = 44, tag = "derived", rule = "as h: breath at the level the layer gives h" } }
+
 [sound."U+0077"]
 ipa = "w"
 codepoints = ["U+0077"]
@@ -74,6 +79,11 @@ plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X3"], b
 [sound."U+029C".tests]
 checks = ["T-fric", "T-contrast"]
 
+[sound."U+029C".realization.openevv]
+# h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants; an epiglottal fricative is breath with the pharyngeal shape
+carrier = "<h"
+keys = { whisper = { v = 48, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" } }
+
 [sound."U+02A2"]
 ipa = "ʢ"
 codepoints = ["U+02A2"]
@@ -91,6 +101,11 @@ plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X4", "X
 
 [sound."U+02A2".tests]
 checks = ["T-approx", "T-phonation", "T-contrast"]
+
+[sound."U+02A2".realization.openevv]
+# h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
+carrier = "<h"
+keys = { whisper = { v = 30, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" }, voi = { v = 1, tag = "derived", rule = "voiced" } }
 
 [sound."U+02A1"]
 ipa = "ʡ"
@@ -163,6 +178,10 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], b
 
 [sound."U+027A".tests]
 checks = ["T-tap", "T-contrast"]
+
+[sound."U+027A".realization.openevv]
+# a lateral flap: l with one brief closure
+carrier = "l"
 
 [sound."U+0267"]
 ipa = "ɧ"

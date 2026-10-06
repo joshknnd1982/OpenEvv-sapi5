@@ -20,6 +20,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -84,7 +85,8 @@ def main():
     without_letter(map_path, 'ɯ')
     # the sample: every realised letter with every modifier that has a transform for its class,
     # one at a time and in pairs
-    letters = [sid for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'base' and e.get('spec')]
+    # (not ɯ: its line is taken out, to show the fallback below)
+    letters = [sid for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'base' and e.get('spec') and e['ipa'] != 'ɯ']
     mods = [sid for sid, e in sorted(t.sounds.items()) if e.get('transform')]
     sample = []
     for b in letters:
@@ -98,7 +100,8 @@ def main():
         ipa = t.sounds[b]['ipa'] + ''.join(t.sounds[m]['ipa'] for m in ms)
         want = AD.compose(t, b, ms, a.template, _carrier_meas(b))
         code, out, diags = say_ipa(p, map_path, ipa)
-        got = composed_keys(diags).get(ipa)
+        # the front-end puts marks in canonical order (a mark below before a mark above)
+        got = composed_keys(diags).get(unicodedata.normalize('NFD', ipa))
         losses = [d for d in diags if d['level'] == 'loss']
         # equal keys, and the two agree on whether a transform could not be applied (ʰ on a
         # fricative: no voice onset to add to), which both must report
@@ -109,7 +112,7 @@ def main():
         if not ok:
             failures.append(ipa)
     # each fallback warns
-    fallbacks = [('ɯ', 'nearest-letter'), ('ĩ', 'mark-left-off'), ('5', 'ipa-not-a-letter'),
+    fallbacks = [('ɯ', 'nearest-letter'), ('aʰ', 'mark-left-off'), ('5', 'ipa-not-a-letter'),
                  ('tʼ', 'mark-left-off')]
     for ipa, kind in fallbacks:
         code, out, diags = say_ipa(p, map_path, ipa)

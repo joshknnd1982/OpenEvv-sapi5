@@ -417,6 +417,7 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X11"], builds = ["C5"] }
 
 [sound."U+A71C".spec]
+step_st = { v = -2.5, tag = "estimated", note = "no measured downstep size was found in a source that could be opened (Connell and Ladd 1990, Laniran and Clements 2003 not opened); the one figure seen, a Mandarin range of downstep below 2.5 st (Wang, Kugler and Genzel 2022), was read only through a summary and is unverified. Queued for verification." }
 
 [sound."U+A71C".tests]
 checks = ["T-register"]
@@ -436,6 +437,7 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X11"], builds = ["C5"] }
 
 [sound."U+A71B".spec]
+step_st = { v = 2.5, tag = "estimated", note = "set equal and opposite to downstep; no upstep size found in an opened source. Queued for verification." }
 
 [sound."U+A71B".tests]
 checks = ["T-register"]
@@ -455,6 +457,7 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X11", "X12"], builds = ["C5"] }
 
 [sound."U+2197".spec]
+st_per_syllable = { v = 1.0, tag = "estimated", note = "no measured size of a marked global rise found; one semitone a syllable (about 5 st/s at 5 syllables a second) is chosen so the rise exceeds the declination it overrides (English falling utterances -1.2 to -2.7 st/s, yuan_liberman_declination Table 1). Queued for verification." }
 
 [sound."U+2197".tests]
 checks = ["T-slope"]
@@ -474,6 +477,7 @@ approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X11", "X12"], builds = ["C5"] }
 
 [sound."U+2198".spec]
+st_per_syllable = { v = -1.0, tag = "estimated", note = "no measured size of a marked global fall found; minus one semitone a syllable, steeper than plain declination (English -1.2 to -2.7 st/s, Mandarin -1.9 to -3.9 st/s, yuan_liberman_declination Table 1). Queued for verification." }
 
 [sound."U+2198".tests]
 checks = ["T-slope"]

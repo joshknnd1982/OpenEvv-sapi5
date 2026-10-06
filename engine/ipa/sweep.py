@@ -76,13 +76,17 @@ def contexts(t, sid):
             return [('alone', x)] + [('%s_%s' % (c, c), 'ˈ%s%s%s' % (c, x, c)) for c in CONSONANTS_AROUND]
         return [('alone', x)] + [('%s_%s' % (v, v), 'ˈ%s%s%s' % (v, x, v)) for v in VOWELS_AROUND]
     out = []
+    follow = t.sounds[tests['follow']]['ipa'] if tests.get('follow') else ''
     for base in tests.get('bases', []):
         b = t.sounds[base]
-        marked = b['ipa'] + e['ipa']
-        if manner(b) == 'vowel':
-            out += [('%s_%s' % (base, c), 'ˈ%s%s%s' % (c, marked, c)) for c in CONSONANTS_AROUND[:1]]
-        else:
-            out += [('%s_%s' % (base, v), 'ˈ%s%s%s' % (v, marked, v)) for v in VOWELS_AROUND]
+        for variant, x in (('plain', b['ipa']), ('marked', b['ipa'] + e['ipa'])):
+            if e['ipa'] == '\u0329':
+                # a syllabic consonant: after a stressed syllable, the word ending in it
+                out.append(('%s_%s_pa' % (base, variant), 'ˈpa%s%s' % ('p' if variant == 'marked' else 'pa', x)))
+            elif manner(b) == 'vowel':
+                out += [('%s_%s_%s' % (base, variant, c), 'ˈ%s%s%s' % (c, x, c)) for c in CONSONANTS_AROUND]
+            else:
+                out += [('%s_%s_%s' % (base, variant, v), 'ˈ%s%s%s%s' % (v, x, follow, v)) for v in VOWELS_AROUND]
     return out
 
 
@@ -95,6 +99,12 @@ def target_phones(phones, case_id, kind):
         return [], None, None
     if case_id == 'alone':
         idx = [i for i in sounding if not (ph_is_schwa(phones[i]) and len(sounding) > 1)]
+        return idx, None, None
+    if case_id.endswith('_pa'):
+        # `ˈpapn̩' (or `ˈpapan'): the last sounding phone, and a schwa just before it
+        idx = [sounding[-1]]
+        if len(sounding) >= 2 and phones[sounding[-2]]['name'] == '@':
+            idx = [sounding[-2], sounding[-1]]
         return idx, None, None
     if len(sounding) < 3:
         return sounding, None, None
@@ -126,6 +136,18 @@ def measure(r, p, case_id):
             ex['modulation'] = mod
         if any(ph['cls'] in ('stop', 'affricate') for ph in tgt):
             ex['vot_long_ms'] = A.vot_long(x, rate, a, b)
+            # a release: noise in the frames within 25 ms after the closure (T-release)
+            t_ = E.frame_times(r['frames'])
+            win = (t_ >= b) & (t_ < b + 25)
+            ex['burst_found'] = int(bool(((r['frames'][win, E.P['af']] > 0) | (r['frames'][win, E.P['ab']] > 0)).any()))
+        last = tgt[-1]
+        if last['cls'] in ('vowel', 'nasal', 'liquid', 'glide') and last['end_ms'] - last['start_ms'] >= 40:
+            mid = (last['start_ms'] + last['end_ms']) / 2.0
+            ex['h1h2_db'] = A.h1_h2(x, rate, mid)
+            f1 = (last.get('meas') or {}).get('F1_50_hz')
+            if f1:
+                ex['a1_p0_db'] = A.a1_p0(x, rate, mid, f1)
+        ex['schwa_ms'] = sum(ph['end_ms'] - ph['start_ms'] for ph in tgt if ph['name'] == '@')
         out['extra'] = ex
     edges = {}
     if before is not None:
@@ -149,7 +171,11 @@ def summary(cases, man):
             v = fn(c)
             if v is not None:
                 xs.append(v)
-        return sum(xs) / len(xs) if xs else None
+        # the median: one context's tracker error (a low F1 near a harmonic, D15; a burst read as
+        # a formant in a short vowel) must not carry the summary
+        xs.sort()
+        n = len(xs)
+        return (xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2.0) if xs else None
 
     def tmeas(key):
         def fn(c):
@@ -178,6 +204,13 @@ def summary(cases, man):
         v = vals(lambda c: ((c.get('extra') or {}).get('modulation') or {}).get(k))
         if v is not None:
             s['mod_' + k] = round(v, 2)
+    for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms'):
+        v = vals(lambda c: (c.get('extra') or {}).get(k))
+        if v is not None:
+            s['%s' % k] = round(v, 2)
+    if s.get('F2_50_hz') is not None:
+        # how near the centre: for the centralizing marks (larger is nearer the table's ə)
+        s['F2_toward_centre'] = round(-abs(s['F2_50_hz'] - 1454.0), 1)
     vf = vals(lambda c: _voiced_frac(c))
     if vf is not None:
         s['voiced_frac'] = round(vf, 3)
@@ -202,7 +235,7 @@ def check_a1(cases, man):
             bad.append('%s: nothing sounded' % cid)
             continue
         ts = [c['phones'][i] for i in c['target']]
-        if man in ('stop', 'click'):
+        if man in ('stop', 'click') or all(ph['cls'] == 'stop' for ph in ts):
             if not any((ph.get('meas') or {}).get('burst_ms') is not None or (ph.get('meas') or {}).get('closure_ms')
                        for ph in ts) and cid != 'alone':
                 bad.append('%s: no closure or burst found' % cid)
@@ -226,6 +259,17 @@ def check_b3(e, s):
         want['peak_hz'] = ('peak_hz', v(spec['noise']['peak_hz']))
     dur = (spec.get('duration') or {}).get('inherent_ms')
     out = {}
+    # a trill's rate (the modulation of its level) within 15 per cent; a tap's or trill's closed
+    # time within 40 per cent (the level measure finds the closure's edges only to a few ms)
+    trill = spec.get('trill') or {}
+    if 'rate_hz' in trill:
+        got, w = s.get('mod_rate_hz'), v(trill['rate_hz'])
+        out['trill_rate_hz'] = dict(target=w, measured=got, within=got is not None and abs(got - w) <= 0.15 * w)
+    for k in ('trill', 'tap'):
+        if 'closed_ms' in (spec.get(k) or {}):
+            got, w = s.get('mod_closed_ms'), v(spec[k]['closed_ms'])
+            out['%s_closed_ms' % k] = dict(target=w, measured=got,
+                                           within=got is not None and abs(got - w) <= 0.4 * w)
     for k, (mk, w) in want.items():
         got = s.get(mk)
         out[k] = dict(target=w, measured=got, within=PR.within(k if k != 'peak_hz' else 'peak', got, w))
@@ -265,8 +309,49 @@ def judge(t, sid, cases, diags, said_as):
     a2 = RP.check_a(dict(cases={cid: c['gold'] for cid, c in cases.items()}), E.pack(said_as['pack']).phone_module)
     a2 = {k: a2[k] for k in ('passed', 'a1_phones', 'a1_silent', 'a2_checks', 'a2_ok', 'a2_rate', 'substituted',
                              'problems')}
-    b3 = check_b3(e, s) if e['kind'] == 'base' else dict(passed=True, empty=False, targets={})
+    if e['kind'] == 'base':
+        b3 = check_b3(e, s)
+    elif e['kind'] == 'modifier':
+        b3 = check_shift(t, sid, cases)
+        s = b3.pop('summary')
+        # every marked case must have been composed with the mark, not said without it
+        marked = [c for cid, c in cases.items() if '_marked_' in cid]
+        unc = [cid for cid, c in cases.items() if '_marked_' in cid and not any(
+            d['kind'] == 'composed' or d['kind'] == 'tone-made' for d in c['diag'])]
+        if unc and marked:
+            a0 = dict(a0, passed=False, not_composed=unc[:6])
+    else:
+        b3 = dict(passed=True, empty=False, targets={})
     return dict(manner=man, summary=s, A0=a0, A1=a1, A2=a2, B3=b3)
+
+
+def check_shift(t, sid, cases):
+    """T-shift and its kin: per base, the marked sound against the plain one in the same contexts;
+    every named measure that applies to the base must move the stated way by at least the
+    contrast minimum, and each base must have at least one."""
+    tests = t.sounds[sid].get('tests') or {}
+    per, targets, ok_all = {}, {}, True
+    for base in tests.get('bases', []):
+        man = manner(t.sounds[base])
+        sp = summary({c: v for c, v in cases.items() if c.startswith(base + '_plain_')}, man)
+        sm = summary({c: v for c, v in cases.items() if c.startswith(base + '_marked_')}, man)
+        per[base] = dict(plain=sp, marked=sm)
+        checked = 0
+        for sh in tests.get('shift', []):
+            m = sh['measure']
+            if sp.get(m) is None and sm.get(m) is None:
+                continue
+            ok, d = contrast_ok(m, sm.get(m), sp.get(m), sh['sign']) if m != 'burst_found' else (
+                (sm.get(m) is not None and sp.get(m) is not None and (sm[m] - sp[m]) * sh['sign'] >= 1),
+                None if sm.get(m) is None or sp.get(m) is None else sm[m] - sp[m])
+            targets['%s %s' % (t.sounds[base]['ipa'], m)] = dict(target='%+d' % sh['sign'], measured=d, within=ok,
+                                                               plain=sp.get(m), marked=sm.get(m))
+            checked += 1
+            ok_all &= ok
+        if not checked:
+            targets['%s (none)' % t.sounds[base]['ipa']] = dict(target='a measure', measured=None, within=False)
+            ok_all = False
+    return dict(passed=ok_all and bool(per), targets=targets, empty=not per, summary=per)
 
 
 def test_map(pack, template, work):
@@ -283,44 +368,103 @@ def test_map(pack, template, work):
     return p, out
 
 
-def run(t, ids, template, pack, apply=False):
-    os.makedirs(SWEEP_WORK, exist_ok=True)
+def say_entry(t, sid, template, pack):
+    """One entry said in its contexts and judged (B2 aside): the map written afresh from `t', so
+    that a correction made in this run is the one that speaks."""
+    AD.write(t, template, quiet=True)
     p, map_path = test_map(pack, template, SWEEP_WORK)
     with open(map_path, 'rb') as f:
         map_sha = hashlib.sha256(f.read()).hexdigest()
-    realized = {sid: AD.realize(t, sid, template, (AD.loop_proof(sid) or {}).get('carrier_measured'))
-                for sid in ids if t.sounds[sid]['kind'] == 'base'}
+    e = t.sounds[sid]
+    r = AD.realize(t, sid, template, (AD.loop_proof(sid) or {}).get('carrier_measured')) if e['kind'] == 'base' else None
+    said_as = dict(pack=pack, carrier=r['carrier'] if r else None, keys=r['keys'] if r else None,
+                   distance=r['distance'] if r else None,
+                   substitute=('%s is said as the module phone %s, %s feature steps away, unmoved' % (
+                       e['ipa'], r['carrier'], r['distance'])) if r and r['distance'] and not r['keys'] else None)
+    inputs, diags = [], []
+    for cid, text in contexts(t, sid):
+        rc, out, d = CT.say_ipa(p, map_path, text)
+        if rc != 0:
+            raise SystemExit('front-end failed on %s %r' % (sid, text))
+        inputs.append((cid, text, out, d))
+        diags += d
+    rend = E.render(pack, [(cid, 'annotated', out) for cid, _, out, _ in inputs],
+                    work=os.path.join(SWEEP_WORK, sid.replace('+', '_')))
+    cases = {}
+    for (cid, text, out, d), r_ in zip(inputs, rend):
+        diags += r_['diag'][len(d):] if r_['diag'][:len(d)] == d else r_['diag']
+        c = measure(r_, p, cid)
+        c.update(ipa=text, said=out, diag=r_['diag'], wav_sha256=r_['wav_sha256'])
+        cases[cid] = c
+    verdict = judge(t, sid, cases, diags, said_as)
+    return dict(id=sid, ipa=e['ipa'], name=e['name'], template=template, pack=pack, staged=E.STAGE or None,
+                frontend=E.FRONTEND, map=os.path.relpath(map_path, ROOT) if map_path.startswith(ROOT) else map_path,
+                map_sha256=map_sha, said_as=said_as, cases=cases, **verdict)
+
+
+# The USP's design loop (playbook 1.6, step 6): a target missed is corrected from what was measured
+# and the entry said again, at most five rounds. A correction is a `trim' for this template only:
+# the specification is never touched (DESIGN.md 5).
+ROUNDS = 5
+TRIM_KEYS = {'F1': ['f1'], 'F2': ['f2'], 'F3': ['f3'], 'peak_hz': ['f2', 'f3', 'f4']}
+
+
+def corrections(res, trims):
+    """New trims (key -> per cent, multiplied in) from the B3 targets this round missed, or None
+    when nothing can be corrected this way."""
+    out, any_ = dict(trims), False
+    for k, tg in res['B3']['targets'].items():
+        if tg['within'] or not tg['measured'] or k not in TRIM_KEYS:
+            continue
+        f = tg['target'] / tg['measured']
+        for key in TRIM_KEYS[k]:
+            out[key] = out.get(key, 100.0) * f
+        any_ = True
+    return out if any_ else None
+
+
+def with_trims(t, sid, template, trims):
+    e = t.sounds[sid]
+    ov = e.setdefault('realization', {}).setdefault('openevv', {})
+    ov.setdefault('trim', {})[template] = [dict(key=k, v=round(v, 1), scale=True, tag='measured',
+                                                proof='ipa/proofs/%s.json' % sid) for k, v in sorted(trims.items())]
+
+
+def prove_entry(t, sid, template, pack, rounds=ROUNDS):
+    """Say an entry; while a specification target is missed, correct and say it again."""
+    old = ((t.sounds[sid].get('realization') or {}).get('openevv') or {}).get('trim', {}).get(template)
+    trims = {tr['key']: tr['v'] for tr in old or [] if tr.get('scale')}
+    history = []
+    res = say_entry(t, sid, template, pack)
+    while True:
+        history.append(dict(round=len(history) + 1, trims=dict(trims), B3=res['B3']['targets'],
+                            keys=res['said_as']['keys']))
+        if res['B3']['passed'] or len(history) >= rounds:
+            break
+        nxt = corrections(res, trims)
+        if nxt is None:
+            break
+        trims = nxt
+        with_trims(t, sid, template, trims)
+        res = say_entry(t, sid, template, pack)
+    res['rounds'] = history
+    res['trims'] = {k: round(v, 1) for k, v in trims.items()} if res['B3']['passed'] and trims else {}
+    if not res['trims'] and trims and old is None:
+        # nothing converged: the entry is left as it was, the rounds kept as the evidence
+        ((t.sounds[sid].get('realization') or {}).get('openevv') or {}).get('trim', {}).pop(template, None)
+    return res
+
+
+def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
+    os.makedirs(SWEEP_WORK, exist_ok=True)
     results = {}
     for sid in ids:
         e = t.sounds[sid]
-        cs = contexts(t, sid)
-        if not cs:
+        if not contexts(t, sid):
             results[sid] = dict(id=sid, ipa=e['ipa'], skipped='no inputs for this kind of entry yet')
             continue
-        r = realized.get(sid)
-        said_as = dict(pack=pack, carrier=r['carrier'] if r else None, keys=r['keys'] if r else None,
-                       distance=r['distance'] if r else None,
-                       substitute=('%s is said as the module phone %s, %s feature steps away, unmoved' % (
-                           e['ipa'], r['carrier'], r['distance'])) if r and r['distance'] and not r['keys'] else None)
-        inputs, diags = [], []
-        for cid, text in cs:
-            rc, out, d = CT.say_ipa(p, map_path, text)
-            if rc != 0:
-                raise SystemExit('front-end failed on %s %r' % (sid, text))
-            inputs.append((cid, text, out, d))
-            diags += d
-        rend = E.render(pack, [(cid, 'annotated', out) for cid, _, out, _ in inputs],
-                        work=os.path.join(SWEEP_WORK, sid.replace('+', '_')))
-        cases = {}
-        for (cid, text, out, d), r_ in zip(inputs, rend):
-            diags += r_['diag'][len(d):] if r_['diag'][:len(d)] == d else r_['diag']
-            c = measure(r_, p, cid)
-            c.update(ipa=text, said=out, diag=r_['diag'], wav_sha256=r_['wav_sha256'])
-            cases[cid] = c
-        verdict = judge(t, sid, cases, diags, said_as)
-        results[sid] = dict(id=sid, ipa=e['ipa'], name=e['name'], template=template, pack=pack, staged=E.STAGE or None,
-                            frontend=E.FRONTEND, map=os.path.relpath(map_path, ROOT) if map_path.startswith(ROOT) else
-                            map_path, map_sha256=map_sha, said_as=said_as, cases=cases, **verdict)
+        results[sid] = prove_entry(t, sid, template, pack, rounds if e['kind'] == 'base' else 1)
+    AD.write(t, template, quiet=True)
     # B2: the contrasts the entries' tests name, against the partner's own measures (this run's,
     # or its proof file's)
     for sid, res in results.items():
@@ -348,7 +492,37 @@ def run(t, ids, template, pack, apply=False):
             json.dump(slim, f, ensure_ascii=False, indent=1)
     if apply:
         apply_states(t, results)
+        save_trims(t, results, template)
     return results
+
+
+def save_trims(t, results, template):
+    """A correction that brought an entry within its targets is written into the entry's
+    realisation (`trim.<template>', tagged measured, its proof named), and nothing else."""
+    for sid, res in results.items():
+        if not res.get('passed') or not res.get('trims'):
+            continue
+        path = os.path.join(T.IPA, 'table', t.where[sid])
+        with open(path, encoding='utf-8') as f:
+            text = f.read()
+        line = 'trim.%s = [%s]' % (template, ', '.join(
+            '{ key = "%s", v = %s, scale = true, tag = "measured", proof = "ipa/proofs/%s.json" }' % (k, v, sid)
+            for k, v in sorted(res['trims'].items())))
+        head = '[sound."%s".realization.openevv]' % sid
+        if head in text:
+            a = text.index(head) + len(head)
+            b = text.find('\n[', a)
+            b = len(text) if b < 0 else b
+            block = re.sub(r'(?m)^trim\.%s = .*\n?' % template, '', text[a:b])
+            text = text[:a] + block.rstrip('\n') + '\n' + line + '\n' + text[b:]
+        else:
+            th = '[sound."%s".tests]' % sid
+            ta = text.index(th)
+            tb = text.find('\n[sound."', ta)
+            add = '\n\n%s\n%s\n' % (head, line)
+            text = text.rstrip('\n') + add if tb < 0 else text[:tb].rstrip('\n') + add + text[tb:]
+        with open(path, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(text)
 
 
 def apply_states(t, results):
@@ -390,7 +564,8 @@ def fmt(res):
     if 'summary' not in res:
         return '%-8s %-3s %s' % (res['id'], res['ipa'], res.get('skipped'))
     flags = ' '.join('%s:%s' % (k, 'ok' if res[k]['passed'] else 'FAIL') for k in ('A0', 'A1', 'A2', 'B3', 'B2'))
-    s = res['summary']
+    # a mark's summary is per base (plain and marked); its numbers are in its B3 lines instead
+    s = {} if any(isinstance(v, dict) for v in res['summary'].values()) else res['summary']
     keys = [k for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'edge_F2', 'edge_F3', 'vot_ms', 'peak_hz', 'murmur_F1_hz',
                         'mod_rate_hz', 'duration_ms') if s.get(k) is not None]
     why = []
@@ -425,7 +600,9 @@ def main():
     ap.add_argument('which', nargs='*', help='ids (U+0288) or sections (pulmonic); default: all')
     ap.add_argument('--template', default='dedx')
     ap.add_argument('--pack', default='hi', help='a pack on --template: its header lines make the test map')
-    ap.add_argument('--apply', action='store_true', help='set state, level and proof of the entries that pass')
+    ap.add_argument('--apply', action='store_true', help='set state, level and proof of the entries that pass, and '
+                    'write the corrections that got them there')
+    ap.add_argument('--rounds', type=int, default=ROUNDS, help='design rounds an entry may take (1: no correction)')
     a = ap.parse_args()
     if not E.STAGE:
         raise SystemExit('set EVV_STAGE: the proofs are of the staged modules and front-end')
@@ -433,8 +610,7 @@ def main():
     ids = select(t, a.which)
     if E.pack(a.pack).template != a.template:
         raise SystemExit('%s is not on %s' % (a.pack, a.template))
-    AD.write(t, a.template)
-    res = run(t, ids, a.template, a.pack, a.apply)
+    res = run(t, ids, a.template, a.pack, a.apply, a.rounds)
     for sid in ids:
         print(fmt(res[sid]))
     done = [r for r in res.values() if r.get('passed')]

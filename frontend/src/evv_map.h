@@ -65,13 +65,16 @@ typedef struct {
 	int place, height, backness;
 	char f[7][16];           /* consonant: stricture airstream nasal lateral sibilant place2
 	                            voicing; vowel: rounding in f[0] */
+	int hz[4];               /* a vowel's formants as the map realises it (`f1hz'...), or 0 */
 } EvvLetter;
 
 #define EVV_MAX_OPS 8
 typedef struct {
 	char key[8];
-	char op;                 /* '*' a ratio, multiplied; '+' a time, added */
+	char op;                 /* '*' a ratio, multiplied; '+' a time, added; '=' a value, set;
+	                            '~' towards v Hz by `part' per cent */
 	double v;
+	double part;
 } EvvOp;
 
 typedef struct {
@@ -80,6 +83,19 @@ typedef struct {
 	int n;
 	EvvOp ops[EVV_MAX_OPS];
 } EvvMod;
+
+/* A pitch mark typed in IPA (C2, C5), read only from a map with `version 2':
+   a tone letter or tone diacritic and its Chao levels (`tonemark ˥ 5'), a
+   register step that lasts to the end of the phrase (`register ꜜ -12', in
+   tenths of a Chao level), or a slope over the rest of the phrase (`slope ↗
+   8', tenths of a Chao level a syllable). */
+typedef struct {
+	char mark[16];
+	char kind;               /* 't' tone, 'r' register, 's' slope */
+	int levels[4];
+	int n;
+	int value;
+} EvvToneMark;
 
 enum { W_STRICTURE, W_AIRSTREAM, W_NASAL, W_LATERAL, W_SIBILANT, W_PLACE, W_PLACE2, W_VOICING, W_HEIGHT,
        W_BACKNESS, W_ROUNDING, W_CLASS, W_COUNT };
@@ -92,6 +108,7 @@ typedef struct {
 	char glides[32][EVV_PHONE_LEN];   /* may follow an obstruent inside an onset */
 	int n_glides;
 	char schwa[EVV_PHONE_LEN];        /* put before a syllabic consonant */
+	char syl_sound[EVV_ID_LEN];       /* and the sound it is said with, if the map names one */
 	char secondary;                   /* the digit secondary stress is written with: the Italian
 	                                     and Spanish modules have none, and refuse a 2 */
 	int apart;                        /* 1: every syllable is a word of its own, as a language
@@ -138,7 +155,18 @@ typedef struct {
 	int n_composed;
 	EvvDefined *composed;             /* each string composed: its sound id (id) and IPA (group) */
 	int n_comp, cap_comp;
+	EvvToneMark *tonemarks;
+	int n_tonemarks, cap_tonemarks;
+	int n_ipa_tones;                  /* tones made from typed IPA */
 } EvvMap;
+
+/* A pitch mark the map lists (`tonemark', `register', `slope'), or NULL. */
+const EvvToneMark *evv_map_tonemark(const EvvMap *map, const char *ch, size_t len);
+
+/* The id of a tone through `levels' (Chao 1 to 5), moved by `from' tenths of
+   a level at its start and `to' at its end; made and kept the first time it
+   is asked for. NULL if there is no room. */
+const char *evv_map_ipa_tone(EvvMap *map, const int *levels, int n, int from, int to);
 
 /* Whether a character (UTF-8, one code point) is a chart letter the map
    lists, and which. */

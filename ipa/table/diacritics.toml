@@ -18,8 +18,19 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4", "X7"], 
 
 [sound."U+0325".spec]
 
+[sound."U+0325".transform.consonant]
+voicing = { voiced = { set = 0, tag = "derived", rule = "the mark itself: voicing off" } }
+breath = { whisper_db = { set = 44, tag = "estimated", note = "breath at the level the accent layer gives h (engine/accent/sounds.py); no measured level for a voiceless sonorant found" } }
+duration = { inherent_ms = { scale = 1.31, tag = "derived", rule = "bombien_icelandic_aipuk Table II, the male speaker, word-medial n̥ 82.5 ms / n 62.9 ms (initial: 104.9/65.3 = 1.61); the smaller kept" } }
+
+[sound."U+0325".transform.vowel]
+voicing = { voiced = { set = 0, tag = "derived", rule = "the mark itself" } }
+breath = { whisper_db = { set = 44, tag = "estimated", note = "as for consonants" } }
+
 [sound."U+0325".tests]
 checks = ["T-shift"]
+bases = ["U+006E", "U+006C", "U+0061"]
+shift = [{ measure = "voiced_frac", sign = -1 }]
 
 [sound."U+030A"]
 ipa = "̊"
@@ -38,8 +49,19 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4", "X7"], 
 
 [sound."U+030A".spec]
 
+[sound."U+030A".transform.consonant]
+voicing = { voiced = { set = 0, tag = "derived", rule = "the mark itself: voicing off" } }
+breath = { whisper_db = { set = 44, tag = "estimated", note = "breath at the level the accent layer gives h (engine/accent/sounds.py); no measured level for a voiceless sonorant found" } }
+duration = { inherent_ms = { scale = 1.31, tag = "derived", rule = "bombien_icelandic_aipuk Table II, the male speaker, word-medial n̥ 82.5 ms / n 62.9 ms (initial: 104.9/65.3 = 1.61); the smaller kept" } }
+
+[sound."U+030A".transform.vowel]
+voicing = { voiced = { set = 0, tag = "derived", rule = "the mark itself" } }
+breath = { whisper_db = { set = 44, tag = "estimated", note = "as for consonants" } }
+
 [sound."U+030A".tests]
 checks = ["T-shift"]
+bases = ["U+006E", "U+006C", "U+0061"]
+shift = [{ measure = "voiced_frac", sign = -1 }]
 
 [sound."U+032C"]
 ipa = "̬"
@@ -57,8 +79,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds
 
 [sound."U+032C".spec]
 
+[sound."U+032C".transform.consonant]
+voicing = { voiced = { set = 1, tag = "derived", rule = "the mark itself: voicing on through the sound" } }
+
 [sound."U+032C".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0070", "U+0073"]
+shift = [{ measure = "voiced_frac", sign = 1 }]
 
 [sound."U+02B0"]
 ipa = "ʰ"
@@ -76,11 +103,10 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds
 
 [sound."U+02B0".spec]
 
-[sound."U+02B0".transform.consonant]
-vot_ms = { add = 63.5, tag = "derived", rule = "the median of the differences between aspirated and plain voiceless stops at the three places in Cho and Ladefoged (1997): pʰ-p 77.5-9 = 68.5, tʰ-t 72.5-15 = 57.5, kʰ-k 92.5-29 = 63.5 ms (each a median over the languages of their tables)" }
-
 [sound."U+02B0".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0070", "U+006B"]
+shift = [{ measure = "vot_long_ms", sign = 1 }]
 
 [sound."U+0339"]
 ipa = "̹"
@@ -98,8 +124,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+0339".spec]
 
+[sound."U+0339".transform.vowel]
+formants = { F2 = { scale = 0.93, tag = "estimated", note = "more lip rounding lengthens the front cavity and lowers F2 (and F3); no measured size found (R6 gaps)" }, F3 = { scale = 0.96, tag = "estimated", note = "as F2" } }
+
 [sound."U+0339".tests]
 checks = ["T-shift"]
+bases = ["U+006F", "U+0075", "U+0254"]
+shift = [{ measure = "F2_50_hz", sign = -1 }]
 
 [sound."U+031C"]
 ipa = "̜"
@@ -117,8 +148,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+031C".spec]
 
+[sound."U+031C".transform.vowel]
+formants = { F2 = { scale = 1.07, tag = "estimated", note = "less rounding raises F2 (and F3); no measured size found" }, F3 = { scale = 1.04, tag = "estimated", note = "as F2" } }
+
 [sound."U+031C".tests]
 checks = ["T-shift"]
+bases = ["U+006F", "U+0075", "U+0254"]
+shift = [{ measure = "F2_50_hz", sign = 1 }]
 
 [sound."U+031F"]
 ipa = "̟"
@@ -136,8 +172,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], 
 
 [sound."U+031F".spec]
 
+[sound."U+031F".transform.vowel]
+formants = { F2 = { scale = 1.08, tag = "estimated", note = "a fronted tongue raises F2; no measured size found" } }
+
+[sound."U+031F".transform.consonant]
+locus = { F2 = { scale = 1.06, tag = "estimated", note = "a place further forward along the tongue raises the F2 locus of a lingual consonant; no measured size found" } }
+
 [sound."U+031F".tests]
 checks = ["T-shift"]
+bases = ["U+0061", "U+0075", "U+006B", "U+0074"]
+shift = [{ measure = "F2_50_hz", sign = 1 }, { measure = "edge_F2", sign = 1 }]
 
 [sound."U+0320"]
 ipa = "̠"
@@ -155,8 +199,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], 
 
 [sound."U+0320".spec]
 
+[sound."U+0320".transform.vowel]
+formants = { F2 = { scale = 0.92, tag = "estimated", note = "a retracted tongue lowers F2; no measured size found" } }
+
+[sound."U+0320".transform.consonant]
+locus = { F2 = { scale = 0.94, tag = "estimated", note = "a place further back lowers the F2 locus of a coronal; no measured size found" } }
+
 [sound."U+0320".tests]
 checks = ["T-shift"]
+bases = ["U+0061", "U+0069", "U+0074", "U+0073"]
+shift = [{ measure = "F2_50_hz", sign = -1 }, { measure = "edge_F2", sign = -1 }]
 
 [sound."U+0308"]
 ipa = "̈"
@@ -174,8 +226,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+0308".spec]
 
+[sound."U+0308".transform.vowel]
+formants = { F2 = { toward = 1454, tag = "estimated", note = "half of the way to the F2 of the table's ə (1453.5 Hz, U+0259); the share is not measured" } }
+
 [sound."U+0308".tests]
 checks = ["T-shift"]
+bases = ["U+0069", "U+0075", "U+0065"]
+shift = [{ measure = "F2_toward_centre", sign = 1 }]
 
 [sound."U+033D"]
 ipa = "̽"
@@ -193,8 +250,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+033D".spec]
 
+[sound."U+033D".transform.vowel]
+formants = { F1 = { toward = 467, tag = "estimated", note = "half of the way to the F1 of the table's ə (467 Hz)" }, F2 = { toward = 1454, tag = "estimated", note = "half of the way to the F2 of the table's ə" } }
+
 [sound."U+033D".tests]
 checks = ["T-shift"]
+bases = ["U+0069", "U+0061", "U+0075"]
+shift = [{ measure = "F2_toward_centre", sign = 1 }]
 
 [sound."U+0329"]
 ipa = "̩"
@@ -212,8 +274,13 @@ plan = { decision = "new mechanism", end_state = "composed", uses = ["X9", "X13"
 
 [sound."U+0329".spec]
 
+[sound."U+0329".transform.consonant]
+duration = { inherent_ms = { scale = 1.5, tag = "estimated", note = "a syllabic consonant carries a syllable and lasts about as long as a short vowel; no measured ratio found" } }
+
 [sound."U+0329".tests]
 checks = ["T-syllable"]
+bases = ["U+006E", "U+006C", "U+006D"]
+shift = [{ measure = "duration_ms", sign = 1 }]
 
 [sound."U+032F"]
 ipa = "̯"
@@ -231,8 +298,13 @@ plan = { decision = "new mechanism", end_state = "composed", uses = ["X9", "X13"
 
 [sound."U+032F".spec]
 
+[sound."U+032F".transform.vowel]
+duration = { inherent_ms = { scale = 0.5, tag = "estimated", note = "a non-syllabic vowel is a glide, about half a short vowel; no measured ratio found" } }
+
 [sound."U+032F".tests]
 checks = ["T-syllable"]
+bases = ["U+0069", "U+0075"]
+shift = [{ measure = "duration_ms", sign = -1 }]
 
 [sound."U+02DE"]
 ipa = "˞"
@@ -250,8 +322,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+02DE".spec]
 
+[sound."U+02DE".transform.vowel]
+formants = { F3 = { toward = 1679, part = 70, tag = "literature", ref = "hagiwara1995", note = "towards the F3 of American English syllabic /r/, men: 1679 Hz (SD 91, 6 men), Table 7.1 p. 107; the share, 70 %, is estimated" } }
+
 [sound."U+02DE".tests]
 checks = ["T-shift"]
+bases = ["U+0259", "U+0061"]
+shift = [{ measure = "F3_50_hz", sign = -1 }]
 
 [sound."U+0324"]
 ipa = "̤"
@@ -269,8 +346,16 @@ plan = { decision = "new mechanism", end_state = "composed", uses = ["X7"], buil
 
 [sound."U+0324".spec]
 
+[sound."U+0324".transform.vowel]
+phonation = { breathy_pct = { set = 80, tag = "estimated", note = "breathy voice held through the sound (C6); the size gives H1-H2 about 7 dB over modal on a (measured on the development stage at 100: +8.4 dB); the literature shows breathy H1-H2 highest of all phonations (keating_etal_2011_icphs) but its values were only in a figure" } }
+
+[sound."U+0324".transform.consonant]
+phonation = { breathy_pct = { set = 80, tag = "estimated", note = "as for vowels" } }
+
 [sound."U+0324".tests]
 checks = ["T-phonation"]
+bases = ["U+0061", "U+0069", "U+006D"]
+shift = [{ measure = "h1h2_db", sign = 1 }]
 
 [sound."U+0330"]
 ipa = "̰"
@@ -288,8 +373,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X7"], builds
 
 [sound."U+0330".spec]
 
+[sound."U+0330".transform.vowel]
+phonation = { creaky_pct = { set = 60, tag = "estimated", note = "creaky voice through the sound; prototypical creak has a constricted glottis and low, irregular F0 (keating_garellek_kreiman_2015_icphs, qualitative); no size found" } }
+
+[sound."U+0330".transform.consonant]
+phonation = { creaky_pct = { set = 60, tag = "estimated", note = "as for vowels" } }
+
 [sound."U+0330".tests]
 checks = ["T-phonation"]
+bases = ["U+0061", "U+0069", "U+006D"]
+shift = [{ measure = "h1h2_db", sign = -1 }]
 
 [sound."U+033C"]
 ipa = "̼"
@@ -307,8 +400,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], 
 
 [sound."U+033C".spec]
 
+[sound."U+033C".transform.consonant]
+locus = { F2 = { scale = 0.75, tag = "estimated", note = "the tongue tip on the upper lip: an F2 locus between the labial and the alveolar; no measurement found" } }
+
 [sound."U+033C".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0064", "U+006E"]
+shift = [{ measure = "edge_F2", sign = -1 }]
 
 [sound."U+02B7"]
 ipa = "ʷ"
@@ -326,11 +424,10 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+02B7".spec]
 
-[sound."U+02B7".transform.consonant]
-formants = { F2 = { scale = 0.85, tag = "estimated", note = "lip rounding lowers F2 at the release; the size is a guess to be replaced from a source in Phase 4" } }
-
 [sound."U+02B7".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0070", "U+006B", "U+0073"]
+shift = [{ measure = "edge_F2", sign = -1 }]
 
 [sound."U+02B2"]
 ipa = "ʲ"
@@ -348,8 +445,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+02B2".spec]
 
+[sound."U+02B2".transform.consonant]
+locus = { F2 = { scale = 1.43, tag = "estimated", note = "F2 at /a/ onset after palatalized against plain C in Russian, 1988 against 1386 Hz (vasiliev_mit_palatalization: an unrefereed student project with a partly misaligned table, so not tagged literature)" } }
+
 [sound."U+02B2".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0070", "U+0073", "U+006C"]
+shift = [{ measure = "edge_F2", sign = 1 }]
 
 [sound."U+02E0"]
 ipa = "ˠ"
@@ -367,8 +469,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+02E0".spec]
 
+[sound."U+02E0".transform.consonant]
+locus = { F2 = { scale = 0.6, tag = "derived", rule = "dark against clear /l/ F2, midpoints of the ranges 800-1300 and 1500-2000 Hz over 23 languages, male speakers (recasens_2011_icphs_slides, slides 25-26): 1050 / 1750" } }
+
 [sound."U+02E0".tests]
 checks = ["T-shift"]
+bases = ["U+006C", "U+0074", "U+0073"]
+shift = [{ measure = "edge_F2", sign = -1 }]
 
 [sound."U+02E4"]
 ipa = "ˤ"
@@ -386,8 +493,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+02E4".spec]
 
+[sound."U+02E4".transform.consonant]
+locus = { F2 = { scale = 0.68, tag = "derived", rule = "the F2 of the vowel in an emphatic syllable against a plain one, Jordanian Arabic, 5 men: 1196 / 1761 Hz (al_masri_jongman_tls, section 5.5, Fig. 5)" }, F1 = { scale = 1.1, tag = "estimated", note = "pharyngealization raises F1 (Jongman et al. 2011, reported only in an abstract not opened); size estimated" } }
+
 [sound."U+02E4".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0073", "U+0064"]
+shift = [{ measure = "edge_F2", sign = -1 }]
 
 [sound."U+0334"]
 ipa = "̴"
@@ -405,8 +517,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+0334".spec]
 
+[sound."U+0334".transform.consonant]
+locus = { F2 = { scale = 0.64, tag = "derived", rule = "the mark leaves velarized or pharyngealized open: the mean of the two transforms here, 0.60 and 0.68" } }
+
 [sound."U+0334".tests]
 checks = ["T-shift"]
+bases = ["U+006C", "U+0074"]
+shift = [{ measure = "edge_F2", sign = -1 }]
 
 [sound."U+031D"]
 ipa = "̝"
@@ -424,8 +541,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], 
 
 [sound."U+031D".spec]
 
+[sound."U+031D".transform.vowel]
+formants = { F1 = { scale = 0.9, tag = "estimated", note = "a closer tongue lowers F1; no measured size" } }
+
+[sound."U+031D".transform.consonant]
+formants = { F1 = { scale = 0.9, tag = "estimated", note = "a closer constriction lowers F1; no measured size" } }
+
 [sound."U+031D".tests]
 checks = ["T-shift"]
+bases = ["U+0065", "U+006F", "U+0061"]
+shift = [{ measure = "F1_50_hz", sign = -1 }]
 
 [sound."U+031E"]
 ipa = "̞"
@@ -443,8 +568,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], 
 
 [sound."U+031E".spec]
 
+[sound."U+031E".transform.vowel]
+formants = { F1 = { scale = 1.1, tag = "estimated", note = "a more open tongue raises F1; no measured size" } }
+
+[sound."U+031E".transform.consonant]
+formants = { F1 = { scale = 1.1, tag = "estimated", note = "a more open constriction raises F1; no measured size" } }
+
 [sound."U+031E".tests]
 checks = ["T-shift"]
+bases = ["U+0065", "U+006F", "U+0069"]
+shift = [{ measure = "F1_50_hz", sign = 1 }]
 
 [sound."U+0318"]
 ipa = "̘"
@@ -462,8 +595,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+0318".spec]
 
+[sound."U+0318".transform.vowel]
+formants = { F1 = { scale = 0.88, tag = "estimated", note = "[+ATR] has a lower F1 than [-ATR] in every ATR language (casali_2007_atr_lecture, qualitative; its 550 to 425 Hz example is explicitly hypothetical); size estimated" } }
+
+[sound."U+0318".transform.consonant]
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "as for vowels, weaker on a consonant" } }
+
 [sound."U+0318".tests]
 checks = ["T-shift"]
+bases = ["U+0065", "U+006F", "U+0061"]
+shift = [{ measure = "F1_50_hz", sign = -1 }]
 
 [sound."U+0319"]
 ipa = "̙"
@@ -481,8 +622,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds
 
 [sound."U+0319".spec]
 
+[sound."U+0319".transform.vowel]
+formants = { F1 = { scale = 1.12, tag = "estimated", note = "[-ATR] / RTR has a higher F1 (casali_2007_atr_lecture, qualitative); size estimated" }, F2 = { scale = 0.96, tag = "estimated", note = "a retracted root lowers F2 slightly; estimated" } }
+
+[sound."U+0319".transform.consonant]
+formants = { F1 = { scale = 1.05, tag = "estimated", note = "as for vowels, weaker" } }
+
 [sound."U+0319".tests]
 checks = ["T-shift"]
+bases = ["U+0065", "U+006F", "U+0069"]
+shift = [{ measure = "F1_50_hz", sign = 1 }]
 
 [sound."U+032A"]
 ipa = "̪"
@@ -500,8 +649,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], 
 
 [sound."U+032A".spec]
 
+[sound."U+032A".transform.consonant]
+locus = { F2 = { scale = 0.93, tag = "estimated", note = "a dental place lowers the F2 locus against an alveolar; no measurement opened (R1 named but not opened: Dart and Nihalani 1999)" } }
+
 [sound."U+032A".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0064", "U+006E"]
+shift = [{ measure = "edge_F2", sign = -1 }]
 
 [sound."U+033A"]
 ipa = "̺"
@@ -519,8 +673,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X3"], builds
 
 [sound."U+033A".spec]
 
+[sound."U+033A".transform.consonant]
+locus = { F3 = { scale = 0.95, tag = "estimated", note = "the tip, not the blade: a slightly lower F3 at the edge; no measurement found" } }
+
 [sound."U+033A".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0073", "U+006E"]
+shift = [{ measure = "edge_F3", sign = -1 }]
 
 [sound."U+033B"]
 ipa = "̻"
@@ -538,8 +697,13 @@ plan = { decision = "composition", end_state = "composed", uses = ["X3"], builds
 
 [sound."U+033B".spec]
 
+[sound."U+033B".transform.consonant]
+locus = { F2 = { scale = 1.05, tag = "estimated", note = "the blade: a slightly higher F2 at the edge; no measurement found" } }
+
 [sound."U+033B".tests]
 checks = ["T-shift"]
+bases = ["U+0074", "U+0073", "U+006E"]
+shift = [{ measure = "edge_F2", sign = 1 }]
 
 [sound."U+0303"]
 ipa = "̃"
@@ -557,8 +721,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X8"], builds
 
 [sound."U+0303".spec]
 
+[sound."U+0303".transform.vowel]
+nasal = { open_pct = { set = 70, tag = "estimated", note = "the velum lowered through the vowel; the size is set so that A1-P0 falls by at least the 3.9 dB measured for English coarticulatory nasalization (styler_scarborough_2014_asa Table 1; French phonemic: 5.7 dB)" } }
+
+[sound."U+0303".transform.consonant]
+nasal = { open_pct = { set = 70, tag = "estimated", note = "as for vowels" } }
+
 [sound."U+0303".tests]
 checks = ["T-nasality"]
+bases = ["U+0061", "U+0065", "U+006F"]
+shift = [{ measure = "a1_p0_db", sign = -1 }]
 
 [sound."U+207F"]
 ipa = "ⁿ"
@@ -576,8 +748,14 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4", "X9", "
 
 [sound."U+207F".spec]
 
+[sound."U+207F".transform.consonant]
+release = { unreleased = { set = 1, tag = "derived", rule = "a stop released through the nose has no oral burst" } }
+
 [sound."U+207F".tests]
 checks = ["T-release"]
+bases = ["U+0074", "U+0064"]
+shift = [{ measure = "burst_found", sign = -1 }]
+follow = "U+006E"
 
 [sound."U+02E1"]
 ipa = "ˡ"
@@ -595,8 +773,14 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4", "X9", "
 
 [sound."U+02E1".spec]
 
+[sound."U+02E1".transform.consonant]
+release = { unreleased = { set = 1, tag = "derived", rule = "a stop released over the side of the tongue has no central oral burst" } }
+
 [sound."U+02E1".tests]
 checks = ["T-release"]
+bases = ["U+0074", "U+0064"]
+shift = [{ measure = "burst_found", sign = -1 }]
+follow = "U+006C"
 
 [sound."U+031A"]
 ipa = "̚"
@@ -614,5 +798,10 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds
 
 [sound."U+031A".spec]
 
+[sound."U+031A".transform.consonant]
+release = { unreleased = { set = 1, tag = "derived", rule = "the mark itself: no audible release" } }
+
 [sound."U+031A".tests]
 checks = ["T-release"]
+bases = ["U+0074", "U+0070", "U+006B"]
+shift = [{ measure = "burst_found", sign = -1 }]

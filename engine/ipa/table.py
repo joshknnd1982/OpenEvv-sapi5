@@ -29,9 +29,9 @@ TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximat
 FIELDS = {'ipa', 'codepoints', 'name', 'section', 'tier', 'kind', 'features', 'edit', 'levels', 'register',
           'slope', 'stress', 'boundary', 'placement', 'equivalent_to', 'state', 'level', 'approximate',
           'deviation', 'plan', 'spec', 'transform', 'realization', 'tests', 'history', 'registry'}
-VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation', 'key'}
+VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation', 'key', 'part'}
 # a modifier's transform of a value (DESIGN.md 2.2): scale it, or add to it
-TRANSFORM_OPS = {'scale', 'add'}
+TRANSFORM_OPS = {'scale', 'add', 'set', 'toward'}
 PLACEMENTS = {'before', 'after', 'over', 'between'}
 
 
@@ -97,7 +97,7 @@ def _check_value(sid, path, val, t, problems, estimated):
         return
     ops = set(val) & TRANSFORM_OPS
     if path.startswith('transform') and len(ops) != 1:
-        problems.append('%s %s: a transform needs one of scale or add' % (sid, path))
+        problems.append('%s %s: a transform needs one of scale, add, set or toward' % (sid, path))
     for k in val:
         if k not in VALUE_FIELDS and k not in TRANSFORM_OPS:
             problems.append('%s %s: unknown field %s' % (sid, path, k))

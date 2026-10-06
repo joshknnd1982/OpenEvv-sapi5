@@ -57,13 +57,15 @@ plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds
 [sound."U+02D0".spec]
 
 [sound."U+02D0".transform.vowel]
-duration = { inherent_ms = { scale = 1.8, tag = "estimated", note = "a long vowel taken as 1.8 times the short one; languages differ (1.5 to 2.5 is the usual span); Phase 4 takes a source" } }
+duration = { inherent_ms = { scale = 2.3, tag = "derived", rule = "Finnish /a/ 79.3 against /aː/ 180.5 ms, 1 : 2.3 (isei_jaakkola_2003_eurospeech Table 2; Japanese in the same table 1 : 2.5)" } }
 
 [sound."U+02D0".transform.consonant]
-duration = { inherent_ms = { scale = 1.8, tag = "estimated", note = "a geminate taken as 1.8 times the single consonant; Phase 4 takes a source" } }
+duration = { inherent_ms = { scale = 2.0, tag = "derived", rule = "Finnish /m p s/ against /mː pː sː/: 1.99, 1.99, 2.03 (isei_jaakkola_2003_eurospeech Table 2)" } }
 
 [sound."U+02D0".tests]
 checks = ["T-length"]
+bases = ["U+0061", "U+0069", "U+006E", "U+0073"]
+shift = [{ measure = "duration_ms", sign = 1 }]
 
 [sound."U+02D1"]
 ipa = "ˑ"
@@ -81,8 +83,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds
 
 [sound."U+02D1".spec]
 
+[sound."U+02D1".transform.vowel]
+duration = { inherent_ms = { scale = 1.5, tag = "estimated", note = "half-long: between short (1) and long (2.3); no measurement found (R6 gaps)" } }
+
+[sound."U+02D1".transform.consonant]
+duration = { inherent_ms = { scale = 1.4, tag = "estimated", note = "between short and long (2.0); no measurement found" } }
+
 [sound."U+02D1".tests]
 checks = ["T-length"]
+bases = ["U+0061", "U+006E"]
+shift = [{ measure = "duration_ms", sign = 1 }]
 
 [sound."U+0306"]
 ipa = "̆"
@@ -100,8 +110,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds
 
 [sound."U+0306".spec]
 
+[sound."U+0306".transform.vowel]
+duration = { inherent_ms = { scale = 0.55, tag = "estimated", note = "extra-short: no measurement found (R6 gaps)" } }
+
+[sound."U+0306".transform.consonant]
+duration = { inherent_ms = { scale = 0.6, tag = "estimated", note = "extra-short: no measurement found" } }
+
 [sound."U+0306".tests]
 checks = ["T-length"]
+bases = ["U+0061", "U+0069", "U+006E"]
+shift = [{ measure = "duration_ms", sign = -1 }]
 
 [sound."U+007C"]
 ipa = "|"

@@ -237,6 +237,11 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X5"], builds = ["C6?
 [sound."U+0294".tests]
 checks = ["T-stop", "T-phonation"]
 
+[sound."U+0294".realization.openevv]
+# the German module has no glottal stop phone; the layer makes the closure
+carrier = "<q"
+keys = { hush = { v = 1, tag = "derived", rule = "the accent layer's own glottal closure: silence, with the vowel edges made hard (docs/SOUNDS.md, key hush)" } }
+
 [sound."U+006D"]
 ipa = "m"
 codepoints = ["U+006D"]
@@ -327,6 +332,10 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds =
 [sound."U+0272".tests]
 checks = ["T-nasal", "T-contrast"]
 
+[sound."U+0272".realization.openevv]
+# a palatal nasal is an n with the tongue further back (engine/accent/sounds.py MADE_OF), not the velar nasal its formants resemble
+carrier = "n"
+
 [sound."U+014B"]
 ipa = "ŋ"
 codepoints = ["U+014B"]
@@ -381,6 +390,11 @@ plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X2"],
 [sound."U+0299".tests]
 checks = ["T-trill", "T-contrast"]
 
+[sound."U+0299".realization.openevv]
+# a bilabial trill: the module's labial sonorant w, modulated (C11)
+carrier = "w"
+keys = { tdepth = { v = 20, tag = "derived", rule = "as for r" } }
+
 [sound."U+0072"]
 ipa = "r"
 codepoints = ["U+0072"]
@@ -398,6 +412,11 @@ plan = { decision = "new mechanism", end_state = "mapped", uses = ["X1", "X2", "
 
 [sound."U+0072".tests]
 checks = ["T-trill"]
+
+[sound."U+0072".realization.openevv]
+# an alveolar trill is a voiced alveolar sonorant closed and opened at its rate: the module's alveolar sonorant l, modulated (C11)
+carrier = "l"
+keys = { tdepth = { v = 20, tag = "derived", rule = "a closure takes the level down about as far as the module's own tap does (measured on the development stage: 18 dB at tdepth 20)" } }
 
 [sound."U+0280"]
 ipa = "ʀ"
@@ -417,6 +436,11 @@ plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X2", 
 [sound."U+0280".tests]
 checks = ["T-trill", "T-contrast"]
 
+[sound."U+0280".realization.openevv]
+# a uvular trill: the module's uvular approximant, modulated (C11)
+carrier = "r"
+keys = { tdepth = { v = 20, tag = "derived", rule = "as for r" } }
+
 [sound."U+2C71"]
 ipa = "ⱱ"
 codepoints = ["U+2C71"]
@@ -434,6 +458,10 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], b
 
 [sound."U+2C71".tests]
 checks = ["T-tap", "T-contrast"]
+
+[sound."U+2C71".realization.openevv]
+# a labiodental flap: the labial sonorant with one brief closure
+carrier = "w"
 
 [sound."U+027E"]
 ipa = "ɾ"
@@ -453,6 +481,10 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X6"], builds =
 [sound."U+027E".tests]
 checks = ["T-tap"]
 
+[sound."U+027E".realization.openevv]
+# an alveolar tap: the module's alveolar sonorant l with one brief closure
+carrier = "l"
+
 [sound."U+027D"]
 ipa = "ɽ"
 codepoints = ["U+027D"]
@@ -470,6 +502,10 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], b
 
 [sound."U+027D".tests]
 checks = ["T-tap", "T-contrast"]
+
+[sound."U+027D".realization.openevv]
+# a retroflex flap: l with one brief closure and the retroflex F3
+carrier = "l"
 
 [sound."U+0278"]
 ipa = "ɸ"
@@ -706,6 +742,10 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], bu
 [sound."U+00E7".tests]
 checks = ["T-fric", "T-contrast"]
 
+[sound."U+00E7".realization.openevv]
+# the German module has ç as a phone of its own (ich-Laut)
+carrier = "X"
+
 [sound."U+029D"]
 ipa = "ʝ"
 codepoints = ["U+029D"]
@@ -723,6 +763,11 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X3", "X4"], bu
 
 [sound."U+029D".tests]
 checks = ["T-fric", "T-contrast"]
+
+[sound."U+029D".realization.openevv]
+# a voiced palatal fricative: the module's ç voiced
+carrier = "X"
+keys = { voi = { v = 1, tag = "derived", rule = "voiced through" } }
 
 [sound."U+0078"]
 ipa = "x"
@@ -759,6 +804,11 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X
 
 [sound."U+0263".tests]
 checks = ["T-fric", "T-contrast"]
+
+[sound."U+0263".realization.openevv]
+# a voiced velar fricative: the module's x voiced
+carrier = "x"
+keys = { voi = { v = 1, tag = "derived", rule = "voiced through" } }
 
 [sound."U+03C7"]
 ipa = "χ"
@@ -814,6 +864,11 @@ plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2"], builds 
 [sound."U+0127".tests]
 checks = ["T-fric", "T-contrast"]
 
+[sound."U+0127".realization.openevv]
+# h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
+carrier = "<h"
+keys = { whisper = { v = 48, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" } }
+
 [sound."U+0295"]
 ipa = "ʕ"
 codepoints = ["U+0295"]
@@ -831,6 +886,11 @@ plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X4"], b
 
 [sound."U+0295".tests]
 checks = ["T-approx", "T-contrast"]
+
+[sound."U+0295".realization.openevv]
+# h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
+carrier = "<h"
+keys = { whisper = { v = 30, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" }, voi = { v = 1, tag = "derived", rule = "voiced: the layer keeps the voice under the breath" } }
 
 [sound."U+0068"]
 ipa = "h"
@@ -850,6 +910,11 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X5"], builds = [] }
 [sound."U+0068".tests]
 checks = ["T-fric"]
 
+[sound."U+0068".realization.openevv]
+# h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
+carrier = "<h"
+keys = { whisper = { v = 44, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" } }
+
 [sound."U+0266"]
 ipa = "ɦ"
 codepoints = ["U+0266"]
@@ -867,6 +932,11 @@ plan = { decision = "as-is", end_state = "created", uses = ["X5", "X4"], builds 
 
 [sound."U+0266".tests]
 checks = ["T-phonation", "T-contrast"]
+
+[sound."U+0266".realization.openevv]
+# h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
+carrier = "<h"
+keys = { whisper = { v = 38, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" }, voi = { v = 1, tag = "derived", rule = "voiced: the layer keeps the voice under the breath" } }
 
 [sound."U+026C"]
 ipa = "ɬ"
@@ -886,6 +956,10 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X3", "X7"], b
 [sound."U+026C".tests]
 checks = ["T-fric", "T-contrast"]
 
+[sound."U+026C".realization.openevv]
+# a voiceless lateral fricative: the module's s with its noise peak moved
+carrier = "s"
+
 [sound."U+026E"]
 ipa = "ɮ"
 codepoints = ["U+026E"]
@@ -903,6 +977,10 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X3"], builds 
 
 [sound."U+026E".tests]
 checks = ["T-fric", "T-contrast"]
+
+[sound."U+026E".realization.openevv]
+# a voiced lateral fricative: the module's z with its noise peak moved
+carrier = "z"
 
 [sound."U+028B"]
 ipa = "ʋ"
@@ -940,6 +1018,10 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds =
 [sound."U+0279".tests]
 checks = ["T-approx"]
 
+[sound."U+0279".realization.openevv]
+# an alveolar approximant: the module's only central sonorant with a low F3 (its uvular approximant, F3 2100 Hz) is the nearest to move from
+carrier = "r"
+
 [sound."U+027B"]
 ipa = "ɻ"
 codepoints = ["U+027B"]
@@ -957,6 +1039,10 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds 
 
 [sound."U+027B".tests]
 checks = ["T-approx", "T-contrast"]
+
+[sound."U+027B".realization.openevv]
+# as ɹ
+carrier = "r"
 
 [sound."U+006A"]
 ipa = "j"
@@ -1048,6 +1134,10 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds =
 [sound."U+028E".tests]
 checks = ["T-approx", "T-contrast"]
 
+[sound."U+028E".realization.openevv]
+# a palatal lateral: the module's lateral, its F2 raised (a lateral, not the glide j)
+carrier = "l"
+
 [sound."U+029F"]
 ipa = "ʟ"
 codepoints = ["U+029F"]
@@ -1065,3 +1155,7 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds 
 
 [sound."U+029F".tests]
 checks = ["T-approx", "T-contrast"]
+
+[sound."U+029F".realization.openevv]
+# a velar lateral: the module's lateral, its F2 lowered
+carrier = "l"

@@ -150,6 +150,19 @@ typedef struct {
     int  lead;          /* a voiced stop after a silence: the voice begins
                            this long before the release, milliseconds */
     int  bar;           /* how loud the voice is behind a closure, dB */
+    /* Added for the master table of sounds (docs/tts-extension/DESIGN.md
+       4.3); each is nought unless a definition asks, so nothing a present
+       pack says moves. */
+    int  trate;         /* a trill: closures a second, at that rate whatever
+                           the sound's length (C11) */
+    int  tdepth;        /* and how far the level drops at each, dB */
+    int  breathy;       /* breathy voice through the whole sound, percent,
+                           added to the voice's own setting (C6) */
+    int  burstms;       /* how long the burst lasts before an ejective's
+                           silence, ms (C10; nought: 10) */
+    int  rel2, rel2ms;  /* a second, weaker release this long after the
+                           first, for so long: a click's back closure (C10) */
+    int  rel2af;        /* and its noise, dB as the synthesiser has it */
 } Def;
 
 typedef struct {
@@ -679,6 +692,10 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "hush", offsetof(Def, hush) },
         { "noburst", offsetof(Def, noburst) },
         { "lead", offsetof(Def, lead) }, { "bar", offsetof(Def, bar) },
+        { "trate", offsetof(Def, trate) }, { "tdepth", offsetof(Def, tdepth) },
+        { "breathy", offsetof(Def, breathy) },
+        { "burstms", offsetof(Def, burstms) }, { "rel2", offsetof(Def, rel2) },
+        { "rel2ms", offsetof(Def, rel2ms) }, { "rel2af", offsetof(Def, rel2af) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -2092,6 +2109,8 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
         int any_formant = 0;
         double vowel_av = a->vowel_av > 0 ? a->vowel_av : 50;
         double tap_every = 0;
+        double trill_period = 0;
+        int trill_n = 0;
         const Def *prev = before != 0 ? def_of(a, before) : 0;
         int shut_at = -1;
 
@@ -2122,6 +2141,19 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
 
         if (def != 0 && def->tap > 0 && own_ms > 0)
             tap_every = own_ms / (def->tap + 1);
+        /* A trill at a stated rate: the closures a period apart, from half
+           a period in, as many as the sound has room for (at most `tap',
+           if that is given too), so that the rate is the trill's own and
+           not the speaking speed's. */
+        if (def != 0 && def->trate > 0 && own_ms > 0) {
+            trill_period = 1000.0 / def->trate;
+            trill_n = (int)(own_ms / trill_period);
+            if (trill_n < 1)
+                trill_n = 1;
+            if (def->tap > 0 && trill_n > def->tap)
+                trill_n = def->tap;
+            tap_every = 0;
+        }
 
         if (def != 0 && def->pre > 0 && is_stop(a, ph)) {
             for (k = n_on; k < n_on + n_own; k++) {
@@ -2231,12 +2263,25 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     }
                 }
 
-                if (was->ej > 0 && since >= 10 && since < 10 + was->ej) {
+                if (was->ej > 0 && since >= (was->burstms > 0 ? was->burstms : 10)
+                    && since < (was->burstms > 0 ? was->burstms : 10) + was->ej) {
                     /* An ejective: the burst, then nothing while the
                        glottis is shut, then the vowel at once. */
                     f[P_AV] = 0;
                     f[P_AH] = 0;
                     f[P_AF] = 0;
+                }
+                if (was->rel2ms > 0 && since >= was->rel2
+                    && since < was->rel2 + was->rel2ms) {
+                    /* A second release behind the first, weaker: the
+                       back closure of a click letting go into the vowel.
+                       Its noise is low, at the vowel's second formant. */
+                    f[P_AV] = 0;
+                    f[P_AH] = 0;
+                    f[P_AF] = clamp(was->rel2af, 0, 80);
+                    for (i = 0; i < 6; i++)
+                        f[NOISE[i]] = 0;
+                    f[P_A2F] = clamp(was->rel2af, 0, 80);
                 }
 
                 if (was->brth > 0 && since >= 0 && since < was->brth) {
@@ -2391,6 +2436,53 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                             f[P_TL] = clamp((int)(f[P_TL] + 20 * x), 0, 41);
                         }
                     }
+                }
+                if (trill_n > 0) {
+                    /* The same closure, at the trill's own rate; with
+                       `tdepth' the level drops by so many dB, voice,
+                       breath and noise alike, as a closed mouth lets
+                       through less of each. */
+                    int n;
+
+                    for (n = 1; n <= trill_n; n++) {
+                        double centre = (n - 0.5) * trill_period;
+                        double away = fabs(into + dt / 2.0 - centre);
+
+                        if (away < def->tapms / 2.0 + 5) {
+                            double x = away < def->tapms / 2.0 ? 1.0
+                                : 1.0 - (away - def->tapms / 2.0) / 5.0;
+
+                            if (def->tdepth > 0) {
+                                double d = def->tdepth * x;
+
+                                if (f[P_AV] > 0)
+                                    f[P_AV] = clamp((int)(f[P_AV] - d), 0, 80);
+                                if (f[P_AH] > 0)
+                                    f[P_AH] = clamp((int)(f[P_AH] - d), 0, 80);
+                                if (f[P_AF] > 0)
+                                    f[P_AF] = clamp((int)(f[P_AF] - d), 0, 80);
+                            } else {
+                                f[P_AV] = (int32_t)(f[P_AV] * (1.0 - 0.45 * x));
+                                f[P_AH] = (int32_t)(f[P_AH] * (1.0 - 0.8 * x));
+                            }
+                            f[P_F1] = (int32_t)(f[P_F1]
+                                + (300 - f[P_F1]) * 0.6 * x);
+                            f[P_TL] = clamp((int)(f[P_TL] + 20 * x), 0, 41);
+                        }
+                    }
+                }
+                if (def->breathy > 0 && f[P_AV] > 0) {
+                    /* Breathy voice held through the sound: the glottis
+                       open longer, breath with the voice, the voice's
+                       top falling away; added to what the voice has, as
+                       a tone's breath is, so that it stays breathier than
+                       the voice whatever the voice is. */
+                    double x = w * def->breathy / 100.0;
+
+                    f[P_OQ] = clamp((int)(f[P_OQ] + 30 * x), 10, 99);
+                    f[P_AH] = clamp((int)(f[P_AH]
+                        + (f[P_AV] - 4 - f[P_AH]) * x), 0, 70);
+                    f[P_TL] = clamp((int)(f[P_TL] + 12 * x), 0, 41);
                 }
                 if (shut_at > n_on && k < shut_at
                     && (shut_at - k) * step <= def->pre && f[P_AV] > 0) {

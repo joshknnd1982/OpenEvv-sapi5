@@ -1,8 +1,8 @@
 # The master table realised for dedx (engine/ipa/adapter.py --write). Generated: do not edit.
 # Each letter: its sound line (if it differs from the carrier), and its IPA said as the carrier.
 
-#   U+0061 open front unrounded vowel: the carrier as it is
-a            A
+sound u0061 f1=118 f2=125 f3=110    # U+0061 open front unrounded vowel
+a            A=u0061
 #   U+0062 voiced bilabial plosive: the carrier as it is
 b            b
 #   U+0063 voiceless palatal plosive: the carrier as it is
@@ -10,14 +10,13 @@ b            b
 c            k
 #   U+0064 voiced dental or alveolar plosive: the carrier as it is
 d            d
-#   U+0065 close-mid front unrounded vowel: the carrier as it is
-e            e
+sound u0065 f1=113 f2=118 f3=109    # U+0065 close-mid front unrounded vowel
+e            e=u0065
 #   U+0066 voiceless labiodental fricative: the carrier as it is
 f            f
-#   U+0068 voiceless glottal fricative: the carrier as it is
-#   SUBSTITUTE: the carrier x is 4 feature steps away and nothing moves it
-h            x
-sound u0069 f1=129 f2=108 f3=103    # U+0069 close front unrounded vowel
+sound u0068 whisper=44    # U+0068 voiceless glottal fricative
+h            <h=u0068
+sound u0069 f1=82 f2=129 f3=126    # U+0069 close front unrounded vowel
 i            i=u0069
 #   U+006A voiced palatal approximant: the carrier as it is
 j            j
@@ -29,51 +28,47 @@ l            l
 m            m
 #   U+006E voiced dental or alveolar nasal: the carrier as it is
 n            n
-#   U+006F close-mid back rounded vowel: the carrier as it is
-o            o
+sound u006f f1=109 f2=93 f3=108    # U+006F close-mid back rounded vowel
+o            o=u006f
 #   U+0070 voiceless bilabial plosive: the carrier as it is
 p            p
 #   U+0071 voiceless uvular plosive: the carrier as it is
 #   SUBSTITUTE: the carrier k is 1 feature steps away and nothing moves it
 q            k
-#   U+0072 voiced dental or alveolar trill: the carrier as it is
-#   SUBSTITUTE: the carrier d is 8 feature steps away and nothing moves it
-r            d
+sound u0072 tdepth=20    # U+0072 voiced dental or alveolar trill
+r            l=u0072
 #   U+0073 voiceless alveolar fricative: the carrier as it is
 s            s
 sound u0074 vot=15    # U+0074 voiceless dental or alveolar plosive
 #   NOT PROVED: ipa/proofs/loop/U+0074.json did not reach its targets on dedx
 t            t=u0074
-#   U+0075 close back rounded vowel: the carrier as it is
-u            u
+sound u0075 f1=123 f2=77 f3=103    # U+0075 close back rounded vowel
+u            u=u0075
 #   U+0076 voiced labiodental fricative: the carrier as it is
 v            v
 #   U+0077 voiced labial-velar approximant: the carrier as it is
 w            w
 #   U+0078 voiceless velar fricative: the carrier as it is
 x            x
-#   U+0079 close front rounded vowel: the carrier as it is
-y            y
+sound u0079 f1=83 f2=124 f3=116    # U+0079 close front rounded vowel
+y            y=u0079
 #   U+007A voiced alveolar fricative: the carrier as it is
 z            z
-#   U+00E6 near-open front unrounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier A is 2 feature steps away and nothing moves it
-æ            A
+sound u00e6 f1=81 f2=137 f3=100    # U+00E6 near-open front unrounded vowel
+æ            A=u00e6
 #   U+00E7 voiceless palatal fricative: the carrier as it is
-#   SUBSTITUTE: the carrier x is 1 feature steps away and nothing moves it
-ç            x
+ç            X
 #   U+00F0 voiced dental fricative: the carrier as it is
 #   SUBSTITUTE: the carrier v is 2 feature steps away and nothing moves it
 ð            v
-#   U+00F8 close-mid front rounded vowel: the carrier as it is
-ø            oe
-#   U+0127 voiceless pharyngeal fricative: the carrier as it is
-#   SUBSTITUTE: the carrier x is 2 feature steps away and nothing moves it
-ħ            x
+sound u00f8 f1=111 f2=134 f3=123    # U+00F8 close-mid front rounded vowel
+ø            oe=u00f8
+sound u0127 whisper=48    # U+0127 voiceless pharyngeal fricative
+ħ            <h=u0127
 #   U+014B voiced velar nasal: the carrier as it is
 ŋ            G
-#   U+0153 open-mid front rounded vowel: the carrier as it is
-œ            OE
+sound u0153 f1=95 f2=131 f3=115    # U+0153 open-mid front rounded vowel
+œ            OE=u0153
 #   U+01C0 dental click (chart label: Dental); laminal tongue-tip/blade front closure at the teeth, released with friction; rear closure set by the accompaniment: the carrier as it is
 #   SUBSTITUTE: the carrier d is 11 feature steps away and nothing moves it
 ǀ            d
@@ -86,20 +81,17 @@ z            z
 #   U+01C3 (post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment: the carrier as it is
 #   SUBSTITUTE: the carrier d is 11 feature steps away and nothing moves it
 ǃ            d
-#   U+0250 near-open central vowel: the carrier as it is
-#   SUBSTITUTE: the carrier @ is 4 feature steps away and nothing moves it
-ɐ            @
-#   U+0251 open back unrounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier O is 5 feature steps away and nothing moves it
-ɑ            O
-#   U+0252 open back rounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier O is 4 feature steps away and nothing moves it
-ɒ            O
+sound u0250 f1=165 f2=87 f3=103    # U+0250 near-open central vowel
+ɐ            @=u0250
+sound u0251 f1=130 f2=111 f3=119    # U+0251 open back unrounded vowel
+ɑ            O=u0251
+sound u0252 f1=119 f2=103 f3=120    # U+0252 open back rounded vowel
+ɒ            O=u0252
 #   U+0253 voiced bilabial implosive (chart label: Bilabial): the carrier as it is
 #   SUBSTITUTE: the carrier b is 6 feature steps away and nothing moves it
 ɓ            b
-#   U+0254 open-mid back rounded vowel: the carrier as it is
-ɔ            O
+sound u0254 f1=94 f2=89 f3=106    # U+0254 open-mid back rounded vowel
+ɔ            O=u0254
 #   U+0255 voiceless alveolo-palatal fricative: the carrier as it is
 #   SUBSTITUTE: the carrier S is 2 feature steps away and nothing moves it
 ɕ            S
@@ -109,19 +101,16 @@ z            z
 #   U+0257 voiced dental/alveolar implosive (chart label: Dental/alveolar): the carrier as it is
 #   SUBSTITUTE: the carrier d is 6 feature steps away and nothing moves it
 ɗ            d
-#   U+0258 close-mid central unrounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier @ is 3 feature steps away and nothing moves it
-ɘ            @
-#   U+0259 mid central vowel: the carrier as it is
-ə            @
-#   U+025B open-mid front unrounded vowel: the carrier as it is
-ɛ            E
-#   U+025C open-mid central unrounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier @ is 3 feature steps away and nothing moves it
-ɜ            @
-#   U+025E open-mid central rounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier @ is 3 feature steps away and nothing moves it
-ɞ            @
+sound u0258 f1=99 f2=106 f3=109    # U+0258 close-mid central unrounded vowel
+ɘ            @=u0258
+sound u0259 f1=104 f2=91 f3=97    # U+0259 mid central vowel
+ə            @=u0259
+sound u025b f1=102 f2=120 f3=106    # U+025B open-mid front unrounded vowel
+ɛ            E=u025b
+sound u025c dur=205 f1=125 f2=87 f3=99    # U+025C open-mid central unrounded vowel
+ɜ            @=u025c
+sound u025e f1=116 f2=80 f3=103    # U+025E open-mid central rounded vowel
+ɞ            @=u025e
 #   U+025F voiced palatal plosive: the carrier as it is
 #   SUBSTITUTE: the carrier g is 1 feature steps away and nothing moves it
 ɟ            g
@@ -133,38 +122,33 @@ z            z
 #   U+0262 voiced uvular plosive: the carrier as it is
 #   SUBSTITUTE: the carrier g is 1 feature steps away and nothing moves it
 ɢ            g
-#   U+0263 voiced velar fricative: the carrier as it is
-#   SUBSTITUTE: the carrier r is 1 feature steps away and nothing moves it
-ɣ            r
-#   U+0264 close-mid back unrounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier o is 1 feature steps away and nothing moves it
-ɤ            o
+sound u0263 voi=1    # U+0263 voiced velar fricative
+ɣ            x=u0263
+sound u0264 f1=122 f2=115 f3=104    # U+0264 close-mid back unrounded vowel
+ɤ            o=u0264
 #   U+0265 voiced labial-palatal approximant: the carrier as it is
 #   SUBSTITUTE: the carrier w is 2 feature steps away and nothing moves it
 ɥ            w
-#   U+0266 voiced glottal fricative: the carrier as it is
-#   SUBSTITUTE: the carrier r is 3 feature steps away and nothing moves it
-ɦ            r
+sound u0266 voi=1 whisper=38    # U+0266 voiced glottal fricative
+ɦ            <h=u0266
 #   U+0267 simultaneous ʃ and x (IPA symbol list: voiceless postalveolar-velar fricative): the carrier as it is
 #   SUBSTITUTE: the carrier S is 5 feature steps away and nothing moves it
 ɧ            S
-#   U+0268 close central unrounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier I is 4 feature steps away and nothing moves it
-ɨ            I
-#   U+026A near-close near-front unrounded vowel: the carrier as it is
-ɪ            I
+sound u0268 f1=81 f2=97 f3=93    # U+0268 close central unrounded vowel
+ɨ            I=u0268
+sound u026a f1=90 f2=90 f3=89    # U+026A near-close near-front unrounded vowel
+ɪ            I=u026a
 #   U+026C voiceless dental or alveolar lateral fricative: the carrier as it is
-#   SUBSTITUTE: the carrier f is 7 feature steps away and nothing moves it
-ɬ            f
+#   SUBSTITUTE: the carrier s is 7 feature steps away and nothing moves it
+ɬ            s
 #   U+026D voiced retroflex lateral approximant: the carrier as it is
 #   SUBSTITUTE: the carrier l is 2 feature steps away and nothing moves it
 ɭ            l
 #   U+026E voiced dental or alveolar lateral fricative: the carrier as it is
-#   SUBSTITUTE: the carrier v is 7 feature steps away and nothing moves it
-ɮ            v
-#   U+026F close back unrounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier u is 1 feature steps away and nothing moves it
-ɯ            u
+#   SUBSTITUTE: the carrier z is 7 feature steps away and nothing moves it
+ɮ            z
+sound u026f f1=148 f2=108 f3=105    # U+026F close back unrounded vowel
+ɯ            u=u026f
 #   U+0270 voiced velar approximant: the carrier as it is
 #   SUBSTITUTE: the carrier j is 1 feature steps away and nothing moves it
 ɰ            j
@@ -172,41 +156,38 @@ z            z
 #   SUBSTITUTE: the carrier m is 1 feature steps away and nothing moves it
 ɱ            m
 #   U+0272 voiced palatal nasal: the carrier as it is
-#   SUBSTITUTE: the carrier G is 1 feature steps away and nothing moves it
-ɲ            G
+#   SUBSTITUTE: the carrier n is 4 feature steps away and nothing moves it
+ɲ            n
 #   U+0273 voiced retroflex nasal: the carrier as it is
 #   SUBSTITUTE: the carrier n is 2 feature steps away and nothing moves it
 ɳ            n
 #   U+0274 voiced uvular nasal: the carrier as it is
 #   SUBSTITUTE: the carrier G is 1 feature steps away and nothing moves it
 ɴ            G
-#   U+0275 close-mid central rounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier @ is 3 feature steps away and nothing moves it
-ɵ            @
-#   U+0276 open front rounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier A is 1 feature steps away and nothing moves it
-ɶ            A
+sound u0275 f1=94 f2=83 f3=101    # U+0275 close-mid central rounded vowel
+ɵ            @=u0275
+sound u0276 f1=87 f2=110 f3=105    # U+0276 open front rounded vowel
+ɶ            A=u0276
 #   U+0278 voiceless bilabial fricative: the carrier as it is
 #   SUBSTITUTE: the carrier f is 1 feature steps away and nothing moves it
 ɸ            f
 #   U+0279 voiced dental or alveolar approximant: the carrier as it is
-#   SUBSTITUTE: the carrier j is 4 feature steps away and nothing moves it
-ɹ            j
+#   SUBSTITUTE: the carrier r is 14 feature steps away and nothing moves it
+ɹ            r
 #   U+027A voiced alveolar lateral flap: the carrier as it is
 #   SUBSTITUTE: the carrier l is 8 feature steps away and nothing moves it
 ɺ            l
 #   U+027B voiced retroflex approximant: the carrier as it is
-#   SUBSTITUTE: the carrier j is 2 feature steps away and nothing moves it
-ɻ            j
+#   SUBSTITUTE: the carrier r is 12 feature steps away and nothing moves it
+ɻ            r
 #   U+027D voiced retroflex flap: the carrier as it is
-#   SUBSTITUTE: the carrier d is 10 feature steps away and nothing moves it
-ɽ            d
+#   SUBSTITUTE: the carrier l is 14 feature steps away and nothing moves it
+ɽ            l
 #   U+027E voiced dental or alveolar tap: the carrier as it is
-#   SUBSTITUTE: the carrier d is 8 feature steps away and nothing moves it
-ɾ            d
-#   U+0280 voiced uvular trill: the carrier as it is
-#   SUBSTITUTE: the carrier r is 8 feature steps away and nothing moves it
-ʀ            r
+#   SUBSTITUTE: the carrier l is 12 feature steps away and nothing moves it
+ɾ            l
+sound u0280 tdepth=20    # U+0280 voiced uvular trill
+ʀ            r=u0280
 #   U+0281 voiced uvular fricative: the carrier as it is
 ʁ            r
 #   U+0282 voiceless retroflex fricative: the carrier as it is
@@ -220,25 +201,22 @@ sound u0283 f2=106 f3=106 f4=106    # U+0283 voiceless postalveolar fricative
 #   U+0288 voiceless retroflex plosive: the carrier as it is
 #   SUBSTITUTE: the carrier t is 2 feature steps away and nothing moves it
 ʈ            t
-#   U+0289 close central rounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier U is 4 feature steps away and nothing moves it
-ʉ            U
-#   U+028A near-close near-back rounded vowel: the carrier as it is
-ʊ            U
+sound u0289 f1=73 f2=108 f3=100    # U+0289 close central rounded vowel
+ʉ            U=u0289
+sound u028a f1=91 f2=114 f3=98    # U+028A near-close near-back rounded vowel
+ʊ            U=u028a
 #   U+028B voiced labiodental approximant: the carrier as it is
 #   SUBSTITUTE: the carrier w is 3 feature steps away and nothing moves it
 ʋ            w
-#   U+028C open-mid back unrounded vowel: the carrier as it is
-#   SUBSTITUTE: the carrier O is 1 feature steps away and nothing moves it
-ʌ            O
-#   U+028D voiceless labial-velar fricative: the carrier as it is
-#   SUBSTITUTE: the carrier f is 3 feature steps away and nothing moves it
-ʍ            f
+sound u028c f1=104 f2=101 f3=112    # U+028C open-mid back unrounded vowel
+ʌ            O=u028c
+sound u028d voi=0 whisper=44    # U+028D voiceless labial-velar fricative
+ʍ            w=u028d
 #   U+028E voiced palatal lateral approximant: the carrier as it is
-#   SUBSTITUTE: the carrier j is 4 feature steps away and nothing moves it
-ʎ            j
-#   U+028F near-close near-front rounded vowel: the carrier as it is
-ʏ            Y
+#   SUBSTITUTE: the carrier l is 4 feature steps away and nothing moves it
+ʎ            l
+sound u028f f1=94 f2=97 f3=109    # U+028F near-close near-front rounded vowel
+ʏ            Y=u028f
 #   U+0290 voiced retroflex fricative: the carrier as it is
 #   SUBSTITUTE: the carrier Z is 1 feature steps away and nothing moves it
 ʐ            Z
@@ -247,36 +225,30 @@ sound u0283 f2=106 f3=106 f4=106    # U+0283 voiceless postalveolar fricative
 ʑ            Z
 #   U+0292 voiced postalveolar fricative: the carrier as it is
 ʒ            Z
-#   U+0294 glottal plosive (glottal stop): the carrier as it is
-#   SUBSTITUTE: the carrier k is 4 feature steps away and nothing moves it
-ʔ            k
-#   U+0295 voiced pharyngeal fricative (often an approximant): the carrier as it is
-#   SUBSTITUTE: the carrier r is 1 feature steps away and nothing moves it
-ʕ            r
+sound u0294 hush=1    # U+0294 glottal plosive (glottal stop)
+ʔ            <q=u0294
+sound u0295 voi=1 whisper=30    # U+0295 voiced pharyngeal fricative (often an approximant)
+ʕ            <h=u0295
 #   U+0298 bilabial click (chart label: Bilabial); the letter gives the front (lip) closure only; the rear closure and its accompaniment (voiceless, voiced, nasal, aspirated...) need another letter: the carrier as it is
 #   SUBSTITUTE: the carrier b is 10 feature steps away and nothing moves it
 ʘ            b
-#   U+0299 voiced bilabial trill: the carrier as it is
-#   SUBSTITUTE: the carrier b is 8 feature steps away and nothing moves it
-ʙ            b
+sound u0299 tdepth=20    # U+0299 voiced bilabial trill
+ʙ            w=u0299
 #   U+029B voiced uvular implosive (chart label: Uvular): the carrier as it is
 #   SUBSTITUTE: the carrier g is 7 feature steps away and nothing moves it
 ʛ            g
-#   U+029C voiceless epiglottal fricative: the carrier as it is
-#   SUBSTITUTE: the carrier x is 3 feature steps away and nothing moves it
-ʜ            x
-#   U+029D voiced palatal fricative: the carrier as it is
-#   SUBSTITUTE: the carrier r is 2 feature steps away and nothing moves it
-ʝ            r
+sound u029c whisper=48    # U+029C voiceless epiglottal fricative
+ʜ            <h=u029c
+sound u029d voi=1    # U+029D voiced palatal fricative
+ʝ            X=u029d
 #   U+029F voiced velar lateral approximant: the carrier as it is
-#   SUBSTITUTE: the carrier j is 5 feature steps away and nothing moves it
-ʟ            j
+#   SUBSTITUTE: the carrier l is 5 feature steps away and nothing moves it
+ʟ            l
 #   U+02A1 epiglottal plosive (voicing not specified on the chart): the carrier as it is
 #   SUBSTITUTE: the carrier g is 5 feature steps away and nothing moves it
 ʡ            g
-#   U+02A2 voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant): the carrier as it is
-#   SUBSTITUTE: the carrier r is 2 feature steps away and nothing moves it
-ʢ            r
+sound u02a2 voi=1 whisper=30    # U+02A2 voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant)
+ʢ            <h=u02a2
 #   U+03B2 voiced bilabial fricative: the carrier as it is
 #   SUBSTITUTE: the carrier v is 1 feature steps away and nothing moves it
 β            v
@@ -287,83 +259,83 @@ sound u0283 f2=106 f3=106 f4=106    # U+0283 voiceless postalveolar fricative
 #   SUBSTITUTE: the carrier x is 1 feature steps away and nothing moves it
 χ            x
 #   U+2C71 voiced labiodental flap: the carrier as it is
-#   SUBSTITUTE: the carrier v is 8 feature steps away and nothing moves it
-ⱱ            v
+#   SUBSTITUTE: the carrier w is 11 feature steps away and nothing moves it
+ⱱ            w
 
 # composition when speaking (C4): read only by a map with `version 2`
 version 2
 weights stricture=8 airstream=6 nasal=6 lateral=4 sibilant=3 place_step=1 place2=2 voicing=2 height_step=2 backness_step=2 rounding=1 class=50
-letter a v height=6 backness=0 rounding=unrounded
+letter a v height=6 backness=0 rounding=unrounded f1hz=920 f2hz=1562 f3hz=2750
 letter b c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter c c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter d c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter e v height=2 backness=0 rounding=unrounded
+letter e v height=2 backness=0 rounding=unrounded f1hz=418 f2hz=2537 f3hz=2943
 letter f c place=1 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter h c place=13 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter i v height=0 backness=0 rounding=unrounded
+letter i v height=0 backness=0 rounding=unrounded f1hz=217 f2hz=2774 f3hz=3654
 letter j c place=8 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter k c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter l c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
 letter m c place=0 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
 letter n c place=4 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter o v height=2 backness=4 rounding=rounded
+letter o v height=2 backness=4 rounding=rounded f1hz=425 f2hz=684 f3hz=2592
 letter p c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter q c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter r c place=4 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter s c place=4 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
 letter t c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter u v height=0 backness=4 rounding=rounded
+letter u v height=0 backness=4 rounding=rounded f1hz=308 f2hz=578 f3hz=2472
 letter v c place=1 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter w c place=0 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiced
 letter x c place=9 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter y v height=0 backness=0 rounding=rounded
+letter y v height=0 backness=0 rounding=rounded f1hz=249 f2hz=2257 f3hz=2668
 letter z c place=4 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
-letter æ v height=5 backness=0 rounding=unrounded
+letter æ v height=5 backness=0 rounding=unrounded f1hz=632 f2hz=1712 f3hz=2500
 letter ç c place=8 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter ð c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ø v height=2 backness=0 rounding=rounded
+letter ø v height=2 backness=0 rounding=rounded f1hz=422 f2hz=1963 f3hz=2487
 letter ħ c place=11 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter ŋ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter œ v height=4 backness=0 rounding=rounded
+letter œ v height=4 backness=0 rounding=rounded f1hz=513 f2hz=1768 f3hz=2461
 letter ǀ c place=3 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
 letter ǁ c place=4 stricture=closure airstream=click nasal=false lateral=true sibilant=false place2=velar voicing=unspecified
 letter ǂ c place=8 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
 letter ǃ c place=5 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
-letter ɐ v height=5 backness=2 rounding=unspecified
-letter ɑ v height=6 backness=4 rounding=unrounded
-letter ɒ v height=6 backness=4 rounding=rounded
+letter ɐ v height=5 backness=2 rounding=unspecified f1hz=742 f2hz=1392 f3hz=2575
+letter ɑ v height=6 backness=4 rounding=unrounded f1hz=741 f2hz=999 f3hz=2975
+letter ɒ v height=6 backness=4 rounding=rounded f1hz=678 f2hz=927 f3hz=3000
 letter ɓ c place=0 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɔ v height=4 backness=4 rounding=rounded
+letter ɔ v height=4 backness=4 rounding=rounded f1hz=536 f2hz=801 f3hz=2650
 letter ɕ c place=7 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
 letter ɖ c place=6 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɗ c place=4 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɘ v height=2 backness=2 rounding=unrounded
-letter ə v height=3 backness=2 rounding=unspecified
-letter ɛ v height=4 backness=0 rounding=unrounded
-letter ɜ v height=4 backness=2 rounding=unrounded
-letter ɞ v height=4 backness=2 rounding=rounded
+letter ɘ v height=2 backness=2 rounding=unrounded f1hz=446 f2hz=1696 f3hz=2725
+letter ə v height=3 backness=2 rounding=unspecified f1hz=468 f2hz=1456 f3hz=2425
+letter ɛ v height=4 backness=0 rounding=unrounded f1hz=561 f2hz=2160 f3hz=2756
+letter ɜ v height=4 backness=2 rounding=unrounded f1hz=562 f2hz=1392 f3hz=2475
+letter ɞ v height=4 backness=2 rounding=rounded f1hz=522 f2hz=1280 f3hz=2575
 letter ɟ c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɠ c place=9 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɡ c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɢ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɣ c place=9 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɤ v height=2 backness=4 rounding=unrounded
+letter ɤ v height=2 backness=4 rounding=unrounded f1hz=476 f2hz=845 f3hz=2496
 letter ɥ c place=0 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=palatal voicing=voiced
 letter ɦ c place=13 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɧ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiceless
-letter ɨ v height=0 backness=2 rounding=unrounded
-letter ɪ v height=1 backness=1 rounding=unrounded
+letter ɨ v height=0 backness=2 rounding=unrounded f1hz=308 f2hz=1940 f3hz=2604
+letter ɪ v height=1 backness=1 rounding=unrounded f1hz=342 f2hz=1800 f3hz=2492
 letter ɬ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
 letter ɭ c place=6 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
 letter ɮ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
-letter ɯ v height=0 backness=4 rounding=unrounded
+letter ɯ v height=0 backness=4 rounding=unrounded f1hz=370 f2hz=810 f3hz=2520
 letter ɰ c place=9 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɱ c place=1 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
 letter ɲ c place=8 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
 letter ɳ c place=6 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
 letter ɴ c place=10 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter ɵ v height=2 backness=2 rounding=rounded
-letter ɶ v height=6 backness=0 rounding=rounded
+letter ɵ v height=2 backness=2 rounding=rounded f1hz=423 f2hz=1328 f3hz=2525
+letter ɶ v height=6 backness=0 rounding=rounded f1hz=679 f2hz=1375 f3hz=2625
 letter ɸ c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter ɹ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɺ c place=4 stricture=tap airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
@@ -376,13 +348,13 @@ letter ʂ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=fa
 letter ʃ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
 letter ʄ c place=8 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ʈ c place=6 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter ʉ v height=0 backness=2 rounding=rounded
-letter ʊ v height=1 backness=3 rounding=rounded
+letter ʉ v height=0 backness=2 rounding=rounded f1hz=307 f2hz=1004 f3hz=2400
+letter ʊ v height=1 backness=3 rounding=rounded f1hz=382 f2hz=1060 f3hz=2352
 letter ʋ c place=1 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʌ v height=4 backness=4 rounding=unrounded
+letter ʌ v height=4 backness=4 rounding=unrounded f1hz=593 f2hz=909 f3hz=2800
 letter ʍ c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiceless
 letter ʎ c place=8 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
-letter ʏ v height=1 backness=1 rounding=rounded
+letter ʏ v height=1 backness=1 rounding=rounded f1hz=376 f2hz=1436 f3hz=2289
 letter ʐ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
 letter ʑ c place=7 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
 letter ʒ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
@@ -400,7 +372,72 @@ letter β c place=0 stricture=friction airstream=pulmonic nasal=false lateral=fa
 letter θ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter χ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-mod ʰ c vot+64    # U+02B0
-mod ʷ c f2*85    # U+02B7
-mod ː c dur*180    # U+02D0
-mod ː v dur*180    # U+02D0
+mod ʲ c f2*143    # U+02B2
+mod ː c hold*200    # U+02D0
+mod ː v dur*230    # U+02D0
+mod ˑ c hold*140    # U+02D1
+mod ˑ v dur*150    # U+02D1
+mod ˞ v f3~1679:70    # U+02DE
+mod ˠ c f2*60    # U+02E0
+mod ˡ c noburst=1    # U+02E1
+mod ˤ c f2*68 f1*110    # U+02E4
+mod ̃ c nas=70    # U+0303
+mod ̃ v nas=70    # U+0303
+mod ̆ c hold*60    # U+0306
+mod ̆ v dur*55    # U+0306
+mod ̈ v f2~1454:50    # U+0308
+mod ̊ c voi=0 whisper=44 hold*131    # U+030A
+mod ̊ v voi=0 whisper=44    # U+030A
+mod ̘ c f1*95    # U+0318
+mod ̘ v f1*88    # U+0318
+mod ̙ c f1*105    # U+0319
+mod ̙ v f1*112 f2*96    # U+0319
+mod ̚ c noburst=1    # U+031A
+mod ̜ v f2*107 f3*104    # U+031C
+mod ̝ c f1*90    # U+031D
+mod ̝ v f1*90    # U+031D
+mod ̞ c f1*110    # U+031E
+mod ̞ v f1*110    # U+031E
+mod ̟ c f2*106    # U+031F
+mod ̟ v f2*108    # U+031F
+mod ̠ c f2*94    # U+0320
+mod ̠ v f2*92    # U+0320
+mod ̤ c breathy=80    # U+0324
+mod ̤ v breathy=80    # U+0324
+mod ̥ c voi=0 whisper=44 hold*131    # U+0325
+mod ̥ v voi=0 whisper=44    # U+0325
+mod ̩ c hold*150    # U+0329
+mod ̪ c f2*93    # U+032A
+mod ̬ c voi=1    # U+032C
+mod ̯ v dur*50    # U+032F
+mod ̰ c creak=60    # U+0330
+mod ̰ v creak=60    # U+0330
+mod ̴ c f2*64    # U+0334
+mod ̹ v f2*93 f3*96    # U+0339
+mod ̺ c f3*95    # U+033A
+mod ̻ c f2*105    # U+033B
+mod ̼ c f2*75    # U+033C
+mod ̽ v f1~467:50 f2~1454:50    # U+033D
+mod ⁿ c noburst=1    # U+207F
+
+# pitch typed in IPA (C2, C5): tone letters and marks, register steps, slopes; tenths of a Chao
+# level, a semitone being 4.44 of them (a range of 9 semitones)
+tonemark ˥ 5    # U+02E5
+tonemark ˦ 4    # U+02E6
+tonemark ˧ 3    # U+02E7
+tonemark ˨ 2    # U+02E8
+tonemark ˩ 1    # U+02E9
+tonemark ̀ 2    # U+0300
+tonemark ́ 4    # U+0301
+tonemark ̂ 51    # U+0302
+tonemark ̄ 3    # U+0304
+tonemark ̋ 5    # U+030B
+tonemark ̌ 15    # U+030C
+tonemark ̏ 1    # U+030F
+tonemark ᷄ 35    # U+1DC4
+tonemark ᷅ 13    # U+1DC5
+tonemark ᷈ 342    # U+1DC8
+slope ↗ 4    # U+2197, 1 semitones a syllable
+slope ↘ -4    # U+2198, -1 semitones a syllable
+register ꜛ 11    # U+A71B, 2.5 semitones
+register ꜜ -11    # U+A71C, -2.5 semitones
