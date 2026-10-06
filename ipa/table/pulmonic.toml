@@ -52,6 +52,7 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0074".spec]
+vot_ms = { v = 15, tag = "derived", rule = "the median of the seven unaspirated /t/ means in Cho and Ladefoged (1997) Table 1 (nl 15, es-PR 9, hu 16, yue 14, hy 15, ko 25, ta 8 ms)" }
 
 [sound."U+0074".tests]
 checks = ["T-stop"]
@@ -628,6 +629,7 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0283".spec]
+noise = { peak_hz = { v = 3820, tag = "literature", ref = "jongman2000", note = "American English, 20 speakers, men and women together; the peak lies inside the 0-5.5 kHz the engine makes (DESIGN.md 10.1, the bandwidth rule), where the paper's centroid, over a wider band, would not be comparable" } }
 
 [sound."U+0283".tests]
 checks = ["T-fric"]
