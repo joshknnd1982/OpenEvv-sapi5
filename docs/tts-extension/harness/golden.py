@@ -82,6 +82,17 @@ def table_chain(name):
     return out
 
 
+def map_words(line):
+    """The words of a sounds.map line: a comment begins at a word that starts with '#'
+    (docs/SOUNDS.md), not at any '#': eSpeak NG names phonemes `d#`, `#a`."""
+    out = []
+    for w in line.split():
+        if w.startswith('#'):
+            break
+        out.append(w)
+    return out
+
+
 def espeak_cases(p):
     """(cases, not covered). Every `@table:name` line of the pack's sounds.map that maps to something.
 
@@ -97,7 +108,7 @@ def espeak_cases(p):
     cases, seen, uncovered = [], set(), []
     with open(p.sounds_map, encoding='utf-8') as f:
         for line in f:
-            w = line.split('#', 1)[0].split()
+            w = map_words(line)
             if len(w) < 2 or not w[0].startswith('@') or w[1] == '-':
                 continue
             tname, _, name = w[0][1:].partition(':')
@@ -211,11 +222,24 @@ def measure_case(r, phone_module):
                 wav_sha256=r['wav_sha256'], phones=phones)
 
 
-def run_pack(tag, limit=None, jobs=2):
+def known_ids(folder, tag):
+    """The case ids a golden folder holds for a pack (empty if it has none)."""
+    import gzip
+    path = os.path.join(folder, '%s.json.gz' % tag)
+    if not os.path.exists(path):
+        return set()
+    with open(path, 'rb') as f:
+        return set(json.loads(gzip.decompress(f.read()).decode('utf-8'))['cases'])
+
+
+def run_pack(tag, limit=None, jobs=2, skip_from=None):
     p = E.pack(tag)
     cases, uncovered = cases_for(tag)
     if limit:
         cases = cases[:limit]
+    if skip_from:
+        skip = known_ids(skip_from, tag)
+        cases = [c for c in cases if c[0] not in skip]
     out, errors = {}, {}
     t0 = time.time()
     try:
@@ -323,6 +347,8 @@ def main():
     ap.add_argument('--smoke', action='store_true', help='a few phonemes of a few packs (under a minute)')
     ap.add_argument('--workers', type=int, default=max(1, (os.cpu_count() or 4) // 2))
     ap.add_argument('--golden', help='the golden folder (default: golden/, or golden-staged/ under EVV_STAGE)')
+    ap.add_argument('--only-missing-from', metavar='FOLDER',
+                    help='render only the cases that golden folder lacks, and compare only those')
     a = ap.parse_args()
     global GOLDEN
     if a.golden:
@@ -336,7 +362,8 @@ def main():
     t0 = time.time()
     results = {}
     with concurrent.futures.ProcessPoolExecutor(max_workers=a.workers) as ex:
-        futs = {ex.submit(run_pack, tag, limit): tag for tag, limit in plan}
+        skip_from = os.path.abspath(a.only_missing_from) if a.only_missing_from else None
+        futs = {ex.submit(run_pack, tag, limit, 2, skip_from): tag for tag, limit in plan}
         for f in concurrent.futures.as_completed(futs):
             try:
                 r = f.result()
@@ -364,17 +391,20 @@ def main():
             fails += 1
             continue
         gold = read_golden(tag)
-        if a.smoke:
+        if a.smoke or a.only_missing_from:
             gold['cases'] = {k: v for k, v in gold['cases'].items() if k in r['cases'] or k in r['errors']}
         found = compare(gold, r)
         new = [cid for cid, sev, msg in found if sev == 'FAIL' and msg == 'new case (not in the golden)']
         if a.record_new and new and len(new) == sum(sev == 'FAIL' for _c, sev, _m in found):
             # Every case the golden has is unchanged: the new ones join it, the old ones stay as they were.
+            if a.only_missing_from:
+                gold = read_golden(tag)     # the whole of it, not the part compared
             for cid in new:
                 gold['cases'][cid] = r['cases'][cid]
             gold['not_covered'] = r.get('not_covered', gold.get('not_covered', []))
             write_golden(tag, gold)
-            print('ADDED %s: %d new cases; the %d it had are unchanged' % (tag, len(new), len(gold['cases']) - len(new)))
+            print('ADDED %s: %d new cases; the %d it had are %s' % (tag, len(new), len(gold['cases']) - len(new),
+                  'not rendered again (--only-missing-from)' if a.only_missing_from else 'unchanged'))
             added += len(new)
             found = [f for f in found if f[0] not in new]
         for cid, sev, msg in found:

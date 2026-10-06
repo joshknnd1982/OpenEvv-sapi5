@@ -6,8 +6,9 @@ the same map with every `sound` definition emptied (`sound s11`, no keys), which
 gives by itself. A phone is held to A3 when it is a pause, or when it is not a vowel, its own sound
 definition does not ask for voice (`voi=1`), and the module by itself voices less than half of its
 time. It passes when the pack's definitions add no voiced
-time there: voiced time with the map is at most the module's own, scaled by any change in the
-phone's length, plus one frame. Friction lost in those phones is reported beside it, not judged.
+time there: voiced time with the map is at most the module's own, plus one frame; when a definition
+lengthens the phone, the module's own voiced time is scaled up with it (never down: a shortened
+sound keeps the voicing it had at its edge, which the definitions did not add). Friction lost in those phones is reported beside it, not judged.
 
     python docs/tts-extension/harness/a3.py [tags...]      every pack read by eSpeak NG by default
 
@@ -51,7 +52,7 @@ def definitions(p):
     out = {}
     with open(p.sounds_map, encoding='utf-8') as f:
         for line in f:
-            w = line.split('#', 1)[0].split()
+            w = G.map_words(line)
             if len(w) >= 2 and w[0] == 'sound':
                 out[w[1]] = dict(kv.split('=', 1) for kv in w[2:] if '=' in kv)
     return out
@@ -74,9 +75,15 @@ def spans(r):
     return out
 
 
-def run_pack(tag, jobs=2):
+def run_pack(tag, jobs=2, skip_from=None):
     p = E.pack(tag)
     cases = [c for c in G.cases_for(tag)[0] if c[0].startswith('x|')]
+    if skip_from:
+        skip = G.known_ids(skip_from, tag)
+        cases = [c for c in cases if c[0] not in skip]
+    if not cases:
+        return dict(tag=tag, module=p.module_tag, cases=0, held=0, failures=[], mismatched=[], errors={},
+                    friction_lost=0, seconds=0)
     work = os.path.join(E.WORK, 'a3', tag)
     t0 = time.time()
     out = dict(tag=tag, module=p.module_tag, cases=len(cases), held=0, failures=[], mismatched=[], errors={},
@@ -102,7 +109,7 @@ def run_pack(tag, jobs=2):
                                          and v_b < HELD_BELOW * len_b)):
                 continue
             out['held'] += 1
-            allowed = v_b * (len_a / len_b if len_b > 0 else 1.0) + step
+            allowed = v_b * max(1.0, len_a / len_b if len_b > 0 else 1.0) + step
             if n_a < n_b * (len_a / len_b if len_b > 0 else 1.0) - step:
                 out['friction_lost'] += 1
             if v_a > allowed:
@@ -121,13 +128,16 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('tags', nargs='*')
     ap.add_argument('--workers', type=int, default=max(1, (os.cpu_count() or 4) // 2))
+    ap.add_argument('--only-missing-from', metavar='FOLDER',
+                    help='only the x| cases that golden folder lacks; results go to results/a3[-staged]-new.json')
     a = ap.parse_args()
+    skip_from = os.path.abspath(a.only_missing_from) if a.only_missing_from else None
     tags = a.tags or [t for t, p in E.packs().items() if p.kind == 'espeak']
     print('modules: %s' % ('staged in %s, else shipped' % E.STAGE if E.STAGE else 'shipped (languages/)'), flush=True)
     results = {}
     t0 = time.time()
     with concurrent.futures.ProcessPoolExecutor(max_workers=a.workers) as ex:
-        futs = {ex.submit(run_pack, t): t for t in tags}
+        futs = {ex.submit(run_pack, t, 2, skip_from): t for t in tags}
         for f in concurrent.futures.as_completed(futs):
             try:
                 r = f.result()
@@ -140,7 +150,7 @@ def main():
                      len(r['failures']), sum(1 for x in r['failures'] if x.get('after_release_key')),
                      len(r['mismatched']), r['friction_lost'],
                      ('errors: %s' % r['errors']) if r['errors'] else ''), flush=True)
-    path = os.path.join(RESULTS, 'a3-staged.json' if E.STAGE else 'a3.json')
+    path = os.path.join(RESULTS, ('a3-staged' if E.STAGE else 'a3') + ('-new' if skip_from else '') + '.json')
     old = {}
     if a.tags and os.path.exists(path):
         with open(path, encoding='utf-8') as f:
