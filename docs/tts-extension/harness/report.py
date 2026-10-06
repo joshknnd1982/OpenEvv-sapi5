@@ -16,6 +16,9 @@ synthesiser realised them.
     A2 (signal)  in every vowel, F1 and F2 measured from the sound match the frames' (F1 within
                  8 % or three quarters of F0, F2 within 8 % or 60 Hz) and F0 the frames' mean over
                  the middle 40 ms within 5 % (not for a vowel starting in the first 20 ms).
+    A0 (C1)      and the front-end lost nothing on the golden inputs (results/diag.json: a `loss`
+                 there is a phoneme, a mark, a tone or a part of the map dropped without a word).
+                 Its losses on the speech-recognition sentences are reported beside it.
     Stops (their closure is silent by nature) and unlabelled runs are not held to A1.
     passes when A0 and A1 hold for every phone and A2 for at least A2_PASS of its checks.
     Reported beside it, not counted in it: the cases whose phoneme the map gives no phone of its
@@ -122,6 +125,21 @@ def check_a(gold, phone_module):
                 a2_ok=a2_ok, a2_rate=round(a2_ok / a2, 3) if a2 else None, problems=(substituted + bad)[:40])
 
 
+_diag = None
+
+
+def fe_losses(tag):
+    """Events the front-end reported as `loss` (diag.py), on the golden inputs and on the
+    sentences; None for a pack it has not counted."""
+    global _diag
+    if _diag is None:
+        _diag = (load(os.path.join(RESULTS, 'diag.json'), {}) or {}).get('packs', {})
+    r = _diag.get(tag)
+    if r is None:
+        return None
+    return {name: sum(d[3] for d in r['diags'].get(name, []) if d[0] == 'loss') for name in ('golden', 'sentences')}
+
+
 def case_ipa(p, cid):
     """The IPA a golden case is about: the eSpeak NG phoneme's, or the module phone's."""
     kind, _, name = cid.partition('|')
@@ -209,6 +227,11 @@ def status(tag, asr):
         return out
     out['cases'] = len(gold['cases'])
     out['a'] = check_a(gold, p.phone_module)
+    lost = fe_losses(tag)
+    if lost is not None:
+        out['a'].update(fe_lost_golden=lost['golden'], fe_lost_sentences=lost['sentences'])
+        if lost['golden']:
+            out['a']['passed'] = False
     # cases whose phoneme the map gives no phone of its own (an /h/ heard only as the vowel's
     # aspiration, a /ʔ/ as a hush): a mapping fact for Phase 4, not an engine fault
     out['no_own_phone'] = sorted(cid for cid, case in gold['cases'].items()

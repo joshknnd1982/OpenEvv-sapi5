@@ -43,6 +43,8 @@ In a language of tones the front-end asks eSpeak NG for the tones as they are af
 
 `--anchors` with `--text` prints where each word came from, `--punctuation` has punctuation marks named, as spelling wants, `--spell` has the whole text spelled, every character by its name, and `--phonemes` lets the text name eSpeak NG's phonemes in `[[double brackets]]`, which is how a single sound is asked for to be measured. `src/common/frontend_proto.h` describes the pipe protocol.
 
+Nothing is lost without a word. Whatever is dropped, cut short, skipped or said as something else on the way from eSpeak NG's phonemes to the annotation (a phoneme with no line in the map, a mark no key starts with, a tone the map does not name, a word too long, a map line that is ignored, cut or shadowed) is reported, once for each kind and detail with a count: on the command line as `diag<TAB>level<TAB>kind<TAB>detail<TAB>count` lines on standard error, and with `--serve` after the result, where the host writes it to its log. The level is `loss` for something the map did not ask for and `note` for something it did (an entry given as `-`, a schwa put before a syllabic consonant). `--strict` makes the program exit with 3 when there is a loss. The reports change what is said in no way.
+
 Spelling is asked of eSpeak NG with the command it keeps for saying characters, the character with the number one, `18Y` before the text and `Y` after it. The engine host writes it around what SAPI asks to be spelled and around a text that is a single letter, so that a letter is always read by its name and never as a word or a sound.
 
 ## Building

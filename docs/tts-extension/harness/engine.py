@@ -82,6 +82,14 @@ WORK = os.environ.get('EVV_HARNESS_WORK') or os.path.join(tempfile.gettempdir(),
 # modules. The product reads it before the shipped languages\ (F16), so a module staged there
 # speaks instead of the shipped one, which is never touched. Unset: the shipped modules.
 STAGE = os.environ.get('EVV_STAGE') or ''
+# A front-end staged beside the modules is used before dist's (EVV_FRONTEND still wins).
+if STAGE and not os.environ.get('EVV_FRONTEND') and os.path.exists(os.path.join(STAGE, 'x64', 'OpenEvvFrontend.exe')):
+    FRONTEND = os.path.join(STAGE, 'x64', 'OpenEvvFrontend.exe')
+
+# C1 (DESIGN.md 4.3): the front-end and the accent layer report what they lose on the way, as
+# `diag` lines. Every render carries them (`diag`); with EVV_STRICT=1 a loss fails the render.
+# Off by default: the present packs lose a few marks (results/diag.json), which is their baseline.
+STRICT = os.environ.get('EVV_STRICT') == '1'
 
 INERT = '{A v=1}'
 
@@ -188,6 +196,28 @@ def pack(tag):
 
 def frontend(p, text, phonemes=False, map_path=None):
     """What the front-end hands the module for this text: annotated text, as the host gets it."""
+    return frontend_diag(p, text, phonemes, map_path)[0]
+
+
+def parse_diag(lines, source):
+    """`diag` lines (level, kind, detail, count) as dicts; other lines are left alone."""
+    out = []
+    for line in lines:
+        f = line.rstrip('\r\n').split('\t')
+        if len(f) == 5 and f[0] == 'diag':
+            out.append(dict(source=source, level=f[1], kind=f[2], detail=f[3], count=int(f[4])))
+    return out
+
+
+def check_strict(diags, what):
+    losses = [d for d in diags if d['level'] == 'loss']
+    if STRICT and losses:
+        raise HarnessError('%s: lost on the way (EVV_STRICT): %s' % (
+            what, '; '.join('%s %s' % (d['kind'], d['detail']) for d in losses[:5])))
+
+
+def frontend_diag(p, text, phonemes=False, map_path=None):
+    """(annotated text, the front-end's diagnostics)."""
     if p.kind != 'espeak':
         raise HarnessError('%s is not read by eSpeak NG' % p.tag)
     fd, path = tempfile.mkstemp(suffix='.txt', prefix='evvfe')
@@ -202,7 +232,9 @@ def frontend(p, text, phonemes=False, map_path=None):
         os.remove(path)
     if r.returncode != 0:
         raise HarnessError('front-end failed for %s: %s' % (p.tag, r.stderr.decode('utf-8', 'replace').strip()))
-    return r.stdout.decode('utf-8').rstrip('\r\n')
+    diags = parse_diag(r.stderr.decode('utf-8', 'replace').splitlines(), 'frontend')
+    check_strict(diags, '%s %r' % (p.tag, text[:60]))
+    return r.stdout.decode('utf-8').rstrip('\r\n'), diags
 
 
 def override_map(p, overrides, work):
@@ -232,22 +264,24 @@ def override_map(p, overrides, work):
 
 
 def case_text(p, kind, text, bits, map_path=None):
-    """(text for evv_render, annotated?, front-end output, module phones asked for)."""
+    """(text for evv_render, annotated?, front-end output, module phones asked for, diagnostics)."""
     if p.kind == 'espeak':
         if kind == 'text' and not map_path:
-            return text, False, None, None
+            # the host runs the front-end itself; asked here too, only for what it reports
+            return text, False, None, None, frontend_diag(p, text)[1]
+        diags = []
         if kind == 'text':
-            out = frontend(p, text, map_path=map_path)
+            out, diags = frontend_diag(p, text, map_path=map_path)
         elif kind == 'annotated':
             out = text
         elif kind == 'espeak':
-            out = frontend(p, '[[%s]]' % text, phonemes=True, map_path=map_path)
+            out, diags = frontend_diag(p, '[[%s]]' % text, phonemes=True, map_path=map_path)
         elif kind == 'ipa':
             import ipa as ipa_mod
-            out = frontend(p, '[[%s]]' % ipa_mod.to_espeak(p, text), phonemes=True, map_path=map_path)
+            out, diags = frontend_diag(p, '[[%s]]' % ipa_mod.to_espeak(p, text), phonemes=True, map_path=map_path)
         else:
             raise HarnessError('input %s needs a native pack; %s is read by eSpeak NG' % (kind, p.tag))
-        return out, True, out, None
+        return out, True, out, None, diags
     if kind in ('espeak', 'annotated'):
         raise HarnessError('input %s needs a pack read by eSpeak NG; %s is %s' % (kind, p.tag, p.kind))
     asked = None
@@ -261,7 +295,7 @@ def case_text(p, kind, text, bits, map_path=None):
         raise HarnessError('unknown input kind %s' % kind)
     if traces(p, bits):
         text = INERT + text
-    return text, False, None, asked
+    return text, False, None, asked, []
 
 
 # ---- one render ----------------------------------------------------------------------------------
@@ -333,11 +367,19 @@ def read_trace(path):
         for line in f:
             c = line.rstrip('\n').split('\t')
             if len(c) < 13:
-                continue        # "sentence: ..." lines: the module's own settings, said again
+                continue        # "sentence: ..." lines: the module's own settings, said again; "diag" lines
             phones.append(dict(name=c[0], eng_a=int(c[1]), eng_b=int(c[2]), out_a=int(c[3]), out_b=int(c[4]),
                                meant=c[5], sound=c[6], tone=c[7], stress=int(c[8]), flags=int(c[9]),
                                on=c[10], off=c[11], record=[int(x) for x in c[12].split('.')], source='trace'))
     return phones
+
+
+def read_trace_diag(path):
+    """The accent layer's `diag` lines in a trace (C1)."""
+    if not path or not os.path.exists(path):
+        return []
+    with open(path, encoding='utf-8') as f:
+        return parse_diag(f, 'accent')
 
 
 def read_runs(path):
@@ -545,7 +587,9 @@ def _one(p, preset, bits, case_id, text, annotated, asked, work, folder):
         except HarnessError as e:
             last = '%s (attempt %d, %.2f s)' % (e, attempt, r['elapsed'])
             continue
-        return dict(wav=r['wav'], rate=rate, n_samples=int(len(x)), case_ms=case_ms,
+        diags = read_trace_diag(r['trace'])
+        check_strict(diags, '%s %s' % (p.tag, case_id))
+        return dict(wav=r['wav'], rate=rate, n_samples=int(len(x)), case_ms=case_ms, diag=diags,
                     warmup_frames=int(len(frames) - len(case)), attempts=attempt,
                     segmentation='trace' if by_trace else 'runs',
                     wav_sha256=hashlib.sha256(open(r['wav'], 'rb').read()).hexdigest(),
@@ -565,14 +609,15 @@ def render(tag, cases, preset=1, bits=64, jobs=None, work=None, map_path=None):
     # otherwise share one (it happened: selftest.py, 'engine realises F2').
     prepared = []
     for i, (case_id, kind, text) in enumerate(cases):
-        said, annotated, fe_out, asked = case_text(p, kind, text, bits, map_path)
+        said, annotated, fe_out, asked, fe_diag = case_text(p, kind, text, bits, map_path)
         folder = '%04d_%s' % (i, re.sub(r'[^A-Za-z0-9_.-]', '_', case_id))[:60]
-        prepared.append((case_id, kind, text, said, annotated, fe_out, asked, folder))
+        prepared.append((case_id, kind, text, said, annotated, fe_out, asked, fe_diag, folder))
     jobs = jobs or min(8, os.cpu_count() or 2)
 
     def go(item):
-        case_id, kind, text, said, annotated, fe_out, asked, folder = item
+        case_id, kind, text, said, annotated, fe_out, asked, fe_diag, folder = item
         r = _one(p, preset, bits, case_id, said, annotated, asked, work, folder)
+        r['diag'] = fe_diag + r['diag']
         r.update(id=case_id, tag=tag, pack_kind=p.kind, module=p.module_tag, preset=preset, bits=bits,
                  input=dict(kind=kind, text=text, said=said, annotated=annotated, frontend_output=fe_out,
                             map=map_path or p.sounds_map or None))

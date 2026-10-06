@@ -12,16 +12,103 @@
 #include "evv_map.h"
 
 #include <ctype.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <windows.h>
 
+/* ---- diagnostics ---------------------------------------------------------- */
+
+typedef struct {
+	int level;
+	char kind[24];
+	char detail[200];
+	int count;
+} Diag;
+
+#define MAX_DIAGS 256
+static Diag g_diags[MAX_DIAGS];
+static int g_n_diags, g_diags_over, g_losses;
+int evv_diag_line, evv_diag_quiet;
+
+void evv_diag(int level, const char *kind, const char *fmt, ...)
+{
+	char detail[200];
+	va_list ap;
+	if (evv_diag_quiet)
+		return;
+	va_start(ap, fmt);
+	vsnprintf(detail, sizeof(detail), fmt, ap);
+	va_end(ap);
+	if (evv_diag_line > 0) {
+		char at[200];
+		snprintf(at, sizeof(at), "map line %d: %s", evv_diag_line, detail);
+		memcpy(detail, at, sizeof(detail));
+	}
+	if (level == EVV_DIAG_LOSS)
+		g_losses++;
+	for (int i = 0; i < g_n_diags; i++)
+		if (g_diags[i].level == level && strcmp(g_diags[i].kind, kind) == 0 &&
+		    strcmp(g_diags[i].detail, detail) == 0) {
+			g_diags[i].count++;
+			return;
+		}
+	if (g_n_diags == MAX_DIAGS) {
+		g_diags_over++;
+		return;
+	}
+	Diag *d = &g_diags[g_n_diags++];
+	d->level = level;
+	snprintf(d->kind, sizeof(d->kind), "%s", kind);
+	memcpy(d->detail, detail, sizeof(d->detail));
+	d->count = 1;
+}
+
+void evv_diag_clear(void)
+{
+	g_n_diags = g_diags_over = g_losses = 0;
+}
+
+int evv_diag_losses(void)
+{
+	return g_losses;
+}
+
+char *evv_diag_text(size_t *len)
+{
+	size_t cap = (size_t)g_n_diags * (sizeof(Diag) + 32) + 128;
+	char *s = (char *)malloc(cap);
+	size_t at = 0;
+	*len = 0;
+	if (!s)
+		return NULL;
+	s[0] = 0;
+	for (int i = 0; i < g_n_diags; i++) {
+		const Diag *d = &g_diags[i];
+		at += (size_t)snprintf(s + at, cap - at, "%s\t%s\t%s\t%d\n", d->level == EVV_DIAG_LOSS ? "loss" : "note",
+		                       d->kind, d->detail, d->count);
+	}
+	if (g_diags_over)
+		at += (size_t)snprintf(s + at, cap - at, "loss\tdiagnostics-full\tmore kinds than %d\t%d\n", MAX_DIAGS,
+		                       g_diags_over);
+	*len = at;
+	return s;
+}
+
+/* What a name is cut to when it is longer than its room, reported. */
 static void copy_name(char *dst, const char *src, size_t room)
 {
 	strncpy(dst, src, room - 1);
 	dst[room - 1] = 0;
+}
+
+static void copy_checked(char *dst, const char *src, size_t room, const char *what)
+{
+	if (strlen(src) >= room)
+		evv_diag(EVV_DIAG_LOSS, "map-name-cut", "%s `%s' cut to %d bytes", what, src, (int)room - 1);
+	copy_name(dst, src, room);
 }
 
 static char *next_word(char **p)
@@ -62,7 +149,7 @@ static int add_list(char list[][EVV_PHONE_LEN], int *n, int max, char *rest)
 	while ((w = next_word(&rest)) != NULL) {
 		if (*n >= max)
 			return -1;
-		copy_name(list[(*n)++], w, EVV_PHONE_LEN);
+		copy_checked(list[(*n)++], w, EVV_PHONE_LEN, "phone");
 	}
 	return 0;
 }
@@ -97,11 +184,13 @@ static int buffer_group(Buffer *b, const char *letter, const char *rest)
 	if (buffer_put(b, "{") || buffer_put(b, letter))
 		return -1;
 	char copy[1024];
-	copy_name(copy, rest, sizeof(copy));
+	copy_checked(copy, rest, sizeof(copy), "line");
 	char *p = copy, *w;
 	while ((w = next_word(&p)) != NULL) {
-		if (strchr(w, '{') || strchr(w, '}'))
+		if (strchr(w, '{') || strchr(w, '}')) {
+			evv_diag(EVV_DIAG_LOSS, "map-ignored", "word `%s' holds a brace and is left out", w);
 			continue;
+		}
 		if (buffer_put(b, " ") || buffer_put(b, w))
 			return -1;
 	}
@@ -110,6 +199,11 @@ static int buffer_group(Buffer *b, const char *letter, const char *rest)
 
 static int add_defined(EvvDefined **list, int *n, int *cap, const char *id, const char *group)
 {
+	for (int i = 0; i < *n; i++)
+		if (strncmp((*list)[i].id, id, EVV_ID_LEN - 1) == 0) {
+			evv_diag(EVV_DIAG_LOSS, "map-id-duplicate", "`%s' is defined again; the first definition is used", id);
+			break;
+		}
 	if (*n == *cap) {
 		int c = *cap ? *cap * 2 : 64;
 		EvvDefined *t = (EvvDefined *)realloc(*list, (size_t)c * sizeof(EvvDefined));
@@ -120,7 +214,7 @@ static int add_defined(EvvDefined **list, int *n, int *cap, const char *id, cons
 	}
 	EvvDefined *d = &(*list)[(*n)++];
 	memset(d, 0, sizeof(*d));
-	copy_name(d->id, id, EVV_ID_LEN);
+	copy_checked(d->id, id, EVV_ID_LEN, "id");
 	d->group = (char *)malloc(strlen(group) + 1);
 	if (!d->group)
 		return -1;
@@ -137,8 +231,10 @@ static int define(EvvDefined **list, int *n, int *cap, const char *letter, const
 	copy_name(copy, rest, sizeof(copy));
 	char *q = copy;
 	char *id = next_word(&q);
-	if (!id)
+	if (!id) {
+		evv_diag(EVV_DIAG_LOSS, "map-ignored", "a %s line with no id", letter[0] == 'D' ? "sound" : "tone");
 		return 0;
+	}
 	if (buffer_group(&b, letter, rest)) {
 		free(b.text);
 		return -1;
@@ -193,7 +289,7 @@ static int add_tone_id(EvvMap *map, const char *id)
 		map->tone_ids = (char(*)[EVV_ID_LEN])t;
 		map->cap_tone_ids = cap;
 	}
-	copy_name(map->tone_ids[map->n_tone_ids++], id, EVV_ID_LEN);
+	copy_checked(map->tone_ids[map->n_tone_ids++], id, EVV_ID_LEN, "tone id");
 	return 0;
 }
 
@@ -207,8 +303,8 @@ static int add_tone_name(EvvMap *map, const char *from, const char *to)
 		map->tones = t;
 		map->cap_tones = cap;
 	}
-	copy_name(map->tones[map->n_tones].from, from, EVV_ID_LEN);
-	copy_name(map->tones[map->n_tones].to, to, EVV_ID_LEN);
+	copy_checked(map->tones[map->n_tones].from, from, EVV_ID_LEN, "tone name");
+	copy_checked(map->tones[map->n_tones].to, to, EVV_ID_LEN, "tone id");
 	map->n_tones++;
 	return 0;
 }
@@ -223,9 +319,9 @@ static void read_phone(EvvMapPhone *ph, char *w)
 	char *eq = strchr(w, '=');
 	if (eq && eq != w) {
 		*eq = 0;
-		copy_name(ph->sound, eq + 1, EVV_ID_LEN);
+		copy_checked(ph->sound, eq + 1, EVV_ID_LEN, "sound id");
 	}
-	copy_name(ph->name, w, EVV_PHONE_LEN);
+	copy_checked(ph->name, w, EVV_PHONE_LEN, "phone");
 }
 
 int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
@@ -241,8 +337,19 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 	char line[1024];
 	int lineno = 0;
 	int failed = 0;
+	int accents = 0;
+	int cut = 0; /* the line before did not end: this is its rest */
 	while (fgets(line, sizeof(line), f)) {
 		lineno++;
+		evv_diag_line = lineno;
+		size_t got = strlen(line);
+		int ends = got > 0 && line[got - 1] == '\n';
+		if (!ends && !feof(f))
+			evv_diag(EVV_DIAG_LOSS, "map-line-long", "longer than %d bytes; the rest is read as a line of its own",
+			         (int)sizeof(line) - 1);
+		if (cut)
+			lineno--; /* the same line of the file, continued */
+		cut = !ends && !feof(f);
 		char *p = line;
 		if (lineno == 1 && (unsigned char)p[0] == 0xef && (unsigned char)p[1] == 0xbb && (unsigned char)p[2] == 0xbf)
 			p += 3;
@@ -257,12 +364,15 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 		if (strcmp(key, "template") == 0) {
 			char *w = next_word(&rest);
 			if (w)
-				snprintf(map->tmpl, sizeof(map->tmpl), "%s", w);
+				copy_checked(map->tmpl, w, sizeof(map->tmpl), "template");
 			continue;
 		}
 		if (strcmp(key, "style") == 0) {
 			char *w = next_word(&rest);
 			map->french = w && strcmp(w, "french") == 0;
+			if (!w || (strcmp(w, "french") != 0 && strcmp(w, "standard") != 0))
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "style `%s' is neither french nor standard; standard is used",
+				         w ? w : "");
 			continue;
 		}
 		if (strcmp(key, "vowels") == 0) {
@@ -279,12 +389,14 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			char *w = next_word(&rest);
 			if (w && w[0] >= '0' && w[0] <= '2')
 				map->secondary = w[0];
+			else
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "secondary `%s' is not 0, 1 or 2", w ? w : "");
 			continue;
 		}
 		if (strcmp(key, "schwa") == 0) {
 			char *w = next_word(&rest);
 			if (w)
-				copy_name(map->schwa, w, EVV_PHONE_LEN);
+				copy_checked(map->schwa, w, EVV_PHONE_LEN, "phone");
 			continue;
 		}
 		if (strcmp(key, "words") == 0) {
@@ -295,9 +407,13 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 		if (strcmp(key, "cluster") == 0) {
 			char *x = next_word(&rest);
 			char *y = next_word(&rest);
-			if (x && y && map->n_clusters < 16) {
-				copy_name(map->clusters[map->n_clusters][0], x, EVV_PHONE_LEN);
-				copy_name(map->clusters[map->n_clusters][1], y, EVV_PHONE_LEN);
+			if (!x || !y)
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "a cluster line needs two phones");
+			else if (map->n_clusters >= 16)
+				evv_diag(EVV_DIAG_LOSS, "map-list-full", "cluster %s %s: no room past 16", x, y);
+			else {
+				copy_checked(map->clusters[map->n_clusters][0], x, EVV_PHONE_LEN, "phone");
+				copy_checked(map->clusters[map->n_clusters][1], y, EVV_PHONE_LEN, "phone");
 				map->n_clusters++;
 			}
 			continue;
@@ -306,12 +422,17 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			char *w = next_word(&rest);
 			if (w && w[0] >= '1' && w[0] <= '3')
 				map->onset = w[0] - '0';
+			else
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "onset `%s' is not 1, 2 or 3", w ? w : "");
 			continue;
 		}
 		if (strcmp(key, "accent") == 0) {
 			/* what kind of language it is: the first thing the engine is told */
 			char all[1024];
-			snprintf(all, sizeof(all), "v=1 %s", rest);
+			if (accents++)
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "a second accent line; it replaces the first");
+			if (snprintf(all, sizeof(all), "v=1 %s", rest) >= (int)sizeof(all))
+				evv_diag(EVV_DIAG_LOSS, "map-line-long", "the accent line is cut to %d bytes", (int)sizeof(all) - 1);
 			accent.len = 0;
 			if (accent.text)
 				accent.text[0] = 0;
@@ -354,7 +475,7 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 					map->ask = (char(*)[EVV_ASK_LEN])t;
 					map->cap_ask = cap;
 				}
-				copy_name(map->ask[map->n_ask++], w, EVV_ASK_LEN);
+				copy_checked(map->ask[map->n_ask++], w, EVV_ASK_LEN, "question word");
 			}
 			if (!map->ask_where)
 				map->ask_where = 1;
@@ -362,8 +483,13 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 		}
 		if (strcmp(key, "weaktones") == 0) {
 			char *w;
-			while ((w = next_word(&rest)) != NULL && map->n_weak_tones < 16)
-				copy_name(map->weak_tones[map->n_weak_tones++], w, EVV_ID_LEN);
+			while ((w = next_word(&rest)) != NULL) {
+				if (map->n_weak_tones >= 16) {
+					evv_diag(EVV_DIAG_LOSS, "map-list-full", "weak tone %s: no room past 16", w);
+					continue;
+				}
+				copy_checked(map->weak_tones[map->n_weak_tones++], w, EVV_ID_LEN, "tone id");
+			}
 			continue;
 		}
 		if (strcmp(key, "tonename") == 0) {
@@ -371,6 +497,8 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			char *to = next_word(&rest);
 			if (from && to)
 				failed |= add_tone_name(map, from, to);
+			else
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "a tonename line needs two names");
 			continue;
 		}
 		if (strcmp(key, "says") == 0) {
@@ -399,6 +527,11 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			return -1;
 		}
 		strcpy(e->key, key);
+		for (int i = 0; i < map->n_entries; i++)
+			if (strcmp(map->entries[i].key, key) == 0) {
+				evv_diag(EVV_DIAG_LOSS, "map-key-duplicate", "`%s' is mapped again; the first line is used", key);
+				break;
+			}
 		char *w;
 		while ((w = next_word(&rest)) != NULL) {
 			if (strcmp(w, "-") == 0)
@@ -416,6 +549,35 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 		map->n_entries++;
 	}
 	fclose(f);
+	evv_diag_line = 0;
+	/* names used that no line defines */
+	for (int i = 0; i < map->n_entries; i++)
+		for (int j = 0; j < map->entries[i].n; j++) {
+			const char *id = map->entries[i].phones[j].sound;
+			int found = !id[0];
+			for (int k = 0; k < map->n_sounds && !found; k++)
+				found = strcmp(map->sounds[k].id, id) == 0;
+			if (!found)
+				evv_diag(EVV_DIAG_LOSS, "map-sound-undefined",
+				         "`%s' names sound %s, which no sound line defines; the module's own phone is said",
+				         map->entries[i].key, id);
+		}
+	for (int i = 0; i < map->n_tones; i++) {
+		int found = 0;
+		for (int k = 0; k < map->n_tone_ids && !found; k++)
+			found = strcmp(map->tone_ids[k], map->tones[i].to) == 0;
+		if (!found)
+			evv_diag(EVV_DIAG_LOSS, "map-tone-undefined", "tonename %s names tone %s, which no tone line defines",
+			         map->tones[i].from, map->tones[i].to);
+	}
+	for (int i = 0; i < map->n_weak_tones; i++) {
+		int found = 0;
+		for (int k = 0; k < map->n_tone_ids && !found; k++)
+			found = strcmp(map->tone_ids[k], map->weak_tones[i]) == 0;
+		if (!found)
+			evv_diag(EVV_DIAG_LOSS, "map-tone-undefined", "weaktones names tone %s, which no tone line defines",
+			         map->weak_tones[i]);
+	}
 	if (failed) {
 		free(accent.text);
 		free(rest_of.text);
@@ -548,11 +710,26 @@ static const EvvMapEntry *find(const EvvMap *map, const char *key, size_t len)
 	return NULL;
 }
 
-static int emit(const EvvMapEntry *e, EvvMapPhone *out, int n, int max_out)
+static int emit(const EvvMapEntry *e, EvvMapPhone *out, int n, int max_out, const char *whole)
 {
+	if (e->n == 0)
+		evv_diag(EVV_DIAG_NOTE, "said-as-nothing", "`%s' in /%s/: the map gives it as -", e->key, whole);
+	else if (n + e->n > max_out)
+		evv_diag(EVV_DIAG_LOSS, "phones-cut", "/%s/ needs more than %d phones; the rest is dropped", whole, max_out);
 	for (int i = 0; i < e->n && n < max_out; i++)
 		out[n++] = e->phones[i];
 	return n;
+}
+
+/* A character as U+XXXX, for a report. */
+static unsigned long code_point(const unsigned char *p, int len)
+{
+	if (len == 1)
+		return p[0];
+	unsigned long c = p[0] & (0xff >> (len + 1));
+	for (int i = 1; i < len; i++)
+		c = (c << 6) | (p[i] & 0x3f);
+	return c;
 }
 
 static int utf8_len(unsigned char c)
@@ -567,20 +744,36 @@ static int utf8_len(unsigned char c)
 int evv_map_lookup(const EvvMap *map, const char *table, const char *mnemonic, const char *ipa,
                    EvvMapPhone *out, int max_out)
 {
+	int matched;
+	return evv_map_lookup_ex(map, table, mnemonic, ipa, out, max_out, &matched);
+}
+
+int evv_map_lookup_ex(const EvvMap *map, const char *table, const char *mnemonic, const char *ipa,
+                      EvvMapPhone *out, int max_out, int *matched)
+{
 	const EvvMapEntry *e;
+	*matched = 1;
 	if (table && mnemonic && *mnemonic) {
 		char key[64];
-		snprintf(key, sizeof(key), "@%s:%s", table, mnemonic);
+		if (snprintf(key, sizeof(key), "@%s:%s", table, mnemonic) >= (int)sizeof(key))
+			evv_diag(EVV_DIAG_LOSS, "key-cut", "@%s:%s is longer than %d bytes and cannot match", table, mnemonic,
+			         (int)sizeof(key) - 1);
 		if ((e = find(map, key, strlen(key))) != NULL)
-			return emit(e, out, 0, max_out);
+			return emit(e, out, 0, max_out, key);
 	}
+	*matched = 0;
 	if (!ipa || !*ipa)
 		return 0;
-	if ((e = find(map, ipa, strlen(ipa))) != NULL)
-		return emit(e, out, 0, max_out);
-	/* taken apart from the left, longest key first */
+	if ((e = find(map, ipa, strlen(ipa))) != NULL) {
+		*matched = 1;
+		return emit(e, out, 0, max_out, ipa);
+	}
+	/* taken apart from the left, longest key first; a character no key
+	   starts with is skipped, and reported if the rest is said */
 	int n = 0;
 	const char *p = ipa;
+	const char *skipped[EVV_MAX_PHONES * 4];
+	int n_skipped = 0;
 	while (*p && n < max_out) {
 		size_t left = strlen(p);
 		size_t try_len = left < (size_t)map->max_key_len ? left : (size_t)map->max_key_len;
@@ -592,12 +785,24 @@ int evv_map_lookup(const EvvMap *map, const char *table, const char *mnemonic, c
 			}
 		}
 		if (best) {
-			n = emit(best, out, n, max_out);
+			*matched = 1;
+			n = emit(best, out, n, max_out, ipa);
 			p += strlen(best->key);
 		} else {
+			if (n_skipped < (int)(sizeof(skipped) / sizeof(skipped[0])))
+				skipped[n_skipped++] = p;
 			p += utf8_len((unsigned char)*p);
 		}
 	}
+	/* nothing matched: the caller reports the phoneme dropped */
+	for (int i = 0; i < n_skipped && *matched; i++) {
+		int l = utf8_len((unsigned char)*skipped[i]);
+		evv_diag(EVV_DIAG_LOSS, "ipa-char-skipped", "U+%04lX %.*s in /%s/%s%s%s",
+		         code_point((const unsigned char *)skipped[i], l), l, skipped[i], ipa, table ? " (" : "",
+		         table ? table : "", table ? ")" : "");
+	}
+	if (*p)
+		evv_diag(EVV_DIAG_LOSS, "phones-cut", "/%s/ needs more than %d phones; `%s' is dropped", ipa, max_out, p);
 	return n;
 }
 
@@ -609,8 +814,10 @@ void evv_word_clear(EvvWord *w)
 
 static EvvPhone *push(EvvWord *w, const char *phone, const char *sound, char made, int nucleus, int stress)
 {
-	if (w->n >= EVV_WORD_MAX)
+	if (w->n >= EVV_WORD_MAX) {
+		evv_diag(EVV_DIAG_LOSS, "word-too-long", "more than %d phones in a word; phone %s dropped", EVV_WORD_MAX, phone);
 		return NULL;
+	}
 	EvvPhone *p = &w->ph[w->n++];
 	memset(p, 0, sizeof(*p));
 	copy_name(p->phone, phone, EVV_PHONE_LEN);
@@ -644,9 +851,13 @@ void evv_word_add(EvvWord *w, const EvvMap *map, const EvvMapPhone *phones, int 
 		/* a syllabic consonant, or a vowel the template can only say as a
 		   consonant: the syllable is carried by the map's schwa */
 		if (map->schwa[0]) {
+			evv_diag(EVV_DIAG_NOTE, "schwa-inserted", "%s before syllabic %s", map->schwa, n ? phones[0].name : "");
 			EvvPhone *p = push(w, map->schwa, NULL, 0, 1, stress);
 			if (p && tone)
 				copy_name(p->tone, tone, EVV_ID_LEN);
+		} else {
+			evv_diag(EVV_DIAG_LOSS, "syllable-no-nucleus", "syllabic %s and the map has no schwa: the syllable%s is lost",
+			         n ? phones[0].name : "", tone ? " and its tone" : "");
 		}
 		for (int i = 0; i < n; i++)
 			push(w, phones[i].name, phones[i].sound, phones[i].made, 0, 0);
@@ -663,8 +874,10 @@ void evv_word_add(EvvWord *w, const EvvMap *map, const EvvMapPhone *phones, int 
 static size_t put(char *out, size_t room, size_t at, const char *s)
 {
 	size_t l = strlen(s);
-	if (at + l + 1 > room)
+	if (at + l + 1 > room) {
+		evv_diag(EVV_DIAG_LOSS, "annotation-cut", "a word's annotation is longer than %d bytes", (int)room - 1);
 		return at;
+	}
 	memcpy(out + at, s, l);
 	out[at + l] = 0;
 	return at + l;

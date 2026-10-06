@@ -31,6 +31,7 @@ Every command below runs from the repository root with that venv's `python` and 
 | Render and compare (or, with `--record-new`, add) only the cases a golden folder lacks | `golden.py ... --only-missing-from <folder>` (also `a3.py`, which then writes `results/a3[-staged]-new.json`) | minutes |
 | Check A3: voiceless sounds and pauses stay unvoiced (with the pack's definitions against without) | `python docs/tts-extension/harness/a3.py [tags]` | ~ 30 min for all |
 | Stage rebuilt template modules in a data folder (never `languages/`) | `python docs/tts-extension/harness/stage.py <built modules> <stage folder> [tags]` | seconds |
+| What the front-end loses on the way (C1): count it over every golden input and sentence; `--compare OLD.exe` also proves the output byte-identical to an older front-end's; `--plant` plants each kind of fault and checks it is reported | `python docs/tts-extension/harness/diag.py [--compare OLD.exe \| --plant] [tags]` | ~ 5 s |
 | ASR round trip | `python docs/tts-extension/harness/asr.py [tags]` | ~ 20 min on the GPU |
 | Status of every language: LANGUAGE_STATUS.md, reports/index.html | `python docs/tts-extension/harness/report.py` | ~ 1 min |
 | Second opinion from Praat (GPL file) | `python docs/tts-extension/harness/praat_crosscheck.py` | ~ 20 s |
@@ -43,7 +44,7 @@ Examples:
 
 ## Staged modules (Phase 3, DESIGN.md 11.2)
 
-Changes to the engine reach the product only in rebuilt template modules. They are built outside the repository (`engine/build_modules.sh`), staged with `stage.py` in a data folder, and measured by setting `EVV_STAGE` to that folder: the product reads its `languages\<tag>\` before the shipped one, so the staged module speaks and `languages/` is never touched. Under `EVV_STAGE` the golden reads and writes `golden-staged/` (the staged modules' own golden) and A3 writes `results/a3-staged.json`; `golden.py --golden <folder>` compares with another golden (the baseline proof compares staged modules with `golden/`). `golden/` always describes the modules in `languages/`; at a replacement point the staged modules and their golden replace the shipped ones together.
+Changes to the engine reach the product only in rebuilt template modules. They are built outside the repository (`engine/build_modules.sh`), staged with `stage.py` in a data folder, and measured by setting `EVV_STAGE` to that folder: the product reads its `languages\<tag>\` before the shipped one, so the staged module speaks and `languages/` is never touched. A front-end staged as `<stage>d\OpenEvvFrontend.exe` is used before `dist`'s (`EVV_FRONTEND` names another). Under `EVV_STAGE` the golden reads and writes `golden-staged/` (the staged modules' own golden) and A3 writes `results/a3-staged.json`; `golden.py --golden <folder>` compares with another golden (the baseline proof compares staged modules with `golden/`). `golden/` always describes the modules in `languages/`; at a replacement point the staged modules and their golden replace the shipped ones together.
 
 ## Files
 
@@ -58,6 +59,7 @@ Changes to the engine reach the product only in rebuilt template modules. They a
 | `golden.py`, `golden/<tag>.json.gz` | The golden regression: metrics and hashes, not audio; every phoneme a pack maps, borrowed ones through eSpeak NG's table switch, and from Phase 3 every consonant again before a voiceless consonant and at the end before the pause (`x|` cases); what cannot be rendered is listed per pack as `not_covered`. `golden-staged/`: the same for staged modules |
 | `a3.py`, `results/a3.json` | Check A3 on the `x|` cases: what is meant voiceless or silent stays so |
 | `stage.py` | Stages rebuilt template modules in a data folder |
+| `diag.py`, `results/diag.json` | C1: what the front-end loses on the way, per pack; the planted faults |
 | `asr.py`, `asr/` | The ASR round trip; `asr/sentences.json` (CC0 / CC BY sentences), `asr/whisper_codes.json` |
 | `report.py`, `results/` | Status levels, failure layers, LANGUAGE_STATUS.md, `../reports/index.html` |
 | `smoke.py` | The one-minute check |
@@ -67,7 +69,7 @@ Changes to the engine reach the product only in rebuilt template modules. They a
 
 ## What a rendering's JSON holds
 
-`input` (kind, text, what was said, the front-end's annotated output), `rate`, `n_samples`, `case_ms`, `wav_sha256`, `segmentation` (`trace` or `runs`), `attempts`, `frames` (the 62 parameters of every frame, names in `frames.names`), and `phones`: name, the phone it was meant to be, its sound (`sN` in the pack's sounds.map), tone, stress, the module's phone record, `start_ms`, `end_ms`.
+`input` (kind, text, what was said, the front-end's annotated output), `rate`, `n_samples`, `case_ms`, `wav_sha256`, `segmentation` (`trace` or `runs`), `attempts`, `frames` (the 62 parameters of every frame, names in `frames.names`), and `phones`: name, the phone it was meant to be, its sound (`sN` in the pack's sounds.map), tone, stress, the module's phone record, `start_ms`, `end_ms`. `diag`: what the front-end and the accent layer reported losing on the way (C1: source, level `loss` or `note`, kind, detail, count); with `EVV_STRICT=1` a loss fails the render.
 
 ## Known limits (written down, not hidden)
 

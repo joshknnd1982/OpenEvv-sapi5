@@ -105,6 +105,7 @@ bool FrontendClient::spawn(std::string& error)
     }
     CloseHandle(pi.hThread);
     process_ = pi.hProcess;
+    reported_.clear();
     log::write(log::kStandard, "host: front-end %lu started for %S", pi.dwProcessId, voice_.c_str());
     return true;
 }
@@ -197,10 +198,35 @@ bool FrontendClient::translate(const std::string& utf8, uint32_t flags, std::str
         anchors.resize(head.n_anchors);
         if (anchor_bytes) memcpy(anchors.data(), body.data() + sizeof head, anchor_bytes);
         out.assign(reinterpret_cast<const char*>(body.data() + sizeof head + anchor_bytes), head.text_len);
+        const size_t used = sizeof head + anchor_bytes + head.text_len;
+        log_diagnostics(body.data() + used, body.size() - used);
         return true;
     }
     if (error.empty()) error = "the eSpeak NG front-end failed twice";
     return false;
+}
+
+// What the front-end lost on the way to a result (common/frontend_proto.h),
+// each kind and detail written to the log once while the front-end runs.
+void FrontendClient::log_diagnostics(const uint8_t* p, size_t n)
+{
+    uint32_t head[2];
+    if (n < sizeof head) return;
+    memcpy(head, p, sizeof head);
+    if (head[0] != EVV_FE_DIAG_MAGIC || head[1] > n - sizeof head) return;
+    const std::string all(reinterpret_cast<const char*>(p + sizeof head), head[1]);
+    size_t at = 0;
+    while (at < all.size()) {
+        size_t end = all.find('\n', at);
+        if (end == std::string::npos) end = all.size();
+        const std::string line = all.substr(at, end - at);
+        at = end + 1;
+        // the count is the last field; the rest says what it was
+        const size_t tab = line.rfind('\t');
+        const std::string what = tab == std::string::npos ? line : line.substr(0, tab);
+        if (what.empty() || !reported_.insert(what).second) continue;
+        log::write(log::kStandard, "host: front-end %S: %s", voice_.c_str(), line.c_str());
+    }
 }
 
 void FrontendClient::stop()

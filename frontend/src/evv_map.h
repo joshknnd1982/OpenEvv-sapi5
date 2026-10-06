@@ -128,6 +128,35 @@ int evv_map_asks(const EvvMap *map, const char *word, size_t n, int first);
 int evv_map_lookup(const EvvMap *map, const char *table, const char *mnemonic, const char *ipa,
                    EvvMapPhone *out, int max_out);
 
+/* The same, and *matched says whether any entry was found at all: an entry
+   the map gives as `-' matches and writes no phone. */
+int evv_map_lookup_ex(const EvvMap *map, const char *table, const char *mnemonic, const char *ipa,
+                      EvvMapPhone *out, int max_out, int *matched);
+
+/* ---- diagnostics: nothing is lost without a word (DESIGN.md C1) ----
+ *
+ * Whatever is dropped, cut short, skipped or said as something else on the
+ * way from eSpeak NG's phonemes to the annotation is written down here, once
+ * for each kind and detail with a count. A `loss' is something the map did
+ * not ask for; a `note' is something it did (an entry given as `-', a schwa
+ * put before a syllabic consonant). The command line prints them on stderr
+ * and --strict fails on a loss; --serve sends them after the result. They
+ * change what is reported, never what is said. */
+
+#define EVV_DIAG_NOTE 0
+#define EVV_DIAG_LOSS 1
+
+void evv_diag(int level, const char *kind, const char *fmt, ...);
+void evv_diag_clear(void);
+int evv_diag_losses(void);
+/* "level\tkind\tdetail\tcount\n" for each, in the order first met; the
+   caller frees it. */
+char *evv_diag_text(size_t *len);
+/* The map's line being read, for what a load reports; 0 when not loading. */
+extern int evv_diag_line;
+/* Not 0: nothing is reported, for a lookup that is only a trial. */
+extern int evv_diag_quiet;
+
 /* ---- one word, phone by phone, and the annotation it becomes ---- */
 
 #define EVV_WORD_MAX 256

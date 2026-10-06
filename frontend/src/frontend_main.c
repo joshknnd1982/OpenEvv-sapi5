@@ -85,8 +85,10 @@ static void out_put(const char *s, size_t l)
 		while (cap < out.len + l + 1)
 			cap *= 2;
 		char *t = (char *)realloc(out.text, cap);
-		if (!t)
+		if (!t) {
+			evv_diag(EVV_DIAG_LOSS, "out-of-memory", "%u bytes of the annotation dropped", (unsigned)l);
 			return;
+		}
 		out.text = t;
 		out.cap = cap;
 	}
@@ -100,8 +102,10 @@ static void out_anchor(uint32_t src, uint32_t src_len)
 	if (out.n_anchors == out.cap_anchors) {
 		size_t cap = out.cap_anchors ? out.cap_anchors * 2 : 256;
 		EvvAnchor *a = (EvvAnchor *)realloc(out.anchors, cap * sizeof(EvvAnchor));
-		if (!a)
+		if (!a) {
+			evv_diag(EVV_DIAG_LOSS, "out-of-memory", "a word's position dropped");
 			return;
+		}
 		out.anchors = a;
 		out.cap_anchors = cap;
 	}
@@ -125,6 +129,7 @@ static int n_clause_words;
 
 static EvvMap g_map;
 static int g_map_loaded;
+static int g_load_reported = 1; /* 0: what reading the map reported is still to be sent */
 static int g_src_shift;     /* characters put in front of the text, which no position counts */
 static const char *g_input; /* the text being read, as it was given */
 
@@ -164,6 +169,10 @@ static void find_spelled(const char *text, int shift)
 					g_spelled[g_n_spelled].to = at - shift;
 					g_n_spelled++;
 					open = -1;
+				} else if (open >= 0) {
+					evv_diag(EVV_DIAG_LOSS, "spelled-full", "more than %d stretches to spell; the rest are read as words",
+					         MAX_SPELLED);
+					open = -1;
 				}
 			}
 		}
@@ -176,6 +185,9 @@ static void find_spelled(const char *text, int shift)
 		g_spelled[g_n_spelled].from = open;
 		g_spelled[g_n_spelled].to = at - shift + 1;
 		g_n_spelled++;
+	} else if (open >= 0) {
+		evv_diag(EVV_DIAG_LOSS, "spelled-full", "more than %d stretches to spell; the rest are read as words",
+		         MAX_SPELLED);
 	}
 }
 
@@ -228,8 +240,11 @@ static int engine_stress(int level)
 
 static ClauseWord *new_word(int src, int src_len)
 {
-	if (n_clause_words >= MAX_CLAUSE_WORDS)
+	if (n_clause_words >= MAX_CLAUSE_WORDS) {
+		evv_diag(EVV_DIAG_LOSS, "clause-words-full", "more than %d words in a clause; the rest join the last",
+		         MAX_CLAUSE_WORDS);
 		return &clause_words[MAX_CLAUSE_WORDS - 1];
+	}
 	ClauseWord *cw = &clause_words[n_clause_words++];
 	evv_word_clear(&cw->w);
 	cw->src = src;
@@ -257,8 +272,11 @@ static char phrase_ending(int terminator)
 
 static void append_phones(EvvWord *to, const EvvWord *from, int at_front)
 {
-	if (to->n + from->n > EVV_WORD_MAX)
+	if (to->n + from->n > EVV_WORD_MAX) {
+		evv_diag(EVV_DIAG_LOSS, "word-too-long", "a word with no vowel of %d phones does not fit beside its neighbour; "
+		         "it is dropped", from->n);
 		return;
+	}
 	if (at_front) {
 		memmove(&to->ph[from->n], &to->ph[0], sizeof(EvvPhone) * to->n);
 		memcpy(&to->ph[0], &from->ph[0], sizeof(EvvPhone) * from->n);
@@ -360,8 +378,13 @@ static void write_clause(int terminator)
 		if (k >= 0) {
 			append_phones(&clause_words[k].w, &cw->w, 0);
 			cw->w.n = 0;
-		} else if (g_map.schwa[0]) {
+		} else if (!g_map.schwa[0]) {
+			evv_diag(EVV_DIAG_LOSS, "word-no-nucleus", "a word of %d phones beginning %s has no vowel, nothing to "
+			         "lean on and the map no schwa; it is dropped", cw->w.n, cw->w.ph[0].phone);
+		} else {
 			/* nothing to lean on: give it a vowel */
+			evv_diag(EVV_DIAG_NOTE, "schwa-inserted", "%s for a word with no vowel beginning %s", g_map.schwa,
+			         cw->w.ph[0].phone);
 			EvvMapPhone phones[1];
 			memset(phones, 0, sizeof(phones));
 			snprintf(phones[0].name, sizeof(phones[0].name), "%s", g_map.schwa);
@@ -471,14 +494,26 @@ static void translate_clause_phonemes(int terminator, int clause_tone)
 			              (plist->synthflags & SFLAG_SYLLABLE) != 0);
 			continue;
 		}
-		int n = 0;
+		int n = 0, matched = 0;
 		if (plist->synthflags & SFLAG_LENGTHEN) {
 			char longer[80];
 			snprintf(longer, sizeof(longer), "%s\xcb\x90", ipa); /* U+02D0, the length mark */
+			/* a trial: reported only if it is what is said */
+			evv_diag_quiet = 1;
 			n = evv_map_lookup(&g_map, NULL, NULL, longer, phones, EVV_MAX_PHONES);
+			evv_diag_quiet = 0;
+			if (n != 0)
+				n = evv_map_lookup(&g_map, NULL, NULL, longer, phones, EVV_MAX_PHONES);
+			else
+				evv_diag(EVV_DIAG_LOSS, "length-dropped", "%s:%s /%s/ said without its length",
+				         phoneme_tab_list[table].name, mnem, longer);
 		}
-		if (n == 0)
-			n = evv_map_lookup(&g_map, phoneme_tab_list[table].name, mnem, ipa, phones, EVV_MAX_PHONES);
+		if (n == 0) {
+			n = evv_map_lookup_ex(&g_map, phoneme_tab_list[table].name, mnem, ipa, phones, EVV_MAX_PHONES, &matched);
+			if (!matched)
+				evv_diag(EVV_DIAG_LOSS, "phoneme-dropped", "%s:%s /%s/ has no line in the map",
+				         phoneme_tab_list[table].name, mnem, ipa);
+		}
 		if (n == 0)
 			continue;
 		/* the tone the syllable carries, under the name the map gives it */
@@ -489,7 +524,16 @@ static void translate_clause_phonemes(int terminator, int clause_tone)
 				tone_name[0] = 0;
 				WritePhMnemonic(tone_name, tph, plist, 0, NULL);
 				tone = evv_map_tone(&g_map, tone_name);
+				if (tone == NULL)
+					evv_diag(EVV_DIAG_LOSS, "tone-unknown", "tone %s, which the map does not name, said as no tone",
+					         tone_name);
+			} else {
+				evv_diag(EVV_DIAG_LOSS, "tone-unknown", "tone number %d, which eSpeak NG gives no phoneme, said as "
+				         "no tone", plist->tone_ph);
 			}
+		} else if (plist->type == phVOWEL && plist->tone_ph != 0 && translator &&
+		           translator->langopts.tone_language == 1) {
+			evv_diag(EVV_DIAG_LOSS, "tone-unsupported", "a tone, and the map defines none: said as no tone");
 		}
 		int stress = engine_stress(plist->stresslevel);
 		/* Where every syllable is a word and has a tone, a syllable's weight
@@ -515,6 +559,11 @@ static void translate_clause_phonemes(int terminator, int clause_tone)
 static int translate_text(const char *utf8, uint32_t flags)
 {
 	out_reset();
+	/* what the map reported when it was read goes with the first result after */
+	if (!g_load_reported)
+		g_load_reported = 1;
+	else
+		evv_diag_clear();
 	g_src_shift = 0;
 	g_input = utf8;
 	if (!translator || (!g_map_loaded && !g_counting))
@@ -538,10 +587,14 @@ static int translate_text(const char *utf8, uint32_t flags)
 	InitText(0);
 	if (text_decoder_decode_string_multibyte(p_decoder, utf8, translator->encoding, espeakCHARS_UTF8) != ENS_OK) {
 		free(spelled);
-		return -1;
+		return -2;
 	}
 	int guard = 0;
-	while (!text_decoder_eof(p_decoder) && guard++ < 100000) {
+	while (!text_decoder_eof(p_decoder)) {
+		if (guard++ >= 100000) {
+			evv_diag(EVV_DIAG_LOSS, "text-cut", "more than 100000 clauses; the rest is not read");
+			break;
+		}
 		int tone = 0, terminator = 0;
 		char *voice_change = NULL;
 		SelectPhonemeTable(voice->phoneme_tab_ix);
@@ -605,7 +658,11 @@ static int set_voice(const char *name, const char *map_path, char *err, size_t e
 	g_map_loaded = 0;
 	if (map_path == NULL)
 		return 0;
-	if (evv_map_load(&g_map, map_path, err, errlen) != 0)
+	evv_diag_clear();
+	int bad = evv_map_load(&g_map, map_path, err, errlen);
+	evv_diag_line = 0;
+	g_load_reported = 0;
+	if (bad != 0)
 		return -1;
 	g_map_loaded = 1;
 	return 0;
@@ -740,25 +797,37 @@ static int serve(void)
 			const char *text = payload + sizeof(uint32_t);
 			uint32_t flags;
 			memcpy(&flags, payload, sizeof flags);
-			if (translate_text(text, flags) != 0) {
-				reply_status(stdout, 0, "no voice has been set");
+			int failed = translate_text(text, flags);
+			if (failed != 0) {
+				reply_status(stdout, 0, failed == -2 ? "the text could not be decoded" : "no voice has been set");
 				continue;
 			}
 			EvvResultHead r;
 			r.n_anchors = (uint32_t)out.n_anchors;
 			r.text_len = (uint32_t)out.len;
 			uint32_t alen = (uint32_t)(out.n_anchors * sizeof(EvvAnchor));
-			/* head, anchors, text */
+			/* what was lost on the way, after the text, where a host that
+			   does not know it reads past it */
+			size_t dlen = 0;
+			char *diag = evv_diag_text(&dlen);
+			uint32_t dhead[2] = {EVV_FE_DIAG_MAGIC, (uint32_t)dlen};
+			uint32_t dbytes = dlen ? (uint32_t)(sizeof(dhead) + dlen) : 0;
+			/* head, anchors, text, diagnostics */
 			EvvMsgHeader hh;
 			hh.magic = EVV_FE_MAGIC;
 			hh.type = EVV_FE_RESULT;
-			hh.size = (uint32_t)sizeof(r) + alen + r.text_len;
+			hh.size = (uint32_t)sizeof(r) + alen + r.text_len + dbytes;
 			fwrite(&hh, sizeof(hh), 1, stdout);
 			fwrite(&r, sizeof(r), 1, stdout);
 			if (alen)
 				fwrite(out.anchors, 1, alen, stdout);
 			if (r.text_len)
 				fwrite(out.text, 1, r.text_len, stdout);
+			if (dbytes) {
+				fwrite(dhead, sizeof(dhead), 1, stdout);
+				fwrite(diag, 1, dlen, stdout);
+			}
+			free(diag);
 			fflush(stdout);
 			continue;
 		}
@@ -908,6 +977,19 @@ int main(int argc, char **argv)
 			printf("%u\t%u+%u\n", out.anchors[i].out_offset, out.anchors[i].src_offset, out.anchors[i].src_length);
 	}
 	printf("%s\n", out.text ? out.text : "");
+	fflush(stdout);
+	/* what was lost on the way, one line each: diag, level, kind, detail, count */
+	size_t dlen = 0;
+	char *diag = evv_diag_text(&dlen);
+	for (char *line = diag; line && *line;) {
+		char *end = strchr(line, '\n');
+		if (!end)
+			break;
+		fprintf(stderr, "diag\t%.*s\n", (int)(end - line), line);
+		line = end + 1;
+	}
+	free(diag);
 	free(owned);
-	return 0;
+	/* --strict: a loss is a failure */
+	return has_arg(argc, argv, "--strict") && evv_diag_losses() > 0 ? 3 : 0;
 }

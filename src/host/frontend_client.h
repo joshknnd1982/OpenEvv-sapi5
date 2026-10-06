@@ -11,6 +11,7 @@
 
 #include <windows.h>
 
+#include <set>
 #include <string>
 #include <vector>
 
@@ -41,7 +42,10 @@ private:
     bool set_voice(std::string& error);
     bool request(uint32_t type, const std::string& payload, EvvMsgHeader& reply, std::vector<uint8_t>& body);
 
+    void log_diagnostics(const uint8_t* p, size_t n);
+
     std::wstring exe_, data_, voice_, map_;
+    std::set<std::string> reported_; // what the log already has, since the front-end started
     HANDLE to_ = nullptr, from_ = nullptr, process_ = nullptr;
 };
 
