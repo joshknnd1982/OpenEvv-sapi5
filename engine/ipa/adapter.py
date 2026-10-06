@@ -83,7 +83,9 @@ def carrier(t, entry, template):
     if own:
         return own, 0
     f = T.full_bundle(t, entry['features'])
-    best = min(((distance(t, f, T.full_bundle(t, g)), name) for name, g in module_phones(template).items()))
+    measured = chassis(template)
+    best = min(((distance(t, f, T.full_bundle(t, g)), name) for name, g in module_phones(template).items()
+                if name in measured))
     return best[1], best[0]
 
 
@@ -95,47 +97,101 @@ def realize(t, sid, template, carrier_meas=None):
     """{'keys': {key: value}, 'carrier': phone, 'distance': cost, 'unrealised': [...], 'rules': [...]}.
 
     carrier_meas: what the carrier measured when rendered (the loop passes it), for targets the
-    chassis does not hold (a fricative's noise peak)."""
+    chassis does not hold (a fricative's noise peak).
+
+    A carrier named with `<` (`<q`, `<h`) is a sound the accent layer makes beside a vowel: it has
+    no chassis, so only times and the engine's own keys apply to it."""
     e = t.sounds[sid]
     spec = e.get('spec') or {}
     car, dist = carrier(t, e, template)
-    ch = chassis(template).get(car)
-    if ch is None:
+    layer = car.startswith('<')
+    ch = None if layer else chassis(template).get(car)
+    if ch is None and not layer:
         raise ValueError('%s has no chassis measurement in %s' % (car, template))
+    cls = e['features']['class']
     keys, unrealised, rules = {}, [], []
-    for i, k in enumerate(('F1', 'F2', 'F3', 'F4')):
-        target = (spec.get('formants') or {}).get(k)
-        if target is None:
-            continue
-        hz = _v(target)
+
+    def ratio(key, hz, base, what):
         if hz > MAX_FORMANT_HZ:
-            unrealised.append('%s %s Hz: above the %d Hz the synthesiser can place' % (k, hz, MAX_FORMANT_HZ))
-            continue
-        keys['f%d' % (i + 1)] = int(round(100.0 * hz / ch['f'][i]))
-        rules.append('f%d = %s target / carrier %s %d Hz' % (i + 1, k, car, ch['f'][i]))
-    peak = (spec.get('noise') or {}).get('peak_hz')
-    if peak is not None:
-        if not carrier_meas or not carrier_meas.get('peak_hz'):
-            unrealised.append('noise peak: the carrier %s has no measured peak to move from' % car)
-        else:
-            ratio = _v(peak) / carrier_meas['peak_hz']
-            for i in (1, 2, 3):
-                keys['f%d' % (i + 1)] = int(round(100.0 * ratio))
-            rules.append('f2..f4 = noise peak %s / carrier %s peak %.0f Hz' % (_v(peak), car, carrier_meas['peak_hz']))
+            unrealised.append('%s %s Hz: above the %d Hz the synthesiser can place' % (what, hz, MAX_FORMANT_HZ))
+            return
+        keys[key] = int(round(100.0 * hz / base))
+        rules.append('%s = %s target %s / carrier %s %d Hz' % (key, what, hz, car, base))
+
+    if layer:
+        for k in ('formants', 'locus', 'bandwidths', 'noise', 'glide'):
+            if k in spec:
+                unrealised.append('%s: the layer-made carrier %s takes no ratio' % (k, car))
+    else:
+        # steady targets (a vowel, a sonorant) against the carrier's own formants; an obstruent's
+        # place against the carrier's locus: where the vowels beside it point
+        for i, k in enumerate(('F1', 'F2', 'F3', 'F4')):
+            target = (spec.get('formants') or {}).get(k)
+            if target is not None:
+                ratio('f%d' % (i + 1), _v(target), ch['f'][i], k)
+            target = (spec.get('locus') or {}).get(k)
+            if target is not None:
+                if 'locus' not in ch:
+                    unrealised.append('locus %s: the carrier %s has no measured locus' % (k, car))
+                else:
+                    ratio('f%d' % (i + 1), _v(target), ch['locus'][i], 'locus ' + k)
+        for i, k in enumerate(('B1', 'B2', 'B3')):
+            target = (spec.get('bandwidths') or {}).get(k)
+            if target is not None:
+                if 'b' not in ch:
+                    unrealised.append('bandwidth %s: the carrier %s has none measured' % (k, car))
+                else:
+                    keys['b%d' % (i + 1)] = int(round(100.0 * _v(target) / ch['b'][i]))
+                    rules.append('b%d = %s %s / carrier %s %d Hz' % (i + 1, k, _v(target), car, ch['b'][i]))
+        glide = spec.get('glide') or {}
+        for i, k in enumerate(('F1', 'F2', 'F3')):
+            if k in glide:
+                keys['g%d' % (i + 1)] = int(round(100.0 * _v(glide[k]) / ch['f'][i]))
+                keys['glide'] = 1
+                rules.append('g%d = glide end %s %s / carrier %s %d Hz' % (i + 1, k, _v(glide[k]), car, ch['f'][i]))
+        peak = (spec.get('noise') or {}).get('peak_hz')
+        if peak is not None:
+            if not carrier_meas or not carrier_meas.get('peak_hz'):
+                unrealised.append('noise peak: the carrier %s has no measured peak to move from' % car)
+            else:
+                r = _v(peak) / carrier_meas['peak_hz']
+                for i in (1, 2, 3):
+                    keys['f%d' % (i + 1)] = int(round(100.0 * r))
+                rules.append('f2..f4 = noise peak %s / carrier %s peak %.0f Hz' % (_v(peak), car, carrier_meas['peak_hz']))
     dur = (spec.get('duration') or {}).get('inherent_ms')
     if dur is not None:
-        keys['dur'] = int(round(100.0 * _v(dur) / ch['ms']))
-        rules.append('dur = %s ms / carrier %s %d ms' % (_v(dur), car, ch['ms']))
+        if layer:
+            keys['ms'] = int(round(_v(dur)))
+            rules.append('ms = %s ms' % _v(dur))
+        else:
+            key = 'dur' if cls == 'vowel' else 'hold'
+            keys[key] = int(round(100.0 * _v(dur) / ch['ms']))
+            rules.append('%s = %s ms / carrier %s %d ms' % (key, _v(dur), car, ch['ms']))
     vot = spec.get('vot_ms')
     if vot is not None:
         keys['vot'] = int(round(_v(vot)))
         rules.append('vot = %s ms' % _v(vot))
-    known = {'formants', 'noise', 'duration', 'vot_ms'}
+    tap = spec.get('tap') or {}
+    if 'closures' in tap:
+        keys['tap'] = int(_v(tap['closures']))
+        rules.append('tap = %s closures' % _v(tap['closures']))
+    if 'closed_ms' in tap:
+        keys['tapms'] = int(round(_v(tap['closed_ms'])))
+        rules.append('tapms = %s ms' % _v(tap['closed_ms']))
+    nas = (spec.get('nasal') or {}).get('open_pct')
+    if nas is not None:
+        keys['nas'] = int(round(_v(nas)))
+        rules.append('nas = %s per cent' % _v(nas))
+    known = {'formants', 'locus', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap', 'nasal'}
     for k in spec:
         if k not in known:
             unrealised.append('%s: the adapter has no key for it yet' % k)
-    for tr in (((e.get('realization') or {}).get('openevv') or {}).get('trim') or {}).get(template, []):
-        keys[tr['key']] = keys.get(tr['key'], 100 if tr['key'].startswith('f') or tr['key'] == 'dur' else 0)
+    ov = (e.get('realization') or {}).get('openevv') or {}
+    for k, v in (ov.get('keys') or {}).items():
+        keys[k] = int(_v(v))
+        rules.append('%s = %s (an engine key, %s)' % (k, _v(v), v.get('tag') if isinstance(v, dict) else ''))
+    for tr in (ov.get('trim') or {}).get(template, []):
+        keys[tr['key']] = keys.get(tr['key'], 100 if tr['key'] in RATIO_KEYS or tr['key'][0] in 'fbg' else 0)
         keys[tr['key']] = int(round(keys[tr['key']] * tr['v'] / 100.0)) if tr.get('scale') else int(tr['v'])
         rules.append('trim %s %s (%s)' % (tr['key'], tr['v'], tr.get('tag')))
     return dict(keys=keys, carrier=car, distance=dist, unrealised=unrealised, rules=rules)
@@ -239,33 +295,49 @@ def map_name(sid):
     return name if len(name) <= 11 else 'u' + hashlib.sha1(sid.encode('ascii')).hexdigest()[:10]
 
 
+def loop_proof(sid):
+    """What prove.py's loop found for an entry (ipa/proofs/loop/<id>.json), or None."""
+    path = os.path.join(ROOT, 'ipa', 'proofs', 'loop', sid + '.json')
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding='utf-8') as f:
+        return json.load(f)
+
+
 def write(t, template):
-    """ipa/realized/<template>.map: every entry with a specification, as this template's lines. A
-    noise target uses the carrier's peak as the entry's proof measured it."""
+    """ipa/realized/<template>.map: every letter of the table as this template's lines, so that the
+    front-end can say any of them: the carrier, and a sound line where the entry moves it. A noise
+    target uses the carrier's peak as the entry's loop measured it. A carrier at a feature distance
+    with nothing to move it is written with a warning: it is the module's phone, not the letter."""
     lines = ['# The master table realised for %s (engine/ipa/adapter.py --write). Generated: do not edit.' % template,
-             '# Each entry: its sound line, and its IPA said as the carrier with that sound.', '']
-    n, unrealised = 0, 0
+             '# Each letter: its sound line (if it differs from the carrier), and its IPA said as the carrier.', '']
+    n, unrealised, bare = 0, 0, 0
     for sid, e in sorted(t.sounds.items()):
-        if not e.get('spec') or e.get('kind') != 'base':
+        if e.get('kind') != 'base':
             continue
-        meas, failed = None, False
-        proof = os.path.join(ROOT, 'ipa', 'proofs', sid + '.json')
-        if os.path.exists(proof):
-            with open(proof, encoding='utf-8') as f:
-                pr = json.load(f)
-            meas = pr.get('carrier_measured')
-            failed = pr.get('template') == template and pr.get('passed') is False
+        pr = loop_proof(sid)
+        meas = pr.get('carrier_measured') if pr else None
+        failed = bool(pr) and pr.get('template') == template and pr.get('passed') is False
         r = realize(t, sid, template, meas)
-        name = map_name(sid)
-        lines.append('%s    # %s %s' % (sound_line(name, r['keys']), sid, e['name']))
+        if r['keys']:
+            name = map_name(sid)
+            lines.append('%s    # %s %s' % (sound_line(name, r['keys']), sid, e['name']))
+            said = '%s=%s' % (r['carrier'], name)
+        else:
+            lines.append('#   %s %s: the carrier as it is' % (sid, e['name']))
+            said = r['carrier']
         if failed:
             # written, so that the line can be seen, but not proved: its measure stayed off target
-            lines.append('#   NOT PROVED: ipa/proofs/%s.json did not reach its targets on %s' % (sid, template))
+            lines.append('#   NOT PROVED: ipa/proofs/loop/%s.json did not reach its targets on %s' % (sid, template))
             unrealised += 1
+        if r['distance'] and not r['keys']:
+            lines.append('#   SUBSTITUTE: the carrier %s is %s feature steps away and nothing moves it' % (
+                r['carrier'], r['distance']))
+            bare += 1
         for u in r['unrealised']:
             lines.append('#   not realised: %s' % u)
             unrealised += 1
-        lines.append('%-12s %s=%s' % (e['ipa'], r['carrier'], name))
+        lines.append('%-12s %s' % (e['ipa'], said))
         n += 1
     # C4: what the front-end needs to compose when speaking, and to fall back with a warning
     lines += ['', '# composition when speaking (C4): read only by a map with `version 2`',
@@ -286,7 +358,8 @@ def write(t, template):
     path = os.path.join(ROOT, 'ipa', 'realized', template + '.map')
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(lines) + '\n')
-    print('%s: %d entries realised, %d targets not realised' % (os.path.relpath(path, ROOT), n, unrealised))
+    print('%s: %d letters realised, %d targets not realised, %d carriers standing in unmoved' % (
+        os.path.relpath(path, ROOT), n, unrealised, bare))
 
 
 def main():

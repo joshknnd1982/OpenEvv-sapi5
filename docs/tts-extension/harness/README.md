@@ -34,10 +34,11 @@ Every command below runs from the repository root with that venv's `python` and 
 | What the front-end loses on the way (C1): count it over every golden input and sentence; `--compare OLD.exe` also proves the output byte-identical to an older front-end's; `--plant` plants each kind of fault and checks it is reported | `python docs/tts-extension/harness/diag.py [--compare OLD.exe \| --plant] [tags]` | ~ 5 s |
 | The same for the accent layer, through the staged modules (planted markup faults, each must be reported) | `python docs/tts-extension/harness/diag.py --plant-accent` (needs `EVV_STAGE`) | ~ 5 s |
 | The template comparison: five languages built for all seven templates in a scratch stage, checks A, B and ASR (DESIGN.md 13.2) | `python docs/tts-extension/harness/template_compare.py [--langs ...] [--no-asr]` (needs `EVV_STAGE`) | ~ 15 min |
-| The master table: validate it, its self-test, coverage of the chart | `python engine/ipa/table.py [--selftest]`, `python engine/ipa/coverage.py` | seconds |
+| The master table: validate it, its self-test, coverage of the chart (per symbol: state, how the engine says it, proof, provenance, level; the counts; the Unicode net) | `python engine/ipa/table.py [--selftest]`, `python engine/ipa/coverage.py [--quiet]` | seconds |
 | Read IPA (C2), and its tests | `python engine/ipa/reader.py "<IPA>"`, `python engine/ipa/reader.py --test` | seconds |
 | Realise an entry for a template; write ipa/realized/<template>.map | `python engine/ipa/adapter.py <id> [template]`, `adapter.py --write <template>` | seconds |
-| Realise, render, measure, correct (up to five rounds): ipa/proofs/<id>.json | `python engine/ipa/prove.py <id> [--template dedx] [--pack hi]` | ~ 1 min |
+| Realise, render, measure, correct (up to five rounds): ipa/proofs/loop/<id>.json | `python engine/ipa/prove.py <id> [--template dedx] [--pack hi]` | ~ 1 min |
+| The symbol-by-symbol sweep (Phase 4i): every entry said from IPA by the staged front-end and module, alone and in three contexts, measured and judged (A0 A1 A2 B3 B2); the proof ipa/proofs/<id>.json; `--apply` sets state, level and proof of those that pass | `python engine/ipa/sweep.py [ids or sections] [--apply]` (needs `EVV_STAGE`) | ~ 1 s a symbol |
 | Composition when speaking (C4): the front-end against the adapter, and the fallbacks | `python engine/ipa/compose_test.py` | seconds |
 | ASR round trip | `python docs/tts-extension/harness/asr.py [tags]` | ~ 20 min on the GPU |
 | Status of every language: LANGUAGE_STATUS.md, reports/index.html | `python docs/tts-extension/harness/report.py` | ~ 1 min |

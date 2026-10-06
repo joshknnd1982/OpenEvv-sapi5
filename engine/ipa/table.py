@@ -29,7 +29,7 @@ TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximat
 FIELDS = {'ipa', 'codepoints', 'name', 'section', 'tier', 'kind', 'features', 'edit', 'levels', 'register',
           'slope', 'stress', 'boundary', 'placement', 'equivalent_to', 'state', 'level', 'approximate',
           'deviation', 'plan', 'spec', 'transform', 'realization', 'tests', 'history', 'registry'}
-VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation'}
+VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation', 'key'}
 # a modifier's transform of a value (DESIGN.md 2.2): scale it, or add to it
 TRANSFORM_OPS = {'scale', 'add'}
 PLACEMENTS = {'before', 'after', 'over', 'between'}
@@ -199,8 +199,13 @@ def validate(t):
                 problems.append('%s: a transform for %s, which is not a class this modifier edits' % (sid, cls))
             for k, v in tr.items():
                 _check_value(sid, 'transform.%s.%s' % (cls, k), v, t, problems, estimated)
-        for tmpl, trims in ((e.get('realization') or {}).get('openevv', {}).get('trim') or {}).items():
+        ov = (e.get('realization') or {}).get('openevv', {})
+        for tmpl, trims in (ov.get('trim') or {}).items():
             _check_value(sid, 'trim.' + tmpl, trims, t, problems, estimated)
+        # keys of this engine's own that no engine-neutral value stands for (a layer-made silence,
+        # the implosive switch): each with its provenance like any value
+        for k, v in (ov.get('keys') or {}).items():
+            _check_value(sid, 'keys.' + k, v, t, problems, estimated)
     return problems, estimated
 
 

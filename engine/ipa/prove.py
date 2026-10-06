@@ -27,7 +27,7 @@ import table as T  # noqa: E402
 import engine as E  # noqa: E402
 import golden as G  # noqa: E402
 
-PROOFS = os.path.join(ROOT, 'ipa', 'proofs')
+PROOFS = os.path.join(ROOT, 'ipa', 'proofs', 'loop')
 ROUNDS = 5
 # how close a measure must come to its target (a formant: the harness's A2 tolerance)
 FORMANT_TOL = 0.08

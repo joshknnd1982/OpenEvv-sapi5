@@ -81,6 +81,7 @@ def main():
     work = os.path.join(E.WORK, 'c4')
     os.makedirs(work, exist_ok=True)
     p, map_path = test_map(a.pack, a.template, work)
+    without_letter(map_path, 'ɯ')
     # the sample: every realised letter with every modifier that has a transform for its class,
     # one at a time and in pairs
     letters = [sid for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'base' and e.get('spec')]
@@ -122,12 +123,16 @@ def main():
 
 
 def _carrier_meas(sid):
-    import json
-    proof = os.path.join(ROOT, 'ipa', 'proofs', sid + '.json')
-    if os.path.exists(proof):
-        with open(proof, encoding='utf-8') as f:
-            return json.load(f).get('carrier_measured')
-    return None
+    return (AD.loop_proof(sid) or {}).get('carrier_measured')
+
+
+def without_letter(map_path, ipa):
+    """The test map with one letter's line taken out, so that saying it must fall back (the
+    realised map gives every letter a line)."""
+    with open(map_path, encoding='utf-8') as f:
+        lines = [l for l in f.read().split('\n') if l.split()[:1] != [ipa]]
+    with open(map_path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(lines))
 
 
 if __name__ == '__main__':
