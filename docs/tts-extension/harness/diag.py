@@ -169,6 +169,53 @@ GUARDS = ['key-cut', 'out-of-memory', 'annotation-cut', 'diagnostics-full', 'tex
           'word-too-long (joined)', 'tone-unknown (no phoneme)', 'length-dropped']
 
 
+A = '{A v=1}'
+W = '{W .1 a^-}`[.1a]'
+# The accent layer's own (openevv/src/accent/evv_accent.c): annotated text with one fault each,
+# said by a staged module with the trace on. (kind, text)
+ACCENT_PLANTS = [
+    ('key-unknown', A + '{D s1 colour=9}{W .1 a=s1^-}`[.1a]'),
+    ('value-not-number', A + '{D s1 f2=abc}{W .1 a=s1^-}`[.1a]'),
+    ('sound-unknown', A + '{W .1 a=s99^-}`[.1a]'),
+    ('tone-unknown', A + '{W .1 a^t9}`[.1a]'),
+    ('ending-unknown', A + W + '{P z}'),
+    ('markup-before-accent', '{D s1 f2=90}' + A + W),
+    ('markup-unclosed', A + '{W .1 a^- `[.1a]'),
+    ('word-cut', A + '{D s1 f2=' + '9' * 80 + '}' + W),
+    ('name-cut', A + '{D s123456789012345 f2=90}' + W),
+    ('defs-full', A + ''.join('{D s%d f2=90}' % i for i in range(1, 390)) + W),
+    ('tones-full', A + ''.join('{T t%d p=0:3,100:3}' % i for i in range(1, 70)) + W),
+    ('tone-points', A + '{T t1 p=%s}' % ','.join('%d:3' % (i * 10) for i in range(10)) + W),
+    ('tone-points', A + '{T t1 p=0:3,x}' + W),
+    ('rules-full', A + ''.join('{X q%d a}' % i for i in range(1, 100)) + W),
+    ('rule-cut', A + '{X q a b c d e f}' + W),
+    ('rule-empty', A + '{X q}' + W),
+    ('key-inert', '{A v=1 f0=own}{D s1 f0=-15}{W .1 a=s1^-}`[.1a]'),
+    ('phone-unsounded', A + '{W .1 a^- x .0 i^-}`[.1a.0i]'),
+]
+ACCENT_GUARDS = ['machines-full (16 engines at once)', 'out-of-memory', 'pitch-points-full', 'line-up-full (a note)']
+
+
+def plant_accent(tag='hi'):
+    if not engine.STAGE:
+        print('plant-accent needs EVV_STAGE: the accent layer that reports is in the staged modules')
+        return 1
+    cases = [('%02d' % i, 'annotated', text) for i, (_, text) in enumerate(ACCENT_PLANTS)]
+    control = engine.render(tag, [('c', 'annotated', A + '{D s1 f2=90}{W .1 a=s1^-}`[.1a]')],
+                            work=os.path.join(engine.WORK, 'diag-accent'))[0]
+    res = engine.render(tag, cases, work=os.path.join(engine.WORK, 'diag-accent'))
+    failed = 0
+    print('control: %s' % (', '.join(sorted({d['kind'] for d in control['diag']})) or 'nothing reported'))
+    for (kind, _), r in zip(ACCENT_PLANTS, res):
+        kinds = sorted({d['kind'] for d in r['diag'] if d['source'] == 'accent'})
+        ok = kind in kinds and not control['diag']
+        failed += not ok
+        print('%-4s %-22s reported: %s' % ('ok' if ok else 'FAIL', kind, ', '.join(kinds) or 'nothing'))
+    print('accent layer: planted %d, reported %d; guards not reached by these cases: %s' % (
+        len(ACCENT_PLANTS), len(ACCENT_PLANTS) - failed, '; '.join(ACCENT_GUARDS)))
+    return 1 if failed else 0
+
+
 def plant(work):
     os.makedirs(work, exist_ok=True)
     failed = 0
@@ -209,10 +256,14 @@ def main():
     ap.add_argument('tags', nargs='*')
     ap.add_argument('--compare', metavar='OLD_FRONTEND')
     ap.add_argument('--plant', action='store_true', help='plant each kind of fault and check it is reported')
+    ap.add_argument('--plant-accent', action='store_true',
+                    help='the same for the accent layer, through the staged modules (EVV_STAGE)')
     ap.add_argument('--jobs', type=int, default=os.cpu_count())
     a = ap.parse_args()
     if a.plant:
         return plant(os.path.join(engine.WORK, 'diag-plant'))
+    if a.plant_accent:
+        return plant_accent()
     # read every pack before the threads start: engine.packs() fills its table lazily
     all_packs = engine.packs()
     tags = a.tags or [t for t, p in sorted(all_packs.items()) if p.kind == 'espeak']
