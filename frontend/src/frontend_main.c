@@ -59,6 +59,15 @@
 #include "evv_map.h"
 #include "frontend_proto.h"
 
+/* eSpeak NG's compat/stdio.h makes snprintf MSVC's _snprintf, which leaves a
+   string it cuts unterminated and returns -1. The C99 one (MSVC 2015 and
+   later) terminates it and returns the length wanted, which the checks for a
+   cut here rely on. Only a cut string is said differently, and no present
+   pack has one (the R15 review of Phase 3A). */
+#ifdef snprintf
+#undef snprintf
+#endif
+
 /* ---- output: the annotated text and where each word came from ---------- */
 
 typedef struct {
@@ -761,7 +770,16 @@ static int translate_ipa(const char *given)
 			chars++;
 		}
 		char seg[64];
-		snprintf(seg, sizeof(seg), "%.*s", (int)(p - s), s);
+		int seg_len = (int)(p - s);
+		if (seg_len >= (int)sizeof(seg)) {
+			int keep = (int)sizeof(seg) - 1;
+			while (keep > 0 && ((unsigned char)s[keep] & 0xc0) == 0x80)
+				keep--; /* not inside a character */
+			evv_diag(EVV_DIAG_LOSS, "ipa-segment-cut", "a letter with %d bytes of marks: cut to %d, the rest left off",
+			         seg_len, keep);
+			seg_len = keep;
+		}
+		snprintf(seg, sizeof(seg), "%.*s", seg_len, s);
 		if (!letter)
 			evv_diag(EVV_DIAG_LOSS, "ipa-not-a-letter", "`%s' does not begin with a letter the map lists", seg);
 		int matched = 0;

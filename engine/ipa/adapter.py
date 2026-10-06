@@ -248,14 +248,20 @@ def write(t, template):
     for sid, e in sorted(t.sounds.items()):
         if not e.get('spec') or e.get('kind') != 'base':
             continue
-        meas = None
+        meas, failed = None, False
         proof = os.path.join(ROOT, 'ipa', 'proofs', sid + '.json')
         if os.path.exists(proof):
             with open(proof, encoding='utf-8') as f:
-                meas = json.load(f).get('carrier_measured')
+                pr = json.load(f)
+            meas = pr.get('carrier_measured')
+            failed = pr.get('template') == template and pr.get('passed') is False
         r = realize(t, sid, template, meas)
         name = map_name(sid)
         lines.append('%s    # %s %s' % (sound_line(name, r['keys']), sid, e['name']))
+        if failed:
+            # written, so that the line can be seen, but not proved: its measure stayed off target
+            lines.append('#   NOT PROVED: ipa/proofs/%s.json did not reach its targets on %s' % (sid, template))
+            unrealised += 1
         for u in r['unrealised']:
             lines.append('#   not realised: %s' % u)
             unrealised += 1

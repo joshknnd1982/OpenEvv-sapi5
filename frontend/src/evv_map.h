@@ -136,6 +136,8 @@ typedef struct {
 	EvvMod *mods;
 	int n_mods, cap_mods;
 	int n_composed;
+	EvvDefined *composed;             /* each string composed: its sound id (id) and IPA (group) */
+	int n_comp, cap_comp;
 } EvvMap;
 
 /* Whether a character (UTF-8, one code point) is a chart letter the map

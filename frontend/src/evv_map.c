@@ -20,6 +20,15 @@
 
 #include <windows.h>
 
+/* eSpeak NG's compat/stdio.h makes snprintf MSVC's _snprintf, which leaves a
+   string it cuts unterminated and returns -1. The C99 one (MSVC 2015 and
+   later) terminates it and returns the length wanted, which the checks for a
+   cut here rely on. Only a cut string is said differently, and no present
+   pack has one (the R15 review of Phase 3A). */
+#ifdef snprintf
+#undef snprintf
+#endif
+
 /* ---- diagnostics ---------------------------------------------------------- */
 
 typedef struct {
@@ -323,6 +332,53 @@ static void read_phone(EvvMapPhone *ph, char *w)
 		copy_checked(ph->sound, eq + 1, EVV_ID_LEN, "sound id");
 	}
 	copy_checked(ph->name, w, EVV_PHONE_LEN, "phone");
+}
+
+/* A key one letter away from a keyword (`vowel' for `vowels') is read as a
+   phoneme, as the format has always done; it is reported. Only words of four
+   ASCII letters or more are held to it: no phoneme is written so. */
+static int one_edit(const char *a, const char *b)
+{
+	size_t la = strlen(a), lb = strlen(b);
+	if (la == lb) {
+		int d = 0;
+		for (size_t i = 0; i < la; i++)
+			d += a[i] != b[i];
+		return d == 1;
+	}
+	if (la + 1 != lb && lb + 1 != la)
+		return 0;
+	const char *s = la < lb ? a : b, *l = la < lb ? b : a;
+	size_t i = 0, j = 0;
+	int skipped = 0;
+	while (i < strlen(s) && j < strlen(l)) {
+		if (s[i] == l[j]) {
+			i++;
+			j++;
+		} else if (skipped++) {
+			return 0;
+		} else {
+			j++;
+		}
+	}
+	return 1;
+}
+
+static const char *keyword_like(const char *key)
+{
+	static const char *words[] = {"template", "style", "vowels", "glides", "secondary", "schwa", "words", "cluster",
+	                              "onset", "accent", "sound", "tone", "whwords", "weaktones", "tonename", "says",
+	                              "version", "weights", "letter"};
+	size_t n = strlen(key);
+	if (n < 4)
+		return NULL;
+	for (size_t i = 0; i < n; i++)
+		if (key[i] < 'a' || key[i] > 'z')
+			return NULL;
+	for (size_t w = 0; w < sizeof(words) / sizeof(words[0]); w++)
+		if (strlen(words[w]) >= 4 && one_edit(key, words[w]))
+			return words[w];
+	return NULL;
 }
 
 /* `letter IPA c|v name=value ...' */
@@ -643,6 +699,10 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			return -1;
 		}
 		strcpy(e->key, key);
+		const char *like = keyword_like(key);
+		if (like)
+			evv_diag(EVV_DIAG_LOSS, "map-keyword-like", "`%s' is read as a phoneme; is it the keyword %s misspelt?",
+			         key, like);
 		for (int i = 0; i < map->n_entries; i++)
 			if (strcmp(map->entries[i].key, key) == 0) {
 				evv_diag(EVV_DIAG_LOSS, "map-key-duplicate", "`%s' is mapped again; the first line is used", key);
@@ -747,6 +807,9 @@ void evv_map_free(EvvMap *map)
 	free(map->tone_ids);
 	free(map->letters);
 	free(map->mods);
+	for (int i = 0; i < map->n_comp; i++)
+		free(map->composed[i].group);
+	free(map->composed);
 	memset(map, 0, sizeof(*map));
 }
 
@@ -906,12 +969,17 @@ static int sound_keys(const EvvMap *map, const char *id, char keys[][8], double 
 		if (l && copy[l - 1] == '}')
 			copy[l - 1] = 0;
 		next_word(&p); /* the id */
-		while ((w = next_word(&p)) != NULL && n < max) {
+		while ((w = next_word(&p)) != NULL) {
 			char *eq = strchr(w, '=');
 			if (!eq)
 				continue;
 			*eq = 0;
-			copy_name(keys[n], w, 8);
+			if (n >= max) {
+				evv_diag(EVV_DIAG_LOSS, "compose-full", "sound %s: key %s past the %d a composition holds; left out",
+				         id, w, max);
+				continue;
+			}
+			copy_checked(keys[n], w, 8, "key");
 			vals[n++] = atof(eq + 1);
 		}
 		break;
@@ -958,7 +1026,7 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	int nk = 0, carrier = 0;
 	for (int i = 0; i < base->n; i++)
 		if (base->phones[i].sound[0]) {
-			nk = sound_keys(map, base->phones[i].sound, keys, vals, 24);
+			nk = sound_keys(map, base->phones[i].sound, keys, vals, 32);
 			carrier = i;
 			break;
 		}
@@ -982,6 +1050,11 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 				continue;
 			}
 			if (k == nk) {
+				if (nk >= 32) {
+					evv_diag(EVV_DIAG_LOSS, "compose-full", "%s on /%s/: no room for key %s; left off", m->mark, ipa,
+					         m->ops[o].key);
+					continue;
+				}
 				copy_name(keys[nk], m->ops[o].key, 8);
 				vals[nk++] = 100;
 			}
@@ -990,36 +1063,40 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 		applied++;
 		p += ml;
 	}
-	/* the composed sound, under an id of its own, and the string as an entry
-	   (the base copied first: the entries may move when they grow) */
-	EvvMapEntry base_copy = *base;
-	char id[EVV_ID_LEN], group[512];
-	snprintf(id, sizeof(id), "c%d", ++map->n_composed);
-	size_t at = (size_t)snprintf(group, sizeof(group), "{D %s", id);
-	for (int k = 0; k < nk && at < sizeof(group); k++)
-		at += (size_t)snprintf(group + at, sizeof(group) - at, " %s=%ld", keys[k], lround(vals[k]));
-	if (at < sizeof(group))
-		snprintf(group + at, sizeof(group) - at, "}");
-	if (add_defined(&map->sounds, &map->n_sounds, &map->cap_sounds, id, group) != 0)
-		return -1;
-	if (map->n_entries == map->cap_entries) {
-		int cap = map->cap_entries ? map->cap_entries * 2 : 256;
-		EvvMapEntry *t = (EvvMapEntry *)realloc(map->entries, sizeof(EvvMapEntry) * (size_t)cap);
-		if (!t)
+	/* the composed sound, under an id of its own: the same string keeps its id,
+	   and is composed (and its fallbacks reported) every time it is met */
+	EvvMapEntry e = *base;
+	char id[EVV_ID_LEN] = "";
+	for (int c = 0; c < map->n_comp; c++)
+		if (strcmp(map->composed[c].group, ipa) == 0)
+			copy_name(id, map->composed[c].id, EVV_ID_LEN);
+	if (!id[0]) {
+		char group[512];
+		int taken;
+		do { /* not a name the map's own sound lines use */
+			snprintf(id, sizeof(id), "c%d", ++map->n_composed);
+			taken = 0;
+			for (int k = 0; k < map->n_sounds && !taken; k++)
+				taken = strcmp(map->sounds[k].id, id) == 0;
+		} while (taken);
+		size_t at = (size_t)snprintf(group, sizeof(group), "{D %s", id);
+		for (int k = 0; k < nk && at < sizeof(group); k++)
+			at += (size_t)snprintf(group + at, sizeof(group) - at, " %s=%ld", keys[k], lround(vals[k]));
+		if (at + 2 > sizeof(group)) {
+			evv_diag(EVV_DIAG_LOSS, "compose-full", "/%s/: its definition is longer than %d bytes", ipa,
+			         (int)sizeof(group) - 2);
 			return -1;
-		map->entries = t;
-		map->cap_entries = cap;
+		}
+		snprintf(group + at, sizeof(group) - at, "}");
+		if (add_defined(&map->sounds, &map->n_sounds, &map->cap_sounds, id, group) != 0 ||
+		    add_defined(&map->composed, &map->n_comp, &map->cap_comp, id, ipa) != 0)
+			return -1;
+		evv_diag(EVV_DIAG_NOTE, "composed", "/%s/ = /%s/ and %d mark(s), as %s", ipa, e.key, applied, group);
 	}
-	EvvMapEntry *e = &map->entries[map->n_entries];
-	*e = base_copy;
-	copy_checked(e->key, ipa, sizeof(e->key), "key");
-	if (e->n > 0)
-		copy_name(e->phones[carrier].sound, id, EVV_ID_LEN);
-	map->n_entries++;
-	if ((int)strlen(e->key) > map->max_key_len)
-		map->max_key_len = (int)strlen(e->key);
-	evv_diag(EVV_DIAG_NOTE, "composed", "/%s/ = /%s/ and %d mark(s), as %s", ipa, base_copy.key, applied, group);
-	return emit(e, out, 0, max_out, ipa);
+	if (e.n > 0)
+		copy_name(e.phones[carrier].sound, id, EVV_ID_LEN);
+	copy_name(e.key, ipa, sizeof(e.key));
+	return emit(&e, out, 0, max_out, ipa);
 }
 
 int evv_map_lookup(const EvvMap *map, const char *table, const char *mnemonic, const char *ipa,
