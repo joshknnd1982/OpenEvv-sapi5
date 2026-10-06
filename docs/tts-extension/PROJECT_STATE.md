@@ -4,21 +4,34 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 2 (Architecture design): complete, and the design APPROVED by the human, 2026-10-05**, on branch `tts-ext/phase-2` (made from `tts-ext/phase-1`). Session: Fable 5.1 at effort xhigh, as the phase requires. `DESIGN.md` covers all 13 items; an independent review and the one re-review were made and their real findings fixed (`DECISIONS.md` D33); the five questions were asked and answered (`DESIGN.md` 14, D34); the human replied "APPROVED" and asked for no change (`DESIGN.md` 15, D35). Phase 2 implemented nothing: no engine, product or language file changed.
+**Phase 3 (Engine capability extensions), part 3A: IN PROGRESS** on branch `tts-ext/phase-3` (made from `tts-ext/phase-2`). Session of 2026-10-05/06: Opus 5.5. The fix is commit `428faa0`; see `git log` for what came after.
 
-Next: **Phase 3, Engine capability extensions**: Opus 5.5, effort high, permission Auto, on a new branch `tts-ext/phase-3` made from `tts-ext/phase-2`. **The approved design changes the order of work** (`DESIGN.md` 13.2, D35), and the Phase 3 session must follow it where it differs from the playbook's own Phase 3 text:
+**The defect fixes X-1 and X-2 are approved** (the human, 2026-10-06, `DECISIONS.md` D43). They live in the staged modules: committed in `openevv/src/accent/evv_accent.c` (`428faa0`), but nothing in `languages/` has changed. Replacing the 14 template module files there is a separate step, shown to the human and done only with their say-so (D34 answer 4).
 
-1. *Part 3A, first.* (a) Rebuild the seven template modules from unchanged source into the scratch folder and prove the whole golden regression identical on them (`DESIGN.md` 11.2); if it is not identical, report and settle that before anything else. (b) Try `openevv/test/matrix.sh` under MSYS2. (c) Fix defect X-1, then X-2 (`DESIGN.md` 4.4), in staged modules, with the new check A3 and the word-final and cluster golden cases; show the human what moved. (d) Build C1 to C4 and the new harness measures. (e) Run the template comparison, with the defect fixed, and choose the reference template.
-2. Pause at the end of 3A and say so. By the approved plan Phase 4 then starts with the 159 symbols that need no new mechanism.
-3. *Part 3B:* C5, C6, C7, C10, C11, each with its test, each followed by the symbols that need it. C8, C9 and C12 only if their written trigger fires.
+### Part 3A: where it stands
 
-Development never writes into `languages/`: rebuilt modules are staged in the data folder the product reads first, and files in `languages/` are replaced only at a stated point, after proof, with the differences shown to the human first (answer 4).
+| Step (`DESIGN.md` 13.2, D35) | State |
+|---|---|
+| (a) rebuild the seven templates from unchanged source, prove the golden identical | **done** (D39): 29,237 of 29,237 cases identical in frames and sound |
+| (b) try `openevv/test/matrix.sh` under MSYS2 | **done** (D37, D42): runs with `probe.exe`, `RULES=c`, one language a probe; 979 of 979 as they were on the fixed source. Not tried: `RULES=bytecode`, `probe`, `probe32` |
+| (c) fix X-1, then X-2, with check A3 and the word-final and cluster golden cases; show the human what moved | **done and approved** (D38, D38a, D40, D41, D43) |
+| (d) C1 to C4 and the new harness measures | **not started.** `design/C1_SITES.md` lists where things are lost silently today (a helper's reading, four claims checked by hand) |
+| (e) template comparison, with the defect fixed; choose the reference template | not started |
+| then: the R15 review of the whole of 3A, and the pause protocol | |
 
-**A defect in the released product was found in this phase and is NOT fixed** (the phase builds nothing): in the 145 languages read by eSpeak NG, a voiceless consonant or a pause that follows a stop with a voice-onset or breathy-release setting is given voice by mistake. `DESIGN.md` ("A defect found on the way", and 4.4 X-1), `DECISIONS.md` D33, `OPEN_QUESTIONS.md` Q11. Every Phase 1 measurement of those languages was taken with it present. **The human decided: it is fixed first thing in Phase 3.**
+Small items queued for 3A: Q12 (make a template buildable without its parent, in `engine/build_modules.sh`); `docs/SOUNDS.md` must say how `vot` and `brth` now behave and document the tone key `av`, at the point the fixed modules replace the shipped ones (not before: it describes the shipped product).
 
-**The human's answers** (D34): TOML; the standard pass marks; Southern American English first; module files in `languages/` may be rebuilt and replaced when proven, at stated points, the differences shown first; the defect is fixed first thing in Phase 3.
+### How to work in 3A (learned in this session)
 
-Phase 1 complete, 2026-10-05 (branch `tts-ext/phase-1`, last commit `cdcd70f`). Phase 0 complete, 2026-10-05 (commit `53a830d`).
+- Build: `%USERPROFILE%\OpenEvvBuild-ttsext\build_in_place.sh <work copy> <out folder> <tags>` (run with MSYS2 `bash -l`): the loop of `engine/build_modules.sh` without its refresh of the copy. Work copy: `%USERPROFILE%\OpenEvvBuild-ttsext\build3a\openevv`, whose `src/` equals the repository's (fixed) `openevv/src`; copy a changed source file in by hand and check with `diff -rq --strip-trailing-cr openevv/src <work>/src`. Seven templates: 20 to 25 minutes. Latest fixed build: `...\build3z\modules`.
+- Stage: `python docs/tts-extension/harness/stage.py <out folder> %USERPROFILE%\OpenEvvBuild-ttsext\stage` (the fixed modules; `stage-base` holds the unchanged rebuild). Measure with `EVV_STAGE=C:\Users\joshk\OpenEvvBuild-ttsext\stage`.
+- Golden: `golden/` = the shipped modules (29,237 cases); `golden-staged/` = the staged fixed modules (recorded at the end of this session; check that it is committed). A full run takes 50 to 75 minutes; `--only-missing-from <folder>` renders only cases that folder lacks. A3: `a3.py`, about 45 minutes for all packs.
+- **Background jobs are stopped at 2 hours**, and a stop mid-run makes the last packs fail with "front-end failed" and no message: one long run per job. The engine gate: `%USERPROFILE%\OpenEvvBuild-ttsext\matrix_each.sh <work copy> c <langs>` (about 15 minutes for ten).
+- The harness's known flake (D14) happened once (`ru-cl`, "frame log cut short" in 5 attempts); a re-run of that pack passed.
+
+**The human's answers in Phase 2** (D34): TOML; the standard pass marks; Southern American English first; module files in `languages/` may be rebuilt and replaced when proven, at stated points, the differences shown first; the defect fixed first thing in Phase 3.
+
+Phase 2 complete and the design APPROVED, 2026-10-05 (commit `7713bfc`). Phase 1 complete, 2026-10-05 (`cdcd70f`). Phase 0 complete, 2026-10-05 (`53a830d`).
 
 BLOCKED symbols: none (nothing has been mapped yet; all 175 checklist entries are `MISSING`, as they must be before Phase 4).
 
@@ -250,6 +263,8 @@ The engine is IBM's Embedded ViaVoice (Eloquence) rebuilt as C from its 1999 Win
 8. This project's scratch build folder is `%LOCALAPPDATA%\OpenEvvBuild-ttsext`; `build_x64` and `build_x86` in the repository are git-ignored. `build_x64` now also holds `evv_render.exe` (`cmake --build build_x64 --config Release`).
 9. **From Phase 2, for Phase 3.** Read `DESIGN.md` first: "A defect found on the way" and 4.4 (two defects to fix first), 4.3 (what to build, in order, each with its test), 11.1 (every change of behaviour is tied to a version line in the map; a listed defect's fix is the one exception and is shown and approved), 11.2 (the seven templates are first rebuilt from unchanged source and must give an identical golden; development happens in a staging data folder, never in `languages/`) and 13.2 (the proposed order). The key `f0` must stay inert in the present packs: a consonant's push on pitch gets a new key. Try `openevv/test/matrix.sh` under MSYS2 before the first change under `openevv/src`. `openevv/CLAUDE.md` binds every change there.
 10. The harness venv has no TOML reader; the design's pack and table format needs `tomli` (MIT) on Python 3.10. Nothing was installed in Phase 2.
+
+11. **From Phase 3A.** Until `b11f978` the golden silently skipped every phoneme named with `#` (D38a), so Phase 1's and Phase 2's counts of "every phoneme" were short by 2,321 map entries. The module's phone record has a voicing field (second field: 0 voiced, 1 voiceless or pause) in all seven templates (D40). The English module turns `t` before its `y` phone into `t S` (Shavian English `e@ i@ i@3`): one for Phases 4 and 6.
 
 ## Open questions
 
