@@ -44,6 +44,9 @@ checks = ["T-stop"]
 contrast = [{ with = "U+0070", measure = "voiced_frac", sign = 1 }, { with = "U+0070", measure = "vot_ms", sign = -1 }]
 proof = "ipa/proofs/U+0062.json"
 
+[sound."U+0062".realization.openevv]
+trim.dedx = [{ key = "f2", v = 108.2, scale = true, tag = "measured", proof = "ipa/proofs/U+0062.json" }]
+
 [sound."U+0074"]
 ipa = "t"
 codepoints = ["U+0074"]
@@ -651,6 +654,9 @@ checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+0278", measure = "voiced_frac", sign = 1 }]
 proof = "ipa/proofs/U+03B2.json"
 
+[sound."U+03B2".realization.openevv]
+trim.dedx = [{ key = "f2", v = 88.7, scale = true, tag = "measured", proof = "ipa/proofs/U+03B2.json" }]
+
 [sound."U+0066"]
 ipa = "f"
 codepoints = ["U+0066"]
@@ -693,6 +699,9 @@ duration = { inherent_ms = { v = 80, tag = "literature", ref = "jongman2000", no
 checks = ["T-fric"]
 contrast = [{ with = "U+0066", measure = "voiced_frac", sign = 1 }, { with = "U+0066", measure = "duration_ms", sign = -1 }]
 proof = "ipa/proofs/U+0076.json"
+
+[sound."U+0076".realization.openevv]
+trim.dedx = [{ key = "f2", v = 91.4, scale = true, tag = "measured", proof = "ipa/proofs/U+0076.json" }]
 
 [sound."U+03B8"]
 ipa = "θ"
@@ -737,6 +746,9 @@ duration = { inherent_ms = { v = 88, tag = "literature", ref = "jongman2000", no
 checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+03B8", measure = "voiced_frac", sign = 1 }, { with = "U+03B8", measure = "duration_ms", sign = -1 }]
 proof = "ipa/proofs/U+00F0.json"
+
+[sound."U+00F0".realization.openevv]
+trim.dedx = [{ key = "f2", v = 90.6, scale = true, tag = "measured", proof = "ipa/proofs/U+00F0.json" }]
 
 [sound."U+0073"]
 ipa = "s"
@@ -1036,6 +1048,7 @@ proof = "ipa/proofs/U+0127.json"
 # h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
 carrier = "<h"
 keys = { whisper = { v = 48, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" } }
+trim.dedx = [{ key = "f2", v = 133.9, scale = true, tag = "measured", proof = "ipa/proofs/U+0127.json" }]
 
 [sound."U+0295"]
 ipa = "ʕ"
@@ -1063,6 +1076,7 @@ proof = "ipa/proofs/U+0295.json"
 # h is not a phone of the German module: the accent layer makes it, as breath with the next vowel's formants
 carrier = "<h"
 keys = { whisper = { v = 30, tag = "derived", rule = "the value engine/accent/sounds.py gives this sound in every pack it writes (e.g. languages/hi/sounds.map); kept as the starting point, and the sweep measures what it gives" }, voi = { v = 1, tag = "derived", rule = "voiced: the layer keeps the voice under the breath" } }
+trim.dedx = [{ key = "f2", v = 142.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0295.json" }]
 
 [sound."U+0068"]
 ipa = "h"

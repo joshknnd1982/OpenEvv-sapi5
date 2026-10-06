@@ -3,7 +3,7 @@
 
 sound u0061 f1=127 f2=125 f3=110    # U+0061 open front unrounded vowel
 a            A=u0061
-sound u0062 f2=85    # U+0062 voiced bilabial plosive
+sound u0062 f2=92    # U+0062 voiced bilabial plosive
 b            b=u0062
 sound u0063 f2=114 vot=34    # U+0063 voiceless palatal plosive
 c            k=u0063
@@ -29,7 +29,7 @@ sound u006e f1=249 f2=90 f3=95 f4=104 hold=163    # U+006E voiced dental or alve
 n            n=u006e
 sound u006f f1=109 f2=93 f3=108    # U+006F close-mid back rounded vowel
 o            o=u006f
-sound u0070 f2=105 vot=28    # U+0070 voiceless bilabial plosive
+sound u0070 f2=105 vot=20    # U+0070 voiceless bilabial plosive
 p            p=u0070
 sound u0071 f2=58    # U+0071 voiceless uvular plosive
 q            k=u0071
@@ -42,7 +42,7 @@ sound u0074 f2=102 vot=15    # U+0074 voiceless dental or alveolar plosive
 t            t=u0074
 sound u0075 f1=123 f2=77 f3=103    # U+0075 close back rounded vowel
 u            u=u0075
-sound u0076 f2=188 hold=84    # U+0076 voiced labiodental fricative
+sound u0076 f2=172 hold=84    # U+0076 voiced labiodental fricative
 v            v=u0076
 sound u0077 f1=98 f2=84 f3=100 f4=98    # U+0077 voiced labial-velar approximant
 w            w=u0077
@@ -56,11 +56,11 @@ sound u00e6 f1=81 f2=137 f3=100    # U+00E6 near-open front unrounded vowel
 æ            A=u00e6
 sound u00e7 a2=36 a3=36 a4=56 a5=0 a6=0 f4=114 hold=101    # U+00E7 voiceless palatal fricative
 ç            X=u00e7
-sound u00f0 f2=212 hold=93    # U+00F0 voiced dental fricative
+sound u00f0 f2=192 hold=93    # U+00F0 voiced dental fricative
 ð            v=u00f0
 sound u00f8 f1=111 f2=134 f3=123    # U+00F8 close-mid front rounded vowel
 ø            oe=u00f8
-sound u0127 ms=105 whisper=48    # U+0127 voiceless pharyngeal fricative
+sound u0127 f2=134 ms=105 whisper=48    # U+0127 voiceless pharyngeal fricative
 #   not realised: locus: the layer-made carrier <h takes no ratio
 ħ            <h=u0127
 sound u014b f1=158 f2=72 f3=103 f4=106 hold=117    # U+014B voiced velar nasal
@@ -73,7 +73,7 @@ sound u01c1 vot=26    # U+01C1 alveolar lateral click (chart label: Alveolar lat
 ǁ            d=u01c1
 sound u01c2 vot=13    # U+01C2 palatoalveolar click (chart label: Palatoalveolar; often called the palatal click); laminal front closure from the alveolar ridge to the hard palate, released fairly abruptly; rear closure set by the accompaniment
 ǂ            g=u01c2
-sound u01c3 vot=13    # U+01C3 (post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment
+sound u01c3 vot=20    # U+01C3 (post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment
 ǃ            d=u01c3
 sound u0250 f1=165 f2=87 f3=103    # U+0250 near-open central vowel
 ɐ            @=u0250
@@ -81,7 +81,7 @@ sound u0251 f1=130 f2=111 f3=119    # U+0251 open back unrounded vowel
 ɑ            O=u0251
 sound u0252 f1=119 f2=103 f3=120    # U+0252 open back rounded vowel
 ɒ            O=u0252
-sound u0253 f2=85    # U+0253 voiced bilabial implosive (chart label: Bilabial)
+sound u0253 f2=92    # U+0253 voiced bilabial implosive (chart label: Bilabial)
 ɓ            b=u0253
 sound u0254 f1=94 f2=89 f3=106    # U+0254 open-mid back rounded vowel
 ɔ            O=u0254
@@ -191,7 +191,7 @@ sound u0292 a2=0 a3=42 a4=62 a5=0 a6=0 f2=109 f4=106 hold=95    # U+0292 voiced 
 ʒ            Z=u0292
 sound u0294 hush=1 ms=45    # U+0294 glottal plosive (glottal stop)
 ʔ            <q=u0294
-sound u0295 ms=105 voi=1 whisper=30    # U+0295 voiced pharyngeal fricative (often an approximant)
+sound u0295 f2=142 ms=105 voi=1 whisper=30    # U+0295 voiced pharyngeal fricative (often an approximant)
 #   not realised: locus: the layer-made carrier <h takes no ratio
 ʕ            <h=u0295
 sound u0298 vot=26    # U+0298 bilabial click (chart label: Bilabial); the letter gives the front (lip) closure only; the rear closure and its accompaniment (voiceless, voiced, nasal, aspirated...) need another letter
@@ -210,7 +210,7 @@ sound u02a1 f2=72    # U+02A1 epiglottal plosive (voicing not specified on the c
 ʡ            g=u02a1
 sound u02a2 tdepth=20 trate=53    # U+02A2 voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant)
 ʢ            r=u02a2
-sound u03b2 f2=105    # U+03B2 voiced bilabial fricative
+sound u03b2 f2=93    # U+03B2 voiced bilabial fricative
 β            v=u03b2
 sound u03b8 f2=184 hold=136    # U+03B8 voiceless dental fricative
 θ            f=u03b8

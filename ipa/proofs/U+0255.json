@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "26a8a25ce028f771ee9feeb49d7a218408583e31b12776e2bf76c97ad1bd5ac9",
+ "map_sha256": "3f4d51cfced47868ba55102b9f09b1fb45481dd792eaaf2554d2ee6637568525",
  "said_as": {
   "pack": "hi",
   "carrier": "S",
@@ -862,6 +862,9 @@
   "peak_hz": 3357.6,
   "centroid_hz": 3474.2,
   "intensity_db": -21.0,
+  "req_F1_hz": 300.0,
+  "req_F2_hz": 1800.0,
+  "req_F3_hz": 2400.0,
   "duration_ms": 155,
   "edge_F1": 280.9,
   "edge_F2": 1558.9,
@@ -899,7 +902,8 @@
     "within": true
    }
   },
-  "empty": false
+  "empty": false,
+  "unchecked": false
  },
  "rounds": [
   {
@@ -942,8 +946,8 @@
     "measure": "edge_F2",
     "sign": 1,
     "mine": 1558.9,
-    "theirs": 1598.8,
-    "difference": -39.9,
+    "theirs": 1577.0,
+    "difference": -18.1,
     "holds": false,
     "required": false,
     "basis": "reported only: ɕ has no locus.F2 in its specification"

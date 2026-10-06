@@ -205,7 +205,7 @@ def measure(r, p, case_id, man=None, layer=None):
 
 
 def summary(cases, man):
-    """One number per measure for the entry, the mean over its contexts (alone left out where a
+    """One number per measure for the entry, the median over its contexts (alone left out where a
     context exists, since an isolated consonant is said after a schwa the front-end puts in)."""
     def vals(fn):
         xs = []
@@ -235,6 +235,11 @@ def summary(cases, man):
         v = vals(tmeas(k))
         if v is not None:
             s[k] = round(v, 1)
+    for k in (1, 2, 3):
+        # the formants the engine made at the sound (its locus, for a consonant), from the frames
+        v = vals(lambda c: _mean([(c['phones'][i].get('req') or {}).get('F%d_hz' % k) for i in c['target']]))
+        if v is not None:
+            s['req_F%d_hz' % k] = round(v, 1)
     if s.get('f0_50_hz'):
         s['f0_hz'] = s['f0_50_hz']
     s['duration_ms'] = vals(lambda c: (c['phones'][c['target'][-1]]['end_ms'] - c['phones'][c['target'][0]]['start_ms'])
@@ -335,8 +340,17 @@ def check_b3(e, s):
         got = s.get('duration_ms')
         out['duration_ms'] = dict(target=v(dur), measured=got,
                                   within=got is not None and abs(got - v(dur)) <= 0.25 * v(dur))
-    # every entry carries its specification (R19b), even one the module already says: no spec, no pass
-    return dict(passed=bool(spec) and all(o['within'] for o in out.values()), targets=out, empty=not spec)
+    for k, x in (spec.get('locus') or {}).items():
+        # a locus is where the consonant sends the formants; a closure has no formants to measure in
+        # the signal, so this is checked in the frames the engine made at the consonant (the
+        # synthesiser realising them is check A2's business); the signal's evidence is B2's edges
+        got = s.get('req_%s_hz' % k)
+        out['locus %s (frames)' % k] = dict(target=v(x), measured=got,
+                                            within=got is not None and abs(got - v(x)) <= 0.08 * v(x))
+    # every entry carries its specification (R19b), even one the module already says: no spec, no
+    # pass; and a specification none of whose targets could be checked passes nothing
+    return dict(passed=bool(spec) and bool(out) and all(o['within'] for o in out.values()), targets=out,
+                empty=not spec, unchecked=bool(spec) and not out)
 
 
 SPEC_OF = {'peak_hz': ('noise', 'peak_hz'), 'centroid_hz': ('noise', 'peak_hz'), 'vot_ms': ('vot_ms',),
@@ -414,6 +428,12 @@ def judge(t, sid, cases, diags, said_as):
                              'problems') if k in a2}
     if e['kind'] == 'base':
         b3 = check_b3(e, s)
+        if e['features'].get('airstream', 'pulmonic') != 'pulmonic':
+            # what makes a click, an implosive or an ejective is its airstream; until T-click and
+            # T-airstream are measured here, its generic checks prove the place, not the sound
+            b3['targets']['airstream (T-click, T-airstream)'] = dict(target=e['features']['airstream'],
+                                                                     measured=None, within=False)
+            b3['passed'] = False
     elif e['kind'] == 'modifier':
         b3 = check_shift(t, sid, cases)
         s = b3.pop('summary')
@@ -424,7 +444,8 @@ def judge(t, sid, cases, diags, said_as):
         if unc and marked:
             a0 = dict(a0, passed=False, not_composed=unc[:6])
     else:
-        b3 = dict(passed=True, empty=False, targets={})
+        # no check is written for this kind of entry yet (tones, stress, boundaries): nothing passes
+        b3 = dict(passed=False, empty=False, targets={}, unchecked=True)
     return dict(manner=man, summary=s, A0=a0, A1=a1, A2=a2, B3=b3)
 
 
@@ -519,7 +540,8 @@ def say_entry(t, sid, template, pack):
 # the specification is never touched (DESIGN.md 5).
 ROUNDS = 5
 ABS_KEYS = ('vot', 'trate', 'tapms')     # corrected as values; every other key as a ratio
-TRIM_KEYS = {'F1': ['f1'], 'F2': ['f2'], 'F3': ['f3'], 'peak_hz': ['f2', 'f3', 'f4']}
+TRIM_KEYS = {'F1': ['f1'], 'F2': ['f2'], 'F3': ['f3'], 'peak_hz': ['f2', 'f3', 'f4'],
+             'locus F2 (frames)': ['f2'], 'locus F3 (frames)': ['f3']}
 
 
 def corrections(res, trims):
@@ -582,10 +604,16 @@ def prove_entry(t, sid, template, pack, rounds=ROUNDS):
         with_trims(t, sid, template, trims)
         res = say_entry(t, sid, template, pack)
     res['rounds'] = history
-    res['trims'] = {k: round(v, 1) for k, v in trims.items()} if res['B3']['passed'] and trims else {}
-    if not res['trims'] and trims and old is None:
-        # nothing converged: the entry is left as it was, the rounds kept as the evidence
-        ((t.sounds[sid].get('realization') or {}).get('openevv') or {}).get('trim', {}).pop(template, None)
+    ok = all(res[k]['passed'] for k in ('A0', 'A1', 'A2', 'B3'))
+    res['trims'] = {k: round(v, 1) for k, v in trims.items()} if ok and trims else {}
+    if not res['trims'] and trims:
+        # not through: the entry speaks for the rest of the run as it was before, the rounds kept as
+        # the evidence; a correction is kept only if it got the entry through
+        ov = ((t.sounds[sid].get('realization') or {}).get('openevv') or {})
+        if old is None:
+            ov.get('trim', {}).pop(template, None)
+        else:
+            ov['trim'][template] = old
     return res
 
 
@@ -629,6 +657,8 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
     if apply:
         apply_states(t, results)
         save_trims(t, results, template)
+    # the realised map from the table as it stands on disk: never with a correction that was not kept
+    AD.write(T.load(), template, quiet=True)
     return results
 
 
@@ -667,10 +697,12 @@ def apply_states(t, results):
     TOML text in place, only those three lines of the entry (the table is otherwise by hand)."""
     files = {}
     for sid, res in results.items():
-        if not res.get('passed'):
-            continue
         e = t.sounds[sid]
-        files.setdefault(t.where[sid], []).append((sid, e['plan']['end_state']))
+        if res.get('passed'):
+            files.setdefault(t.where[sid], []).append((sid, e['plan']['end_state']))
+        elif 'summary' in res and e.get('state') not in ('MISSING', None):
+            # it passed before and does not now: back to MISSING, its proof saying why
+            files.setdefault(t.where[sid], []).append((sid, 'MISSING'))
     for name, items in files.items():
         path = os.path.join(T.IPA, 'table', name)
         with open(path, encoding='utf-8') as f:
@@ -683,7 +715,9 @@ def apply_states(t, results):
             b = m.start() if m else len(text)
             block = text[a:b]
             block = re.sub(r'(?m)^state = ".*"$', 'state = "%s"' % state, block, count=1)
-            block = re.sub(r'(?m)^level = \d+$', 'level = 2', block, count=1)
+            lv = int(re.search(r'(?m)^level = (\d+)$', block).group(1))
+            block = re.sub(r'(?m)^level = \d+$', 'level = %d' % (1 if state == 'MISSING' else max(lv, 2)), block,
+                           count=1)
             tests_head = '[sound."%s".tests]' % sid
             ta = block.index(tests_head)
             tb = block.find('\n[', ta + len(tests_head))

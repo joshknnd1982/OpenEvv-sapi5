@@ -679,9 +679,20 @@ static char *ipa_normalize(const char *utf8)
 		if (d && (dn = NormalizeString(NormalizationD, w, -1, d, dn)) > 0) {
 			int k = 0;
 			for (int i = 0; d[i]; i++) {
-				if (d[i] == L'c' && d[i + 1] == 0x0327) {
+				/* the cedilla may come after other marks of c: canonical order puts a mark of a
+				   lower class (an overlay, class 1) before it, and ç must still be ç */
+				int ced = 0;
+				if (d[i] == L'c')
+					for (int j = i + 1; d[j] >= 0x0300 && d[j] <= 0x036f; j++)
+						if (d[j] == 0x0327) {
+							ced = j;
+							break;
+						}
+				if (ced) {
 					d[k++] = 0x00e7;
-					i++;
+					for (int j = i + 1; j < ced; j++)
+						d[k++] = d[j];
+					i = ced;
 				} else
 					d[k++] = d[i] == L'g' ? 0x0261 : d[i];
 			}
@@ -757,6 +768,7 @@ static int translate_ipa(const char *given)
 	ClauseWord *cw = NULL;
 	int stress = 0, chars = 0;
 	int levels[8], n_levels = 0;    /* the tone typed for the syllable being read */
+	int next_levels[8], n_next = 0; /* a tone mark on a consonant, for the nucleus after it */
 	int reg = 0, slope = 0, slope_at = 0;
 	EvvPhone *nuc = NULL;           /* the nucleus that typed tone goes to */
 	for (const char *p = utf8; *p;) {
@@ -772,6 +784,12 @@ static int translate_ipa(const char *given)
 		int major = (l == 3 && (unsigned char)p[0] == 0xe2 && (unsigned char)p[1] == 0x80 &&
 		             (unsigned char)p[2] == 0x96) || (*p == '|' && p[1] == '|');
 		if (minor || major) {
+			if ((n_levels && nuc == NULL) || n_next) {
+				/* a tone typed with no syllable of this phrase to carry it ends with the phrase */
+				evv_diag(EVV_DIAG_LOSS, "tone-no-syllable", "a tone with no syllable to carry it before a "
+				         "group boundary is left off");
+				n_levels = n_next = 0;
+			}
 			put_tone(nuc, levels, &n_levels, reg, slope, &slope_at);
 			write_clause(major ? CLAUSE_PERIOD : CLAUSE_COMMA);
 			reg = slope = slope_at = 0;
@@ -889,10 +907,20 @@ static int translate_ipa(const char *given)
 			syllabic = vowel = 0;
 		if (syllabic && nuc != NULL)
 			put_tone(nuc, levels, &n_levels, reg, slope, &slope_at); /* the syllable before is done */
-		for (int i = 0; i < n_seg_tone && n_levels < 8; i++)
-			levels[n_levels++] = seg_tone[i];
-		if (n_seg_tone && !vowel)
-			evv_diag(EVV_DIAG_NOTE, "tone-on-consonant", "a tone mark on /%s/ goes to its syllable's vowel", seg);
+		if (syllabic) {
+			/* a tone mark put on a consonant before this nucleus is this syllable's */
+			for (int i = 0; i < n_next && n_levels < 8; i++)
+				levels[n_levels++] = next_levels[i];
+			n_next = 0;
+			for (int i = 0; i < n_seg_tone && n_levels < 8; i++)
+				levels[n_levels++] = seg_tone[i];
+		} else {
+			for (int i = 0; i < n_seg_tone && n_next < 8; i++)
+				next_levels[n_next++] = seg_tone[i];
+			if (n_seg_tone)
+				evv_diag(EVV_DIAG_NOTE, "tone-on-consonant", "a tone mark on /%s/ goes to the vowel of the "
+				         "syllable after it", seg);
+		}
 		if (n == 0)
 			continue;
 		evv_word_add(&cw->w, &g_map, phones, n, syllabic, vowel, syllabic ? stress : 0, NULL);
@@ -906,7 +934,7 @@ static int translate_ipa(const char *given)
 				}
 		}
 	}
-	if (n_levels && nuc == NULL)
+	if ((n_levels && nuc == NULL) || n_next)
 		evv_diag(EVV_DIAG_LOSS, "tone-no-syllable", "a tone with no syllable to carry it is left off");
 	put_tone(nuc, levels, &n_levels, reg, slope, &slope_at);
 	write_clause(CLAUSE_PERIOD);

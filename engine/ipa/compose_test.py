@@ -61,6 +61,13 @@ def say_ipa(p, map_path, text):
     return r.returncode, r.stdout.decode('utf-8'), diags
 
 
+def fe_form(ipa):
+    """The IPA as the front-end keeps it: canonical decomposition, then c and a cedilla put back
+    together as the chart letter ç (frontend_main.c ipa_normalize, ipa/aliases.toml)."""
+    # the cedilla may follow other marks of c in canonical order (an overlay comes first)
+    return re.sub('c([\u0300-\u036f]*?)\u0327', '\u00e7\\1', unicodedata.normalize('NFD', ipa))
+
+
 def composed_keys(diags):
     """{ipa: {key: value}} from the front-end's `composed` notes."""
     out = {}
@@ -101,7 +108,7 @@ def main():
         want = AD.compose(t, b, ms, a.template, _carrier_meas(b))
         code, out, diags = say_ipa(p, map_path, ipa)
         # the front-end puts marks in canonical order (a mark below before a mark above)
-        got = composed_keys(diags).get(unicodedata.normalize('NFD', ipa))
+        got = composed_keys(diags).get(fe_form(ipa))
         losses = [d for d in diags if d['level'] == 'loss']
         # equal keys, and the two agree on whether a transform could not be applied (ʰ on a
         # fricative: no voice onset to add to), which both must report

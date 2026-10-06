@@ -36,7 +36,7 @@ STATES = ['mapped', 'composed', 'created', 'MISSING', 'BLOCKED', 'no entry']
 def tags(node, out):
     """Count the provenance tags of every value under a node of an entry."""
     if isinstance(node, dict):
-        if 'tag' in node and ('v' in node or 'add' in node or 'scale' in node):
+        if 'tag' in node and ({'v', 'add', 'scale', 'set', 'toward'} & set(node)):
             out[node['tag']] += 1
         else:
             for v in node.values():
@@ -186,8 +186,12 @@ def main():
         print('  no entry: %s %s' % (i, checklist[i]['symbol']))
     for i in extra:
         print('  not on the checklist: %s %s' % (i, t.sounds[i]['ipa']))
+    stale = [sid for sid, e in t.sounds.items() if e.get('state') not in ('MISSING', None)
+             and not (proof_of(sid) or {}).get('passed')]
+    print('state against proof: %s' % ('every entry that is not MISSING has a passing proof' if not stale else
+                                      'NOT PROVED NOW: ' + ', '.join('%s %s' % (i, t.sounds[i]['ipa']) for i in stale)))
     print(unicode_net(t, checklist))
-    return 1 if missing or extra else 0
+    return 1 if missing or extra or stale else 0
 
 
 if __name__ == '__main__':

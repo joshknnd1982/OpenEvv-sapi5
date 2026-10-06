@@ -41,6 +41,7 @@ vot_ms = { v = 26, tag = "estimated", note = "miller_shah2009 (Mangetti Dune !Xu
 [sound."U+01C0".tests]
 checks = ["T-click", "T-contrast"]
 contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }]
+proof = "ipa/proofs/U+01C0.json"
 
 [sound."U+01C3"]
 ipa = "ǃ"
@@ -60,6 +61,10 @@ vot_ms = { v = 13.1, tag = "derived", rule = "mean of the five ǃ means (burst o
 
 [sound."U+01C3".tests]
 checks = ["T-click", "T-contrast"]
+proof = "ipa/proofs/U+01C3.json"
+
+[sound."U+01C3".realization.openevv]
+trim.dedx = [{ key = "vot", v = 20.1, scale = false, tag = "measured", proof = "ipa/proofs/U+01C3.json" }]
 
 [sound."U+01C2"]
 ipa = "ǂ"
@@ -100,6 +105,7 @@ vot_ms = { v = 25.9, tag = "derived", rule = "mean of the four Ju|'hoansi speake
 [sound."U+01C1".tests]
 checks = ["T-click", "T-contrast"]
 contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }]
+proof = "ipa/proofs/U+01C1.json"
 
 [sound."U+0253"]
 ipa = "ɓ"
@@ -120,6 +126,10 @@ locus = { F2 = { v = 837, tag = "estimated", note = "No locus for an implosive w
 [sound."U+0253".tests]
 checks = ["T-airstream", "T-contrast"]
 contrast = [{ with = "U+0062", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+0253.json"
+
+[sound."U+0253".realization.openevv]
+trim.dedx = [{ key = "f2", v = 108.2, scale = true, tag = "measured", proof = "ipa/proofs/U+0253.json" }]
 
 [sound."U+0257"]
 ipa = "ɗ"
@@ -140,6 +150,7 @@ locus = { F2 = { v = 1671, tag = "estimated", note = "No locus for an implosive 
 [sound."U+0257".tests]
 checks = ["T-airstream", "T-contrast"]
 contrast = [{ with = "U+0064", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+0257.json"
 
 [sound."U+0284"]
 ipa = "ʄ"
@@ -160,6 +171,7 @@ locus = { F2 = { v = 1898, tag = "estimated", note = "No locus for an implosive 
 [sound."U+0284".tests]
 checks = ["T-airstream", "T-contrast"]
 contrast = [{ with = "U+025F", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+0284.json"
 
 [sound."U+0260"]
 ipa = "ɠ"
@@ -180,6 +192,7 @@ locus = { F2 = { v = 1026, tag = "estimated", note = "No locus for an implosive 
 [sound."U+0260".tests]
 checks = ["T-airstream", "T-contrast"]
 contrast = [{ with = "U+0261", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+0260.json"
 
 [sound."U+029B"]
 ipa = "ʛ"
@@ -200,6 +213,7 @@ locus = { F2 = { v = 929, tag = "estimated", note = "No locus for an implosive w
 [sound."U+029B".tests]
 checks = ["T-airstream", "T-contrast"]
 contrast = [{ with = "U+0262", measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/U+029B.json"
 
 [sound."U+02BC"]
 ipa = "ʼ"
