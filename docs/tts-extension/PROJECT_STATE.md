@@ -4,9 +4,9 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 3 (Engine capability extensions), part 3A: IN PROGRESS** on branch `tts-ext/phase-3` (made from `tts-ext/phase-2`). Session of 2026-10-05/06: Opus 5.5. The fix is commit `428faa0`; see `git log` for what came after.
+**Phase 3 (Engine capability extensions), part 3A: COMPLETE (2026-10-06)**, on branch `tts-ext/phase-3`; last commit of 3A `dd310b8` and this file's. Part 3B (the mechanisms C5, C6, C7, C10, C11) is done **inside Phase 4**, each mechanism followed at once by the symbols that need it, as the approved plan says (`DESIGN.md` 13.2, `DECISIONS.md` D35). **Next: Phase 4.** Session of 2026-10-05/06: Opus 5.5.
 
-**The defect fixes X-1 and X-2 are approved** (the human, 2026-10-06, `DECISIONS.md` D43). They live in the staged modules: committed in `openevv/src/accent/evv_accent.c` (`428faa0`), but nothing in `languages/` has changed. Replacing the 14 template module files there is a separate step, shown to the human and done only with their say-so (D34 answer 4).
+The defect fixes X-1 and X-2 are approved (D43) and live, with C1 in the accent layer, in the **staged** template modules only; nothing in `languages/` or `dist/` has changed. Replacing the 14 template module files and the front-end there is a separate step, shown to the human and done only with their say-so (D34 answer 4).
 
 ### Part 3A: where it stands
 
@@ -16,10 +16,18 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 | (b) try `openevv/test/matrix.sh` under MSYS2 | **done** (D37, D42): runs with `probe.exe`, `RULES=c`, one language a probe; 979 of 979 as they were on the fixed source. Not tried: `RULES=bytecode`, `probe`, `probe32` |
 | (c) fix X-1, then X-2, with check A3 and the word-final and cluster golden cases; show the human what moved | **done and approved** (D38, D38a, D40, D41, D43) |
 | (d) C1 to C4 and the new harness measures | **done (2026-10-06).** C1: front-end and host `0b809c0` (D44), accent layer `9e2272a` (D46). C2 reader `3b65642` (D45). C3 table, validator, adapter, the loop `3b65642` `3592b4e` `f415d0e` (D45, D47; Q13). C4 composition when speaking and IPA in `69c6dee` (D48). New measures `afd2609` (D49). The stage (`%USERPROFILE%\OpenEvvBuild-ttsext\stage`) now holds the C1 modules and the C4 front-end; the previous stage is `stage-pre-c1`. |
-| (e) template comparison, with the defect fixed; choose the reference template | not started |
-| then: the R15 review of the whole of 3A, and the pause protocol | |
+| (e) template comparison, with the defect fixed; choose the reference template | **done**, `7a2a01d` (D50): no template stands out, so by the design's rule the German-based **dedx** carries the proofs; the language moves the ASR error more than the template, except Indonesian (dedx 0.35, itix 0.10). Q12 fixed (D51). |
+| the R15 review of the whole of 3A | **done** (D52): nine findings; eight fixed and shown by tests, one deferred (Q14). `dd310b8`. |
 
 Small items queued for 3A: Q12 (make a template buildable without its parent, in `engine/build_modules.sh`); `docs/SOUNDS.md` must say how `vot` and `brth` now behave and document the tone key `av`, at the point the fixed modules replace the shipped ones (not before: it describes the shipped product).
+
+### For Phase 4 (read first)
+
+- **The tools of 3A**: `engine/ipa/` (table, reader, adapter, prove, compose_test, coverage; seed_table only once), `ipa/` (features, table, sources, aliases, realized, proofs), harness `diag.py`, `template_compare.py`, the new measures in `analysis.py` (D49; not in the golden's per-phone measures). README of the harness lists every command.
+- **Measure on the stage**: `EVV_STAGE=%USERPROFILE%\OpenEvvBuild-ttsext\stage` (the C1 modules, the C4 front-end in `x64\`). Its golden is `golden-staged/` (29,237 cases, identical on these modules); `languages/`'s is `golden/`.
+- **Decisions waiting**: Q13 (`vot` cannot shorten a stop's voice onset below the module's own: diagnose first; the /t/ of the C3 loop is not proved because of it), Q14 (phones never placed: report them at the next module rebuild). The 5 packs that lose IPA marks on their sentences (Georgian aspiration, Pashto) and the 65 `phone-unsounded` events in 17 packs are Phase 4/6 triage (D44, D46).
+- **The reference template is dedx** (D50). Proofs: alone and in three vowel contexts on dedx; the same tests on the other six recorded, not blocking.
+- `docs/SOUNDS.md` must say how `vot` and `brth` now behave, document the tone key `av` and the C4 lines (`version`, `letter`, `mod`, `weights`) at the point the fixed modules and front-end replace the shipped ones (not before).
 
 ### How to work in 3A (learned in this session)
 
