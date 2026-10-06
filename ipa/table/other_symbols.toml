@@ -1,0 +1,221 @@
+# The master table (DESIGN.md 3): Other symbols. MIT licence.
+# Written first by engine/ipa/seed_table.py from the IPA checklist; edited by hand from then on.
+# Facts are cited, never pasted (the chart is CC BY-SA); every value carries its provenance.
+
+[sound."U+028D"]
+ipa = "ʍ"
+codepoints = ["U+028D"]
+name = "voiceless labial-velar fricative"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "bilabial", place2 = "velar", stricture = "friction", voicing = "voiceless" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X7"], builds = [] }
+
+[sound."U+028D".spec]
+
+[sound."U+028D".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0077"]
+ipa = "w"
+codepoints = ["U+0077"]
+name = "voiced labial-velar approximant"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "bilabial", place2 = "velar", stricture = "approximation", voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+0077".spec]
+
+[sound."U+0077".tests]
+checks = ["T-approx"]
+
+[sound."U+0265"]
+ipa = "ɥ"
+codepoints = ["U+0265"]
+name = "voiced labial-palatal approximant"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "bilabial", place2 = "palatal", stricture = "approximation", voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds = [] }
+
+[sound."U+0265".spec]
+
+[sound."U+0265".tests]
+checks = ["T-approx", "T-contrast"]
+
+[sound."U+029C"]
+ipa = "ʜ"
+codepoints = ["U+029C"]
+name = "voiceless epiglottal fricative"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "epiglottal", stricture = "friction", voicing = "voiceless" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X3"], builds = ["C11?", "C6?"] }
+
+[sound."U+029C".spec]
+
+[sound."U+029C".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+02A2"]
+ipa = "ʢ"
+codepoints = ["U+02A2"]
+name = "voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant)"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "epiglottal", stricture = "friction", voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X4", "X7"], builds = ["C11?", "C6?"] }
+
+[sound."U+02A2".spec]
+
+[sound."U+02A2".tests]
+checks = ["T-approx", "T-phonation", "T-contrast"]
+
+[sound."U+02A1"]
+ipa = "ʡ"
+codepoints = ["U+02A1"]
+name = "epiglottal plosive (voicing not specified on the chart)"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "epiglottal", stricture = "closure", voicing = "unspecified" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "created", uses = ["X5", "X2"], builds = ["C10"] }
+
+[sound."U+02A1".spec]
+
+[sound."U+02A1".tests]
+checks = ["T-stop", "T-contrast"]
+
+[sound."U+0255"]
+ipa = "ɕ"
+codepoints = ["U+0255"]
+name = "voiceless alveolo-palatal fricative"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "alveolo-palatal", stricture = "friction", sibilant = true, voicing = "voiceless" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+0255".spec]
+
+[sound."U+0255".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0291"]
+ipa = "ʑ"
+codepoints = ["U+0291"]
+name = "voiced alveolo-palatal fricative"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "alveolo-palatal", stricture = "friction", sibilant = true, voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+0291".spec]
+
+[sound."U+0291".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+027A"]
+ipa = "ɺ"
+codepoints = ["U+027A"]
+name = "voiced alveolar lateral flap"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "alveolar", stricture = "tap", lateral = true, voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], builds = [] }
+
+[sound."U+027A".spec]
+
+[sound."U+027A".tests]
+checks = ["T-tap", "T-contrast"]
+
+[sound."U+0267"]
+ipa = "ɧ"
+codepoints = ["U+0267"]
+name = "simultaneous ʃ and x (IPA symbol list: voiceless postalveolar-velar fricative)"
+section = "other_symbols"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "pulmonic", place = "postalveolar", place2 = "velar", stricture = "friction", voicing = "voiceless" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+0267".spec]
+
+[sound."U+0267".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+035C"]
+ipa = "͜"
+codepoints = ["U+035C"]
+name = "tie bar (below): joins two symbols written as one segment, an affricate or a double articulation"
+section = "other_symbols"
+tier = "A"
+kind = "tie"
+placement = "over"
+equivalent_to = "U+0361"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X13", "X4", "X9"], builds = [] }
+
+[sound."U+035C".spec]
+
+[sound."U+035C".tests]
+checks = ["T-sequence"]
+
+[sound."U+0361"]
+ipa = "͡"
+codepoints = ["U+0361"]
+name = "tie bar (above): joins two symbols written as one segment, an affricate or a double articulation"
+section = "other_symbols"
+tier = "A"
+kind = "tie"
+placement = "over"
+equivalent_to = "U+035C"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X13", "X4", "X9"], builds = [] }
+
+[sound."U+0361".spec]
+
+[sound."U+0361".tests]
+checks = ["T-sequence"]

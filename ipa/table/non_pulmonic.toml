@@ -1,0 +1,202 @@
+# The master table (DESIGN.md 3): Consonants (non-pulmonic). MIT licence.
+# Written first by engine/ipa/seed_table.py from the IPA checklist; edited by hand from then on.
+# Facts are cited, never pasted (the chart is CC BY-SA); every value carries its provenance.
+
+[sound."U+0298"]
+ipa = "ʘ"
+codepoints = ["U+0298"]
+name = "bilabial click (chart label: Bilabial); the letter gives the front (lip) closure only; the rear closure and its accompaniment (voiceless, voiced, nasal, aspirated...) need another letter"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "click", place = "bilabial", place2 = "velar", stricture = "closure", voicing = "unspecified" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
+
+[sound."U+0298".spec]
+
+[sound."U+0298".tests]
+checks = ["T-click", "T-contrast"]
+
+[sound."U+01C0"]
+ipa = "ǀ"
+codepoints = ["U+01C0"]
+name = "dental click (chart label: Dental); laminal tongue-tip/blade front closure at the teeth, released with friction; rear closure set by the accompaniment"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "click", place = "dental", place2 = "velar", stricture = "closure", voicing = "unspecified" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
+
+[sound."U+01C0".spec]
+
+[sound."U+01C0".tests]
+checks = ["T-click", "T-contrast"]
+
+[sound."U+01C3"]
+ipa = "ǃ"
+codepoints = ["U+01C3"]
+name = "(post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "click", place = "postalveolar", place2 = "velar", stricture = "closure", voicing = "unspecified" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10", "C12?"] }
+
+[sound."U+01C3".spec]
+
+[sound."U+01C3".tests]
+checks = ["T-click", "T-contrast"]
+
+[sound."U+01C2"]
+ipa = "ǂ"
+codepoints = ["U+01C2"]
+name = "palatoalveolar click (chart label: Palatoalveolar; often called the palatal click); laminal front closure from the alveolar ridge to the hard palate, released fairly abruptly; rear closure set by the accompaniment"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "click", place = "palatal", place2 = "velar", stricture = "closure", voicing = "unspecified" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10", "C12?"] }
+
+[sound."U+01C2".spec]
+
+[sound."U+01C2".tests]
+checks = ["T-click", "T-contrast"]
+
+[sound."U+01C1"]
+ipa = "ǁ"
+codepoints = ["U+01C1"]
+name = "alveolar lateral click (chart label: Alveolar lateral); front closure at the alveolar ridge released at the side(s) of the tongue; rear closure set by the accompaniment"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "click", place = "alveolar", place2 = "velar", stricture = "closure", lateral = true, voicing = "unspecified" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
+
+[sound."U+01C1".spec]
+
+[sound."U+01C1".tests]
+checks = ["T-click", "T-contrast"]
+
+[sound."U+0253"]
+ipa = "ɓ"
+codepoints = ["U+0253"]
+name = "voiced bilabial implosive (chart label: Bilabial)"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "implosive", place = "bilabial", stricture = "closure", voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
+
+[sound."U+0253".spec]
+
+[sound."U+0253".tests]
+checks = ["T-airstream", "T-contrast"]
+
+[sound."U+0257"]
+ipa = "ɗ"
+codepoints = ["U+0257"]
+name = "voiced dental/alveolar implosive (chart label: Dental/alveolar)"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "implosive", place = "alveolar", stricture = "closure", voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
+
+[sound."U+0257".spec]
+
+[sound."U+0257".tests]
+checks = ["T-airstream", "T-contrast"]
+
+[sound."U+0284"]
+ipa = "ʄ"
+codepoints = ["U+0284"]
+name = "voiced palatal implosive (chart label: Palatal)"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "implosive", place = "palatal", stricture = "closure", voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X1", "X2", "X4"], builds = ["C5?"] }
+
+[sound."U+0284".spec]
+
+[sound."U+0284".tests]
+checks = ["T-airstream", "T-contrast"]
+
+[sound."U+0260"]
+ipa = "ɠ"
+codepoints = ["U+0260"]
+name = "voiced velar implosive (chart label: Velar)"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "implosive", place = "velar", stricture = "closure", voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
+
+[sound."U+0260".spec]
+
+[sound."U+0260".tests]
+checks = ["T-airstream", "T-contrast"]
+
+[sound."U+029B"]
+ipa = "ʛ"
+codepoints = ["U+029B"]
+name = "voiced uvular implosive (chart label: Uvular)"
+section = "non_pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", airstream = "implosive", place = "uvular", stricture = "closure", voicing = "voiced" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X1", "X2", "X4"], builds = ["C5?"] }
+
+[sound."U+029B".spec]
+
+[sound."U+029B".tests]
+checks = ["T-airstream", "T-contrast"]
+
+[sound."U+02BC"]
+ipa = "ʼ"
+codepoints = ["U+02BC"]
+name = "ejective: the consonant it follows is made with a glottalic egressive airstream; the glottis is closed and the larynx raised during the oral closure, compressing the air in the mouth and pharynx, which escapes at the oral release"
+section = "non_pulmonic"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { airstream = "ejective" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X4", "X5", "X9"], builds = ["C5?", "C6?"] }
+
+[sound."U+02BC".spec]
+
+[sound."U+02BC".tests]
+checks = ["T-airstream", "T-contrast"]

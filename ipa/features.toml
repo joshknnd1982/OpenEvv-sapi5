@@ -1,0 +1,59 @@
+# The features of a sound (DESIGN.md 2.1), MIT licence.
+#
+# The features follow the IPA chart's own rows and columns, not a binary system, so that every
+# chart letter has a bundle of its own and every chart mark is one edit to a bundle. The
+# validator (engine/ipa/validate.py) checks both: no two letters share a bundle (unless the chart
+# prints them as one thing, `equivalent_to`), and every mark names the features it edits.
+#
+# A scale lists its values in order; the distance between two values is how many steps apart they
+# are. A set lists values with no order. `weights` are what the nearest-letter fallback
+# (DESIGN.md 2.3) adds up; they start from the template chooser's cost function
+# (engine/espeak_phonemes.py:241-259) and are `estimated`: Phase 4 revisits them.
+
+[consonant]
+place = { scale = ["bilabial", "labiodental", "linguolabial", "dental", "alveolar", "postalveolar", "retroflex", "alveolo-palatal", "palatal", "velar", "uvular", "pharyngeal", "epiglottal", "glottal"] }
+place2 = { set = ["none", "bilabial", "palatal", "velar", "uvular"], default = "none", note = "a second place: double articulations (w ʍ ɥ ɧ k͡p) and the rear closure of a click" }
+stricture = { scale = ["closure", "trill", "tap", "friction", "approximation"] }
+nasal = { set = [false, true], default = false }
+lateral = { set = [false, true], default = false }
+nasalized = { set = [false, true], default = false, note = "the nose open through an oral sound (a nasalized approximant); `nasal` is a closure with the nose open" }
+sibilant = { set = [false, true], default = false }
+airstream = { set = ["pulmonic", "ejective", "implosive", "click"], default = "pulmonic" }
+voicing = { scale = ["voiceless", "breathy", "voiced", "creaky"], extra = ["unspecified"], note = "unspecified: a click letter, whose voicing its accompaniment sets" }
+aspiration = { set = ["none", "after", "before"], default = "none" }
+release = { set = ["plain", "none", "nasal", "lateral"], default = "plain" }
+secondary = { list = ["labialized", "palatalized", "velarized", "pharyngealized", "velarized-or-pharyngealized"], default = [], note = "the last is the chart's tilde through a letter (ɫ), which leaves the choice open" }
+tongue_part = { set = ["unspecified", "apical", "laminal"], default = "unspecified" }
+place_shift = { set = ["none", "advanced", "retracted"], default = "none", note = "part of a step along the place scale" }
+stricture_shift = { set = ["none", "raised", "lowered"], default = "none", note = "towards closer or more open stricture" }
+tongue_root = { set = ["neutral", "advanced", "retracted"], default = "neutral" }
+
+[vowel]
+height = { scale = ["close", "near-close", "close-mid", "mid", "open-mid", "near-open", "open"] }
+backness = { scale = ["front", "near-front", "central", "near-back", "back"] }
+rounding = { scale = ["unrounded", "rounded"], extra = ["unspecified"], note = "unspecified: ə and ɐ, which the chart prints between the pair" }
+rounding_shift = { set = ["none", "more", "less"], default = "none" }
+nasalized = { set = [false, true], default = false }
+rhotic = { set = [false, true], default = false }
+tongue_root = { set = ["neutral", "advanced", "retracted"], default = "neutral" }
+quality_shift = { set = ["none", "raised", "lowered", "advanced", "retracted", "centralized", "mid-centralized"], default = "none" }
+voicing = { scale = ["voiceless", "breathy", "voiced", "creaky"], default = "voiced" }
+
+[both]
+length = { scale = ["extra-short", "short", "half-long", "long"], default = "short" }
+syllabic = { set = ["default", "syllabic", "non-syllabic"], default = "default", note = "default: a vowel is syllabic, a consonant is not" }
+
+[syllable]
+stress = { set = ["none", "secondary", "primary"], default = "none" }
+tone = { note = "a sequence of levels 1 (lowest) to 5 (highest), Chao's numerals; a register step up or down before it" }
+
+[boundary]
+kind = { set = ["syllable", "linked", "minor", "major"] }
+
+# The nearest-letter fallback: a cost for each feature that differs, a place step costing
+# `place_step` each. Larger is further. All `estimated` (DESIGN.md 2.3).
+[weights]
+tag = "estimated"
+consonant = { stricture = 8, airstream = 6, nasal = 6, lateral = 4, sibilant = 3, place_step = 1, place2 = 2, voicing = 2 }
+vowel = { height_step = 2, backness_step = 2, rounding = 1 }
+class = 50

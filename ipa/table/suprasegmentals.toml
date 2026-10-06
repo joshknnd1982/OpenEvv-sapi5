@@ -1,0 +1,174 @@
+# The master table (DESIGN.md 3): Suprasegmentals. MIT licence.
+# Written first by engine/ipa/seed_table.py from the IPA checklist; edited by hand from then on.
+# Facts are cited, never pasted (the chart is CC BY-SA); every value carries its provenance.
+
+[sound."U+02C8"]
+ipa = "ˈ"
+codepoints = ["U+02C8"]
+name = "Marks the syllable that carries the word's main stress. The mark is written before the stressed syllable, not before its vowel."
+section = "suprasegmentals"
+tier = "A"
+kind = "syllable-mark"
+stress = "primary"
+placement = "before"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X10"], builds = [] }
+
+[sound."U+02C8".spec]
+
+[sound."U+02C8".tests]
+checks = ["T-stress"]
+
+[sound."U+02CC"]
+ipa = "ˌ"
+codepoints = ["U+02CC"]
+name = "Marks a syllable that is stressed relative to unstressed syllables but less strongly than the primary-stressed one. Written before the syllable."
+section = "suprasegmentals"
+tier = "A"
+kind = "syllable-mark"
+stress = "secondary"
+placement = "before"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X10"], builds = [] }
+
+[sound."U+02CC".spec]
+
+[sound."U+02CC".tests]
+checks = ["T-stress"]
+
+[sound."U+02D0"]
+ipa = "ː"
+codepoints = ["U+02D0"]
+name = "The preceding segment (vowel or consonant) is held longer. On a consonant it marks a long consonant (geminate)."
+section = "suprasegmentals"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { length = "long" }, vowel = { length = "long" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds = [] }
+
+[sound."U+02D0".spec]
+
+[sound."U+02D0".tests]
+checks = ["T-length"]
+
+[sound."U+02D1"]
+ipa = "ˑ"
+codepoints = ["U+02D1"]
+name = "The preceding segment is somewhat longer than short but shorter than long."
+section = "suprasegmentals"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { length = "half-long" }, vowel = { length = "half-long" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds = [] }
+
+[sound."U+02D1".spec]
+
+[sound."U+02D1".tests]
+checks = ["T-length"]
+
+[sound."U+0306"]
+ipa = "̆"
+codepoints = ["U+0306"]
+name = "The segment under the mark (usually a vowel) is extra short while keeping its quality. On a consonant the breve can stand for a very brief articulation, for example a flap that has no letter of its own."
+section = "suprasegmentals"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { length = "extra-short" }, vowel = { length = "extra-short" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X9"], builds = [] }
+
+[sound."U+0306".spec]
+
+[sound."U+0306".tests]
+checks = ["T-length"]
+
+[sound."U+007C"]
+ipa = "|"
+codepoints = ["U+007C"]
+name = "Boundary of a minor prosodic group (foot group). It is a phrasing mark, not an articulation."
+section = "suprasegmentals"
+tier = "A"
+kind = "boundary"
+boundary = "minor"
+placement = "between"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X12"], builds = [] }
+
+[sound."U+007C".spec]
+
+[sound."U+007C".tests]
+checks = ["T-boundary"]
+
+[sound."U+2016"]
+ipa = "‖"
+codepoints = ["U+2016"]
+name = "Boundary of a major prosodic group (intonation phrase). Often coincides with a breath or pause."
+section = "suprasegmentals"
+tier = "A"
+kind = "boundary"
+boundary = "major"
+placement = "between"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X12"], builds = [] }
+
+[sound."U+2016".spec]
+
+[sound."U+2016".tests]
+checks = ["T-boundary"]
+
+[sound."U+002E"]
+ipa = "."
+codepoints = ["U+002E"]
+name = "Marks where one syllable ends and the next begins. On the chart it separates two vowels in hiatus (re.act), which are therefore not a diphthong."
+section = "suprasegmentals"
+tier = "A"
+kind = "boundary"
+boundary = "syllable"
+placement = "between"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X13"], builds = [] }
+
+[sound."U+002E".spec]
+
+[sound."U+002E".tests]
+checks = ["T-syllable"]
+
+[sound."U+203F"]
+ipa = "‿"
+codepoints = ["U+203F"]
+name = "Two words are joined with no break between them, for example a linking or liaison consonant that becomes the onset of the next word's syllable (French les amis /lɛ.z‿a.mi/), or two words forming one phonological unit (hot dog /ˈhɒt‿dɒɡ/)."
+section = "suprasegmentals"
+tier = "A"
+kind = "boundary"
+boundary = "linked"
+placement = "between"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X13"], builds = [] }
+
+[sound."U+203F".spec]
+
+[sound."U+203F".tests]
+checks = ["T-boundary"]

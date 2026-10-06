@@ -1,0 +1,1065 @@
+# The master table (DESIGN.md 3): Consonants (pulmonic). MIT licence.
+# Written first by engine/ipa/seed_table.py from the IPA checklist; edited by hand from then on.
+# Facts are cited, never pasted (the chart is CC BY-SA); every value carries its provenance.
+
+[sound."U+0070"]
+ipa = "p"
+codepoints = ["U+0070"]
+name = "voiceless bilabial plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "bilabial", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+0070".spec]
+
+[sound."U+0070".tests]
+checks = ["T-stop"]
+
+[sound."U+0062"]
+ipa = "b"
+codepoints = ["U+0062"]
+name = "voiced bilabial plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "bilabial", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds = [] }
+
+[sound."U+0062".spec]
+
+[sound."U+0062".tests]
+checks = ["T-stop"]
+
+[sound."U+0074"]
+ipa = "t"
+codepoints = ["U+0074"]
+name = "voiceless dental or alveolar plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+0074".spec]
+
+[sound."U+0074".tests]
+checks = ["T-stop"]
+
+[sound."U+0064"]
+ipa = "d"
+codepoints = ["U+0064"]
+name = "voiced dental or alveolar plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds = [] }
+
+[sound."U+0064".spec]
+
+[sound."U+0064".tests]
+checks = ["T-stop"]
+
+[sound."U+0288"]
+ipa = "ʈ"
+codepoints = ["U+0288"]
+name = "voiceless retroflex plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
+
+[sound."U+0288".spec]
+
+[sound."U+0288".tests]
+checks = ["T-stop", "T-contrast"]
+
+[sound."U+0256"]
+ipa = "ɖ"
+codepoints = ["U+0256"]
+name = "voiced retroflex plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
+
+[sound."U+0256".spec]
+
+[sound."U+0256".tests]
+checks = ["T-stop", "T-contrast"]
+
+[sound."U+0063"]
+ipa = "c"
+codepoints = ["U+0063"]
+name = "voiceless palatal plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "palatal", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
+
+[sound."U+0063".spec]
+
+[sound."U+0063".tests]
+checks = ["T-stop", "T-contrast"]
+
+[sound."U+025F"]
+ipa = "ɟ"
+codepoints = ["U+025F"]
+name = "voiced palatal plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "palatal", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
+
+[sound."U+025F".spec]
+
+[sound."U+025F".tests]
+checks = ["T-stop", "T-contrast"]
+
+[sound."U+006B"]
+ipa = "k"
+codepoints = ["U+006B"]
+name = "voiceless velar plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+006B".spec]
+
+[sound."U+006B".tests]
+checks = ["T-stop"]
+
+[sound."U+0261"]
+ipa = "ɡ"
+codepoints = ["U+0261"]
+name = "voiced velar plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds = [] }
+
+[sound."U+0261".spec]
+
+[sound."U+0261".tests]
+checks = ["T-stop"]
+
+[sound."U+0071"]
+ipa = "q"
+codepoints = ["U+0071"]
+name = "voiceless uvular plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "uvular", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
+
+[sound."U+0071".spec]
+
+[sound."U+0071".tests]
+checks = ["T-stop", "T-contrast"]
+
+[sound."U+0262"]
+ipa = "ɢ"
+codepoints = ["U+0262"]
+name = "voiced uvular plosive"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "uvular", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
+
+[sound."U+0262".spec]
+
+[sound."U+0262".tests]
+checks = ["T-stop", "T-contrast"]
+
+[sound."U+0294"]
+ipa = "ʔ"
+codepoints = ["U+0294"]
+name = "glottal plosive (glottal stop)"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "glottal", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X5"], builds = ["C6?"] }
+
+[sound."U+0294".spec]
+
+[sound."U+0294".tests]
+checks = ["T-stop", "T-phonation"]
+
+[sound."U+006D"]
+ipa = "m"
+codepoints = ["U+006D"]
+name = "voiced bilabial nasal"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "bilabial", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+006D".spec]
+
+[sound."U+006D".tests]
+checks = ["T-nasal"]
+
+[sound."U+0271"]
+ipa = "ɱ"
+codepoints = ["U+0271"]
+name = "voiced labiodental nasal"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "labiodental", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = ["C9?"] }
+
+[sound."U+0271".spec]
+
+[sound."U+0271".tests]
+checks = ["T-nasal", "T-contrast"]
+
+[sound."U+006E"]
+ipa = "n"
+codepoints = ["U+006E"]
+name = "voiced dental or alveolar nasal"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+006E".spec]
+
+[sound."U+006E".tests]
+checks = ["T-nasal"]
+
+[sound."U+0273"]
+ipa = "ɳ"
+codepoints = ["U+0273"]
+name = "voiced retroflex nasal"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = ["C9?"] }
+
+[sound."U+0273".spec]
+
+[sound."U+0273".tests]
+checks = ["T-nasal", "T-contrast"]
+
+[sound."U+0272"]
+ipa = "ɲ"
+codepoints = ["U+0272"]
+name = "voiced palatal nasal"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "palatal", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds = ["C9?"] }
+
+[sound."U+0272".spec]
+
+[sound."U+0272".tests]
+checks = ["T-nasal", "T-contrast"]
+
+[sound."U+014B"]
+ipa = "ŋ"
+codepoints = ["U+014B"]
+name = "voiced velar nasal"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+014B".spec]
+
+[sound."U+014B".tests]
+checks = ["T-nasal"]
+
+[sound."U+0274"]
+ipa = "ɴ"
+codepoints = ["U+0274"]
+name = "voiced uvular nasal"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "uvular", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = ["C9?"] }
+
+[sound."U+0274".spec]
+
+[sound."U+0274".tests]
+checks = ["T-nasal", "T-contrast"]
+
+[sound."U+0299"]
+ipa = "ʙ"
+codepoints = ["U+0299"]
+name = "voiced bilabial trill"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "bilabial", stricture = "trill", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X2"], builds = ["C11"] }
+
+[sound."U+0299".spec]
+
+[sound."U+0299".tests]
+checks = ["T-trill", "T-contrast"]
+
+[sound."U+0072"]
+ipa = "r"
+codepoints = ["U+0072"]
+name = "voiced dental or alveolar trill"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "trill", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "mapped", uses = ["X1", "X2", "X6"], builds = ["C11"] }
+
+[sound."U+0072".spec]
+
+[sound."U+0072".tests]
+checks = ["T-trill"]
+
+[sound."U+0280"]
+ipa = "ʀ"
+codepoints = ["U+0280"]
+name = "voiced uvular trill"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "uvular", stricture = "trill", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X2", "X3", "X6"], builds = ["C11"] }
+
+[sound."U+0280".spec]
+
+[sound."U+0280".tests]
+checks = ["T-trill", "T-contrast"]
+
+[sound."U+2C71"]
+ipa = "ⱱ"
+codepoints = ["U+2C71"]
+name = "voiced labiodental flap"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "labiodental", stricture = "tap", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], builds = [] }
+
+[sound."U+2C71".spec]
+
+[sound."U+2C71".tests]
+checks = ["T-tap", "T-contrast"]
+
+[sound."U+027E"]
+ipa = "ɾ"
+codepoints = ["U+027E"]
+name = "voiced dental or alveolar tap"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "tap", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X6"], builds = [] }
+
+[sound."U+027E".spec]
+
+[sound."U+027E".tests]
+checks = ["T-tap"]
+
+[sound."U+027D"]
+ipa = "ɽ"
+codepoints = ["U+027D"]
+name = "voiced retroflex flap"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "tap", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], builds = [] }
+
+[sound."U+027D".spec]
+
+[sound."U+027D".tests]
+checks = ["T-tap", "T-contrast"]
+
+[sound."U+0278"]
+ipa = "ɸ"
+codepoints = ["U+0278"]
+name = "voiceless bilabial fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "bilabial", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+0278".spec]
+
+[sound."U+0278".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+03B2"]
+ipa = "β"
+codepoints = ["U+03B2"]
+name = "voiced bilabial fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "bilabial", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+03B2".spec]
+
+[sound."U+03B2".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0066"]
+ipa = "f"
+codepoints = ["U+0066"]
+name = "voiceless labiodental fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "labiodental", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+0066".spec]
+
+[sound."U+0066".tests]
+checks = ["T-fric"]
+
+[sound."U+0076"]
+ipa = "v"
+codepoints = ["U+0076"]
+name = "voiced labiodental fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "labiodental", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+0076".spec]
+
+[sound."U+0076".tests]
+checks = ["T-fric"]
+
+[sound."U+03B8"]
+ipa = "θ"
+codepoints = ["U+03B8"]
+name = "voiceless dental fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "dental", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+03B8".spec]
+
+[sound."U+03B8".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+00F0"]
+ipa = "ð"
+codepoints = ["U+00F0"]
+name = "voiced dental fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "dental", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+00F0".spec]
+
+[sound."U+00F0".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0073"]
+ipa = "s"
+codepoints = ["U+0073"]
+name = "voiceless alveolar fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", sibilant = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+0073".spec]
+
+[sound."U+0073".tests]
+checks = ["T-fric"]
+
+[sound."U+007A"]
+ipa = "z"
+codepoints = ["U+007A"]
+name = "voiced alveolar fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiced", airstream = "pulmonic", sibilant = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+007A".spec]
+
+[sound."U+007A".tests]
+checks = ["T-fric"]
+
+[sound."U+0283"]
+ipa = "ʃ"
+codepoints = ["U+0283"]
+name = "voiceless postalveolar fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "postalveolar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", sibilant = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+0283".spec]
+
+[sound."U+0283".tests]
+checks = ["T-fric"]
+
+[sound."U+0292"]
+ipa = "ʒ"
+codepoints = ["U+0292"]
+name = "voiced postalveolar fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "postalveolar", stricture = "friction", voicing = "voiced", airstream = "pulmonic", sibilant = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+0292".spec]
+
+[sound."U+0292".tests]
+checks = ["T-fric"]
+
+[sound."U+0282"]
+ipa = "ʂ"
+codepoints = ["U+0282"]
+name = "voiceless retroflex fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", sibilant = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+0282".spec]
+
+[sound."U+0282".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0290"]
+ipa = "ʐ"
+codepoints = ["U+0290"]
+name = "voiced retroflex fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "friction", voicing = "voiced", airstream = "pulmonic", sibilant = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+0290".spec]
+
+[sound."U+0290".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+00E7"]
+ipa = "ç"
+codepoints = ["U+00E7"]
+name = "voiceless palatal fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "palatal", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+00E7".spec]
+
+[sound."U+00E7".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+029D"]
+ipa = "ʝ"
+codepoints = ["U+029D"]
+name = "voiced palatal fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "palatal", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X3", "X4"], builds = [] }
+
+[sound."U+029D".spec]
+
+[sound."U+029D".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0078"]
+ipa = "x"
+codepoints = ["U+0078"]
+name = "voiceless velar fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X3"], builds = [] }
+
+[sound."U+0078".spec]
+
+[sound."U+0078".tests]
+checks = ["T-fric"]
+
+[sound."U+0263"]
+ipa = "ɣ"
+codepoints = ["U+0263"]
+name = "voiced velar fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
+
+[sound."U+0263".spec]
+
+[sound."U+0263".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+03C7"]
+ipa = "χ"
+codepoints = ["U+03C7"]
+name = "voiceless uvular fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "uvular", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+03C7".spec]
+
+[sound."U+03C7".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0281"]
+ipa = "ʁ"
+codepoints = ["U+0281"]
+name = "voiced uvular fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "uvular", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
+
+[sound."U+0281".spec]
+
+[sound."U+0281".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0127"]
+ipa = "ħ"
+codepoints = ["U+0127"]
+name = "voiceless pharyngeal fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "pharyngeal", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2"], builds = [] }
+
+[sound."U+0127".spec]
+
+[sound."U+0127".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+0295"]
+ipa = "ʕ"
+codepoints = ["U+0295"]
+name = "voiced pharyngeal fricative (often an approximant)"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "pharyngeal", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X4"], builds = ["C6?"] }
+
+[sound."U+0295".spec]
+
+[sound."U+0295".tests]
+checks = ["T-approx", "T-contrast"]
+
+[sound."U+0068"]
+ipa = "h"
+codepoints = ["U+0068"]
+name = "voiceless glottal fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "glottal", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X5"], builds = [] }
+
+[sound."U+0068".spec]
+
+[sound."U+0068".tests]
+checks = ["T-fric"]
+
+[sound."U+0266"]
+ipa = "ɦ"
+codepoints = ["U+0266"]
+name = "voiced glottal fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "glottal", stricture = "friction", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X5", "X4"], builds = ["C6?"] }
+
+[sound."U+0266".spec]
+
+[sound."U+0266".tests]
+checks = ["T-phonation", "T-contrast"]
+
+[sound."U+026C"]
+ipa = "ɬ"
+codepoints = ["U+026C"]
+name = "voiceless dental or alveolar lateral fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", lateral = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X3", "X7"], builds = [] }
+
+[sound."U+026C".spec]
+
+[sound."U+026C".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+026E"]
+ipa = "ɮ"
+codepoints = ["U+026E"]
+name = "voiced dental or alveolar lateral fricative"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiced", airstream = "pulmonic", lateral = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X3"], builds = [] }
+
+[sound."U+026E".spec]
+
+[sound."U+026E".tests]
+checks = ["T-fric", "T-contrast"]
+
+[sound."U+028B"]
+ipa = "ʋ"
+codepoints = ["U+028B"]
+name = "voiced labiodental approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "labiodental", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X3"], builds = [] }
+
+[sound."U+028B".spec]
+
+[sound."U+028B".tests]
+checks = ["T-approx", "T-contrast"]
+
+[sound."U+0279"]
+ipa = "ɹ"
+codepoints = ["U+0279"]
+name = "voiced dental or alveolar approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds = [] }
+
+[sound."U+0279".spec]
+
+[sound."U+0279".tests]
+checks = ["T-approx"]
+
+[sound."U+027B"]
+ipa = "ɻ"
+codepoints = ["U+027B"]
+name = "voiced retroflex approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."U+027B".spec]
+
+[sound."U+027B".tests]
+checks = ["T-approx", "T-contrast"]
+
+[sound."U+006A"]
+ipa = "j"
+codepoints = ["U+006A"]
+name = "voiced palatal approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "palatal", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+006A".spec]
+
+[sound."U+006A".tests]
+checks = ["T-approx"]
+
+[sound."U+0270"]
+ipa = "ɰ"
+codepoints = ["U+0270"]
+name = "voiced velar approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic" }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."U+0270".spec]
+
+[sound."U+0270".tests]
+checks = ["T-approx", "T-contrast"]
+
+[sound."U+006C"]
+ipa = "l"
+codepoints = ["U+006C"]
+name = "voiced dental or alveolar lateral approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", lateral = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
+
+[sound."U+006C".spec]
+
+[sound."U+006C".tests]
+checks = ["T-approx"]
+
+[sound."U+026D"]
+ipa = "ɭ"
+codepoints = ["U+026D"]
+name = "voiced retroflex lateral approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", lateral = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."U+026D".spec]
+
+[sound."U+026D".tests]
+checks = ["T-approx", "T-contrast"]
+
+[sound."U+028E"]
+ipa = "ʎ"
+codepoints = ["U+028E"]
+name = "voiced palatal lateral approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "palatal", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", lateral = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2"], builds = [] }
+
+[sound."U+028E".spec]
+
+[sound."U+028E".tests]
+checks = ["T-approx", "T-contrast"]
+
+[sound."U+029F"]
+ipa = "ʟ"
+codepoints = ["U+029F"]
+name = "voiced velar lateral approximant"
+section = "pulmonic"
+tier = "A"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", lateral = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."U+029F".spec]
+
+[sound."U+029F".tests]
+checks = ["T-approx", "T-contrast"]

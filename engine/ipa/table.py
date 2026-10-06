@@ -1,0 +1,279 @@
+"""The master table of sounds (DESIGN.md 3), read, and checked. MIT licence.
+
+    python engine/ipa/table.py             validate ipa/: exit 1 on any refusal
+    python engine/ipa/table.py --selftest  plant each kind of fault in a copy; each must be refused
+
+The validator refuses (DESIGN.md 3.2): an unknown field; a number without a provenance tag; a
+`literature` value without a source in ipa/sources.toml that was opened; a `measured` value without
+its proof, a `derived` one without its rule, an `approximate` one (or entry) without a sentence
+saying what deviates; two letters with one feature bundle (unless the chart prints them as one,
+`equivalent_to`); a feature or value ipa/features.toml does not define; a modifier with no class
+of base; an entry without tests; an entry whose state is not MISSING without a proof that exists;
+an id that is not its code points, or code points that are not its IPA. It lists every
+`estimated` value: they are the queue for verification.
+"""
+
+import copy
+import json
+import os
+import sys
+
+import tomli
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+IPA = os.path.join(ROOT, 'ipa')
+
+KINDS = {'base', 'modifier', 'syllable-mark', 'tone', 'boundary', 'tie'}
+STATES = {'MISSING', 'mapped', 'composed', 'created', 'BLOCKED'}
+TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximate'}
+FIELDS = {'ipa', 'codepoints', 'name', 'section', 'tier', 'kind', 'features', 'edit', 'levels', 'register',
+          'slope', 'stress', 'boundary', 'placement', 'equivalent_to', 'state', 'level', 'approximate',
+          'deviation', 'plan', 'spec', 'realization', 'tests', 'history', 'registry'}
+VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation'}
+PLACEMENTS = {'before', 'after', 'over', 'between'}
+
+
+class Table(object):
+    def __init__(self, features, sounds, sources, where):
+        self.features = features   # ipa/features.toml
+        self.sounds = sounds       # id -> entry
+        self.sources = sources     # id -> source
+        self.where = where         # id -> file it came from
+
+    def letters(self):
+        return {i: e for i, e in self.sounds.items() if e.get('kind') == 'base'}
+
+    def by_ipa(self):
+        return {e['ipa']: i for i, e in self.sounds.items()}
+
+
+def load(folder=IPA):
+    with open(os.path.join(folder, 'features.toml'), 'rb') as f:
+        features = tomli.load(f)
+    sources = {}
+    path = os.path.join(folder, 'sources.toml')
+    if os.path.exists(path):
+        with open(path, 'rb') as f:
+            sources = tomli.load(f).get('source', {})
+    sounds, where = {}, {}
+    tdir = os.path.join(folder, 'table')
+    for name in sorted(os.listdir(tdir)):
+        if not name.endswith('.toml'):
+            continue
+        with open(os.path.join(tdir, name), 'rb') as f:
+            data = tomli.load(f)
+        for sid, e in data.get('sound', {}).items():
+            if sid in sounds:
+                raise ValueError('%s: %s is also in %s' % (name, sid, where[sid]))
+            sounds[sid] = e
+            where[sid] = name
+    return Table(features, sounds, sources, where)
+
+
+def _vocab(features, cls):
+    """{feature: allowed values} for a class, `both` included."""
+    out = {}
+    for group in (cls, 'both'):
+        for k, spec in features.get(group, {}).items():
+            vals = list(spec.get('scale', [])) + list(spec.get('set', [])) + list(spec.get('extra', []))
+            out[k] = ('list', spec['list']) if 'list' in spec else ('one', vals)
+    return out
+
+
+def _check_value(sid, path, val, t, problems, estimated):
+    """A number of the specification: { v, tag, ref?, note?, proof?, rule?, deviation? }."""
+    if isinstance(val, dict) and 'v' not in val and 'tag' not in val:
+        for k, x in val.items():
+            _check_value(sid, path + '.' + k, x, t, problems, estimated)
+        return
+    if isinstance(val, list):
+        for i, x in enumerate(val):
+            _check_value(sid, '%s[%d]' % (path, i), x, t, problems, estimated)
+        return
+    if not isinstance(val, dict):
+        problems.append('%s %s: a value without a provenance tag' % (sid, path))
+        return
+    for k in val:
+        if k not in VALUE_FIELDS:
+            problems.append('%s %s: unknown field %s' % (sid, path, k))
+    tag = val.get('tag')
+    if tag not in TAGS:
+        problems.append('%s %s: tag %r is not one of %s' % (sid, path, tag, sorted(TAGS)))
+    elif tag == 'literature':
+        src = t.sources.get(val.get('ref', ''))
+        if src is None:
+            problems.append('%s %s: literature with no source %r in ipa/sources.toml' % (sid, path, val.get('ref')))
+        elif not src.get('opened'):
+            problems.append('%s %s: literature from %s, which was not opened' % (sid, path, val.get('ref')))
+    elif tag == 'measured' and not val.get('proof'):
+        problems.append('%s %s: measured with no proof' % (sid, path))
+    elif tag == 'derived' and not val.get('rule'):
+        problems.append('%s %s: derived with no rule' % (sid, path))
+    elif tag == 'approximate' and not val.get('deviation'):
+        problems.append('%s %s: approximate with no deviation stated' % (sid, path))
+    elif tag == 'estimated':
+        estimated.append('%s %s' % (sid, path))
+
+
+def validate(t):
+    """(problems, the verification queue of `estimated` values)."""
+    problems, estimated = [], []
+    bundles = {}
+    for sid, e in sorted(t.sounds.items()):
+        for k in e:
+            if k not in FIELDS:
+                problems.append('%s: unknown field %s' % (sid, k))
+        cps = e.get('codepoints') or []
+        if sid != '+'.join(cps):
+            problems.append('%s: the id is not its code points %s' % (sid, '+'.join(cps)))
+        if ''.join(chr(int(c[2:], 16)) for c in cps) != e.get('ipa'):
+            problems.append('%s: the code points are not its ipa %r' % (sid, e.get('ipa')))
+        kind = e.get('kind')
+        if kind not in KINDS:
+            problems.append('%s: kind %r' % (sid, kind))
+        if e.get('state') not in STATES:
+            problems.append('%s: state %r' % (sid, e.get('state')))
+        if e.get('approximate') and not e.get('deviation'):
+            problems.append('%s: approximate with no deviation stated' % sid)
+        if e.get('equivalent_to') and e['equivalent_to'] not in t.sounds:
+            problems.append('%s: equivalent to %s, which the table lacks' % (sid, e['equivalent_to']))
+        if kind != 'base' and e.get('placement') not in PLACEMENTS:
+            problems.append('%s: placement %r' % (sid, e.get('placement')))
+        if kind == 'base':
+            f = dict(e.get('features') or {})
+            cls = f.pop('class', None)
+            if cls not in ('consonant', 'vowel'):
+                problems.append('%s: class %r' % (sid, cls))
+            else:
+                vocab = _vocab(t.features, cls)
+                for k, v in f.items():
+                    if k not in vocab:
+                        problems.append('%s: feature %s is not a %s feature' % (sid, k, cls))
+                    elif vocab[k][0] == 'one' and v not in vocab[k][1]:
+                        problems.append('%s: %s = %r is not in the scale' % (sid, k, v))
+                key = json.dumps(full_bundle(t, e['features']), sort_keys=True)
+                other = bundles.get(key)
+                if other and t.sounds[other].get('equivalent_to') != sid and e.get('equivalent_to') != other:
+                    problems.append('%s and %s have one feature bundle' % (other, sid))
+                bundles.setdefault(key, sid)
+        if kind == 'modifier':
+            edit = e.get('edit') or {}
+            if not edit:
+                problems.append('%s: a modifier with no class of base' % sid)
+            for cls, ed in edit.items():
+                if cls not in ('consonant', 'vowel'):
+                    problems.append('%s: edit for class %r' % (sid, cls))
+                    continue
+                vocab = _vocab(t.features, cls)
+                for k, v in ed.items():
+                    if k not in vocab:
+                        problems.append('%s: edits %s, not a %s feature' % (sid, k, cls))
+                    elif vocab[k][0] == 'list':
+                        if not (isinstance(v, str) and v[:1] in '+-' and v[1:] in vocab[k][1]):
+                            problems.append('%s: %s edit %r is not +value or -value' % (sid, k, v))
+                    elif v not in vocab[k][1]:
+                        problems.append('%s: %s = %r is not in the scale' % (sid, k, v))
+        if kind == 'tone':
+            lv = e.get('levels')
+            if lv is not None and not (isinstance(lv, list) and lv and all(isinstance(x, int) and 1 <= x <= 5
+                                                                            for x in lv)):
+                problems.append('%s: levels %r are not Chao levels 1 to 5' % (sid, lv))
+            if lv is None and not (e.get('register') or e.get('slope')):
+                problems.append('%s: a tone with no levels, register or slope' % sid)
+        tests = e.get('tests') or {}
+        if not tests.get('checks'):
+            problems.append('%s: no tests' % sid)
+        if e.get('state') not in ('MISSING', None):
+            proof = tests.get('proof')
+            if not proof or not os.path.exists(os.path.join(ROOT, proof)):
+                problems.append('%s: state %s with no proof file' % (sid, e.get('state')))
+        for k, v in (e.get('spec') or {}).items():
+            _check_value(sid, 'spec.' + k, v, t, problems, estimated)
+        for tmpl, trims in ((e.get('realization') or {}).get('openevv', {}).get('trim') or {}).items():
+            _check_value(sid, 'trim.' + tmpl, trims, t, problems, estimated)
+    return problems, estimated
+
+
+def full_bundle(t, features):
+    """A letter's features with every default filled in, so equal sounds compare equal."""
+    f = dict(features)
+    cls = f.get('class')
+    for group in (cls, 'both'):
+        for k, spec in t.features.get(group, {}).items():
+            if k not in f and 'default' in spec:
+                f[k] = spec['default']
+    return f
+
+
+# ---- the validator's own proof -----------------------------------------------------------------
+
+def _plants(t):
+    """(what is planted, a function that plants it in a copy of the table)."""
+    p, b, m = 'U+0070', 'U+0062', 'U+0303'
+
+    def setv(sid, path, value):
+        def go(c):
+            node = c.sounds[sid]
+            for k in path[:-1]:
+                node = node.setdefault(k, {})
+            node[path[-1]] = value
+        return go
+
+    return [
+        ('an unknown field', setv(p, ['colour'], 'red')),
+        ('a number without a tag', setv(p, ['spec', 'vot_ms'], 15)),
+        ('a tag that is not a tag', setv(p, ['spec', 'vot_ms'], {'v': 15, 'tag': 'guessed'})),
+        ('literature with no source', setv(p, ['spec', 'vot_ms'], {'v': 15, 'tag': 'literature', 'ref': 'nobody'})),
+        ('literature not opened', lambda c: (c.sources.update({'unread': {'opened': False}}),
+                                             setv(p, ['spec', 'vot_ms'],
+                                                  {'v': 15, 'tag': 'literature', 'ref': 'unread'})(c))),
+        ('measured with no proof', setv(p, ['spec', 'vot_ms'], {'v': 15, 'tag': 'measured'})),
+        ('derived with no rule', setv(p, ['spec', 'vot_ms'], {'v': 15, 'tag': 'derived'})),
+        ('approximate with no deviation', setv(p, ['approximate'], True)),
+        ('two letters with one bundle', setv(b, ['features'], dict(t.sounds[p]['features']))),
+        ('a feature value not in its scale', setv(p, ['features', 'place'], 'nose')),
+        ('a feature not of its class', setv(p, ['features', 'height'], 'close')),
+        ('a modifier with no class', setv(m, ['edit'], {})),
+        ('an entry without tests', setv(p, ['tests'], {})),
+        ('a state with no proof', setv(p, ['state'], 'mapped')),
+        ('an id that is not its code points', setv(p, ['codepoints'], ['U+0071'])),
+        ('a tone with bad levels', setv('U+02E5', ['levels'], [6])),
+    ]
+
+
+def selftest():
+    t = load()
+    base, _ = validate(t)
+    failed = 0
+    if base:
+        print('FAIL  the table itself is refused: %s' % base[:3])
+        failed += 1
+    for what, plant in _plants(t):
+        c = copy.deepcopy(t)
+        plant(c)
+        problems, _ = validate(c)
+        ok = bool(problems)
+        failed += not ok
+        print('%-4s  %-34s %s' % ('ok' if ok else 'FAIL', what, problems[0] if problems else 'NOT refused'))
+    print('validator: the table %s; %d planted faults, %d refused' % (
+        'refused' if base else 'accepted', len(_plants(t)), len(_plants(t)) - (failed - (1 if base else 0))))
+    return 1 if failed else 0
+
+
+def main():
+    if '--selftest' in sys.argv:
+        return selftest()
+    t = load()
+    problems, estimated = validate(t)
+    states = {}
+    for e in t.sounds.values():
+        states[e.get('state')] = states.get(e.get('state'), 0) + 1
+    print('table: %d entries (%s); %d problems; %d estimated values queued for verification' % (
+        len(t.sounds), ', '.join('%s %d' % kv for kv in sorted(states.items())), len(problems), len(estimated)))
+    for p in problems:
+        print('  ' + p)
+    return 1 if problems else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

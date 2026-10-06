@@ -1,0 +1,612 @@
+# The master table (DESIGN.md 3): Diacritics. MIT licence.
+# Written first by engine/ipa/seed_table.py from the IPA checklist; edited by hand from then on.
+# Facts are cited, never pasted (the chart is CC BY-SA); every value carries its provenance.
+
+[sound."U+0325"]
+ipa = "̥"
+codepoints = ["U+0325"]
+name = "voiceless: the sound is produced without vocal-fold vibration (devoicing of a normally voiced segment)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { voicing = "voiceless" }, vowel = { voicing = "voiceless" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X4", "X7"], builds = [] }
+
+[sound."U+0325".spec]
+
+[sound."U+0325".tests]
+checks = ["T-shift"]
+
+[sound."U+030A"]
+ipa = "̊"
+codepoints = ["U+030A"]
+name = "voiceless (alternative placement above a symbol with a descender)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { voicing = "voiceless" }, vowel = { voicing = "voiceless" } }
+placement = "over"
+equivalent_to = "U+0325"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X4", "X7"], builds = [] }
+
+[sound."U+030A".spec]
+
+[sound."U+030A".tests]
+checks = ["T-shift"]
+
+[sound."U+032C"]
+ipa = "̬"
+codepoints = ["U+032C"]
+name = "voiced: vocal-fold vibration during a segment that is normally voiceless"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { voicing = "voiced" }, vowel = { voicing = "voiced" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds = [] }
+
+[sound."U+032C".spec]
+
+[sound."U+032C".tests]
+checks = ["T-shift"]
+
+[sound."U+02B0"]
+ipa = "ʰ"
+codepoints = ["U+02B0"]
+name = "aspirated: a period of voicelessness (open glottis) after the release before voicing of the following sound begins"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { aspiration = "after" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds = [] }
+
+[sound."U+02B0".spec]
+
+[sound."U+02B0".tests]
+checks = ["T-shift"]
+
+[sound."U+0339"]
+ipa = "̹"
+codepoints = ["U+0339"]
+name = "more rounded: greater lip rounding than the base symbol implies"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { vowel = { rounding_shift = "more" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = [] }
+
+[sound."U+0339".spec]
+
+[sound."U+0339".tests]
+checks = ["T-shift"]
+
+[sound."U+031C"]
+ipa = "̜"
+codepoints = ["U+031C"]
+name = "less rounded: less lip rounding than the base symbol implies"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { vowel = { rounding_shift = "less" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = [] }
+
+[sound."U+031C".spec]
+
+[sound."U+031C".tests]
+checks = ["T-shift"]
+
+[sound."U+031F"]
+ipa = "̟"
+codepoints = ["U+031F"]
+name = "advanced: articulated further forward than the base symbol implies"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { place_shift = "advanced" }, vowel = { quality_shift = "advanced" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
+
+[sound."U+031F".spec]
+
+[sound."U+031F".tests]
+checks = ["T-shift"]
+
+[sound."U+0320"]
+ipa = "̠"
+codepoints = ["U+0320"]
+name = "retracted: articulated further back than the base symbol implies"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { place_shift = "retracted" }, vowel = { quality_shift = "retracted" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
+
+[sound."U+0320".spec]
+
+[sound."U+0320".tests]
+checks = ["T-shift"]
+
+[sound."U+0308"]
+ipa = "̈"
+codepoints = ["U+0308"]
+name = "centralized: tongue position moved toward the centre of the vowel space on the front–back dimension"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { vowel = { quality_shift = "centralized" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = [] }
+
+[sound."U+0308".spec]
+
+[sound."U+0308".tests]
+checks = ["T-shift"]
+
+[sound."U+033D"]
+ipa = "̽"
+codepoints = ["U+033D"]
+name = "mid-centralized: moved toward the mid-central (schwa) position, in height as well as backness"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { vowel = { quality_shift = "mid-centralized" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = [] }
+
+[sound."U+033D".spec]
+
+[sound."U+033D".tests]
+checks = ["T-shift"]
+
+[sound."U+0329"]
+ipa = "̩"
+codepoints = ["U+0329"]
+name = "syllabic: the consonant forms the nucleus of a syllable"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { syllabic = "syllabic" }, vowel = { syllabic = "syllabic" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["X9", "X13"], builds = ["C7"] }
+
+[sound."U+0329".spec]
+
+[sound."U+0329".tests]
+checks = ["T-syllable"]
+
+[sound."U+032F"]
+ipa = "̯"
+codepoints = ["U+032F"]
+name = "non-syllabic: the vowel is not the syllable nucleus (e.g. the off-glide of a diphthong)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { syllabic = "non-syllabic" }, vowel = { syllabic = "non-syllabic" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["X9", "X13"], builds = ["C7"] }
+
+[sound."U+032F".spec]
+
+[sound."U+032F".tests]
+checks = ["T-syllable"]
+
+[sound."U+02DE"]
+ipa = "˞"
+codepoints = ["U+02DE"]
+name = "rhoticity: r-colouring of a vowel (tongue tip raised/retroflexed or tongue bunched, often with pharyngeal constriction)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { vowel = { rhotic = true } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
+
+[sound."U+02DE".spec]
+
+[sound."U+02DE".tests]
+checks = ["T-shift"]
+
+[sound."U+0324"]
+ipa = "̤"
+codepoints = ["U+0324"]
+name = "breathy voiced: vocal folds vibrate with lower tension and incomplete closure, letting more air escape (murmur)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { voicing = "breathy" }, vowel = { voicing = "breathy" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["X7"], builds = ["C6"] }
+
+[sound."U+0324".spec]
+
+[sound."U+0324".tests]
+checks = ["T-phonation"]
+
+[sound."U+0330"]
+ipa = "̰"
+codepoints = ["U+0330"]
+name = "creaky voiced: constricted glottis with slow, irregular vocal-fold vibration (laryngealization)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { voicing = "creaky" }, vowel = { voicing = "creaky" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X7"], builds = ["C6?"] }
+
+[sound."U+0330".spec]
+
+[sound."U+0330".tests]
+checks = ["T-phonation"]
+
+[sound."U+033C"]
+ipa = "̼"
+codepoints = ["U+033C"]
+name = "linguolabial: tongue tip or blade against the upper lip"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { place = "linguolabial" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
+
+[sound."U+033C".spec]
+
+[sound."U+033C".tests]
+checks = ["T-shift"]
+
+[sound."U+02B7"]
+ipa = "ʷ"
+codepoints = ["U+02B7"]
+name = "labialized: secondary lip rounding (often with raised tongue back) added to the consonant"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { secondary = "+labialized" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
+
+[sound."U+02B7".spec]
+
+[sound."U+02B7".tests]
+checks = ["T-shift"]
+
+[sound."U+02B2"]
+ipa = "ʲ"
+codepoints = ["U+02B2"]
+name = "palatalized: secondary raising of the tongue body toward the hard palate"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { secondary = "+palatalized" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
+
+[sound."U+02B2".spec]
+
+[sound."U+02B2".tests]
+checks = ["T-shift"]
+
+[sound."U+02E0"]
+ipa = "ˠ"
+codepoints = ["U+02E0"]
+name = "velarized: secondary raising of the back of the tongue toward the velum"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { secondary = "+velarized" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
+
+[sound."U+02E0".spec]
+
+[sound."U+02E0".tests]
+checks = ["T-shift"]
+
+[sound."U+02E4"]
+ipa = "ˤ"
+codepoints = ["U+02E4"]
+name = "pharyngealized: secondary constriction of the pharynx (tongue root/epiglottis retracted)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { secondary = "+pharyngealized" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
+
+[sound."U+02E4".spec]
+
+[sound."U+02E4".tests]
+checks = ["T-shift"]
+
+[sound."U+0334"]
+ipa = "̴"
+codepoints = ["U+0334"]
+name = "velarized or pharyngealized: a cover mark for velarization, uvularization or pharyngealization, written through the letter"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { secondary = "+velarized-or-pharyngealized" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C8?"] }
+
+[sound."U+0334".spec]
+
+[sound."U+0334".tests]
+checks = ["T-shift"]
+
+[sound."U+031D"]
+ipa = "̝"
+codepoints = ["U+031D"]
+name = "raised: articulated with a closer constriction (higher tongue) than the base symbol implies"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { stricture_shift = "raised" }, vowel = { quality_shift = "raised" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
+
+[sound."U+031D".spec]
+
+[sound."U+031D".tests]
+checks = ["T-shift"]
+
+[sound."U+031E"]
+ipa = "̞"
+codepoints = ["U+031E"]
+name = "lowered: articulated with a more open constriction (lower tongue) than the base symbol implies"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { stricture_shift = "lowered" }, vowel = { quality_shift = "lowered" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
+
+[sound."U+031E".spec]
+
+[sound."U+031E".tests]
+checks = ["T-shift"]
+
+[sound."U+0318"]
+ipa = "̘"
+codepoints = ["U+0318"]
+name = "advanced tongue root (ATR): tongue root moved forward and larynx lowered, expanding the pharynx"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { tongue_root = "advanced" }, vowel = { tongue_root = "advanced" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C6?"] }
+
+[sound."U+0318".spec]
+
+[sound."U+0318".tests]
+checks = ["T-shift"]
+
+[sound."U+0319"]
+ipa = "̙"
+codepoints = ["U+0319"]
+name = "retracted tongue root (RTR): tongue root pulled back, narrowing the pharynx"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { tongue_root = "retracted" }, vowel = { tongue_root = "retracted" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2"], builds = ["C6?"] }
+
+[sound."U+0319".spec]
+
+[sound."U+0319".tests]
+checks = ["T-shift"]
+
+[sound."U+032A"]
+ipa = "̪"
+codepoints = ["U+032A"]
+name = "dental: tongue tip or blade against the upper teeth"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { place = "dental" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X2", "X3"], builds = [] }
+
+[sound."U+032A".spec]
+
+[sound."U+032A".tests]
+checks = ["T-shift"]
+
+[sound."U+033A"]
+ipa = "̺"
+codepoints = ["U+033A"]
+name = "apical: articulated with the tongue tip"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { tongue_part = "apical" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X3"], builds = [] }
+
+[sound."U+033A".spec]
+
+[sound."U+033A".tests]
+checks = ["T-shift"]
+
+[sound."U+033B"]
+ipa = "̻"
+codepoints = ["U+033B"]
+name = "laminal: articulated with the tongue blade"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { tongue_part = "laminal" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X3"], builds = [] }
+
+[sound."U+033B".spec]
+
+[sound."U+033B".tests]
+checks = ["T-shift"]
+
+[sound."U+0303"]
+ipa = "̃"
+codepoints = ["U+0303"]
+name = "nasalized: the velum is lowered so air resonates in the nasal cavity as well as the mouth"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { nasalized = true }, vowel = { nasalized = true } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X8"], builds = ["C9?"] }
+
+[sound."U+0303".spec]
+
+[sound."U+0303".tests]
+checks = ["T-nasality"]
+
+[sound."U+207F"]
+ipa = "ⁿ"
+codepoints = ["U+207F"]
+name = "nasal release: the oral closure of a stop is released by lowering the velum, so air escapes through the nose (e.g. English sudden)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { release = "nasal" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X4", "X9", "X13"], builds = ["C10?"] }
+
+[sound."U+207F".spec]
+
+[sound."U+207F".tests]
+checks = ["T-release"]
+
+[sound."U+02E1"]
+ipa = "ˡ"
+codepoints = ["U+02E1"]
+name = "lateral release: the stop is released by lowering the sides of the tongue into a lateral (e.g. English middle)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { release = "lateral" } }
+placement = "after"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X4", "X9", "X13"], builds = ["C10?"] }
+
+[sound."U+02E1".spec]
+
+[sound."U+02E1".tests]
+checks = ["T-release"]
+
+[sound."U+031A"]
+ipa = "̚"
+codepoints = ["U+031A"]
+name = "no audible release: the stop closure is held without an audible release burst (unreleased / checked stop)"
+section = "diacritics"
+tier = "A"
+kind = "modifier"
+edit = { consonant = { release = "none" } }
+placement = "over"
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds = [] }
+
+[sound."U+031A".spec]
+
+[sound."U+031A".tests]
+checks = ["T-release"]
