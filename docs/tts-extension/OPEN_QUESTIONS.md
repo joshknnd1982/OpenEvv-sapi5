@@ -112,7 +112,7 @@ Nothing can be validated by ear until Phase 7 produces review packets. Languages
 
 The fix is a few lines in the accent layer, but it ships only in rebuilt template modules (fourteen files in `languages/`), and it changes what those languages say, for the better. Two ways: **(a)** fix it at once on `main` as a release of its own (1.2.5), in a separate session; **(b)** fix it as the first act of Phase 3 and release it whenever the next release is made. *Recommended default: (b), unless users are already complaining, because (b) costs nothing extra and the proof (the module baseline, the new check, the golden recorded again) is the first work of Phase 3 anyway. Either way nothing is rebuilt without your say-so.*
 
-**Q10. Should the handoff files and the design be pushed to GitHub?** Still local (Q2). *Recommended default, unchanged: after the design is approved, push the `tts-ext/*` branches if you want them backed up; they change nothing in the released product.*
+**Q10. Should the handoff files and the design be pushed to GitHub?** Still local (Q2). *Recommended default, unchanged: after the design is approved, push the `tts-ext/*` branches if you want them backed up; they change nothing in the released product.* **Answered 2026-10-06: yes.** The five branches `tts-ext/phase-0` to `tts-ext/phase-4` were pushed to `origin` as new branches (no force, no tags; `main` untouched). Q2 is answered with it.
 
 ### For Phase 3 (found by reading and measuring in Phase 2; Claude can act on these)
 
