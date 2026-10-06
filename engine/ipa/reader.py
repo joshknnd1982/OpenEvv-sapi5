@@ -24,11 +24,15 @@ import unicodedata
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import table as T  # noqa: E402
 
-# Equal spellings, always: canonically equal input reads the same. NFD would take ç apart into c
-# and a cedilla, which no chart symbol is, so it is put back; `g` is the chart's ɡ.
-ALWAYS = {'g': 'ɡ'}
-# Loose typing, off in strict mode.
-LOOSE = {':': 'ː', "'": 'ˈ', ',': 'ˌ', '!': 'ǃ', '||': '‖', 'ɫ': 'l̴'}
+def _aliases():
+    """ipa/aliases.toml: equal spellings (always) and loose typing (only when not strict)."""
+    import tomli
+    with open(os.path.join(T.IPA, 'aliases.toml'), 'rb') as f:
+        d = tomli.load(f)
+    return d.get('always', {}), d.get('loose', {})
+
+
+ALWAYS, LOOSE = _aliases()
 
 # the order marks are composed in, whatever order they were typed in (DESIGN.md 2.2)
 ORDER = {'place': 0, 'place_shift': 0, 'tongue_part': 0, 'stricture_shift': 1, 'quality_shift': 2,

@@ -145,11 +145,52 @@ def sound_line(name, keys):
     return 'sound %s %s' % (name, ' '.join('%s=%d' % kv for kv in sorted(keys.items())))
 
 
+def map_name(sid):
+    """The name a realised entry has in a map: `u` and its code points, within the 11 bytes a
+    sound id may have (EVV_ID_LEN)."""
+    import hashlib
+    name = 'u' + '_'.join(sid.replace('U+', '').lower().split('+'))
+    return name if len(name) <= 11 else 'u' + hashlib.sha1(sid.encode('ascii')).hexdigest()[:10]
+
+
+def write(t, template):
+    """ipa/realized/<template>.map: every entry with a specification, as this template's lines. A
+    noise target uses the carrier's peak as the entry's proof measured it."""
+    lines = ['# The master table realised for %s (engine/ipa/adapter.py --write). Generated: do not edit.' % template,
+             '# Each entry: its sound line, and its IPA said as the carrier with that sound.', '']
+    n, unrealised = 0, 0
+    for sid, e in sorted(t.sounds.items()):
+        if not e.get('spec') or e.get('kind') != 'base':
+            continue
+        meas = None
+        proof = os.path.join(ROOT, 'ipa', 'proofs', sid + '.json')
+        if os.path.exists(proof):
+            with open(proof, encoding='utf-8') as f:
+                meas = json.load(f).get('carrier_measured')
+        r = realize(t, sid, template, meas)
+        name = map_name(sid)
+        lines.append('%s    # %s %s' % (sound_line(name, r['keys']), sid, e['name']))
+        for u in r['unrealised']:
+            lines.append('#   not realised: %s' % u)
+            unrealised += 1
+        lines.append('%-12s %s=%s' % (e['ipa'], r['carrier'], name))
+        n += 1
+    os.makedirs(os.path.join(ROOT, 'ipa', 'realized'), exist_ok=True)
+    path = os.path.join(ROOT, 'ipa', 'realized', template + '.map')
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(lines) + '\n')
+    print('%s: %d entries realised, %d targets not realised' % (os.path.relpath(path, ROOT), n, unrealised))
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
         return 2
     t = T.load()
+    if sys.argv[1] == '--write':
+        for template in sys.argv[2:] or ['dedx']:
+            write(t, template)
+        return 0
     r = realize(t, sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else 'dedx')
     print(json.dumps(dict(r, line=sound_line('m1', r['keys'])), ensure_ascii=False, indent=1))
     return 0

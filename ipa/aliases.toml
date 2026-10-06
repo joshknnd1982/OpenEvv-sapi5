@@ -1,0 +1,18 @@
+# Spellings the IPA reader takes as another (DESIGN.md 2.4, 3.1). MIT licence.
+#
+# `always`: equal spellings, read the same in every mode. Before these, the text is put in
+# Unicode's canonical decomposition (NFD), and c with a cedilla is put back together as ç, the
+# one chart letter decomposition would break.
+# `loose`: what people type for want of the real character; read only when strict is off (the
+# harness, the pack build and every test are strict, DESIGN.md 2.3).
+
+[always]
+"g" = "ɡ"          # Latin g for the chart's script g (U+0261)
+
+[loose]
+":" = "ː"          # colon for the length mark
+"'" = "ˈ"          # apostrophe for primary stress
+"," = "ˌ"          # comma for secondary stress
+"!" = "ǃ"          # exclamation mark for the (post)alveolar click
+"||" = "‖"         # two bars for the major group
+"ɫ" = "l̴"         # the velarized l letter, which is l with the tilde through it
