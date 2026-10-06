@@ -71,6 +71,7 @@
  */
 
 #include <math.h>
+#include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -357,6 +358,29 @@ static FILE *trace(void)
     return trace_file;
 }
 
+/* Whatever the layer drops, cuts or cannot do is said in the trace, one line
+   each: diag, its level, its kind, what it was, and a count of one. A `loss'
+   is something the markup asked for and did not get; a `note' something
+   done in place of what was asked. Nothing is said without a trace, and what
+   is said changes nothing that is spoken (DESIGN.md C1). */
+static void diag(const char *level, const char *kind, const char *fmt, ...)
+{
+    FILE *f = trace();
+    char detail[160];
+    va_list ap;
+    int i;
+
+    if (f == 0)
+        return;
+    va_start(ap, fmt);
+    vsnprintf(detail, sizeof detail, fmt, ap);
+    va_end(ap);
+    for (i = 0; detail[i] != 0; i++)
+        if (detail[i] == '\t' || detail[i] == '\n')
+            detail[i] = ' ';
+    fprintf(f, "diag\t%s\t%s\t%s\t1\n", level, kind, detail);
+}
+
 /* ---- one to a machine ---------------------------------------------------- */
 
 #define MACHINES 16
@@ -481,16 +505,20 @@ static void tone_defaults(Tone *t)
 /* One word of a group: up to the next space or the brace. */
 static const char *word(const char *p, const char *end, char *out, int room)
 {
-    int n = 0;
+    int n = 0, cut = 0;
 
     while (p < end && (*p == ' ' || *p == '\t'))
         p++;
     while (p < end && *p != ' ' && *p != '\t') {
         if (n + 1 < room)
             out[n++] = *p;
+        else
+            cut = 1;
         p++;
     }
     out[n] = 0;
+    if (cut)
+        diag("loss", "word-cut", "a word of the markup is longer than %d bytes: %s...", room - 1, out);
     return p;
 }
 
@@ -513,6 +541,8 @@ static void name_copy(char *to, const char *from, int room)
         n++;
     }
     to[n] = 0;
+    if (from[n] != 0)
+        diag("loss", "name-cut", "%s cut to %d bytes", from, room - 1);
 }
 
 static int def_find(const Accent *a, const char *id)
@@ -540,17 +570,22 @@ typedef struct {
     size_t      at;
 } Key;
 
-static void keys_set(void *record, const Key *keys, size_t n, const char *w)
+static void keys_set(void *record, const Key *keys, size_t n, const char *w, char group)
 {
     const char *v;
     size_t i;
 
     for (i = 0; i < n; i++) {
         if (key_is(w, keys[i].key, &v)) {
+            const char *d = v + (*v == '-' || *v == '+');
+
+            if (*d < '0' || *d > '9')
+                diag("loss", "value-not-number", "{%c} %s: read as %d", group, w, atoi(v));
             *(int *)((char *)record + keys[i].at) = atoi(v);
             return;
         }
     }
+    diag("loss", "key-unknown", "{%c} %s", group, w);
 }
 
 static void profile_set(Accent *a, const char *p, const char *end)
@@ -604,7 +639,9 @@ static void profile_set(Accent *a, const char *p, const char *end)
             f->own = strcmp(v, "own") == 0;
             continue;
         }
-        keys_set(f, KEYS, sizeof KEYS / sizeof KEYS[0], w);
+        if (key_is(w, "v", &v))
+            continue; /* the markup's version, which is where it begins */
+        keys_set(f, KEYS, sizeof KEYS / sizeof KEYS[0], w, 'A');
     }
     a->on = 1;
 }
@@ -612,6 +649,7 @@ static void profile_set(Accent *a, const char *p, const char *end)
 static void def_set(Accent *a, const char *p, const char *end)
 {
     char w[64];
+    const char *v;
     Def *d;
     int at;
     static const Key KEYS[] = {
@@ -648,8 +686,10 @@ static void def_set(Accent *a, const char *p, const char *end)
         return;
     at = def_find(a, w);
     if (at < 0) {
-        if (a->n_defs >= MAX_DEFS)
+        if (a->n_defs >= MAX_DEFS) {
+            diag("loss", "defs-full", "{D %s}: no room past %d sound definitions", w, MAX_DEFS);
             return;
+        }
         at = a->n_defs++;
     }
     d = &a->defs[at];
@@ -660,7 +700,9 @@ static void def_set(Accent *a, const char *p, const char *end)
         p = word(p, end, w, sizeof w);
         if (w[0] == 0)
             break;
-        keys_set(d, KEYS, sizeof KEYS / sizeof KEYS[0], w);
+        if (key_is(w, "f0", &v) && a->profile.own && atoi(v) != 0)
+            diag("loss", "key-inert", "{D %s} %s: no effect under the layer's own pitch", d->id, w);
+        keys_set(d, KEYS, sizeof KEYS / sizeof KEYS[0], w, 'D');
     }
 }
 
@@ -682,8 +724,10 @@ static void tone_set(Accent *a, const char *p, const char *end)
         return;
     at = tone_find(a, w);
     if (at < 0) {
-        if (a->n_tones >= MAX_TONES)
+        if (a->n_tones >= MAX_TONES) {
+            diag("loss", "tones-full", "{T %s}: no room past %d tones", w, MAX_TONES);
             return;
+        }
         at = a->n_tones++;
     }
     t = &a->tones[at];
@@ -701,12 +745,18 @@ static void tone_set(Accent *a, const char *p, const char *end)
                 long pos = strtol(v, &e, 10);
                 long level;
 
-                if (e == v || *e != ':')
+                if (e == v || *e != ':') {
+                    diag("loss", "tone-points", "{T %s} the point at `%s' is not pos:level; it and the rest are left out",
+                         t->id, v);
                     break;
+                }
                 v = e + 1;
                 level = strtol(v, &e, 10);
-                if (e == v)
+                if (e == v) {
+                    diag("loss", "tone-points", "{T %s} the point at `%s' has no level; it and the rest are left out",
+                         t->id, v);
                     break;
+                }
                 t->p[t->n].pos = (int)pos;
                 t->p[t->n].level = (int)level;
                 t->n++;
@@ -714,9 +764,11 @@ static void tone_set(Accent *a, const char *p, const char *end)
                 if (*v == ',')
                     v++;
             }
+            if (*v != 0 && t->n == MAX_POINTS)
+                diag("loss", "tone-points", "{T %s} more than %d points; `%s' is left out", t->id, MAX_POINTS, v);
             continue;
         }
-        keys_set(t, KEYS, sizeof KEYS / sizeof KEYS[0], w);
+        keys_set(t, KEYS, sizeof KEYS / sizeof KEYS[0], w, 'T');
     }
 }
 
@@ -725,8 +777,10 @@ static void rule_set(Accent *a, const char *p, const char *end, int several)
     char w[64];
     Rule *r;
 
-    if (a->n_rules >= MAX_RULES)
+    if (a->n_rules >= MAX_RULES) {
+        diag("loss", "rules-full", "{%c}: no room past %d rules", several ? 'X' : 'S', MAX_RULES);
         return;
+    }
     p = word(p, end, w, sizeof w);
     if (w[0] == 0)
         return;
@@ -736,12 +790,19 @@ static void rule_set(Accent *a, const char *p, const char *end, int several)
     r->several = several;
     for (;;) {
         p = word(p, end, w, sizeof w);
-        if (w[0] == 0 || r->n >= MAX_PARTS)
+        if (w[0] == 0)
             break;
+        if (r->n >= MAX_PARTS) {
+            diag("loss", "rule-cut", "{%c %s}: more than %d parts; %s and the rest are left out", several ? 'X' : 'S',
+                 r->given, MAX_PARTS, w);
+            break;
+        }
         name_copy(r->said[r->n++], w, NAME_LEN);
     }
     if (r->n > 0)
         a->n_rules++;
+    else
+        diag("loss", "rule-empty", "{%c %s} names nothing it is said as", several ? 'X' : 'S', r->given);
 }
 
 static Expected *queue_more(Accent *a)
@@ -765,8 +826,10 @@ static Expected *queue_more(Accent *a)
                 return &a->queue[a->n_queue++];
         }
         q = (Expected *)realloc(a->queue, (size_t)room * sizeof(Expected));
-        if (q == 0)
+        if (q == 0) {
+            diag("loss", "out-of-memory", "the rest of a word's markup is dropped");
             return 0;
+        }
         a->queue = q;
         a->room = room;
     }
@@ -823,14 +886,21 @@ static void word_set(Accent *a, const char *p, const char *end)
             *mark = 0;
             if (!made) {
                 e->flags |= EX_NUCLEUS;
-                if (strcmp(mark + 1, "-") != 0)
+                if (strcmp(mark + 1, "-") != 0) {
                     e->tone = (int16_t)tone_find(a, mark + 1);
+                    if (e->tone < 0)
+                        diag("loss", "tone-unknown", "{W} %s^%s: no {T} defines it; said with no tone", name,
+                             mark + 1);
+                }
             }
         }
         mark = strchr(name, '=');
         if (mark != 0) {
             *mark = 0;
             e->def = (int16_t)def_find(a, mark + 1);
+            if (e->def < 0)
+                diag("loss", "sound-unknown", "{W} %s=%s: no {D} defines it; the module's own phone is said", name,
+                     mark + 1);
         }
         name_copy(e->name, name, NAME_LEN);
     }
@@ -848,6 +918,8 @@ static void phrase_set(Accent *a, const char *p, const char *end)
     word(p, end, w, sizeof w);
     if (w[0] == 0)
         w[0] = 's';
+    else if (strchr("sqwce", w[0]) == 0 || w[1] != 0)
+        diag("loss", "ending-unknown", "{P %s}: not an ending the layer knows; ended as `%c'", w, w[0]);
 
     for (i = a->n_queue - 1; i >= a->phrase_from && i >= 0; i--) {
         Expected *e = &a->queue[i];
@@ -942,8 +1014,11 @@ char *evv_accent_strip(void *machine, const char *text, uint32_t len,
         if (!begins)
             return 0;
         a = find(machine, 1);
-        if (a == 0)
+        if (a == 0) {
+            diag("loss", "machines-full", "more than %d engines at once: the markup is spoken as text",
+                 MACHINES);
             return 0;
+        }
     }
 
     out = (char *)malloc((size_t)len + 1);
@@ -966,10 +1041,12 @@ char *evv_accent_strip(void *machine, const char *text, uint32_t len,
         }
         close = (const char *)memchr(p, '}', (size_t)(end - p));
         if (close == 0) {
+            diag("loss", "markup-unclosed", "{%c with no closing brace: spoken as text", p[1]);
             *o++ = *p++;
             continue;
         }
         if (!a->on && p[1] != 'A') {
+            diag("loss", "markup-before-accent", "{%c before {A v=1: spoken as text", p[1]);
             *o++ = *p++;
             continue;
         }
@@ -1154,6 +1231,10 @@ void evv_accent_place(void *machine, const char *name,
             p->known = 1;
             p->whole = used;
             p->first = first;
+            for (k = a->next; k < at; k++)
+                if (!(a->queue[k].flags & EX_MADE))
+                    diag("loss", "phone-unsounded", "%s asked for; the module said %s after it", a->queue[k].name,
+                         p->name);
             /* What is made here out of this phone: whatever was written
                straight before it to come before, and straight after it to
                come after. */
@@ -1272,8 +1353,11 @@ static void line_clear(Accent *a)
 
 static void line_add(Accent *a, double ms, double st)
 {
-    if (a->n_line >= MAX_POINTS + 2)
+    if (a->n_line >= MAX_POINTS + 2) {
+        diag("loss", "pitch-points-full", "more than %d pitch targets in a stretch; the rest are dropped",
+             MAX_POINTS + 2);
         return;
+    }
     if (a->n_line > 0 && ms < a->line[a->n_line - 1][0])
         ms = a->line[a->n_line - 1][0];
     a->line[a->n_line][0] = ms;
@@ -2574,6 +2658,8 @@ int evv_accent_run(void *machine, int32_t from, int32_t to, int32_t first,
         if (a->n_line_up == LINE_UP) {
             /* More phones asked for than frames have come for: the oldest
                is worked on with what there is. */
+            diag("note", "line-up-full", "more than %d phones before their frames; the oldest is worked on early",
+                 LINE_UP);
             if (!work_one(a, step, 0, emit, context))
                 return 0;
         }

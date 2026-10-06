@@ -251,13 +251,17 @@ def run_pack(tag, limit=None, jobs=2, skip_from=None):
                 rendered += E.render(tag, [c], jobs=1, work=os.path.join(E.WORK, 'golden', tag))
             except Exception as e:      # whatever it is, it is this case's, and it is reported
                 errors[c[0]] = '%s: %s' % (type(e).__name__, e)
+    diag = {}       # C1: what the front-end and the accent layer reported, over all the cases
     for r in rendered:
+        for d in r.get('diag', []):
+            k = '	'.join((d['source'], d['level'], d['kind'], d['detail']))
+            diag[k] = diag.get(k, 0) + d['count']
         try:
             out[r['id']] = measure_case(r, p.phone_module)
         except Exception as e:     # a measurement bug must not pass for a clean run
             errors[r['id']] = 'measuring failed: %r' % e
     return dict(tag=tag, kind=p.kind, module=p.module_tag, phone_module=p.phone_module, preset=1, bits=64,
-                cases=out, errors=errors, not_covered=uncovered, seconds=round(time.time() - t0, 1))
+                cases=out, errors=errors, not_covered=uncovered, seconds=round(time.time() - t0, 1), diag=diag)
 
 
 def _close(a, b, key):
@@ -373,6 +377,15 @@ def main():
             results[r['tag']] = r
             print('%-8s %3d cases %2d errors %2d not covered %6.1f s' % (r['tag'], len(r['cases']), len(r['errors']),
                                                                     len(r.get('not_covered', [])), r['seconds']), flush=True)
+    # C1: the count of what was reported lost on the way, beside the golden, never inside it
+    if not a.tags and not a.only_missing_from and not getattr(a, 'smoke', False):
+        out = os.path.join(HERE, 'results', 'diag-golden%s.json' % ('-staged' if E.STAGE else ''))
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        with open(out, 'w', encoding='utf-8', newline='\n') as f:
+            json.dump({t: r.pop('diag', {}) for t, r in sorted(results.items())}, f, ensure_ascii=False, indent=1,
+                      sort_keys=True)
+    for r in results.values():
+        r.pop('diag', None)
     fails = notes = 0
     if a.record:
         os.makedirs(GOLDEN, exist_ok=True)
