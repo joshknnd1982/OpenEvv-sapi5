@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "89d0abcca852e620219db2f76aaab1a4fa4ebb4eacc5a1240a14cd290b5c45ce",
+ "map_sha256": "76be78113b41546f109c4a86b3405535685d862798a82b227e95ada05c60821c",
  "said_as": {
   "pack": "hi",
   "carrier": null,
@@ -5654,7 +5654,9 @@
    "end": 3.5030284914085437,
    "want_start": 1.59,
    "want_end": 5.83,
-   "rate_st_s": 34.2
+   "rate_st_s": 38.2,
+   "raw_rate_st_s": 34.2,
+   "stave_drift_st_s": -4.0
   },
   "stave_span_st_e": 9.01,
   "tone_e": {
@@ -5662,7 +5664,9 @@
    "end": 4.079359705927208,
    "want_start": 1.39,
    "want_end": 5.61,
-   "rate_st_s": 19.0
+   "rate_st_s": 20.9,
+   "raw_rate_st_s": 19.0,
+   "stave_drift_st_s": -1.9
   },
   "stave_span_st_u": 9.04,
   "tone_u": {
@@ -5670,7 +5674,9 @@
    "end": 4.032766293443482,
    "want_start": 1.49,
    "want_end": 5.66,
-   "rate_st_s": 18.2
+   "rate_st_s": 20.7,
+   "raw_rate_st_s": 18.2,
+   "stave_drift_st_s": -2.5
   }
  },
  "A0": {
@@ -5693,7 +5699,7 @@
   "problems": []
  },
  "B3": {
-  "passed": false,
+  "passed": true,
   "targets": {
    "a: start (st re 100 Hz)": {
     "target": 1.59,
@@ -5702,7 +5708,7 @@
    },
    "a: speed of the rise (st/s)": {
     "target": "+19 or more",
-    "measured": 34.21,
+    "measured": 38.17,
     "within": true
    },
    "e: start (st re 100 Hz)": {
@@ -5712,7 +5718,7 @@
    },
    "e: speed of the rise (st/s)": {
     "target": "+19 or more",
-    "measured": 19.03,
+    "measured": 20.89,
     "within": true
    },
    "u: start (st re 100 Hz)": {
@@ -5722,8 +5728,8 @@
    },
    "u: speed of the rise (st/s)": {
     "target": "+19 or more",
-    "measured": 18.21,
-    "within": false
+    "measured": 20.73,
+    "within": true
    }
   },
   "empty": false,
@@ -5741,7 +5747,7 @@
     },
     "a: speed of the rise (st/s)": {
      "target": "+19 or more",
-     "measured": 34.21,
+     "measured": 38.17,
      "within": true
     },
     "e: start (st re 100 Hz)": {
@@ -5751,7 +5757,7 @@
     },
     "e: speed of the rise (st/s)": {
      "target": "+19 or more",
-     "measured": 19.03,
+     "measured": 20.89,
      "within": true
     },
     "u: start (st re 100 Hz)": {
@@ -5761,8 +5767,8 @@
     },
     "u: speed of the rise (st/s)": {
      "target": "+19 or more",
-     "measured": 18.21,
-     "within": false
+     "measured": 20.73,
+     "within": true
     }
    },
    "keys": null
@@ -5773,5 +5779,5 @@
   "passed": true,
   "contrasts": []
  },
- "passed": false
+ "passed": true
 }

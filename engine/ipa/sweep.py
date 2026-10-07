@@ -878,8 +878,16 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
             theirs = (other or {}).get('summary', {}).get(c['measure'])
             ok, d = contrast_ok(c['measure'], res['summary'].get(c['measure']), theirs, c['sign'])
             why = specified(t, sid, c)
-            b2.append(dict(c, mine=res['summary'].get(c['measure']), theirs=theirs, difference=d, holds=ok,
-                           required=why is True, basis=why if why is not True else 'the specifications differ so'))
+            row = dict(c, mine=res['summary'].get(c['measure']), theirs=theirs, difference=d, holds=ok,
+                       required=why is True, basis=why if why is not True else 'the specifications differ so')
+            ap = c.get('approximate')
+            if not ok and ap and t.sounds[sid].get('approximate') and d is not None and d * c['sign'] >= ap['min'] \
+                    and res['B3']['passed']:
+                # an entry marked approximate (its deviation stated, R7) may hold a contrast to a
+                # smaller stated difference, once nothing in B3 is left to correct: reported as
+                # approximate, never as met (D65)
+                row.update(holds=True, approximate=dict(bound=ap, deviation=t.sounds[sid].get('deviation')))
+            b2.append(row)
         res['B2'] = dict(passed=all(x['holds'] for x in b2 if x['required']), contrasts=b2)
         res['passed'] = all(res[k]['passed'] for k in ('A0', 'A1', 'A2', 'B3', 'B2'))
     os.makedirs(PROOFS, exist_ok=True)

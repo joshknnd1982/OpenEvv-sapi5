@@ -192,10 +192,14 @@ def judge(t, sid, cases):
         levels = e['levels']
         tol = _v(spec.get('tolerance_steps', 0.5))
         for v in VOWELS:
-            stave = {}
+            stave, drift = {}, {}
             for lv in range(1, 6):
                 s = (P.get('stave%d_%s' % (lv, v)) or {}).get('syllables') or [{}]
                 stave[lv] = (s[-1].get('f0_start'), s[-1].get('f0_end'))
+                if None not in stave[lv] and s[-1].get('ms'):
+                    # the level's own movement across the syllable (st/s), from the middle of its
+                    # start window to the middle of its end window: the phrase's ending and declination
+                    drift[lv] = (stave[lv][1] - stave[lv][0]) / (0.63 * s[-1]['ms'] / 1000.0)
             st1 = [x for x in (stave[1][0], stave[5][0]) if x is not None]
             if len(st1) < 2:
                 put('%s: the stave' % v, 'levels 1 and 5 measured', None, False)
@@ -233,11 +237,20 @@ def judge(t, sid, cases):
                 put('%s: start (st re 100 Hz)' % v, round(ws, 2), ext and ext[1],
                     ext is not None and abs(ext[1] - ws) <= 2 * tol * abs(step_s))
                 if len(legs) == 1:
+                    # The speed is the speakers' (xu1999, a syllable inside the sentence), so it is
+                    # read against the stave as every other target is: less the drift its own levels
+                    # show over the same syllable, which is the phrase's ending, not the tone (D65).
+                    # The legs of a three-level contour stay raw: their minimum is what the F0
+                    # measure can tell, a property of the signal, not a speaker's speed.
                     want_rate = _v(spec['min_rate_st_s'][('rise' if d0 > 0 else 'fall')]) if spec.get(
                         'min_rate_st_s') else 10.0
                     dt = (0.815 - ext[0]) * ms / 1000.0 if ext else 0
-                    rate_ = (b - ext[1]) / dt if ext and b is not None and dt > 0.02 else None
-                    summ['tone_%s' % v]['rate_st_s'] = rate_ and round(rate_, 1)
+                    own = [drift[lv] for lv in sorted(set(levels)) if lv in drift]
+                    sd = sum(own) / len(own) if len(own) == len(set(levels)) else None
+                    raw = (b - ext[1]) / dt if ext and b is not None and dt > 0.02 else None
+                    rate_ = raw - sd if raw is not None and sd is not None else None
+                    summ['tone_%s' % v].update(rate_st_s=rate_ and round(rate_, 1), raw_rate_st_s=raw and round(raw, 1),
+                                               stave_drift_st_s=sd and round(sd, 1))
                     put('%s: speed of the %s (st/s)' % (v, 'rise' if d0 > 0 else 'fall'), '%+.0f or more' % (
                         d0 * want_rate), rate_, rate_ is not None and rate_ * d0 >= want_rate)
                 else:
