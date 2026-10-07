@@ -227,7 +227,8 @@ def judge(t, sid, cases):
                 # A contour is a movement with a speed (xu1999): from where the first leg turns (the
                 # extreme of the first half: a fall's peak, a rise's trough, which real speech reaches
                 # late) to the end window, in the direction the levels say, at least the speed the
-                # specification asks. A three-level contour: each leg in its direction.
+                # specification asks. A three-level contour: each leg in its direction. Both read against the
+                # stave (D65).
                 tr = s.get('track') or []
                 ms = s.get('ms') or 0
                 legs = list(zip(levels[:-1], levels[1:]))
@@ -240,8 +241,6 @@ def judge(t, sid, cases):
                     # The speed is the speakers' (xu1999, a syllable inside the sentence), so it is
                     # read against the stave as every other target is: less the drift its own levels
                     # show over the same syllable, which is the phrase's ending, not the tone (D65).
-                    # The legs of a three-level contour stay raw: their minimum is what the F0
-                    # measure can tell, a property of the signal, not a speaker's speed.
                     want_rate = _v(spec['min_rate_st_s'][('rise' if d0 > 0 else 'fall')]) if spec.get(
                         'min_rate_st_s') else 10.0
                     dt = (0.815 - ext[0]) * ms / 1000.0 if ext else 0
@@ -259,6 +258,19 @@ def judge(t, sid, cases):
                     turn = max(mid, key=lambda p: p[1] * d1 * -1) if mid else None
                     l1 = None if not (ext and turn) else turn[1] - ext[1]
                     l2 = None if not (turn and b is not None) else b - turn[1]
+                    summ['tone_%s' % v]['raw_legs_st'] = [l1, l2]
+                    # each leg less the drift its own two levels show on the stave over the leg's
+                    # time, as the speed is (D65, the review's finding 1)
+                    for n_, (lv0, lv1) in enumerate(legs):
+                        dl = [drift[x] for x in (lv0, lv1) if x in drift]
+                        span_r = (turn[0] - ext[0]) if n_ == 0 and ext and turn else (
+                            (0.815 - turn[0]) if n_ == 1 and turn else None)
+                        if len(dl) < 2 or span_r is None:
+                            l1, l2 = (None, l2) if n_ == 0 else (l1, None)
+                        elif n_ == 0 and l1 is not None:
+                            l1 -= sum(dl) / 2.0 * span_r * ms / 1000.0
+                        elif n_ == 1 and l2 is not None:
+                            l2 -= sum(dl) / 2.0 * span_r * ms / 1000.0
                     summ['tone_%s' % v]['legs_st'] = [l1, l2]
                     for name, leg, d in (('first', l1, d0), ('second', l2, d1)):
                         put('%s: %s leg (st)' % (v, name), '%s at least %.1f' % ('+' if d > 0 else '-', _v(spec.get('legs_min_st', 0.5))),

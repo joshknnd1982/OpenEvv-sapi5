@@ -5662,9 +5662,13 @@
    "end": 1.6773285274492402,
    "want_start": 1.59,
    "want_end": -0.92,
-   "legs_st": [
+   "raw_legs_st": [
     0.5,
     -0.5326714725507598
+   ],
+   "legs_st": [
+    0.6693314576076475,
+    -0.44231790571878005
    ]
   },
   "stave_span_st_e": 9.01,
@@ -5673,9 +5677,13 @@
    "end": 1.5645262286785606,
    "want_start": 1.39,
    "want_end": -1.13,
-   "legs_st": [
+   "raw_legs_st": [
     1.0899999999999999,
     -1.1954737713214392
+   ],
+   "legs_st": [
+    1.1958820293384662,
+    -1.0620413236673754
    ]
   },
   "stave_span_st_u": 9.04,
@@ -5684,9 +5692,13 @@
    "end": 1.5509191928177657,
    "want_start": 1.49,
    "want_end": -1.12,
-   "legs_st": [
+   "raw_legs_st": [
     1.14,
     -1.1790808071822343
+   ],
+   "legs_st": [
+    1.3609520268325774,
+    -1.0619285091877992
    ]
   }
  },
@@ -5710,7 +5722,7 @@
   "problems": []
  },
  "B3": {
-  "passed": true,
+  "passed": false,
   "targets": {
    "a: start (st re 100 Hz)": {
     "target": 1.59,
@@ -5719,13 +5731,13 @@
    },
    "a: first leg (st)": {
     "target": "+ at least 0.5",
-    "measured": 0.5,
+    "measured": 0.67,
     "within": true
    },
    "a: second leg (st)": {
     "target": "- at least 0.5",
-    "measured": -0.53,
-    "within": true
+    "measured": -0.44,
+    "within": false
    },
    "e: start (st re 100 Hz)": {
     "target": 1.39,
@@ -5734,12 +5746,12 @@
    },
    "e: first leg (st)": {
     "target": "+ at least 0.5",
-    "measured": 1.09,
+    "measured": 1.2,
     "within": true
    },
    "e: second leg (st)": {
     "target": "- at least 0.5",
-    "measured": -1.2,
+    "measured": -1.06,
     "within": true
    },
    "u: start (st re 100 Hz)": {
@@ -5749,12 +5761,12 @@
    },
    "u: first leg (st)": {
     "target": "+ at least 0.5",
-    "measured": 1.14,
+    "measured": 1.36,
     "within": true
    },
    "u: second leg (st)": {
     "target": "- at least 0.5",
-    "measured": -1.18,
+    "measured": -1.06,
     "within": true
    }
   },
@@ -5773,13 +5785,13 @@
     },
     "a: first leg (st)": {
      "target": "+ at least 0.5",
-     "measured": 0.5,
+     "measured": 0.67,
      "within": true
     },
     "a: second leg (st)": {
      "target": "- at least 0.5",
-     "measured": -0.53,
-     "within": true
+     "measured": -0.44,
+     "within": false
     },
     "e: start (st re 100 Hz)": {
      "target": 1.39,
@@ -5788,12 +5800,12 @@
     },
     "e: first leg (st)": {
      "target": "+ at least 0.5",
-     "measured": 1.09,
+     "measured": 1.2,
      "within": true
     },
     "e: second leg (st)": {
      "target": "- at least 0.5",
-     "measured": -1.2,
+     "measured": -1.06,
      "within": true
     },
     "u: start (st re 100 Hz)": {
@@ -5803,12 +5815,12 @@
     },
     "u: first leg (st)": {
      "target": "+ at least 0.5",
-     "measured": 1.14,
+     "measured": 1.36,
      "within": true
     },
     "u: second leg (st)": {
      "target": "- at least 0.5",
-     "measured": -1.18,
+     "measured": -1.06,
      "within": true
     }
    },
@@ -5820,5 +5832,5 @@
   "passed": true,
   "contrasts": []
  },
- "passed": true
+ "passed": false
 }

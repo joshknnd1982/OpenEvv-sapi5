@@ -260,18 +260,17 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "uvular", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
-state = "created"
-level = 2
-approximate = true
+state = "MISSING"
+level = 1
+approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
-deviation = "before [a] the vowel's F2 does not fall towards the uvular: the accent layer bends a vowel's end by multiplying its own frames by the consonant's ratios (`ant`, D64), and on [a]'s high F1 (about 800 Hz near the boundary) the uvular F1 raise (1.22, from gallagher2014's high vowels, 410 to 507 Hz; the source has no /a/) takes F1 to about 975 Hz, where the formant-order clamp (F2 at least F1 + 200) lifts F2 back up (frames: 1174 Hz before ɢ, 1097 before ɡ). The edge F2 is 32 Hz under ɡ's (median context [a]), not the 49 a contrast between contexts needs; before and after [i] it is 116 Hz under, and after [a] 52 under; in [u] the two are equal, as gallagher2014 finds for back vowels (no F2 difference). A fix needs `ant` to bend towards the consonant's own frames, not by its ratios (D65, Q20)"
 
 [sound."U+0262".spec]
 locus = { F1 = { v = 372, tag = "estimated", rule = "1.24 x 300 Hz: the F1 at a vowel's onset after a uvular stop (q's value; voicing does not move the place) is 1.24 times that after a velar in gallagher2014 Table 5 (isolation words, onset: front 507 / 410 = 1.237, back 536 / 432 = 1.241; 9 F + 2 M, so the ratio is taken, not the hertz); 300 Hz, a velar's F1 at the closure, is this voice's (the module's k), not a measured male value", note = "D64; the checklist's uvular cue: raised F1, lowered F2 in the transitions" }, F2 = { v = 929, tag = "estimated", note = "Set equal to the q value (929 Hz, derived from stoakes2013 and gallagher2014): voicing does not move the place; no value for ɢ was found in any opened source." } }
 
 [sound."U+0262".tests]
 checks = ["T-stop", "T-contrast"]
-contrast = [{ with = "U+0071", measure = "voiced_frac", sign = 1 }, { with = "U+0261", measure = "edge_F2", sign = -1, approximate = { min = 18.3, rule = "the least difference the harness tells when both sounds are said in the same contexts (1.5 per cent of ɡ's 1221 Hz, at least 15 Hz: the same-context minimum of contrast_ok), as approximate, never as met (D65)" } }, { with = "U+0261", measure = "edge_F1", sign = 1 }]
+contrast = [{ with = "U+0071", measure = "voiced_frac", sign = 1 }, { with = "U+0261", measure = "edge_F2", sign = -1 }, { with = "U+0261", measure = "edge_F1", sign = 1 }]
 proof = "ipa/proofs/U+0262.json"
 
 [sound."U+0294"]
