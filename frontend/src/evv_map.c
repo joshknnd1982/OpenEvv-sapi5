@@ -476,8 +476,12 @@ const EvvToneMark *evv_map_tonemark(const EvvMap *map, const char *ch, size_t le
 }
 
 /* A tone made for typed IPA: its points spread evenly over the nucleus, in
-   tenths of a Chao level, moved by the register and the slope. Kept as a
-   tone definition like a map's own, and found again by what it says. */
+   tenths of a Chao level, moved by the register and the slope. A contour's
+   last level is planned at four fifths of the nucleus, not its end: the
+   voice follows the plan through the accent layer's filter, which trails a
+   movement by 44 ms where the plan is brought forward by 20, and on a short
+   nucleus the last level was never reached (D66). Kept as a tone definition
+   like a map's own, and found again by what it says. */
 const char *evv_map_ipa_tone(EvvMap *map, const int *levels, int n, int from, int to)
 {
 	char body[160];
@@ -486,8 +490,11 @@ const char *evv_map_ipa_tone(EvvMap *map, const int *levels, int n, int from, in
 	at += (size_t)snprintf(body + at, sizeof(body) - at, "p=");
 	for (int i = 0; i < pts && at < sizeof(body); i++) {
 		int lv = levels[n == 1 ? 0 : i];
-		int pos = i * 100 / (pts - 1);
-		int off = from + (to - from) * pos / 100;
+		int along = i * 100 / (pts - 1);
+		/* the register and the slope move the point by where it stands in
+		   the syllable, not by when it is planned */
+		int off = from + (to - from) * along / 100;
+		int pos = n > 1 && i == pts - 1 ? 80 : along;
 		int v = lv * 10 + off;
 		if (v < 0 || v > 60) {
 			evv_diag(EVV_DIAG_LOSS, "tone-clamped", "level %d moved by %d tenths is off the voice; held at its edge",
@@ -1497,6 +1504,10 @@ static size_t annotate(const EvvWord *w, const EvvMap *map, char *out, size_t ro
 			    !evv_map_is_vowel(map, w->ph[real[b - 1]].phone))
 				s = b - 1;
 		}
+		/* one segment said as two phones (a double articulation) begins
+		   its syllable whole */
+		while (s > a && s <= b && w->ph[real[s]].glue)
+			s--;
 		/* a vowel that is not a nucleus stays with the syllable before it */
 		for (int i = a; i <= b; i++)
 			if (evv_map_is_vowel(map, w->ph[real[i]].phone) && s <= i)

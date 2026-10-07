@@ -270,7 +270,7 @@ locus = { F1 = { v = 372, tag = "estimated", rule = "1.24 x 300 Hz: the F1 at a 
 
 [sound."U+0262".tests]
 checks = ["T-stop", "T-contrast"]
-contrast = [{ with = "U+0071", measure = "voiced_frac", sign = 1 }, { with = "U+0261", measure = "edge_F2", sign = -1 }, { with = "U+0261", measure = "edge_F1", sign = 1 }]
+contrast = [{ with = "U+0071", measure = "voiced_frac", sign = 1 }, { with = "U+0261", measure = "edge_F2", sign = -1, approximate = { min = 18.3, rule = "the least difference the harness tells when both sounds are said in the same contexts (1.5 per cent of ɡ's 1220 Hz, at least 15 Hz: the same-context minimum of contrast_ok), as approximate, never as met (D65, D66)" } }, { with = "U+0261", measure = "edge_F1", sign = 1 }]
 proof = "ipa/proofs/U+0262.json"
 
 [sound."U+0294"]

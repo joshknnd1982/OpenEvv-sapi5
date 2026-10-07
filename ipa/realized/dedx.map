@@ -225,11 +225,23 @@ p͜f          P
 t͜s          T
 t͜ʃ          C
 
+# double articulations, two phones under one closure (͜ U+035C)
+sound u93dcd560a2 ant=50 f2=64 hold=40 noburst=1 vot=0    # U+006B, part 1 of k͡p
+sound u65d3e6ec41 ant=50 f2=105 hold=70 vot=22    # U+0070, part 2 of k͡p
+k͜p          k=u93dcd560a2 p=u65d3e6ec41
+sound u1f03dedb4a ant=50 f2=64 hold=40 noburst=1    # U+0261, part 1 of ɡ͡b
+sound udd0ba12375 ant=50 f2=86 hold=60    # U+0062, part 2 of ɡ͡b
+ɡ͜b          g=u1f03dedb4a b=udd0ba12375
+
 # tied pairs said as one phone of the module (͡ U+0361)
 d͡ʒ          J
 p͡f          P
 t͡s          T
 t͡ʃ          C
+
+# double articulations, two phones under one closure (͡ U+0361)
+k͡p          k=u93dcd560a2 p=u65d3e6ec41
+ɡ͡b          g=u1f03dedb4a b=udd0ba12375
 
 # composition when speaking (C4): read only by a map with `version 2`
 version 2

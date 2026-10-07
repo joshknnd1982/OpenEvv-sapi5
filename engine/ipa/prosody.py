@@ -12,6 +12,9 @@ T-syllable  a syllable break: the syllable begins where it is typed, and the sig
             other division
 T-sequence  a tie bar: the tied pair is one segment (no loss reported, said as one phone where the template
             has one), shorter than the untied pair, its friction shorter than the plain fricative's
+T-double    a double articulation joined by a tie bar (k͡p): one segment with one closure and one release,
+            its closure against the second stop's alone, the vowel before nearer the first stop's F2 and
+            the vowel after beginning lower than after the second (4g, D66)
 
 Each check compares two renders of the same text but for the mark, so the voice's own pitch and timing
 cancel; its numbers are the entry's specification (`spec`), each with its provenance.
@@ -27,7 +30,7 @@ import analysis as A  # noqa: E402
 
 # not [i]: its F1 (217 Hz on this voice) sits on the second harmonic, where the trackers fail (D15)
 VOWELS = ('a', 'e', 'u')
-CHECKS = ('T-tone', 'T-register', 'T-slope', 'T-stress', 'T-boundary', 'T-syllable', 'T-sequence')
+CHECKS = ('T-tone', 'T-register', 'T-slope', 'T-stress', 'T-boundary', 'T-syllable', 'T-sequence', 'T-double')
 MIN_MS = 8.0     # the contrast minimum of sweep.py for a time
 MIN_ST = 1.0     # a pitch difference that counts: about a third of a Chao step on a 9-semitone stave
 
@@ -105,6 +108,13 @@ def contexts(t, sid):
                 out.append(('tied_%s_%s' % (untied, v), 'ˈ%s%s%s' % (v, tied, v)))
                 out.append(('untied_%s_%s' % (untied, v), 'ˈ%s%s%s' % (v, untied, v)))
                 out.append(('fric_%s_%s' % (untied, v), 'ˈ%s%s%s' % (v, fric, v)))
+    if 'T-double' in (e.get('tests') or {}).get('checks', []):
+        # a double articulation: tied, untied, and each of its two stops alone, in the same contexts
+        for pair in (e.get('tests') or {}).get('doubles', []):
+            one, two = pair.split('͡')
+            for v in VOWELS:
+                for k, s in (('dbl', pair.replace('͡', x)), ('dblu', one + two), ('dbl1', one), ('dbl2', two)):
+                    out.append(('%s_%s%s_%s' % (k, one, two, v), 'ˈ%s%s%s' % (v, s, v)))
     return out
 
 
@@ -134,7 +144,7 @@ def _median(xs):
     return None if not n else (xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2.0)
 
 
-def measure(x, rate, phones, frames=None):
+def measure(x, rate, phones, frames=None, stops=False):
     """Per syllable nucleus (each vowel phone): its time, length, level, and F0 at its start, middle
     and end (semitones re 100 Hz: the medians of its first, middle and last 30 per cent); the pauses
     inside the text; the said string's syllables are the front-end's business (`said')."""
@@ -168,8 +178,46 @@ def measure(x, rate, phones, frames=None):
                         track=[(round(0.05 + 0.9 * r, 3), round(v, 2)) for r, v in tr]))
     cons = [dict(i=i, name=ph['name'], ms=ph['end_ms'] - ph['start_ms']) for i, ph in enumerate(phones)
             if ph['cls'] not in ('silence', 'vowel')]
-    return dict(syllables=syl, pauses=pauses, consonants=cons,
-                span_ms=(phones[last]['end_ms'] - phones[first]['start_ms']) if sounding else 0)
+    out = dict(syllables=syl, pauses=pauses, consonants=cons,
+               span_ms=(phones[last]['end_ms'] - phones[first]['start_ms']) if sounding else 0)
+    if stops and frames is not None and len(syl) >= 2:
+        out['stops'] = stop_span(x, rate, phones, frames, syl[0]['i'], syl[1]['i'])
+    return out
+
+
+def stop_span(x, rate, phones, frames, iv1, iv2):
+    """T-double: the consonants between two vowels as one stretch. Its closure (the quiet part before
+    the burst, A.stop_timing), how many releases it has (rises of the energy above 1.5 kHz by 12 dB or
+    more over the stretch's quietest, each with 5 ms or more under 6 dB over it since the last one, in
+    all, not in a row: a voice bar keeps a voiced closure above that line for most of its length), and the F2 at the
+    vowels' edges as the sweep reads a locus: 12 ms from the end of the vowel before over 20 ms, and
+    12 ms after the voice begins in the vowel after."""
+    import numpy as np
+    from scipy import signal
+    import engine as E
+    a, b = phones[iv1]['end_ms'], phones[iv2]['start_ms']
+    if b - a < 10:
+        return None
+    st = A.stop_timing(x, rate, a, b) or {}
+    y = A._seg(x, rate, a, b + 10.0)
+    hp = signal.sosfilt(signal.butter(4, 1500.0 / (rate / 2.0), 'high', output='sos'), y)
+    hop = max(1, int(round(rate / 1000.0)))
+    db = 10 * np.log10(np.array([np.mean(hp[i * hop:(i + 1) * hop] ** 2) for i in range(len(hp) // hop)]) + 1e-12)
+    floor = float(np.sort(db)[:max(1, len(db) // 5)].mean())
+    releases, low = 0, 0
+    for d in db:
+        if d < floor + 6:
+            low += 1
+        elif d >= floor + 12 and low >= 5:
+            releases += 1
+            low = 0
+    tt = E.frame_times(frames)
+    von = next((tt[j] for j in range(len(tt)) if phones[iv2]['start_ms'] <= tt[j] < phones[iv2]['end_ms']
+                and frames[j, E.P['av']] > 0), phones[iv2]['start_ms'])
+    f_prev = A.formants(x, rate, a - 12.0, win_ms=20.0)
+    f_next = A.formants(x, rate, von + 12.0, win_ms=20.0)
+    return dict(ms=b - a, closure_ms=st.get('closure_ms'), vot_ms=st.get('vot_ms'), releases=releases,
+                prev_F2=f_prev[1][0] if len(f_prev) >= 2 else None, next_F2=f_next[1][0] if len(f_next) >= 2 else None)
 
 
 def _tgt(name, target, measured, ok, **kw):
@@ -399,5 +447,48 @@ def judge(t, sid, cases):
                                                                        plain_fricative=ff)
     else:
         put('no check', chk, None, False)
+    if 'T-double' in (e.get('tests') or {}).get('checks', []):
+        # a double articulation (4g): one segment with one closure and one release; its closure longer
+        # than the second stop's alone, within the ratio the specification gives, and shorter than the
+        # untied pair; the vowel before nearer the first stop's F2 (connell_1991: most often velar-like),
+        # the vowel after beginning lower than after the second stop (connell_1991; burns_shaw_2023 Table 1b);
+        # the vowel before is the first stop's by construction (its part carries the first stop's keys)
+        lo = _v(spec.get('double_closure_ratio_min', 1.0))
+        hi = _v(spec.get('double_closure_ratio_max', 1.3))
+        for pair in (e.get('tests') or {}).get('doubles', []):
+            one, two = pair.split('͡')
+            near_in, ratios = [], []
+            for v in VOWELS:
+                key = '%s%s_%s' % (one, two, v)
+                ct = cases.get('dbl_' + key)
+                if ct is None:
+                    continue
+                s_t, s_u, s_1, s_2 = ((P.get('%s_%s' % (k, key)) or {}).get('stops') or {}
+                                      for k in ('dbl', 'dblu', 'dbl1', 'dbl2'))
+                lost = [d for d in ct['diag'] + ct.get('fe_diag', []) if d['level'] == 'loss']
+                put('%s %s: one segment, nothing lost' % (pair, v), 'no loss', len(lost), not lost)
+                put('%s %s: one release' % (pair, v), 1, s_t.get('releases'), s_t.get('releases') == 1)
+                c_t, c_2, u_ms, t_ms = s_t.get('closure_ms'), s_2.get('closure_ms'), s_u.get('ms'), s_t.get('ms')
+                put('%s %s: shorter than the untied pair (ms)' % (pair, v), '< %s' % u_ms, t_ms,
+                    None not in (t_ms, u_ms) and t_ms < u_ms)
+                if None not in (c_t, c_2) and c_2 > 0:
+                    ratios.append(c_t / c_2)
+                p_t, p_1, p_2 = s_t.get('prev_F2'), s_1.get('prev_F2'), s_2.get('prev_F2')
+                n_t, n_2 = s_t.get('next_F2'), s_2.get('next_F2')
+                if None not in (p_t, p_1, p_2):
+                    near_in.append(abs(p_t - p_1) < abs(p_t - p_2))
+                # lower than the plain second stop's by what the harness tells in the same context
+                # (sweep.contrast_ok's 1.5 per cent, at least 15 Hz): the cited cue is a lower locus
+                need = max(0.015 * n_2, 15.0) if n_2 is not None else None
+                put('%s %s: the vowel after begins lower than after %s (F2 Hz)' % (pair, v, two),
+                    '<= %s' % (n_2 and round(n_2 - need)), n_t, None not in (n_t, n_2) and n_2 - n_t >= need)
+                summ.setdefault('double', {})[key] = dict(
+                    closure_ms=c_t, plain_closure_ms=c_2, ms=t_ms, untied_ms=u_ms, releases=s_t.get('releases'),
+                    vot_ms=s_t.get('vot_ms'), prev_F2=[p_t, p_1, p_2], next_F2=[n_t, s_1.get('next_F2'), n_2])
+            r = _median(ratios)
+            put('%s: closure against the plain %s\'s (median ratio)' % (pair, two), '%.2f to %.2f' % (lo, hi), r,
+                r is not None and lo <= r <= hi)
+            put('%s: the vowel before nearer the %s\'s F2 (contexts)' % (pair, one), 'most of %d' % len(near_in),
+                sum(near_in), bool(near_in) and sum(near_in) * 2 > len(near_in))
     return dict(passed=bool(out) and all(o['within'] for o in out.values()), targets=out, empty=not spec,
                 unchecked=not out), summ

@@ -206,6 +206,19 @@ def validate(t):
         # the implosive switch): each with its provenance like any value
         for k, v in (ov.get('keys') or {}).items():
             _check_value(sid, 'keys.' + k, v, t, problems, estimated)
+        # a double articulation's keys added to each of its two stops (4g)
+        for tmpl, pairs in (ov.get('double') or {}).items():
+            for pair, how in pairs.items():
+                if len(pair.split('͡')) != 2 or len(how.get('add') or []) != 2:
+                    problems.append('%s double.%s.%s: two stops joined by ͡ and keys for each' % (sid, tmpl, pair))
+                    continue
+                bases = {x['ipa'] for x in t.sounds.values() if x.get('kind') == 'base'}
+                for letter in pair.split('͡'):
+                    if letter not in bases:
+                        problems.append('%s double.%s.%s: %s is not a letter of the table' % (sid, tmpl, pair, letter))
+                for n, add in enumerate(how['add']):
+                    for k, v in (add or {}).items():
+                        _check_value(sid, 'double.%s.%s.%d.%s' % (tmpl, pair, n + 1, k), v, t, problems, estimated)
     return problems, estimated
 
 

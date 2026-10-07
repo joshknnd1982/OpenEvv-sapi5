@@ -476,6 +476,7 @@ def write(t, template, quiet=False):
         n += 1
     # tied pairs (DESIGN.md 2.4): an affricate the template has is one segment, said as its phone;
     # the tie below says the same as the tie above
+    made = set()
     for sid, e in sorted(t.sounds.items()):
         if e.get('kind') != 'tie':
             continue
@@ -485,6 +486,30 @@ def write(t, template, quiet=False):
             lines += ['', '# tied pairs said as one phone of the module (%s %s)' % (e['ipa'], sid)]
         for pair, phone in sorted(pairs.items()):
             lines.append('%-12s %s' % (pair.replace('͡', e['ipa']), phone))
+        # double articulations (4g): the two stops as they are realised, one after the other, each
+        # with the keys the table adds to make them one closure with one release
+        doubles = ((src.get('realization') or {}).get('openevv', {}).get('double') or {}).get(template, {})
+        if doubles:
+            lines += ['', '# double articulations, two phones under one closure (%s %s)' % (e['ipa'], sid)]
+        by_ipa = {x['ipa']: s for s, x in t.sounds.items() if x.get('kind') == 'base'}
+        for pair, how in sorted(doubles.items()):
+            if any(letter not in by_ipa for letter in pair.split('͡')):
+                lines.append('#   not realised: %s: a letter the table does not have' % pair)
+                unrealised += 1
+                continue
+            said = []
+            for k, letter in enumerate(pair.split('͡')):
+                lsid = by_ipa[letter]
+                r = realize(t, lsid, template, (loop_proof(lsid) or {}).get('carrier_measured'))
+                keys = dict(r['keys'])
+                keys.update({kk: _v(vv) for kk, vv in (how['add'][k] or {}).items()})
+                # named for the pair and the part, so that a letter in two pairs is two sounds
+                name = map_name('+'.join('U+%04X' % ord(c) for c in pair) + '+%d' % (k + 1))
+                if name not in made:
+                    made.add(name)
+                    lines.append('%s    # %s, part %d of %s' % (sound_line(name, keys), lsid, k + 1, pair))
+                said.append('%s=%s' % (r['carrier'], name))
+            lines.append('%-12s %s' % (pair.replace('͡', e['ipa']), ' '.join(said)))
     # C4: what the front-end needs to compose when speaking, and to fall back with a warning
     lines += ['', '# composition when speaking (C4): read only by a map with `version 2`',
               'version 2', weights_line(t)]

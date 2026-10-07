@@ -682,7 +682,33 @@ static char *ipa_normalize(const char *utf8)
 		int dn = NormalizeString(NormalizationD, w, -1, NULL, 0);
 		wchar_t *d = dn > 0 ? (wchar_t *)malloc(sizeof(wchar_t) * (size_t)dn) : NULL;
 		if (d && (dn = NormalizeString(NormalizationD, w, -1, d, dn)) > 0) {
+			/* the affricate ligatures the IPA withdrew are their two
+			   letters joined by a tie bar (ipa/aliases.toml): one code
+			   point becomes three, so the result has a buffer of its own */
+			static const wchar_t lig[][4] = {
+				{ 0x02a6, L't', 0x0361, L's' }, { 0x02a7, L't', 0x0361, 0x0283 },
+				{ 0x02a3, L'd', 0x0361, L'z' }, { 0x02a4, L'd', 0x0361, 0x0292 },
+				{ 0x02a8, L't', 0x0361, 0x0255 }, { 0x02a5, L'd', 0x0361, 0x0291 },
+			};
+			wchar_t *e = (wchar_t *)malloc(sizeof(wchar_t) * (size_t)(3 * dn + 1));
 			int k = 0;
+			if (e != NULL) {
+				for (int i = 0; d[i]; i++) {
+					int n = 0;
+					while (n < (int)(sizeof(lig) / sizeof(lig[0])) && d[i] != lig[n][0])
+						n++;
+					if (n < (int)(sizeof(lig) / sizeof(lig[0]))) {
+						e[k++] = lig[n][1];
+						e[k++] = lig[n][2];
+						e[k++] = lig[n][3];
+					} else
+						e[k++] = d[i];
+				}
+				e[k] = 0;
+				free(d);
+				d = e;
+				k = 0;
+			}
 			for (int i = 0; d[i]; i++) {
 				/* the cedilla may come after other marks of c: canonical order puts a mark of a
 				   lower class (an overlay, class 1) before it, and ç must still be ç */
@@ -868,7 +894,7 @@ static int translate_ipa(const char *given)
 		const EvvLetter *letter = evv_map_letter(&g_map, p, (size_t)l);
 		int seg_tone[8], n_seg_tone = 0;
 		char seg[64];
-		int seg_len = 0, cut = 0, tied = 0;
+		int seg_len = 0, cut = 0, tied = 0, had_tie = 0;
 		memcpy(seg, p, (size_t)l);
 		seg_len = l;
 		p += l;
@@ -887,6 +913,7 @@ static int translate_ipa(const char *given)
 				break;
 			if (ml == 2 && (unsigned char)p[0] == 0xcd && ((unsigned char)p[1] == 0xa1 || (unsigned char)p[1] == 0x9c)) {
 				tied = 1;
+				had_tie = 1;
 			}
 			if (m) {
 				for (int i = 0; i < m->n && n_seg_tone < 8; i++)
@@ -939,6 +966,14 @@ static int translate_ipa(const char *given)
 			continue;
 		int first = cw->w.n;
 		evv_word_add(&cw->w, &g_map, phones, n, syllabic, vowel, syllabic ? stress : 0, NULL);
+		/* a tied segment said as two phones or more is one segment: the
+		   syllables are not divided inside it */
+		if (had_tie) {
+			int seen = 0;
+			for (int i = first; i < cw->w.n; i++)
+				if (!cw->w.ph[i].made)
+					cw->w.ph[i].glue = seen++ > 0;
+		}
 		if (brk_next) {
 			for (int i = first; i < cw->w.n; i++)
 				if (!cw->w.ph[i].made) {

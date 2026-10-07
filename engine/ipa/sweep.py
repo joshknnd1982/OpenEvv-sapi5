@@ -733,7 +733,8 @@ def say_entry(t, sid, template, pack):
         x_, rate_ = E.read_wav(r_['wav'])
         c['clipped'], c['near_full_scale'] = clipped(x_)
         if PZ.check_of(e):
-            c['pros'] = PZ.measure(x_, rate_, c['phones'], r_['frames'])
+            c['pros'] = PZ.measure(x_, rate_, c['phones'], r_['frames'],
+                                   stops='T-double' in (e.get('tests') or {}).get('checks', []))
         cases[cid] = c
     verdict = judge(t, sid, cases, diags, said_as)
     return dict(id=sid, ipa=e['ipa'], name=e['name'], template=template, pack=pack, staged=E.STAGE or None,

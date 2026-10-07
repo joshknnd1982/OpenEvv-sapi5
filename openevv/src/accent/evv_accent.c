@@ -2252,14 +2252,20 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     along = 1;
                 if (def != 0 && def->glide)
                     along = smooth(along);
+                int f2_down = 0;
                 for (i = 0; i < 4; i++) {
                     double here = lf_to[i] + (lf_end[i] - lf_to[i]) * along;
                     double l = lf_from[i] + (here - lf_from[i]) * w;
                     double lb = lb_from[i] + (lb_to[i] - lb_from[i]) * w;
 
-                    if (ant_ms > 0 && own_ms - into < ant_ms)
+                    if (ant_ms > 0 && own_ms - into < ant_ms) {
+                        double l_own = l;
+
                         l += (lf_nx[i] - l)
                             * smooth(1.0 - (own_ms - into) / ant_ms);
+                        if (i == 1 && l < l_own)
+                            f2_down = 1;
+                    }
 
                     if (l != 0)
                         f[FORMANT[i]] =
@@ -2268,6 +2274,11 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                         f[BANDWIDTH[i]] =
                             (int32_t)(f[BANDWIDTH[i]] * exp(lb) + 0.5);
                 }
+                /* Bent towards a closure further back, F2 comes down onto
+                   F1: F1 gives way, as it falls into any closure, rather
+                   than F2 being pushed back up the way it came. */
+                if (f2_down && f[P_F2] < f[P_F1] + 200 && f[P_F2] >= 400)
+                    f[P_F1] = f[P_F2] - 200;
                 /* Formants keep their order and their distance. */
                 if (f[P_F2] < f[P_F1] + 200)
                     f[P_F2] = f[P_F1] + 200;

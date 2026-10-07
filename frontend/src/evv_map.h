@@ -238,6 +238,8 @@ typedef struct {
 	int nucleus;      /* 1: this phone is the vowel its syllable is built on */
 	int stress;       /* 0, 1 primary, 2 secondary: meaningful on a nucleus */
 	int brk;          /* 1: a syllable begins here, as IPA typed it (`.') */
+	int glue;         /* 1: one segment with the phone before it (two
+	                     phones joined by a tie bar, `k͡p'): never split */
 } EvvPhone;
 
 typedef struct {
