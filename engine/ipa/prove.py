@@ -158,7 +158,7 @@ def main():
                  frontend=E.FRONTEND, targets=want, carrier=car, carrier_measured=carrier_meas,
                  contexts=[c for c, _ in contexts(cls, car)], rounds=rounds, passed=passed,
                  tolerances=dict(formant=FORMANT_TOL, vot_ms=VOT_TOL_MS, vot=VOT_TOL, peak=PEAK_TOL))
-    path = os.path.join(PROOFS, a.id + '.json')
+    path = os.path.join(PROOFS, T.file_id(a.id) + '.json')
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(proof, f, ensure_ascii=False, indent=1)
     print('%s %s: %s after %d round(s); %s' % (a.id, e['ipa'], 'PASS' if passed else 'not within tolerance',

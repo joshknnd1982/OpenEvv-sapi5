@@ -423,16 +423,18 @@ def realised_hz(t, sid, template):
     return [int(round(ch['f'][i] * r['keys'].get('f%d' % (i + 1), 100) / 100.0)) for i in range(3)]
 
 
-def letter_line(t, sid, template='dedx'):
-    f = T.full_bundle(t, t.sounds[sid]['features'])
+def letter_line(t, sid, template='dedx', features=None, ipa=None):
+    """A letter's `letter' line; a Tier B letter standing for a spelling gives that spelling's bundle."""
+    f = features or T.full_bundle(t, t.sounds[sid]['features'])
+    ipa = ipa or t.sounds[sid]['ipa']
     if f['class'] == 'vowel':
         v = t.features['vowel']
         hz = realised_hz(t, sid, template)
         return 'letter %s v height=%d backness=%d rounding=%s%s' % (
-            t.sounds[sid]['ipa'], v['height']['scale'].index(f['height']), v['backness']['scale'].index(f['backness']),
+            ipa, v['height']['scale'].index(f['height']), v['backness']['scale'].index(f['backness']),
             f['rounding'], ''.join(' f%dhz=%d' % (i + 1, x) for i, x in enumerate(hz or [])))
     c = t.features['consonant']
-    return 'letter %s c place=%d %s' % (t.sounds[sid]['ipa'], c['place']['scale'].index(f['place']), ' '.join(
+    return 'letter %s c place=%d %s' % (ipa, c['place']['scale'].index(f['place']), ' '.join(
         '%s=%s' % (k, str(f[k]).lower()) for k in ('stricture', 'airstream', 'nasal', 'lateral', 'sibilant', 'place2',
                                                     'voicing')))
 
@@ -447,13 +449,13 @@ def map_name(sid):
     """The name a realised entry has in a map: `u` and its code points, within the 11 bytes a
     sound id may have (EVV_ID_LEN)."""
     import hashlib
-    name = 'u' + '_'.join(sid.replace('U+', '').lower().split('+'))
+    name = 'u' + '_'.join(sid.split(':', 1)[-1].replace('U+', '').lower().split('+'))  # a Tier B id's `B:' left out
     return name if len(name) <= 11 else 'u' + hashlib.sha1(sid.encode('ascii')).hexdigest()[:10]
 
 
 def loop_proof(sid):
     """What prove.py's loop found for an entry (ipa/proofs/loop/<id>.json), or None."""
-    path = os.path.join(ROOT, 'ipa', 'proofs', 'loop', sid + '.json')
+    path = os.path.join(ROOT, 'ipa', 'proofs', 'loop', T.file_id(sid) + '.json')
     if not os.path.exists(path):
         return None
     with open(path, encoding='utf-8') as f:
@@ -531,12 +533,32 @@ def write(t, template, quiet=False):
                     lines.append('%s    # %s, part %d of %s' % (sound_line(name, keys), lsid, k + 1, pair))
                 said.append('%s=%s' % (r['carrier'], name))
             lines.append('%-12s %s' % (pair.replace('͡', e['ipa']), ' '.join(said)))
+    # Tier B (D68): a new letter that stands for a Tier A spelling is that spelling as the front-end
+    # composes it, a line of its own; marks after it compose on it like on any letter
+    stands = [(sid, e) for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'composite' and e.get('said_as')
+              and len(e['ipa']) == 1]
+    if stands:
+        lines += ['', '# Tier B letters that stand for a Tier A spelling (ipa/table/tierb.toml, D68)']
+    for sid, e in stands:
+        c = compose(t, e['parts'][0], e['parts'][1:], template, (loop_proof(e['parts'][0]) or {}).get('carrier_measured'))
+        for l in c['lost']:
+            lines.append('#   not realised: %s %s' % (e['ipa'], l))
+            unrealised += 1
+        name = map_name(sid.split(':', 1)[1])
+        lines.append('%s    # %s %s = %s' % (sound_line(name, c['keys']), sid, e['name'][:50], e['said_as']))
+        lines.append('%-12s %s=%s' % (e['ipa'], c['carrier'], name))
+        n += 1
     # C4: what the front-end needs to compose when speaking, and to fall back with a warning
     lines += ['', '# composition when speaking (C4): read only by a map with `version 2`',
               'version 2', weights_line(t)]
     for sid, e in sorted(t.sounds.items()):
         if e.get('kind') == 'base':
             lines.append(letter_line(t, sid, template))
+    for sid, e in stands:
+        # the letter of the spelling it stands for: a mark after it composes for that class
+        import reader as RD
+        f = RD.compose(t, t.sounds[e['parts'][0]]['features'], e['parts'][1:], lambda *_: None)
+        lines.append(letter_line(t, e['parts'][0], template, features=f, ipa=e['ipa']))
     for sid, e in sorted(t.sounds.items()):
         for cls in sorted((e.get('transform') or {})):
             ops, lost = mod_ops(t, sid, cls)

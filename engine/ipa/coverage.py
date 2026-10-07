@@ -75,7 +75,7 @@ def recipe(t, sid, template):
 
 
 def proof_of(sid):
-    path = os.path.join(PROOFS, sid + '.json')
+    path = os.path.join(PROOFS, T.file_id(sid) + '.json')
     if not os.path.exists(path):
         return None
     with open(path, encoding='utf-8') as f:
@@ -84,46 +84,55 @@ def proof_of(sid):
 
 def tier_b(t, listing):
     """Tier B (extIPA, VoQS; playbook 4f), driven by inventory/tierb/TIERB_CHECKLIST.json. A record
-    is `composed` only when a passing proof says its exact characters (NFD) in some context; a
-    `notation-only` record has nothing to say and may end unsupported-with-justification only with
-    the human's acknowledgement (R19e, USP 8); every other record is MISSING until it is mapped.
-    Tier B does not decide the exit code: the project's exit is the Tier A checklist's."""
-    import unicodedata
+    is done when the table has an entry under its id (ipa/table/tierb.toml, D68) whose state is
+    mapped, composed or created and whose proof passed; a `notation-only` record has nothing to say
+    and may end unsupported-with-justification only with the human's acknowledgement (R19e, USP 8);
+    every other record is MISSING; a composite is done only while each of its parts is. How many
+    Tier B records are done does not decide the exit code (the project's exit is the Tier A
+    checklist's), but a Tier B entry the inventory lacks, or one whose state or proof disagrees with
+    the map (the checks below over every entry), fails it like a Tier A one."""
     with open(TIERB, encoding='utf-8') as f:
         recs = json.load(f)['symbols']
-    said = collections.defaultdict(list)
-    for name in sorted(os.listdir(PROOFS)):
-        pr = proof_of(name[:-5]) if name.endswith('.json') else None
-        if pr and pr.get('passed'):
-            for cid, c in (pr.get('cases') or {}).items():
-                said[unicodedata.normalize('NFD', c.get('ipa') or '')].append('%s %s' % (pr['id'], cid))
+    ids = {r['id'] for r in recs}
+    stray = sorted(sid for sid, e in t.sounds.items() if e.get('tier') == 'B' and sid not in ids)
     cnt = collections.OrderedDict()
     rows = []
     for r in recs:
         out = r['composition']['outcome']
-        sym = unicodedata.normalize('NFD', r['symbol'])
-        # its exact characters: no further mark on the same letter (t̼ said as t̼̊ is not t̼)
-        where = [w for k, ws in said.items() if sym and any(
-            not k[i + len(sym):i + len(sym) + 1] or not unicodedata.combining(k[i + len(sym)])
-            for i in range(len(k)) if k.startswith(sym, i)) for w in ws] if out == 'composes' else []
-        st = 'notation' if out == 'notation-only' else 'composed' if where else 'MISSING'
+        e = t.sounds.get(r['id'])
+        pr = proof_of(r['id']) if e else None
+        # a composite stands on its parts (D68): each done, with a passing proof of its own
+        parts_ok = all((t.sounds.get(x) or {}).get('state') in DONE and (proof_of(x) or {}).get('passed')
+                       for x in (e or {}).get('parts') or [])
+        if e and e.get('state') in DONE and pr and pr.get('passed') and parts_ok:
+            st = e['state']
+        elif out == 'notation-only':
+            st = 'notation'
+        else:
+            st = 'MISSING'
         key = '%s / %s' % (r['chart'], r['section'])
         cnt.setdefault(key, collections.Counter())[st] += 1
-        rows.append((r['id'], r['symbol'], key, out, st, where[0] if where else ''))
+        rows.append((r['id'], r['symbol'], key, out, st, ('approximate ' if e and e.get('approximate') else '') +
+                     (os.path.relpath(os.path.join(PROOFS, T.file_id(r['id']) + '.json'), T.ROOT) if pr else '')))
     print()
     print('Tier B (extIPA, VoQS): %d records' % len(recs))
-    cols = ['composed', 'MISSING', 'notation']
+    cols = ['mapped', 'composed', 'created', 'MISSING', 'notation']
     print('%-58s %s %5s' % ('chart / section', ' '.join('%9s' % c for c in cols), 'all'))
     tot = collections.Counter()
     for k, c in cnt.items():
         tot.update(c)
         print('%-58s %s %5d' % (k[:58], ' '.join('%9d' % c[x] for x in cols), sum(c.values())))
     print('%-58s %s %5d' % ('all', ' '.join('%9d' % tot[x] for x in cols), sum(tot.values())))
-    print('tier B: %d composed and proved, %d MISSING, %d notation only (to be acknowledged by the human as '
-          'unsupported-with-justification: nothing to say)' % (tot['composed'], tot['MISSING'], tot['notation']))
+    print('tier B: %d done and proved (mapped %d, composed %d, created %d), %d MISSING, %d notation only (to be '
+          'acknowledged by the human as unsupported-with-justification: nothing to say); approximate %d' % (
+              sum(tot[x] for x in DONE), tot['mapped'], tot['composed'], tot['created'], tot['MISSING'],
+              tot['notation'], sum(1 for r in recs if (t.sounds.get(r['id']) or {}).get('approximate'))))
+    if stray:
+        print('tier B entries the inventory lacks: %s' % ' '.join(stray))
     if listing:
         for row in rows:
             print('  %-34s %-10s %-20s %-9s %s' % (row[0][:34], row[1][:10], row[3], row[4], row[5]))
+    return stray
 
 
 def unicode_net(t, checklist):
@@ -247,8 +256,8 @@ def main():
                                      'MADE ON ANOTHER MAP (%d): ' % len(old_map) + ', '.join(
                                          '%s %s' % (i, t.sounds[i]['ipa']) for i in sorted(old_map))))
     print(unicode_net(t, checklist))
-    tier_b(t, a.tierb)
-    return 1 if missing or extra or stale or old_map else 0
+    stray = tier_b(t, a.tierb)
+    return 1 if missing or extra or stale or old_map or stray else 0
 
 
 if __name__ == '__main__':

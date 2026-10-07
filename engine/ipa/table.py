@@ -9,13 +9,15 @@ its proof, a `derived` one without its rule, an `approximate` one (or entry) wit
 saying what deviates; two letters with one feature bundle (unless the chart prints them as one,
 `equivalent_to`); a feature or value ipa/features.toml does not define; a modifier with no class
 of base; an entry without tests; an entry whose state is not MISSING without a proof that exists;
-an id that is not its code points, or code points that are not its IPA. It lists every
-`estimated` value: they are the queue for verification.
+an id that is not its code points, or code points that are not its IPA; a Tier B composite
+(D68) whose parts are not Tier A entries spelling it. It lists every `estimated` value: they are
+the queue for verification.
 """
 
 import copy
 import json
 import os
+import re
 import sys
 
 import tomli
@@ -23,16 +25,22 @@ import tomli
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 IPA = os.path.join(ROOT, 'ipa')
 
-KINDS = {'base', 'modifier', 'syllable-mark', 'tone', 'boundary', 'tie'}
+KINDS = {'base', 'modifier', 'syllable-mark', 'tone', 'boundary', 'tie', 'composite'}
 STATES = {'MISSING', 'mapped', 'composed', 'created', 'BLOCKED'}
 TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximate'}
 FIELDS = {'ipa', 'codepoints', 'name', 'section', 'tier', 'kind', 'features', 'edit', 'levels', 'register',
           'slope', 'stress', 'boundary', 'placement', 'equivalent_to', 'state', 'level', 'approximate',
-          'deviation', 'plan', 'spec', 'transform', 'realization', 'tests', 'history', 'registry'}
+          'deviation', 'plan', 'spec', 'transform', 'realization', 'tests', 'history', 'registry',
+          'chart', 'parts', 'said_as'}
 VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation', 'key', 'part'}
 # a modifier's transform of a value (DESIGN.md 2.2): scale it, or add to it
 TRANSFORM_OPS = {'scale', 'add', 'set', 'toward'}
 PLACEMENTS = {'before', 'after', 'over', 'between'}
+
+
+def file_id(sid):
+    """An id as a file name: a Tier B id's `:' and `/' cannot be in one on Windows (D68)."""
+    return re.sub(r'[:/]', '_', sid)
 
 
 class Table(object):
@@ -129,7 +137,9 @@ def validate(t):
             if k not in FIELDS:
                 problems.append('%s: unknown field %s' % (sid, k))
         cps = e.get('codepoints') or []
-        if sid != '+'.join(cps):
+        # a Tier B id is `B:' and its code points (inventory/tierb, D68)
+        # (a Tier B id may carry the inventory's `#pre', `#post', `#voqs' after its points)
+        if (sid.split('#')[0] if e.get('tier') == 'B' else sid) != ('B:' if e.get('tier') == 'B' else '') + '+'.join(cps):
             problems.append('%s: the id is not its code points %s' % (sid, '+'.join(cps)))
         if ''.join(chr(int(c[2:], 16)) for c in cps) != e.get('ipa'):
             problems.append('%s: the code points are not its ipa %r' % (sid, e.get('ipa')))
@@ -142,7 +152,7 @@ def validate(t):
             problems.append('%s: approximate with no deviation stated' % sid)
         if e.get('equivalent_to') and e['equivalent_to'] not in t.sounds:
             problems.append('%s: equivalent to %s, which the table lacks' % (sid, e['equivalent_to']))
-        if kind != 'base' and e.get('placement') not in PLACEMENTS:
+        if kind not in ('base', 'composite') and e.get('placement') not in PLACEMENTS:
             problems.append('%s: placement %r' % (sid, e.get('placement')))
         if kind == 'base':
             f = dict(e.get('features') or {})
@@ -161,6 +171,30 @@ def validate(t):
                 if other and t.sounds[other].get('equivalent_to') != sid and e.get('equivalent_to') != other:
                     problems.append('%s and %s have one feature bundle' % (other, sid))
                 bundles.setdefault(key, sid)
+        if kind == 'composite':
+            # a Tier B spelling made of Tier A entries (D68): its parts must be Tier A entries, and
+            # spell it, or spell the IPA it is said as (a new letter standing for a Tier A spelling)
+            parts = e.get('parts') or []
+            if e.get('tier') != 'B' or not parts:
+                problems.append('%s: a composite is a Tier B entry with parts' % sid)
+            for x in parts:
+                px = t.sounds.get(x) or {}
+                if px.get('tier') != 'A' and not (px.get('tier') == 'B' and px.get('kind') == 'base'):
+                    problems.append('%s: part %s is not a Tier A entry or a Tier B letter' % (sid, x))
+            spelt = ''.join((t.sounds.get(x) or {}).get('ipa', '?') for x in parts)
+            if spelt != (e.get('said_as') or e.get('ipa')):
+                problems.append('%s: its parts spell %r, not %r' % (sid, spelt, e.get('said_as') or e.get('ipa')))
+            tests = e.get('tests') or {}
+            if not tests.get('bases') or tests['bases'][0] != (parts or [None])[0]:
+                problems.append('%s: a composite is judged against its first part, its base' % sid)
+            # judged by one of its own marks, with that mark's own test (a subset of its shifts)
+            mark = t.sounds.get(tests.get('judged_by')) or {}
+            if tests.get('judged_by') not in parts[1:] or any(
+                    s not in (mark.get('tests') or {}).get('shift', []) for s in tests.get('shift') or [None]):
+                problems.append('%s: not judged by one of its marks with that mark\'s own test' % sid)
+            for k in ('spec', 'features', 'transform', 'realization', 'edit'):
+                if e.get(k):
+                    problems.append('%s: a composite has no %s of its own (its parts\' are its values)' % (sid, k))
         if kind == 'modifier':
             edit = e.get('edit') or {}
             if not edit:
@@ -263,11 +297,21 @@ def _plants(t):
         ('a feature not of its class', setv(p, ['features', 'height'], 'close')),
         ('a modifier with no class', setv(m, ['edit'], {})),
         ('an entry without tests', setv(p, ['tests'], {})),
-        ('a state with no proof', setv(p, ['state'], 'mapped')),
+        ('a state with no proof', setv(p, ['tests', 'proof'], 'ipa/proofs/none.json')),
         ('an id that is not its code points', setv(p, ['codepoints'], ['U+0071'])),
         ('a tone with bad levels', setv('U+02E5', ['levels'], [6])),
         ('a transform with no operation', setv('U+02B0', ['transform', 'consonant', 'vot_ms'], {'v': 60, 'tag': 'estimated'})),
         ('a transform for a class not edited', setv('U+02B0', ['transform', 'vowel'], {'vot_ms': {'add': 1, 'tag': 'estimated'}})),
+        # parts that spell n̼̊ correctly, but one of them is a Tier B composite, not a letter
+        ('a composite of a Tier B composite', lambda c: (
+            setv('B:U+006E+U+033C+U+030A', ['parts'], ['B:U+006E+U+033C', 'U+030A'])(c),
+            setv('B:U+006E+U+033C+U+030A', ['tests', 'bases'], ['B:U+006E+U+033C'])(c),
+            setv('B:U+006E+U+033C+U+030A', ['tests', 'judged_by'], 'U+030A')(c),
+            setv('B:U+006E+U+033C+U+030A', ['tests', 'shift'], [{'measure': 'voiced_frac', 'sign': -1}])(c))),
+        ('a composite its parts do not spell', setv('B:U+0074+U+033C', ['parts'], ['U+0064', 'U+033C'])),
+        ('a Tier B id that is not its points', setv('B:U+A78E', ['codepoints'], ['U+A78F'])),
+        ('a composite judged by no mark of its', setv('B:U+0074+U+033C', ['tests', 'judged_by'], 'U+032A')),
+        ('a composite with values of its own', setv('B:U+0074+U+033C', ['spec'], {'vot_ms': {'v': 9, 'tag': 'estimated'}})),
     ]
 
 

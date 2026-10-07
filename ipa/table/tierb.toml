@@ -1,0 +1,568 @@
+# Tier B of the master table (DESIGN.md 1; playbook 4f; D68). MIT licence.
+#
+# One entry per record of docs/tts-extension/inventory/tierb/TIERB_CHECKLIST.json that is mapped, under
+# the same id. A `composite` is a spelling made of Tier A entries in their Tier A meaning: it has no
+# values of its own (every value is its parts'), it is said as written, and it is judged against its
+# plain base by the test of the mark that makes the difference. A new letter that stands for a Tier A
+# spelling (`said_as`) is given that spelling's composition as a line of the realised map.
+
+[sound."B:U+0070+U+032A"]
+ipa = "p̪"
+codepoints = ["U+0070", "U+032A"]
+name = "labiodental plosive (voiceless plosive, lower lip against upper teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0070", "U+032A"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as labiodental; it is said as p with the dental mark's Tier A transform (an F2 locus 7 per cent lower), judged by that mark's own test, not moved to a labiodental place (f's locus): no labiodental stop was measured in any source opened, and the reader's feature bundle for it is the dental t̪'s (D68)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0070+U+032A".tests]
+checks = ["T-shift"]
+bases = ["U+0070"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+032A"
+proof = "ipa/proofs/B_U+0070+U+032A.json"
+
+[sound."B:U+0062+U+032A"]
+ipa = "b̪"
+codepoints = ["U+0062", "U+032A"]
+name = "labiodental plosive (voiced plosive, lower lip against upper teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0062", "U+032A"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as labiodental; it is said as b with the dental mark's Tier A transform (an F2 locus 7 per cent lower), judged by that mark's own test, not moved to a labiodental place (f's locus): no labiodental stop was measured in any source opened, and the reader's feature bundle for it is the dental d̪'s (D68)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0062+U+032A".tests]
+checks = ["T-shift"]
+bases = ["U+0062"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+032A"
+proof = "ipa/proofs/B_U+0062+U+032A.json"
+
+[sound."B:U+0074+U+033C"]
+ipa = "t̼"
+codepoints = ["U+0074", "U+033C"]
+name = "linguolabial plosive (voiceless plosive, tongue tip or blade against the upper lip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0074", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0074+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+0074"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+0074+U+033C.json"
+
+[sound."B:U+0064+U+033C"]
+ipa = "d̼"
+codepoints = ["U+0064", "U+033C"]
+name = "linguolabial plosive (voiced plosive, tongue tip or blade against the upper lip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0064", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0064+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+0064"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+0064+U+033C.json"
+
+[sound."B:U+006E+U+033C+U+030A"]
+ipa = "n̼̊"
+codepoints = ["U+006E", "U+033C", "U+030A"]
+name = "linguolabial nasal (voiceless nasal, tongue against the upper lip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006E", "U+033C", "U+030A"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006E+U+033C+U+030A".tests]
+checks = ["T-shift"]
+bases = ["U+006E"]
+plain = "n̊"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+006E+U+033C+U+030A.json"
+
+[sound."B:U+006E+U+033C"]
+ipa = "n̼"
+codepoints = ["U+006E", "U+033C"]
+name = "linguolabial nasal (voiced nasal, tongue against the upper lip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006E", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006E+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+006E"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+006E+U+033C.json"
+
+[sound."B:U+0072+U+033C"]
+ipa = "r̼"
+codepoints = ["U+0072", "U+033C"]
+name = "linguolabial trill (tongue tip trilled against the upper lip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0072", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0072+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+0072"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+0072+U+033C.json"
+
+[sound."B:U+03B8+U+033C"]
+ipa = "θ̼"
+codepoints = ["U+03B8", "U+033C"]
+name = "linguolabial fricative (voiceless fricative, tongue against the upper lip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+03B8", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+03B8+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+03B8"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+03B8+U+033C.json"
+
+[sound."B:U+00F0+U+033C"]
+ipa = "ð̼"
+codepoints = ["U+00F0", "U+033C"]
+name = "linguolabial fricative (voiced)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+00F0", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+00F0+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+00F0"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+00F0+U+033C.json"
+
+[sound."B:U+026C+U+033C"]
+ipa = "ɬ̼"
+codepoints = ["U+026C", "U+033C"]
+name = "linguolabial lateral fricative (voiceless lateral fricative with the tongue against the upper lip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+026C", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+026C+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+026C"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+026C+U+033C.json"
+
+[sound."B:U+026E+U+033C"]
+ipa = "ɮ̼"
+codepoints = ["U+026E", "U+033C"]
+name = "linguolabial lateral fricative (voiced)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+026E", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+026E+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+026E"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+026E+U+033C.json"
+
+[sound."B:U+006C+U+033C"]
+ipa = "l̼"
+codepoints = ["U+006C", "U+033C"]
+name = "linguolabial lateral approximant (lateral approximant with the tongue against the upper lip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006C", "U+033C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006C+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+006C"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+proof = "ipa/proofs/B_U+006C+U+033C.json"
+
+[sound."B:U+0279+U+033A"]
+ipa = "ɹ̺"
+codepoints = ["U+0279", "U+033A"]
+name = "apical r (approximant r made with the tongue tip)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0279", "U+033A"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0279+U+033A".tests]
+checks = ["T-shift"]
+bases = ["U+0279"]
+shift = [{ measure = "edge_F3", sign = -1 }]
+judged_by = "U+033A"
+proof = "ipa/proofs/B_U+0279+U+033A.json"
+
+[sound."B:U+0073+U+033B"]
+ipa = "s̻"
+codepoints = ["U+0073", "U+033B"]
+name = "laminal fricative (including lowered tongue tip) (voiceless sibilant made with the tongue blade)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0073", "U+033B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0073+U+033B".tests]
+checks = ["T-shift"]
+bases = ["U+0073"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "U+033B"
+proof = "ipa/proofs/B_U+0073+U+033B.json"
+
+[sound."B:U+007A+U+033B"]
+ipa = "z̻"
+codepoints = ["U+007A", "U+033B"]
+name = "laminal fricative (voiced sibilant made with the tongue blade)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+007A", "U+033B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+007A+U+033B".tests]
+checks = ["T-shift"]
+bases = ["U+007A"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "U+033B"
+proof = "ipa/proofs/B_U+007A+U+033B.json"
+
+[sound."B:U+0074+U+033C+U+0361+U+03B8+U+033C"]
+ipa = "t̼͡θ̼"
+codepoints = ["U+0074", "U+033C", "U+0361", "U+03B8", "U+033C"]
+name = "linguolabial affricate (voiceless linguolabial stop with a linguolabial fricative release)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0074", "U+033C", "U+0361", "U+03B8", "U+033C"]
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0074+U+033C+U+0361+U+03B8+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+0074"]
+plain = "t͡θ"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+
+[sound."B:U+0064+U+033C+U+0361+U+00F0+U+033C"]
+ipa = "d̼͡ð̼"
+codepoints = ["U+0064", "U+033C", "U+0361", "U+00F0", "U+033C"]
+name = "linguolabial affricate (voiced)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0064", "U+033C", "U+0361", "U+00F0", "U+033C"]
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0064+U+033C+U+0361+U+00F0+U+033C".tests]
+checks = ["T-shift"]
+bases = ["U+0064"]
+plain = "d͡ð"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+033C"
+
+[sound."B:U+A7AF"]
+ipa = "ꞯ"
+codepoints = ["U+A7AF"]
+name = "upper-pharyngeal plosive (voiceless plosive made in the upper pharynx, behind the uvula)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0071", "U+0320"]
+said_as = "q̠"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the upper pharynx said as a retracted uvular [q̠], the equivalent the source gives (Wikipedia, extIPA): no place of this engine lies between the uvular and the pharyngeal, and no measurement of an upper-pharyngeal stop was found"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+A7AF".tests]
+checks = ["T-shift"]
+bases = ["U+0071"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+0320"
+proof = "ipa/proofs/B_U+A7AF.json"
+
+[sound."B:U+1DF02"]
+ipa = "𝼂"
+codepoints = ["U+1DF02"]
+name = "upper-pharyngeal plosive (voiced plosive in the upper pharynx)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0262", "U+0320"]
+said_as = "ɢ̠"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the upper pharynx said as a retracted uvular [ɢ̠], the equivalent the source gives (Wikipedia, extIPA): no place of this engine lies between the uvular and the pharyngeal, and no measurement of an upper-pharyngeal stop was found"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+1DF02".tests]
+checks = ["T-shift"]
+bases = ["U+0262"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "U+0320"
+proof = "ipa/proofs/B_U+1DF02.json"
+
+# The extIPA lateral fricatives (D68, Q23). The inventory equates them with ɭ̝̊ ɭ̝ ʎ̝̊ ʟ̝̊, but this engine's ̝ on a
+# consonant only lowers F1 (no noise), so each is a letter of its own on a fricative carrier, like ɬ and ɮ.
+
+[sound."B:U+A78E"]
+ipa = "ꞎ"
+codepoints = ["U+A78E"]
+name = "voiceless retroflex lateral fricative"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "retroflex", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", lateral = true }
+state = "created"
+level = 2
+approximate = false
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X3"], builds = [] }
+
+[sound."B:U+A78E".spec]
+noise = { peak_hz = { v = 2400, tag = "estimated", note = "gordon2002 (Toda, 6 speakers, word-final after a): the male speakers' main noise peak lies between 2 and 4 kHz, lower and broader than the alveolar ɬ's 3 to 4.5 kHz; no peak in Hz is given (centre of gravity 4222 Hz against ɬ's 4164, not significantly different, Table 15). Set under ɬ's 2655 Hz (chong2022)." } }
+locus = { F3 = { v = 2488, tag = "derived", rule = "ɬ's F3 locus 2699 Hz (chong2022) x ɭ's F3 / l's F3 (2356 / 2556, punnoose_2010): a retroflex lowers F3, as gordon2002 measured against ɬ (p = .001, Figure 17)" } }
+duration = { inherent_ms = { v = 195.4, tag = "literature", ref = "gordon2002", note = "Table 14: mean of 6 speakers (3 F, 3 M), Toda, word-final after a, one token each; ɬ 189.5 in the same table" } }
+
+[sound."B:U+A78E".tests]
+checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+026C", measure = "edge_F3", sign = -1 }, { with = "U+026D", measure = "voiced_frac", sign = -1 }]
+proof = "ipa/proofs/B_U+A78E.json"
+
+[sound."B:U+A78E".realization.openevv]
+# a voiceless lateral fricative: the module's s with its noise peak moved (as ɬ)
+carrier = "s"
+keys = { ant = { v = 50, tag = "derived", rule = "the adapter's own ant (ANT_MS, D64), which it withholds from a fricative whose noise moves a formant: here the noise is on F3 at the retroflex's lowered F3 locus, the place cue gordon2002 measured over the vowel's last 23 ms, so the bend is towards the place" } }
+
+[sound."B:U+1DF05"]
+ipa = "𝼅"
+codepoints = ["U+1DF05"]
+name = "voiced retroflex lateral fricative (ɭ̝ in IPA)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+# said as ꞎ with the voicing mark: on a voiced fricative carrier of its own (z) the voice's F2 was read as
+# its noise peak (1704 Hz against 2400) and the design rounds swung between two wrong answers (D68)
+parts = ["B:U+A78E", "U+032C"]
+said_as = "ꞎ̬"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+1DF05".tests]
+checks = ["T-shift"]
+bases = ["B:U+A78E"]
+shift = [{ measure = "voiced_frac", sign = 1 }]
+judged_by = "U+032C"
+proof = "ipa/proofs/B_U+1DF05.json"
+
+[sound."B:U+1DF06"]
+ipa = "𝼆"
+codepoints = ["U+1DF06"]
+name = "voiceless palatal lateral fricative"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "palatal", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", lateral = true }
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X3"], builds = [] }
+
+[sound."B:U+1DF06".spec]
+noise = { peak_hz = { v = 2832, tag = "estimated", note = "No acoustic measurement of a palatal lateral fricative was found (D68). Rests on the lateral fricatives that were measured, whose noise peak lies at about their F3: ɬ 2655 Hz against an F3 locus of 2699 (chong2022), ratio 0.984; ꞎ in its 2 to 4 kHz band with F3 lowered (gordon2002); 𝼄 about 2 to 2.4 kHz with F3 2537 (steed_hardie_2004). 0.984 x this letter's F3 2878 (itself estimated from ʎ)." } }
+locus = { F2 = { v = 1981, tag = "estimated", note = "set equal to ʎ's F2 (rost_2009, Castilian Spanish, 1 M): the same place; no palatal lateral fricative measured" }, F3 = { v = 2878, tag = "estimated", note = "set equal to ʎ's F3 (rost_2009): the same place" } }
+locus_slope = { F2 = { v = 0.34, tag = "estimated", note = "set equal to the palatal stop c's locus-equation slope (stoakes2013 Table 6.15, 1 M): the same place; no palatal fricative's slope was found. With the slope the vowel's edge goes towards the place (Q21, D67); by the carrier's ratio it went away from it (1294 Hz against ɬ's 1397, D68)" } }
+
+[sound."B:U+1DF06".tests]
+checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+028E", measure = "voiced_frac", sign = -1 }, { with = "U+026C", measure = "edge_F2", sign = 1 }]
+
+[sound."B:U+1DF06".realization.openevv]
+# the module's ç with its noise peak moved down to a lateral's
+carrier = "X"
+keys = { ant = { v = 50, tag = "derived", rule = "the adapter's own ant (ANT_MS, D64), which it withholds from a fricative whose noise moves a formant: here the noise is on F3 at the F3 locus, and F2 is the palatal place's own locus, so the bend is towards the place (as ꞎ's, D68)" } }
+
+[sound."B:U+1DF04"]
+ipa = "𝼄"
+codepoints = ["U+1DF04"]
+name = "voiceless velar lateral fricative"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", lateral = true }
+state = "created"
+level = 2
+approximate = true
+deviation = "its noise peak is taken at the source's upper reading, 2.4 kHz, not its main reading of about 2 kHz: this engine carries a fricative's noise on one formant, and on F3 (the source's 2537 Hz) a 2 kHz peak and the F3 cannot both be met (D68)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X3"], builds = [] }
+
+[sound."B:U+1DF04".spec]
+noise = { peak_hz = { v = 2400, tag = "literature", ref = "steed_hardie_2004", note = "text: Kuman coda /ʟ/, 1 M, the noise strong between about 1.5 and 3 kHz, its spectral peak about 2 kHz, possibly 2.4, before the optional transient. The upper reading is taken: this engine carries the noise on one formant, and on F3 (the source's lateral F3 2537 Hz) 2 kHz and the F3 cannot both be met; at 2000 the rounds swung between them (D68)." } }
+locus = { F2 = { v = 1349, tag = "literature", ref = "steed_hardie_2004", note = "Table 1: the lateral's mean F2 over the vowels before it (1349.3 Hz; 880 after u to 1792 after e); the glyphs of two rows did not extract, the values are not affected" }, F3 = { v = 2537, tag = "literature", ref = "steed_hardie_2004", note = "Table 1: mean F3 of the lateral, 2537.3 Hz; the authors: relatively stable at about 2.5 kHz" } }
+duration = { inherent_ms = { v = 170, tag = "literature", ref = "steed_hardie_2004", note = "text: the fricative portion averages 17.04 cs (maximum 24 cs), 1 M, word-final" } }
+
+[sound."B:U+1DF04".tests]
+checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+029F", measure = "voiced_frac", sign = -1 }, { with = "U+026C", measure = "peak_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+1DF04.json"
+
+[sound."B:U+1DF04".realization.openevv]
+carrier = "x"
+trim.dedx = [{ key = "f2", v = 109.6, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF04.json" }]
+
+[sound."B:U+1DF06+U+032C"]
+ipa = "𝼆̬"
+codepoints = ["U+1DF06", "U+032C"]
+name = "voiced palatal lateral fricative (ʎ̝ in IPA)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["B:U+1DF06", "U+032C"]
+state = "MISSING"
+level = 1
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+1DF06+U+032C".tests]
+checks = ["T-shift"]
+bases = ["B:U+1DF06"]
+shift = [{ measure = "voiced_frac", sign = 1 }]
+judged_by = "U+032C"
+proof = "ipa/proofs/B_U+1DF06+U+032C.json"
+
+[sound."B:U+1DF04+U+032C"]
+ipa = "𝼄̬"
+codepoints = ["U+1DF04", "U+032C"]
+name = "voiced velar lateral fricative (ʟ̝ in IPA)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["B:U+1DF04", "U+032C"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+1DF04+U+032C".tests]
+checks = ["T-shift"]
+bases = ["B:U+1DF04"]
+shift = [{ measure = "voiced_frac", sign = 1 }]
+judged_by = "U+032C"
+proof = "ipa/proofs/B_U+1DF04+U+032C.json"

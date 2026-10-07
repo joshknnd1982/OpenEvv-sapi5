@@ -4,9 +4,9 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 4 (Master IPA → acoustic table): IN PROGRESS, paused for context (2026-10-07, seventh session)** on branch `tts-ext/phase-4`. Sessions of 2026-10-06 and 2026-10-07: Opus 5.5. The sixth session's commits end at `418e681`; this session's are after it (**D67**: Q21 built, ɢ proved, 175 of 175 on the development stage; a Tier B section in coverage). **Next: continue Phase 4 in a new session** (same prompt); start with "For the next Phase 4 session" below.
+**Phase 4 (Master IPA → acoustic table): IN PROGRESS, paused for context (2026-10-07, eighth session)** on branch `tts-ext/phase-4`. Sessions of 2026-10-06 and 2026-10-07: Opus 5.5. The seventh session's commit is `db5fedf`; this session's is after it (**D68**: Tier B in the master table, its design (`DESIGN.md` 3.5) and the first 25 records, 21 proved; Q22 and Q23 found). **Next: continue Phase 4 in a new session** (same prompt); start with "For the next Phase 4 session" below.
 
-### Phase 4: where it stands (coverage.py, 2026-10-07, end of the seventh session)
+### Phase 4: where it stands (coverage.py, 2026-10-07, end of the eighth session)
 
     section             mapped  composed   created   MISSING   BLOCKED  no entry    all
     pulmonic                30         0        29         0         0         0     59
@@ -23,7 +23,7 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
     state against proof: every entry that is not MISSING has a passing proof
     proof against map: every proof of a done entry was made on the map as it stands
     Unicode net: 891 of 891 classified; A 123, B 48, C 575, alias 73, not-phonetic 72
-    tier B: 4 composed and proved, 180 MISSING, 19 notation only (of 203 records)
+    tier B: 21 done and proved (composed 19, created 2), 163 MISSING, 19 notation only (of 203); approximate 5
 
 Every Tier A entry is done **on the development stage, not yet on the final one**: the exit also needs Tier B (4f), the rebuild of all seven templates, the golden, the engine gate and the final 4i sweep there (below).
 
@@ -38,19 +38,20 @@ Every Tier A entry is done **on the development stage, not yet on the final one*
 | other symbols | **12 of 12** |
 | 4d diacritics | **32 of 32** |
 | 4e suprasegmentals, stress, tones | suprasegmentals **9 of 9**; tones **24 of 24** |
-| 4f Tier B (extIPA, VoQS) | inventory researched (`inventory/tierb/`, 203 records, D61); Q18 decided (D67); coverage reports them (4 proved by Tier A proofs, 180 MISSING, 19 notation only); **table entries not started** (needs a design: below) |
+| 4f Tier B (extIPA, VoQS) | **designed** (`DESIGN.md` 3.5, D68); `ipa/table/tierb.toml`: 25 entries, **21 proved** (p̪ b̪ t̼ d̼ n̼̊ n̼ r̼ θ̼ ð̼ ɬ̼ ɮ̼ l̼ ɹ̺ s̻ z̻ ꞯ 𝼂 ꞎ 𝼅 𝼄 𝼄̬); not yet: t̼͡θ̼ d̼͡ð̼ (Q22), 𝼆 𝼆̬ (rounds 3 to 5 left); 163 MISSING in all, 19 notation only |
 | 4g affricates, double articulations, ligatures | **done on the development stage** (D66) |
 | 4h holes via the USP | **none left in Tier A** (ɢ, D67) |
 | 4i full sweep on the final stage | not yet |
-| CREATED_SOUNDS register | 55 created (`register.py`) |
-| estimated values in OPEN_QUESTIONS | **167** (Q15, regenerated in D67) |
-| R15 review | of this session's diff: done before commit; seven findings, all acted on (D67); it led to ɽ's F3 fault being found and fixed |
+| CREATED_SOUNDS register | 57 created (`register.py`; ꞎ and 𝼄 added) |
+| estimated values in OPEN_QUESTIONS | **172** (Q15, regenerated in D68) |
+| R15 review | of this session's diff: done before commit; eight findings, all acted on (D68) |
 
 ### For the next Phase 4 session (read first)
 
 - **Run everything under** `EVV_STAGE=C:\Users\joshk\OpenEvvBuild-ttsext\stage-dev`. The sweep: `python engine/ipa/sweep.py <sections or ids> [--apply]` (with `--apply` its settle pass re-says every passing proof made on another map; it does not see an engine or front-end change, so after one of those run the whole sweep); then `engine/ipa/register.py` and `engine/ipa/coverage.py` (`--tierb` lists every Tier B record). A whole sweep takes about 20 minutes and prints only at the end; `compose_test.py` about 45; the golden about 22. **A sweep with `--apply` now sets a failing entry back to MISSING** (seen this session: 8 went back and came back once fixed).
 - **Two ways a whole sweep died this session**, both outside the engine: the harness's flake (D14, "frame log cut short") while an engine build ran beside it; and `OSError: [Errno 22]` writing a proof (OneDrive holding the file). Nothing is applied when it dies: run the sweep alone, and re-run the ids from the one it died on with `--apply`.
-- **What is left, in this order**: (1) **4f, Tier B**: design how Tier B lives in the master table (ids `B:...` from `TIERB_CHECKLIST.json`, the validator's id and feature-bundle rules, how the sweep says a composed letter and judges it against its base), then the 29 `composes` and 9 `composes-via-alias` records (the reader's aliases), the 14 prosodic controls, and the 132 `needs-new` (most need new mechanisms: that is USP work, R18). Tier B may end `unsupported-with-justification` only with the human's acknowledgement: the 19 notation-only records are listed by `coverage.py --tierb` for that. (2) **The rebuild of all seven templates** from the final source (Q14's report of unplaced phones goes in), **measure each template's F5** at preset 1 and add it to `adapter.VOICE_F5` (until then only dedx speaks places; the others keep the ratios), stage them, the golden and `matrix_each`, then the **final 4i** (the whole sweep there with `--apply`, `register.py`, `coverage.py`), R15, and the pause.
+- **What is left, in this order**: (1) **the rest of 4f, Tier B** (`DESIGN.md` 3.5 says how a record lives in the table; D68 what was learned): Q22 (the front-end drops the marks of a tied pair it has no phone for; then the affricate as one segment) for t̼͡θ̼ d̼͡ð̼; 𝼆 (its vowel after starts 110 to 200 Hz above its locus equation; two of five rounds spent); the braces of extIPA and VoQS (a label over a stretch) with the 13 VoQS settings and 12 prosodic controls that need them; the 132 `needs-new` records (USP work, R18); the 19 notation-only records for the human's acknowledgement (`coverage.py --tierb`); Q23 (̝ on an approximant should make a fricative) at the next engine change. (2) **The rebuild of all seven templates** from the final source (Q14's report of unplaced phones goes in), **measure each template's F5** at preset 1 and add it to `adapter.VOICE_F5` (until then only dedx speaks places; the others keep the ratios), stage them, the golden and `matrix_each`, then the **final 4i** (the whole sweep there with `--apply`, `register.py`, `coverage.py`), R15, and the pause.
+- **Tier B in practice** (D68): `python engine/ipa/sweep.py tierb` sweeps the section; proof files are `ipa/proofs/B_<points>.json` (`T.file_id`). In this engine a fricative's noise rides on one formant, so a noise peak and a target for that formant move together: give a new fricative values that agree, or the design rounds swing. A fricative whose noise moves a formant gets no `ant` from the adapter; ꞎ and 𝼆 carry it as an engine key of their own. Any change to the realised map makes every proof "on another map": run the whole sweep after the last map change of a session.
 - **What D67 changed that a later change may disturb**: places (`l2`, `lk`) on 27 consonants; the vowel after a place starts at the place's equation applied to its own middle; ʈ against t's F2 is now reported only (by their equations they differ by less than the harness can tell); a retroflex against a non-retroflex must show a lower edge F3, required by the feature (ʈ ɖ ɽ); ɽ has an F3 target now (estimated, 1800 Hz). The place check compares the vowel after's first frame with the equation at the table's own vowel: s is at 7.8 per cent of its 8 on [u]. ꜛ's [a] syllable 2 is read from the frames (its signal has no pitch track in either version).
 - **The front-end** is built from a copy (`fe\pN\frontend` + `fe\pN\src\common`) with `fe\build_fe.cmd <copy>\frontend <build dir>` and staged by copying `bin\OpenEvvFrontend.exe` to `stage-dev\x64\`. Do not restage it while a golden or a sweep runs.
 - **A stopped background job can leave its children running**: after stopping a chain, list the python and bash processes (PowerShell `Get-CimInstance Win32_Process`) and stop the strays, or two sweeps write the table at once.

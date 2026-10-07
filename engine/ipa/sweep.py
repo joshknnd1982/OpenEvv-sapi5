@@ -77,6 +77,15 @@ def manner(e):
     return {'trill': 'trill', 'tap': 'tap', 'friction': 'fricative', 'approximation': 'approximant'}[s]
 
 
+def man_of(t, e):
+    """The manner a sound is measured as: a letter's own, a Tier B composite's base's (D68)."""
+    if e['kind'] == 'base':
+        return manner(e)
+    if e['kind'] == 'composite':
+        return manner(t.sounds[e['tests']['bases'][0]])
+    return None
+
+
 def contexts(t, sid):
     """[(case id, IPA, the index of the target segment among the said syllable nuclei...)]: the
     inputs of an entry. A letter alone and in three contexts; a mark on the bases its tests name."""
@@ -90,6 +99,17 @@ def contexts(t, sid):
         if manner(e) == 'vowel':
             return [('alone', x)] + [('%s_%s' % (c, c), 'ˈ%s%s%s' % (c, x, c)) for c in CONSONANTS_AROUND]
         return [('alone', x)] + [('%s_%s' % (v, v), 'ˈ%s%s%s' % (v, x, v)) for v in VOWELS_AROUND]
+    if e['kind'] == 'composite':
+        # a Tier B spelling (D68): alone, and between vowels against its plain base (or the plain
+        # spelling its tests name) in the same contexts, as its marks are judged
+        b = t.sounds[tests['bases'][0]]
+        out = [('alone', e['ipa'])]
+        for variant, x in (('plain', tests.get('plain') or b['ipa']), ('marked', e['ipa'])):
+            if manner(b) == 'vowel':
+                out += [('%s_%s_%s' % (tests['bases'][0], variant, c), 'ˈ%s%s%s' % (c, x, c)) for c in CONSONANTS_AROUND]
+            else:
+                out += [('%s_%s_%s' % (tests['bases'][0], variant, v), 'ˈ%s%s%s' % (v, x, v)) for v in VOWELS_AROUND]
+        return out
     out = []
     follow = t.sounds[tests['follow']]['ipa'] if tests.get('follow') else ''
     for base in tests.get('bases', []):
@@ -639,7 +659,7 @@ def contrast_ok(measure, mine, theirs, sign, same_base=False):
 
 def judge(t, sid, cases, diags, said_as):
     e = t.sounds[sid]
-    man = manner(e) if e['kind'] == 'base' else None
+    man = man_of(t, e)
     s = summary(cases, man) if e['kind'] == 'base' else {}
     losses = [d for d in diags if d['level'] == 'loss']
     a0 = dict(passed=not losses and not said_as.get('substitute'), losses=losses[:20],
@@ -688,6 +708,22 @@ def judge(t, sid, cases, diags, said_as):
             d['kind'] == 'composed' or d['kind'] == 'tone-made' for d in c['diag'] + c.get('fe_diag', []))]
         if unc and marked:
             a0 = dict(a0, passed=False, not_composed=unc[:6])
+    elif e['kind'] == 'composite':
+        # a Tier B spelling (D68): its mark's test against the plain base, and every marked case
+        # said as written: composed by the front-end, or a line of its own (a letter standing for a
+        # Tier A spelling), never taken apart
+        b3 = check_shift(t, sid, cases)
+        s = b3.pop('summary')
+        unc = [cid for cid, c in cases.items() if ('_marked_' in cid or cid == 'alone') and not (
+            e.get('said_as') or any(d['kind'] == 'composed' for d in c['diag'] + c.get('fe_diag', [])))]
+        if unc:
+            a0 = dict(a0, passed=False, not_composed=unc[:6])
+        if e.get('said_as'):
+            # its line is the spelling's composition, written by the adapter: a part of a mark's
+            # transform it could not express is a loss like any other
+            lost = AD.compose(t, e['parts'][0], e['parts'][1:], E.pack(said_as['pack']).template)['lost']
+            if lost:
+                a0 = dict(a0, passed=False, composition_lost=lost)
     elif PZ.check_of(e):
         b3, s = PZ.judge(t, sid, cases)
     else:
@@ -786,11 +822,11 @@ def say_entry(t, sid, template, pack):
         inputs.append((cid, text, out, d))
         diags += d
     rend = E.render(pack, [(cid, 'annotated', out) for cid, _, out, _ in inputs],
-                    work=os.path.join(SWEEP_WORK, sid.replace('+', '_')))
+                    work=os.path.join(SWEEP_WORK, T.file_id(sid).replace('+', '_')))
     cases = {}
     for (cid, text, out, d), r_ in zip(inputs, rend):
         diags += r_['diag'][len(d):] if r_['diag'][:len(d)] == d else r_['diag']
-        c = measure(r_, p, cid, manner(e) if e['kind'] == 'base' else None, layer)
+        c = measure(r_, p, cid, man_of(t, e), layer)
         c.update(ipa=text, said=out, diag=r_['diag'], fe_diag=d, wav_sha256=r_['wav_sha256'])
         x_, rate_ = E.read_wav(r_['wav'])
         c['clipped'], c['near_full_scale'] = clipped(x_)
@@ -874,7 +910,7 @@ def with_trims(t, sid, template, trims):
     e = t.sounds[sid]
     ov = e.setdefault('realization', {}).setdefault('openevv', {})
     ov.setdefault('trim', {})[template] = [dict(key=k, v=round(v, 1), scale=k not in ABS_KEYS, tag='measured',
-                                                proof='ipa/proofs/%s.json' % sid) for k, v in sorted(trims.items())]
+                                                proof='ipa/proofs/%s.json' % T.file_id(sid)) for k, v in sorted(trims.items())]
 
 
 def prove_entry(t, sid, template, pack, rounds=ROUNDS):
@@ -936,7 +972,7 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
         for c in (t.sounds[sid].get('tests') or {}).get('contrast', []):
             other = results.get(c['with'])
             if other is None:
-                path = os.path.join(PROOFS, c['with'] + '.json')
+                path = os.path.join(PROOFS, T.file_id(c['with']) + '.json')
                 other = json.load(open(path, encoding='utf-8')) if os.path.exists(path) else None
             theirs = (other or {}).get('summary', {}).get(c['measure'])
             ok, d = contrast_ok(c['measure'], res['summary'].get(c['measure']), theirs, c['sign'])
@@ -953,6 +989,16 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
             b2.append(row)
         res['B2'] = dict(passed=all(x['holds'] for x in b2 if x['required']), contrasts=b2)
         res['passed'] = all(res[k]['passed'] for k in ('A0', 'A1', 'A2', 'B3', 'B2'))
+    for sid, res in results.items():
+        # a Tier B composite stands on its parts (D68): one built on a letter not yet proved is not
+        # yet (after every entry of the run is judged: a part may come later in the order)
+        if 'summary' not in res:
+            continue
+        undone = [x for x in t.sounds[sid].get('parts') or [] if not (
+            (results.get(x) or {}).get('passed') if x in results else t.sounds[x].get('state') in ('mapped', 'composed', 'created'))]
+        if undone:
+            res['A0'] = dict(res['A0'], passed=False, parts_not_done=undone)
+            res['passed'] = False
     os.makedirs(PROOFS, exist_ok=True)
     for sid, res in results.items():
         if 'summary' not in res:
@@ -960,7 +1006,7 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
         slim = json.loads(json.dumps(res, default=float))
         for c in slim['cases'].values():
             c.pop('gold', None)
-        with open(os.path.join(PROOFS, sid + '.json'), 'w', encoding='utf-8', newline='\n') as f:
+        with open(os.path.join(PROOFS, T.file_id(sid) + '.json'), 'w', encoding='utf-8', newline='\n') as f:
             json.dump(slim, f, ensure_ascii=False, indent=1)
     if apply:
         apply_states(t, results)
@@ -984,7 +1030,7 @@ def save_trims(t, results, template):
             text = f.read()
         line = 'trim.%s = [%s]' % (template, ', '.join(
             '{ key = "%s", v = %s, scale = %s, tag = "measured", proof = "ipa/proofs/%s.json" }' % (
-                k, v, 'false' if k in ABS_KEYS else 'true', sid)
+                k, v, 'false' if k in ABS_KEYS else 'true', T.file_id(sid))
             for k, v in sorted(res['trims'].items())))
         head = '[sound."%s".realization.openevv]' % sid
         if head in text:
@@ -1018,7 +1064,7 @@ def on_other_map(t, template, pack):
     now = map_sha(t, template, pack)
     out = []
     for sid in sorted(t.sounds):
-        path = os.path.join(PROOFS, sid + '.json')
+        path = os.path.join(PROOFS, T.file_id(sid) + '.json')
         if os.path.exists(path):
             with open(path, encoding='utf-8') as f:
                 pr = json.load(f)
@@ -1058,7 +1104,7 @@ def apply_states(t, results):
             tb = block.find('\n[', ta + len(tests_head))
             tb = len(block) if tb < 0 else tb
             tests = block[ta:tb]
-            line = 'proof = "ipa/proofs/%s.json"' % sid
+            line = 'proof = "ipa/proofs/%s.json"' % T.file_id(sid)
             tests = re.sub(r'(?m)^proof = ".*"$', line, tests) if re.search(r'(?m)^proof = ', tests) \
                 else tests.rstrip('\n') + '\n' + line + '\n'
             block = block[:ta] + tests + block[tb:]

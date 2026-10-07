@@ -69,7 +69,7 @@ def _index(t):
     """symbol -> entry id, longest symbols first (tone-letter sequences are read letter by letter)."""
     out = {}
     for sid, e in t.sounds.items():
-        if e['kind'] == 'tone' and len(e['ipa']) > 1:
+        if (e['kind'] == 'tone' and len(e['ipa']) > 1) or e['kind'] == 'composite':
             continue
         out[e['ipa']] = sid
     return out
@@ -113,6 +113,11 @@ def read(text, strict=True, t=None):
     t = t or table()
     idx = _index(t)
     s = normalize(text, strict)
+    # a Tier B letter that stands for a Tier A spelling (ꞯ for q̠, D68) is read as that spelling;
+    # every other Tier B composite is its own parts already
+    for e in t.sounds.values():
+        if e['kind'] == 'composite' and e.get('said_as'):
+            s = s.replace(e['ipa'], e['said_as'])
     items, warnings = [], []
     i = 0
     tie_next = None
@@ -291,6 +296,12 @@ def test(n_random=20000, seed=1):
             check(len(tones) == 1 and tones[0]['levels'] == e['levels'], '%s read as %s' % (sid, tones))
             if len(e['codepoints']) > 1:
                 check(tones and tones[0]['entry'] == sid, '%s: the contour is not its own entry' % sid)
+        elif kind == 'composite':
+            # a Tier B spelling (D68) reads as its parts do
+            r = read(e['ipa'], t=t)
+            want = read(''.join(t.sounds[x]['ipa'] for x in e['parts']), t=t)
+            check([s.get('features') for s in _segments(r)] == [s.get('features') for s in _segments(want)]
+                  and _segments(r), '%s %s read as %s' % (sid, e['ipa'], [s.get('features') for s in _segments(r)]))
         elif kind == 'tone':
             what = 'register' if e.get('register') else 'slope'
             r = read(e['ipa'] + 'ma', t=t)
