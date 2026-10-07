@@ -29,6 +29,7 @@ CHECKLIST = os.path.join(T.ROOT, 'docs', 'tts-extension', 'inventory', 'IPA_CHEC
 PROOFS = os.path.join(T.ROOT, 'ipa', 'proofs')
 UNICODE = os.path.join(T.ROOT, 'docs', 'tts-extension', 'inventory', 'unicode')
 NET = os.path.join(T.IPA, 'unicode_net.toml')
+TIERB = os.path.join(T.ROOT, 'docs', 'tts-extension', 'inventory', 'tierb', 'TIERB_CHECKLIST.json')
 DONE = ('mapped', 'composed', 'created')
 STATES = ['mapped', 'composed', 'created', 'MISSING', 'BLOCKED', 'no entry']
 
@@ -81,6 +82,50 @@ def proof_of(sid):
         return json.load(f)
 
 
+def tier_b(t, listing):
+    """Tier B (extIPA, VoQS; playbook 4f), driven by inventory/tierb/TIERB_CHECKLIST.json. A record
+    is `composed` only when a passing proof says its exact characters (NFD) in some context; a
+    `notation-only` record has nothing to say and may end unsupported-with-justification only with
+    the human's acknowledgement (R19e, USP 8); every other record is MISSING until it is mapped.
+    Tier B does not decide the exit code: the project's exit is the Tier A checklist's."""
+    import unicodedata
+    with open(TIERB, encoding='utf-8') as f:
+        recs = json.load(f)['symbols']
+    said = collections.defaultdict(list)
+    for name in sorted(os.listdir(PROOFS)):
+        pr = proof_of(name[:-5]) if name.endswith('.json') else None
+        if pr and pr.get('passed'):
+            for cid, c in (pr.get('cases') or {}).items():
+                said[unicodedata.normalize('NFD', c.get('ipa') or '')].append('%s %s' % (pr['id'], cid))
+    cnt = collections.OrderedDict()
+    rows = []
+    for r in recs:
+        out = r['composition']['outcome']
+        sym = unicodedata.normalize('NFD', r['symbol'])
+        # its exact characters: no further mark on the same letter (t̼ said as t̼̊ is not t̼)
+        where = [w for k, ws in said.items() if sym and any(
+            not k[i + len(sym):i + len(sym) + 1] or not unicodedata.combining(k[i + len(sym)])
+            for i in range(len(k)) if k.startswith(sym, i)) for w in ws] if out == 'composes' else []
+        st = 'notation' if out == 'notation-only' else 'composed' if where else 'MISSING'
+        key = '%s / %s' % (r['chart'], r['section'])
+        cnt.setdefault(key, collections.Counter())[st] += 1
+        rows.append((r['id'], r['symbol'], key, out, st, where[0] if where else ''))
+    print()
+    print('Tier B (extIPA, VoQS): %d records' % len(recs))
+    cols = ['composed', 'MISSING', 'notation']
+    print('%-58s %s %5s' % ('chart / section', ' '.join('%9s' % c for c in cols), 'all'))
+    tot = collections.Counter()
+    for k, c in cnt.items():
+        tot.update(c)
+        print('%-58s %s %5d' % (k[:58], ' '.join('%9d' % c[x] for x in cols), sum(c.values())))
+    print('%-58s %s %5d' % ('all', ' '.join('%9d' % tot[x] for x in cols), sum(tot.values())))
+    print('tier B: %d composed and proved, %d MISSING, %d notation only (to be acknowledged by the human as '
+          'unsupported-with-justification: nothing to say)' % (tot['composed'], tot['MISSING'], tot['notation']))
+    if listing:
+        for row in rows:
+            print('  %-34s %-10s %-20s %-9s %s' % (row[0][:34], row[1][:10], row[3], row[4], row[5]))
+
+
 def unicode_net(t, checklist):
     """The secondary metric (DESIGN.md 1): every assigned code point of the ten blocks in exactly
     one class. Needs Unicode's own UnicodeData.txt and Blocks.txt (Python 3.10 knows only
@@ -131,6 +176,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--template', default='dedx')
     ap.add_argument('--quiet', action='store_true', help='the counts only')
+    ap.add_argument('--tierb', action='store_true', help='every Tier B record, not only the counts')
     a = ap.parse_args()
     t = T.load()
     with open(CHECKLIST, encoding='utf-8') as f:
@@ -201,6 +247,7 @@ def main():
                                      'MADE ON ANOTHER MAP (%d): ' % len(old_map) + ', '.join(
                                          '%s %s' % (i, t.sounds[i]['ipa']) for i in sorted(old_map))))
     print(unicode_net(t, checklist))
+    tier_b(t, a.tierb)
     return 1 if missing or extra or stale or old_map else 0
 
 

@@ -230,7 +230,7 @@ def measure(r, p, case_id, man=None, layer=None):
             if st and st.get('voicing_onset_ms') is None:
                 # a voice that begins more than 80 ms after the stop (an ejective's, an aspirated
                 # stop's): the same timing looked for 250 ms past it, as vot_long does
-                st = dict(st, **{k: v for k, v in (A.stop_timing(x, rate, a, b, after_ms=250.0) or {}).items()
+                st = dict(st, **{k: v for k, v in (A.stop_timing(x, rate, a, b, after_ms=250.0, voice_db=40.0) or {}).items()
                                  if k == 'voicing_onset_ms'})
             bm = st['burst_ms'] if st else None
             if case_id != 'alone':
@@ -314,6 +314,14 @@ def measure(r, p, case_id, man=None, layer=None):
         fs = A.formants(x, rate, t_, win_ms=20.0)
         for k in (1, 2, 3):
             edges['%s_F%d_%s' % (which, k, '80' if at < 0 else '20')] = fs[k - 1][0] if len(fs) >= k else None
+    # the frames the engine made where the vowel after begins and at its middle: a place given as
+    # a locus equation (Q21) is checked there, in every context (check_b3)
+    if after is not None and phones[after]['cls'] == 'vowel':
+        js = [j for j in range(len(tt_)) if phones[after]['start_ms'] <= tt_[j] < phones[after]['end_ms']]
+        if js:
+            for k in (1, 2, 3):
+                edges['next_req_F%d_0' % k] = float(r['frames'][js[0], E.P['f%d' % k]])
+                edges['next_req_F%d_mid' % k] = float(r['frames'][js[len(js) // 2], E.P['f%d' % k]])
     out['edges'] = edges
     return out
 
@@ -374,6 +382,12 @@ def summary(cases, man):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
         if v is not None:
             s['%s' % k] = round(v, 2)
+    for k in (1, 2, 3):
+        # per context: the frames where the vowel after begins and at its middle (check_b3, Q21)
+        pairs = [[c['edges']['next_req_F%d_0' % k], c['edges']['next_req_F%d_mid' % k], cid]
+                 for cid, c in sorted(cases.items()) if cid != 'alone' and 'next_req_F%d_0' % k in c.get('edges', {})]
+        if pairs:
+            s['next_req_F%d_pairs' % k] = pairs
     for k in ('voicing_slope', 'burst_db', 'burst_len_ms', 'burst_centroid_hz'):
         # in how many contexts the measure was found: a median of one is not a proof (check_b3)
         s['n_' + k] = sum(1 for cid, c in cases.items() if cid != 'alone' and (c.get('extra') or {}).get(k) is not None)
@@ -430,6 +444,18 @@ def check_a1(cases, man):
                for ph in ts):
             bad.append('%s: %s has no sounding frame' % (cid, '+'.join(ph['name'] for ph in ts)))
     return dict(passed=not bad, problems=bad)
+
+
+_CONTEXT_HZ = {}
+
+
+def _context_hz(k, template='dedx'):
+    """{context vowel: its formant k (0 = F1) as the master table realises it}, for the sweep's
+    own context vowels."""
+    if k not in _CONTEXT_HZ:
+        t = T.load()
+        _CONTEXT_HZ[k] = {v: (AD.realised_hz(t, t.by_ipa()[v], template) or [None] * 3)[k] for v in VOWELS_AROUND}
+    return _CONTEXT_HZ[k]
 
 
 def check_b3(e, s):
@@ -489,7 +515,23 @@ def check_b3(e, s):
         got, w, n = s.get('voicing_slope'), v(x), s.get('n_voicing_slope', 0)
         out['closure voicing slope'] = dict(target=w, measured=got, contexts=n,
                                             within=got is not None and n >= 2 and abs(got - w) <= 1.0)
+    slopes = spec.get('locus_slope') or {}
     for k, x in (spec.get('locus') or {}).items():
+        if k in slopes:
+            # a locus with its equation (Q21): the consonant sends a vowel to locus + slope x (the
+            # vowel's own - locus), never to the locus itself, so it is checked where the vowel
+            # after begins, in every context (frames, as below), against the vowel's own formant as
+            # the table realises it, which nothing here moves (the review of D67: the vowel's
+            # middle frame was still on its way from the place in a short vowel, and a reference
+            # that moves with the result loosens the check)
+            pairs = s.get('next_req_%s_pairs' % k) or []
+            own = _context_hz(int(k[1]) - 1)
+            got = [(a, own.get(cid.split('_')[0])) for a, m, cid in pairs]
+            dev = [round(a / (v(x) + v(slopes[k]) * (o - v(x))) - 1.0, 3) for a, o in got if o]
+            out['locus %s (equation, frames)' % k] = dict(
+                target='%s + %s x (vowel - %s)' % (v(x), v(slopes[k]), v(x)), measured=got, deviation=dev,
+                within=len(dev) >= 2 and all(abs(d) <= 0.08 for d in dev))
+            continue
         # a locus is where the consonant sends the formants; a closure has no formants to measure in
         # the signal, so this is checked in the frames the engine made at the consonant (the
         # synthesiser realising them is check A2's business); the signal's evidence is B2's edges
@@ -538,6 +580,12 @@ def specified(t, sid, c):
     if c['measure'] == 'voicing_slope' and t.sounds[sid]['features'].get('airstream') == 'implosive':
         # the airstream is a feature: an implosive's voice swells where the plain stop's does not
         return True
+    if c['measure'] == 'edge_F3' and c['sign'] < 0 and t.sounds[sid]['features'].get('place') == 'retroflex' \
+            and t.sounds[c['with']]['features'].get('place') != 'retroflex':
+        # retroflexion is a feature, and its cue is a lower F3 at the vowel's edge (the checklist's
+        # correlates; ʈ's F3 note): required whether or not the other letter states an F3 locus
+        # (the review of D67: ʈ and ɖ had no required place contrast left)
+        return True
     path = SPEC_OF.get(c['measure'])
     if path is None:
         return 'no specification field for %s' % c['measure']
@@ -545,6 +593,20 @@ def specified(t, sid, c):
     if mine is None or theirs is None:
         return 'reported only: %s has no %s in its specification' % (
             t.sounds[sid if mine is None else c['with']]['ipa'], '.'.join(path))
+    if path[0] == 'locus' and all(_spec_value(t, x, ('locus_slope', path[1])) is not None for x in (sid, c['with'])):
+        # two loci with their equations (Q21): what the specifications say at a vowel's edge is
+        # locus + slope x (vowel - locus), not the locus; compared at the sweep's own context
+        # vowels (their F2 as the table realises them), the median of each
+        k = int(path[1][1]) - 1
+        vs = [AD.realised_hz(t, t.by_ipa()[v], 'dedx')[k] for v in VOWELS_AROUND]
+
+        def at_edge(x):
+            lo, sl = _spec_value(t, x, path), _spec_value(t, x, ('locus_slope', path[1]))
+            return sorted(lo + sl * (v - lo) for v in vs)[len(vs) // 2]
+        mine, theirs = round(at_edge(sid), 1), round(at_edge(c['with']), 1)
+        ok, _ = contrast_ok(c['measure'], mine, theirs, c['sign'])
+        return True if ok else ('reported only: by their locus equations the specifications differ at the edge '
+                                'by less than the contrast minimum (%s, %s)' % (mine, theirs))
     ok, _ = contrast_ok(c['measure'], mine, theirs, c['sign'])
     return True if ok else 'reported only: the specifications differ by less than the contrast minimum (%s, %s)' % (
         mine, theirs)

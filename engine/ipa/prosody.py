@@ -175,6 +175,7 @@ def measure(x, rate, phones, frames=None, stops=False):
         syl.append(dict(i=i, name=ph['name'], start_ms=a, ms=n, db=A.intensity_db(x, rate, a, b) if n > 5 else None,
                         f0_start=_median(st[:k]) if st else None, f0_mid=_median(st) if st else None,
                         f0_end=_median(st[-k:]) if st else None,
+                        f0_asked=asked((a + b) / 2.0) if asked else None,
                         track=[(round(0.05 + 0.9 * r, 3), round(v, 2)) for r, v in tr]))
     cons = [dict(i=i, name=ph['name'], ms=ph['end_ms'] - ph['start_ms']) for i, ph in enumerate(phones)
             if ph['cls'] not in ('silence', 'vowel')]
@@ -343,8 +344,21 @@ def judge(t, sid, cases):
                     bool(after) and abs(_median(after) - want) <= max(1.0, 0.4 * abs(want)))
                 put('%s: still there on the last syllable' % v, '%+d' % (1 if want > 0 else -1), d[-1],
                     d[-1] is not None and d[-1] * want >= 0.5 * want * want)
-                put('%s: nothing before the mark' % v, 0, _median([x for x in d[:2] if x is not None]),
-                    all(x is not None and abs(x) < MIN_ST for x in d[:2]))
+                # before the mark: a syllable whose pitch the signal gives in neither version (a
+                # short vowel after an aspirated stop: about 20 ms voiced, D67) is read in the frames,
+                # the pitch the engine asked for, as a locus is
+                before = list(d[:2])
+                for i_ in range(min(2, len(before))):
+                    if before[i_] is None and sp[i_] is None and sm[i_] is None:
+                        # neither version: one that lost its pitch only when marked is a failure
+                        # the signal shows (the review of D67)
+                        fp, fm = [((P.get('%s_%s' % (w, v)) or {}).get('syllables') or [{}] * 2)[i_].get('f0_asked')
+                                  for w in ('plain', 'marked')]
+                        if fp is not None and fm is not None:
+                            before[i_] = fm - fp
+                            summ['before_from_frames_%s' % v] = summ.get('before_from_frames_%s' % v, []) + [i_]
+                put('%s: nothing before the mark' % v, 0, _median([x for x in before if x is not None]),
+                    all(x is not None and abs(x) < MIN_ST for x in before))
             else:
                 want = _v(spec['st_per_syllable'])
                 pts = [(i, x) for i, x in enumerate(d) if x is not None]

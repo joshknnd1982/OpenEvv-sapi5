@@ -171,6 +171,12 @@ typedef struct {
     int  ant;           /* the sound before this one ends at this one's
                            formant ratios over so many ms: its place shows
                            in the way in as it does in the way out */
+    int  l[4];          /* a place's formant (its locus), per mille of the
+                           voice's own fifth formant, in place of a ratio:
+                           a frame there is taken to it, from wherever the
+                           vowel beside it is */
+    int  lk;            /* how much of the vowel's own formant the place
+                           keeps, percent (a locus equation's slope) */
 } Def;
 
 typedef struct {
@@ -498,6 +504,7 @@ static void def_defaults(Def *d)
         d->f[i] = 100;
         d->g[i] = UNSET;
         d->b[i] = 100;
+        d->l[i] = UNSET;
     }
     d->dur = 100;
     d->hold = 100;
@@ -705,6 +712,9 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "burstms", offsetof(Def, burstms) }, { "rel2", offsetof(Def, rel2) },
         { "rel2ms", offsetof(Def, rel2ms) }, { "rel2af", offsetof(Def, rel2af) },
         { "bgain", offsetof(Def, bgain) }, { "ant", offsetof(Def, ant) },
+        { "l1", offsetof(Def, l[0]) }, { "l2", offsetof(Def, l[1]) },
+        { "l3", offsetof(Def, l[2]) }, { "l4", offsetof(Def, l[3]) },
+        { "lk", offsetof(Def, lk) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -1681,6 +1691,31 @@ static double ratio_log(int percent)
     return log(percent / 100.0);
 }
 
+/* Where a place (`l', `lk') takes formant i of frame f, as the log of a
+   ratio to the module's own value, like any ratio here: to its locus, which
+   is in the voice's own scale (per mille of the fifth formant, which the
+   module sets for a voice and nothing here moves), plus `lk' per cent of
+   the way back to the vowel's own formant, v hertz. A locus equation,
+   F2 at the edge = locus +
+   slope x (F2 of the vowel - locus), so a place far from a vowel bends it
+   by as much as the place says and never past it. A ratio the sound also
+   has for that formant (a mark on the letter) moves the place by it. 0 if
+   the place does not name formant i. */
+static int place_log(const Def *d, int i, const int32_t *f, double v,
+                     double *out)
+{
+    double locus, e;
+
+    if (d == 0 || d->l[i] == UNSET || f[P_F5] <= 0 || f[FORMANT[i]] <= 0)
+        return 0;
+    locus = d->l[i] / 1000.0 * f[P_F5];
+    e = locus + d->lk / 100.0 * (v - locus);
+    if (e < 50)
+        e = 50;
+    *out = log(e / f[FORMANT[i]]) + ratio_log(d->f[i]);
+    return 1;
+}
+
 static const Def *def_at(const Accent *a, int index)
 {
     if (index < 0 || index >= a->n_defs)
@@ -2176,6 +2211,10 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
             if (lf_from[i] != 0 || lf_to[i] != 0 || lf_end[i] != 0
                 || lb_from[i] != 0 || lb_to[i] != 0 || lf_nx[i] != 0)
                 any_formant = 1;
+            if ((prev != 0 && prev->l[i] != UNSET)
+                || (def != 0 && def->l[i] != UNSET)
+                || (ant_ms > 0 && nx->l[i] != UNSET))
+                any_formant = 1;
         }
         /* A pause has no sound to be anything: what came before lets go. */
         if (ph->pause)
@@ -2221,6 +2260,14 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
         int own_shut = 0;
         double own_rel = -1;
 
+        /* The module's formants at the middle of this sound's own frames,
+           before anything here moves them: a vowel's own place. */
+        double own_mid[4] = { 0, 0, 0, 0 };
+        if (n_own > 0)
+            for (i = 0; i < 4; i++)
+                own_mid[i] = out[(size_t)(n_on + n_own / 2) * P_COUNT
+                                + FORMANT[i]];
+
         for (k = 0; k < n_out && ok; k++) {
             int32_t *f = out + (size_t)k * P_COUNT;
             int dt = f[P_STEP];
@@ -2255,13 +2302,34 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 int f2_down = 0;
                 for (i = 0; i < 4; i++) {
                     double here = lf_to[i] + (lf_end[i] - lf_to[i]) * along;
-                    double l = lf_from[i] + (here - lf_from[i]) * w;
-                    double lb = lb_from[i] + (lb_to[i] - lb_from[i]) * w;
+                    double from = lf_from[i];
+                    double l, lb;
+
+                    /* A place in the voice's scale rather than a ratio: its
+                       own stretch is where it takes each frame; the sound
+                       after it starts where it took that sound (or, if this
+                       one was met on the way in, where this one is). */
+                    if (!ph->pause)
+                        place_log(def, i, f, f[FORMANT[i]], &here);
+                    if (def != 0 && def->ant > 0 && before != 0
+                        && !before->pause) {
+                        if (def->l[i] != UNSET)
+                            from = here;
+                    } else {
+                        /* from the vowel's own formant, as its middle has
+                           it, not the module's way out of the consonant's
+                           own place, which is the carrier's */
+                        place_log(prev, i, f, own_mid[i] * exp(here), &from);
+                    }
+                    l = from + (here - from) * w;
+                    lb = lb_from[i] + (lb_to[i] - lb_from[i]) * w;
 
                     if (ant_ms > 0 && own_ms - into < ant_ms) {
                         double l_own = l;
+                        double to_nx = lf_nx[i];
 
-                        l += (lf_nx[i] - l)
+                        place_log(nx, i, f, f[FORMANT[i]] * exp(l), &to_nx);
+                        l += (to_nx - l)
                             * smooth(1.0 - (own_ms - into) / ant_ms);
                         if (i == 1 && l < l_own)
                             f2_down = 1;

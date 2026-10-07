@@ -268,7 +268,7 @@ def nasal_zero(x, rate, a_ms, b_ms, lo_hz=400.0, hi_hz=3500.0):
 
 # ---- stops ---------------------------------------------------------------------------------------
 
-def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
+def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45, voice_db=None):
     """Closure, burst and voicing onset in a stop's stretch [a_ms, b_ms] and up to after_ms past it.
 
     closure: the quiet part (RMS 25 dB or more below the stretch's loudest 5 ms) before the burst.
@@ -279,7 +279,9 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
     voicing: prevoicing when a voice bar (energy below 400 Hz within 40 dB of the stretch's
              loudest, periodic in its middle) runs unbroken for 10 ms or more into the burst: its
              start is the onset.
-             Otherwise the first moment after the burst from which F0 is found for 20 ms.
+             Otherwise the first moment after the burst from which F0 is found for 20 ms (and,
+             with voice_db, whose level is within voice_db of the loudest: the autocorrelation
+             does not see level, and a burst's ringing a few sample units high read as voice).
              Voicing carried over from the vowel before, which dies away in the closure, is not
              prevoicing (it made Hindi /p t k/ read -117 to -49 ms: the review of Phase 1).
     VOT = voicing onset - burst (negative when prevoiced).
@@ -335,7 +337,8 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
             t = burst * hop_ms
     total = len(y) * 1000.0 / rate
     while onset is None and t < total - 20:
-        if all(f0_at(y, rate, t + d, threshold=voicing) for d in (0.0, 5.0, 10.0, 15.0, 20.0)):
+        if (voice_db is None or db_all[min(n - 1, int(t / hop_ms))] >= db_all.max() - voice_db) \
+                and all(f0_at(y, rate, t + d, threshold=voicing) for d in (0.0, 5.0, 10.0, 15.0, 20.0)):
             onset = t
             break
         t += hop_ms * 2
@@ -530,8 +533,10 @@ def burst(x, rate, a_ms, b_ms, ref_db=None, floor_db=30.0):
 
 def vot_long(x, rate, a_ms, b_ms, after_ms=250.0):
     """VOT of a stop whose voice begins well into the next phone (an aspirated stop): stop_timing
-    looking after_ms past the stop instead of 80 (D48)."""
-    st = stop_timing(x, rate, a_ms, b_ms, after_ms=after_ms)
+    looking after_ms past the stop instead of 80 (D48), with the voice held to a level (40 dB
+    under the loudest, as the voice bar is): an ejective's long silence holds the burst's ringing,
+    which the autocorrelation read as voice at the burst (D67)."""
+    st = stop_timing(x, rate, a_ms, b_ms, after_ms=after_ms, voice_db=40.0)
     return st and st.get('vot_ms')
 
 

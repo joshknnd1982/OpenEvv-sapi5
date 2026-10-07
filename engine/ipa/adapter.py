@@ -136,7 +136,25 @@ def realize(t, sid, template, carrier_meas=None):
             if target is not None:
                 ratio('f%d' % (i + 1), _v(target), ch['f'][i], k)
             target = (spec.get('locus') or {}).get(k)
-            if target is not None:
+            slope = (spec.get('locus_slope') or {}).get(k)
+            if target is not None and slope is not None and template not in VOICE_F5:
+                # a locus with a slope is the point of an equation, not an edge: as a ratio to the
+                # carrier it would send every vowel there (q x 0.36, the review of D67). Until the
+                # template's F5 is measured the place is not realised, and said so.
+                unrealised.append('locus %s: a locus equation, and the %s voice\'s F5 is not measured '
+                                  '(adapter.VOICE_F5)' % (k, template))
+            elif target is not None and slope is not None:
+                # a locus with its equation's slope (Q21): the layer takes the vowel's edge to
+                # locus + slope x (vowel - locus), the locus in the voice's own scale (per mille
+                # of its F5), so a place far from a vowel never bends it past where it sends it
+                if 'lk' in keys and keys['lk'] != int(round(100.0 * _v(slope))):
+                    unrealised.append('locus_slope %s: the layer takes one slope for every locus' % k)
+                    continue
+                keys['l%d' % (i + 1)] = int(round(1000.0 * _v(target) / VOICE_F5[template]))
+                keys['lk'] = int(round(100.0 * _v(slope)))
+                rules.append('l%d = locus %s %s Hz / F5 %d Hz of the %s voice, per mille; lk = slope %s'
+                             % (i + 1, k, _v(target), VOICE_F5[template], template, _v(slope)))
+            elif target is not None:
                 if 'locus' not in ch:
                     unrealised.append('locus %s: the carrier %s has no measured locus' % (k, car))
                 else:
@@ -212,8 +230,8 @@ def realize(t, sid, template, carrier_meas=None):
             # a click's burst and an implosive's closure (T-click, T-airstream): targets the sweep
             # measures, met through the entry's own engine keys (realization.openevv.keys)
             rules.append('%s: measured targets, realised by the engine keys below' % k)
-    known = {'formants', 'locus', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap', 'nasal', 'trill',
-             'burst', 'closure'}
+    known = {'formants', 'locus', 'locus_slope', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap',
+             'nasal', 'trill', 'burst', 'closure'}
     for k in spec:
         if k not in known:
             unrealised.append('%s: the adapter has no key for it yet' % k)
@@ -227,7 +245,7 @@ def realize(t, sid, template, carrier_meas=None):
         rules.append('trim %s %s (%s)' % (tr['key'], tr['v'], tr.get('tag')))
     f = e['features']
     if not layer and cls == 'consonant' and ('locus' in spec or 'formants' in spec) and keys_peak is None \
-            and any(keys.get('f%d' % i, 100) != 100 for i in (1, 2, 3, 4)) and 'ant' not in keys:
+            and (any(keys.get('f%d' % i, 100) != 100 for i in (1, 2, 3, 4)) or 'lk' in keys) and 'ant' not in keys:
         # the sound before ends at this one's formants: the accent layer otherwise moves only the
         # sound after, and the vowel before glided to the carrier's place (ʈ's to t's, D64)
         keys['ant'] = ANT_MS
@@ -254,6 +272,9 @@ ANT_MS = 50
 # bandwidths of F4 and F5; and the bandwidths of a carrier that has none measured.
 F5_HZ, B4_HZ, B5_HZ = 3900, 330, 260
 B_DEFAULT = [120, 100, 150]
+# The voice's own F5 at preset 1, per template: the scale a locus is given in (`l2`, Q21). Only
+# the reference template's is measured; another template keeps the ratio until its F5 is.
+VOICE_F5 = {'dedx': F5_HZ}
 
 
 def level_rise(ch, keys):

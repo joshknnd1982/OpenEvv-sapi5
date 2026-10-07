@@ -3,15 +3,15 @@
 
 sound u0061 ah=-6 av=-6 f1=127 f2=125 f3=110    # U+0061 open front unrounded vowel
 a            A=u0061
-sound u0062 ant=50 f2=92    # U+0062 voiced bilabial plosive
+sound u0062 ant=50 l2=215 lk=82    # U+0062 voiced bilabial plosive
 b            b=u0062
-sound u0063 ant=50 f2=114 vot=34    # U+0063 voiceless palatal plosive
+sound u0063 ant=50 l2=469 lk=34 vot=34    # U+0063 voiceless palatal plosive
 c            k=u0063
-sound u0064 ant=50 f2=104    # U+0064 voiced dental or alveolar plosive
+sound u0064 ant=50 l2=428 lk=80    # U+0064 voiced dental or alveolar plosive
 d            d=u0064
 sound u0065 ah=-10 av=-10 f1=113 f2=118 f3=109    # U+0065 close-mid front unrounded vowel
 e            e=u0065
-sound u0066 ant=50 f2=163 hold=138    # U+0066 voiceless labiodental fricative
+sound u0066 ant=50 hold=138 l2=333 lk=77    # U+0066 voiceless labiodental fricative
 f            f=u0066
 sound u0068 ms=102 whisper=44    # U+0068 voiceless glottal fricative
 h            <h=u0068
@@ -19,7 +19,7 @@ sound u0069 ah=-16 av=-16 f1=82 f2=129 f3=126    # U+0069 close front unrounded 
 i            i=u0069
 sound u006a ah=-2 ant=50 av=-2 f1=65 f2=135 f3=110 f4=102 hold=78    # U+006A voiced palatal approximant
 j            j=u006a
-sound u006b ant=50 f2=64 vot=28    # U+006B voiceless velar plosive
+sound u006b ant=50 l2=263 lk=86 vot=28    # U+006B voiceless velar plosive
 k            k=u006b
 sound u006c ah=-3 ant=50 av=-3 f1=92 f2=138 f3=88 hold=50    # U+006C voiced dental or alveolar lateral approximant
 l            l=u006c
@@ -29,20 +29,20 @@ sound u006e ant=50 f1=249 f2=90 f3=95 f4=104 hold=163    # U+006E voiced dental 
 n            n=u006e
 sound u006f ah=-3 av=-3 f1=109 f2=93 f3=108    # U+006F close-mid back rounded vowel
 o            o=u006f
-sound u0070 ant=50 f2=105 vot=22    # U+0070 voiceless bilabial plosive
+sound u0070 ant=50 l2=216 lk=75 vot=22    # U+0070 voiceless bilabial plosive
 p            p=u0070
-sound u0071 ant=50 f1=124 f2=58 vot=23    # U+0071 voiceless uvular plosive
+sound u0071 ant=50 f1=124 l2=150 lk=78 vot=23    # U+0071 voiceless uvular plosive
 q            k=u0071
 sound u0072 ant=50 f1=143 f2=100 f3=79 hold=104 tapms=15 tdepth=20 trate=28    # U+0072 voiced dental or alveolar trill
 r            l=u0072
-sound u0073 a2=0 a3=0 a4=50 a5=30 a6=0 f2=113 f3=111 f4=135 hold=132    # U+0073 voiceless alveolar fricative
+sound u0073 a2=0 a3=0 a4=50 a5=30 a6=0 f3=111 f4=135 hold=132 l2=453 lk=53    # U+0073 voiceless alveolar fricative
 s            s=u0073
-sound u0074 ant=50 f2=102 vot=6    # U+0074 voiceless dental or alveolar plosive
+sound u0074 ant=50 l2=417 lk=69 vot=6    # U+0074 voiceless dental or alveolar plosive
 #   NOT PROVED: ipa/proofs/loop/U+0074.json did not reach its targets on dedx
 t            t=u0074
 sound u0075 ah=-4 av=-4 f1=123 f2=77 f3=103    # U+0075 close back rounded vowel
 u            u=u0075
-sound u0076 ant=50 f2=172 hold=84    # U+0076 voiced labiodental fricative
+sound u0076 ant=50 hold=84 l2=333 lk=77    # U+0076 voiced labiodental fricative
 v            v=u0076
 sound u0077 ant=50 f1=98 f2=84 f3=100 f4=98    # U+0077 voiced labial-velar approximant
 w            w=u0077
@@ -50,13 +50,13 @@ sound u0078 a2=50 a3=70 a4=50 a5=0 a6=0 f3=88 hold=100    # U+0078 voiceless vel
 x            x=u0078
 sound u0079 ah=-6 av=-6 f1=83 f2=124 f3=116    # U+0079 close front rounded vowel
 y            y=u0079
-sound u007a ant=50 f2=122 hold=98    # U+007A voiced alveolar fricative
+sound u007a ant=50 hold=98 l2=453 lk=53    # U+007A voiced alveolar fricative
 z            z=u007a
 sound u00e6 ah=-3 av=-3 f1=115 f2=95 f3=96    # U+00E6 near-open front unrounded vowel
 æ            E=u00e6
 sound u00e7 a2=36 a3=36 a4=56 a5=50 a6=0 f4=114 hold=101    # U+00E7 voiceless palatal fricative
 ç            X=u00e7
-sound u00f0 ant=50 f2=192 hold=93    # U+00F0 voiced dental fricative
+sound u00f0 ant=50 hold=93 l2=446 lk=53    # U+00F0 voiced dental fricative
 ð            v=u00f0
 sound u00f8 ah=-5 av=-5 f1=111 f2=134 f3=123    # U+00F8 close-mid front rounded vowel
 ø            oe=u00f8
@@ -81,15 +81,15 @@ sound u0251 ah=-8 av=-8 f1=130 f2=111 f3=119    # U+0251 open back unrounded vow
 ɑ            O=u0251
 sound u0252 ah=-5 av=-5 f1=119 f2=103 f3=120    # U+0252 open back rounded vowel
 ɒ            O=u0252
-sound u0253 ant=50 f2=92 hold=75 impl=12    # U+0253 voiced bilabial implosive (chart label: Bilabial)
+sound u0253 ant=50 hold=75 impl=12 l2=215 lk=82    # U+0253 voiced bilabial implosive (chart label: Bilabial)
 ɓ            b=u0253
 sound u0254 f1=94 f2=89 f3=106    # U+0254 open-mid back rounded vowel
 ɔ            O=u0254
 sound u0255 a2=42 a3=42 a4=62 a5=0 a6=0 f4=94    # U+0255 voiceless alveolo-palatal fricative
 ɕ            S=u0255
-sound u0256 ant=50 f2=90 f3=69    # U+0256 voiced retroflex plosive
+sound u0256 ant=50 f3=69 l2=368 lk=80    # U+0256 voiced retroflex plosive
 ɖ            d=u0256
-sound u0257 ant=50 f2=104 hold=90 impl=9    # U+0257 voiced dental/alveolar implosive (chart label: Dental/alveolar)
+sound u0257 ant=50 hold=90 impl=9 l2=428 lk=80    # U+0257 voiced dental/alveolar implosive (chart label: Dental/alveolar)
 ɗ            d=u0257
 sound u0258 f1=99 f2=106 f3=109    # U+0258 close-mid central unrounded vowel
 ɘ            @=u0258
@@ -101,13 +101,13 @@ sound u025c ah=-3 av=-3 dur=205 f1=125 f2=87 f3=99    # U+025C open-mid central 
 ɜ            @=u025c
 sound u025e f1=116 f2=80 f3=103    # U+025E open-mid central rounded vowel
 ɞ            @=u025e
-sound u025f ant=50 f2=119    # U+025F voiced palatal plosive
+sound u025f ant=50 l2=487 lk=59    # U+025F voiced palatal plosive
 ɟ            g=u025f
-sound u0260 ant=50 f2=64 hold=90 impl=7    # U+0260 voiced velar implosive (chart label: Velar)
+sound u0260 ant=50 hold=90 impl=7 l2=252 lk=88    # U+0260 voiced velar implosive (chart label: Velar)
 ɠ            g=u0260
-sound u0261 ant=50 f2=64    # U+0261 voiced velar plosive
+sound u0261 ant=50 l2=252 lk=88    # U+0261 voiced velar plosive
 ɡ            g=u0261
-sound u0262 ant=50 f1=122 f2=58    # U+0262 voiced uvular plosive
+sound u0262 ant=50 f1=122 l2=150 lk=78    # U+0262 voiced uvular plosive
 ɢ            g=u0262
 sound u0263 hold=68 voi=1    # U+0263 voiced velar fricative
 ɣ            x=u0263
@@ -145,7 +145,7 @@ sound u0275 f1=91 f2=76 f3=100    # U+0275 close-mid central rounded vowel
 ɵ            @=u0275
 sound u0276 f1=87 f2=110 f3=105    # U+0276 open front rounded vowel
 ɶ            A=u0276
-sound u0278 ant=50 f2=91    # U+0278 voiceless bilabial fricative
+sound u0278 ant=50 l2=216 lk=75    # U+0278 voiceless bilabial fricative
 ɸ            f=u0278
 sound u0279 ant=50 f1=105 f2=97 f3=85 f4=93    # U+0279 voiced dental or alveolar approximant
 ɹ            r=u0279
@@ -153,7 +153,7 @@ sound u027a tap=1 tapms=25    # U+027A voiced alveolar lateral flap
 ɺ            l=u027a
 sound u027b ah=-4 ant=50 av=-4 f1=112 f2=114 f3=88 f4=84    # U+027B voiced retroflex approximant
 ɻ            r=u027b
-sound u027d tap=1 tapms=25    # U+027D voiced retroflex flap
+sound u027d ant=50 f3=62 tap=1 tapms=25    # U+027D voiced retroflex flap
 ɽ            l=u027d
 sound u027e ant=50 f1=95 f2=142 f3=86 tap=1 tapms=31    # U+027E voiced dental or alveolar tap
 ɾ            l=u027e
@@ -163,11 +163,11 @@ sound u0281 a2=60 a3=0 a4=0 a5=0 a6=0 f2=98    # U+0281 voiced uvular fricative
 ʁ            r=u0281
 sound u0282 a2=42 a3=62 a4=42 a5=0 a6=0 f3=117    # U+0282 voiceless retroflex fricative
 ʂ            S=u0282
-sound u0283 a2=42 a3=42 a4=62 a5=0 a6=0 f2=103 f3=93 f4=106 hold=115    # U+0283 voiceless postalveolar fricative
+sound u0283 a2=42 a3=42 a4=62 a5=0 a6=0 f3=93 f4=106 hold=115 l2=513 lk=56    # U+0283 voiceless postalveolar fricative
 ʃ            S=u0283
-sound u0284 ant=50 f2=119 hold=75 impl=6    # U+0284 voiced palatal implosive (chart label: Palatal)
+sound u0284 ant=50 hold=75 impl=6 l2=487 lk=59    # U+0284 voiced palatal implosive (chart label: Palatal)
 ʄ            g=u0284
-sound u0288 ant=50 f2=93 f3=72 vot=10    # U+0288 voiceless retroflex plosive
+sound u0288 ant=50 f3=72 l2=380 lk=72 vot=10    # U+0288 voiceless retroflex plosive
 ʈ            t=u0288
 sound u0289 f1=73 f2=108 f3=100    # U+0289 close central rounded vowel
 ʉ            U=u0289
@@ -187,7 +187,7 @@ sound u0290 a2=0 a3=62 a4=42 a5=0 a6=0 f3=122    # U+0290 voiced retroflex frica
 ʐ            Z=u0290
 sound u0291 a2=0 a3=42 a4=62 a5=0 a6=0 f4=94    # U+0291 voiced alveolo-palatal fricative
 ʑ            Z=u0291
-sound u0292 a2=0 a3=42 a4=62 a5=0 a6=0 f2=109 f4=106 hold=95    # U+0292 voiced postalveolar fricative
+sound u0292 a2=0 a3=42 a4=62 a5=0 a6=0 f4=106 hold=95 l2=513 lk=56    # U+0292 voiced postalveolar fricative
 ʒ            Z=u0292
 sound u0294 hush=1 ms=45    # U+0294 glottal plosive (glottal stop)
 ʔ            <q=u0294
@@ -198,7 +198,7 @@ sound u0298 a2=70 a3=30 a4=0 a5=0 a6=0 ab=0 bgain=24 burstms=23 ej=2 vot=32    #
 ʘ            p=u0298
 sound u0299 tdepth=20 trate=19    # U+0299 voiced bilabial trill
 ʙ            w=u0299
-sound u029b ant=50 f2=58 hold=85 impl=9    # U+029B voiced uvular implosive (chart label: Uvular)
+sound u029b ant=50 hold=85 impl=9 l2=150 lk=78    # U+029B voiced uvular implosive (chart label: Uvular)
 ʛ            g=u029b
 sound u029c hold=187 tapms=8 tdepth=20 trate=40    # U+029C voiceless epiglottal fricative
 ʜ            x=u029c
@@ -210,9 +210,9 @@ sound u02a1 ant=50 f2=72    # U+02A1 epiglottal plosive (voicing not specified o
 ʡ            g=u02a1
 sound u02a2 hold=130 tapms=4 tdepth=20 trate=53    # U+02A2 voiced epiglottal fricative (IPA symbol list: voiced epiglottal fricative/approximant)
 ʢ            r=u02a2
-sound u03b2 ant=50 f2=93    # U+03B2 voiced bilabial fricative
+sound u03b2 ant=50 l2=216 lk=75    # U+03B2 voiced bilabial fricative
 β            v=u03b2
-sound u03b8 ant=50 f2=184 hold=136    # U+03B8 voiceless dental fricative
+sound u03b8 ant=50 hold=136 l2=446 lk=53    # U+03B8 voiceless dental fricative
 θ            f=u03b8
 sound u03c7 a2=70 a3=0 a4=50 a5=0 a6=0 f2=102    # U+03C7 voiceless uvular fricative
 χ            x=u03c7
@@ -226,11 +226,11 @@ t͜s          T
 t͜ʃ          C
 
 # double articulations, two phones under one closure (͜ U+035C)
-sound u93dcd560a2 ant=50 f2=64 hold=40 noburst=1 vot=0    # U+006B, part 1 of k͡p
-sound u65d3e6ec41 ant=50 f2=105 hold=70 vot=22    # U+0070, part 2 of k͡p
+sound u93dcd560a2 ant=50 hold=40 l2=263 lk=86 noburst=1 vot=0    # U+006B, part 1 of k͡p
+sound u65d3e6ec41 ant=50 hold=70 l2=216 lk=75 vot=22    # U+0070, part 2 of k͡p
 k͜p          k=u93dcd560a2 p=u65d3e6ec41
-sound u1f03dedb4a ant=50 f2=64 hold=40 noburst=1    # U+0261, part 1 of ɡ͡b
-sound udd0ba12375 ant=50 f2=86 hold=60    # U+0062, part 2 of ɡ͡b
+sound u1f03dedb4a ant=50 hold=40 l2=252 lk=88 noburst=1    # U+0261, part 1 of ɡ͡b
+sound udd0ba12375 ant=50 f2=86 hold=60 l2=215 lk=82    # U+0062, part 2 of ɡ͡b
 ɡ͜b          g=u1f03dedb4a b=udd0ba12375
 
 # tied pairs said as one phone of the module (͡ U+0361)

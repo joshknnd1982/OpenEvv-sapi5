@@ -17,6 +17,7 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0070".spec]
 locus = { F2 = { v = 843, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for fortis /p/ in stoakes2013 Table 6.15, Bininj Gun-wok: (806.5 + 880.2) / 2 = 843 Hz", note = "speakers HK and OK, locus-equation slopes 0.74 / 0.76; lenis /b/ 656.1 / 1018 Hz. No F3 locus in an opened primary source (hamann2003 quotes 2500 Hz for Gooniyandi, a secondary quote of McGregor 1990, not used)." } }
+locus_slope = { F2 = { v = 0.75, tag = "derived", rule = "mean of the two male speakers' CV F2 locus-equation slopes for fortis /p/ in stoakes2013 Table 6.15 (HK, OK): (0.74 + 0.76) / 2 = 0.75", note = "Q21: the layer takes a vowel's edge to locus + slope x (vowel - locus)" } }
 vot_ms = { v = 20, tag = "literature", ref = "stoakes2013", note = "stoakes2013 Table 6.13, p. 190: fortis (voiceless unaspirated) word-medial stop, Bininj Gun-wok, 10 speakers of mixed sex, no spread printed. Taken from one study for p t ʈ c k so that the place differences are internally consistent; the adult-male value is 14 ms (SD 4; Greek, 6 M, word-medial; nicolaidis_etal_greek Table 1); Hindi release duration 17 ms (SD 13; samudravijaya2003 Table 1)." }
 
 [sound."U+0070".tests]
@@ -42,14 +43,12 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds =
 
 [sound."U+0062".spec]
 locus = { F2 = { v = 837, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for lenis /b/ in stoakes2013 Table 6.15, Bininj Gun-wok: (656.1 + 1018) / 2 = 837 Hz", note = "the two speakers differ by 360 Hz; treat as about 650-1000 Hz." } }
+locus_slope = { F2 = { v = 0.82, tag = "derived", rule = "mean of the two male speakers' CV F2 locus-equation slopes for lenis /b/ in stoakes2013 Table 6.15 p. 214 (HK 0.84, OK 0.80) = 0.82" } }
 
 [sound."U+0062".tests]
 checks = ["T-stop"]
 contrast = [{ with = "U+0070", measure = "voiced_frac", sign = 1 }, { with = "U+0070", measure = "vot_ms", sign = -1 }]
 proof = "ipa/proofs/U+0062.json"
-
-[sound."U+0062".realization.openevv]
-trim.dedx = [{ key = "f2", v = 108.2, scale = true, tag = "measured", proof = "ipa/proofs/U+0062.json" }]
 
 [sound."U+0074"]
 ipa = "t"
@@ -66,6 +65,7 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0074".spec]
 locus = { F2 = { v = 1628, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for fortis /t/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1533 + 1723) / 2 = 1628 Hz", note = "lenis /d/ 1538 / 1804 Hz; Gooniyandi secondary quote via hamann2003 is 1750 / 2750 Hz (F2 / F3), not used." } }
+locus_slope = { F2 = { v = 0.69, tag = "derived", rule = "mean of the two male speakers' CV F2 locus-equation slopes for fortis /t/ in stoakes2013 Table 6.15 p. 214 (HK 0.68, OK 0.70) = 0.69" } }
 vot_ms = { v = 15, tag = "derived", rule = "the median of the seven unaspirated /t/ means in Cho and Ladefoged (1997) Table 1 (nl 15, es-PR 9, hu 16, yue 14, hy 15, ko 25, ta 8 ms)" }
 
 [sound."U+0074".tests]
@@ -90,6 +90,7 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds =
 
 [sound."U+0064".spec]
 locus = { F2 = { v = 1671, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for lenis /d/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1538 + 1804) / 2 = 1671 Hz", note = "stoakes2013 p. 216 says the lenis alveolar locus, about 1800 Hz in the male speakers, is the most consistent of all places." } }
+locus_slope = { F2 = { v = 0.795, tag = "derived", rule = "mean of the two male speakers' CV F2 locus-equation slopes for lenis /d/ in stoakes2013 Table 6.15 p. 214 (HK 0.76, OK 0.83) = 0.795" } }
 
 [sound."U+0064".tests]
 checks = ["T-stop"]
@@ -111,6 +112,7 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X
 
 [sound."U+0288".spec]
 locus = { F2 = { v = 1482, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for fortis /ʈ/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1455 + 1509) / 2 = 1482 Hz", note = "slopes 0.68 / 0.75; few tokens." }, F3 = { v = 1800, tag = "estimated", note = "No F3 locus for a retroflex stop was found in an opened primary source. The value rests on (1) the Gooniyandi stop locus F3 1800 Hz (vs 2750 Hz for t), a secondary quote of McGregor 1990 in hamann2003 Table 3.1, not opened; (2) the retroflex lateral of Tamil, F3 1800 Hz (narayanan_byrd_kaun_1999 Table III, 1 M); (3) the general finding that retroflexion lowers F3 at the vowel edge. Queue for measurement." } }
+locus_slope = { F2 = { v = 0.715, tag = "derived", rule = "mean of the two male speakers' CV F2 locus-equation slopes for fortis /ʈ/ in stoakes2013 Table 6.15: (0.68 + 0.75) / 2 = 0.715", note = "few tokens (stoakes2013)" } }
 vot_ms = { v = 17, tag = "literature", ref = "stoakes2013", note = "stoakes2013 Table 6.13, p. 190: fortis (voiceless unaspirated) word-medial stop, Bininj Gun-wok, 10 speakers of mixed sex, no spread printed. Taken from one study for p t ʈ c k so that the place differences are internally consistent; few retroflex tokens. Hindi retroflex release duration 16 ms (SD 16; samudravijaya2003 Table 1, symbol mapping taken from the OCR of the retroflex block)." }
 
 [sound."U+0288".tests]
@@ -136,6 +138,7 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X
 
 [sound."U+0256".spec]
 locus = { F2 = { v = 1434, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for lenis /ɖ/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1488 + 1380) / 2 = 1434 Hz", note = "slopes 0.87 / 0.72." }, F3 = { v = 1800, tag = "estimated", note = "No F3 locus for a retroflex stop was found in an opened primary source. The value rests on (1) the Gooniyandi stop locus F3 1800 Hz (vs 2750 Hz for t), a secondary quote of McGregor 1990 in hamann2003 Table 3.1, not opened; (2) the retroflex lateral of Tamil, F3 1800 Hz (narayanan_byrd_kaun_1999 Table III, 1 M); (3) the general finding that retroflexion lowers F3 at the vowel edge. Queue for measurement. Voicing is not expected to move the F3 locus, so the ʈ estimate is used." } }
+locus_slope = { F2 = { v = 0.795, tag = "derived", rule = "mean of the two male speakers' CV F2 locus-equation slopes for lenis /ɖ/ in stoakes2013 Table 6.15: (0.87 + 0.72) / 2 = 0.795" } }
 
 [sound."U+0256".tests]
 checks = ["T-stop", "T-contrast"]
@@ -157,6 +160,7 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X
 
 [sound."U+0063".spec]
 locus = { F2 = { v = 1828, tag = "literature", ref = "stoakes2013", note = "Table 6.15, fortis /c/, CV, speaker OK (1 M), slope 0.34, Bininj Gun-wok. Speaker HK's fit (727 Hz, r2 0.35, not significant) is not used; VC loci 1996 / 1908 Hz (Table 6.14)." } }
+locus_slope = { F2 = { v = 0.34, tag = "literature", ref = "stoakes2013", note = "Table 6.15, fortis /c/, CV, speaker OK (1 M), the speaker whose locus the table's value is; speaker HK's fit is not significant" } }
 vot_ms = { v = 34, tag = "literature", ref = "stoakes2013", note = "stoakes2013 Table 6.13, p. 190: fortis (voiceless unaspirated) word-medial stop, Bininj Gun-wok, 10 speakers of mixed sex, no spread printed. Taken from one study for p t ʈ c k so that the place differences are internally consistent; the palatal has the longest fortis VOT. Greek [c] (/k/ before /i/) 63 ms, the longest of the Greek stops, but pooled over 12 adults and 12 children (nicolaidis_etal_greek 3.1)." }
 
 [sound."U+0063".tests]
@@ -179,6 +183,7 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X
 
 [sound."U+025F".spec]
 locus = { F2 = { v = 1898, tag = "derived", rule = "mean of the two male speakers' CV F2 loci (locus-equation intercept/locus as printed) for lenis /ɟ/ in stoakes2013 Table 6.15, Bininj Gun-wok: (1873 + 1923) / 2 = 1898 Hz", note = "low slopes 0.54 / 0.64 (weak coarticulation)." } }
+locus_slope = { F2 = { v = 0.59, tag = "derived", rule = "mean of the two male speakers' CV F2 locus-equation slopes for lenis /ɟ/ in stoakes2013 Table 6.15: (0.54 + 0.64) / 2 = 0.59" } }
 
 [sound."U+025F".tests]
 checks = ["T-stop", "T-contrast"]
@@ -200,6 +205,7 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+006B".spec]
 locus = { F2 = { v = 1026, tag = "literature", ref = "stoakes2013", note = "Table 6.15, fortis /k/, CV, speaker HK (1 M), slope 0.86, Bininj Gun-wok. Speaker OK's fit is invalid (-1668 Hz). The author calls the velar loci very inconsistent (p. 216): a velar F2 at the edge follows the vowel (secondary Gooniyandi via hamann2003: about 1500 Hz before front, 750 Hz before back vowels), so this is a mid-vowel value only." } }
+locus_slope = { F2 = { v = 0.86, tag = "literature", ref = "stoakes2013", note = "Table 6.15, fortis /k/, CV, speaker HK (1 M), the speaker whose locus the table's value is (OK's fit is invalid)" } }
 vot_ms = { v = 23, tag = "literature", ref = "stoakes2013", note = "stoakes2013 Table 6.13, p. 190: fortis (voiceless unaspirated) word-medial stop, Bininj Gun-wok, 10 speakers of mixed sex, no spread printed. Taken from one study for p t ʈ c k so that the place differences are internally consistent; adult males, Greek: 47 ms (SD 20, word-medial, pooled over /i/ and /a/, the /i/ tokens being palatal [c]; nicolaidis_etal_greek Table 1); 41 / 28 ms initial / intervocalic (tamim_hamann2021 Table 3, 4 M + 4 F)." }
 
 [sound."U+006B".tests]
@@ -223,7 +229,8 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X4"], builds = [] }
 
 [sound."U+0261".spec]
-locus = { F2 = { v = 1026, tag = "estimated", note = "Set equal to the k locus (stoakes2013, speaker HK, 1026 Hz): voicing does not move the place of closure, and no ɡ locus was found in an opened source (stoakes2013 gives the lenis velar's VOT only). Inherits the k caveat that a velar locus follows the vowel." } }
+locus = { F2 = { v = 984, tag = "literature", ref = "stoakes2013", note = "Table 6.15 p. 214, lenis /ɡ/, CV, speaker HK (1 M): locus 984.4 Hz, slope 0.88, adj. r2 0.88; speaker OK 847.2 Hz, slope 0.86. HK is the speaker k's value is taken from. Was 1026 Hz, set equal to k's in the belief that stoakes2013 printed no ɡ locus (it does, Q21's reading of the table, 2026-10-07). The author calls the velar loci very inconsistent (p. 216)." } }
+locus_slope = { F2 = { v = 0.88, tag = "literature", ref = "stoakes2013", note = "Table 6.15 p. 214, lenis /ɡ/, CV, speaker HK (1 M)" } }
 
 [sound."U+0261".tests]
 checks = ["T-stop"]
@@ -244,7 +251,8 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0071".spec]
-locus = { F1 = { v = 372, tag = "estimated", rule = "1.24 x 300 Hz: the F1 at a vowel's onset after a uvular stop is 1.24 times that after a velar in gallagher2014 Table 5 (isolation words, onset: front 507 / 410 = 1.237, back 536 / 432 = 1.241; 9 F + 2 M, so the ratio is taken, not the hertz); 300 Hz, a velar's F1 at the closure, is this voice's (the module's k), not a measured male value", note = "D64; the checklist's uvular cue: raised F1, lowered F2 in the transitions" }, F2 = { v = 929, tag = "derived", rule = "k locus F2 (stoakes2013, 1026 Hz) x the ratio of back-vowel F2 at onset after a uvular to after a velar in gallagher2014 4.5.3 (1069 / 1181 = 0.905) = 929 Hz", note = "gallagher2014 is Cochabamba Quechua, 9 F + 2 M (mostly female); the ratio is applied to the male k base so that q and k stay consistent." } }
+locus = { F1 = { v = 372, tag = "estimated", rule = "1.24 x 300 Hz: the F1 at a vowel's onset after a uvular stop is 1.24 times that after a velar in gallagher2014 Table 5 (isolation words, onset: front 507 / 410 = 1.237, back 536 / 432 = 1.241; 9 F + 2 M, so the ratio is taken, not the hertz); 300 Hz, a velar's F1 at the closure, is this voice's (the module's k), not a measured male value", note = "D64; the checklist's uvular cue: raised F1, lowered F2 in the transitions" }, F2 = { v = 586, tag = "derived", rule = "the vowel's F2 at onset after a uvular is 0.905 times that after a velar (gallagher2014 4.5.3, back vowels, 1069 / 1181), taken to hold on every vowel, on k's locus equation (stoakes2013 HK: locus 1026 Hz, slope 0.86): 0.905 x (1026 x 0.14 + 0.86 V) = 130.0 + 0.778 V, whose locus is 130.0 / (1 - 0.778) = 586 Hz", note = "Q21: an algebraic locus, not a place in the mouth: with the slope below it gives 0.905 times k's edge on every vowel. Was 929 Hz (k's locus x 0.905), the same relation at a vowel of 1026 Hz only. gallagher2014 is Cochabamba Quechua, 9 F + 2 M; the ratio is applied to the male k base so that q and k stay consistent." } }
+locus_slope = { F2 = { v = 0.778, tag = "derived", rule = "0.905 (gallagher2014 4.5.3, uvular against velar onset) x 0.86 (k's slope, stoakes2013 HK) = 0.778" } }
 vot_ms = { v = 23, tag = "estimated", rule = "equal to k's (stoakes2013, 23 ms): the table says the plain voiceless stops unaspirated; no voice onset time of a plain uvular stop was found in an opened source (gallagher2014 gives none)", note = "without it q kept the module's aspirated k (54 ms measured) and its transition was over before the voice began (D64)" }
 
 [sound."U+0071".tests]
@@ -260,13 +268,14 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "uvular", stricture = "closure", voicing = "voiced", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0262".spec]
-locus = { F1 = { v = 372, tag = "estimated", rule = "1.24 x 300 Hz: the F1 at a vowel's onset after a uvular stop (q's value; voicing does not move the place) is 1.24 times that after a velar in gallagher2014 Table 5 (isolation words, onset: front 507 / 410 = 1.237, back 536 / 432 = 1.241; 9 F + 2 M, so the ratio is taken, not the hertz); 300 Hz, a velar's F1 at the closure, is this voice's (the module's k), not a measured male value", note = "D64; the checklist's uvular cue: raised F1, lowered F2 in the transitions" }, F2 = { v = 929, tag = "estimated", note = "Set equal to the q value (929 Hz, derived from stoakes2013 and gallagher2014): voicing does not move the place; no value for ɢ was found in any opened source." } }
+locus = { F1 = { v = 372, tag = "estimated", rule = "1.24 x 300 Hz: the F1 at a vowel's onset after a uvular stop (q's value; voicing does not move the place) is 1.24 times that after a velar in gallagher2014 Table 5 (isolation words, onset: front 507 / 410 = 1.237, back 536 / 432 = 1.241; 9 F + 2 M, so the ratio is taken, not the hertz); 300 Hz, a velar's F1 at the closure, is this voice's (the module's k), not a measured male value", note = "D64; the checklist's uvular cue: raised F1, lowered F2 in the transitions" }, F2 = { v = 586, tag = "estimated", note = "Set equal to q's (586 Hz, derived from stoakes2013 and gallagher2014: 0.905 times k's edge on every vowel): voicing does not move the place; no value for ɢ was found in any opened source." } }
+locus_slope = { F2 = { v = 0.778, tag = "estimated", note = "Set equal to q's (0.778, derived: 0.905 x k's 0.86), as the locus is." } }
 
 [sound."U+0262".tests]
 checks = ["T-stop", "T-contrast"]
@@ -618,6 +627,7 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X6"], b
 
 [sound."U+027D".spec]
 tap = { closures = { v = 1, tag = "derived", rule = "one contact, by the definition of the tap/flap row of the IPA chart; punnoose_2010 and bradley_willis_2012 measure taps as single contacts" }, closed_ms = { v = 25, tag = "derived", rule = "midpoint of the about 20-30 ms closure of the Japanese flap variants in arai_2013 section 2.2 (1 adult M)", note = "arai_2013 includes retroflex-flap variants only qualitatively; no measured ɽ value was found." } }
+locus = { F3 = { v = 1800, tag = "estimated", note = "Set equal to the F3 locus of the retroflex stops (ʈ, ɖ: 1800 Hz, estimated from the Gooniyandi stop locus quoted in hamann2003 and the Tamil retroflex lateral, narayanan_byrd_kaun_1999 Table III, 1 M): the same retroflex tongue position; retroflexion lowers F3 at the vowel edge. No measured value for ɽ was found; queued. Added in D67, when the retroflex F3 contrast became required and ɽ's edge F3 was found above ɾ's (2762 against 2484 Hz) with no F3 target to realise." } }
 
 [sound."U+027D".tests]
 checks = ["T-tap", "T-contrast"]
@@ -643,6 +653,7 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], b
 
 [sound."U+0278".spec]
 locus = { F2 = { v = 843, tag = "estimated", note = "Set equal to the p locus (843 Hz, derived from stoakes2013, 2 M): the same lip constriction. No acoustic value for ɸ was found (maddieson_ewe is lip kinematics only)." } }
+locus_slope = { F2 = { v = 0.75, tag = "estimated", note = "Set equal to the p slope (0.75, derived from stoakes2013), as ɸ's locus is set equal to p's: the same lip constriction; nothing measured for ɸ." } }
 
 [sound."U+0278".tests]
 checks = ["T-fric", "T-contrast"]
@@ -664,14 +675,12 @@ plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3"], b
 
 [sound."U+03B2".spec]
 locus = { F2 = { v = 843, tag = "estimated", note = "Set equal to the p/ɸ value (843 Hz, from stoakes2013): same place; the b locus in the same study is 837 Hz. Nothing measured for β." } }
+locus_slope = { F2 = { v = 0.75, tag = "estimated", note = "Set equal to the p slope (0.75, derived from stoakes2013), as β's locus is set equal to p's; nothing measured for β." } }
 
 [sound."U+03B2".tests]
 checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+0278", measure = "voiced_frac", sign = 1 }]
 proof = "ipa/proofs/U+03B2.json"
-
-[sound."U+03B2".realization.openevv]
-trim.dedx = [{ key = "f2", v = 88.7, scale = true, tag = "measured", proof = "ipa/proofs/U+03B2.json" }]
 
 [sound."U+0066"]
 ipa = "f"
@@ -687,7 +696,8 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0066".spec]
-locus = { F2 = { v = 1509, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, f pooled with v (the source pools voicing). Locus equation, males: slope 0.770, intercept 299 Hz (Table III)." } }
+locus = { F2 = { v = 1300, tag = "derived", rule = "the locus of jongman2000's male locus equation for /f,v/ (Table III p. 1259: slope 0.770, intercept 299 Hz), intercept / (1 - slope) as stoakes2013 defines it (pp. 131-132): 299 / 0.230 = 1300 Hz", note = "Q21. Was 1509 Hz, the mean F2 at vowel onset over six vowels (Table IV, males), which is where the equation sends an average vowel, not its locus. The source pools voicing; no locus frequency is printed." } }
+locus_slope = { F2 = { v = 0.77, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /f,v/, males, k = 0.770 (voicing and vowels pooled)" } }
 duration = { inherent_ms = { v = 166, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase; normalized 0.420 of the word." } }
 
 [sound."U+0066".tests]
@@ -708,16 +718,14 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0076".spec]
-locus = { F2 = { v = 1509, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, v pooled with f (the source pools voicing)" } }
+locus = { F2 = { v = 1300, tag = "derived", rule = "as f (the source pools voicing): jongman2000 Table III, males, 299 / (1 - 0.770) = 1300 Hz", note = "Q21; was 1509 Hz, the mean onset (Table IV)" } }
+locus_slope = { F2 = { v = 0.77, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /f,v/, males (voicing pooled)" } }
 duration = { inherent_ms = { v = 80, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+0076".tests]
 checks = ["T-fric"]
 contrast = [{ with = "U+0066", measure = "voiced_frac", sign = 1 }, { with = "U+0066", measure = "duration_ms", sign = -1 }]
 proof = "ipa/proofs/U+0076.json"
-
-[sound."U+0076".realization.openevv]
-trim.dedx = [{ key = "f2", v = 91.4, scale = true, tag = "measured", proof = "ipa/proofs/U+0076.json" }]
 
 [sound."U+03B8"]
 ipa = "θ"
@@ -733,7 +741,8 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+03B8".spec]
-locus = { F2 = { v = 1701, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, θ pooled with ð (the source pools voicing). Locus equation, males: slope 0.529, intercept 819 Hz." } }
+locus = { F2 = { v = 1739, tag = "derived", rule = "jongman2000 Table III p. 1259, /θ,ð/, males: slope 0.529, intercept 819 Hz; intercept / (1 - slope) = 819 / 0.471 = 1739 Hz", note = "Q21; was 1701 Hz, the mean onset (Table IV, males). Voicing pooled." } }
+locus_slope = { F2 = { v = 0.529, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /θ,ð/, males" } }
 duration = { inherent_ms = { v = 163, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+03B8".tests]
@@ -755,16 +764,14 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
 
 [sound."U+00F0".spec]
-locus = { F2 = { v = 1701, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, ð pooled with θ (the source pools voicing)" } }
+locus = { F2 = { v = 1739, tag = "derived", rule = "as θ (the source pools voicing): jongman2000 Table III, males, 819 / (1 - 0.529) = 1739 Hz", note = "Q21; was 1701 Hz, the mean onset (Table IV)" } }
+locus_slope = { F2 = { v = 0.529, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /θ,ð/, males (voicing pooled)" } }
 duration = { inherent_ms = { v = 88, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+00F0".tests]
 checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+03B8", measure = "voiced_frac", sign = 1 }, { with = "U+03B8", measure = "duration_ms", sign = -1 }]
 proof = "ipa/proofs/U+00F0.json"
-
-[sound."U+00F0".realization.openevv]
-trim.dedx = [{ key = "f2", v = 90.6, scale = true, tag = "measured", proof = "ipa/proofs/U+00F0.json" }]
 
 [sound."U+0073"]
 ipa = "s"
@@ -781,7 +788,8 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0073".spec]
 noise = { peak_hz = { v = 4591, tag = "literature", ref = "chong2022", note = "section 3.1 text (Fig. 7): spectral peak, Francoprovençal (Nendaz), elderly speakers (1 F + 3 M; one male's /s/ excluded), multitaper over the middle 50 %, band-passed 550-10000 Hz; the peak lies below 5.5 kHz. LTAS peak region 4000-5000 Hz. English s/z peak 6839 Hz (jongman2000) lies outside the band." } }
-locus = { F2 = { v = 1697, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, s pooled with z (the source pools voicing). Locus equation, males: slope 0.533, intercept 825 Hz." }, F3 = { v = 2893, tag = "literature", ref = "chong2022", note = "Table 6: F3 at the onset of the following [a]/[ɑ], SD 30.5, Francoprovençal, 1 F + 3 M, elderly." } }
+locus = { F2 = { v = 1767, tag = "derived", rule = "jongman2000 Table III p. 1259, /s,z/, males: slope 0.533, intercept 825 Hz; 825 / (1 - 0.533) = 1767 Hz", note = "Q21; was 1697 Hz, the mean onset (Table IV, males). Voicing pooled." }, F3 = { v = 2893, tag = "literature", ref = "chong2022", note = "Table 6: F3 at the onset of the following [a]/[ɑ], SD 30.5, Francoprovençal, 1 F + 3 M, elderly." } }
+locus_slope = { F2 = { v = 0.533, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /s,z/, males" } }
 duration = { inherent_ms = { v = 178, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+0073".tests]
@@ -802,7 +810,8 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+007A".spec]
-locus = { F2 = { v = 1697, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, z pooled with s (the source pools voicing)" } }
+locus = { F2 = { v = 1767, tag = "derived", rule = "as s (the source pools voicing): jongman2000 Table III, males, 825 / (1 - 0.533) = 1767 Hz", note = "Q21; was 1697 Hz, the mean onset (Table IV)" } }
+locus_slope = { F2 = { v = 0.533, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /s,z/, males (voicing pooled)" } }
 duration = { inherent_ms = { v = 118, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+007A".tests]
@@ -825,7 +834,8 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0283".spec]
 noise = { peak_hz = { v = 3820, tag = "literature", ref = "jongman2000", note = "American English, 20 speakers, men and women together; the peak lies inside the 0-5.5 kHz the engine makes (DESIGN.md 10.1, the bandwidth rule), where the paper's centroid, over a wider band, would not be comparable" } }
-locus = { F2 = { v = 1849, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, ʃ pooled with ʒ (the source pools voicing). Locus equation, males: slope 0.557, intercept 887 Hz." }, F3 = { v = 2234, tag = "literature", ref = "chong2022", note = "Table 6: F3 at the onset of the following [a]/[ɑ], SD 37.5, Francoprovençal, 1 F + 3 M, elderly." } }
+locus = { F2 = { v = 2002, tag = "derived", rule = "jongman2000 Table III p. 1259, /ʃ,ʒ/, males: slope 0.557, intercept 887 Hz; 887 / (1 - 0.557) = 2002 Hz", note = "Q21; was 1849 Hz, the mean onset (Table IV, males). Voicing pooled." }, F3 = { v = 2234, tag = "literature", ref = "chong2022", note = "Table 6: F3 at the onset of the following [a]/[ɑ], SD 37.5, Francoprovençal, 1 F + 3 M, elderly." } }
+locus_slope = { F2 = { v = 0.557, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /ʃ,ʒ/, males" } }
 duration = { inherent_ms = { v = 178, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+0283".tests]
@@ -848,7 +858,8 @@ plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+0292".spec]
 noise = { peak_hz = { v = 3820, tag = "literature", ref = "jongman2000", note = "p. 1256: spectral peak of ʃ and ʒ pooled (voicing pooled), American English, 10 F + 10 M pooled, 40 ms window mid-fricative, 22 kHz sampling with 11 kHz low-pass; the peak lies below 5.5 kHz." } }
-locus = { F2 = { v = 1849, tag = "literature", ref = "jongman2000", note = "jongman2000 Table IV: F2 at vowel onset, 10 M, six vowels pooled, ʒ pooled with ʃ (the source pools voicing)" } }
+locus = { F2 = { v = 2002, tag = "derived", rule = "as ʃ (the source pools voicing): jongman2000 Table III, males, 887 / (1 - 0.557) = 2002 Hz", note = "Q21; was 1849 Hz, the mean onset (Table IV)" } }
+locus_slope = { F2 = { v = 0.557, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /ʃ,ʒ/, males (voicing pooled)" } }
 duration = { inherent_ms = { v = 123, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
 
 [sound."U+0292".tests]

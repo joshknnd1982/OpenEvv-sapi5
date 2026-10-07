@@ -136,7 +136,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 ## Added in Phase 4 (2026-10-06)
 
-**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 159 values on 2026-10-07 (regenerated after D66):
+**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 167 values on 2026-10-07 (regenerated after D67):
 
 - `U+0071` q: `spec.locus.F1`
 - `U+0071` q: `spec.vot_ms`
@@ -182,10 +182,12 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+01C3` ǃ: `keys.a6`
 - `U+01C3` ǃ: `keys.f2`
 - `U+0253` ɓ: `spec.locus.F2`
+- `U+0253` ɓ: `spec.locus_slope.F2`
 - `U+0253` ɓ: `keys.impl`
 - `U+0253` ɓ: `keys.hold`
 - `U+0256` ɖ: `spec.locus.F3`
 - `U+0257` ɗ: `spec.locus.F2`
+- `U+0257` ɗ: `spec.locus_slope.F2`
 - `U+0257` ɗ: `keys.impl`
 - `U+0257` ɗ: `keys.hold`
 - `U+0258` ɘ: `spec.formants.F1`
@@ -195,11 +197,12 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+025E` ɞ: `spec.formants.F2`
 - `U+025E` ɞ: `spec.formants.F3`
 - `U+0260` ɠ: `spec.locus.F2`
+- `U+0260` ɠ: `spec.locus_slope.F2`
 - `U+0260` ɠ: `keys.impl`
 - `U+0260` ɠ: `keys.hold`
-- `U+0261` ɡ: `spec.locus.F2`
 - `U+0262` ɢ: `spec.locus.F1`
 - `U+0262` ɢ: `spec.locus.F2`
+- `U+0262` ɢ: `spec.locus_slope.F2`
 - `U+0265` ɥ: `spec.formants.F1`
 - `U+0265` ɥ: `spec.formants.F2`
 - `U+0265` ɥ: `spec.formants.F3`
@@ -213,9 +216,12 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+0274` ɴ: `spec.formants.F2`
 - `U+0274` ɴ: `spec.formants.F3`
 - `U+0278` ɸ: `spec.locus.F2`
+- `U+0278` ɸ: `spec.locus_slope.F2`
 - `U+027A` ɺ: `spec.tap.closed_ms`
+- `U+027D` ɽ: `spec.locus.F3`
 - `U+0281` ʁ: `spec.noise.peak_hz`
 - `U+0284` ʄ: `spec.locus.F2`
+- `U+0284` ʄ: `spec.locus_slope.F2`
 - `U+0284` ʄ: `keys.impl`
 - `U+0284` ʄ: `keys.hold`
 - `U+0288` ʈ: `spec.locus.F3`
@@ -235,6 +241,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+0298` ʘ: `keys.a6`
 - `U+0298` ʘ: `keys.ab`
 - `U+029B` ʛ: `spec.locus.F2`
+- `U+029B` ʛ: `spec.locus_slope.F2`
 - `U+029B` ʛ: `keys.impl`
 - `U+029B` ʛ: `keys.hold`
 - `U+029C` ʜ: `spec.trill.closed_ms`
@@ -292,6 +299,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+0361` ͡: `double.dedx.ɡ͡b.1.hold`
 - `U+0361` ͡: `double.dedx.ɡ͡b.2.hold`
 - `U+03B2` β: `spec.locus.F2`
+- `U+03B2` β: `spec.locus_slope.F2`
 - `U+03C7` χ: `spec.noise.peak_hz`
 - `U+2197` ↗: `spec.st_per_syllable`
 - `U+2198` ↘: `spec.st_per_syllable`
@@ -302,13 +310,13 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 **Q17. May Claude download two research data files the vowel helper found?** Kuronen (2000), a thesis with Swedish vowel formants (for ʉ and ɵ, which have no measured male values yet), and Deterding's per-speaker spreadsheets of Standard Southern British English vowels (for ɜ ɒ ʌ), both linked from their authors' pages. *Recommended default: yes, read only for the facts, nothing copied into the repository but the cited numbers.* **Answered 2026-10-06: yes.** Read: ɵ now has literature values (Kuronen 2000, Sweden-Swedish, 4 M: 411, 1223, 2493 Hz, replacing three estimates) and is proved with them; the other four vowels keep their values and list these as candidates.
 
-**Q18. Two Tier A aliases mean something else in Tier B** (found by the Tier B inventory, 2026-10-06, `inventory/tierb/TIERB_CHECKLIST.md`). U+2193 (↓) is read as downstep in `ipa/aliases.toml`, but extIPA and VoQS use it for ingressive airflow; U+A71E (ꜞ) is the checklist's other spelling of upstep, but extIPA uses it for a percussive release. And VoQS names phonation as Catford did: its "whispery" voice is the IPA's breathy voice (̤). *Recommended default: in strict IPA input keep the Tier A readings; a pack or a text that declares extIPA or VoQS gets theirs (`DESIGN.md` 1, Tier B), decided when Tier B is mapped.*
+**Q18. Two Tier A aliases mean something else in Tier B** (found by the Tier B inventory, 2026-10-06, `inventory/tierb/TIERB_CHECKLIST.md`). U+2193 (↓) is read as downstep in `ipa/aliases.toml`, but extIPA and VoQS use it for ingressive airflow; U+A71E (ꜞ) is the checklist's other spelling of upstep, but extIPA uses it for a percussive release. And VoQS names phonation as Catford did: its "whispery" voice is the IPA's breathy voice (̤). *Recommended default: in strict IPA input keep the Tier A readings; a pack or a text that declares extIPA or VoQS gets theirs (`DESIGN.md` 1, Tier B), decided when Tier B is mapped.* **Decided (2026-10-07, seventh session, D67), by the default under the human's standing answer (D60):** in strict IPA input the Tier A readings stay (↓ downstep, ꜞ upstep, ̤ breathy); a pack or a text that declares extIPA or VoQS gets theirs, which is built when those records are mapped (4f). Nothing reads extIPA or VoQS yet, so nothing changes now.
 
 **Q19. Syllable division and linking have no measured cue yet.** The marks `.` and `‿` are proved by structure (the syllable begins where they say) and by the sound changing by 8 ms or more, not against a measured value: no source on onset against coda cues (Lehiste 1960, Nakatani and Dukes 1977, Turk and Shattuck-Hufnagel 2000) or on liaison consonants' length (Spinelli, McQueen and Cutler 2003, abstract only) could be opened. *Recommended default: look again in Phase 5's audit; until then they stay `derived` from the chart's definitions.*
 
-**Q20. ɢ is not yet proved: the bend into a consonant works by ratios** (2026-10-07, D65; Claude acts on this first in the next session: the Unmappable Sound Protocol asks for the capability to be built before an entry is marked approximate). The accent layer's `ant` (D64) bends a vowel's end by multiplying the vowel's own frames by the consonant's formant ratios. Where the module's own transition has not reached the consonant (a 45 ms stressed [a] before a voiced stop), a ratio meant for the consonant lands on the vowel: ɢ's F1 raise (1.22) takes [a]'s F1 to about 975 Hz, the formant-order clamp lifts F2 above it, and the vowel's F2 does not fall towards the uvular (edge F2 32 Hz under ɡ's, not 49; [i] holds by 116 Hz). q shows the same before [a] and passes on the vowel after it. *Default: in the next engine change, give `ant` a target in the consonant's own frames (or cap a raising ratio by the vowel's own formant), rebuild, and prove ɢ again without the bound; if it still misses after five rounds, mark it `approximate` with its deviation stated (D65 has the text and the bound, 18.3 Hz, that the sweep can now hold a contrast to).* **Acted on (2026-10-07, sixth session, D66):** the layer now lets F1 give way when a bend brings F2 down onto it (the wrong-way lift is gone: ɢ's F2 at the end of [a] is asked for under ɡ's, 1053 against 1097 Hz, where it was 1174); a longer bend (half the vowel) was tried and not kept (Q21). The edge still misses (31.6 Hz under ɡ's, 48.8 needed). A first version of this session then marked ɢ `approximate`; the review (R15) held that against the default here, which names the fix itself (a target towards the consonant's own place) and five rounds, and two rounds had been run. ɢ is therefore still not yet (`MISSING`): the fix named here is Q21, and ɢ is tried again after it (rounds 3 to 5), approximate only if those miss.
+**Q20. ɢ is not yet proved: the bend into a consonant works by ratios** (2026-10-07, D65; Claude acts on this first in the next session: the Unmappable Sound Protocol asks for the capability to be built before an entry is marked approximate). The accent layer's `ant` (D64) bends a vowel's end by multiplying the vowel's own frames by the consonant's formant ratios. Where the module's own transition has not reached the consonant (a 45 ms stressed [a] before a voiced stop), a ratio meant for the consonant lands on the vowel: ɢ's F1 raise (1.22) takes [a]'s F1 to about 975 Hz, the formant-order clamp lifts F2 above it, and the vowel's F2 does not fall towards the uvular (edge F2 32 Hz under ɡ's, not 49; [i] holds by 116 Hz). q shows the same before [a] and passes on the vowel after it. *Default: in the next engine change, give `ant` a target in the consonant's own frames (or cap a raising ratio by the vowel's own formant), rebuild, and prove ɢ again without the bound; if it still misses after five rounds, mark it `approximate` with its deviation stated (D65 has the text and the bound, 18.3 Hz, that the sweep can now hold a contrast to).* **Acted on (2026-10-07, sixth session, D66):** the layer now lets F1 give way when a bend brings F2 down onto it (the wrong-way lift is gone: ɢ's F2 at the end of [a] is asked for under ɡ's, 1053 against 1097 Hz, where it was 1174); a longer bend (half the vowel) was tried and not kept (Q21). The edge still misses (31.6 Hz under ɡ's, 48.8 needed). A first version of this session then marked ɢ `approximate`; the review (R15) held that against the default here, which names the fix itself (a target towards the consonant's own place) and five rounds, and two rounds had been run. ɢ is therefore still not yet (`MISSING`): the fix named here is Q21, and ɢ is tried again after it (rounds 3 to 5), approximate only if those miss. **Closed (2026-10-07, seventh session, D67):** with Q21 built, ɢ passed on round 3 of the protocol without its bound: edge F2 1425.6 against ɡ's 1494.8 Hz (69.2 under, 59.8 needed). It is `created`, not approximate.
 
-**Q21. `ant` bends a vowel by the carrier's ratios, not towards the consonant's own place** (2026-10-07, D66; for Phase 5's audit or the final engine change of Phase 4). The bend multiplies the vowel's frames by the ratio the consonant applies to its carrier. Where the carrier's place is far from the vowel's, that ratio lands on the wrong base: θ (F2 x 1.84) and f (x 1.63) take an [i]'s F2 (about 2300 Hz) past its F3, so the tracker reads 3270 Hz for f's [i] edge now, and with a bend over half the vowel θ's [i] read 1472 (it failed its contrast with f, which is why that longer bend was not kept). The proofs pass on the median context, and in [i] the value is not the dental or labiodental locus the specification gives. *Default: give the layer the consonant's target as a ratio of the voice's own neutral formants (the voice's scale, not hertz), bend towards that, rebuild, re-run the whole sweep, the golden and the engine gate; then prove ɢ again (rounds 3 to 5 of the protocol; approximate only if they miss, with the deviation D66 records). Until then ɢ is not yet and the [i] edges of the raising consonants are reported as they are.*
+**Q21. `ant` bends a vowel by the carrier's ratios, not towards the consonant's own place** (2026-10-07, D66; for Phase 5's audit or the final engine change of Phase 4). The bend multiplies the vowel's frames by the ratio the consonant applies to its carrier. Where the carrier's place is far from the vowel's, that ratio lands on the wrong base: θ (F2 x 1.84) and f (x 1.63) take an [i]'s F2 (about 2300 Hz) past its F3, so the tracker reads 3270 Hz for f's [i] edge now, and with a bend over half the vowel θ's [i] read 1472 (it failed its contrast with f, which is why that longer bend was not kept). The proofs pass on the median context, and in [i] the value is not the dental or labiodental locus the specification gives. *Default: give the layer the consonant's target as a ratio of the voice's own neutral formants (the voice's scale, not hertz), bend towards that, rebuild, re-run the whole sweep, the golden and the engine gate; then prove ɢ again (rounds 3 to 5 of the protocol; approximate only if they miss, with the deviation D66 records). Until then ɢ is not yet and the [i] edges of the raising consonants are reported as they are.* **Acted on (2026-10-07, seventh session, D67):** the layer has the keys `l1` to `l4` (a place's formant, per mille of the voice's own F5, read from each frame) and `lk` (the locus equation's slope); the vowel before a place ends at locus + slope x (its own formant - locus), and the vowel after one starts there, from its own middle (not the module's way out of the carrier). 27 consonants whose sources give a slope (or are set equal to one that does) are realised so; the rest keep their ratios. θ's [i] edges are now 2357 and 2309 Hz (f's 2485, 2435), where the ratio took them past F3. Only the reference template's F5 is measured (3900 Hz): the other templates keep the ratios until theirs is, at the rebuild of all seven.
 
 ## For Phase 2 (found by measuring in Phase 1)
 
