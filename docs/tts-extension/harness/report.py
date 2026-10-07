@@ -107,7 +107,10 @@ def check_a(gold, phone_module):
                 m, r = meas.get('%s_50_hz' % k), req.get('%s_hz' % k)
                 if r:
                     a2 += 1
-                    if m is not None and abs(m - r) <= tol:
+                    # a vowel the frames nasalise (pole and zero apart) has the nasal pole as its
+                    # lowest resonance, and the tracker reads it as F1: the frames asked for it too
+                    pole = req.get('fnp') if k == 'F1' and req.get('fnp') != req.get('fnz') else None
+                    if m is not None and (abs(m - r) <= tol or (pole and abs(m - pole) <= tol)):
                         a2_ok += 1
                     elif len(bad) < 40:
                         bad.append('%s: %s %s measured %s, frames %s' % (cid, ph['name'], k, m, r))

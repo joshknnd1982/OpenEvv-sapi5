@@ -10,8 +10,8 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "bilabial", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
@@ -25,7 +25,7 @@ contrast = [{ with = "U+0074", measure = "edge_F2", sign = -1 }]
 proof = "ipa/proofs/U+0070.json"
 
 [sound."U+0070".realization.openevv]
-trim.dedx = [{ key = "vot", v = 28.0, scale = false, tag = "measured", proof = "ipa/proofs/U+0070.json" }]
+trim.dedx = [{ key = "vot", v = 22.0, scale = false, tag = "measured", proof = "ipa/proofs/U+0070.json" }]
 
 [sound."U+0062"]
 ipa = "b"
@@ -72,6 +72,9 @@ vot_ms = { v = 15, tag = "derived", rule = "the median of the seven unaspirated 
 checks = ["T-stop"]
 proof = "ipa/proofs/U+0074.json"
 
+[sound."U+0074".realization.openevv]
+trim.dedx = [{ key = "vot", v = 6.0, scale = false, tag = "measured", proof = "ipa/proofs/U+0074.json" }]
+
 [sound."U+0064"]
 ipa = "d"
 codepoints = ["U+0064"]
@@ -101,8 +104,8 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "retroflex", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
@@ -113,6 +116,10 @@ vot_ms = { v = 17, tag = "literature", ref = "stoakes2013", note = "stoakes2013 
 [sound."U+0288".tests]
 checks = ["T-stop", "T-contrast"]
 contrast = [{ with = "U+0074", measure = "edge_F3", sign = -1 }, { with = "U+0074", measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/U+0288.json"
+
+[sound."U+0288".realization.openevv]
+trim.dedx = [{ key = "vot", v = 10.0, scale = false, tag = "measured", proof = "ipa/proofs/U+0288.json" }]
 
 [sound."U+0256"]
 ipa = "ɖ"
@@ -143,8 +150,8 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "palatal", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
@@ -155,6 +162,7 @@ vot_ms = { v = 34, tag = "literature", ref = "stoakes2013", note = "stoakes2013 
 [sound."U+0063".tests]
 checks = ["T-stop", "T-contrast"]
 contrast = [{ with = "U+006B", measure = "edge_F2", sign = 1 }, { with = "U+006B", measure = "vot_ms", sign = 1 }]
+proof = "ipa/proofs/U+0063.json"
 
 [sound."U+025F"]
 ipa = "ɟ"
@@ -199,7 +207,7 @@ checks = ["T-stop"]
 proof = "ipa/proofs/U+006B.json"
 
 [sound."U+006B".realization.openevv]
-trim.dedx = [{ key = "vot", v = 32.0, scale = false, tag = "measured", proof = "ipa/proofs/U+006B.json" }]
+trim.dedx = [{ key = "vot", v = 28.0, scale = false, tag = "measured", proof = "ipa/proofs/U+006B.json" }]
 
 [sound."U+0261"]
 ipa = "ɡ"
@@ -230,17 +238,19 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "uvular", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0071".spec]
-locus = { F2 = { v = 929, tag = "derived", rule = "k locus F2 (stoakes2013, 1026 Hz) x the ratio of back-vowel F2 at onset after a uvular to after a velar in gallagher2014 4.5.3 (1069 / 1181 = 0.905) = 929 Hz", note = "gallagher2014 is Cochabamba Quechua, 9 F + 2 M (mostly female); the ratio is applied to the male k base so that q and k stay consistent." } }
+locus = { F1 = { v = 372, tag = "estimated", rule = "1.24 x 300 Hz: the F1 at a vowel's onset after a uvular stop is 1.24 times that after a velar in gallagher2014 Table 5 (isolation words, onset: front 507 / 410 = 1.237, back 536 / 432 = 1.241; 9 F + 2 M, so the ratio is taken, not the hertz); 300 Hz, a velar's F1 at the closure, is this voice's (the module's k), not a measured male value", note = "D64; the checklist's uvular cue: raised F1, lowered F2 in the transitions" }, F2 = { v = 929, tag = "derived", rule = "k locus F2 (stoakes2013, 1026 Hz) x the ratio of back-vowel F2 at onset after a uvular to after a velar in gallagher2014 4.5.3 (1069 / 1181 = 0.905) = 929 Hz", note = "gallagher2014 is Cochabamba Quechua, 9 F + 2 M (mostly female); the ratio is applied to the male k base so that q and k stay consistent." } }
+vot_ms = { v = 23, tag = "estimated", rule = "equal to k's (stoakes2013, 23 ms): the table says the plain voiceless stops unaspirated; no voice onset time of a plain uvular stop was found in an opened source (gallagher2014 gives none)", note = "without it q kept the module's aspirated k (54 ms measured) and its transition was over before the voice began (D64)" }
 
 [sound."U+0071".tests]
 checks = ["T-stop", "T-contrast"]
 contrast = [{ with = "U+006B", measure = "edge_F2", sign = -1 }, { with = "U+006B", measure = "edge_F1", sign = 1 }]
+proof = "ipa/proofs/U+0071.json"
 
 [sound."U+0262"]
 ipa = "ɢ"
@@ -256,7 +266,7 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0262".spec]
-locus = { F2 = { v = 929, tag = "estimated", note = "Set equal to the q value (929 Hz, derived from stoakes2013 and gallagher2014): voicing does not move the place; no value for ɢ was found in any opened source." } }
+locus = { F1 = { v = 372, tag = "estimated", rule = "1.24 x 300 Hz: the F1 at a vowel's onset after a uvular stop (q's value; voicing does not move the place) is 1.24 times that after a velar in gallagher2014 Table 5 (isolation words, onset: front 507 / 410 = 1.237, back 536 / 432 = 1.241; 9 F + 2 M, so the ratio is taken, not the hertz); 300 Hz, a velar's F1 at the closure, is this voice's (the module's k), not a measured male value", note = "D64; the checklist's uvular cue: raised F1, lowered F2 in the transitions" }, F2 = { v = 929, tag = "estimated", note = "Set equal to the q value (929 Hz, derived from stoakes2013 and gallagher2014): voicing does not move the place; no value for ɢ was found in any opened source." } }
 
 [sound."U+0262".tests]
 checks = ["T-stop", "T-contrast"]
@@ -270,8 +280,8 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "glottal", stricture = "closure", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X5"], builds = ["C6?"] }
 
@@ -280,6 +290,7 @@ duration = { inherent_ms = { v = 45, tag = "derived", rule = "midpoint of the ab
 
 [sound."U+0294".tests]
 checks = ["T-stop", "T-phonation"]
+proof = "ipa/proofs/U+0294.json"
 
 [sound."U+0294".realization.openevv]
 # the German module has no glottal stop phone; the layer makes the closure
@@ -894,8 +905,8 @@ section = "pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", place = "palatal", stricture = "friction", voicing = "voiceless", airstream = "pulmonic" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X3"], builds = [] }
 
@@ -906,10 +917,12 @@ duration = { inherent_ms = { v = 121, tag = "literature", ref = "nirgianaki_icgl
 [sound."U+00E7".tests]
 checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+0283", measure = "peak_hz", sign = 1 }]
+proof = "ipa/proofs/U+00E7.json"
 
 [sound."U+00E7".realization.openevv]
 # the German module has ç as a phone of its own (ich-Laut)
 carrier = "X"
+keys = { a5 = { v = 50, tag = "estimated", rule = "noise on F5 (4500 Hz in its frames) too, 6 dB under the noise the adapter puts on F4: with F4 alone the peak read 3859 Hz, the same as ʃ's, in every context (D64); measured with it, 4260 Hz against the 4000 asked" } }
 
 [sound."U+029D"]
 ipa = "ʝ"

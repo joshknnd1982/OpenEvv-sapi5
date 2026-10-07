@@ -53,6 +53,17 @@ CONSONANTS_AROUND = ('p', 't', 'k')
 CONTRAST_MIN = {'hz_rel': 0.04, 'ms': 8.0, 'db': 2.0, 'count': 1}
 
 
+def clipped(x):
+    """(saturated samples, samples within 2 per cent of full scale). Saturation is a flat top (a
+    sample equal to the one before it, 30000 or more from nought) or the 16-bit limit itself; a
+    lone pulse near the ceiling is reported, not failed (D64)."""
+    import numpy as np
+    x = np.asarray(x).astype(int)
+    a = np.abs(x)
+    flat = int(((a[1:] >= 30000) & (x[1:] == x[:-1])).sum()) + int(((x >= 32767) | (x <= -32768)).sum())
+    return flat, int((a >= 32000).sum())
+
+
 def manner(e):
     """stop / nasal / trill / tap / fricative / approximant / vowel / click, from the features."""
     f = e['features']
@@ -87,6 +98,11 @@ def contexts(t, sid):
             if e['ipa'] == '\u0329':
                 # a syllabic consonant: after a stressed syllable, the word ending in it
                 out.append(('%s_%s_pa' % (base, variant), 'ˈpa%s%s' % ('p' if variant == 'marked' else 'pa', x)))
+            elif e['ipa'] == '\u032f':
+                # a non-syllabic vowel: after a syllabic [a], a diphthong; the plain vowel is a
+                # syllable of its own there (`ˈpa.up'). On its own between consonants the marked
+                # vowel left the word no nucleus and the front-end put a schwa in (D64)
+                out.append(('%s_%s_au' % (base, variant), 'ˈpa%s%sp' % ('.' if variant == 'plain' else '', x)))
             elif manner(b) == 'vowel':
                 out += [('%s_%s_%s' % (base, variant, c), 'ˈ%s%s%s' % (c, x, c)) for c in CONSONANTS_AROUND]
             else:
@@ -110,6 +126,10 @@ def target_phones(phones, case_id, kind):
         if len(sounding) >= 2 and phones[sounding[-2]]['name'] == '@':
             idx = [sounding[-2], sounding[-1]]
         return idx, None, None
+    if case_id.endswith('_au'):
+        # `ˈpa.up' or `ˈpau̯p': the vowel after the [a], with the [a] before it and the p after
+        if len(sounding) >= 4:
+            return [sounding[-2]], sounding[-3], sounding[-1]
     if len(sounding) < 3:
         return sounding, None, None
     return sounding[1:-1], sounding[0], sounding[-1]
@@ -147,6 +167,12 @@ def measure(r, p, case_id, man=None, layer=None):
                                               'fricative')),
                     req=A.requested(r['frames'], tt, dict(start_ms=v['start_ms'], end_ms=max(made_end, v['start_ms'] + 5))))
         made['meas'] = {a: b for a, b in made['meas'].items() if not isinstance(b, list)}
+        if man == 'stop' and made_end - v['start_ms'] >= 15 and v['end_ms'] - made_end >= 30:
+            # a closure the layer makes (ʔ): the signal there, from 10 ms in (the resonators ring on
+            # from the sound before), 20 dB or more under the middle of the vowel after it
+            m_ = (made_end + v['end_ms']) / 2.0
+            made['meas']['closure_quiet'] = int(A.intensity_db(x, rate, v['start_ms'] + 10, made_end)
+                                        <= A.intensity_db(x, rate, m_ - 15, m_ + 15) - 20)
         phones = phones[:idx[1]] + [made, dict(v, start_ms=made_end)] + phones[idx[1] + 1:]
         m = dict(m, phones=phones)
         idx, before, after = [idx[1]], idx[0], idx[1] + 1
@@ -260,18 +286,31 @@ def measure(r, p, case_id, man=None, layer=None):
         if last['cls'] in ('vowel', 'nasal', 'liquid', 'glide') and last['end_ms'] - last['start_ms'] >= 40:
             mid = (last['start_ms'] + last['end_ms']) / 2.0
             ex['h1h2_db'] = A.h1_h2(x, rate, mid)
-            f1 = (last.get('meas') or {}).get('F1_50_hz')
+            # A1 at the F1 the frames asked for: in a nasalised vowel the tracker's lowest
+            # resonance is the nasal pole, and A1 read there was P0 itself (0.0 dB, D64)
+            f1 = (last.get('req') or {}).get('F1_hz') or (last.get('meas') or {}).get('F1_50_hz')
             if f1:
                 ex['a1_p0_db'] = A.a1_p0(x, rate, mid, f1)
         ex['schwa_ms'] = sum(ph['end_ms'] - ph['start_ms'] for ph in tgt if ph['name'] == '@')
         out['extra'] = ex
     # the vowels' formants at the consonant's edges, 12 ms from the boundary over 20 ms: where a
-    # locus shows; at 20 per cent into the vowel the transition is mostly over
+    # locus shows; at 20 per cent into the vowel the transition is mostly over. The vowel after is
+    # read from where its voice begins (a locus is the F2 at the first glottal pulse): the module
+    # puts a stop's breath at the start of the vowel's own frames, and the tracker read F2 2483 Hz
+    # for [u] in that noise after p (D64)
     edges = {}
+    tt_ = E.frame_times(r['frames'])
     for which, i, at in (('prev', before, -12.0), ('next', after, 12.0)):
         if i is None or phones[i]['cls'] == 'silence' or phones[i]['end_ms'] - phones[i]['start_ms'] < 30:
             continue
-        t_ = (phones[i]['end_ms'] if at < 0 else phones[i]['start_ms']) + at
+        if at < 0:
+            t_ = phones[i]['end_ms'] + at
+        else:
+            von = next((tt_[j] for j in range(len(tt_)) if phones[i]['start_ms'] <= tt_[j] < phones[i]['end_ms']
+                        and r['frames'][j, E.P['av']] > 0), phones[i]['start_ms'])
+            if phones[i]['end_ms'] - von < 30:
+                continue
+            t_ = von + at
         fs = A.formants(x, rate, t_, win_ms=20.0)
         for k in (1, 2, 3):
             edges['%s_F%d_%s' % (which, k, '80' if at < 0 else '20')] = fs[k - 1][0] if len(fs) >= k else None
@@ -361,6 +400,10 @@ def _mean(xs):
 def check_a1(cases, man):
     bad = []
     for cid, c in cases.items():
+        if c.get('clipped'):
+            # the signal at full scale: a distortion the frames did not ask for, and one that
+            # spreads over the whole spectrum, so nothing measured in the case can be trusted (D64)
+            bad.append('%s: %d samples saturated (clipped)' % (cid, c['clipped']))
         if not c['target']:
             bad.append('%s: nothing sounded' % cid)
             continue
@@ -368,12 +411,19 @@ def check_a1(cases, man):
         if all(ph['cls'] == 'made' for ph in ts):
             if not any(ph['end_ms'] > ph['start_ms'] for ph in ts):
                 bad.append('%s: the made sound has no frame of its own' % cid)
+            elif man == 'stop' and cid != 'alone' and not any((ph.get('meas') or {}).get('closure_quiet') for ph in ts):
+                # a closure the layer makes is proved in the signal, as a module stop's is (D64)
+                bad.append('%s: no closure found in the signal' % cid)
             continue
         if man in ('stop', 'click') or all(ph['cls'] == 'stop' for ph in ts):
             # a release in the signal: stop_timing's burst or closure, or a transient over a silent
             # closure (a weak, low burst, p's before [i], has no 12 dB jump above 1.5 kHz)
             if not any((ph.get('meas') or {}).get('burst_ms') is not None or (ph.get('meas') or {}).get('closure_ms')
-                       for ph in ts) and (c.get('extra') or {}).get('burst_len_ms') is None                     and not (c.get('extra') or {}).get('closure_quiet') and cid != 'alone':
+                       for ph in ts) and (c.get('extra') or {}).get('burst_len_ms') is None \
+                    and not (c.get('extra') or {}).get('closure_quiet') and cid != 'alone' \
+                    and not ((c.get('extra') or {}).get('burst_found') and (_voiced_frac(c) or 0) >= 0.5):
+                # (a voiced closure sounds by its voice, and over that voice bar the signal's burst
+                # finder reads the pulses, D63: the frames' release is taken for it, D64)
                 bad.append('%s: no closure or burst found' % cid)
             continue
         if all((ph.get('req') or {}).get('voiced_frames', 0) + (ph.get('req') or {}).get('noise_frames', 0) == 0
@@ -446,6 +496,15 @@ def check_b3(e, s):
         got = s.get('req_%s_hz' % k)
         out['locus %s (frames)' % k] = dict(target=v(x), measured=got,
                                             within=got is not None and abs(got - v(x)) <= 0.08 * v(x))
+    # An entry marked approximate (its deviation stated, R7) may hold a missed target to a stated
+    # bound instead (tests.approximate: {target: {min, max}}): a miss inside it is only noted here,
+    # so that the design loop still corrects it; prove_entry accepts it once the loop has had its
+    # rounds (DESIGN.md 6: approximate after five), as approximate, never as met (D64)
+    for k, b in ((e.get('tests') or {}).get('approximate') or {}).items():
+        o = out.get(k)
+        if e.get('approximate') and o and not o['within'] and o['measured'] is not None \
+                and b.get('min', -1e9) <= o['measured'] <= b.get('max', 1e9):
+            o['approx_ok'] = dict(bound=b, deviation=e.get('deviation'))
     # every entry carries its specification (R19b), even one the module already says: no spec, no
     # pass; and a specification none of whose targets could be checked passes nothing
     return dict(passed=bool(spec) and bool(out) and all(o['within'] for o in out.values()), targets=out,
@@ -526,7 +585,23 @@ def judge(t, sid, cases, diags, said_as):
     a1 = check_a1(cases, man)
     # A2 on the phones under test: the vowels around a consonant are the context, not the sound
     # (a cardinal [i]'s F1, 217 Hz, sits on the voice's second harmonic, where the tracker fails, D15)
-    a2 = RP.check_a(dict(cases={cid: dict(c['gold'], phones=[c['gold']['phones'][i] for i in c['target']
+    creak = e['kind'] == 'modifier' and 'creaky_pct' in json.dumps(e.get('transform') or {})
+
+    def a2_phone(cid, ph):
+        # a stop the accent layer makes (ʔ's `<q') is a closure like any other: silent by nature,
+        # its closure proved by A1, so check A passes over it as over the module's stops; a creaky
+        # mark makes the voice's period irregular on purpose (diplophonia in the frames), so its
+        # marked cases' F0 is not held to the frames' (D64)
+        if man == 'stop' and ph['cls'] == 'made':
+            ph = dict(ph, cls='stop')
+        if creak and '_marked_' in cid:
+            ph = dict(ph, req=dict(ph.get('req') or {}, f0_mid40_hz=None))
+        if e['ipa'] == '̯' and '_marked_' in cid and ph['cls'] == 'vowel':
+            # a non-syllabic vowel is a glide: check A compares a vowel's middle with its frames,
+            # and a glide's middle is a transition, read off by the window's own width
+            ph = dict(ph, cls='glide')
+        return ph
+    a2 = RP.check_a(dict(cases={cid: dict(c['gold'], phones=[a2_phone(cid, c['gold']['phones'][i]) for i in c['target']
                                                               if i < len(c['gold']['phones'])])
                                 for cid, c in cases.items()}), E.pack(said_as['pack']).phone_module)
     if a2['a1_phones'] == 0 and not a2['substituted']:
@@ -575,6 +650,11 @@ def check_shift(t, sid, cases):
             m = sh['measure']
             if sp.get(m) is None and sm.get(m) is None:
                 continue
+            if man == 'vowel' and m.startswith('edge_'):
+                # a vowel's edges are its neighbours' places: since the consonant after a vowel
+                # starts at its own ratios (D64, `ant'), a mark on the vowel reaches them no more,
+                # and its middle (F2_50_hz) is what moves
+                continue
             ok, d = contrast_ok(m, sm.get(m), sp.get(m), sh['sign'], same_base=True) if m != 'burst_found' else (
                 (sm.get(m) is not None and sp.get(m) is not None and (sm[m] - sp[m]) * sh['sign'] >= 1),
                 None if sm.get(m) is None or sp.get(m) is None else sm[m] - sp[m])
@@ -603,6 +683,11 @@ def test_map(pack, template, work):
         says = [l.rstrip('\n') for l in f if l.split()[:1] == ['says']]
     with open(path, encoding='utf-8') as f:
         lines = f.read().split('\n')
+    # The chart's marks belong to no language: the pack's own lengths of stressed and unstressed
+    # vowels (hi's profile: stressed=88 weak=112, which shortened every stressed vowel the stress
+    # mark was proved on) are left out, so that the engine's neutral 100 per cent speaks (D64)
+    lines = [' '.join(w for w in l.split(' ') if not re.match(r'(stressed|weak)=', w)) if l.startswith('accent ')
+             else l for l in lines]
     out = os.path.join(work, 'sweep-%s.map' % template)
     with open(out, 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(says + lines))
@@ -645,8 +730,9 @@ def say_entry(t, sid, template, pack):
         diags += r_['diag'][len(d):] if r_['diag'][:len(d)] == d else r_['diag']
         c = measure(r_, p, cid, manner(e) if e['kind'] == 'base' else None, layer)
         c.update(ipa=text, said=out, diag=r_['diag'], fe_diag=d, wav_sha256=r_['wav_sha256'])
+        x_, rate_ = E.read_wav(r_['wav'])
+        c['clipped'], c['near_full_scale'] = clipped(x_)
         if PZ.check_of(e):
-            x_, rate_ = E.read_wav(r_['wav'])
             c['pros'] = PZ.measure(x_, rate_, c['phones'], r_['frames'])
         cases[cid] = c
     verdict = judge(t, sid, cases, diags, said_as)
@@ -659,7 +745,7 @@ def say_entry(t, sid, template, pack):
 # and the entry said again, at most five rounds. A correction is a `trim' for this template only:
 # the specification is never touched (DESIGN.md 5).
 ROUNDS = 5
-ABS_KEYS = ('vot', 'trate', 'tapms')     # corrected as values; every other key as a ratio
+ABS_KEYS = ('vot', 'trate', 'tapms', 'bgain', 'impl')     # corrected as values; every other key as a ratio
 TRIM_KEYS = {'F1': ['f1'], 'F2': ['f2'], 'F3': ['f3'], 'peak_hz': ['f2', 'f3', 'f4'],
              'locus F2 (frames)': ['f2'], 'locus F3 (frames)': ['f3']}
 
@@ -673,10 +759,32 @@ def corrections(res, trims):
             # the voice onset: the key moved by what was missed (it has a floor, the module's own
             # onset in that context: D47, Q13; a key below nought is not asked for)
             cur = out.get('vot', (res['said_as']['keys'] or {}).get('vot', tg['target']))
-            nxt = cur + (tg['target'] - tg['measured'])
+            # half the miss once the key has been corrected before: the measure moves in steps of
+            # a pitch period (p: vot 16 read 6 ms, 22 read 18, 28 read 32), and the whole miss
+            # jumped from one side of the target to the other every round (D64)
+            nxt = cur + (tg['target'] - tg['measured']) * (0.5 if 'vot' in trims else 1.0)
             if nxt >= 0:
                 out['vot'] = nxt
                 any_ = True
+            continue
+        if k == 'burst level_db' and not tg['within'] and tg['measured'] is not None and tg.get('contexts', 0) >= 2:
+            # a burst's level against the vowel after it: C12's gain moved by the dB missed, half
+            # of it once corrected before (the vowels' level is held to the module's, D64, so a
+            # gain chosen against the louder vowels before read 5 to 7 dB high); 0 to 40 as the
+            # layer takes it
+            cur = out.get('bgain', (res['said_as']['keys'] or {}).get('bgain', 0))
+            out['bgain'] = min(40.0, max(0.0, cur + (tg['target'] - tg['measured']) * (0.5 if 'bgain' in trims else 1.0)))
+            any_ = True
+            continue
+        if k == 'closure voicing slope' and not tg['within'] and tg['measured'] is not None \
+                and tg.get('contexts', 0) >= 2:
+            # an implosive's swell: `impl' is the dB the voice rises through the closure, the slope
+            # dB per 10 ms over about 40 ms of it; chosen against the louder vowels before D64's
+            # level hold. Never 1, which is the packs' own 14 dB
+            cur = out.get('impl', (res['said_as']['keys'] or {}).get('impl', 12))
+            nxt = cur + (tg['target'] - tg['measured']) * 4.0 * (0.5 if 'impl' in trims else 1.0)
+            out['impl'] = min(40.0, max(2.0, nxt))
+            any_ = True
             continue
         if tg['within'] or not tg['measured'] or k not in TRIM_KEYS:
             continue
@@ -716,13 +824,22 @@ def prove_entry(t, sid, template, pack, rounds=ROUNDS):
         history.append(dict(round=len(history) + 1, trims=dict(trims), B3=res['B3']['targets'],
                             keys=res['said_as']['keys']))
         if res['B3']['passed'] or len(history) >= rounds:
+            spent = len(history) >= ROUNDS
             break
         nxt = corrections(res, trims)
         if nxt is None:
+            spent = True
             break
         trims = nxt
         with_trims(t, sid, template, trims)
         res = say_entry(t, sid, template, pack)
+    tg = res['B3']['targets']
+    if spent and not res['B3']['passed'] and all(o['within'] or o.get('approx_ok') for o in tg.values()):
+        # every target left is inside the bound its approximate entry states, after the rounds
+        for o in tg.values():
+            if not o['within']:
+                o.update(within=True, approximate=o.pop('approx_ok'))
+        res['B3']['passed'] = True
     res['rounds'] = history
     ok = all(res[k]['passed'] for k in ('A0', 'A1', 'A2', 'B3'))
     res['trims'] = {k: round(v, 1) for k, v in trims.items()} if ok and trims else {}

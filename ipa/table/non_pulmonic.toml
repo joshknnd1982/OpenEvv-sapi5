@@ -27,7 +27,8 @@ proof = "ipa/proofs/U+0298.json"
 [sound."U+0298".realization.openevv]
 # the front closure at the lips: the module's voiceless bilabial stop, its burst lengthened; the lip release is expected to be low (grave): miller_icphs2007 figure 2 gives it the lowest first spectral peak of the five clicks (read from the figure; not used as a target), no centre of gravity
 carrier = "p"
-keys = { burstms = { v = 23, tag = "derived", rule = "the specification's burst length" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, bgain = { v = 30, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, a2 = { v = 70, tag = "estimated", rule = "noise low, on the second resonance (a grave burst)" }, a3 = { v = 30, tag = "estimated", rule = "see a2" }, a4 = { v = 0, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, ab = { v = 0, tag = "estimated", rule = "see a2" } }
+keys = { burstms = { v = 23, tag = "derived", rule = "the specification's burst length" }, vot = { v = 32, tag = "estimated", rule = "after the p carrier the onset moves in steps of a pitch period (vot 28 read 26 ms, 32 read 32 in the whole sweep, 38 read 44): 32 keeps ʘ within its own 26 ms (a quarter) and later than ǃ's by the 8 ms a contrast needs: ǃ cannot begin its voice sooner than about 20 ms here (D64), and ʘ's must come later than ǃ's by the 8 ms a contrast needs" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, bgain = { v = 30, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, a2 = { v = 70, tag = "estimated", rule = "noise low, on the second resonance (a grave burst)" }, a3 = { v = 30, tag = "estimated", rule = "see a2" }, a4 = { v = 0, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, ab = { v = 0, tag = "estimated", rule = "see a2" } }
+trim.dedx = [{ key = "bgain", v = 24.8, scale = false, tag = "measured", proof = "ipa/proofs/U+0298.json" }]
 
 [sound."U+01C0"]
 ipa = "ǀ"
@@ -39,7 +40,8 @@ kind = "base"
 features = { class = "consonant", airstream = "click", place = "dental", place2 = "velar", stricture = "closure", voicing = "unspecified" }
 state = "created"
 level = 2
-approximate = false
+approximate = true
+deviation = "the voice begins about 34 ms after the burst, not 26: the burst itself lasts the 22 ms its specification asks (23.5) and the voice's rise after it adds about 12; vot is already 2, the least the design loop may ask (D64)"
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
 
 [sound."U+01C0".spec]
@@ -48,6 +50,7 @@ burst = { length_ms = { v = 23.5, tag = "derived", rule = "mean of JF 24 and MA 
 
 [sound."U+01C0".tests]
 checks = ["T-click", "T-contrast"]
+approximate = { vot_ms = { max = 40 } }
 contrast = [{ with = "U+01C3", measure = "burst_centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }, { with = "U+01C3", measure = "burst_len_ms", sign = 1 }]
 proof = "ipa/proofs/U+01C0.json"
 
@@ -55,6 +58,7 @@ proof = "ipa/proofs/U+01C0.json"
 # the front closure at the teeth released with friction: the module's voiceless alveolar stop, its burst lengthened and moved up
 carrier = "t"
 keys = { burstms = { v = 22, tag = "estimated", rule = "chosen with hold so that the burst measures at the specification's 23.5 ms: the module's burst cannot be extended past the stop's own stretch, and a burstms of 28 measured 33.7 ms" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, bgain = { v = 20, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, hold = { v = 130, tag = "estimated", rule = "the stop lengthened so that the module's burst, which the layer cannot extend past the stop's own stretch, runs the specification's length" }, a2 = { v = 20, tag = "estimated", rule = "noise mostly on the fourth resonance and its neighbours, so that its centre falls near 3000 Hz" }, a3 = { v = 50, tag = "estimated", rule = "see a2" }, a4 = { v = 60, tag = "estimated", rule = "see a2" }, a5 = { v = 30, tag = "estimated", rule = "see a2" }, a6 = { v = 10, tag = "estimated", rule = "see a2" } }
+trim.dedx = [{ key = "bgain", v = 13.4, scale = false, tag = "measured", proof = "ipa/proofs/U+01C0.json" }, { key = "vot", v = 2.0, scale = false, tag = "measured", proof = "ipa/proofs/U+01C0.json" }]
 
 [sound."U+01C3"]
 ipa = "ǃ"
@@ -66,7 +70,8 @@ kind = "base"
 features = { class = "consonant", airstream = "click", place = "postalveolar", place2 = "velar", stricture = "closure", voicing = "unspecified" }
 state = "created"
 level = 2
-approximate = false
+approximate = true
+deviation = "the voice begins about 20 ms after the burst, not 13.1: the carrier t's own voice onset has a floor in this module (Q13, D60) that no key moves (vot 0 to 2, ej 0 to 3, asp 0 and burstms 3 to 5 all read 20 to 24 ms on ǃ, D64); before the vowels' level was held to the module's (D64) the louder vowels read the onset sooner"
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10", "C12?"] }
 
 [sound."U+01C3".spec]
@@ -75,6 +80,7 @@ burst = { length_ms = { v = 9, tag = "derived", rule = "mean of JF 7 and MA 11 m
 
 [sound."U+01C3".tests]
 checks = ["T-click", "T-contrast"]
+approximate = { vot_ms = { max = 25 } }
 contrast = []
 proof = "ipa/proofs/U+01C3.json"
 
@@ -82,7 +88,7 @@ proof = "ipa/proofs/U+01C3.json"
 # the front closure released abruptly at the alveolar ridge: the module's voiceless alveolar stop, its burst reshaped
 carrier = "t"
 keys = { burstms = { v = 5, tag = "estimated", rule = "the specification's 9 ms set to 5, the frame step below it: at 10 the burst and the voice's own rise (about 8 ms) put the voice onset well past its 13 ms" }, ej = { v = 1, tag = "estimated", rule = "a silence of one millisecond after the burst, so that the burst ends where it is told; the voice's own rise makes the rest of the onset" }, burst = { v = 10, tag = "estimated", rule = "the module's burst noise raised so that bgain need not carry it all" }, bgain = { v = 34, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12: past the synthesiser's 120 dB ceiling, at most 40)" }, a2 = { v = 80, tag = "estimated", rule = "the noise on the second resonance only, so that its centre falls near 1000 Hz" }, a3 = { v = 0, tag = "estimated", rule = "see a2" }, a4 = { v = 0, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, f2 = { v = 55, tag = "estimated", rule = "the second resonance lowered during the stop, to carry the noise near 1000 Hz (the large lingual cavity)" } }
-trim.dedx = [{ key = "vot", v = 6.1, scale = false, tag = "measured", proof = "ipa/proofs/U+01C3.json" }]
+trim.dedx = [{ key = "bgain", v = 28.3, scale = false, tag = "measured", proof = "ipa/proofs/U+01C3.json" }, { key = "vot", v = 2.6, scale = false, tag = "measured", proof = "ipa/proofs/U+01C3.json" }]
 
 [sound."U+01C2"]
 ipa = "ǂ"
@@ -94,7 +100,8 @@ kind = "base"
 features = { class = "consonant", airstream = "click", place = "palatal", place2 = "velar", stricture = "closure", voicing = "unspecified" }
 state = "created"
 level = 2
-approximate = false
+approximate = true
+deviation = "the voice begins about 20 ms after the burst, not 13: the carrier t's own voice onset has a floor in this module (Q13, D60) that no key moves (vot 0 to 2, ej 0 to 3, asp 0 and burstms 3 to 5 all read 20 to 24 ms on ǃ, D64); before the vowels' level was held to the module's (D64) the louder vowels read the onset sooner"
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10", "C12?"] }
 
 [sound."U+01C2".spec]
@@ -103,6 +110,7 @@ burst = { length_ms = { v = 6, tag = "derived", rule = "mean of JF 5 and MA 7 ms
 
 [sound."U+01C2".tests]
 checks = ["T-click", "T-contrast"]
+approximate = { vot_ms = { max = 25 } }
 contrast = [{ with = "U+01C3", measure = "burst_centroid_hz", sign = 1 }]
 proof = "ipa/proofs/U+01C2.json"
 
@@ -110,6 +118,7 @@ proof = "ipa/proofs/U+01C2.json"
 # the front closure released fairly abruptly behind the alveolar ridge: the module's voiceless alveolar stop, its burst reshaped
 carrier = "t"
 keys = { burstms = { v = 5, tag = "estimated", rule = "the specification's 6 ms set to the frame step of 5 ms" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, burst = { v = 10, tag = "estimated", rule = "as for the alveolar click" }, bgain = { v = 20, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, a2 = { v = 50, tag = "estimated", rule = "noise on the second and third resonances, so that its centre falls near 1750 Hz" }, a3 = { v = 55, tag = "estimated", rule = "see a2" }, a4 = { v = 0, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" } }
+trim.dedx = [{ key = "bgain", v = 15.5, scale = false, tag = "measured", proof = "ipa/proofs/U+01C2.json" }, { key = "vot", v = 0.5, scale = false, tag = "measured", proof = "ipa/proofs/U+01C2.json" }]
 
 [sound."U+01C1"]
 ipa = "ǁ"
@@ -137,7 +146,7 @@ proof = "ipa/proofs/U+01C1.json"
 # the front closure at the alveolar ridge released at the side: the module's voiceless alveolar stop, its burst lengthened
 carrier = "t"
 keys = { burstms = { v = 16, tag = "derived", rule = "the specification's burst length" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, burst = { v = 10, tag = "estimated", rule = "as for the alveolar click" }, bgain = { v = 22, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, a2 = { v = 50, tag = "estimated", rule = "noise on the second to fourth resonances, so that its centre falls near 2000 Hz" }, a3 = { v = 60, tag = "estimated", rule = "see a2" }, a4 = { v = 30, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" } }
-trim.dedx = [{ key = "vot", v = 17.9, scale = false, tag = "measured", proof = "ipa/proofs/U+01C1.json" }]
+trim.dedx = [{ key = "bgain", v = 15.7, scale = false, tag = "measured", proof = "ipa/proofs/U+01C1.json" }, { key = "vot", v = 17.9, scale = false, tag = "measured", proof = "ipa/proofs/U+01C1.json" }]
 
 [sound."U+0253"]
 ipa = "ɓ"
@@ -174,8 +183,8 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "implosive", place = "alveolar", stricture = "closure", voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
 
@@ -190,7 +199,7 @@ proof = "ipa/proofs/U+0257.json"
 
 [sound."U+0257".realization.openevv]
 # the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
-keys = { impl = { v = 12, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target" }, hold = { v = 85, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); at this place 85 per cent keeps a closure the slope and the closure finder can measure" } }
+keys = { impl = { v = 9, tag = "estimated", rule = "dB the voice rises through the closure; with hold 90 it measured 1.48 dB per 10 ms (target 1.2) in two contexts of three or more (D64)" }, hold = { v = 90, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); 90 (D64): at 85 the closure was long enough for the swell to be measured in one context of three only, after the release into the vowel changed (the consonant now starts at its own ratios)" } }
 
 [sound."U+0284"]
 ipa = "ʄ"
@@ -217,6 +226,7 @@ proof = "ipa/proofs/U+0284.json"
 [sound."U+0284".realization.openevv]
 # the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
 keys = { impl = { v = 12, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target" }, hold = { v = 75, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); 75 per cent is where the swell measures within its target" } }
+trim.dedx = [{ key = "impl", v = 6.6, scale = false, tag = "measured", proof = "ipa/proofs/U+0284.json" }]
 
 [sound."U+0260"]
 ipa = "ɠ"
@@ -243,6 +253,7 @@ proof = "ipa/proofs/U+0260.json"
 [sound."U+0260".realization.openevv]
 # the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
 keys = { impl = { v = 2, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target at this place" }, hold = { v = 90, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); at this place 90 per cent keeps the swell within its target" } }
+trim.dedx = [{ key = "impl", v = 7.3, scale = false, tag = "measured", proof = "ipa/proofs/U+0260.json" }]
 
 [sound."U+029B"]
 ipa = "ʛ"
@@ -268,7 +279,7 @@ proof = "ipa/proofs/U+029B.json"
 
 [sound."U+029B".realization.openevv]
 # the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
-keys = { impl = { v = 3, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target at this place" }, hold = { v = 85, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); at this place 85 per cent keeps a closure the slope and the closure finder can measure" } }
+keys = { impl = { v = 9, tag = "estimated", rule = "dB the voice rises through the closure: 9 measured 0.97 dB per 10 ms (target 1.2) and 0.94 more than ɢ's plain closure; 3, chosen before the vowels' level was held (D64), measured 0.46, too little to tell from ɢ" }, hold = { v = 85, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); at this place 85 per cent keeps a closure the slope and the closure finder can measure" } }
 
 [sound."U+02BC"]
 ipa = "ʼ"

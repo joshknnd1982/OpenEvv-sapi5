@@ -136,10 +136,13 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 ## Added in Phase 4 (2026-10-06)
 
-**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 150 values on 2026-10-06 (regenerated after D63 and its review):
+**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 157 values on 2026-10-06 (regenerated after D64):
 
+- `U+0071` q: `spec.locus.F1`
+- `U+0071` q: `spec.vot_ms`
 - `U+0078` x: `spec.noise.peak_hz`
 - `U+00E7` ç: `spec.noise.peak_hz`
+- `U+00E7` ç: `keys.a5`
 - `U+01C0` ǀ: `spec.vot_ms`
 - `U+01C0` ǀ: `keys.burstms`
 - `U+01C0` ǀ: `keys.ej`
@@ -195,6 +198,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+0260` ɠ: `keys.impl`
 - `U+0260` ɠ: `keys.hold`
 - `U+0261` ɡ: `spec.locus.F2`
+- `U+0262` ɢ: `spec.locus.F1`
 - `U+0262` ɢ: `spec.locus.F2`
 - `U+0265` ɥ: `spec.formants.F1`
 - `U+0265` ɥ: `spec.formants.F2`
@@ -221,6 +225,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+0298` ʘ: `spec.vot_ms`
 - `U+0298` ʘ: `spec.burst.length_ms`
 - `U+0298` ʘ: `spec.burst.level_db`
+- `U+0298` ʘ: `keys.vot`
 - `U+0298` ʘ: `keys.ej`
 - `U+0298` ʘ: `keys.bgain`
 - `U+0298` ʘ: `keys.a2`
@@ -232,9 +237,11 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+029B` ʛ: `spec.locus.F2`
 - `U+029B` ʛ: `keys.impl`
 - `U+029B` ʛ: `keys.hold`
+- `U+029C` ʜ: `spec.trill.closed_ms`
 - `U+029F` ʟ: `spec.formants.F1`
 - `U+029F` ʟ: `spec.formants.F2`
 - `U+029F` ʟ: `spec.formants.F3`
+- `U+02A2` ʢ: `spec.trill.closed_ms`
 - `U+02B2` ʲ: `transform.consonant.locus.F2`
 - `U+02B7` ʷ: `transform.consonant.formants.F2`
 - `U+02BC` ʼ: `transform.consonant.release.burst_gain_db`

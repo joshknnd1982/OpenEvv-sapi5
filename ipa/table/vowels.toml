@@ -10,8 +10,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "close", backness = "front", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -21,6 +21,7 @@ formants = { F1 = { v = 217, tag = "literature", ref = "jassem1992", note = "jas
 [sound."U+0069".tests]
 checks = ["T-vowel"]
 contrast = [{ with = "U+0079", measure = "F2_50_hz", sign = 1 }, { with = "U+026A", measure = "F1_50_hz", sign = -1 }, { with = "U+0268", measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/U+0069.json"
 
 [sound."U+0079"]
 ipa = "y"
@@ -345,8 +346,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "open-mid", backness = "front", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -472,8 +473,8 @@ section = "vowels"
 tier = "A"
 kind = "base"
 features = { class = "vowel", height = "near-open", backness = "front", rounding = "unrounded" }
-state = "MISSING"
-level = 1
+state = "mapped"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X2", "X9"], builds = [] }
 
@@ -484,6 +485,12 @@ formants = { F1 = { v = 630, tag = "literature", ref = "fischerjorgensen1972", n
 checks = ["T-vowel"]
 contrast = [{ with = "U+025B", measure = "F1_50_hz", sign = 1 }, { with = "U+0061", measure = "F1_50_hz", sign = -1 }]
 proof = "ipa/proofs/U+00E6.json"
+
+[sound."U+00E6".realization.openevv]
+# the nearest phone by features is the module's short A, whose steady part is 5 ms: between
+# consonants its F1 never reached the target (556 to 581 Hz at the middle for 630, D64). The lax
+# front E (55 ms steady, a short vowel like this one) carries it instead, as it carries ɛ
+carrier = "E"
 
 [sound."U+0250"]
 ipa = "ɐ"

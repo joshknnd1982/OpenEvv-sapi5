@@ -199,8 +199,10 @@ def realize(t, sid, template, carrier_meas=None):
         keys['tap'] = int(_v(trill['closures']))
         rules.append('tap = %s closures' % _v(trill['closures']))
     if 'closed_ms' in trill:
-        keys['tapms'] = int(round(_v(trill['closed_ms'])))
-        rules.append('tapms = %s ms' % _v(trill['closed_ms']))
+        # the layer's closure is flat for `tapms' with a 5 ms ramp either side, so it is down by
+        # half its depth for tapms + 5 ms: that is the closed phase the specification states (D64)
+        keys['tapms'] = max(1, int(round(_v(trill['closed_ms']) - 5)))
+        rules.append('tapms = %s ms closed - 5 ms (half of each ramp of the layer\'s closure)' % _v(trill['closed_ms']))
     nas = (spec.get('nasal') or {}).get('open_pct')
     if nas is not None:
         keys['nas'] = int(round(_v(nas)))
@@ -223,7 +225,73 @@ def realize(t, sid, template, carrier_meas=None):
         keys[tr['key']] = keys.get(tr['key'], 100 if tr['key'] in RATIO_KEYS or tr['key'][0] in 'fbg' else 0)
         keys[tr['key']] = int(round(keys[tr['key']] * tr['v'] / 100.0)) if tr.get('scale') else int(tr['v'])
         rules.append('trim %s %s (%s)' % (tr['key'], tr['v'], tr.get('tag')))
+    f = e['features']
+    if not layer and cls == 'consonant' and ('locus' in spec or 'formants' in spec) and keys_peak is None \
+            and any(keys.get('f%d' % i, 100) != 100 for i in (1, 2, 3, 4)) and 'ant' not in keys:
+        # the sound before ends at this one's formants: the accent layer otherwise moves only the
+        # sound after, and the vowel before glided to the carrier's place (ʈ's to t's, D64)
+        keys['ant'] = ANT_MS
+        rules.append('ant = %d ms: the sound before meets this place over the engine\'s own transition time '
+                     '(the profile\'s reach)' % ANT_MS)
+    if not layer and 'av' not in keys and (cls == 'vowel' or (f.get('stricture') == 'approximation'
+                                                             and f.get('voicing') == 'voiced')):
+        rise = level_rise(ch, keys)
+        if rise >= 1.0:
+            # the voice and the breath on it both pass through the resonators: both are held
+            keys['av'] = -int(math.ceil(rise))
+            if 'ah' not in keys:
+                keys['ah'] = keys['av']
+            rules.append('av = ah = %d dB: the level held to the carrier %s\'s (with these formants the '
+                         'resonators\' peak gain rises %.1f dB, level_rise)' % (keys['av'], car, rise))
     return dict(keys=keys, carrier=car, distance=dist, unrealised=unrealised, rules=rules, peak_key=keys_peak)
+
+
+# How long a vowel takes to reach its formants from the consonant before it: the accent layer's
+# `reach' as every profile has it (evv_accent.c, 50 ms); the way into a consonant takes as long.
+ANT_MS = 50
+
+# What every voiced frame of the dedx module carries above F4 (the sweep's frames): F5 and the
+# bandwidths of F4 and F5; and the bandwidths of a carrier that has none measured.
+F5_HZ, B4_HZ, B5_HZ = 3900, 330, 260
+B_DEFAULT = [120, 100, 150]
+
+
+def level_rise(ch, keys):
+    """How much louder, in dB at the waveform's peak, the carrier's voice comes out of the cascade
+    of resonators with the line's formants than with its own: the largest rise over F0 90 to 200 Hz.
+
+    Moving F2 and F3 up towards the fixed F4 and F5 stacks resonances: the table's [i] (F3 3654,
+    and the accent layer's F4 >= F3 + 200 makes F4 3854, beside F5 3900) came out 16 dB above the
+    module's own [i] and clipped (D64). The rise is computed, not measured: Klatt's resonators
+    (synth.py) driven by the same pulse train, F4 raised as the accent layer raises it."""
+    b0 = ch.get('b') or B_DEFAULT
+    own = [ch['f'][i] for i in range(4)]
+    new = [ch['f'][i] * keys.get('f%d' % (i + 1), 100) / 100.0 for i in range(4)]
+    bw = [b0[i] * keys.get('b%d' % (i + 1), 100) / 100.0 for i in range(3)]
+    for fs in (own, new):
+        for i in (1, 2, 3):
+            fs[i] = max(fs[i], fs[i - 1] + 200)
+    return _level_rise(tuple(int(round(x)) for x in own), tuple(int(round(x)) for x in new),
+                       tuple(int(round(x)) for x in b0[:3]), tuple(int(round(x)) for x in bw))
+
+
+_RISE = {}
+
+
+def _level_rise(own, new, b_own, b_new):
+    k = (own, new, b_own, b_new)
+    if k not in _RISE:
+        import numpy as np
+        sys.path.insert(0, os.path.join(ROOT, 'docs', 'tts-extension', 'harness'))
+        import synth as S
+
+        def peak(fs, bs, f0):
+            x = S.pulses(f0, 300)
+            for fr, b in zip(list(fs) + [F5_HZ], list(bs) + [B4_HZ, B5_HZ]):
+                x = S.resonator(x, fr, b)
+            return float(np.abs(x[len(x) // 2:]).max())
+        _RISE[k] = max(20 * math.log10(peak(new, b_new, f0) / peak(own, b_own, f0)) for f0 in (90, 110, 130, 160, 200))
+    return _RISE[k]
 
 
 def sound_line(name, keys):

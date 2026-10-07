@@ -80,18 +80,19 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "epiglottal", stricture = "friction", voicing = "voiceless" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X3"], builds = ["C11?", "C6?"] }
 
 [sound."U+029C".spec]
-trill = { rate_hz = { v = 40, tag = "literature", ref = "heap1997_wplc", note = "section 2: voiceless aryepiglottic trill at about 40 per second, one phonetician in isolation, sex not stated, no spread. moisik_esling2010_ca estimates the epiglottal oscillation of Somali voiceless pharyngeals at about 30-40 Hz (1 speaker)." } }
+trill = { rate_hz = { v = 40, tag = "literature", ref = "heap1997_wplc", note = "section 2: voiceless aryepiglottic trill at about 40 per second, one phonetician in isolation, sex not stated, no spread. moisik_esling2010_ca estimates the epiglottal oscillation of Somali voiceless pharyngeals at about 30-40 Hz (1 speaker)." }, closed_ms = { v = 12.5, tag = "estimated", rule = "half of each 25 ms cycle closed; no measure of the closed phase of an epiglottal trill was found", note = "without it the layer's default closure (20 ms flat and 5 ms ramps) outlasted the 25 ms cycle and held the noise 20 dB down throughout: no dip was measured (D64)" } }
 duration = { inherent_ms = { v = 234, tag = "literature", ref = "moisik_esling2010_ca", note = "section 1, Fig. 2: one example token (a Somali word), 1 speaker, sex not stated; a single token, not a mean." } }
 
 [sound."U+029C".tests]
 checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+0127", measure = "mod_dips", sign = 1 }]
+proof = "ipa/proofs/U+029C.json"
 
 [sound."U+029C".realization.openevv]
 # a voiceless epiglottal trill or fricative: the module's voiceless velar fricative, shaped back and trilled at its rate (C11 acts on a phone's own frames, not on a sound the layer makes)
@@ -105,22 +106,25 @@ section = "other_symbols"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "pulmonic", place = "epiglottal", stricture = "friction", voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X5", "X2", "X4", "X7"], builds = ["C11?", "C6?"] }
 
 [sound."U+02A2".spec]
-trill = { rate_hz = { v = 53, tag = "derived", rule = "1 / 0.019 s, the period of the voiced aryepiglottic trill shown in heap1997_wplc section 2, Fig. 4", note = "the text gives about 50 per second; one phonetician, isolation, sex not stated. Lingual trills are given as about 25 per second in the same text." } }
+trill = { rate_hz = { v = 53, tag = "derived", rule = "1 / 0.019 s, the period of the voiced aryepiglottic trill shown in heap1997_wplc section 2, Fig. 4", note = "the text gives about 50 per second; one phonetician, isolation, sex not stated. Lingual trills are given as about 25 per second in the same text." }, closed_ms = { v = 9.5, tag = "estimated", rule = "half of each 19 ms cycle closed; no measure of the closed phase of an epiglottal trill was found", note = "as for ʜ (D64)" } }
 
 [sound."U+02A2".tests]
 checks = ["T-approx", "T-phonation", "T-contrast"]
 contrast = [{ with = "U+0295", measure = "mod_dips", sign = 1 }, { with = "U+029C", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/U+02A2.json"
 
 [sound."U+02A2".realization.openevv]
 # a voiced epiglottal trill or fricative: the module's voiced uvular approximant, shaped back and trilled at its rate (C11)
 carrier = "r"
 keys = { tdepth = { v = 20, tag = "derived", rule = "as for r: a closure takes the level down about as far as the module tap does" } }
+trim.dedx = [{ key = "hold", v = 130.0, scale = true, tag = "measured", proof = "ipa/proofs/U+02A2.json" }]
+
 [sound."U+02A1"]
 ipa = "ʡ"
 codepoints = ["U+02A1"]

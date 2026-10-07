@@ -168,6 +168,9 @@ typedef struct {
     int  bgain;         /* the burst louder by so many dB than the
                            synthesiser's parallel gains reach (frame word
                            ATV, read by the synthesiser only; C12) */
+    int  ant;           /* the sound before this one ends at this one's
+                           formant ratios over so many ms: its place shows
+                           in the way in as it does in the way out */
 } Def;
 
 typedef struct {
@@ -701,7 +704,7 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "breathy", offsetof(Def, breathy) },
         { "burstms", offsetof(Def, burstms) }, { "rel2", offsetof(Def, rel2) },
         { "rel2ms", offsetof(Def, rel2ms) }, { "rel2af", offsetof(Def, rel2af) },
-        { "bgain", offsetof(Def, bgain) },
+        { "bgain", offsetof(Def, bgain) }, { "ant", offsetof(Def, ant) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -1773,6 +1776,29 @@ static void made(int32_t *f, const Def *d, double w)
     }
 }
 
+/* The sound asked for after this one, when it is known: the phone lined up
+   next once the module has said it, or else the next thing written that the
+   layer does not make itself. Nought for a pause, or for this sound again. */
+static const Def *next_def(const Accent *a, const Phone *ph, const Def *def)
+{
+    const Def *nx = 0;
+    int k;
+
+    if (ph != &a->line_up[0])
+        return 0;
+    if (a->n_line_up > 1) {
+        if (a->line_up[1].known && !a->line_up[1].pause)
+            nx = def_of(a, &a->line_up[1]);
+    } else {
+        for (k = a->next; k < a->n_queue; k++)
+            if (!(a->queue[k].flags & EX_MADE)) {
+                nx = def_at(a, a->queue[k].def);
+                break;
+            }
+    }
+    return nx != def ? nx : 0;
+}
+
 /* One phone's stretch, whole: every frame the arrays gave between where the
    mouth began to move towards it and where it began to move towards the
    next. */
@@ -2112,30 +2138,43 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
         double own_ms = own_to - own_from;
         double t = 0;
         double lf_from[4], lf_to[4], lf_end[4], lb_from[4], lb_to[4];
+        double lf_nx[4];
         int any_formant = 0;
         double vowel_av = a->vowel_av > 0 ? a->vowel_av : 50;
         double tap_every = 0;
         double trill_period = 0;
         int trill_n = 0;
         const Def *prev = before != 0 ? def_of(a, before) : 0;
+        /* The next sound's place, met on the way in (`ant'): at most the
+           last two fifths of this one, so that its middle stays its own. */
+        const Def *nx = ph->pause ? 0 : next_def(a, ph, def);
+        double ant_ms = nx != 0 && nx->ant > 0 ? nx->ant : 0;
         int shut_at = -1;
 
         if (reach_ms > own_ms * 0.6)
             reach_ms = own_ms * 0.6;
         if (reach_ms < 1)
             reach_ms = 1;
+        if (ant_ms > own_ms * 0.4)
+            ant_ms = own_ms * 0.4;
 
         for (i = 0; i < 4; i++) {
             lf_from[i] = prev != 0
                 ? ratio_log(prev->g[i] != UNSET ? prev->g[i] : prev->f[i])
                 : 0;
             lf_to[i] = def != 0 ? ratio_log(def->f[i]) : 0;
+            /* A sound that names `ant' was met on the way in: the sound
+               before ended at its ratios, so it starts there, not back
+               where that sound was and gliding to them again. */
+            if (def != 0 && def->ant > 0 && before != 0 && !before->pause)
+                lf_from[i] = lf_to[i];
             lf_end[i] = def != 0 && def->g[i] != UNSET ? ratio_log(def->g[i])
                                                        : lf_to[i];
             lb_from[i] = prev != 0 ? ratio_log(prev->b[i]) : 0;
             lb_to[i] = def != 0 ? ratio_log(def->b[i]) : 0;
+            lf_nx[i] = ant_ms > 0 ? ratio_log(nx->f[i]) : 0;
             if (lf_from[i] != 0 || lf_to[i] != 0 || lf_end[i] != 0
-                || lb_from[i] != 0 || lb_to[i] != 0)
+                || lb_from[i] != 0 || lb_to[i] != 0 || lf_nx[i] != 0)
                 any_formant = 1;
         }
         /* A pause has no sound to be anything: what came before lets go. */
@@ -2217,6 +2256,10 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     double here = lf_to[i] + (lf_end[i] - lf_to[i]) * along;
                     double l = lf_from[i] + (here - lf_from[i]) * w;
                     double lb = lb_from[i] + (lb_to[i] - lb_from[i]) * w;
+
+                    if (ant_ms > 0 && own_ms - into < ant_ms)
+                        l += (lf_nx[i] - l)
+                            * smooth(1.0 - (own_ms - into) / ant_ms);
 
                     if (l != 0)
                         f[FORMANT[i]] =

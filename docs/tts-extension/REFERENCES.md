@@ -188,3 +188,8 @@ Opened again by a research helper on 2026-10-06 for their numbers (the earlier s
 - **Nihalani (1991)**, "Low level phonetic implementation rules: evidence from Sindhi", ICPhS 12 vol. 2, 134-137, https://www.coli.uni-saarland.de/Phonetics/icphs/ICPhS1991/12_ICPhS_1991_Vol_2/p12.2_134.pdf, free-access scan. Used: implosive voicing 70 to 72 per cent of the plosive's (table 2), in a rule.
 - **Kye (2021)** (checklist reference `non_pulmonic:kye2021`, Phase 0): its summary of Lindau (1984) and Kingston, that "stiff" ejectives have an intense burst, backs the `estimated` burst gain of the ejective mark; no level was found.
 - Not found open: Lindau (1984) itself; Sands (1991)'s UCLA working paper with the Xhosa burst durations.
+
+### Phase 4 (2026-10-06, fourth session): the level hold, the uvulars
+
+- **Gallagher (2014)**, "Dorsal consonant place and vowel height in Cochabamba Quechua", author's manuscript in the NYU archive, https://archive.nyu.edu/jspui/bitstream/2451/33774/4/gallagher_2014_quechua_uvulars.pdf (`ipa/sources.toml` `gallagher2014`; no licence stated; facts cited). Opened again on 2026-10-06 for its Table 5: F1 at the onset of a vowel after a uvular against after a velar stop, isolation words, 507 / 410 Hz (front) and 536 / 432 Hz (back), 9 F + 2 M speakers; the ratio (1.24) is used for q's and ɢ's onset F1 (D64). The paper gives no voice onset time.
+- **Klatt (1980)**'s digital resonator, as `docs/tts-extension/harness/synth.py` already implements it, is what `level_rise` computes the vowels' gain with (D64); nothing new was opened for it.
