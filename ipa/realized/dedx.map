@@ -29,7 +29,7 @@ sound u006e f1=249 f2=90 f3=95 f4=104 hold=163    # U+006E voiced dental or alve
 n            n=u006e
 sound u006f f1=109 f2=93 f3=108    # U+006F close-mid back rounded vowel
 o            o=u006f
-sound u0070 f2=105 vot=30    # U+0070 voiceless bilabial plosive
+sound u0070 f2=105 vot=28    # U+0070 voiceless bilabial plosive
 p            p=u0070
 sound u0071 f2=58    # U+0071 voiceless uvular plosive
 q            k=u0071
@@ -67,21 +67,21 @@ sound u014b f1=158 f2=72 f3=103 f4=106 hold=117    # U+014B voiced velar nasal
 ŋ            G=u014b
 sound u0153 f1=95 f2=131 f3=115    # U+0153 open-mid front rounded vowel
 œ            OE=u0153
-sound u01c0 vot=26    # U+01C0 dental click (chart label: Dental); laminal tongue-tip/blade front closure at the teeth, released with friction; rear closure set by the accompaniment
-ǀ            d=u01c0
-sound u01c1 vot=26    # U+01C1 alveolar lateral click (chart label: Alveolar lateral); front closure at the alveolar ridge released at the side(s) of the tongue; rear closure set by the accompaniment
-ǁ            d=u01c1
-sound u01c2 vot=13    # U+01C2 palatoalveolar click (chart label: Palatoalveolar; often called the palatal click); laminal front closure from the alveolar ridge to the hard palate, released fairly abruptly; rear closure set by the accompaniment
-ǂ            g=u01c2
-sound u01c3 vot=20    # U+01C3 (post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment
-ǃ            d=u01c3
+sound u01c0 a2=20 a3=50 a4=60 a5=30 a6=10 bgain=20 burstms=22 ej=2 hold=130 vot=26    # U+01C0 dental click (chart label: Dental); laminal tongue-tip/blade front closure at the teeth, released with friction; rear closure set by the accompaniment
+ǀ            t=u01c0
+sound u01c1 a2=50 a3=60 a4=30 a5=0 a6=0 bgain=22 burst=10 burstms=16 ej=2 vot=17    # U+01C1 alveolar lateral click (chart label: Alveolar lateral); front closure at the alveolar ridge released at the side(s) of the tongue; rear closure set by the accompaniment
+ǁ            t=u01c1
+sound u01c2 a2=50 a3=55 a4=0 a5=0 a6=0 bgain=20 burst=10 burstms=5 ej=2 vot=13    # U+01C2 palatoalveolar click (chart label: Palatoalveolar; often called the palatal click); laminal front closure from the alveolar ridge to the hard palate, released fairly abruptly; rear closure set by the accompaniment
+ǂ            t=u01c2
+sound u01c3 a2=80 a3=0 a4=0 a5=0 a6=0 bgain=34 burst=10 burstms=5 ej=1 f2=55 vot=6    # U+01C3 (post)alveolar click (chart label: (Post)alveolar); apical front closure behind the teeth, released abruptly; rear closure set by the accompaniment
+ǃ            t=u01c3
 sound u0250 f1=165 f2=87 f3=103    # U+0250 near-open central vowel
 ɐ            @=u0250
 sound u0251 f1=130 f2=111 f3=119    # U+0251 open back unrounded vowel
 ɑ            O=u0251
 sound u0252 f1=119 f2=103 f3=120    # U+0252 open back rounded vowel
 ɒ            O=u0252
-sound u0253 f2=92    # U+0253 voiced bilabial implosive (chart label: Bilabial)
+sound u0253 f2=92 hold=75 impl=12    # U+0253 voiced bilabial implosive (chart label: Bilabial)
 ɓ            b=u0253
 sound u0254 f1=94 f2=89 f3=106    # U+0254 open-mid back rounded vowel
 ɔ            O=u0254
@@ -89,7 +89,7 @@ sound u0255 a2=42 a3=42 a4=62 a5=0 a6=0 f4=94    # U+0255 voiceless alveolo-pala
 ɕ            S=u0255
 sound u0256 f2=90 f3=69    # U+0256 voiced retroflex plosive
 ɖ            d=u0256
-sound u0257 f2=104    # U+0257 voiced dental/alveolar implosive (chart label: Dental/alveolar)
+sound u0257 f2=104 hold=85 impl=12    # U+0257 voiced dental/alveolar implosive (chart label: Dental/alveolar)
 ɗ            d=u0257
 sound u0258 f1=99 f2=106 f3=109    # U+0258 close-mid central unrounded vowel
 ɘ            @=u0258
@@ -103,7 +103,7 @@ sound u025e f1=116 f2=80 f3=103    # U+025E open-mid central rounded vowel
 ɞ            @=u025e
 sound u025f f2=119    # U+025F voiced palatal plosive
 ɟ            g=u025f
-sound u0260 f2=64    # U+0260 voiced velar implosive (chart label: Velar)
+sound u0260 f2=64 hold=90 impl=2    # U+0260 voiced velar implosive (chart label: Velar)
 ɠ            g=u0260
 sound u0261 f2=64    # U+0261 voiced velar plosive
 ɡ            g=u0261
@@ -165,7 +165,7 @@ sound u0282 a2=42 a3=62 a4=42 a5=0 a6=0 f3=117    # U+0282 voiceless retroflex f
 ʂ            S=u0282
 sound u0283 a2=42 a3=42 a4=62 a5=0 a6=0 f2=103 f3=93 f4=106 hold=115    # U+0283 voiceless postalveolar fricative
 ʃ            S=u0283
-sound u0284 f2=119    # U+0284 voiced palatal implosive (chart label: Palatal)
+sound u0284 f2=119 hold=75 impl=12    # U+0284 voiced palatal implosive (chart label: Palatal)
 ʄ            g=u0284
 sound u0288 f2=93 f3=72 vot=17    # U+0288 voiceless retroflex plosive
 ʈ            t=u0288
@@ -194,11 +194,11 @@ sound u0294 hush=1 ms=45    # U+0294 glottal plosive (glottal stop)
 sound u0295 f2=142 ms=105 voi=1 whisper=30    # U+0295 voiced pharyngeal fricative (often an approximant)
 #   not realised: locus: the layer-made carrier <h takes no ratio
 ʕ            <h=u0295
-sound u0298 vot=26    # U+0298 bilabial click (chart label: Bilabial); the letter gives the front (lip) closure only; the rear closure and its accompaniment (voiceless, voiced, nasal, aspirated...) need another letter
-ʘ            b=u0298
+sound u0298 a2=70 a3=30 a4=0 a5=0 a6=0 ab=0 bgain=30 burstms=23 ej=2 vot=26    # U+0298 bilabial click (chart label: Bilabial); the letter gives the front (lip) closure only; the rear closure and its accompaniment (voiceless, voiced, nasal, aspirated...) need another letter
+ʘ            p=u0298
 sound u0299 tdepth=20 trate=19    # U+0299 voiced bilabial trill
 ʙ            w=u0299
-sound u029b f2=58    # U+029B voiced uvular implosive (chart label: Uvular)
+sound u029b f2=58 hold=85 impl=3    # U+029B voiced uvular implosive (chart label: Uvular)
 ʛ            g=u029b
 sound u029c hold=187 tdepth=20 trate=40    # U+029C voiceless epiglottal fricative
 ʜ            x=u029c
@@ -344,6 +344,7 @@ letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false 
 mod ʰ c vot+64    # U+02B0
 mod ʲ c f2*143    # U+02B2
 mod ʷ c f2*85    # U+02B7
+mod ʼ c vot+90 burstms=10 bgain=10 ej=100    # U+02BC
 mod ː c hold*200    # U+02D0
 mod ː v dur*230    # U+02D0
 mod ˑ c hold*140    # U+02D1

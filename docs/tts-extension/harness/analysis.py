@@ -155,7 +155,9 @@ def f0_at(x, rate, t_ms, fmin=50.0, fmax=600.0, threshold=0.45):
             j = max(lo, km - 2) + int(np.argmax(seg))
             if r[j] > 0.9 * r[k]:
                 k = j
-    if 1 <= k < n - 1:
+    if 1 <= k < n - 1 and r[k] >= r[k - 1] and r[k] >= r[k + 1]:
+        # a peak only: the octave check above can pick a lag that is not one, and the parabola's
+        # step then runs off (it gave a negative F0 on an ejective's long voiceless gap, Phase 4)
         a, b, c = r[k - 1], r[k], r[k + 1]
         d = (a - c) / (2 * (a - 2 * b + c)) if (a - 2 * b + c) != 0 else 0.0
     else:
@@ -293,7 +295,9 @@ def stop_timing(x, rate, a_ms, b_ms, after_ms=80.0, hop_ms=1.0, voicing=0.45):
     db_all = 10 * np.log10(np.convolve(e_all, np.ones(5) / 5, mode='same'))
     db_hi = 10 * np.log10(e_hi)
     quiet = db_all < db_all.max() - 25
-    hi_top = db_hi.max()
+    # how loud a burst must be is set by the stop and the 80 ms after it: with a longer look
+    # (vot_long) a vowel far after must not set it (an ejective's weak k burst went unfound, Phase 4)
+    hi_top = db_hi.max() if after_ms <= 80.0 else db_hi[:max(1, min(n, int((b_ms - a_ms + 80.0) / hop_ms)))].max()
     burst = None
     last = min(n, int((b_ms - a_ms + 10.0) / hop_ms) + 1)
     for i in range(1, last):

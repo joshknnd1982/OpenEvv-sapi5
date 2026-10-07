@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "aecc58235b2d7b43d74657822a312a3bf4b425a1a4046504b777d0265ad7ce1f",
+ "map_sha256": "fc8649510048e8210c91c696cb4f416d7edbf4f4778235d1039ee999cb6a3f4b",
  "said_as": {
   "pack": "hi",
   "carrier": "p",
@@ -388,6 +388,12 @@
     },
     "vot_long_ms": 28.0,
     "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -36.311425285769886,
+    "burst_len_ms": 27.75510204081633,
+    "burst_centroid_hz": 1131.716993708855,
+    "burst_db": -19.54365092652037,
+    "gap_breath_frac": 0.75,
     "schwa_ms": 0
    },
    "edges": {
@@ -610,6 +616,9 @@
     },
     "vot_long_ms": 20.0,
     "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -12.830076149122775,
+    "gap_breath_frac": 1.0,
     "schwa_ms": 0
    },
    "edges": {
@@ -832,6 +841,12 @@
     },
     "vot_long_ms": 24.0,
     "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -55.827756516898305,
+    "burst_len_ms": 22.31292517006803,
+    "burst_centroid_hz": 2237.9005197515157,
+    "burst_db": -29.360008989273247,
+    "gap_breath_frac": 0.6666666666666666,
     "schwa_ms": 0
    },
    "edges": {
@@ -866,6 +881,15 @@
   "mod_closed_ms": 49.89,
   "burst_found": 1,
   "schwa_ms": 0,
+  "voicing_slope": -36.31,
+  "burst_db": -24.45,
+  "burst_len_ms": 25.03,
+  "burst_centroid_hz": 1684.81,
+  "gap_breath_frac": 0.75,
+  "n_voicing_slope": 3,
+  "n_burst_db": 2,
+  "n_burst_len_ms": 2,
+  "n_burst_centroid_hz": 2,
   "voiced_frac": 0.231
  },
  "A0": {
@@ -908,50 +932,6 @@
  "rounds": [
   {
    "round": 1,
-   "trims": {
-    "vot": 30.0
-   },
-   "B3": {
-    "vot_ms": {
-     "target": 20,
-     "measured": 30.0,
-     "within": false
-    },
-    "locus F2 (frames)": {
-     "target": 843,
-     "measured": 840.0,
-     "within": true
-    }
-   },
-   "keys": {
-    "f2": 105,
-    "vot": 30
-   }
-  },
-  {
-   "round": 2,
-   "trims": {
-    "vot": 20.0
-   },
-   "B3": {
-    "vot_ms": {
-     "target": 20,
-     "measured": 12.0,
-     "within": false
-    },
-    "locus F2 (frames)": {
-     "target": 843,
-     "measured": 840.0,
-     "within": true
-    }
-   },
-   "keys": {
-    "f2": 105,
-    "vot": 20
-   }
-  },
-  {
-   "round": 3,
    "trims": {
     "vot": 28.0
    },

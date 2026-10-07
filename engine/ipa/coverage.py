@@ -190,8 +190,18 @@ def main():
              and not (proof_of(sid) or {}).get('passed')]
     print('state against proof: %s' % ('every entry that is not MISSING has a passing proof' if not stale else
                                       'NOT PROVED NOW: ' + ', '.join('%s %s' % (i, t.sounds[i]['ipa']) for i in stale)))
+    # every proof of a done entry must be of the map as it stands: a correction kept for one entry
+    # after another was proved changes that one's neighbours (D62 8)
+    import sweep as SW
+    packs = {(proof_of(sid) or {}).get('pack') for sid in t.sounds} - {None}
+    now = {pk: SW.map_sha(t, a.template, pk) for pk in packs}
+    old_map = [sid for sid, e in t.sounds.items() if e.get('state') not in ('MISSING', None)
+               and (proof_of(sid) or {}).get('map_sha256') != now.get((proof_of(sid) or {}).get('pack'))]
+    print('proof against map: %s' % ('every proof of a done entry was made on the map as it stands' if not old_map else
+                                     'MADE ON ANOTHER MAP (%d): ' % len(old_map) + ', '.join(
+                                         '%s %s' % (i, t.sounds[i]['ipa']) for i in sorted(old_map))))
     print(unicode_net(t, checklist))
-    return 1 if missing or extra or stale else 0
+    return 1 if missing or extra or stale or old_map else 0
 
 
 if __name__ == '__main__':

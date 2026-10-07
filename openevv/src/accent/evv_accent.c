@@ -127,7 +127,9 @@ typedef struct {
     int  voi;           /* 1 voiced throughout, 0 voiceless throughout */
     int  brth;          /* breathy voice after the release, milliseconds */
     int  ej;            /* silence after the burst, milliseconds */
-    int  impl;          /* an implosive */
+    int  impl;          /* an implosive; 1 as the packs have it swells the
+                           voice 14 dB through the closure, any other value
+                           that many dB */
     int  burst;         /* the burst, dB either way */
     int  nas;           /* nasalised, percent */
     int  av, ah, af;    /* levels, dB either way */
@@ -163,6 +165,9 @@ typedef struct {
     int  rel2, rel2ms;  /* a second, weaker release this long after the
                            first, for so long: a click's back closure (C10) */
     int  rel2af;        /* and its noise, dB as the synthesiser has it */
+    int  bgain;         /* the burst louder by so many dB than the
+                           synthesiser's parallel gains reach (frame word
+                           ATV, read by the synthesiser only; C12) */
 } Def;
 
 typedef struct {
@@ -696,6 +701,7 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "breathy", offsetof(Def, breathy) },
         { "burstms", offsetof(Def, burstms) }, { "rel2", offsetof(Def, rel2) },
         { "rel2ms", offsetof(Def, rel2ms) }, { "rel2af", offsetof(Def, rel2af) },
+        { "bgain", offsetof(Def, bgain) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -2166,12 +2172,29 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
             }
         }
 
+        /* A stop whose module lets it go inside its own stretch (the German
+           template's p, t, k) has its release shaped there too, by the
+           same keys as the release after it, but only when the definition
+           asks with a key no pack used before (burstms, noburst): the
+           older keys keep what they did. */
+        int own_shape = def != 0 && is_stop(a, ph) && ph->whole
+            && (def->burstms > 0 || def->noburst);
+        int own_shut = 0;
+        double own_rel = -1;
+
         for (k = 0; k < n_out && ok; k++) {
             int32_t *f = out + (size_t)k * P_COUNT;
             int dt = f[P_STEP];
             double at = a->sounded + t;     /* ms into what has sounded */
             double into = t - own_from;     /* ms into the phone's own */
             int own = k >= n_on && k < n_on + n_own;
+
+            if (own_shape && own && own_rel < 0) {
+                if (f[P_AF] == 0 && f[P_AH] == 0 && f[P_AV] < 30)
+                    own_shut = 1;
+                else if (own_shut && f[P_AF] > 0)
+                    own_rel = at;
+            }
 
             /* formants and bandwidths */
             if (any_formant && own) {
@@ -2232,6 +2255,13 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     if (was->noburst)
                         f[P_AF] = 0;
                 }
+                if (was->noburst && since >= 0 && since < 25 && f[P_AV] == 0) {
+                    /* Not released at all: no breath and no bypass noise
+                       either before the voice (no pack names noburst). */
+                    f[P_AF] = 0;
+                    f[P_AH] = 0;
+                    f[P_AB] = 0;
+                }
                 if (since >= 0 && since < 30 && f[P_AF] > 0) {
                     for (i = 0; i < 6; i++)
                         if (was->amp[i] != UNSET)
@@ -2263,6 +2293,11 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     }
                 }
 
+                if (was->bgain > 0 && since >= 0
+                    && since < (was->burstms > 0 ? was->burstms : 10)
+                    && f[P_AF] > 0)
+                    /* a burst that runs on past the stop's own stretch */
+                    f[P_ATV] = clamp(was->bgain, 0, 40);
                 if (was->ej > 0 && since >= (was->burstms > 0 ? was->burstms : 10)
                     && since < (was->burstms > 0 ? was->burstms : 10) + was->ej) {
                     /* An ejective: the burst, then nothing while the
@@ -2317,6 +2352,47 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 }
             }
 
+            /* ---- a stop's own release, inside its own stretch ---- */
+            if (own_rel >= 0 && own) {
+                int since = (int)(at - own_rel);
+                int bms = def->burstms > 0 ? def->burstms : 10;
+
+                if (def->noburst) {
+                    /* not released into noise: the burst goes, all of it */
+                    f[P_AF] = 0;
+                    f[P_AH] = 0;
+                    f[P_AB] = 0;
+                } else {
+                    if (since < 25 && f[P_AF] > 0 && def->burst != 0)
+                        f[P_AF] = clamp(f[P_AF] + def->burst, 0, 80);
+                    if (since < bms && f[P_AF] > 0 && def->bgain > 0)
+                        f[P_ATV] = clamp(def->bgain, 0, 40);
+                    if (since < 30 && f[P_AF] > 0)
+                        for (i = 0; i < 6; i++)
+                            if (def->amp[i] != UNSET)
+                                f[NOISE[i]] = clamp(def->amp[i], 0, 80);
+                    if (since >= bms && (def->ej > 0 ? since < bms + def->ej
+                                                     : def->burstms > 0)) {
+                        /* the burst over: an ejective's or a click's
+                           silence, or, with no silence asked, the rest of
+                           the stretch quiet, so that the burst lasts as
+                           long as it was told */
+                        f[P_AV] = 0;
+                        f[P_AH] = 0;
+                        f[P_AF] = 0;
+                    }
+                    if (def->rel2ms > 0 && since >= def->rel2
+                        && since < def->rel2 + def->rel2ms) {
+                        f[P_AV] = 0;
+                        f[P_AH] = 0;
+                        f[P_AF] = clamp(def->rel2af, 0, 80);
+                        for (i = 0; i < 6; i++)
+                            f[NOISE[i]] = 0;
+                        f[P_A2F] = clamp(def->rel2af, 0, 80);
+                    }
+                }
+            }
+
             /* ---- the sound itself ---- */
             if (def != 0 && own) {
                 double w = smooth(into / reach_ms);
@@ -2364,8 +2440,9 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 if (def->impl && f[P_AV] > 0 && f[P_AV] < 40) {
                     /* An implosive swells towards its release. */
                     double x = own_ms > 0 ? into / own_ms : 0;
+                    int swell = def->impl == 1 ? 14 : def->impl;
 
-                    f[P_AV] = (int32_t)(f[P_AV] + 14 * x);
+                    f[P_AV] = (int32_t)(f[P_AV] + swell * x);
                     f[P_TL] = clamp((int)(f[P_TL] - 15 * x), 0, 41);
                 }
                 if (def->av != 0 && f[P_AV] > 0)

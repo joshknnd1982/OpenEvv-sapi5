@@ -205,7 +205,13 @@ def realize(t, sid, template, carrier_meas=None):
     if nas is not None:
         keys['nas'] = int(round(_v(nas)))
         rules.append('nas = %s per cent' % _v(nas))
-    known = {'formants', 'locus', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap', 'nasal', 'trill'}
+    for k in ('burst', 'closure'):
+        if k in spec:
+            # a click's burst and an implosive's closure (T-click, T-airstream): targets the sweep
+            # measures, met through the entry's own engine keys (realization.openevv.keys)
+            rules.append('%s: measured targets, realised by the engine keys below' % k)
+    known = {'formants', 'locus', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap', 'nasal', 'trill',
+             'burst', 'closure'}
     for k in spec:
         if k not in known:
             unrealised.append('%s: the adapter has no key for it yet' % k)
@@ -238,6 +244,7 @@ for _i in (1, 2, 3, 4):
 OPS.update({('nasal.open_pct', 'set'): ('nas', '='), ('phonation.breathy_pct', 'set'): ('breathy', '='),
             ('phonation.creaky_pct', 'set'): ('creak', '='), ('voicing.voiced', 'set'): ('voi', '='),
             ('release.unreleased', 'set'): ('noburst', '='), ('release.ejective_silence_ms', 'set'): ('ej', '='),
+            ('release.burst_ms', 'set'): ('burstms', '='), ('release.burst_gain_db', 'set'): ('bgain', '='),
             ('release.implosive', 'set'): ('impl', '='), ('breath.whisper_db', 'set'): ('whisper', '='),
             ('trill.rate_hz', 'set'): ('trate', '='), ('tap.closures', 'set'): ('tap', '=')})
 # a consonant's length is `hold', a vowel's `dur'

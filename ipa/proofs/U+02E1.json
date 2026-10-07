@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "aecc58235b2d7b43d74657822a312a3bf4b425a1a4046504b777d0265ad7ce1f",
+ "map_sha256": "fc8649510048e8210c91c696cb4f416d7edbf4f4778235d1039ee999cb6a3f4b",
  "said_as": {
   "pack": "hi",
   "carrier": null,
@@ -284,7 +284,13 @@
      "closed_ms": 70.83900226757369
     },
     "vot_long_ms": 12.0,
-    "burst_found": 0,
+    "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -60.88993705680592,
+    "burst_len_ms": 11.428571428571429,
+    "burst_centroid_hz": 4349.396701977176,
+    "burst_db": -13.998030001376002,
+    "gap_breath_frac": 0.0,
     "h1h2_db": -3.4249571130813763,
     "a1_p0_db": -5.432641876739865,
     "schwa_ms": 0
@@ -570,7 +576,13 @@
      "closed_ms": 49.88662131519274
     },
     "vot_long_ms": 12.0,
-    "burst_found": 0,
+    "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -66.5962582822176,
+    "burst_len_ms": 12.51700680272109,
+    "burst_centroid_hz": 4346.172101346697,
+    "burst_db": -18.788959799626213,
+    "gap_breath_frac": 0.0,
     "h1h2_db": -4.49269984826168,
     "a1_p0_db": 0.0,
     "schwa_ms": 0
@@ -856,7 +868,13 @@
      "closed_ms": 68.84353741496598
     },
     "vot_long_ms": 12.0,
-    "burst_found": 0,
+    "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -67.42232802737735,
+    "burst_len_ms": 10.34013605442177,
+    "burst_centroid_hz": 4315.329165173384,
+    "burst_db": -13.391942879900498,
+    "gap_breath_frac": 0.0,
     "h1h2_db": -3.403608784049652,
     "a1_p0_db": -5.06619646374584,
     "schwa_ms": 0
@@ -946,11 +964,11 @@
      "end_ms": 150,
      "meas": {
       "duration_ms": 110.0,
-      "intensity_db": -20.97,
-      "closure_ms": 45.0,
-      "burst_ms": 135.0,
-      "voicing_onset_ms": 147.0,
-      "vot_ms": 12.0
+      "intensity_db": -21.03,
+      "closure_ms": null,
+      "burst_ms": null,
+      "voicing_onset_ms": 102.0,
+      "vot_ms": null
      },
      "req": {
       "duration_ms": 110.0,
@@ -988,7 +1006,7 @@
       "F2_80_hz": 1632.0,
       "F3_80_hz": 2500.0,
       "voiced_frames": 8.0,
-      "noise_frames": 11.0,
+      "noise_frames": 8.0,
       "frames": 22.0
      }
     },
@@ -1000,23 +1018,23 @@
      "end_ms": 195,
      "meas": {
       "duration_ms": 45.0,
-      "intensity_db": -20.54,
-      "F1_20_hz": 306.51,
-      "F2_20_hz": 1637.12,
-      "F3_20_hz": 2543.32,
-      "F1_50_hz": 336.55,
-      "F2_50_hz": 1769.09,
-      "F3_50_hz": 2484.11,
-      "F1_80_hz": 370.82,
-      "F2_80_hz": 1700.76,
-      "F3_80_hz": 2549.22,
-      "f0_50_hz": 125.3,
-      "F3_min_hz": 2481.67
+      "intensity_db": -23.62,
+      "F1_20_hz": 269.25,
+      "F2_20_hz": 1644.74,
+      "F3_20_hz": 2567.53,
+      "F1_50_hz": 301.86,
+      "F2_50_hz": 1764.91,
+      "F3_50_hz": 2504.73,
+      "F1_80_hz": 363.5,
+      "F2_80_hz": 1711.66,
+      "F3_80_hz": 2545.75,
+      "f0_50_hz": 125.18,
+      "F3_min_hz": 2481.07
      },
      "req": {
       "duration_ms": 45.0,
       "f0_hz": 124.6,
-      "f0_mid40_hz": 124.5125,
+      "f0_mid40_hz": 124.45714285714287,
       "av": 51.0,
       "ah": 0.0,
       "af": 0.0,
@@ -1048,8 +1066,8 @@
       "F1_80_hz": 368.0,
       "F2_80_hz": 1697.0,
       "F3_80_hz": 2552.0,
-      "voiced_frames": 9.0,
-      "noise_frames": 3.0,
+      "voiced_frames": 7.0,
+      "noise_frames": 2.0,
       "frames": 9.0
      }
     },
@@ -1061,18 +1079,18 @@
      "end_ms": 300,
      "meas": {
       "duration_ms": 105.0,
-      "intensity_db": -17.44,
-      "F1_20_hz": 658.28,
-      "F2_20_hz": 1573.88,
-      "F3_20_hz": 2474.41,
-      "F1_50_hz": 888.5,
-      "F2_50_hz": 1450.9,
-      "F3_50_hz": 2751.52,
-      "F1_80_hz": 888.92,
-      "F2_80_hz": 1449.54,
-      "F3_80_hz": 2755.57,
-      "f0_50_hz": 116.19,
-      "F3_min_hz": 2455.09
+      "intensity_db": -17.4,
+      "F1_20_hz": 640.66,
+      "F2_20_hz": 1568.59,
+      "F3_20_hz": 2473.42,
+      "F1_50_hz": 891.86,
+      "F2_50_hz": 1448.26,
+      "F3_50_hz": 2756.01,
+      "F1_80_hz": 888.07,
+      "F2_80_hz": 1445.05,
+      "F3_80_hz": 2767.65,
+      "f0_50_hz": 117.3,
+      "F3_min_hz": 2449.87
      },
      "req": {
       "duration_ms": 105.0,
@@ -1138,22 +1156,24 @@
     "modulation": {
      "dips": 1,
      "rate_hz": null,
-     "depth_db": 247.78757942283914,
-     "closed_ms": 70.83900226757369
+     "depth_db": 225.6270733626112,
+     "closed_ms": 71.83673469387755
     },
-    "vot_long_ms": 12.0,
+    "vot_long_ms": 0.0,
     "burst_found": 0,
-    "h1h2_db": -3.4249571130813763,
-    "a1_p0_db": -5.432641876739865,
+    "closure_quiet": 1,
+    "voicing_slope": 14.589961174119876,
+    "h1h2_db": -2.178850045001454,
+    "a1_p0_db": 0.0,
     "schwa_ms": 0
    },
    "edges": {
     "prev_F1_80": 936.5994283805513,
     "prev_F2_80": 1643.5337657230666,
     "prev_F3_80": 2627.8392981023444,
-    "next_F1_20": 526.1913205123006,
-    "next_F2_20": 1609.862697523675,
-    "next_F3_20": 2461.6882610270054
+    "next_F1_20": 494.41336614271813,
+    "next_F2_20": 1631.6367779949821,
+    "next_F3_20": 2453.5026544889056
    },
    "ipa": "ˈatˡla",
    "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stressed=88 weak=112 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0061 f1=127 f2=125 f3=110}{D u006c f1=92 f2=138 f3=88 hold=50}{D c1 f2=102 vot=15 noburst=1}{W .1 A=u0061^- .0 t=c1 l=u006c A=u0061^-}`[.1A.0tlA]{P s}.\r\n",
@@ -1167,7 +1187,7 @@
      "count": 1
     }
    ],
-   "wav_sha256": "c0423c2074a43e034f0fe288c038ad6c1ff21d9f6cda09b5e3eee39f9127bd0f"
+   "wav_sha256": "2e860026d804eccc39d22121b3174fd7168da4efbfbc64f25d065d8b07d9f163"
   },
   "U+0074_marked_i": {
    "phones": [
@@ -1240,11 +1260,11 @@
      "end_ms": 190,
      "meas": {
       "duration_ms": 95.0,
-      "intensity_db": -20.37,
-      "closure_ms": 50.0,
-      "burst_ms": 174.0,
-      "voicing_onset_ms": 188.0,
-      "vot_ms": 14.0
+      "intensity_db": -20.44,
+      "closure_ms": null,
+      "burst_ms": null,
+      "voicing_onset_ms": 139.0,
+      "vot_ms": null
      },
      "req": {
       "duration_ms": 95.0,
@@ -1282,7 +1302,7 @@
       "F2_80_hz": 1703.0,
       "F3_80_hz": 2547.0,
       "voiced_frames": 5.0,
-      "noise_frames": 8.0,
+      "noise_frames": 5.0,
       "frames": 19.0
      }
     },
@@ -1294,23 +1314,23 @@
      "end_ms": 235,
      "meas": {
       "duration_ms": 45.0,
-      "intensity_db": -19.14,
-      "F1_20_hz": 276.1,
-      "F2_20_hz": 1768.4,
-      "F3_20_hz": 2534.88,
-      "F1_50_hz": 273.94,
-      "F2_50_hz": 2055.43,
-      "F3_50_hz": 2479.15,
-      "F1_80_hz": 273.33,
-      "F2_80_hz": 2121.29,
-      "F3_80_hz": 2541.29,
-      "f0_50_hz": 125.0,
-      "F3_min_hz": 2472.79
+      "intensity_db": -22.12,
+      "F1_20_hz": 239.86,
+      "F2_20_hz": 1787.97,
+      "F3_20_hz": 2512.28,
+      "F1_50_hz": 256.84,
+      "F2_50_hz": 2084.88,
+      "F3_50_hz": 2500.01,
+      "F1_80_hz": 267.7,
+      "F2_80_hz": 2128.23,
+      "F3_80_hz": 2537.76,
+      "f0_50_hz": 124.14,
+      "F3_min_hz": 2477.41
      },
      "req": {
       "duration_ms": 45.0,
       "f0_hz": 124.2,
-      "f0_mid40_hz": 124.15,
+      "f0_mid40_hz": 124.1,
       "av": 52.0,
       "ah": 0.0,
       "af": 0.0,
@@ -1342,8 +1362,8 @@
       "F1_80_hz": 276.0,
       "F2_80_hz": 2139.0,
       "F3_80_hz": 2552.0,
-      "voiced_frames": 9.0,
-      "noise_frames": 3.0,
+      "voiced_frames": 7.0,
+      "noise_frames": 2.0,
       "frames": 9.0
      }
     },
@@ -1355,18 +1375,18 @@
      "end_ms": 410,
      "meas": {
       "duration_ms": 175.0,
-      "intensity_db": -13.13,
-      "F1_20_hz": 247.37,
-      "F2_20_hz": 2813.07,
-      "F3_20_hz": 3212.06,
-      "F1_50_hz": 231.38,
-      "F2_50_hz": 2776.6,
-      "F3_50_hz": 3653.88,
-      "F1_80_hz": 230.42,
-      "F2_80_hz": 2757.53,
-      "F3_80_hz": 3634.39,
-      "f0_50_hz": 116.21,
-      "F3_min_hz": 2558.74
+      "intensity_db": -13.21,
+      "F1_20_hz": 250.44,
+      "F2_20_hz": 2791.57,
+      "F3_20_hz": 3514.7,
+      "F1_50_hz": 234.47,
+      "F2_50_hz": 2774.78,
+      "F3_50_hz": 3656.49,
+      "F1_80_hz": 228.36,
+      "F2_80_hz": 2766.69,
+      "F3_80_hz": 3646.15,
+      "f0_50_hz": null,
+      "F3_min_hz": 2553.9
      },
      "req": {
       "duration_ms": 175.0,
@@ -1432,12 +1452,14 @@
     "modulation": {
      "dips": 1,
      "rate_hz": null,
-     "depth_db": 239.6960273909923,
-     "closed_ms": 49.88662131519274
+     "depth_db": 208.88353115741995,
+     "closed_ms": 62.857142857142854
     },
-    "vot_long_ms": 12.0,
+    "vot_long_ms": 0.0,
     "burst_found": 0,
-    "h1h2_db": -4.49269984826168,
+    "closure_quiet": 1,
+    "voicing_slope": 14.769352225411971,
+    "h1h2_db": -2.6940948514395586,
     "a1_p0_db": 0.0,
     "schwa_ms": 0
    },
@@ -1445,9 +1467,9 @@
     "prev_F1_80": 241.38759245615555,
     "prev_F2_80": 2762.0700257817102,
     "prev_F3_80": 3644.0874682394624,
-    "next_F1_20": 249.8130889424628,
-    "next_F2_20": 2530.48811227956,
-    "next_F3_20": 3044.4565550379384
+    "next_F1_20": 260.84500994888174,
+    "next_F2_20": 2706.3161937439695,
+    "next_F3_20": 2941.3234103315986
    },
    "ipa": "ˈitˡli",
    "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stressed=88 weak=112 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0069 f1=82 f2=129 f3=126}{D u006c f1=92 f2=138 f3=88 hold=50}{D c1 f2=102 vot=15 noburst=1}{W .1 i=u0069^- .0 t=c1 l=u006c i=u0069^-}`[.1i.0tli]{P s}.\r\n",
@@ -1461,7 +1483,7 @@
      "count": 1
     }
    ],
-   "wav_sha256": "bc39c3bbeebeccb1905a4a2645ab4fda32ec1d70a705122b114ea7dc03bdb21e"
+   "wav_sha256": "f671ed3a5dc2a7d37ba4841ff5cf00ef6f7c1a3827ee69b1c28f60acf412f243"
   },
   "U+0074_marked_u": {
    "phones": [
@@ -1534,11 +1556,11 @@
      "end_ms": 195,
      "meas": {
       "duration_ms": 110.0,
-      "intensity_db": -19.97,
-      "closure_ms": 45.0,
-      "burst_ms": 179.0,
-      "voicing_onset_ms": 191.0,
-      "vot_ms": 12.0
+      "intensity_db": -20.02,
+      "closure_ms": null,
+      "burst_ms": null,
+      "voicing_onset_ms": 85.0,
+      "vot_ms": null
      },
      "req": {
       "duration_ms": 110.0,
@@ -1576,7 +1598,7 @@
       "F2_80_hz": 1538.0,
       "F3_80_hz": 2363.0,
       "voiced_frames": 8.0,
-      "noise_frames": 11.0,
+      "noise_frames": 8.0,
       "frames": 22.0
      }
     },
@@ -1588,23 +1610,23 @@
      "end_ms": 240,
      "meas": {
       "duration_ms": 45.0,
-      "intensity_db": -17.64,
-      "F1_20_hz": 307.02,
-      "F2_20_hz": 1664.96,
-      "F3_20_hz": 2541.22,
-      "F1_50_hz": 338.01,
-      "F2_50_hz": 1841.06,
-      "F3_50_hz": 2485.95,
-      "F1_80_hz": 372.54,
-      "F2_80_hz": 1812.52,
-      "F3_80_hz": 2548.64,
-      "f0_50_hz": 124.05,
-      "F3_min_hz": 2485.87
+      "intensity_db": -20.63,
+      "F1_20_hz": 268.28,
+      "F2_20_hz": 1676.11,
+      "F3_20_hz": 2542.31,
+      "F1_50_hz": 299.5,
+      "F2_50_hz": 1841.12,
+      "F3_50_hz": 2510.44,
+      "F1_80_hz": 362.6,
+      "F2_80_hz": 1811.48,
+      "F3_80_hz": 2548.22,
+      "f0_50_hz": 125.1,
+      "F3_min_hz": 2486.82
      },
      "req": {
       "duration_ms": 45.0,
       "f0_hz": 124.0,
-      "f0_mid40_hz": 123.9625,
+      "f0_mid40_hz": 123.91428571428571,
       "av": 54.0,
       "ah": 0.0,
       "af": 0.0,
@@ -1636,8 +1658,8 @@
       "F1_80_hz": 368.0,
       "F2_80_hz": 1794.0,
       "F3_80_hz": 2552.0,
-      "voiced_frames": 9.0,
-      "noise_frames": 3.0,
+      "voiced_frames": 7.0,
+      "noise_frames": 2.0,
       "frames": 9.0
      }
     },
@@ -1649,18 +1671,18 @@
      "end_ms": 415,
      "meas": {
       "duration_ms": 175.0,
-      "intensity_db": -17.89,
-      "F1_20_hz": 322.28,
-      "F2_20_hz": 835.91,
-      "F3_20_hz": 2472.61,
-      "F1_50_hz": 297.09,
-      "F2_50_hz": 580.1,
-      "F3_50_hz": 2474.01,
-      "F1_80_hz": 312.88,
-      "F2_80_hz": 584.58,
-      "F3_80_hz": 2474.93,
-      "f0_50_hz": 112.51,
-      "F3_min_hz": 2455.51
+      "intensity_db": -17.94,
+      "F1_20_hz": 319.84,
+      "F2_20_hz": 767.55,
+      "F3_20_hz": 2477.75,
+      "F1_50_hz": 308.61,
+      "F2_50_hz": 580.05,
+      "F3_50_hz": 2463.48,
+      "F1_80_hz": 314.38,
+      "F2_80_hz": 587.66,
+      "F3_80_hz": 2466.59,
+      "f0_50_hz": 111.81,
+      "F3_min_hz": 2438.52
      },
      "req": {
       "duration_ms": 175.0,
@@ -1726,22 +1748,24 @@
     "modulation": {
      "dips": 1,
      "rate_hz": null,
-     "depth_db": 248.4739593573251,
-     "closed_ms": 68.84353741496598
+     "depth_db": 225.00367813543747,
+     "closed_ms": 70.83900226757369
     },
-    "vot_long_ms": 12.0,
+    "vot_long_ms": 0.0,
     "burst_found": 0,
-    "h1h2_db": -3.403608784049652,
-    "a1_p0_db": -5.06619646374584,
+    "closure_quiet": 1,
+    "voicing_slope": 15.244556493340188,
+    "h1h2_db": -2.0927162060377924,
+    "a1_p0_db": 0.0,
     "schwa_ms": 0
    },
    "edges": {
     "prev_F1_80": 305.9237489311251,
     "prev_F2_80": 585.5176226437019,
     "prev_F3_80": 2477.7723938922663,
-    "next_F1_20": 326.23984137914016,
-    "next_F2_20": 1525.3390998900095,
-    "next_F3_20": 2472.788069061944
+    "next_F1_20": 333.5975157878102,
+    "next_F2_20": 1481.395860313543,
+    "next_F3_20": 2444.6534459532427
    },
    "ipa": "ˈutˡlu",
    "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stressed=88 weak=112 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u006c f1=92 f2=138 f3=88 hold=50}{D u0075 f1=123 f2=77 f3=103}{D c1 f2=102 vot=15 noburst=1}{W .1 u=u0075^- .0 t=c1 l=u006c u=u0075^-}`[.1u.0tlu]{P s}.\r\n",
@@ -1755,7 +1779,7 @@
      "count": 1
     }
    ],
-   "wav_sha256": "b12680f81ca149a7e789409e6e2973caf573fd09efecbd4168e07446ec7567fd"
+   "wav_sha256": "83ebf85fefe96abc1ede47f93e5e7db9c0825db9de15d00e3dc14400d4647725"
   },
   "U+0064_plain_a": {
    "phones": [
@@ -2024,7 +2048,9 @@
      "closed_ms": 74.82993197278911
     },
     "vot_long_ms": 6.0,
-    "burst_found": 0,
+    "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": 0.05155281915398431,
     "schwa_ms": 0
    },
    "edges": {
@@ -2308,7 +2334,9 @@
      "closed_ms": 0.0
     },
     "vot_long_ms": 4.0,
-    "burst_found": 0,
+    "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": 0.07361505988535749,
     "schwa_ms": 0
    },
    "edges": {
@@ -2592,7 +2620,9 @@
      "closed_ms": 74.82993197278913
     },
     "vot_long_ms": 6.0,
-    "burst_found": 0,
+    "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": 0.07908191308465776,
     "schwa_ms": 0
    },
    "edges": {
@@ -2680,11 +2710,11 @@
      "end_ms": 185,
      "meas": {
       "duration_ms": 140.0,
-      "intensity_db": -21.29,
-      "closure_ms": 85.0,
-      "burst_ms": 180.0,
-      "voicing_onset_ms": 186.0,
-      "vot_ms": 6.0
+      "intensity_db": -21.3,
+      "closure_ms": 94.0,
+      "burst_ms": 194.0,
+      "voicing_onset_ms": 194.0,
+      "vot_ms": 0.0
      },
      "req": {
       "duration_ms": 140.0,
@@ -2722,7 +2752,7 @@
       "F2_80_hz": 1300.0,
       "F3_80_hz": 2600.0,
       "voiced_frames": 27.0,
-      "noise_frames": 10.0,
+      "noise_frames": 9.0,
       "frames": 28.0
      }
     },
@@ -2735,9 +2765,9 @@
      "meas": {
       "duration_ms": 30.0,
       "intensity_db": -25.24,
-      "F1_20_hz": 275.37,
-      "F2_20_hz": 1377.26,
-      "F3_20_hz": 2582.91,
+      "F1_20_hz": 280.94,
+      "F2_20_hz": 1408.39,
+      "F3_20_hz": 2581.71,
       "F1_50_hz": 340.83,
       "F2_50_hz": 1660.55,
       "F3_50_hz": 2580.19,
@@ -2870,13 +2900,15 @@
      215
     ],
     "modulation": {
-     "dips": 9,
-     "rate_hz": 127.2727272727273,
-     "depth_db": 6.557053874385864,
-     "closed_ms": 72.8344671201814
+     "dips": 1,
+     "rate_hz": null,
+     "depth_db": 8.937566737384842,
+     "closed_ms": 2.9931972789115644
     },
-    "vot_long_ms": 6.0,
+    "vot_long_ms": 0.0,
     "burst_found": 0,
+    "closure_quiet": 1,
+    "voicing_slope": 0.24447942005374979,
     "schwa_ms": 0
    },
    "edges": {
@@ -2899,7 +2931,7 @@
      "count": 1
     }
    ],
-   "wav_sha256": "40b28c2a9ad0c8133ed9208d232a7aece9606b2a0355829845764657c80e92de"
+   "wav_sha256": "aebfb9dd7ff4ec88b5b7fcf5e1038c39e656ddf3c38df6fff182ef1db35275bd"
   },
   "U+0064_marked_i": {
    "phones": [
@@ -2973,10 +3005,10 @@
      "meas": {
       "duration_ms": 125.0,
       "intensity_db": -20.09,
-      "closure_ms": 86.0,
-      "burst_ms": 225.0,
-      "voicing_onset_ms": 229.0,
-      "vot_ms": 4.0
+      "closure_ms": 95.0,
+      "burst_ms": 240.0,
+      "voicing_onset_ms": 240.0,
+      "vot_ms": 0.0
      },
      "req": {
       "duration_ms": 125.0,
@@ -3014,7 +3046,7 @@
       "F2_80_hz": 1326.0,
       "F3_80_hz": 2625.0,
       "voiced_frames": 24.0,
-      "noise_frames": 7.0,
+      "noise_frames": 6.0,
       "frames": 25.0
      }
     },
@@ -3027,9 +3059,9 @@
      "meas": {
       "duration_ms": 30.0,
       "intensity_db": -25.09,
-      "F1_20_hz": 253.27,
-      "F2_20_hz": 1526.27,
-      "F3_20_hz": 2576.87,
+      "F1_20_hz": 259.12,
+      "F2_20_hz": 1571.44,
+      "F3_20_hz": 2581.67,
       "F1_50_hz": 270.78,
       "F2_50_hz": 2069.83,
       "F3_50_hz": 2541.18,
@@ -3037,7 +3069,7 @@
       "F2_80_hz": 2124.75,
       "F3_80_hz": 2546.35,
       "f0_50_hz": 124.57,
-      "F3_min_hz": 2495.81
+      "F3_min_hz": 2497.61
      },
      "req": {
       "duration_ms": 30.0,
@@ -3162,13 +3194,15 @@
      260
     ],
     "modulation": {
-     "dips": 0,
+     "dips": 1,
      "rate_hz": null,
-     "depth_db": 0.0,
-     "closed_ms": 0.0
+     "depth_db": 8.258855898989367,
+     "closed_ms": 2.9931972789115644
     },
-    "vot_long_ms": 4.0,
+    "vot_long_ms": 0.0,
     "burst_found": 0,
+    "closure_quiet": 1,
+    "voicing_slope": 0.3762414037949947,
     "schwa_ms": 0
    },
    "edges": {
@@ -3191,7 +3225,7 @@
      "count": 1
     }
    ],
-   "wav_sha256": "b16f916ce997b28c293afd8a95119fa5ce8f49032113cabdf6e5fd01dd070cb2"
+   "wav_sha256": "b1f24f2a2d06353ba2325a618264b3de30bf49fd4426af5aa3f004eb7f8d6f96"
   },
   "U+0064_marked_u": {
    "phones": [
@@ -3265,10 +3299,10 @@
      "meas": {
       "duration_ms": 140.0,
       "intensity_db": -20.51,
-      "closure_ms": 83.0,
-      "burst_ms": 224.0,
-      "voicing_onset_ms": 230.0,
-      "vot_ms": 6.0
+      "closure_ms": 93.0,
+      "burst_ms": 235.0,
+      "voicing_onset_ms": 235.0,
+      "vot_ms": 0.0
      },
      "req": {
       "duration_ms": 140.0,
@@ -3306,7 +3340,7 @@
       "F2_80_hz": 1269.0,
       "F3_80_hz": 2600.0,
       "voiced_frames": 27.0,
-      "noise_frames": 10.0,
+      "noise_frames": 9.0,
       "frames": 28.0
      }
     },
@@ -3319,9 +3353,9 @@
      "meas": {
       "duration_ms": 30.0,
       "intensity_db": -25.18,
-      "F1_20_hz": 279.16,
-      "F2_20_hz": 1416.92,
-      "F3_20_hz": 2585.28,
+      "F1_20_hz": 285.69,
+      "F2_20_hz": 1449.33,
+      "F3_20_hz": 2584.24,
       "F1_50_hz": 339.03,
       "F2_50_hz": 1743.7,
       "F3_50_hz": 2561.61,
@@ -3454,13 +3488,15 @@
      260
     ],
     "modulation": {
-     "dips": 10,
-     "rate_hz": 128.86363636363637,
-     "depth_db": 7.184274583495522,
-     "closed_ms": 74.82993197278913
+     "dips": 0,
+     "rate_hz": null,
+     "depth_db": 0.0,
+     "closed_ms": 0.0
     },
-    "vot_long_ms": 6.0,
+    "vot_long_ms": 0.0,
     "burst_found": 0,
+    "closure_quiet": 1,
+    "voicing_slope": 0.043720169132432714,
     "schwa_ms": 0
    },
    "edges": {
@@ -3483,7 +3519,7 @@
      "count": 1
     }
    ],
-   "wav_sha256": "3b35c6919a7f4136d0c31250139280be5bc5e31c69e7de8cde1049895e6f9e92"
+   "wav_sha256": "641458addd5c95436776abbe401897de92855d0f8d6304dfe2fb405f214f51eb"
   }
  },
  "manner": null,
@@ -3511,37 +3547,49 @@
     "mod_closed_ms": 68.84,
     "h1h2_db": -3.42,
     "a1_p0_db": -5.07,
-    "burst_found": 0,
+    "burst_found": 1,
     "schwa_ms": 0,
+    "voicing_slope": -66.6,
+    "burst_db": -14.0,
+    "burst_len_ms": 11.43,
+    "burst_centroid_hz": 4346.17,
+    "gap_breath_frac": 0.0,
+    "n_voicing_slope": 3,
+    "n_burst_db": 3,
+    "n_burst_len_ms": 3,
+    "n_burst_centroid_hz": 3,
     "F2_toward_centre": -387.1,
     "voiced_frac": 0.548
    },
    "marked": {
-    "F1_50_hz": 336.6,
+    "F1_50_hz": 299.5,
     "F2_50_hz": 1841.1,
-    "F3_50_hz": 2484.1,
-    "F3_min_hz": 2481.7,
-    "vot_ms": 12.0,
-    "closure_ms": 45.0,
+    "F3_50_hz": 2504.7,
+    "F3_min_hz": 2481.1,
     "intensity_db": -20.4,
-    "f0_50_hz": 125.0,
+    "f0_50_hz": 125.1,
     "req_F1_hz": 320.5,
     "req_F2_hz": 1704.5,
     "req_F3_hz": 2493.5,
-    "f0_hz": 125.0,
+    "f0_hz": 125.1,
     "duration_ms": 155,
-    "edge_F1": 316.1,
-    "edge_F2": 1626.7,
-    "edge_F3": 2544.8,
-    "vot_long_ms": 12.0,
+    "edge_F1": 319.8,
+    "edge_F2": 1637.6,
+    "edge_F3": 2540.7,
+    "vot_long_ms": 0.0,
     "mod_dips": 1,
-    "mod_closed_ms": 68.84,
-    "h1h2_db": -3.42,
-    "a1_p0_db": -5.07,
+    "mod_closed_ms": 70.84,
+    "h1h2_db": -2.18,
+    "a1_p0_db": 0.0,
     "burst_found": 0,
     "schwa_ms": 0,
+    "voicing_slope": 14.77,
+    "n_voicing_slope": 3,
+    "n_burst_db": 0,
+    "n_burst_len_ms": 0,
+    "n_burst_centroid_hz": 0,
     "F2_toward_centre": -387.1,
-    "voiced_frac": 0.548
+    "voiced_frac": 0.484
    }
   },
   "U+0064": {
@@ -3566,8 +3614,13 @@
     "mod_dips": 9,
     "mod_rate_hz": 128.03,
     "mod_closed_ms": 74.83,
-    "burst_found": 0,
+    "burst_found": 1,
     "schwa_ms": 0,
+    "voicing_slope": 0.07,
+    "n_voicing_slope": 3,
+    "n_burst_db": 0,
+    "n_burst_len_ms": 0,
+    "n_burst_centroid_hz": 0,
     "F2_toward_centre": -289.8,
     "voiced_frac": 0.941
    },
@@ -3576,8 +3629,8 @@
     "F2_50_hz": 1743.7,
     "F3_50_hz": 2561.6,
     "F3_min_hz": 2525.3,
-    "vot_ms": 6.0,
-    "closure_ms": 85.0,
+    "vot_ms": 0.0,
+    "closure_ms": 94.0,
     "intensity_db": -20.5,
     "f0_50_hz": 127.3,
     "req_F1_hz": 285.0,
@@ -3588,12 +3641,16 @@
     "edge_F1": 313.6,
     "edge_F2": 1646.5,
     "edge_F3": 2546.7,
-    "vot_long_ms": 6.0,
-    "mod_dips": 9,
-    "mod_rate_hz": 128.07,
-    "mod_closed_ms": 72.83,
+    "vot_long_ms": 0.0,
+    "mod_dips": 1,
+    "mod_closed_ms": 2.99,
     "burst_found": 0,
     "schwa_ms": 0,
+    "voicing_slope": 0.24,
+    "n_voicing_slope": 3,
+    "n_burst_db": 0,
+    "n_burst_len_ms": 0,
+    "n_burst_centroid_hz": 0,
     "F2_toward_centre": -289.7,
     "voiced_frac": 0.941
    }
@@ -3619,20 +3676,20 @@
   "problems": []
  },
  "B3": {
-  "passed": false,
+  "passed": true,
   "targets": {
    "t burst_found": {
     "target": "-1",
-    "measured": 0,
-    "within": false,
-    "plain": 0,
+    "measured": -1,
+    "within": true,
+    "plain": 1,
     "marked": 0
    },
    "d burst_found": {
     "target": "-1",
-    "measured": 0,
-    "within": false,
-    "plain": 0,
+    "measured": -1,
+    "within": true,
+    "plain": 1,
     "marked": 0
    }
   },
@@ -3645,16 +3702,16 @@
    "B3": {
     "t burst_found": {
      "target": "-1",
-     "measured": 0,
-     "within": false,
-     "plain": 0,
+     "measured": -1,
+     "within": true,
+     "plain": 1,
      "marked": 0
     },
     "d burst_found": {
      "target": "-1",
-     "measured": 0,
-     "within": false,
-     "plain": 0,
+     "measured": -1,
+     "within": true,
+     "plain": 1,
      "marked": 0
     }
    },
@@ -3666,5 +3723,5 @@
   "passed": true,
   "contrasts": []
  },
- "passed": false
+ "passed": true
 }

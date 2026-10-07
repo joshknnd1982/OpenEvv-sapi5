@@ -130,8 +130,10 @@ def main():
         if not ok:
             failures.append(ipa)
     # each fallback warns
+    # (every mark has a transform now, D63: a mark on a class it has none for is left off, as ʼ on
+    # a vowel; tʼ was this case until ʼ had one)
     fallbacks = [('ɯ', 'nearest-letter'), ('aʰ', 'mark-left-off'), ('5', 'ipa-not-a-letter'),
-                 ('tʼ', 'mark-left-off')]
+                 ('aʼ', 'mark-left-off')]
     for ipa, kind in fallbacks:
         code, out, diags = say_ipa(p, map_path, ipa)
         kinds = sorted({d['kind'] for d in diags if d['level'] == 'loss'})

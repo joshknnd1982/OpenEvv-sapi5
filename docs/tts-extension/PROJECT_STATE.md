@@ -4,54 +4,55 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 4 (Master IPA → acoustic table): IN PROGRESS, paused for context (2026-10-06, second session)** on branch `tts-ext/phase-4`. Commits of the first session end at `e139578`; this session's are after it (Q16/Q17 `71fb9f3`, then prosody, ties, the Unicode net, the Tier B inventory: D60, D61). Sessions of 2026-10-06: Opus 5.5. **Next: continue Phase 4 in a new session** (same prompt); start with "For the next Phase 4 session" below.
+**Phase 4 (Master IPA → acoustic table): IN PROGRESS, paused for context (2026-10-06, third session)** on branch `tts-ext/phase-4`. Sessions of 2026-10-06: Opus 5.5. The first session's commits end at `e139578`, the second's at `18c1c0c`; this session's are after it (4b, the release inside a stop's stretch, C12's level, the proofs held to the map: **D63**). **Next: continue Phase 4 in a new session** (same prompt); start with "For the next Phase 4 session" below.
 
-### Phase 4: where it stands (coverage.py, 2026-10-06, end of the second session)
+### Phase 4: where it stands (coverage.py, 2026-10-06, end of the third session)
 
     section             mapped  composed   created   MISSING   BLOCKED  no entry    all
     pulmonic                27         0        25         7         0         0     59
-    non_pulmonic             0         0         0        11         0         0     11
+    non_pulmonic             0         5         5         1         0         0     11
     other_symbols            2         2         6         2         0         0     12
     vowels                  16         0         9         3         0         0     28
-    diacritics               0        19         0        13         0         0     32
+    diacritics               0        22         0        10         0         0     32
     suprasegmentals          4         3         0         2         0         0      9
     tones                   10        10         4         0         0         0     24
-    all                     59        34        44        38         0         0    175
-    coverage: 137 of 175 checklist entries done (mapped 59, composed 34, created 44); MISSING 38, BLOCKED 0;
-    rendered and measured 174 (proof passed 137); approximate 0
-    provenance of every value in the table: derived 143, estimated 92, literature 196, measured 29
+    all                     59        42        49        25         0         0    175
+    coverage: 150 of 175 checklist entries done (mapped 59, composed 42, created 49); MISSING 25, BLOCKED 0;
+    rendered and measured 175 (proof passed 150); approximate 0
+    provenance of every value in the table: derived 155, estimated 150, literature 205, measured 30
     state against proof: every entry that is not MISSING has a passing proof
+    proof against map: every proof of a done entry was made on the map as it stands
     Unicode net: 891 of 891 classified; A 123, B 48, C 575, alias 73, not-phonetic 72
 
-**The proofs are on the development stage** `%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`: dedx rebuilt from the tree's `openevv/src` with D54's keys (`build4a\modules\dedx`); the front-end built from the tree as it is now (`fe\p4b-x64`, staged as `stage-dev\x64\OpenEvvFrontend.exe`; the one before this session's changes is kept as `fe\p4-before-ties.exe`). The other six templates in `stage-dev` are still the 3A ones (C1). Before Phase 4 ends: rebuild all seven templates from the final source, stage them, run the golden and the engine gate, and re-run the whole sweep there (the final 4i).
+**The proofs are on the development stage** `%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`: dedx rebuilt from the tree's `openevv/src` **as it is now** (`build4b\modules\dedx`: D54's keys and D63's engine changes; the dedx staged before them is kept in `stage-dev-dedx-4a`); the front-end `fe\p4b-x64` (unchanged this session). The other six templates in `stage-dev` are still the 3A ones (C1) and do not have D54's or D63's changes. Before Phase 4 ends: rebuild all seven templates from the final source, stage them, run the golden and the engine gate, and re-run the whole sweep there (the final 4i).
 
 | Step (playbook Phase 4) | State |
 |---|---|
-| tools: sweep (4i), coverage, register, the correction loop | **done** (D53, D58); `engine/ipa/prosody.py` adds the checks for what is not one segment (D61) |
-| 4a pulmonic consonants | 52 of 59. Not yet: p (its F2 edge 1532 against t's 1576, the contrast too small), c (VOT 30 against k's 24, the wrong way), q (no closure found in a_a), ɢ ʈ (edge contrasts too small), ç (its peak equals ʃ's), ʔ (A2). **The whole sweep is order-dependent**: a correction kept for one entry (p's `vot` 20 to 30) changes the contexts of the entries said after it, so entries move between runs (D62 8) |
-| 4b non-pulmonic | 0 of 11, **the next work**. The sweep refuses an airstream until it is measured (D59). To do: the realisations (`impl=1` on the five implosives' carriers; for the clicks `ej`, `burstms`, `rel2`, `rel2ms`, `rel2af`, all in the stage's accent layer already, D54; for ʼ a consonant transform `ej`), and T-airstream and T-click in the sweep from `analysis.voicing_slope` and `analysis.burst`. Specifications from the checklist's correlates (`IPA_CHECKLIST.json`, ɓ ǃ ʼ: implosive voicing through the closure, weak burst, shorter closure (nihalani1991); click bursts loud against the vowel, about 6 dB (miller_shah2009), abrupt ǃ ǂ against noisy ǀ ǁ ʘ; ejective: burst, then a silent gap before voicing) |
+| tools: sweep (4i), coverage, register, the correction loop | **done** (D53, D58); `prosody.py` (D61); **proofs held to the map** and `--settle` (D63) |
+| 4a pulmonic consonants | 52 of 59. Not yet, all on a contrast (B2) or A2: p and ʈ (edge F2 against t's too close), q and ɢ (against k's, g's), c (VOT 30 against k's 24, the wrong way), ç (its noise peak equals ʃ's), ʔ (A2) |
+| 4b non-pulmonic | **10 of 11** (D63): the five clicks, ɓ ʄ ɠ ʛ, the ejective mark. ɗ not: its closure swell (2.09 dB per 10 ms, target 1.2 within 1) is measured in one context of three, and two are required. The implosives' weak burst is not realised (written in D63) |
 | 4c vowels | 25 of 28. Not yet: i (A2, D15), æ and ɛ (F1 572 against 555 Hz: 3 per cent for a 4 per cent minimum) |
-| other symbols | 10 of 12. Not yet: ʜ ʢ (trill at 40 and 53 Hz not realised). The tie bars pass (D61) |
-| 4d diacritics | 19 of 32. Not yet: ̚ ⁿ ˡ (**engine gap**: `noburst` does not reach a burst inside the stop's own span; the next rebuild), ̃ on e (A1-P0), ̰ (H1-H2 not measured), ̟ on k, ʷ on k (no closure found), ʲ on p (8 Hz), ˞ on a (F3 816 Hz), ̯ on u (longer, not shorter), ̽ ̙ ̞ (A2 on [i]/[e], D15) |
-| 4e suprasegmentals, stress, tones | tones **24 of 24**; suprasegmentals 7 of 9 (D61). Not yet: ˈ (the module lengthens a stressed vowel 1.42, 1.20, 1.09 on a, e, u against 1.6: a stress length key at the next rebuild, D62 3-5) and ˌ (on u, primary not longer than secondary) |
-| 4f Tier B (extIPA, VoQS) | **inventory researched** (`inventory/tierb/`: 203 records, 143 extIPA of the 2015, 2021 and 2025 charts, 60 VoQS; 29 compose from Tier A, 9 through an alias, 132 need something new, 14 prosodic, 19 notation only). Mapping them is after Tier A. Q18: two Tier A aliases mean something else there |
-| 4g affricates, double articulations, ligatures | tie bars **done** on the module's affricates (t͡s t͡ʃ p͡f d͡ʒ). A double articulation (k͡p) is said as two stops with a loss reported; it needs the `noburst` fix. Ligatures (ʦ ʧ ...) are `alias` in the Unicode net; whether the reader accepts each (the net's "handled" share) is **not yet measured** |
+| other symbols | 10 of 12. Not yet: ʜ ʢ (trill at 40 and 53 Hz not realised) |
+| 4d diacritics | **22 of 32** (̚ ⁿ ˡ now pass: the release fix of D63). Not yet: ̃ on e (A1-P0), ̰ (H1-H2 not measured), ̟ on k, ʷ and ʲ on p, ˞ on a (F3), ̯ on u (longer, not shorter), ̽ ̙ ̞ (A2 on [i]/[e], D15) |
+| 4e suprasegmentals, stress, tones | tones 24 of 24; suprasegmentals 7 of 9. Not yet: ˈ (the module lengthens a stressed vowel 1.42, 1.20, 1.09 on a, e, u against 1.6: a stress length key at a rebuild, D62 3-5), ˌ |
+| 4f Tier B (extIPA, VoQS) | inventory researched (`inventory/tierb/`, D61); mapping after Tier A |
+| 4g affricates, double articulations, ligatures | tie bars done on the module's affricates. A double articulation (k͡p) can now use `noburst` on its first stop (D63); not yet tried. Ligatures not yet measured |
 | 4h holes via the USP | the fails above |
 | 4i full sweep on the final stage | not yet |
-| CREATED_SOUNDS register | 44 created (`register.py`); CS ids kept |
-| estimated values in OPEN_QUESTIONS | 92 now (Q15 to be regenerated at the end) |
-| R15 review | of this session's diff: done, nine findings, fixed or written down (D62); the whole sweep re-run after |
+| CREATED_SOUNDS register | 49 created (`register.py`) |
+| estimated values in OPEN_QUESTIONS | **150**, Q15 regenerated (D63) |
+| R15 review | of this session's diff: done, found the gaps D63 lists, all acted on; whole sweep, register and coverage re-run after |
 
 ### For the next Phase 4 session (read first)
 
-- **Run everything under** `EVV_STAGE=C:\Users\joshk\OpenEvvBuild-ttsext\stage-dev`. The sweep: `python engine/ipa/sweep.py <sections or ids> [--apply]`; then `engine/ipa/register.py` and `engine/ipa/coverage.py`. A whole sweep takes about 15 minutes; `compose_test.py` about 40 (run it alone: copying a new front-end into the stage while it runs kills it).
-- **The front-end is built** with `%USERPROFILE%\OpenEvvBuild-ttsext\fe\build_fe.cmd fe\p4\frontend fe\p4b-x64` after copying the tree's `frontend/src` files into `fe\p4\frontend\src` (check with `diff -rq --strip-trailing-cr`), then copied to `stage-dev\x64`. After any front-end change: `diag.py --compare C:\Users\joshk\OpenEvvBuild-ttsext\fe\p4-before-ties.exe` must say `0 whose output differs` (about 5 minutes).
-- **Edit tables and C with a script file written by the file tool or with the Edit tool**, never a shell heredoc (it collapses `\\`), and never with a command that waits on input (`cat > /dev/null` hung a build for ten minutes this session).
-- **Build next: a check that every proof was made on the current map** (D62 8: compare each proof's `map_sha256` with the adapter's map), then run the sweep twice to see that it settles.
-- **The `tts-ext/*` branches are on GitHub** (`origin`, pushed 2026-10-06 with the human's yes, Q10): push new commits of the phase branch at each pause.
-- **Q13 is diagnosed** (D60): `vot` does shorten a stop's onset on both stages; nothing to fix. The human's standing answer (D60): an open question with a recommended default takes it; pushing to GitHub and Claude's own permission files are still asked or left to the human.
-- **The next accent-layer rebuild** should carry together: the unreleased-stop fix (`noburst` on a burst inside the stop's own span: ̚ ⁿ ˡ and double articulations), Q14 (report unplaced phones), the C9 nasal pole and zero keys if a nasal still needs them, and anything the clicks need. Then all seven templates, `stage.py`, golden, `matrix_each.sh`, and the sweep again.
-- The research files of this session are in its scratchpad, which the next session cannot see; what matters is in the table's notes, `ipa/sources.toml`, D61 and `inventory/tierb/`.
+- **Run everything under** `EVV_STAGE=C:\Users\joshk\OpenEvvBuild-ttsext\stage-dev`. The sweep: `python engine/ipa/sweep.py <sections or ids> [--apply]` (with `--apply` it re-says every passing proof made on another map, `--settle`, 3 passes); then `engine/ipa/register.py` and `engine/ipa/coverage.py` (which now fails if a done entry's proof is of another map). A whole sweep takes about 15 minutes; `compose_test.py` about 45 (run it alone).
+- **The work copy for engine builds** is `%USERPROFILE%\OpenEvvBuild-ttsext\build3a\openevv` (its `src/` equals the tree's `openevv/src`: check with `diff -rq --strip-trailing-cr openevv/src <copy>/src`). One template: `MSYSTEM=MSYS CHERE_INVOKING=1 /c/msys64/usr/bin/bash.exe -l /c/Users/joshk/OpenEvvBuild-ttsext/build_in_place.sh /c/Users/joshk/OpenEvvBuild-ttsext/build3a/openevv /c/Users/joshk/OpenEvvBuild-ttsext/build4b/modules dedx` (about 3 minutes; give the script by absolute path), then `python docs/tts-extension/harness/stage.py <modules> <stage> dedx`. After any engine change: the golden (about 28 minutes) and `matrix_each.sh <copy> c enus engb dede eses esus frfr frca itit jajp plpl` (about 15).
+- **Engine keys of D63** (in the accent layer, all nought by default, none in any pack): `burstms` or `noburst` on a stop shapes its own burst inside its stretch; `bgain` (dB, at most 40) makes a burst louder through the frame word ATV; `impl` other than 1 is dB. **A mark's `add` needs a value in the base** (the front-end leaves the mark off otherwise): use `set` for a key a base may lack.
+- **32-bit renders** need the 32-bit host at `build_x64\bin\x86\OpenEvvHost.exe` (copied there from `build_x86\bin\Release` this session; git-ignored).
+- **The next accent-layer rebuild** can carry: Q14 (report unplaced phones), a stress length key for ˈ and ˌ, the C9 nasal keys if a nasal needs them. Then all seven templates.
+- **Edit tables and C with a script file written by the file tool**, never a shell heredoc that holds `\\` (collapsed), and never `sed -i` on a C source (it left `evv_accent.c` and `klatt_synth.c` with LF endings in the working copy; Git stores LF, so the diff is right, but a CRLF-matching edit then fails).
+- **The `tts-ext/*` branches are on GitHub** (`origin`): push the phase branch's new commits at each pause (Q10 answered).
+- Research for 4b is in REFERENCES.md "Phase 4b"; the numbers taken are in the table's rules.
 
 ### Phase 3, for the record
 
@@ -94,7 +95,7 @@ Small items queued for 3A: Q12 (make a template buildable without its parent, in
 
 Phase 2 complete and the design APPROVED, 2026-10-05 (commit `7713bfc`). Phase 1 complete, 2026-10-05 (`cdcd70f`). Phase 0 complete, 2026-10-05 (`53a830d`).
 
-BLOCKED symbols: none. (At the start of Phase 4 all 175 were `MISSING`; see the Phase 4 table above.)
+BLOCKED symbols: none. (At the start of Phase 4 all 175 were `MISSING`; 25 are now; see the Phase 4 table above.)
 
 ## What Phase 2 did
 

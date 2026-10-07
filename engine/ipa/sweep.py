@@ -181,10 +181,81 @@ def measure(r, p, case_id, man=None, layer=None):
             ex['modulation'] = mod
         if any(ph['cls'] in ('stop', 'affricate') for ph in tgt):
             ex['vot_long_ms'] = A.vot_long(x, rate, a, b)
-            # a release: noise in the frames within 25 ms after the closure (T-release)
+            # a release (T-release): noise in the frames from where the closure shuts to 25 ms after
+            # the stop (this module lets p, t, k go inside their own stretch); and the closure:
+            # shut frames at least 20 ms long, the signal there 20 dB or more under the next phone
             t_ = E.frame_times(r['frames'])
-            win = (t_ >= b) & (t_ < b + 25)
-            ex['burst_found'] = int(bool(((r['frames'][win, E.P['af']] > 0) | (r['frames'][win, E.P['ab']] > 0)).any()))
+            fr0 = r['frames']
+            closed = [i for i in range(len(t_)) if a <= t_[i] < b and fr0[i, E.P['af']] == 0
+                      and fr0[i, E.P['ah']] == 0 and fr0[i, E.P['av']] < 30]
+            c0 = t_[closed[0]] if closed else b
+            win = ((t_ > c0) if closed else (t_ >= b)) & (t_ < b + 25)
+            # AF only: the synthesiser sounds the bypass (AB) only with AF on, and p's frames carry
+            # AB with AF at nought
+            ex['burst_found'] = int(bool((fr0[win, E.P['af']] > 0).any()))
+            if closed and after is not None and phones[after]['cls'] != 'silence':
+                c1 = t_[closed[-1]] + fr0[closed[-1], 0]
+                nv = phones[after]
+                if c1 - c0 >= 20 and nv['end_ms'] - nv['start_ms'] >= 30:
+                    # from 10 ms in: the resonators ring on from the vowel before for that long
+                    m_ = (nv['start_ms'] + nv['end_ms']) / 2.0
+                    ex['closure_quiet'] = int(A.intensity_db(x, rate, c0 + 10, c1) <= A.intensity_db(x, rate, m_ - 15, m_ + 15) - 20)
+            st = next((ph['meas'] for ph in tgt if (ph.get('meas') or {}).get('burst_ms') is not None), None)
+            if st and st.get('voicing_onset_ms') is None:
+                # a voice that begins more than 80 ms after the stop (an ejective's, an aspirated
+                # stop's): the same timing looked for 250 ms past it, as vot_long does
+                st = dict(st, **{k: v for k, v in (A.stop_timing(x, rate, a, b, after_ms=250.0) or {}).items()
+                                 if k == 'voicing_onset_ms'})
+            bm = st['burst_ms'] if st else None
+            if case_id != 'alone':
+                # T-airstream: the voice's level below 400 Hz through the closure, from 15 ms after
+                # the closure begins (the module's stop includes the vowel's transition, so where
+                # its frames stop asking for a vowel: voice under 40 or none; and the 10 ms
+                # envelope reaches back) to the release: an implosive's swells, a plain voiced
+                # stop's fades
+                shut = [tt for tt, av in zip(t_, r['frames'][:, E.P['av']]) if a <= tt < (bm or b) and av < 40]
+                if shut and (bm or b) - shut[0] >= 35:
+                    ex['voicing_slope'] = A.voicing_slope(x, rate, shut[0] + 15.0, bm or b)
+                # T-click: the release's transient: its RMS against the RMS of the middle 30 ms of
+                # the vowel after it (miller_shah2009's relative amplitude), its length (at most to
+                # the voice's onset) and its spectrum
+                von = st.get('voicing_onset_ms') if st else None
+                # a burst is measured over a silent closure only (30 dB clear of it): over a voice
+                # bar the finder reads the voice's own pulses (b between a's: 0 to 3 ms, -30 dB)
+                voiced_closure = any(av > 0 for tt, av in zip(t_, r['frames'][:, E.P['av']])
+                                     if shut and shut[0] <= tt < (bm or b))
+                bu = A.burst(x, rate, bm - 5.0, b + 40.0) if bm is not None and not voiced_closure else None
+                # the vowel's onset: where the voice begins after the release, or where the next
+                # phone begins (a prevoiced stop's voice begins before it)
+                v0 = von if von and bu and von > bu['start_ms'] else (
+                    phones[after]['start_ms'] if after is not None and phones[after]['cls'] != 'silence' else None)
+                if bu and v0 and v0 - bu['start_ms'] >= 2.0:
+                    # the burst lasts from its start until its level first falls 20 dB under its own
+                    # peak: burst() alone counts from the closure's level, digital silence here,
+                    # and ran on into the vowel
+                    s0 = bu['start_ms']
+                    env, st_ = A.envelope_db(x, rate, s0, v0, hop_ms=0.5, win_ms=1.0)
+                    blen = 1.0
+                    if len(env):
+                        top = int(env.argmax())
+                        end = next((i for i in range(top, len(env)) if env[i] < env[top] - 20.0), len(env))
+                        blen = max(1.0, end * st_)
+                    ex['burst_len_ms'] = blen
+                    sm = A.spectrum_moments(x, rate, s0, s0 + max(2.0, blen), fmin=300.0)
+                    ex['burst_centroid_hz'] = sm['centroid_hz'] if sm else None
+                    nv = phones[after] if after is not None else None
+                    if nv and nv['cls'] != 'silence' and nv['end_ms'] - nv['start_ms'] >= 40:
+                        m_ = (nv['start_ms'] + nv['end_ms']) / 2.0
+                        ex['burst_db'] = (A.intensity_db(x, rate, s0, s0 + blen)
+                                          - A.intensity_db(x, rate, m_ - 15.0, m_ + 15.0))
+                # the gap between the release and the voice: breath without voice in it
+                # (aspiration) or none (an ejective's glottis held shut), as a share of its frames;
+                # the module's vowels carry breath with their voice, which is not aspiration
+                if bm is not None and von is not None and von - bm >= 10:
+                    gap = (t_ >= bm + 5) & (t_ < von - 5)
+                    if gap.any():
+                        fr_ = r['frames'][gap]
+                        ex['gap_breath_frac'] = float(((fr_[:, E.P['ah']] > 0) & (fr_[:, E.P['av']] == 0)).mean())
         last = tgt[-1]
         if last['cls'] in ('vowel', 'nasal', 'liquid', 'glide') and last['end_ms'] - last['start_ms'] >= 40:
             mid = (last['start_ms'] + last['end_ms']) / 2.0
@@ -259,10 +330,14 @@ def summary(cases, man):
         v = vals(lambda c: ((c.get('extra') or {}).get('modulation') or {}).get(k))
         if v is not None:
             s['mod_' + k] = round(v, 2)
-    for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms'):
+    for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms', 'voicing_slope', 'burst_db', 'burst_len_ms',
+              'burst_centroid_hz', 'gap_breath_frac'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
         if v is not None:
             s['%s' % k] = round(v, 2)
+    for k in ('voicing_slope', 'burst_db', 'burst_len_ms', 'burst_centroid_hz'):
+        # in how many contexts the measure was found: a median of one is not a proof (check_b3)
+        s['n_' + k] = sum(1 for cid, c in cases.items() if cid != 'alone' and (c.get('extra') or {}).get(k) is not None)
     if s.get('F2_50_hz') is not None:
         # how near the centre: for the centralizing marks (larger is nearer the table's ə)
         s['F2_toward_centre'] = round(-abs(s['F2_50_hz'] - 1454.0), 1)
@@ -295,8 +370,10 @@ def check_a1(cases, man):
                 bad.append('%s: the made sound has no frame of its own' % cid)
             continue
         if man in ('stop', 'click') or all(ph['cls'] == 'stop' for ph in ts):
+            # a release in the signal: stop_timing's burst or closure, or a transient over a silent
+            # closure (a weak, low burst, p's before [i], has no 12 dB jump above 1.5 kHz)
             if not any((ph.get('meas') or {}).get('burst_ms') is not None or (ph.get('meas') or {}).get('closure_ms')
-                       for ph in ts) and cid != 'alone':
+                       for ph in ts) and (c.get('extra') or {}).get('burst_len_ms') is None                     and not (c.get('extra') or {}).get('closure_quiet') and cid != 'alone':
                 bad.append('%s: no closure or burst found' % cid)
             continue
         if all((ph.get('req') or {}).get('voiced_frames', 0) + (ph.get('req') or {}).get('noise_frames', 0) == 0
@@ -344,6 +421,24 @@ def check_b3(e, s):
         got = s.get('duration_ms')
         out['duration_ms'] = dict(target=v(dur), measured=got,
                                   within=got is not None and abs(got - v(dur)) <= 0.25 * v(dur))
+    # T-click: the release's burst (DESIGN.md C10): its length within 40 per cent (and 5 ms, the
+    # frame's step), its level against the vowel within 3 dB, its spectral centre within 25 per
+    # cent (the sources' speakers spread so: miller_shah2009 figures 2 and 6)
+    for k, mk in (('length_ms', 'burst_len_ms'), ('level_db', 'burst_db'), ('centroid_hz', 'burst_centroid_hz')):
+        x = (spec.get('burst') or {}).get(k)
+        if x is not None:
+            # the median of the contexts, found in two of the three at least
+            got, w, n = s.get(mk), v(x), s.get('n_' + mk, 0)
+            tol = {'length_ms': max(0.4 * w, 5.0), 'level_db': 3.0, 'centroid_hz': 0.25 * w}[k]
+            out['burst %s' % k] = dict(target=w, measured=got, contexts=n,
+                                       within=got is not None and n >= 2 and abs(got - w) <= tol)
+    # T-airstream: the voice's level through the closure, dB per 10 ms, within 1 (the measure's
+    # own error is 0.4 on a synthetic swell, selftest.py; the source is a curve read from a figure)
+    x = (spec.get('closure') or {}).get('voicing_slope_db10')
+    if x is not None:
+        got, w, n = s.get('voicing_slope'), v(x), s.get('n_voicing_slope', 0)
+        out['closure voicing slope'] = dict(target=w, measured=got, contexts=n,
+                                            within=got is not None and n >= 2 and abs(got - w) <= 1.0)
     for k, x in (spec.get('locus') or {}).items():
         # a locus is where the consonant sends the formants; a closure has no formants to measure in
         # the signal, so this is checked in the frames the engine made at the consonant (the
@@ -358,6 +453,8 @@ def check_b3(e, s):
 
 
 SPEC_OF = {'peak_hz': ('noise', 'peak_hz'), 'centroid_hz': ('noise', 'peak_hz'), 'vot_ms': ('vot_ms',),
+           'burst_centroid_hz': ('burst', 'centroid_hz'), 'burst_len_ms': ('burst', 'length_ms'),
+           'burst_db': ('burst', 'level_db'),
            'duration_ms': ('duration', 'inherent_ms'), 'mod_rate_hz': ('trill', 'rate_hz')}
 for _k in (1, 2, 3):
     SPEC_OF['F%d_50_hz' % _k] = ('formants', 'F%d' % _k)
@@ -379,6 +476,9 @@ def specified(t, sid, c):
     Voicing is a feature, always specified."""
     if c['measure'] == 'voiced_frac':
         return True
+    if c['measure'] == 'voicing_slope' and t.sounds[sid]['features'].get('airstream') == 'implosive':
+        # the airstream is a feature: an implosive's voice swells where the plain stop's does not
+        return True
     path = SPEC_OF.get(c['measure'])
     if path is None:
         return 'no specification field for %s' % c['measure']
@@ -398,6 +498,9 @@ def contrast_ok(measure, mine, theirs, sign, same_base=False):
     if measure == 'voiced_frac':
         # a share of the frames: a fifth of the sound voiced or not is the least that counts
         return (d * sign >= 0.2), round(d, 2)
+    if measure == 'voicing_slope':
+        # dB per 10 ms: twice the measure's error on a synthetic swell (0.4, selftest.py)
+        return (d * sign >= 0.8), round(d, 2)
     if same_base and not (measure.endswith('_ms') or measure.endswith('_db') or measure.startswith('mod_dips')):
         # a mark against its own base in the same context: the context's variation cancels, so
         # a smaller move is real (1.5 per cent, at least 15 Hz)
@@ -432,11 +535,12 @@ def judge(t, sid, cases, diags, said_as):
                              'problems') if k in a2}
     if e['kind'] == 'base':
         b3 = check_b3(e, s)
-        if e['features'].get('airstream', 'pulmonic') != 'pulmonic':
-            # what makes a click, an implosive or an ejective is its airstream; until T-click and
-            # T-airstream are measured here, its generic checks prove the place, not the sound
-            b3['targets']['airstream (T-click, T-airstream)'] = dict(target=e['features']['airstream'],
-                                                                     measured=None, within=False)
+        air = e['features'].get('airstream', 'pulmonic')
+        need = {'click': 'burst ', 'implosive': 'closure voicing slope'}.get(air)
+        if air != 'pulmonic' and not (need and any(k.startswith(need) for k in b3['targets'])):
+            # what makes a click or an implosive is its airstream: without its own targets
+            # (T-click, T-airstream) the generic checks prove the place, not the sound
+            b3['targets']['airstream (T-click, T-airstream)'] = dict(target=air, measured=None, within=False)
             b3['passed'] = False
     elif e['kind'] == 'modifier':
         b3 = check_shift(t, sid, cases)
@@ -477,6 +581,13 @@ def check_shift(t, sid, cases):
             targets['%s %s' % (t.sounds[base]['ipa'], m)] = dict(target='%+d' % sh['sign'], measured=d, within=ok,
                                                                plain=sp.get(m), marked=sm.get(m))
             checked += 1
+            ok_all &= ok
+        for lim in tests.get('limit', []):
+            got = sm.get(lim['measure'])
+            ok = got is not None and (got <= lim['max'] if 'max' in lim else got >= lim['min'])
+            targets['%s %s %s' % (t.sounds[base]['ipa'], lim['measure'], '<= %s' % lim['max'] if 'max' in lim
+                                  else '>= %s' % lim['min'])] = dict(target=lim.get('max', lim.get('min')),
+                                                                     measured=got, within=ok, marked=got)
             ok_all &= ok
         if not checked:
             targets['%s (none)' % t.sounds[base]['ipa']] = dict(target='a measure', measured=None, within=False)
@@ -672,10 +783,13 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
 
 
 def save_trims(t, results, template):
-    """A correction that brought an entry within its targets is written into the entry's
-    realisation (`trim.<template>', tagged measured, its proof named), and nothing else."""
+    """A correction that brought an entry within its targets (A0 to B3) is written into the entry's
+    realisation (`trim.<template>', tagged measured, its proof named), and nothing else. It is the
+    rule prove_entry keeps a correction by for the rest of the run, so the map the later entries
+    were said with is the map saved (D62 8: a correction kept in the run but not saved, because
+    the entry then failed a contrast, left every later proof made on a map that never existed)."""
     for sid, res in results.items():
-        if not res.get('passed') or not res.get('trims'):
+        if not res.get('trims'):
             continue
         path = os.path.join(T.IPA, 'table', t.where[sid])
         with open(path, encoding='utf-8') as f:
@@ -699,6 +813,30 @@ def save_trims(t, results, template):
             text = text.rstrip('\n') + add if tb < 0 else text[:tb].rstrip('\n') + add + text[tb:]
         with open(path, 'w', encoding='utf-8', newline='\n') as f:
             f.write(text)
+
+
+def map_sha(t, template, pack):
+    """The SHA-256 of the map an entry would be said with now, from the table `t'."""
+    AD.write(t, template, quiet=True)
+    _, path = test_map(pack, template, SWEEP_WORK)
+    with open(path, 'rb') as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+def on_other_map(t, template, pack):
+    """Ids whose passing proof was made on a map other than the one the table makes now. A failing
+    proof is left out: its last round is said with a trial correction that is then not kept, so
+    its map is never the saved one."""
+    now = map_sha(t, template, pack)
+    out = []
+    for sid in sorted(t.sounds):
+        path = os.path.join(PROOFS, sid + '.json')
+        if os.path.exists(path):
+            with open(path, encoding='utf-8') as f:
+                pr = json.load(f)
+            if pr.get('pack') == pack and pr.get('passed') and pr.get('map_sha256') != now:
+                out.append(sid)
+    return out
 
 
 def apply_states(t, results):
@@ -784,6 +922,8 @@ def main():
     ap.add_argument('--apply', action='store_true', help='set state, level and proof of the entries that pass, and '
                     'write the corrections that got them there')
     ap.add_argument('--rounds', type=int, default=ROUNDS, help='design rounds an entry may take (1: no correction)')
+    ap.add_argument('--settle', type=int, default=3, help='with --apply: passes that re-say the entries whose proof is '
+                    'of another map than the one saved (0: none)')
     a = ap.parse_args()
     if not E.STAGE:
         raise SystemExit('set EVV_STAGE: the proofs are of the staged modules and front-end')
@@ -792,6 +932,16 @@ def main():
     if E.pack(a.pack).template != a.template:
         raise SystemExit('%s is not on %s' % (a.pack, a.template))
     res = run(t, ids, a.template, a.pack, a.apply, a.rounds)
+    for k in range(a.settle if a.apply else 0):
+        # a correction saved in this run changed the map the entries said before it were proved on:
+        # say those again, until every proof is of the map as it stands (D62 8)
+        t = T.load()
+        again = on_other_map(t, a.template, a.pack)
+        print('settle %d: %d proofs made on another map%s' % (k + 1, len(again), (': ' + ' '.join(again)) if again else ''))
+        if not again:
+            break
+        res.update(run(t, again, a.template, a.pack, a.apply, a.rounds))
+        ids += [i for i in again if i not in ids]
     for sid in ids:
         print(fmt(res[sid]))
     done = [r for r in res.values() if r.get('passed')]

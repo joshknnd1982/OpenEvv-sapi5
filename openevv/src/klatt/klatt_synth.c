@@ -730,6 +730,22 @@ int KlattSynth(void *handle, const int32_t *parms)
                         k->unknown_19e0 = (int32_t)noise(k, k->unknown_19e0);
                         for (i = 0; i < k->noise_count; i++)
                             k->frication[i] = (int32_t)k->noise_buf[i] << 4;
+                        /* OpenEVV, not IBM: a burst louder than the
+                           parallel gains can make it, whose sum of dB is
+                           clamped at 120 (db2lin). The frame word ATV, which
+                           nothing else writes or reads, gives the extra dB;
+                           at nought, as for every sound before, nothing
+                           changes. Integer arithmetic, so that 32-bit and
+                           64-bit builds give the same samples. */
+                        if (parms[P_ATV] > 0) {
+                            int64_t g = db2lin(60 + (parms[P_ATV] < 40
+                                                     ? parms[P_ATV] : 40));
+                            int64_t g0 = db2lin(60);
+
+                            for (i = 0; i < k->noise_count; i++)
+                                k->frication[i] = (int32_t)
+                                    ((int64_t)k->frication[i] * g / g0);
+                        }
                     }
 
                     if (parms[P_AB] != 0 && k->af != 0)

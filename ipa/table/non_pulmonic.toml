@@ -10,17 +10,24 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "click", place = "bilabial", place2 = "velar", stricture = "closure", voicing = "unspecified" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
 
 [sound."U+0298".spec]
 vot_ms = { v = 26, tag = "estimated", note = "No burst or VOT duration for ʘ was found. miller_nuu2007 Fig. 7 groups ʘ with the noisy releases ǀ and ǁ, and miller_shah2009 (Mangetti Dune !Xung, 2 M + 2 F) found the bursts of ǀ and ǁ longer, slower to rise and weaker than those of ǃ and ǂ (sections 3.1.1-3.1.3; numbers only in figures); set equal to the measured ǁ value (25.9 ms, derived from mo_sands2000)." }
+burst = { length_ms = { v = 23.5, tag = "estimated", rule = "no burst length of the bilabial click was found; miller_nuu2007 figure 7 groups it with the noisy dental and lateral clicks; set equal to the dental click's" }, level_db = { v = 0, tag = "estimated", rule = "no level of the bilabial click was found; the coronal clicks' bursts are near the vowel's RMS (miller_shah2009 figure 3, ratios 0.92 to 1.12)" } }
 
 [sound."U+0298".tests]
 checks = ["T-click", "T-contrast"]
-contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }]
+contrast = [{ with = "U+01C3", measure = "vot_ms", sign = 1 }, { with = "U+01C3", measure = "burst_len_ms", sign = 1 }]
+proof = "ipa/proofs/U+0298.json"
+
+[sound."U+0298".realization.openevv]
+# the front closure at the lips: the module's voiceless bilabial stop, its burst lengthened; the lip release is expected to be low (grave): miller_icphs2007 figure 2 gives it the lowest first spectral peak of the five clicks (read from the figure; not used as a target), no centre of gravity
+carrier = "p"
+keys = { burstms = { v = 23, tag = "derived", rule = "the specification's burst length" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, bgain = { v = 30, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, a2 = { v = 70, tag = "estimated", rule = "noise low, on the second resonance (a grave burst)" }, a3 = { v = 30, tag = "estimated", rule = "see a2" }, a4 = { v = 0, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, ab = { v = 0, tag = "estimated", rule = "see a2" } }
 
 [sound."U+01C0"]
 ipa = "ǀ"
@@ -30,18 +37,24 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "click", place = "dental", place2 = "velar", stricture = "closure", voicing = "unspecified" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
 
 [sound."U+01C0".spec]
 vot_ms = { v = 26, tag = "estimated", note = "miller_shah2009 (Mangetti Dune !Xung, 2 M + 2 F) found the bursts of ǀ and ǁ longer, slower to rise and weaker than those of ǃ and ǂ (sections 3.1.1-3.1.3; numbers only in figures); set equal to the measured ǁ value (25.9 ms, derived from mo_sands2000)." }
+burst = { length_ms = { v = 23.5, tag = "derived", rule = "mean of JF 24 and MA 23 ms (miller_shah2009 figure 2; Mangetti Dune !Xung, the two male speakers (JF, MA) of four; read from the figure, the text gives no means; the voice measured here is male)" }, level_db = { v = -0.7, tag = "derived", rule = "20 log10 of the mean of JF 0.92 and MA 0.92, the weakest of the four (miller_shah2009 figure 3; Mangetti Dune !Xung, the two male speakers (JF, MA) of four; read from the figure, the text gives no means; the voice measured here is male)" }, centroid_hz = { v = 3000, tag = "literature", ref = "miller_shah2009", note = "miller_shah2009 section 3.2: the highest centre of gravity of the coronal clicks, about 3000 Hz for the men (about 4000 for the women)" } }
 
 [sound."U+01C0".tests]
 checks = ["T-click", "T-contrast"]
-contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }]
+contrast = [{ with = "U+01C3", measure = "burst_centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }, { with = "U+01C3", measure = "burst_len_ms", sign = 1 }]
 proof = "ipa/proofs/U+01C0.json"
+
+[sound."U+01C0".realization.openevv]
+# the front closure at the teeth released with friction: the module's voiceless alveolar stop, its burst lengthened and moved up
+carrier = "t"
+keys = { burstms = { v = 22, tag = "estimated", rule = "chosen with hold so that the burst measures at the specification's 23.5 ms: the module's burst cannot be extended past the stop's own stretch, and a burstms of 28 measured 33.7 ms" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, bgain = { v = 20, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, hold = { v = 130, tag = "estimated", rule = "the stop lengthened so that the module's burst, which the layer cannot extend past the stop's own stretch, runs the specification's length" }, a2 = { v = 20, tag = "estimated", rule = "noise mostly on the fourth resonance and its neighbours, so that its centre falls near 3000 Hz" }, a3 = { v = 50, tag = "estimated", rule = "see a2" }, a4 = { v = 60, tag = "estimated", rule = "see a2" }, a5 = { v = 30, tag = "estimated", rule = "see a2" }, a6 = { v = 10, tag = "estimated", rule = "see a2" } }
 
 [sound."U+01C3"]
 ipa = "ǃ"
@@ -51,20 +64,25 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "click", place = "postalveolar", place2 = "velar", stricture = "closure", voicing = "unspecified" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10", "C12?"] }
 
 [sound."U+01C3".spec]
 vot_ms = { v = 13.1, tag = "derived", rule = "mean of the five ǃ means (burst onset to voice onset) in mo_sands2000 table (4): (11.21 + 15.06 + 13.32 + 11.2 + 14.82) / 5", note = "4 Ju|'hoansi speakers (3 F + 1 M) and 1 Mangetti Dune !Xung female; SDs 3.3-5.7. [RECONSTRUCTED TABLE: mo_sands2000 table (4): the column alignment is garbled, so the five means cannot be mapped to speakers]" }
+burst = { length_ms = { v = 9, tag = "derived", rule = "mean of JF 7 and MA 11 ms (miller_shah2009 figure 2, burst duration; Mangetti Dune !Xung, the two male speakers (JF, MA) of four; read from the figure, the text gives no means; the voice measured here is male)" }, level_db = { v = 0.7, tag = "derived", rule = "20 log10 of the mean of JF 1.04 and MA 1.12, the burst RMS over the vowel's (miller_shah2009 figure 3; Mangetti Dune !Xung, the two male speakers (JF, MA) of four; read from the figure, the text gives no means; the voice measured here is male)" }, centroid_hz = { v = 1000, tag = "literature", ref = "miller_shah2009", note = "miller_shah2009 section 3.2: the lowest centre of gravity of the coronal clicks, around 1000 Hz for all four speakers; mo_sands2000: peak 1033 Hz (SD 295) for the !Xung speaker SR" } }
 
 [sound."U+01C3".tests]
 checks = ["T-click", "T-contrast"]
+contrast = []
 proof = "ipa/proofs/U+01C3.json"
 
 [sound."U+01C3".realization.openevv]
-trim.dedx = [{ key = "vot", v = 20.1, scale = false, tag = "measured", proof = "ipa/proofs/U+01C3.json" }]
+# the front closure released abruptly at the alveolar ridge: the module's voiceless alveolar stop, its burst reshaped
+carrier = "t"
+keys = { burstms = { v = 5, tag = "estimated", rule = "the specification's 9 ms set to 5, the frame step below it: at 10 the burst and the voice's own rise (about 8 ms) put the voice onset well past its 13 ms" }, ej = { v = 1, tag = "estimated", rule = "a silence of one millisecond after the burst, so that the burst ends where it is told; the voice's own rise makes the rest of the onset" }, burst = { v = 10, tag = "estimated", rule = "the module's burst noise raised so that bgain need not carry it all" }, bgain = { v = 34, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12: past the synthesiser's 120 dB ceiling, at most 40)" }, a2 = { v = 80, tag = "estimated", rule = "the noise on the second resonance only, so that its centre falls near 1000 Hz" }, a3 = { v = 0, tag = "estimated", rule = "see a2" }, a4 = { v = 0, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, f2 = { v = 55, tag = "estimated", rule = "the second resonance lowered during the stop, to carry the noise near 1000 Hz (the large lingual cavity)" } }
+trim.dedx = [{ key = "vot", v = 6.1, scale = false, tag = "measured", proof = "ipa/proofs/U+01C3.json" }]
 
 [sound."U+01C2"]
 ipa = "ǂ"
@@ -74,17 +92,24 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "click", place = "palatal", place2 = "velar", stricture = "closure", voicing = "unspecified" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10", "C12?"] }
 
 [sound."U+01C2".spec]
 vot_ms = { v = 13, tag = "estimated", note = "miller_shah2009 (Mangetti Dune !Xung, 2 M + 2 F) found the bursts of ǀ and ǁ longer, slower to rise and weaker than those of ǃ and ǂ (sections 3.1.1-3.1.3; numbers only in figures); ǂ is grouped with the abrupt ǃ, and its burst is about half as long as ǃ for some speakers and similar for others; set equal to the ǃ value (13.1 ms, derived from mo_sands2000)." }
+burst = { length_ms = { v = 6, tag = "derived", rule = "mean of JF 5 and MA 7 ms (miller_shah2009 figure 2; Mangetti Dune !Xung, the two male speakers (JF, MA) of four; read from the figure, the text gives no means; the voice measured here is male)" }, level_db = { v = 0.3, tag = "derived", rule = "20 log10 of the mean of JF 1.08 and MA 1.00 (miller_shah2009 figure 3; Mangetti Dune !Xung, the two male speakers (JF, MA) of four; read from the figure, the text gives no means; the voice measured here is male)" }, centroid_hz = { v = 1750, tag = "literature", ref = "miller_shah2009", note = "miller_shah2009 section 3.2: 1500 to 2000 Hz for the men (2500 to 3000 for the women); the middle of the men's range" } }
 
 [sound."U+01C2".tests]
 checks = ["T-click", "T-contrast"]
-contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }]
+contrast = [{ with = "U+01C3", measure = "burst_centroid_hz", sign = 1 }]
+proof = "ipa/proofs/U+01C2.json"
+
+[sound."U+01C2".realization.openevv]
+# the front closure released fairly abruptly behind the alveolar ridge: the module's voiceless alveolar stop, its burst reshaped
+carrier = "t"
+keys = { burstms = { v = 5, tag = "estimated", rule = "the specification's 6 ms set to the frame step of 5 ms" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, burst = { v = 10, tag = "estimated", rule = "as for the alveolar click" }, bgain = { v = 20, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, a2 = { v = 50, tag = "estimated", rule = "noise on the second and third resonances, so that its centre falls near 1750 Hz" }, a3 = { v = 55, tag = "estimated", rule = "see a2" }, a4 = { v = 0, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" } }
 
 [sound."U+01C1"]
 ipa = "ǁ"
@@ -94,18 +119,25 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "click", place = "alveolar", place2 = "velar", stricture = "closure", lateral = true, voicing = "unspecified" }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new mechanism", end_state = "created", uses = ["X1", "X3"], builds = ["C10"] }
 
 [sound."U+01C1".spec]
 vot_ms = { v = 25.9, tag = "derived", rule = "mean of the four Ju|'hoansi speakers' ǁ burst durations (burst onset to voice onset) in mo_sands2000 table (4): (22.8 + 24.6 + 28.7 + 27.4) / 4", note = "speakers DX, DK, KK, NC (3 F + 1 M), SDs 7-12 ms; the !Xung female SR probably 19.1 ms. [RECONSTRUCTED TABLE: mo_sands2000 table (4): the column alignment is garbled]" }
+burst = { length_ms = { v = 16, tag = "derived", rule = "mean of JF 15 and MA 17 ms (miller_shah2009 figure 2; Mangetti Dune !Xung, the two male speakers (JF, MA) of four; read from the figure, the text gives no means; the voice measured here is male)" }, level_db = { v = 0.5, tag = "derived", rule = "20 log10 of the mean of JF 1.04 and MA 1.07 (miller_shah2009 figure 3; Mangetti Dune !Xung, the two male speakers (JF, MA) of four; read from the figure, the text gives no means; the voice measured here is male)" }, centroid_hz = { v = 2000, tag = "literature", ref = "miller_shah2009", note = "miller_shah2009 section 3.2: around 2000 Hz; mo_sands2000: peak 2255 Hz (SD 255) for SR" } }
 
 [sound."U+01C1".tests]
 checks = ["T-click", "T-contrast"]
-contrast = [{ with = "U+01C3", measure = "centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }]
+contrast = [{ with = "U+01C3", measure = "burst_centroid_hz", sign = 1 }, { with = "U+01C3", measure = "vot_ms", sign = 1 }, { with = "U+01C3", measure = "burst_len_ms", sign = 1 }]
 proof = "ipa/proofs/U+01C1.json"
+
+[sound."U+01C1".realization.openevv]
+# the front closure at the alveolar ridge released at the side: the module's voiceless alveolar stop, its burst lengthened
+carrier = "t"
+keys = { burstms = { v = 16, tag = "derived", rule = "the specification's burst length" }, ej = { v = 2, tag = "estimated", rule = "a short silence after the burst: the voice's own rise (about 8 ms) makes the rest of the onset" }, burst = { v = 10, tag = "estimated", rule = "as for the alveolar click" }, bgain = { v = 22, tag = "estimated", rule = "chosen so that the burst measures at its level against the vowel (C12)" }, a2 = { v = 50, tag = "estimated", rule = "noise on the second to fourth resonances, so that its centre falls near 2000 Hz" }, a3 = { v = 60, tag = "estimated", rule = "see a2" }, a4 = { v = 30, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" } }
+trim.dedx = [{ key = "vot", v = 17.9, scale = false, tag = "measured", proof = "ipa/proofs/U+01C1.json" }]
 
 [sound."U+0253"]
 ipa = "ɓ"
@@ -115,20 +147,23 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "implosive", place = "bilabial", stricture = "closure", voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
 
 [sound."U+0253".spec]
 locus = { F2 = { v = 837, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (b, 837 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+0253".tests]
 checks = ["T-airstream", "T-contrast"]
-contrast = [{ with = "U+0062", measure = "duration_ms", sign = -1 }]
+contrast = [{ with = "U+0062", measure = "duration_ms", sign = -1 }, { with = "U+0062", measure = "voicing_slope", sign = 1 }]
 proof = "ipa/proofs/U+0253.json"
 
 [sound."U+0253".realization.openevv]
+# the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
+keys = { impl = { v = 12, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target" }, hold = { v = 75, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); 75 per cent is where the swell measures within its target" } }
 trim.dedx = [{ key = "f2", v = 108.2, scale = true, tag = "measured", proof = "ipa/proofs/U+0253.json" }]
 
 [sound."U+0257"]
@@ -146,11 +181,16 @@ plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], 
 
 [sound."U+0257".spec]
 locus = { F2 = { v = 1671, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (d, 1671 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+0257".tests]
 checks = ["T-airstream", "T-contrast"]
-contrast = [{ with = "U+0064", measure = "duration_ms", sign = -1 }]
+contrast = [{ with = "U+0064", measure = "duration_ms", sign = -1 }, { with = "U+0064", measure = "voicing_slope", sign = 1 }]
 proof = "ipa/proofs/U+0257.json"
+
+[sound."U+0257".realization.openevv]
+# the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
+keys = { impl = { v = 12, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target" }, hold = { v = 85, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); at this place 85 per cent keeps a closure the slope and the closure finder can measure" } }
 
 [sound."U+0284"]
 ipa = "ʄ"
@@ -160,18 +200,23 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "implosive", place = "palatal", stricture = "closure", voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X2", "X4"], builds = ["C5?"] }
 
 [sound."U+0284".spec]
 locus = { F2 = { v = 1898, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɟ, 1898 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+0284".tests]
 checks = ["T-airstream", "T-contrast"]
-contrast = [{ with = "U+025F", measure = "duration_ms", sign = -1 }]
+contrast = [{ with = "U+025F", measure = "duration_ms", sign = -1 }, { with = "U+025F", measure = "voicing_slope", sign = 1 }]
 proof = "ipa/proofs/U+0284.json"
+
+[sound."U+0284".realization.openevv]
+# the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
+keys = { impl = { v = 12, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target" }, hold = { v = 75, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); 75 per cent is where the swell measures within its target" } }
 
 [sound."U+0260"]
 ipa = "ɠ"
@@ -181,18 +226,23 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "implosive", place = "velar", stricture = "closure", voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], builds = ["C5?"] }
 
 [sound."U+0260".spec]
 locus = { F2 = { v = 1026, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɡ, itself estimated from k, 1026 Hz, stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+0260".tests]
 checks = ["T-airstream", "T-contrast"]
-contrast = [{ with = "U+0261", measure = "duration_ms", sign = -1 }]
+contrast = [{ with = "U+0261", measure = "duration_ms", sign = -1 }, { with = "U+0261", measure = "voicing_slope", sign = 1 }]
 proof = "ipa/proofs/U+0260.json"
+
+[sound."U+0260".realization.openevv]
+# the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
+keys = { impl = { v = 2, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target at this place" }, hold = { v = 90, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); at this place 90 per cent keeps the swell within its target" } }
 
 [sound."U+029B"]
 ipa = "ʛ"
@@ -202,18 +252,23 @@ section = "non_pulmonic"
 tier = "A"
 kind = "base"
 features = { class = "consonant", airstream = "implosive", place = "uvular", stricture = "closure", voicing = "voiced" }
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X1", "X2", "X4"], builds = ["C5?"] }
 
 [sound."U+029B".spec]
 locus = { F2 = { v = 929, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɢ, itself estimated from q, 929 Hz): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+029B".tests]
 checks = ["T-airstream", "T-contrast"]
-contrast = [{ with = "U+0262", measure = "duration_ms", sign = -1 }]
+contrast = [{ with = "U+0262", measure = "duration_ms", sign = -1 }, { with = "U+0262", measure = "voicing_slope", sign = 1 }]
 proof = "ipa/proofs/U+029B.json"
+
+[sound."U+029B".realization.openevv]
+# the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
+keys = { impl = { v = 3, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target at this place" }, hold = { v = 85, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); at this place 85 per cent keeps a closure the slope and the closure finder can measure" } }
 
 [sound."U+02BC"]
 ipa = "ʼ"
@@ -224,8 +279,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { airstream = "ejective" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4", "X5", "X9"], builds = ["C5?", "C6?"] }
 
@@ -233,5 +288,12 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4", "X5", "
 vot_ms = { v = 109, tag = "derived", rule = "mean of the six Aymara tokens of pʼ, tʼ and kʼ (burst plus silent gap to voicing) in park_kim2015_aymara Table 3: (77 + 101 + 107 + 74 + 150 + 144) / 6 = 108.8", note = "Aymara, 1 M (40s), word-initial before /a/, 2 tokens per stop; with cʼ (188 / 219) and qʼ (138 / 165) the mean would be higher. Other studies are female or unsexed: Georgian pooled 33 ms (5 F, vicenik2008_georgian), Tsilhqut'in pooled 102 ms (mostly F, ham2008_tsilhqotin Table 8), Yapese casual 29 / 35 / 61 ms for pʼ tʼ kʼ (maddieson2001_vot)." }
 
 [sound."U+02BC".tests]
-checks = ["T-airstream", "T-contrast"]
-contrast = [{ with = "U+0074", measure = "vot_ms", sign = 1 }]
+checks = ["T-shift"]
+bases = ["U+0074", "U+0070", "U+006B"]
+shift = [{ measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "gap_breath_frac", max = 0.1 }, { measure = "vot_long_ms", min = 82 }, { measure = "vot_long_ms", max = 136 }]
+proof = "ipa/proofs/U+02BC.json"
+
+[sound."U+02BC".transform.consonant]
+vot_ms = { add = 89.7, tag = "derived", rule = "the specification's 109 ms less the mean of the plain stops' vot_ms in the table, p 20, t 15, k 23: 109 - 19.3 = 89.7" }
+release = { burst_ms = { set = 10, tag = "derived", rule = "the burst's length the accent layer gives a stop when nothing says otherwise (D54); written so that the burst is shaped where the module lets the stop go inside its own stretch (D63)" }, burst_gain_db = { set = 10, tag = "estimated", rule = "kye2021, summarising Lindau (1984) and Kingston: 'stiff' ejectives have an intense burst; no level against the plain stop's was found. Without it k's burst lies more than 40 dB under the vowel before it, where the harness does not find it" }, ejective_silence_ms = { set = 100, tag = "estimated", rule = "no aspiration between the burst and the voice: the glottis is shut. Silent from the end of the 10 ms burst to about the voice (the specification's 109 ms less 10, 99, taken as 100). Chosen against the module: shorter, its own aspiration filled the rest of the gap (measured: p before i, 60 ms of silence then 25 ms of breath)" } }

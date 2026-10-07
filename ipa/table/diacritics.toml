@@ -770,8 +770,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { release = "nasal" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4", "X9", "X13"], builds = ["C10?"] }
 
@@ -785,6 +785,7 @@ checks = ["T-release"]
 bases = ["U+0074", "U+0064"]
 shift = [{ measure = "burst_found", sign = -1 }]
 follow = "U+006E"
+proof = "ipa/proofs/U+207F.json"
 
 [sound."U+02E1"]
 ipa = "ˡ"
@@ -795,8 +796,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { release = "lateral" } }
 placement = "after"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4", "X9", "X13"], builds = ["C10?"] }
 
@@ -810,6 +811,7 @@ checks = ["T-release"]
 bases = ["U+0074", "U+0064"]
 shift = [{ measure = "burst_found", sign = -1 }]
 follow = "U+006C"
+proof = "ipa/proofs/U+02E1.json"
 
 [sound."U+031A"]
 ipa = "̚"
@@ -820,8 +822,8 @@ tier = "A"
 kind = "modifier"
 edit = { consonant = { release = "none" } }
 placement = "over"
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds = [] }
 
@@ -834,3 +836,4 @@ release = { unreleased = { set = 1, tag = "derived", rule = "the mark itself: no
 checks = ["T-release"]
 bases = ["U+0074", "U+0070", "U+006B"]
 shift = [{ measure = "burst_found", sign = -1 }]
+proof = "ipa/proofs/U+031A.json"

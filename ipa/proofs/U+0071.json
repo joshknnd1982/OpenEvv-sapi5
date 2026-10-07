@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "aecc58235b2d7b43d74657822a312a3bf4b425a1a4046504b777d0265ad7ce1f",
+ "map_sha256": "fc8649510048e8210c91c696cb4f416d7edbf4f4778235d1039ee999cb6a3f4b",
  "said_as": {
   "pack": "hi",
   "carrier": "k",
@@ -387,6 +387,8 @@
     },
     "vot_long_ms": null,
     "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -13.53945524848973,
     "schwa_ms": 0
    },
    "edges": {
@@ -609,6 +611,12 @@
     },
     "vot_long_ms": 68.0,
     "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -55.12692002388194,
+    "burst_len_ms": 67.48299319727892,
+    "burst_centroid_hz": 3506.413804132637,
+    "burst_db": -7.820013876829007,
+    "gap_breath_frac": 0.8333333333333334,
     "schwa_ms": 0
    },
    "edges": {
@@ -831,6 +839,12 @@
     },
     "vot_long_ms": 52.0,
     "burst_found": 1,
+    "closure_quiet": 1,
+    "voicing_slope": -39.511783535692174,
+    "burst_len_ms": 54.421768707483,
+    "burst_centroid_hz": 479.04876292822445,
+    "burst_db": -24.064676124430463,
+    "gap_breath_frac": 1.0,
     "schwa_ms": 0
    },
    "edges": {
@@ -865,6 +879,15 @@
   "mod_closed_ms": 40.91,
   "burst_found": 1,
   "schwa_ms": 0,
+  "voicing_slope": -39.51,
+  "burst_db": -15.94,
+  "burst_len_ms": 60.95,
+  "burst_centroid_hz": 1992.73,
+  "gap_breath_frac": 0.92,
+  "n_voicing_slope": 3,
+  "n_burst_db": 2,
+  "n_burst_len_ms": 2,
+  "n_burst_centroid_hz": 2,
   "voiced_frac": 0.2
  },
  "A0": {
@@ -873,10 +896,8 @@
   "substitute": null
  },
  "A1": {
-  "passed": false,
-  "problems": [
-   "a_a: no closure or burst found"
-  ]
+  "passed": true,
+  "problems": []
  },
  "A2": {
   "passed": true,
