@@ -136,80 +136,96 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 ## Added in Phase 4 (2026-10-06)
 
-**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 177 values on 2026-10-07 (regenerated after D69):
+**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 193 values on 2026-10-07 (regenerated after D70):
 
+- `B:U+02EC#post` ˬ: `transform.consonant.voicing.part_from_pct`
+- `B:U+02EC#pre` ˬ: `transform.consonant.voicing.part_to_pct`
+- `B:U+02F7` ˷: `transform.consonant.voicing.part_from_pct`
+- `B:U+02F7` ˷: `transform.vowel.voicing.part_from_pct`
+- `B:U+0325+U+1ABD` ̥᪽: `transform.consonant.voicing.part_from_pct`
+- `B:U+0325+U+1ABD` ̥᪽: `transform.consonant.voicing.part_to_pct`
+- `B:U+0325+U+1ABD` ̥᪽: `transform.vowel.voicing.part_from_pct`
+- `B:U+0325+U+1ABD` ̥᪽: `transform.vowel.voicing.part_to_pct`
+- `B:U+0325+U+1AC3` ̥᫃: `transform.consonant.voicing.part_to_pct`
+- `B:U+0325+U+1AC3` ̥᫃: `transform.vowel.voicing.part_to_pct`
+- `B:U+0325+U+1AC4` ̥᫄: `transform.consonant.voicing.part_from_pct`
+- `B:U+0325+U+1AC4` ̥᫄: `transform.vowel.voicing.part_from_pct`
+- `B:U+032C+U+1ABD` ̬᪽: `transform.consonant.voicing.part_from_pct`
+- `B:U+032C+U+1ABD` ̬᪽: `transform.consonant.voicing.part_to_pct`
+- `B:U+032C+U+1AC3` ̬᫃: `transform.consonant.voicing.part_to_pct`
+- `B:U+032C+U+1AC4` ̬᫄: `transform.consonant.voicing.part_from_pct`
 - `B:U+0346` ͆: `transform.consonant.locus.F2`
 - `B:U+0347` ͇: `transform.consonant.locus.F2`
-- `B:U+034B` ͋: `transform.consonant.noise.level_db`
 - `B:U+034B` ͋: `transform.consonant.noise.F5_db`
 - `B:U+034B` ͋: `transform.consonant.noise.flat_db`
-- `B:U+1DF06` 𝼆: `spec.noise.peak_hz`
+- `B:U+034B` ͋: `transform.consonant.noise.level_db`
 - `B:U+1DF06` 𝼆: `spec.locus.F2`
 - `B:U+1DF06` 𝼆: `spec.locus.F3`
 - `B:U+1DF06` 𝼆: `spec.locus_slope.F2`
+- `B:U+1DF06` 𝼆: `spec.noise.peak_hz`
 - `B:U+A78E` ꞎ: `spec.noise.peak_hz`
 - `U+0071` q: `spec.locus.F1`
 - `U+0071` q: `spec.vot_ms`
 - `U+0078` x: `spec.noise.peak_hz`
-- `U+00E7` ç: `spec.noise.peak_hz`
 - `U+00E7` ç: `keys.a5`
-- `U+01C0` ǀ: `spec.vot_ms`
-- `U+01C0` ǀ: `keys.burstms`
-- `U+01C0` ǀ: `keys.ej`
-- `U+01C0` ǀ: `keys.bgain`
-- `U+01C0` ǀ: `keys.hold`
+- `U+00E7` ç: `spec.noise.peak_hz`
 - `U+01C0` ǀ: `keys.a2`
 - `U+01C0` ǀ: `keys.a3`
 - `U+01C0` ǀ: `keys.a4`
 - `U+01C0` ǀ: `keys.a5`
 - `U+01C0` ǀ: `keys.a6`
-- `U+01C1` ǁ: `keys.ej`
-- `U+01C1` ǁ: `keys.burst`
-- `U+01C1` ǁ: `keys.bgain`
+- `U+01C0` ǀ: `keys.bgain`
+- `U+01C0` ǀ: `keys.burstms`
+- `U+01C0` ǀ: `keys.ej`
+- `U+01C0` ǀ: `keys.hold`
+- `U+01C0` ǀ: `spec.vot_ms`
 - `U+01C1` ǁ: `keys.a2`
 - `U+01C1` ǁ: `keys.a3`
 - `U+01C1` ǁ: `keys.a4`
 - `U+01C1` ǁ: `keys.a5`
 - `U+01C1` ǁ: `keys.a6`
-- `U+01C2` ǂ: `spec.vot_ms`
-- `U+01C2` ǂ: `keys.burstms`
-- `U+01C2` ǂ: `keys.ej`
-- `U+01C2` ǂ: `keys.burst`
-- `U+01C2` ǂ: `keys.bgain`
+- `U+01C1` ǁ: `keys.bgain`
+- `U+01C1` ǁ: `keys.burst`
+- `U+01C1` ǁ: `keys.ej`
 - `U+01C2` ǂ: `keys.a2`
 - `U+01C2` ǂ: `keys.a3`
 - `U+01C2` ǂ: `keys.a4`
 - `U+01C2` ǂ: `keys.a5`
 - `U+01C2` ǂ: `keys.a6`
-- `U+01C3` ǃ: `keys.burstms`
-- `U+01C3` ǃ: `keys.ej`
-- `U+01C3` ǃ: `keys.burst`
-- `U+01C3` ǃ: `keys.bgain`
+- `U+01C2` ǂ: `keys.bgain`
+- `U+01C2` ǂ: `keys.burst`
+- `U+01C2` ǂ: `keys.burstms`
+- `U+01C2` ǂ: `keys.ej`
+- `U+01C2` ǂ: `spec.vot_ms`
 - `U+01C3` ǃ: `keys.a2`
 - `U+01C3` ǃ: `keys.a3`
 - `U+01C3` ǃ: `keys.a4`
 - `U+01C3` ǃ: `keys.a5`
 - `U+01C3` ǃ: `keys.a6`
+- `U+01C3` ǃ: `keys.bgain`
+- `U+01C3` ǃ: `keys.burst`
+- `U+01C3` ǃ: `keys.burstms`
+- `U+01C3` ǃ: `keys.ej`
 - `U+01C3` ǃ: `keys.f2`
+- `U+0253` ɓ: `keys.hold`
+- `U+0253` ɓ: `keys.impl`
 - `U+0253` ɓ: `spec.locus.F2`
 - `U+0253` ɓ: `spec.locus_slope.F2`
-- `U+0253` ɓ: `keys.impl`
-- `U+0253` ɓ: `keys.hold`
 - `U+0256` ɖ: `spec.locus.F3`
+- `U+0257` ɗ: `keys.hold`
+- `U+0257` ɗ: `keys.impl`
 - `U+0257` ɗ: `spec.locus.F2`
 - `U+0257` ɗ: `spec.locus_slope.F2`
-- `U+0257` ɗ: `keys.impl`
-- `U+0257` ɗ: `keys.hold`
 - `U+0258` ɘ: `spec.formants.F1`
 - `U+0258` ɘ: `spec.formants.F2`
 - `U+0258` ɘ: `spec.formants.F3`
 - `U+025E` ɞ: `spec.formants.F1`
 - `U+025E` ɞ: `spec.formants.F2`
 - `U+025E` ɞ: `spec.formants.F3`
+- `U+0260` ɠ: `keys.hold`
+- `U+0260` ɠ: `keys.impl`
 - `U+0260` ɠ: `spec.locus.F2`
 - `U+0260` ɠ: `spec.locus_slope.F2`
-- `U+0260` ɠ: `keys.impl`
-- `U+0260` ɠ: `keys.hold`
 - `U+0262` ɢ: `spec.locus.F1`
 - `U+0262` ɢ: `spec.locus.F2`
 - `U+0262` ɢ: `spec.locus_slope.F2`
@@ -230,30 +246,30 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+027A` ɺ: `spec.tap.closed_ms`
 - `U+027D` ɽ: `spec.locus.F3`
 - `U+0281` ʁ: `spec.noise.peak_hz`
+- `U+0284` ʄ: `keys.hold`
+- `U+0284` ʄ: `keys.impl`
 - `U+0284` ʄ: `spec.locus.F2`
 - `U+0284` ʄ: `spec.locus_slope.F2`
-- `U+0284` ʄ: `keys.impl`
-- `U+0284` ʄ: `keys.hold`
 - `U+0288` ʈ: `spec.locus.F3`
 - `U+028D` ʍ: `spec.locus.F2`
 - `U+0290` ʐ: `spec.noise.peak_hz`
 - `U+0291` ʑ: `spec.noise.peak_hz`
-- `U+0298` ʘ: `spec.vot_ms`
-- `U+0298` ʘ: `spec.burst.length_ms`
-- `U+0298` ʘ: `spec.burst.level_db`
-- `U+0298` ʘ: `keys.vot`
-- `U+0298` ʘ: `keys.ej`
-- `U+0298` ʘ: `keys.bgain`
 - `U+0298` ʘ: `keys.a2`
 - `U+0298` ʘ: `keys.a3`
 - `U+0298` ʘ: `keys.a4`
 - `U+0298` ʘ: `keys.a5`
 - `U+0298` ʘ: `keys.a6`
 - `U+0298` ʘ: `keys.ab`
+- `U+0298` ʘ: `keys.bgain`
+- `U+0298` ʘ: `keys.ej`
+- `U+0298` ʘ: `keys.vot`
+- `U+0298` ʘ: `spec.burst.length_ms`
+- `U+0298` ʘ: `spec.burst.level_db`
+- `U+0298` ʘ: `spec.vot_ms`
+- `U+029B` ʛ: `keys.hold`
+- `U+029B` ʛ: `keys.impl`
 - `U+029B` ʛ: `spec.locus.F2`
 - `U+029B` ʛ: `spec.locus_slope.F2`
-- `U+029B` ʛ: `keys.impl`
-- `U+029B` ʛ: `keys.hold`
 - `U+029C` ʜ: `spec.trill.closed_ms`
 - `U+029F` ʟ: `spec.formants.F1`
 - `U+029F` ʟ: `spec.formants.F2`
@@ -263,40 +279,40 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+02B7` ʷ: `transform.consonant.formants.F2`
 - `U+02BC` ʼ: `transform.consonant.release.burst_gain_db`
 - `U+02BC` ʼ: `transform.consonant.release.ejective_silence_ms`
-- `U+02D1` ˑ: `transform.vowel.duration.inherent_ms`
 - `U+02D1` ˑ: `transform.consonant.duration.inherent_ms`
+- `U+02D1` ˑ: `transform.vowel.duration.inherent_ms`
 - `U+02E4` ˤ: `transform.consonant.locus.F1`
-- `U+0303` ̃: `transform.vowel.nasal.open_pct`
 - `U+0303` ̃: `transform.consonant.nasal.open_pct`
-- `U+0306` ̆: `transform.vowel.duration.inherent_ms`
+- `U+0303` ̃: `transform.vowel.nasal.open_pct`
 - `U+0306` ̆: `transform.consonant.duration.inherent_ms`
+- `U+0306` ̆: `transform.vowel.duration.inherent_ms`
 - `U+0308` ̈: `transform.vowel.formants.F2`
 - `U+030A` ̊: `transform.consonant.breath.whisper_db`
 - `U+030A` ̊: `transform.vowel.breath.whisper_db`
-- `U+0318` ̘: `transform.vowel.formants.F1`
 - `U+0318` ̘: `transform.consonant.formants.F1`
+- `U+0318` ̘: `transform.vowel.formants.F1`
+- `U+0319` ̙: `transform.consonant.formants.F1`
 - `U+0319` ̙: `transform.vowel.formants.F1`
 - `U+0319` ̙: `transform.vowel.formants.F2`
-- `U+0319` ̙: `transform.consonant.formants.F1`
 - `U+031C` ̜: `transform.vowel.formants.F2`
 - `U+031C` ̜: `transform.vowel.formants.F3`
-- `U+031D` ̝: `transform.vowel.formants.F1`
 - `U+031D` ̝: `transform.consonant.formants.F1`
-- `U+031E` ̞: `transform.vowel.formants.F1`
+- `U+031D` ̝: `transform.vowel.formants.F1`
 - `U+031E` ̞: `transform.consonant.formants.F1`
-- `U+031F` ̟: `transform.vowel.formants.F2`
+- `U+031E` ̞: `transform.vowel.formants.F1`
 - `U+031F` ̟: `transform.consonant.locus.F2`
-- `U+0320` ̠: `transform.vowel.formants.F2`
+- `U+031F` ̟: `transform.vowel.formants.F2`
 - `U+0320` ̠: `transform.consonant.locus.F2`
-- `U+0324` ̤: `transform.vowel.phonation.breathy_pct`
+- `U+0320` ̠: `transform.vowel.formants.F2`
 - `U+0324` ̤: `transform.consonant.phonation.breathy_pct`
+- `U+0324` ̤: `transform.vowel.phonation.breathy_pct`
 - `U+0325` ̥: `transform.consonant.breath.whisper_db`
 - `U+0325` ̥: `transform.vowel.breath.whisper_db`
 - `U+0329` ̩: `transform.consonant.duration.inherent_ms`
 - `U+032A` ̪: `transform.consonant.locus.F2`
 - `U+032F` ̯: `transform.vowel.duration.inherent_ms`
-- `U+0330` ̰: `transform.vowel.phonation.creaky_pct`
 - `U+0330` ̰: `transform.consonant.phonation.creaky_pct`
+- `U+0330` ̰: `transform.vowel.phonation.creaky_pct`
 - `U+0339` ̹: `transform.vowel.formants.F2`
 - `U+0339` ̹: `transform.vowel.formants.F3`
 - `U+033A` ̺: `transform.consonant.locus.F3`
@@ -305,9 +321,9 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+033D` ̽: `transform.vowel.formants.F1`
 - `U+033D` ̽: `transform.vowel.formants.F2`
 - `U+035C` ͜: `spec.duration.inherent_ms`
-- `U+0361` ͡: `spec.duration.inherent_ms`
 - `U+0361` ͡: `double.dedx.ɡ͡b.1.hold`
 - `U+0361` ͡: `double.dedx.ɡ͡b.2.hold`
+- `U+0361` ͡: `spec.duration.inherent_ms`
 - `U+03B2` β: `spec.locus.F2`
 - `U+03B2` β: `spec.locus_slope.F2`
 - `U+03C7` χ: `spec.noise.peak_hz`
@@ -334,14 +350,16 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 *Q23, corrected (2026-10-07, ninth session, D69):* the accent layer does have a key that turns on a frication source over a voiced sound: `fric` (with the band levels `a2` to `a6` and `ab`) raises AF while the voice goes on; D69 uses it for extIPA's nasal friction, and the frames of m͋ show AF 60 with AV 49. It cannot serve ̝ as a mark's line, though: a `mod` line applies to every consonant, and `fric` raises AF in a stop's closure too, and sets the band levels there with it (`evv_accent.c` 2576 to 2586: no test for a stop; only the later blend of the band levels, from 2588, skips stops). *Default unchanged: ̝ on an approximant becomes a fricative by a composition rule (or a mark line restricted by stricture) at the next front-end or engine change.*
 
-**Q24. A mark's test compares the medians of the plain and the marked cases, not their differences context by context** (2026-10-07, ninth session, D69). `check_shift` takes the median over the three contexts of the plain sound and, separately, of the marked one, and compares the two; its own comment says the comparison is "a mark against its own base in the same context: the context's variation cancels", which is true only of paired differences. m͇ shows the cost: the engine raised the vowel's requested F2 onset in all three contexts (1640 to 1770, 2132 to 2301, 1148 to 1239 Hz), but the tracker read [i] after m as 3092 Hz plain and 1325 marked, and the medians came from different contexts (plain 1670, marked 1651: -18.7 Hz, "the wrong way"). *Default: at the next change of the sweep, judge a mark by the median of its per-context differences; then run the whole sweep, since every mark's proof and some Tier A ones may move. Until then m͇ is MISSING.*
+**Q24. A mark's test compares the medians of the plain and the marked cases, not their differences context by context** (2026-10-07, ninth session, D69). `check_shift` takes the median over the three contexts of the plain sound and, separately, of the marked one, and compares the two; its own comment says the comparison is "a mark against its own base in the same context: the context's variation cancels", which is true only of paired differences. m͇ shows the cost: the engine raised the vowel's requested F2 onset in all three contexts (1640 to 1770, 2132 to 2301, 1148 to 1239 Hz), but the tracker read [i] after m as 3092 Hz plain and 1325 marked, and the medians came from different contexts (plain 1670, marked 1651: -18.7 Hz, "the wrong way"). *Default: at the next change of the sweep, judge a mark by the median of its per-context differences; then run the whole sweep, since every mark's proof and some Tier A ones may move. Until then m͇ is MISSING.* **Done 2026-10-07 (tenth session, D70):** `check_shift` judges each measure by the median of its per-context differences (marked minus plain, wherever both were found; the medians as before where fewer than two contexts have both), against the plain median's size; each target in a proof lists the differences (`paired`). m͇ then moved +78 Hz (differences -1193, +78, +79: the tracker's [i] outvoted), n̪͆ -25 Hz (-82, -25, -19), ɬ̪͆ -36 Hz (-42, -36, -19); tʰ̪͆ -13 Hz (-59, -13, -5), still short of the 1.5 per cent (Q25).
 
 **Q25. Four extIPA spellings on the new marks are not yet** (2026-10-07, ninth session, D69). n̪͆ and ɬ̪͆ moved their edge F2 by -18.8 and -18.6 Hz against a minimum of about 19.7 (1.5 per cent): the engine realises about 1.4 per cent of the 6 per cent asked of n and ɬ (the mark's own bases p, f, m move by 2.0 to 3.6 per cent); tʰ̪͆ by -5.2 Hz (the aspiration lies between the release and the vowel, which begins after the place's transition is mostly over); m͇ by Q24. The bidental fricatives h̪͆ and ɦ̪͆ are not composites: h is made by the layer from the vowel after it, so the marks have nothing to move, and a bidental fricative needs a letter of its own through the USP (no measurement of one has been looked for yet). *Default: n̪͆ and ɬ̪͆ wait for Q24's paired test, not for a larger value (0.94 comes from its source); tʰ̪͆ is judged at the release's noise instead of the vowel's onset once a measure of where a release's noise lies exists; h̪͆ and ɦ̪͆ go through the USP with the other needs-new letters.*
 
-**Q26. The nareal fricative's current spelling, U+033E, is not read** (2026-10-07, ninth session, D69; found by the R15 review). The Tier B inventory and `ipa/unicode_net.toml` record that extIPA changed the mark from U+034B to U+033E (vertical tilde) in 2024, and the 2025 chart uses U+033E. The table has U+034B only, so text written to the current chart is not read as nasal friction (the reader refuses U+033E in strict IPA; the front-end leaves it off with a `mark-left-off` loss). *Default: make U+033E an alias of U+034B (`ipa/aliases.toml`, and its own `mod` line from the adapter so the front-end composes it), with a test that both spellings say the same, at the next change of the reader or the adapter.*
+**Q26. The nareal fricative's current spelling, U+033E, is not read** (2026-10-07, ninth session, D69; found by the R15 review). The Tier B inventory and `ipa/unicode_net.toml` record that extIPA changed the mark from U+034B to U+033E (vertical tilde) in 2024, and the 2025 chart uses U+033E. The table has U+034B only, so text written to the current chart is not read as nasal friction (the reader refuses U+033E in strict IPA; the front-end leaves it off with a `mark-left-off` loss). *Default: make U+033E an alias of U+034B (`ipa/aliases.toml`, and its own `mod` line from the adapter so the front-end composes it), with a test that both spellings say the same, at the next change of the reader or the adapter.* **Done 2026-10-07 (tenth session, D70):** U+033E is an `always` alias of U+034B in `ipa/aliases.toml` (the reader reads it as U+034B), and the adapter writes every mark's line again under a one-character alias of it (`mod ̾ c fric=60 a5=60 ab=60`), since the front-end composes by the character it is given; the reader's test now checks that each such alias reads alike on a letter.
 
 ## For Phase 2 (found by measuring in Phase 1)
 
 - Quechua (`qu`): in the golden case `s|t\``, the engine meant a final vowel `a` and gave it 11 frames with neither voicing nor noise (silent). Check whether the map or the template devoices it deliberately.
 - Western Armenian (`hyw`): its eSpeak NG phonemes `p` and `t` are mapped to the module's `b` and `d` (sound `s24`), so they are said prevoiced (VOT -80 and -95 ms). Western Armenian does voice the historical /p t/, so this may be right, but the phonemes are labelled /p t/: Phase 4 should check the eSpeak NG table and the map together.
 - English-based packs read by eSpeak NG (en-029, en-gb-x-rp and others): the diphthong cases `e@`, `i@`, `i@3` begin with a `t` whose whole span is closure; harmless, but a sign that the module merges the burst into the vowel.
+
+**Q27. Pre-aspiration is made shorter than asked** (2026-10-07, tenth session, D70). extIPA's ʰ◌ asks the layer's `pre` for 98 ms of breath before a stop's closure (rogers1995, fast speech); between vowels the frames carry 30 ms before p, 40 before t and 20 before k. The layer takes the voice out of a stop's own frames before its closure, and the module gives a stop only that much of the vowel's tail; the vowel before is already spoken by then. The entry is `approximate` with this stated. Making the whole length would mean the layer reaching back into the vowel before (as `lead` reaches before a voiced stop's release), an engine change under R18. *Default: leave it approximate until a pack needs pre-aspiration (Icelandic, Scottish Gaelic, Faroese, Sámi); then extend `pre` and prove it against rogers1995.*

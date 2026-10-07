@@ -110,7 +110,9 @@ def main():
                 sample.append((b, [m]))
     failures, compared = [], 0
     for b, ms in sample:
-        ipa = t.sounds[b]['ipa'] + ''.join(t.sounds[m]['ipa'] for m in ms)
+        # a mark written before its letter (Tier B, D70) goes before it
+        ipa = ''.join(t.sounds[m]['ipa'] for m in ms if t.sounds[m].get('placement') == 'before') + \
+            t.sounds[b]['ipa'] + ''.join(t.sounds[m]['ipa'] for m in ms if t.sounds[m].get('placement') != 'before')
         want = AD.compose(t, b, ms, a.template, _carrier_meas(b))
         if ms and t.sounds[ms[0]].get('kind') == 'syllable-mark':
             # a stressed vowel: the front-end composes its nucleus with the stress mark after it

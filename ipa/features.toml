@@ -20,7 +20,7 @@ nasalized = { set = [false, true], default = false, note = "the nose open throug
 sibilant = { set = [false, true], default = false }
 airstream = { set = ["pulmonic", "ejective", "implosive", "click"], default = "pulmonic" }
 voicing = { scale = ["voiceless", "breathy", "voiced", "creaky"], extra = ["unspecified"], note = "unspecified: a click letter, whose voicing its accompaniment sets" }
-aspiration = { set = ["none", "after", "before"], default = "none" }
+aspiration = { set = ["none", "after", "before", "long-after"], default = "none", note = "before: extIPA's pre-aspiration (ʰp); long-after: its long aspiration (pʰʰ) (Tier B)" }
 release = { set = ["plain", "none", "nasal", "lateral"], default = "plain" }
 secondary = { list = ["labialized", "palatalized", "velarized", "pharyngealized", "velarized-or-pharyngealized"], default = [], note = "the last is the chart's tilde through a letter (ɫ), which leaves the choice open" }
 tongue_part = { set = ["unspecified", "apical", "laminal"], default = "unspecified" }
@@ -29,6 +29,7 @@ stricture_shift = { set = ["none", "raised", "lowered"], default = "none", note 
 tongue_root = { set = ["neutral", "advanced", "retracted"], default = "neutral" }
 place_mark = { set = ["none", "bridge-above", "equals-below"], default = "none", note = "extIPA's place marks (Tier B, D69), whose place depends on the letter: bridge above (U+0346) is dentolabial on a labial, interdental with the bridge below on a coronal, bidental on h and ɦ; equals below (U+0347) is labioalveolar on a labial, overtly alveolar on a coronal" }
 nasal_friction = { set = [false, true], default = false, note = "extIPA's U+034B (Tier B, D69): turbulent airflow through the nostrils; on a nasal letter a nareal fricative" }
+voicing_part = { set = ["whole", "initial", "central", "final", "before", "after"], default = "whole", note = "the stretch of the sound its voicing (or phonation) mark is said over: extIPA's partial voicing and devoicing (initial, central, final), its pre- and post-voicing and creaky offglide (before, after) (Tier B)" }
 
 [vowel]
 height = { scale = ["close", "near-close", "close-mid", "mid", "open-mid", "near-open", "open"] }
@@ -40,6 +41,7 @@ rhotic = { set = [false, true], default = false }
 tongue_root = { set = ["neutral", "advanced", "retracted"], default = "neutral" }
 quality_shift = { set = ["none", "raised", "lowered", "advanced", "retracted", "centralized", "mid-centralized"], default = "none" }
 voicing = { scale = ["voiceless", "breathy", "voiced", "creaky"], default = "voiced" }
+voicing_part = { set = ["whole", "initial", "central", "final", "before", "after"], default = "whole", note = "the stretch of the sound its voicing (or phonation) mark is said over: extIPA's partial voicing and devoicing (initial, central, final), its pre- and post-voicing and creaky offglide (before, after) (Tier B)" }
 
 [both]
 length = { scale = ["extra-short", "short", "half-long", "long"], default = "short" }

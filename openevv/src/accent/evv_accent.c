@@ -177,6 +177,10 @@ typedef struct {
                            vowel beside it is */
     int  lk;            /* how much of the vowel's own formant the place
                            keeps, percent (a locus equation's slope) */
+    int  vfrom, vto;    /* the part of the sound's own stretch, percent of
+                           it, that voi, whisper and creak are said over
+                           (extIPA's partial voicing and devoicing, a
+                           creaky offglide); 0 and 100: all of it */
 } Def;
 
 typedef struct {
@@ -520,6 +524,7 @@ static void def_defaults(Def *d)
     d->whisper = UNSET;
     d->ms = 60;
     d->bar = 34;
+    d->vto = 100;
 }
 
 static void tone_defaults(Tone *t)
@@ -715,6 +720,7 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "l1", offsetof(Def, l[0]) }, { "l2", offsetof(Def, l[1]) },
         { "l3", offsetof(Def, l[2]) }, { "l4", offsetof(Def, l[3]) },
         { "lk", offsetof(Def, lk) },
+        { "vfrom", offsetof(Def, vfrom) }, { "vto", offsetof(Def, vto) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -2518,8 +2524,14 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
             /* ---- the sound itself ---- */
             if (def != 0 && own) {
                 double w = smooth(into / reach_ms);
+                /* the part voi, whisper and creak are said over: all of
+                   the sound unless vfrom or vto says otherwise */
+                double part0 = def->vfrom > 0 ? def->vfrom * own_ms / 100.0 : 0;
+                double part1 = def->vto < 100 ? def->vto * own_ms / 100.0 : own_ms + 1e9;
+                int in_part = (def->vfrom <= 0 || into + dt / 2.0 >= part0)
+                              && (def->vto >= 100 || into + dt / 2.0 < part1);
 
-                if (def->voi == 1) {
+                if (def->voi == 1 && in_part) {
                     if (is_stop(a, ph) && f[P_AF] == 0 && f[P_AH] == 0
                         && f[P_AV] < def->bar) {
                         /* a closure: the voice goes on behind it, and is
@@ -2539,22 +2551,25 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                             f[P_AF] = clamp(f[P_AF] - 4, 0, 80);
                         }
                     }
-                } else if (def->voi == 0) {
+                } else if (def->voi == 0 && in_part) {
                     if (f[P_AV] > 0 && (f[P_AF] > 0 || f[P_AV] < 40)) {
                         f[P_AV] = 0;
                         f[P_TL] = 0;
                     }
                 }
-                if (def->whisper != UNSET && f[P_AV] > 0) {
+                if (def->whisper != UNSET && f[P_AV] > 0 && in_part) {
                     /* The mouth as it was, the voice taken out: at once
                        after a silence or a sound without voice, and
-                       within a few milliseconds after one with it. */
-                    double q = smooth(into / 15.0);
+                       within a few milliseconds after one with it; over
+                       a part of the sound, in and out over as long. */
+                    double q = smooth((into - part0) / 15.0);
 
-                    if (before == 0 || before->pause
+                    if (part0 == 0 && (before == 0 || before->pause
                         || (prev != 0 && (prev->whisper != UNSET
-                                          || prev->voi == 0)))
+                                          || prev->voi == 0))))
                         q = 1.0;
+                    if (part1 < own_ms)
+                        q *= smooth((part1 - into) / 15.0);
                     f[P_AH] = clamp((int)(f[P_AH]
                         + (def->whisper - f[P_AH]) * q), 0, 70);
                     f[P_AV] = (int32_t)(f[P_AV] * (1.0 - q));
@@ -2611,7 +2626,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 if (def->tl != UNSET && f[P_AV] > 0)
                     f[P_TL] = clamp((int)(f[P_TL]
                         + (def->tl - f[P_TL]) * w), 0, 41);
-                if (def->creak > 0 && f[P_AV] > 0) {
+                if (def->creak > 0 && f[P_AV] > 0 && in_part) {
                     f[P_OQ] = clamp(f[P_OQ] - def->creak * 30 / 100, 10, 99);
                     f[P_DI] = clamp(def->creak / 4, 0, 40);
                 }

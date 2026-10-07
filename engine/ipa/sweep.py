@@ -115,7 +115,12 @@ def contexts(t, sid):
     follow = t.sounds[tests['follow']]['ipa'] if tests.get('follow') else ''
     for base in tests.get('bases', []):
         b = t.sounds[base]
-        for variant, x in (('plain', b['ipa']), ('marked', b['ipa'] + e['ipa'])):
+        # a mark written before its letter goes before it (Tier B, D70); a test may name the
+        # forms said, `{}' for the base (the plain one aspirated, to show ˭ takes it away)
+        marked = e['ipa'] + b['ipa'] if e.get('placement') == 'before' else b['ipa'] + e['ipa']
+        for variant, x in (('plain', tests.get('plain_form', '{}').replace('{}', b['ipa'])),
+                           ('marked', tests['marked_form'].replace('{}', b['ipa']) if tests.get('marked_form')
+                            else marked)):
             if e['ipa'] == '\u0329':
                 # a syllabic consonant: after a stressed syllable, the word ending in it
                 out.append(('%s_%s_pa' % (base, variant), 'ˈpa%s%s' % ('p' if variant == 'marked' else 'pa', x)))
@@ -234,6 +239,32 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
     if tgt:
         a, b = tgt[0]['start_ms'], tgt[-1]['end_ms']
         ex = dict(span_ms=[a, b])
+        # where in the sound its voice and its creak are, from the frames: the share of each third's
+        # frames with voice (AV) and with creak (DI) (extIPA's partial voicing, D70)
+        t3 = E.frame_times(r['frames'])
+        fr3 = r['frames']
+        for name, lo, hi in (('head', 0.0, 1 / 3.0), ('mid', 1 / 3.0, 2 / 3.0), ('tail', 2 / 3.0, 1.0)):
+            k3 = [i for i in range(len(t3)) if a + lo * (b - a) <= t3[i] + fr3[i, 0] / 2.0 < a + hi * (b - a)]
+            if k3:
+                ex['voiced_' + name] = sum(1 for i in k3 if fr3[i, E.P['av']] > 0) / float(len(k3))
+                ex['creak_' + name] = sum(1 for i in k3 if fr3[i, E.P['di']] > 0) / float(len(k3))
+        # how long the voice runs on into the sound from its start, and how long the sound ends
+        # voiced: a consonant's span begins in the vowel before it, so its thirds cannot say where
+        # a voicing mark put the voice; these runs, against the plain sound's, can (D70)
+        k3 = [i for i in range(len(t3)) if a <= t3[i] + fr3[i, 0] / 2.0 < b]
+        if k3:
+            run = 0.0
+            for i in k3:
+                if fr3[i, E.P['av']] == 0:
+                    break
+                run += fr3[i, 0]
+            ex['voice_in_ms'] = run
+            run = 0.0
+            for i in reversed(k3):
+                if fr3[i, E.P['av']] == 0:
+                    break
+                run += fr3[i, 0]
+            ex['voice_out_ms'] = run
         mod = A.modulation(x, rate, a, b)
         if mod:
             ex['modulation'] = mod
@@ -247,6 +278,14 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             closed = [i for i in range(len(t_)) if a <= t_[i] < b and fr0[i, E.P['af']] == 0
                       and fr0[i, E.P['ah']] == 0 and fr0[i, E.P['av']] < 30]
             c0 = t_[closed[0]] if closed else b
+            if closed:
+                # breath before the closure (pre-aspiration, D70): the frames just before it with
+                # breath and no voice
+                j_, pre_ = closed[0] - 1, 0.0
+                while j_ >= 0 and fr0[j_, E.P['av']] == 0 and fr0[j_, E.P['ah']] > 0:
+                    pre_ += fr0[j_, 0]
+                    j_ -= 1
+                ex['preasp_ms'] = pre_
             win = ((t_ > c0) if closed else (t_ >= b)) & (t_ < b + 25)
             # AF only: the synthesiser sounds the bypass (AB) only with AF on, and p's frames carry
             # AB with AF at nought
@@ -410,7 +449,8 @@ def summary(cases, man):
         if v is not None:
             s['mod_' + k] = round(v, 2)
     for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms', 'voicing_slope', 'burst_db', 'burst_len_ms',
-              'burst_centroid_hz', 'gap_breath_frac'):
+              'burst_centroid_hz', 'gap_breath_frac', 'voiced_head', 'voiced_mid', 'voiced_tail', 'creak_head',
+              'creak_mid', 'creak_tail', 'preasp_ms', 'voice_in_ms', 'voice_out_ms'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
         if v is not None:
             s['%s' % k] = round(v, 2)
@@ -648,7 +688,7 @@ def contrast_ok(measure, mine, theirs, sign, same_base=False):
     if mine is None or theirs is None:
         return False, None
     d = mine - theirs
-    if measure == 'voiced_frac':
+    if measure == 'voiced_frac' or measure[:7] in ('voiced_', 'creak_h', 'creak_m', 'creak_t'):
         # a share of the frames: a fifth of the sound voiced or not is the least that counts
         return (d * sign >= 0.2), round(d, 2)
     if measure == 'voicing_slope':
@@ -755,6 +795,22 @@ def check_shift(t, sid, cases):
         sp = summary({c: v for c, v in cases.items() if c.startswith(base + '_plain_')}, man)
         sm = summary({c: v for c, v in cases.items() if c.startswith(base + '_marked_')}, man)
         per[base] = dict(plain=sp, marked=sm)
+        # Q24: the mark against its base context by context, so that the context's variation
+        # cancels: one summary a context, plain and marked, and their difference
+        ctx = sorted(c[len(base + '_plain_'):] for c in cases if c.startswith(base + '_plain_')
+                     and base + '_marked_' + c[len(base + '_plain_'):] in cases)
+        pair = {x: (summary({x: cases[base + '_plain_' + x]}, man), summary({x: cases[base + '_marked_' + x]}, man))
+                for x in ctx}
+
+        def paired_median(m, sp=sp, sm=sm, pair=pair, ctx=ctx):
+            """(the differences, the plain median moved by their median), or (None, the marked
+            median) where fewer than two contexts have the measure on both, as before Q24."""
+            diffs = sorted(pair[x][1][m] - pair[x][0][m] for x in ctx
+                           if pair[x][0].get(m) is not None and pair[x][1].get(m) is not None)
+            if len(diffs) < 2 or sp.get(m) is None:
+                return None, sm.get(m)
+            n = len(diffs)
+            return diffs, sp[m] + (diffs[n // 2] if n % 2 else (diffs[n // 2 - 1] + diffs[n // 2]) / 2.0)
         checked = 0
         for sh in tests.get('shift', []):
             m = sh['measure']
@@ -765,12 +821,27 @@ def check_shift(t, sid, cases):
                 # starts at its own ratios (D64, `ant'), a mark on the vowel reaches them no more,
                 # and its middle (F2_50_hz) is what moves
                 continue
-            ok, d = contrast_ok(m, sm.get(m), sp.get(m), sh['sign'], same_base=True) if m != 'burst_found' else (
-                (sm.get(m) is not None and sp.get(m) is not None and (sm[m] - sp[m]) * sh['sign'] >= 1),
-                None if sm.get(m) is None or sp.get(m) is None else sm[m] - sp[m])
+            diffs, mine = paired_median(m)
+            paired = diffs is not None
+            ok, d = contrast_ok(m, mine, sp.get(m), sh['sign'], same_base=True) if m != 'burst_found' else (
+                (mine is not None and sp.get(m) is not None and (mine - sp[m]) * sh['sign'] >= 1),
+                None if mine is None or sp.get(m) is None else mine - sp[m])
             targets['%s %s' % (t.sounds[base]['ipa'], m)] = dict(target='%+d' % sh['sign'], measured=d, within=ok,
-                                                               plain=sp.get(m), marked=sm.get(m))
+                                                               plain=sp.get(m), marked=sm.get(m),
+                                                               paired=[round(x, 3) for x in diffs] if paired else None)
             checked += 1
+            ok_all &= ok
+        for m in tests.get('steady', []):
+            # the other edge of the sound as it was (a voicing mark at one end, D70): the paired
+            # difference under the contrast minimum
+            diffs, mine = paired_median(m)
+            d = None if mine is None or sp.get(m) is None else mine - sp[m]
+            need = 0.2 if m.startswith(('voiced_', 'creak_')) else CONTRAST_MIN['ms'] if m.endswith('_ms') else \
+                CONTRAST_MIN['db'] if m.endswith('_db') else CONTRAST_MIN['hz_rel'] * abs(sp.get(m) or 0)
+            ok = d is not None and abs(d) < need
+            targets['%s %s steady' % (t.sounds[base]['ipa'], m)] = dict(
+                target='within %s' % need, measured=None if d is None else round(d, 2), within=ok, plain=sp.get(m),
+                marked=sm.get(m), paired=[round(x, 3) for x in diffs] if diffs else None)
             ok_all &= ok
         for lim in tests.get('limit', []):
             got = sm.get(lim['measure'])

@@ -757,7 +757,7 @@ tier = "B"
 chart = "extIPA / consonants (non-IPA)"
 kind = "composite"
 parts = ["U+006E", "U+032A", "B:U+0346"]
-state = "MISSING"
+state = "composed"
 level = 2
 approximate = true
 deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
@@ -891,7 +891,7 @@ tier = "B"
 chart = "extIPA / consonants (non-IPA)"
 kind = "composite"
 parts = ["U+026C", "U+032A", "B:U+0346"]
-state = "MISSING"
+state = "composed"
 level = 2
 approximate = true
 deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
@@ -1074,7 +1074,7 @@ tier = "B"
 chart = "extIPA / consonants (non-IPA)"
 kind = "composite"
 parts = ["U+006D", "B:U+0347"]
-state = "MISSING"
+state = "composed"
 level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
@@ -1454,3 +1454,357 @@ bases = ["U+014B"]
 shift = [{ measure = "hf_db", sign = 1 }]
 judged_by = "B:U+034B"
 proof = "ipa/proofs/B_U+014B+U+034B.json"
+
+# The extIPA voicing marks (D70): partial (de)voicing, displaced voicing, a creaky offglide, pre-aspiration, unaspirated and long aspiration
+
+[sound."B:U+02EC#pre"]
+ipa = "ˬ"
+codepoints = ["U+02EC"]
+name = "pre-voicing: voicing begins before the sound (ˬz)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+edit = { consonant = { voicing = "voiced", voicing_part = "before" } }
+placement = "before"
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA's pre-voicing is voice begun before the sound (in the silence or the voiceless sound before it); this engine voices a stretch of the sound it is told of, so it is said as voice over the sound's first half (on a stop, the closure's first half voiced), as ◌̬᫃ is: between vowels, where the sound beside it is voiced already, the two differ only in where the boundary is put (D70)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+02EC#pre".spec]
+
+[sound."B:U+02EC#pre".transform.consonant]
+voicing = { voiced = { set = 1, tag = "derived", rule = "the mark itself: voice on" }, part_to_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+02EC#pre".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+0073", "U+0066"]
+shift = [{ measure = "voice_in_ms", sign = 1 }]
+steady = ["voice_out_ms"]
+proof = "ipa/proofs/B_U+02EC#pre.json"
+
+[sound."B:U+02EC#post"]
+ipa = "ˬ"
+codepoints = ["U+02EC"]
+name = "post-voicing: voicing continues after the sound (zˬ)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+edit = { consonant = { voicing = "voiced", voicing_part = "after" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA's post-voicing is voice going on after the sound (in the silence or the voiceless sound after it); this engine voices a stretch of the sound it is told of, so it is said as voice over the sound's last half (on a stop, the closure's last half voiced), as ◌̬᫄ is: between vowels, where the sound beside it is voiced already, the two differ only in where the boundary is put (D70)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+02EC#post".spec]
+
+[sound."B:U+02EC#post".transform.consonant]
+voicing = { voiced = { set = 1, tag = "derived", rule = "the mark itself: voice on" }, part_from_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+02EC#post".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+0073", "U+0066"]
+shift = [{ measure = "voice_out_ms", sign = 1 }]
+steady = ["voice_in_ms"]
+proof = "ipa/proofs/B_U+02EC#post.json"
+
+[sound."B:U+02F7"]
+ipa = "˷"
+codepoints = ["U+02F7"]
+name = "post-creak: the sound ends in creaky voice (a creaky offglide, a˷)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+edit = { consonant = { voicing = "creaky", voicing_part = "final" }, vowel = { voicing = "creaky", voicing_part = "final" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+02F7".spec]
+
+[sound."B:U+02F7".transform.vowel]
+phonation = { creaky_pct = { set = 60, tag = "derived", rule = "creaky voice at the strength of the creaky mark ̰ (U+0330, whose value it is); no size found" } }
+voicing = { part_from_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+02F7".transform.consonant]
+phonation = { creaky_pct = { set = 60, tag = "derived", rule = "creaky voice at the strength of the creaky mark ̰ (U+0330, whose value it is); no size found" } }
+voicing = { part_from_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+02F7".tests]
+checks = ["T-phonation"]
+bases = ["U+0061", "U+0069", "U+006D"]
+shift = [{ measure = "creak_tail", sign = 1 }]
+limit = [{ measure = "creak_head", max = 0.5 }]
+proof = "ipa/proofs/B_U+02F7.json"
+
+[sound."B:U+0325+U+1ABD"]
+ipa = "̥᪽"
+codepoints = ["U+0325", "U+1ABD"]
+name = "partial (central) devoicing: the sound devoiced in its middle"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+after_mark = "U+0325"
+edit = { consonant = { voicing = "voiceless", voicing_part = "central" }, vowel = { voicing = "voiceless", voicing_part = "central" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the length ̥ gives a wholly voiceless sonorant (hold x 1.31, bombien) is kept, since the parenthesis composes after ̥ and has no length of its own; a partly devoiced sound is not known to be longer. And on a short l the part made voiceless is small: ̥ takes a sonorant's voice out by its breath (`whisper`), which comes in and goes out over 15 ms at the part's edges, so of l's middle third a quarter is voiceless (n's and a's nine tenths) (D70)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+0325+U+1ABD".spec]
+
+[sound."B:U+0325+U+1ABD".transform.consonant]
+voicing = { part_from_pct = { set = 25, tag = "estimated", note = "the middle half of the sound (25 to 75 per cent): extIPA's ₍◌₎ is partial, or central; no measurement of its share was found (D70)" }, part_to_pct = { set = 75, tag = "estimated", note = "the middle half of the sound (25 to 75 per cent): extIPA's ₍◌₎ is partial, or central; no measurement of its share was found (D70)" } }
+
+[sound."B:U+0325+U+1ABD".transform.vowel]
+voicing = { part_from_pct = { set = 25, tag = "estimated", note = "the middle half of the sound (25 to 75 per cent): extIPA's ₍◌₎ is partial, or central; no measurement of its share was found (D70)" }, part_to_pct = { set = 75, tag = "estimated", note = "the middle half of the sound (25 to 75 per cent): extIPA's ₍◌₎ is partial, or central; no measurement of its share was found (D70)" } }
+
+[sound."B:U+0325+U+1ABD".tests]
+checks = ["T-shift"]
+bases = ["U+006E", "U+006C", "U+0061"]
+shift = [{ measure = "voiced_mid", sign = -1 }]
+limit = [{ measure = "voiced_head", min = 0.5 }, { measure = "voiced_tail", min = 0.5 }]
+proof = "ipa/proofs/B_U+0325+U+1ABD.json"
+
+[sound."B:U+0325+U+1AC3"]
+ipa = "̥᫃"
+codepoints = ["U+0325", "U+1AC3"]
+name = "initial partial devoicing: the sound devoiced at its start"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+after_mark = "U+0325"
+edit = { consonant = { voicing = "voiceless", voicing_part = "initial" }, vowel = { voicing = "voiceless", voicing_part = "initial" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the length ̥ gives a wholly voiceless sonorant (hold x 1.31, bombien) is kept, since the parenthesis composes after ̥ and has no length of its own; a partly devoiced sound is not known to be longer. And on a short l the part made voiceless is small: ̥ takes a sonorant's voice out by its breath (`whisper`), which comes in and goes out over 15 ms at the part's edges, so of l's middle third a quarter is voiceless (n's and a's nine tenths) (D70)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+0325+U+1AC3".spec]
+
+[sound."B:U+0325+U+1AC3".transform.consonant]
+voicing = { part_to_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+0325+U+1AC3".transform.vowel]
+voicing = { part_to_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+0325+U+1AC3".tests]
+checks = ["T-shift"]
+bases = ["U+006E", "U+006C", "U+0061"]
+shift = [{ measure = "voiced_head", sign = -1 }]
+limit = [{ measure = "voiced_tail", min = 0.5 }]
+proof = "ipa/proofs/B_U+0325+U+1AC3.json"
+
+[sound."B:U+0325+U+1AC4"]
+ipa = "̥᫄"
+codepoints = ["U+0325", "U+1AC4"]
+name = "final partial devoicing: the sound devoiced at its end"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+after_mark = "U+0325"
+edit = { consonant = { voicing = "voiceless", voicing_part = "final" }, vowel = { voicing = "voiceless", voicing_part = "final" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the length ̥ gives a wholly voiceless sonorant (hold x 1.31, bombien) is kept, since the parenthesis composes after ̥ and has no length of its own; a partly devoiced sound is not known to be longer. And on a short l the part made voiceless is small: ̥ takes a sonorant's voice out by its breath (`whisper`), which comes in and goes out over 15 ms at the part's edges, so of l's middle third a quarter is voiceless (n's and a's nine tenths) (D70)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+0325+U+1AC4".spec]
+
+[sound."B:U+0325+U+1AC4".transform.consonant]
+voicing = { part_from_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+0325+U+1AC4".transform.vowel]
+voicing = { part_from_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+0325+U+1AC4".tests]
+checks = ["T-shift"]
+bases = ["U+006E", "U+006C", "U+0061"]
+shift = [{ measure = "voiced_tail", sign = -1 }]
+limit = [{ measure = "voiced_head", min = 0.5 }]
+proof = "ipa/proofs/B_U+0325+U+1AC4.json"
+
+[sound."B:U+032C+U+1ABD"]
+ipa = "̬᪽"
+codepoints = ["U+032C", "U+1ABD"]
+name = "partial (central) voicing: the sound voiced in its middle"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+after_mark = "U+032C"
+edit = { consonant = { voicing = "voiced", voicing_part = "central" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+032C+U+1ABD".spec]
+
+[sound."B:U+032C+U+1ABD".transform.consonant]
+voicing = { part_from_pct = { set = 25, tag = "estimated", note = "the middle half of the sound (25 to 75 per cent): extIPA's ₍◌₎ is partial, or central; no measurement of its share was found (D70)" }, part_to_pct = { set = 75, tag = "estimated", note = "the middle half of the sound (25 to 75 per cent): extIPA's ₍◌₎ is partial, or central; no measurement of its share was found (D70)" } }
+
+[sound."B:U+032C+U+1ABD".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+0073", "U+0066"]
+shift = [{ measure = "voiced_mid", sign = 1 }]
+steady = ["voice_out_ms"]
+proof = "ipa/proofs/B_U+032C+U+1ABD.json"
+
+[sound."B:U+032C+U+1AC3"]
+ipa = "̬᫃"
+codepoints = ["U+032C", "U+1AC3"]
+name = "initial partial voicing: the sound voiced at its start"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+after_mark = "U+032C"
+edit = { consonant = { voicing = "voiced", voicing_part = "initial" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+032C+U+1AC3".spec]
+
+[sound."B:U+032C+U+1AC3".transform.consonant]
+voicing = { part_to_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+032C+U+1AC3".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+0073", "U+0066"]
+shift = [{ measure = "voice_in_ms", sign = 1 }]
+steady = ["voice_out_ms"]
+proof = "ipa/proofs/B_U+032C+U+1AC3.json"
+
+[sound."B:U+032C+U+1AC4"]
+ipa = "̬᫄"
+codepoints = ["U+032C", "U+1AC4"]
+name = "final partial voicing: the sound voiced at its end"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+after_mark = "U+032C"
+edit = { consonant = { voicing = "voiced", voicing_part = "final" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+032C+U+1AC4".spec]
+
+[sound."B:U+032C+U+1AC4".transform.consonant]
+voicing = { part_from_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+
+[sound."B:U+032C+U+1AC4".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+0073", "U+0066"]
+shift = [{ measure = "voice_out_ms", sign = 1 }]
+steady = ["voice_in_ms"]
+proof = "ipa/proofs/B_U+032C+U+1AC4.json"
+
+[sound."B:U+02B0#pre"]
+ipa = "ʰ"
+codepoints = ["U+02B0"]
+name = "pre-aspiration: breath before the sound (ʰp)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+edit = { consonant = { aspiration = "before" } }
+placement = "before"
+state = "composed"
+level = 2
+approximate = true
+deviation = "said on a stop only: the layer's breath before a closure (`pre`) needs a closure to come before; on a fricative, a nasal or an approximant the mark is composed and changes nothing. And shorter than asked: 98 ms is asked, 20 to 40 ms is made (p 30, t 40, k 20, the median between vowels), since the layer's breath reaches back only over the frames the module gives the stop before its closure, not into the vowel before (Q27) (D70)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+02B0#pre".spec]
+
+[sound."B:U+02B0#pre".transform.consonant]
+release = { preaspiration_ms = { set = 98, tag = "derived", ref = "rogers1995", rule = "the mean of two speakers' means: rogers1995 Table 1, Scots Gaelic medial fortis stops at a fast rate, the two speakers' means 94 and 102 ms (read slowly: 171 and 148); the fast rate is nearer this engine's" } }
+
+[sound."B:U+02B0#pre".tests]
+checks = ["T-shift"]
+bases = ["U+0070", "U+0074", "U+006B"]
+shift = [{ measure = "preasp_ms", sign = 1 }]
+proof = "ipa/proofs/B_U+02B0#pre.json"
+
+[sound."B:U+02ED"]
+ipa = "˭"
+codepoints = ["U+02ED"]
+name = "unaspirated: no aspiration after the release (p˭)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+edit = { consonant = { aspiration = "none" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "one onset time at every place, t's 15 ms: the source gives an unaspirated p 9 ms and k 29 ms, so ˭ on k shortens it below an unaspirated k and on a letter whose own onset is shorter (this template's t, 6 ms after its trim) lengthens it (D70)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+02ED".spec]
+
+[sound."B:U+02ED".transform.consonant]
+vot_ms = { set = 15, tag = "derived", rule = "the table's plain t: the median of the seven unaspirated /t/ means in Cho and Ladefoged (1997) Table 1; one value for every place (their p 9, k 29)" }
+
+[sound."B:U+02ED".tests]
+checks = ["T-shift"]
+bases = ["U+0070", "U+0074", "U+006B"]
+plain_form = "{}ʰ"
+marked_form = "{}ʰ˭"
+shift = [{ measure = "vot_long_ms", sign = -1 }]
+proof = "ipa/proofs/B_U+02ED.json"
+
+[sound."B:U+02B0+U+02B0"]
+ipa = "ʰʰ"
+codepoints = ["U+02B0", "U+02B0"]
+name = "long aspiration: a longer aspiration than usual (pʰʰ)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / voicing"
+kind = "modifier"
+after_mark = "U+02B0"
+edit = { consonant = { aspiration = "long-after" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["vfrom/vto, premod (D70)"] }
+
+[sound."B:U+02B0+U+02B0".spec]
+
+[sound."B:U+02B0+U+02B0".transform.consonant]
+vot_ms = { add = 63.5, tag = "derived", rule = "ʰ's own (Cho and Ladefoged 1997), once more: two ʰ add twice its length; no measurement of extIPA's long aspiration was found" }
+
+[sound."B:U+02B0+U+02B0".tests]
+checks = ["T-shift"]
+bases = ["U+0070", "U+0074", "U+006B"]
+plain_form = "{}ʰ"
+shift = [{ measure = "vot_long_ms", sign = 1 }]
+proof = "ipa/proofs/B_U+02B0+U+02B0.json"

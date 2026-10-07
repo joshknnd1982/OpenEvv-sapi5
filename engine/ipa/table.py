@@ -31,7 +31,7 @@ TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximat
 FIELDS = {'ipa', 'codepoints', 'name', 'section', 'tier', 'kind', 'features', 'edit', 'levels', 'register',
           'slope', 'stress', 'boundary', 'placement', 'equivalent_to', 'state', 'level', 'approximate',
           'deviation', 'plan', 'spec', 'transform', 'realization', 'tests', 'history', 'registry',
-          'chart', 'parts', 'said_as'}
+          'chart', 'parts', 'said_as', 'after_mark'}
 VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation', 'key', 'part'}
 # a modifier's transform of a value (DESIGN.md 2.2): scale it, or add to it
 TRANSFORM_OPS = {'scale', 'add', 'set', 'toward'}
@@ -199,6 +199,34 @@ def validate(t):
             edit = e.get('edit') or {}
             if not edit:
                 problems.append('%s: a modifier with no class of base' % sid)
+            if e.get('after_mark'):
+                # a mark of two characters, a Tier A mark and one more (extIPA's ◌̥᪽, ◌ʰʰ: Tier B);
+                # its transform is the second character's alone, the first's is its own entry's
+                am = t.sounds.get(e['after_mark']) or {}
+                if e.get('tier') != 'B' or am.get('tier') != 'A' or am.get('kind') != 'modifier' \
+                        or cps[:-1] != am.get('codepoints') or len(cps) != len(am.get('codepoints') or []) + 1:
+                    problems.append('%s: after_mark %s is not a Tier A mark this one begins with' % (sid, e['after_mark']))
+                # its second character is written as that character's line: where the character is
+                # a Tier A mark of its own (ʰ in ◌ʰʰ), the line is that mark's, so the transform must be
+                last = [x for x in t.sounds.values() if x.get('tier') == 'A' and x.get('kind') == 'modifier'
+                        and x.get('codepoints') == cps[-1:]]
+                def ops(tr):
+                    return {c: sorted((k, sorted((o, v[o]) for o in TRANSFORM_OPS if o in v) if isinstance(v, dict) else v)
+                                      for k, v in _flat_values(x)) for c, x in (tr or {}).items()}
+                if last and ops(last[0].get('transform')) != ops(e.get('transform')):
+                    problems.append('%s: its last character is %s, whose line it shares: the same transform' % (
+                        sid, last[0]['ipa']))
+            for cls, tr in (e.get('transform') or {}).items():
+                part = tr.get('voicing') or {}
+                lo, hi = (part.get('part_from_pct') or {}).get('set', 0), (part.get('part_to_pct') or {}).get('set', 100)
+                if not 0 <= lo < hi <= 100:
+                    problems.append('%s: the part of the sound for %s is %s to %s per cent' % (sid, cls, lo, hi))
+            if e.get('placement') == 'before' and any(
+                    x is not e and x.get('kind') == 'modifier' and x.get('placement') == 'before'
+                    and x.get('ipa') == e.get('ipa') for x in t.sounds.values()):
+                problems.append('%s: two marks written before a letter as %s' % (sid, e.get('ipa')))
+            if e.get('placement') == 'before' and (e.get('tier') != 'B' or len(cps) != 1):
+                problems.append('%s: a mark written before its letter is a Tier B mark of one character' % sid)
             for cls, ed in edit.items():
                 if cls not in ('consonant', 'vowel'):
                     problems.append('%s: edit for class %r' % (sid, cls))
@@ -254,6 +282,15 @@ def validate(t):
                     for k, v in (add or {}).items():
                         _check_value(sid, 'double.%s.%s.%d.%s' % (tmpl, pair, n + 1, k), v, t, problems, estimated)
     return problems, estimated
+
+
+def _flat_values(tr, prefix=''):
+    """(path, value) of a transform's values, nested groups walked."""
+    for k, v in tr.items():
+        if isinstance(v, dict) and not (TRANSFORM_OPS & set(v)):
+            yield from _flat_values(v, prefix + k + '.')
+        else:
+            yield prefix + k, v
 
 
 def full_bundle(t, features):
@@ -312,6 +349,14 @@ def _plants(t):
         ('a Tier B id that is not its points', setv('B:U+A78E', ['codepoints'], ['U+A78F'])),
         ('a composite judged by no mark of its', setv('B:U+0074+U+033C', ['tests', 'judged_by'], 'U+032A')),
         ('a composite with values of its own', setv('B:U+0074+U+033C', ['spec'], {'vot_ms': {'v': 9, 'tag': 'estimated'}})),
+        # D70: a two-character mark that does not begin with its after_mark; ◌ʰʰ's line, ʰ's own,
+        # with another value; a part of the sound that ends before it starts; two pre-marks as one
+        ('an after_mark it does not begin with', setv('B:U+0325+U+1ABD', ['after_mark'], 'U+032C')),
+        ('a last character\'s line with another value', setv('B:U+02B0+U+02B0', ['transform', 'consonant', 'vot_ms'],
+                                                             {'add': 80, 'tag': 'estimated'})),
+        ('a part that ends before it starts', setv('B:U+0325+U+1ABD', ['transform', 'consonant', 'voicing',
+                                                                        'part_to_pct'], {'set': 20, 'tag': 'estimated'})),
+        ('two marks before a letter spelt alike', setv('B:U+02EC#pre', ['ipa'], 'ʰ')),
     ]
 
 

@@ -523,8 +523,9 @@ const char *evv_map_ipa_tone(EvvMap *map, const int *levels, int n, int from, in
 	return map->tone_defs[map->n_tone_defs - 1].id;
 }
 
-/* `mod MARK c|v key*value key+value ...' */
-static int read_mod(EvvMap *map, char *rest)
+/* `mod MARK c|v key*value key+value ...'; `premod' the same, for a mark
+   written before its letter (extIPA's pre-aspiration ʰp, pre-voicing ˬz) */
+static int read_mod(EvvMap *map, char *rest, int pre)
 {
 	char *mark = next_word(&rest), *cls = next_word(&rest), *w;
 	if (!mark || !cls) {
@@ -543,6 +544,7 @@ static int read_mod(EvvMap *map, char *rest)
 	memset(m, 0, sizeof(*m));
 	copy_checked(m->mark, mark, sizeof(m->mark), "mark");
 	m->cls = cls[0];
+	m->pre = (char)pre;
 	while ((w = next_word(&rest)) != NULL) {
 		char *op = strpbrk(w, "*+=~");
 		if (!op || op == w || m->n >= EVV_MAX_OPS) {
@@ -778,8 +780,8 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			failed |= read_letter(map, rest);
 			continue;
 		}
-		if (strcmp(key, "mod") == 0) {
-			failed |= read_mod(map, rest);
+		if (strcmp(key, "mod") == 0 || strcmp(key, "premod") == 0) {
+			failed |= read_mod(map, rest, key[0] == 'p');
 			continue;
 		}
 		if (strcmp(key, "tonemark") == 0 || strcmp(key, "register") == 0 || strcmp(key, "slope") == 0) {
@@ -1044,12 +1046,28 @@ const EvvLetter *evv_map_letter(const EvvMap *map, const char *ch, size_t len)
 	return NULL;
 }
 
-static const EvvMod *find_mod(const EvvMap *map, const char *mark, size_t len, char cls)
+static const EvvMod *find_mod_of(const EvvMap *map, const char *mark, size_t len, char cls, int pre)
 {
 	for (int i = 0; i < map->n_mods; i++)
-		if (map->mods[i].cls == cls && strlen(map->mods[i].mark) == len && memcmp(map->mods[i].mark, mark, len) == 0)
+		if (map->mods[i].pre == pre && (cls == 0 || map->mods[i].cls == cls) && strlen(map->mods[i].mark) == len &&
+		    memcmp(map->mods[i].mark, mark, len) == 0)
 			return &map->mods[i];
 	return NULL;
+}
+
+static const EvvMod *find_mod(const EvvMap *map, const char *mark, size_t len, char cls)
+{
+	return find_mod_of(map, mark, len, cls, 0);
+}
+
+int evv_map_has_mod(const EvvMap *map, const char *mark, size_t len, char cls)
+{
+	return find_mod_of(map, mark, len, cls, 0) != NULL;
+}
+
+int evv_map_has_premod(const EvvMap *map, const char *mark, size_t len)
+{
+	return find_mod_of(map, mark, len, 0, 1) != NULL;
 }
 
 /* The nearest-letter cost of ipa/features.toml (engine/ipa/adapter.py's
@@ -1110,14 +1128,21 @@ static int sound_keys(const EvvMap *map, const char *id, char keys[][8], double 
    letter and its marks (the old way then takes it apart). */
 static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 {
-	int bl = utf8_len((unsigned char)ipa[0]);
-	const EvvLetter *letter = evv_map_letter(map, ipa, (size_t)bl);
+	/* marks written before the letter, each with a `premod' line, then the letter */
+	const char *lp = ipa;
+	while (*lp && !evv_map_letter(map, lp, (size_t)utf8_len((unsigned char)*lp)) &&
+	       evv_map_has_premod(map, lp, (size_t)utf8_len((unsigned char)*lp)))
+		lp += utf8_len((unsigned char)*lp);
+	if (!*lp)
+		return -1;
+	int bl = utf8_len((unsigned char)lp[0]);
+	const EvvLetter *letter = evv_map_letter(map, lp, (size_t)bl);
 	if (!letter)
 		return -1;
-	for (const char *p = ipa + bl; *p; p += utf8_len((unsigned char)*p))
+	for (const char *p = lp + bl; *p; p += utf8_len((unsigned char)*p))
 		if (evv_map_letter(map, p, (size_t)utf8_len((unsigned char)*p)))
 			return -1; /* two letters: an affricate or a sequence */
-	const EvvMapEntry *base = find(map, ipa, (size_t)bl);
+	const EvvMapEntry *base = find(map, lp, (size_t)bl);
 	if (!base) {
 		int best = -1, best_d = 0;
 		for (int i = 0; i < map->n_letters; i++) {
@@ -1131,7 +1156,7 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 		}
 		if (best < 0)
 			return -1;
-		evv_diag(EVV_DIAG_LOSS, "nearest-letter", "/%.*s/ has no line: said as /%s/, %d away by features", bl, ipa,
+		evv_diag(EVV_DIAG_LOSS, "nearest-letter", "/%.*s/ has no line: said as /%s/, %d away by features", bl, lp,
 		         map->letters[best].ipa, best_d);
 		base = find(map, map->letters[best].ipa, strlen(map->letters[best].ipa));
 	}
@@ -1145,12 +1170,17 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 			break;
 		}
 	int applied = 0;
-	for (const char *p = ipa + bl; *p;) {
+	for (const char *p = ipa; *p;) {
+		if (p == lp) {
+			p += bl; /* the letter itself */
+			continue;
+		}
 		int ml = utf8_len((unsigned char)*p);
-		const EvvMod *m = find_mod(map, p, (size_t)ml, letter->cls);
+		const EvvMod *m = find_mod_of(map, p, (size_t)ml, letter->cls, p < lp);
 		if (!m) {
-			evv_diag(EVV_DIAG_LOSS, "mark-left-off", "U+%04lX %.*s on /%s/: no mod line for a %s; left off",
-			         code_point((const unsigned char *)p, ml), ml, p, ipa, letter->cls == 'v' ? "vowel" : "consonant");
+			evv_diag(EVV_DIAG_LOSS, "mark-left-off", "U+%04lX %.*s on /%s/: no %smod line for a %s; left off",
+			         code_point((const unsigned char *)p, ml), ml, p, ipa, p < lp ? "pre" : "",
+			         letter->cls == 'v' ? "vowel" : "consonant");
 			p += ml;
 			continue;
 		}

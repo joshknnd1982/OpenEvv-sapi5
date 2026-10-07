@@ -899,9 +899,38 @@ static int translate_ipa(const char *given)
 		seg_len = l;
 		p += l;
 		chars++;
+		if (!letter && evv_map_has_premod(&g_map, s, (size_t)l)) {
+			/* marks written before a letter (extIPA's ʰp, ˬz: `premod' lines),
+			   then the letter they belong to */
+			while (*p && seg_len + 4 < (int)sizeof(seg)) {
+				int ml = utf8_char_len((unsigned char)*p);
+				const EvvLetter *lt = evv_map_letter(&g_map, p, (size_t)ml);
+				if (!lt && !evv_map_has_premod(&g_map, p, (size_t)ml))
+					break;
+				memcpy(seg + seg_len, p, (size_t)ml);
+				seg_len += ml;
+				p += ml;
+				chars++;
+				if (lt) {
+					letter = lt;
+					break;
+				}
+			}
+		}
 		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && *p != '.' && *p != '|') {
 			int ml = utf8_char_len((unsigned char)*p);
 			const EvvToneMark *m = evv_map_tonemark(&g_map, p, (size_t)ml);
+			if (letter && !tied && evv_map_has_premod(&g_map, p, (size_t)ml) &&
+			    !evv_map_has_mod(&g_map, p, (size_t)ml, letter->cls)) {
+				/* a mark this letter has no line for, written before the
+				   next letter: that letter's (aʰpa: a pre-aspirated p) */
+				const char *q = p;
+				while (*q && !evv_map_letter(&g_map, q, (size_t)utf8_char_len((unsigned char)*q)) &&
+				       evv_map_has_premod(&g_map, q, (size_t)utf8_char_len((unsigned char)*q)))
+					q += utf8_char_len((unsigned char)*q);
+				if (*q && evv_map_letter(&g_map, q, (size_t)utf8_char_len((unsigned char)*q)))
+					break;
+			}
 			if (tied && evv_map_letter(&g_map, p, (size_t)ml)) {
 				/* the letter after a tie bar belongs to this segment */
 				tied = 0;

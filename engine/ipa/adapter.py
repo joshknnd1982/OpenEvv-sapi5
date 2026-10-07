@@ -341,6 +341,11 @@ OPS.update({('nasal.open_pct', 'set'): ('nas', '='), ('phonation.breathy_pct', '
 OPS.update({('noise.level_db', 'set'): ('fric', '='), ('noise.flat_db', 'set'): ('ab', '=')})
 for _i in (2, 3, 4, 5, 6):
     OPS[('noise.F%d_db' % _i, 'set')] = ('a%d' % _i, '=')
+# the part of the sound a voicing or phonation mark is said over (extIPA's partial voicing and
+# devoicing, its displaced voicing and creaky offglide), in per cent of it; breath before a stop's
+# closure (its pre-aspiration); an onset time the sound takes whatever the base had (unaspirated)
+OPS.update({('voicing.part_from_pct', 'set'): ('vfrom', '='), ('voicing.part_to_pct', 'set'): ('vto', '='),
+            ('release.preaspiration_ms', 'set'): ('pre', '='), ('vot_ms', 'set'): ('vot', '=')})
 # a consonant's length is `hold', a vowel's `dur'
 CLASS_KEY = {('consonant', 'dur'): 'hold'}
 RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur', 'hold'}      # absent means the carrier's own: 100
@@ -354,13 +359,19 @@ def _flat(tr, prefix=''):
             yield prefix + k, v
 
 
-def mod_ops(t, mid, cls):
+def mod_ops(t, mid, cls, own=False):
     """[(key, op, value)] for one modifier and class, or None if it has no transform for it;
-    with what it could not express."""
+    with what it could not express. A mark of two characters (`after_mark', Tier B) is its first
+    mark's ops and then its own; `own' asks for its own alone (its map line, under its last
+    character)."""
     tr = ((t.sounds[mid].get('transform') or {}).get(cls))
     if tr is None:
         return None, []
     ops, lost = [], []
+    am = t.sounds[mid].get('after_mark')
+    if am and not own:
+        ops, lost = mod_ops(t, am, cls)
+        ops, lost = list(ops or []), list(lost)
     for path, v in _flat(tr):
         op = 'add' if 'add' in v else 'set' if 'set' in v else 'toward' if 'toward' in v else 'scale'
         if op == 'toward':
@@ -564,16 +575,35 @@ def write(t, template, quiet=False):
         import reader as RD
         f = RD.compose(t, t.sounds[e['parts'][0]]['features'], e['parts'][1:], lambda *_: None)
         lines.append(letter_line(t, e['parts'][0], template, features=f, ipa=e['ipa']))
-    for sid, e in sorted(t.sounds.items()):
+    written = {}
+    for sid, e in sorted(t.sounds.items(), key=lambda x: (x[1].get('tier') == 'B', x[0])):
         for cls in sorted((e.get('transform') or {})):
-            ops, lost = mod_ops(t, sid, cls)
+            ops, lost = mod_ops(t, sid, cls, own=True)
             for l in lost:
                 lines.append('#   not realised: %s %s' % (e['ipa'], l))
                 unrealised += 1
             if ops:
-                lines.append('mod %s %s %s    # %s' % (e['ipa'], cls[0], ' '.join(
-                    ('%s~%d:%d' % (k, v[0], v[1])) if op == '~' else '%s%s%d' % (k, op, int(round(v)))
-                    for k, op, v in ops), sid))
+                # a mark of two characters has its own line under its second (`after_mark'); a
+                # mark written before its letter a `premod' line (Tier B); one line a mark and class
+                kind = 'premod' if e.get('placement') == 'before' else 'mod'
+                mark = e['ipa'][-1] if e.get('after_mark') else e['ipa']
+                body = ' '.join(('%s~%d:%d' % (k, v[0], v[1])) if op == '~' else '%s%s%d' % (k, op, int(round(v)))
+                                for k, op, v in ops)
+                was = written.get((kind, mark, cls))
+                if was is not None:
+                    if was[0] != body:
+                        raise SystemExit('%s and %s ask for two %s lines for %s on a %s: %r, %r' % (
+                            was[1], sid, kind, mark, cls, was[0], body))
+                    continue
+                written[(kind, mark, cls)] = (body, sid)
+                lines.append('%s %s %s %s    # %s' % (kind, mark, cls[0], body, sid))
+    # a mark the reader takes as another (ipa/aliases.toml `always'): the same line under it, since
+    # the front-end composes by the character it is given (U+033E for U+034B, Q26)
+    import reader as RD
+    for alias, real in sorted(RD.ALWAYS.items()):
+        for (kind, mark, cls), (body, sid) in sorted(written.items()):
+            if mark == real and len(alias) == 1:
+                lines.append('%s %s %s %s    # %s, spelt %s' % (kind, alias, cls[0], body, sid, 'U+%04X' % ord(alias)))
     lines += pitch_lines(t)
     syl = ((t.sounds.get('U+0329') or {}).get('realization') or {}).get('openevv', {}).get('schwa_keys')
     if syl:

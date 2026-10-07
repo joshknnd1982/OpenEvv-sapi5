@@ -80,6 +80,7 @@ typedef struct {
 typedef struct {
 	char mark[16];
 	char cls;
+	char pre;                /* 1: a `premod' line, for a mark written before its letter */
 	int n;
 	EvvOp ops[EVV_MAX_OPS];
 } EvvMod;
@@ -171,6 +172,11 @@ const char *evv_map_ipa_tone(EvvMap *map, const int *levels, int n, int from, in
 /* Whether a character (UTF-8, one code point) is a chart letter the map
    lists, and which. */
 const EvvLetter *evv_map_letter(const EvvMap *map, const char *ch, size_t len);
+
+/* Whether the map has a `mod' line for a mark (one code point) on a letter of
+   class `cls' (c or v), and whether it has a `premod' line for it on any. */
+int evv_map_has_mod(const EvvMap *map, const char *mark, size_t len, char cls);
+int evv_map_has_premod(const EvvMap *map, const char *mark, size_t len);
 
 /* Reads a phonemes.map file. Returns 0, or -1 with a message in err. */
 int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen);

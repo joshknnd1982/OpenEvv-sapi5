@@ -37,7 +37,7 @@ ALWAYS, LOOSE = _aliases()
 # the order marks are composed in, whatever order they were typed in (DESIGN.md 2.2)
 ORDER = {'place': 0, 'place_shift': 0, 'tongue_part': 0, 'stricture_shift': 1, 'quality_shift': 2,
          'rounding_shift': 2, 'rhotic': 2, 'tongue_root': 2, 'secondary': 3, 'airstream': 4, 'voicing': 5,
-         'aspiration': 5, 'nasalized': 6, 'release': 6, 'length': 7, 'syllabic': 7}
+         'aspiration': 5, 'voicing_part': 5, 'nasalized': 6, 'release': 6, 'length': 7, 'syllabic': 7}
 
 
 class ReaderError(ValueError):
@@ -69,10 +69,16 @@ def _index(t):
     """symbol -> entry id, longest symbols first (tone-letter sequences are read letter by letter)."""
     out = {}
     for sid, e in t.sounds.items():
-        if (e['kind'] == 'tone' and len(e['ipa']) > 1) or e['kind'] == 'composite':
+        if (e['kind'] == 'tone' and len(e['ipa']) > 1) or e['kind'] == 'composite' or (
+                e['kind'] == 'modifier' and e.get('placement') == 'before'):
             continue
         out[e['ipa']] = sid
     return out
+
+
+def _pre_index(t):
+    """mark -> entry id, for the marks written before their letter (extIPA's ʰp, ˬz: Tier B)."""
+    return {e['ipa']: sid for sid, e in t.sounds.items() if e['kind'] == 'modifier' and e.get('placement') == 'before'}
 
 
 def compose(t, base_features, mods, warn):
@@ -112,6 +118,8 @@ def read(text, strict=True, t=None):
     """The reading: {'items': [...], 'warnings': [...], 'text': the normalized text}."""
     t = t or table()
     idx = _index(t)
+    pre_idx = _pre_index(t)
+    pre = []                # marks read before the letter they belong to
     s = normalize(text, strict)
     # a Tier B letter that stands for a Tier A spelling (ꞯ for q̠, D68) is read as that spelling;
     # every other Tier B composite is its own parts already
@@ -147,7 +155,27 @@ def read(text, strict=True, t=None):
                 items.append(dict(t='boundary', value='word', src=[i, j]))
             i = j
             continue
-        sid = idx.get(ch)
+        sid, n = idx.get(ch), 1
+        if i + 1 < len(s) and s[i:i + 2] in idx and t.sounds[idx[s[i:i + 2]]]['kind'] == 'modifier':
+            # a mark of two characters (extIPA's ◌̥᪽, ◌ʰʰ: Tier B) is one
+            sid, n = idx[s[i:i + 2]], 2
+        if n == 1 and ch in pre_idx:
+            # a mark written before a letter: it is the letter's when the letter before it (if
+            # any) has no meaning for it, and a letter follows (aʰpa: a pre-aspirated p), as in the
+            # front-end (frontend_main.c translate_ipa)
+            tg = last_segment()
+            if tg is not None and 'tied' in tg:
+                tg = tg['tied'][0]      # a tied pair: its first letter's class, as the front-end's
+            cls = t.sounds[tg['base']]['features']['class'] if tg is not None and 'base' in tg else None
+            j = i + 1
+            while j < len(s) and s[j] in pre_idx and not (idx.get(s[j]) and t.sounds[idx[s[j]]]['kind'] == 'base'):
+                j += 1
+            nxt = idx.get(s[j]) if j < len(s) else None
+            if (sid is None or tg is None or cls not in (t.sounds[sid].get('edit') or {})) \
+                    and nxt is not None and t.sounds[nxt]['kind'] == 'base':
+                pre.append((pre_idx[ch], i))
+                i += 1
+                continue
         if sid is None:
             cp = 'U+%04X' % ord(ch)
             fail('%s %s is not in the table (%s)' % (cp, ch, unicodedata.name(ch, 'no name')), i)
@@ -157,7 +185,8 @@ def read(text, strict=True, t=None):
         e = t.sounds[sid]
         kind = e['kind']
         if kind == 'base':
-            seg = dict(t='seg', base=sid, ipa=ch, mods=[], src=[i, i + 1])
+            seg = dict(t='seg', base=sid, ipa=ch, mods=[m for m, _ in pre], src=[pre[0][1] if pre else i, i + 1])
+            pre = []
             if tie_next is not None:
                 first = items.pop(tie_next)
                 items.append(dict(t='seg', tied=[first, seg], tie=first.pop('tie_mark'), src=[first['src'][0], i + 1]))
@@ -184,15 +213,15 @@ def read(text, strict=True, t=None):
         if kind == 'modifier' or (kind == 'tone' and e.get('placement') == 'over'):
             if target is None:
                 fail('%s (%s) has no letter to mark' % (e['ipa'], sid), i)
-                items.append(dict(t='ignored', id=sid, why='a mark with no letter before it', src=[i, i + 1]))
+                items.append(dict(t='ignored', id=sid, why='a mark with no letter before it', src=[i, i + n]))
             elif kind == 'tone':
                 target.setdefault('tone_ids', []).append(sid)
                 target['tone'] = list(e['levels'])
                 target['src'][1] = i + 1
             else:
                 target['mods'].append(sid)
-                target['src'][1] = i + 1
-            i += 1
+                target['src'][1] = i + n
+            i += n
             continue
         if kind == 'tone' and e.get('levels'):
             # tone letters: as many as follow one another are one contour
@@ -217,6 +246,9 @@ def read(text, strict=True, t=None):
         i += 1
     if tie_next is not None:
         fail('a tie bar at the end joins nothing', len(s))
+    for m, at in pre:
+        fail('%s (%s) has no letter after it' % (t.sounds[m]['ipa'], m), at)
+        items.append(dict(t='ignored', id=m, why='a mark with no letter after it', src=[at, at + 1]))
     # each segment's bundle, now that all its marks are known; a tied pair spans both letters
     # and every mark on them
     for it in items:
@@ -276,7 +308,8 @@ def test(n_random=20000, seed=1):
             base = ipa['ə'] if cls == 'vowel' else ipa['t' if sid != 'U+02BC' else 'p']
             if sid in ('U+0303', 'U+02DE', 'U+0339', 'U+031C', 'U+0308', 'U+033D'):
                 base = ipa['ɔ'] if sid in ('U+0339', 'U+031C') else ipa['e']
-            r = read(t.sounds[base]['ipa'] + e['ipa'], t=t)
+            r = read(e['ipa'] + t.sounds[base]['ipa'] if e.get('placement') == 'before'
+                     else t.sounds[base]['ipa'] + e['ipa'], t=t)
             segs = _segments(r)
             check(len(segs) == 1 and segs[0]['features'] == _expect(t, base, [sid]),
                   '%s on %s read as %s' % (sid, t.sounds[base]['ipa'], segs and segs[0].get('features')))
@@ -316,6 +349,21 @@ def test(n_random=20000, seed=1):
             continue
         a, b = read('n' + e['ipa'], t=t), read('n' + t.sounds[other]['ipa'], t=t)
         check(_segments(a)[0]['features'] == _segments(b)[0]['features'], '%s and %s read differently' % (sid, other))
+
+    # a mark written before a letter goes to it only when the letter before has no meaning for it
+    # (D70): aʰpa is a pre-aspirated p; tʰa and a tied t͡sʰa keep Tier A's aspiration
+    pre_sid = next((s_ for s_, e in t.sounds.items() if e['kind'] == 'modifier' and e['ipa'] == 'ʰ'
+                    and e.get('placement') == 'before'), None)
+    if pre_sid:
+        for x, want in (('aʰpa', pre_sid), ('tʰa', 'U+02B0'), ('t͡sʰa', 'U+02B0')):
+            got = [m for s_ in _segments(read(x, t=t)) for m in s_['mods']]
+            check(got == [want], '%s: ʰ read as %s' % (x, got))
+
+    # a mark spelt two ways (ipa/aliases.toml) reads alike on a letter (U+033E for U+034B, Q26)
+    for alias, real in ALWAYS.items():
+        if len(alias) == 1 and real in ipa and t.sounds[ipa[real]]['kind'] == 'modifier':
+            a, b = read('n' + alias, t=t), read('n' + real, t=t)
+            check(_segments(a)[0]['features'] == _segments(b)[0]['features'], '%s and %s read differently' % (alias, real))
 
     # 2. canonically equal input reads the same
     samples = ['ç', 'çʰ', 'é', 'ẽ', 'ȅ', 'ɑ̃ː', 'ŋ̊', 'ǹ', 'ŝ', 'ā˥', 'ˈt͡sʰa˧˥ ŋ̊ɐ̃ː', 'ɡ', 'ɛ̃̀', 'ü', 'ö̤']

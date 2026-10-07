@@ -373,9 +373,6 @@ letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false 
 letter 𝼂 c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter 𝼅 c place=6 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
 letter ꞯ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-mod ͆ c f2*94    # B:U+0346
-mod ͇ c f2*108    # B:U+0347
-mod ͋ c fric=60 a5=60 ab=60    # B:U+034B
 mod ʰ c vot+64    # U+02B0
 mod ʲ c f2*143    # U+02B2
 mod ʷ c f2*85    # U+02B7
@@ -426,6 +423,22 @@ mod ̻ c f2*108    # U+033B
 mod ̼ c f2*75    # U+033C
 mod ̽ v f1~467:50 f2~1454:50    # U+033D
 mod ⁿ c noburst=1    # U+207F
+premod ʰ c pre=98    # B:U+02B0#pre
+mod ˬ c voi=1 vfrom=50    # B:U+02EC#post
+premod ˬ c voi=1 vto=50    # B:U+02EC#pre
+mod ˭ c vot=15    # B:U+02ED
+mod ˷ c creak=60 vfrom=50    # B:U+02F7
+mod ˷ v creak=60 vfrom=50    # B:U+02F7
+mod ᪽ c vfrom=25 vto=75    # B:U+0325+U+1ABD
+mod ᪽ v vfrom=25 vto=75    # B:U+0325+U+1ABD
+mod ᫃ c vto=50    # B:U+0325+U+1AC3
+mod ᫃ v vto=50    # B:U+0325+U+1AC3
+mod ᫄ c vfrom=50    # B:U+0325+U+1AC4
+mod ᫄ v vfrom=50    # B:U+0325+U+1AC4
+mod ͆ c f2*94    # B:U+0346
+mod ͇ c f2*108    # B:U+0347
+mod ͋ c fric=60 a5=60 ab=60    # B:U+034B
+mod ̾ c fric=60 a5=60 ab=60    # B:U+034B, spelt U+033E
 
 # pitch typed in IPA (C2, C5): tone letters and marks, register steps, slopes; tenths of a Chao
 # level, a semitone being 4.44 of them (a range of 9 semitones)
