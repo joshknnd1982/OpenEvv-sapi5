@@ -10,7 +10,7 @@ saying what deviates; two letters with one feature bundle (unless the chart prin
 `equivalent_to`); a feature or value ipa/features.toml does not define; a modifier with no class
 of base; an entry without tests; an entry whose state is not MISSING without a proof that exists;
 an id that is not its code points, or code points that are not its IPA; a Tier B composite
-(D68) whose parts are not Tier A entries spelling it. It lists every `estimated` value: they are
+(D68) whose parts are not Tier A entries, Tier B letters or Tier B marks (D69) spelling it. It lists every `estimated` value: they are
 the queue for verification.
 """
 
@@ -179,8 +179,8 @@ def validate(t):
                 problems.append('%s: a composite is a Tier B entry with parts' % sid)
             for x in parts:
                 px = t.sounds.get(x) or {}
-                if px.get('tier') != 'A' and not (px.get('tier') == 'B' and px.get('kind') == 'base'):
-                    problems.append('%s: part %s is not a Tier A entry or a Tier B letter' % (sid, x))
+                if px.get('tier') != 'A' and not (px.get('tier') == 'B' and px.get('kind') in ('base', 'modifier')):
+                    problems.append('%s: part %s is not a Tier A entry or a Tier B letter or mark' % (sid, x))
             spelt = ''.join((t.sounds.get(x) or {}).get('ipa', '?') for x in parts)
             if spelt != (e.get('said_as') or e.get('ipa')):
                 problems.append('%s: its parts spell %r, not %r' % (sid, spelt, e.get('said_as') or e.get('ipa')))

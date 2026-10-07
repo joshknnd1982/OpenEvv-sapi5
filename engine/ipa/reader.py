@@ -170,7 +170,9 @@ def read(text, strict=True, t=None):
         if target is not None and 'tied' in target:
             target = target['tied'][1]
         if kind == 'tie':
-            if target is None or i + 1 >= len(s) or idx.get(s[i + 1]) is None or t.sounds[idx[s[i + 1]]]['kind'] != 'base':
+            # a tie joins two letters: one after a pair already tied joins nothing more (D69)
+            if target is None or target not in items or i + 1 >= len(s) or idx.get(s[i + 1]) is None \
+                    or t.sounds[idx[s[i + 1]]]['kind'] != 'base':
                 fail('the tie bar %s joins nothing' % e['ipa'], i)
                 items.append(dict(t='ignored', id=sid, why='a tie bar with no letter on one side', src=[i, i + 1]))
             else:

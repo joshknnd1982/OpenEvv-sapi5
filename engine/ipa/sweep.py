@@ -26,6 +26,7 @@ is left as it was. Nothing else in the table is touched.
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import sys
@@ -159,7 +160,7 @@ def ph_is_schwa(ph):
     return ph['name'] == '@' and ph.get('sound') in (None, '-')
 
 
-def measure(r, p, case_id, man=None, layer=None):
+def measure(r, p, case_id, man=None, layer=None, base_man=None):
     """The case measured: the harness's per-phone measures, the target and its neighbours, and the
     measures of DESIGN.md 10.2 that the class needs."""
     m = G.measure_case(r, p.phone_module)
@@ -209,6 +210,17 @@ def measure(r, p, case_id, man=None, layer=None):
                 fs = A.formants(x, rate, (ph['start_ms'] + ph['end_ms']) / 2.0)
                 for i in range(3):
                     me['F%d_50_hz' % (i + 1)] = fs[i][0] if len(fs) > i else None
+    if tgt and (man or base_man) == 'nasal':
+        # the energy above 3 kHz against the murmur's below 1 kHz: noise in the nose (extIPA's
+        # nasal friction, D69) is aperiodic energy above 3 kHz (zajac2021); for a mark, on its
+        # base's manner (`base_man': a mark has no manner of its own, its other measures as before)
+        for ph in tgt:
+            a_, b_ = ph['start_ms'], ph['end_ms']
+            if b_ - a_ >= 20:
+                f_, p_ = A.spectrum(x, rate, a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_))
+                hi, lo = p_[f_ >= 3000.0].sum(), p_[f_ < 1000.0].sum()
+                if hi > 0 and lo > 0:
+                    ph.setdefault('meas', {})['hf_db'] = 10.0 * math.log10(hi / lo)
     if tgt and man == 'fricative':
         # the noise peak above the voice: a voiced fricative's own spectrum below 800 Hz is the
         # voice's (it read 601 Hz for every one); the literature's peaks are of the noise
@@ -373,7 +385,7 @@ def summary(cases, man):
 
     s = {}
     for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'F3_min_hz', 'peak_hz', 'centroid_hz', 'vot_ms', 'closure_ms',
-              'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz'):
+              'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz', 'hf_db'):
         v = vals(tmeas(k))
         if v is not None:
             s[k] = round(v, 1)
@@ -826,7 +838,8 @@ def say_entry(t, sid, template, pack):
     cases = {}
     for (cid, text, out, d), r_ in zip(inputs, rend):
         diags += r_['diag'][len(d):] if r_['diag'][:len(d)] == d else r_['diag']
-        c = measure(r_, p, cid, man_of(t, e), layer)
+        bm_ = t.sounds.get(cid.split('_')[0]) if e['kind'] == 'modifier' else None
+        c = measure(r_, p, cid, man_of(t, e), layer, base_man=manner(bm_) if bm_ and bm_['kind'] == 'base' else None)
         c.update(ipa=text, said=out, diag=r_['diag'], fe_diag=d, wav_sha256=r_['wav_sha256'])
         x_, rate_ = E.read_wav(r_['wav'])
         c['clipped'], c['near_full_scale'] = clipped(x_)

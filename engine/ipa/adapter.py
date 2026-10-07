@@ -336,6 +336,11 @@ OPS.update({('nasal.open_pct', 'set'): ('nas', '='), ('phonation.breathy_pct', '
             ('release.burst_ms', 'set'): ('burstms', '='), ('release.burst_gain_db', 'set'): ('bgain', '='),
             ('release.implosive', 'set'): ('impl', '='), ('breath.whisper_db', 'set'): ('whisper', '='),
             ('trill.rate_hz', 'set'): ('trate', '='), ('tap.closures', 'set'): ('tap', '=')})
+# noise added with the voice kept (D69: extIPA's nasal friction): its level, and its level on each
+# resonance of the parallel branch (F2 to F6) and on the flat bypass, in this engine's dB
+OPS.update({('noise.level_db', 'set'): ('fric', '='), ('noise.flat_db', 'set'): ('ab', '=')})
+for _i in (2, 3, 4, 5, 6):
+    OPS[('noise.F%d_db' % _i, 'set')] = ('a%d' % _i, '=')
 # a consonant's length is `hold', a vowel's `dur'
 CLASS_KEY = {('consonant', 'dur'): 'hold'}
 RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur', 'hold'}      # absent means the carrier's own: 100

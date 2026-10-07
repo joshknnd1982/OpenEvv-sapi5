@@ -566,3 +566,891 @@ bases = ["B:U+1DF04"]
 shift = [{ measure = "voiced_frac", sign = 1 }]
 judged_by = "U+032C"
 proof = "ipa/proofs/B_U+1DF04+U+032C.json"
+
+# extIPA marks of its own (D69): a Tier B mark with a transform, and the spellings made on it
+[sound."B:U+0346"]
+ipa = "͆"
+codepoints = ["U+0346"]
+name = "bridge above: on a labial letter dentolabial; with the bridge below on a coronal, interdental; on h/ɦ with the bridge below, bidental"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA): marks used in the grid"
+kind = "modifier"
+edit = { consonant = { place_mark = "bridge-above" } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0346".spec]
+
+[sound."B:U+0346".transform.consonant]
+locus = { F2 = { scale = 0.94, tag = "estimated", note = "the teeth brought into a labial or a coronal closure lower the F2 locus as a labiodental does against a bilabial: massone1988 Table 1, [ɱ] 1817 against [m] 1941 Hz (two speakers), ratio 0.936; no measurement of a dentolabial or of interdental against dental was found (D69)" } }
+
+[sound."B:U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0070", "U+0066", "U+006D"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+proof = "ipa/proofs/B_U+0346.json"
+
+[sound."B:U+0070+U+0346"]
+ipa = "p͆"
+codepoints = ["U+0070", "U+0346"]
+name = "dentolabial plosive (voiceless plosive, upper lip against lower teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0070", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0070+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0070"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+0070+U+0346.json"
+
+[sound."B:U+0062+U+0346"]
+ipa = "b͆"
+codepoints = ["U+0062", "U+0346"]
+name = "dentolabial plosive (voiced plosive, upper lip against lower teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0062", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0062+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0062"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+0062+U+0346.json"
+
+[sound."B:U+0074+U+032A+U+0346"]
+ipa = "t̪͆"
+codepoints = ["U+0074", "U+032A", "U+0346"]
+name = "interdental plosive (voiceless plosive, tongue tip between the upper and lower teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0074", "U+032A", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0074+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0074"]
+plain = "t̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+0074+U+032A+U+0346.json"
+
+[sound."B:U+0064+U+032A+U+0346"]
+ipa = "d̪͆"
+codepoints = ["U+0064", "U+032A", "U+0346"]
+name = "interdental plosive (voiced plosive, tongue tip between the teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0064", "U+032A", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0064+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0064"]
+plain = "d̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+0064+U+032A+U+0346.json"
+
+[sound."B:U+006D+U+0325+U+0346"]
+ipa = "m̥͆"
+codepoints = ["U+006D", "U+0325", "U+0346"]
+name = "dentolabial nasal (voiceless nasal, upper lip against lower teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006D", "U+0325", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006D+U+0325+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+006D"]
+plain = "m̥"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+006D+U+0325+U+0346.json"
+
+[sound."B:U+006D+U+0346"]
+ipa = "m͆"
+codepoints = ["U+006D", "U+0346"]
+name = "dentolabial nasal (voiced nasal, upper lip against lower teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006D", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006D+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+006D"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+006D+U+0346.json"
+
+[sound."B:U+006E+U+032A+U+0325+U+0346"]
+ipa = "n̪̥͆"
+codepoints = ["U+006E", "U+032A", "U+0325", "U+0346"]
+name = "interdental nasal (voiceless nasal, tongue tip between the teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006E", "U+032A", "U+0325", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006E+U+032A+U+0325+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+006E"]
+plain = "n̪̥"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+006E+U+032A+U+0325+U+0346.json"
+
+[sound."B:U+006E+U+032A+U+0346"]
+ipa = "n̪͆"
+codepoints = ["U+006E", "U+032A", "U+0346"]
+name = "interdental nasal (voiced nasal, tongue tip between the teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006E", "U+032A", "B:U+0346"]
+state = "MISSING"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006E+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+006E"]
+plain = "n̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+006E+U+032A+U+0346.json"
+
+[sound."B:U+0072+U+032A+U+0346"]
+ipa = "r̪͆"
+codepoints = ["U+0072", "U+032A", "U+0346"]
+name = "interdental trill (tongue tip trilled between the teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0072", "U+032A", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0072+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0072"]
+plain = "r̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+0072+U+032A+U+0346.json"
+
+[sound."B:U+0066+U+0346"]
+ipa = "f͆"
+codepoints = ["U+0066", "U+0346"]
+name = "dentolabial fricative (voiceless fricative, upper lip against lower teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0066", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0066+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0066"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+0066+U+0346.json"
+
+[sound."B:U+0076+U+0346"]
+ipa = "v͆"
+codepoints = ["U+0076", "U+0346"]
+name = "dentolabial fricative (voiced)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0076", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0076+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0076"]
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+0076+U+0346.json"
+
+[sound."B:U+03B8+U+032A+U+0346"]
+ipa = "θ̪͆"
+codepoints = ["U+03B8", "U+032A", "U+0346"]
+name = "interdental fricative (voiceless non-sibilant fricative, tongue tip between the teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+03B8", "U+032A", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+03B8+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+03B8"]
+plain = "θ̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+03B8+U+032A+U+0346.json"
+
+[sound."B:U+00F0+U+032A+U+0346"]
+ipa = "ð̪͆"
+codepoints = ["U+00F0", "U+032A", "U+0346"]
+name = "interdental fricative (voiced)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+00F0", "U+032A", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+00F0+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+00F0"]
+plain = "ð̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+00F0+U+032A+U+0346.json"
+
+[sound."B:U+026C+U+032A+U+0346"]
+ipa = "ɬ̪͆"
+codepoints = ["U+026C", "U+032A", "U+0346"]
+name = "interdental lateral fricative (voiceless lateral fricative, tongue between the teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+026C", "U+032A", "B:U+0346"]
+state = "MISSING"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+026C+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+026C"]
+plain = "ɬ̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+026C+U+032A+U+0346.json"
+
+[sound."B:U+026E+U+032A+U+0346"]
+ipa = "ɮ̪͆"
+codepoints = ["U+026E", "U+032A", "U+0346"]
+name = "interdental lateral fricative (voiced)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+026E", "U+032A", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+026E+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+026E"]
+plain = "ɮ̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+026E+U+032A+U+0346.json"
+
+[sound."B:U+006C+U+032A+U+0346"]
+ipa = "l̪͆"
+codepoints = ["U+006C", "U+032A", "U+0346"]
+name = "interdental lateral approximant (lateral approximant with the tongue between the teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006C", "U+032A", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA defines it as interdental; it is said as the dental letter with the bridge's F2 lowering on top (0.93 x 0.94 of the alveolar locus), while the one measurement of interdental against alveolar found (figueroa2019, Mapudungun) is small and differs by manner: the stop's vowel onset 47 Hz higher, the lateral's 28 Hz lower, the nasal's no different (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006C+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+006C"]
+plain = "l̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+006C+U+032A+U+0346.json"
+
+[sound."B:U+0074+U+02B0+U+032A+U+0346"]
+ipa = "tʰ̪͆"
+codepoints = ["U+0074", "U+02B0", "U+032A", "U+0346"]
+name = "[t] with bidental aspiration (2021/2025); interdental aspiration (2015) (aspiration noise made at the teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0074", "U+02B0", "U+032A", "B:U+0346"]
+state = "MISSING"
+level = 2
+approximate = true
+deviation = "extIPA defines it as [t] with bidental aspiration (the breath made between the teeth); it is said as an aspirated dental t with the bridge's F2 lowering, the breath itself not moved (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0074+U+02B0+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["U+0074"]
+plain = "tʰ̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+proof = "ipa/proofs/B_U+0074+U+02B0+U+032A+U+0346.json"
+
+[sound."B:U+0347"]
+ipa = "͇"
+codepoints = ["U+0347"]
+name = "equals sign below: on a coronal letter, overtly alveolar; on a labial letter, labioalveolar"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA): marks used in the grid"
+kind = "modifier"
+edit = { consonant = { place_mark = "equals-below" } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "one transform for every consonant: on a labial (labioalveolar) and on a dental (θ, ð: overtly alveolar) it raises the F2 locus as meant; on a letter already alveolar (t͇, s͇), where it should change nothing, it raises it too (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0347".spec]
+
+[sound."B:U+0347".transform.consonant]
+locus = { F2 = { scale = 1.08, tag = "estimated", note = "towards the alveolar ridge: the inverse of the dental mark's lowering (U+032A, 0.93, itself estimated), 1.075, in the whole per cent the map holds (D69: at 1.075 the map said 108 and the adapter composed 107.5, which compose_test caught); no measurement of a labioalveolar or of an alveolar non-sibilant against a dental was found (D69)" } }
+
+[sound."B:U+0347".tests]
+checks = ["T-shift"]
+bases = ["U+0070", "U+0066", "U+03B8"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/B_U+0347.json"
+
+[sound."B:U+0070+U+0347"]
+ipa = "p͇"
+codepoints = ["U+0070", "U+0347"]
+name = "labioalveolar plosive (voiceless plosive, lower lip against the alveolar ridge (as with a severe overbite, class-2 occlusion))"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0070", "B:U+0347"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0070+U+0347".tests]
+checks = ["T-shift"]
+bases = ["U+0070"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "B:U+0347"
+proof = "ipa/proofs/B_U+0070+U+0347.json"
+
+[sound."B:U+0062+U+0347"]
+ipa = "b͇"
+codepoints = ["U+0062", "U+0347"]
+name = "labioalveolar plosive (voiced plosive, lower lip against the alveolar ridge)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0062", "B:U+0347"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0062+U+0347".tests]
+checks = ["T-shift"]
+bases = ["U+0062"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "B:U+0347"
+proof = "ipa/proofs/B_U+0062+U+0347.json"
+
+[sound."B:U+006D+U+0347+U+030A"]
+ipa = "m͇̊"
+codepoints = ["U+006D", "U+0347", "U+030A"]
+name = "labioalveolar nasal (voiceless nasal, lower lip against the alveolar ridge)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006D", "B:U+0347", "U+030A"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006D+U+0347+U+030A".tests]
+checks = ["T-shift"]
+bases = ["U+006D"]
+plain = "m̊"
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "B:U+0347"
+proof = "ipa/proofs/B_U+006D+U+0347+U+030A.json"
+
+[sound."B:U+006D+U+0347"]
+ipa = "m͇"
+codepoints = ["U+006D", "U+0347"]
+name = "labioalveolar nasal (voiced nasal, lower lip against the alveolar ridge)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006D", "B:U+0347"]
+state = "MISSING"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006D+U+0347".tests]
+checks = ["T-shift"]
+bases = ["U+006D"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "B:U+0347"
+proof = "ipa/proofs/B_U+006D+U+0347.json"
+
+[sound."B:U+0066+U+0347"]
+ipa = "f͇"
+codepoints = ["U+0066", "U+0347"]
+name = "labioalveolar fricative (voiceless fricative, lower lip against the alveolar ridge)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0066", "B:U+0347"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0066+U+0347".tests]
+checks = ["T-shift"]
+bases = ["U+0066"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "B:U+0347"
+proof = "ipa/proofs/B_U+0066+U+0347.json"
+
+[sound."B:U+0076+U+0347"]
+ipa = "v͇"
+codepoints = ["U+0076", "U+0347"]
+name = "labioalveolar fricative (voiced)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0076", "B:U+0347"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0076+U+0347".tests]
+checks = ["T-shift"]
+bases = ["U+0076"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "B:U+0347"
+proof = "ipa/proofs/B_U+0076+U+0347.json"
+
+[sound."B:U+03B8+U+0347"]
+ipa = "θ͇"
+codepoints = ["U+03B8", "U+0347"]
+name = "alveolar non-sibilant fricative (voiceless slit (ungrooved) fricative at the alveolar ridge)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+03B8", "B:U+0347"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+03B8+U+0347".tests]
+checks = ["T-shift"]
+bases = ["U+03B8"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "B:U+0347"
+proof = "ipa/proofs/B_U+03B8+U+0347.json"
+
+[sound."B:U+00F0+U+0347"]
+ipa = "ð͇"
+codepoints = ["U+00F0", "U+0347"]
+name = "alveolar non-sibilant fricative (voiced slit fricative at the alveolar ridge)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+00F0", "B:U+0347"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+00F0+U+0347".tests]
+checks = ["T-shift"]
+bases = ["U+00F0"]
+shift = [{ measure = "edge_F2", sign = 1 }]
+judged_by = "B:U+0347"
+proof = "ipa/proofs/B_U+00F0+U+0347.json"
+
+[sound."B:U+034B"]
+ipa = "͋"
+codepoints = ["U+034B"]
+name = "fricative nasal escape (on an oral letter); nareal fricative (on a nasal letter)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { nasal_friction = true } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "one transform for every consonant: on a nasal letter (the nareal fricative, its tests' bases) it adds noise high in the spectrum as meant; on an oral letter (extIPA's nasal escape) it adds the same noise without opening the nose, and on a stop it puts that noise in the closure (D69)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+034B".spec]
+
+[sound."B:U+034B".transform.consonant]
+noise = { level_db = { set = 60, tag = "estimated", note = "noise at a fricative's level in this engine (f 58, v 60); no level against the murmur was found (D69)" }, F5_db = { set = 60, tag = "estimated", note = "round 2 (D69): at 50, n's own high band (its murmur 12 dB stronger there than m's) hid it, +1.7 dB; the noise high: aperiodic energy above 3 kHz, most intense above 5 kHz (zajac2021); F5 is this voice's highest resonance below 5.5 kHz" }, flat_db = { set = 60, tag = "estimated", note = "round 2, as F5_db; f's own flat path is at 60. The flat path, for energy up to the top of the band (zajac2021: above 5 kHz)" } }
+
+[sound."B:U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+006D", "U+006E", "U+014B"]
+shift = [{ measure = "hf_db", sign = 1 }]
+proof = "ipa/proofs/B_U+034B.json"
+
+[sound."B:U+006D+U+0325+U+034B"]
+ipa = "m̥͋"
+codepoints = ["U+006D", "U+0325", "U+034B"]
+name = "bilabial fricative nasal (nareal fricative) (voiceless bilabial nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006D", "U+0325", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006D+U+0325+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+006D"]
+plain = "m̥"
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+006D+U+0325+U+034B.json"
+
+[sound."B:U+006D+U+034B"]
+ipa = "m͋"
+codepoints = ["U+006D", "U+034B"]
+name = "bilabial fricative nasal (nareal fricative) (voiced bilabial nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006D", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006D+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+006D"]
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+006D+U+034B.json"
+
+[sound."B:U+0271+U+0325+U+034B"]
+ipa = "ɱ̥͋"
+codepoints = ["U+0271", "U+0325", "U+034B"]
+name = "labiodental fricative nasal (nareal fricative) (voiceless labiodental nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0271", "U+0325", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0271+U+0325+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+0271"]
+plain = "ɱ̥"
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+0271+U+0325+U+034B.json"
+
+[sound."B:U+0271+U+034B"]
+ipa = "ɱ͋"
+codepoints = ["U+0271", "U+034B"]
+name = "labiodental fricative nasal (nareal fricative) (voiced labiodental nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0271", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0271+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+0271"]
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+0271+U+034B.json"
+
+[sound."B:U+006E+U+0325+U+034B"]
+ipa = "n̥͋"
+codepoints = ["U+006E", "U+0325", "U+034B"]
+name = "alveolar fricative nasal (nareal fricative) (voiceless alveolar nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006E", "U+0325", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006E+U+0325+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+006E"]
+plain = "n̥"
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+006E+U+0325+U+034B.json"
+
+[sound."B:U+006E+U+034B"]
+ipa = "n͋"
+codepoints = ["U+006E", "U+034B"]
+name = "alveolar fricative nasal (nareal fricative) (voiced alveolar nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+006E", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+006E+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+006E"]
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+006E+U+034B.json"
+
+[sound."B:U+0273+U+0325+U+034B"]
+ipa = "ɳ̥͋"
+codepoints = ["U+0273", "U+0325", "U+034B"]
+name = "retroflex fricative nasal (nareal fricative) (voiceless retroflex nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0273", "U+0325", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0273+U+0325+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+0273"]
+plain = "ɳ̥"
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+0273+U+0325+U+034B.json"
+
+[sound."B:U+0273+U+034B"]
+ipa = "ɳ͋"
+codepoints = ["U+0273", "U+034B"]
+name = "retroflex fricative nasal (nareal fricative) (voiced retroflex nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0273", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0273+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+0273"]
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+0273+U+034B.json"
+
+[sound."B:U+0272+U+0325+U+034B"]
+ipa = "ɲ̥͋"
+codepoints = ["U+0272", "U+0325", "U+034B"]
+name = "palatal fricative nasal (nareal fricative) (voiceless palatal nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0272", "U+0325", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0272+U+0325+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+0272"]
+plain = "ɲ̥"
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+0272+U+0325+U+034B.json"
+
+[sound."B:U+0272+U+034B"]
+ipa = "ɲ͋"
+codepoints = ["U+0272", "U+034B"]
+name = "palatal fricative nasal (nareal fricative) (voiced palatal nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+0272", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0272+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+0272"]
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+0272+U+034B.json"
+
+[sound."B:U+014B+U+0325+U+034B"]
+ipa = "ŋ̥͋"
+codepoints = ["U+014B", "U+0325", "U+034B"]
+name = "velar fricative nasal (nareal fricative) (voiceless velar nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+014B", "U+0325", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+014B+U+0325+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+014B"]
+plain = "ŋ̥"
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+014B+U+0325+U+034B.json"
+
+[sound."B:U+014B+U+034B"]
+ipa = "ŋ͋"
+codepoints = ["U+014B", "U+034B"]
+name = "velar fricative nasal (nareal fricative) (voiced velar nasal with audible turbulence in the nostrils)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+parts = ["U+014B", "B:U+034B"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+014B+U+034B".tests]
+checks = ["T-shift"]
+bases = ["U+014B"]
+shift = [{ measure = "hf_db", sign = 1 }]
+judged_by = "B:U+034B"
+proof = "ipa/proofs/B_U+014B+U+034B.json"

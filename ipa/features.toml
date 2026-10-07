@@ -27,6 +27,8 @@ tongue_part = { set = ["unspecified", "apical", "laminal"], default = "unspecifi
 place_shift = { set = ["none", "advanced", "retracted"], default = "none", note = "part of a step along the place scale" }
 stricture_shift = { set = ["none", "raised", "lowered"], default = "none", note = "towards closer or more open stricture" }
 tongue_root = { set = ["neutral", "advanced", "retracted"], default = "neutral" }
+place_mark = { set = ["none", "bridge-above", "equals-below"], default = "none", note = "extIPA's place marks (Tier B, D69), whose place depends on the letter: bridge above (U+0346) is dentolabial on a labial, interdental with the bridge below on a coronal, bidental on h and ɦ; equals below (U+0347) is labioalveolar on a labial, overtly alveolar on a coronal" }
+nasal_friction = { set = [false, true], default = false, note = "extIPA's U+034B (Tier B, D69): turbulent airflow through the nostrils; on a nasal letter a nareal fricative" }
 
 [vowel]
 height = { scale = ["close", "near-close", "close-mid", "mid", "open-mid", "near-open", "open"] }
