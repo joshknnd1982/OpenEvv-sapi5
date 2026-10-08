@@ -65,12 +65,15 @@ def normalize(text, strict=True):
     return s
 
 
-def _index(t):
-    """symbol -> entry id, longest symbols first (tone-letter sequences are read letter by letter)."""
+def _index(t, notation='ipa'):
+    """symbol -> entry id, longest symbols first (tone-letter sequences are read letter by letter).
+    An entry of extIPA's own reading of a character the IPA reads otherwise (`notation', Q18) is
+    known only in text that declares extIPA."""
     out = {}
     for sid, e in t.sounds.items():
         if (e['kind'] == 'tone' and len(e['ipa']) > 1) or e['kind'] == 'composite' or (
-                e['kind'] == 'modifier' and e.get('placement') == 'before'):
+                e['kind'] == 'modifier' and e.get('placement') == 'before') or (
+                e.get('notation') and e['notation'] != notation):
             continue
         out[e['ipa']] = sid
     return out
@@ -88,7 +91,7 @@ def compose(t, base_features, mods, warn):
     edits = []
     for mid in mods:
         e = t.sounds[mid]
-        if e['kind'] != 'modifier':
+        if e['kind'] != 'modifier' and not (e['kind'] == 'tie' and e.get('edit')):
             continue
         ed = (e.get('edit') or {}).get(cls)
         if ed is None:
@@ -114,10 +117,12 @@ def compose(t, base_features, mods, warn):
     return f
 
 
-def read(text, strict=True, t=None):
-    """The reading: {'items': [...], 'warnings': [...], 'text': the normalized text}."""
+def read(text, strict=True, t=None, notation='ipa'):
+    """The reading: {'items': [...], 'warnings': [...], 'text': the normalized text}. `notation':
+    'extipa' for text that declares extIPA (its ↓ is ingressive airflow, Q18), as a map's
+    `notation extipa' line tells the front-end."""
     t = t or table()
-    idx = _index(t)
+    idx = _index(t, notation)
     pre_idx = _pre_index(t)
     pre = []                # marks read before the letter they belong to
     s = normalize(text, strict)
@@ -254,6 +259,11 @@ def read(text, strict=True, t=None):
     for it in items:
         if it['t'] == 'seg' and 'tied' in it:
             it['src'] = [it['tied'][0]['src'][0], max(x['src'][1] for x in it['tied'])]
+            if t.sounds[it['tie']].get('edit'):
+                # a joining mark that is a mark of each side as well (extIPA's sliding
+                # articulation, U+0362: the two in the time of one segment), as in the front-end
+                for seg in it['tied']:
+                    seg['mods'].append(it['tie'])
         for seg in (it['tied'] if 'tied' in it else [it]) if it['t'] == 'seg' else []:
             def warn(mid, msg, seg=seg):
                 fail(msg, seg['src'][0])
@@ -309,13 +319,24 @@ def test(n_random=20000, seed=1):
             if sid in ('U+0303', 'U+02DE', 'U+0339', 'U+031C', 'U+0308', 'U+033D'):
                 base = ipa['ɔ'] if sid in ('U+0339', 'U+031C') else ipa['e']
             r = read(e['ipa'] + t.sounds[base]['ipa'] if e.get('placement') == 'before'
-                     else t.sounds[base]['ipa'] + e['ipa'], t=t)
+                     else t.sounds[base]['ipa'] + e['ipa'], t=t, notation=e.get('notation', 'ipa'))
             segs = _segments(r)
+            if e.get('notation'):
+                # extIPA's own reading (Q18): strict IPA does not know it
+                try:
+                    read(t.sounds[base]['ipa'] + e['ipa'], t=t)
+                    check(False, '%s read without its notation declared' % sid)
+                except ReaderError:
+                    pass
             check(len(segs) == 1 and segs[0]['features'] == _expect(t, base, [sid]),
                   '%s on %s read as %s' % (sid, t.sounds[base]['ipa'], segs and segs[0].get('features')))
         elif kind == 'tie':
             r = read('t' + e['ipa'] + 's', t=t)
             check(len(r['items']) == 1 and len(r['items'][0].get('tied', [])) == 2, '%s did not tie t and s' % sid)
+            if e.get('edit'):
+                # a joining mark that is a mark of each side (extIPA's sliding articulation)
+                check(all(x['features'] == _expect(t, x['base'], [sid]) for x in r['items'][0].get('tied', [])),
+                      '%s: the sides of t%ss do not carry it' % (sid, e['ipa']))
         elif kind == 'syllable-mark':
             r = read(e['ipa'] + 'ta', t=t)
             check(r['items'][0] == dict(t='stress', value=e['stress'], id=sid, src=[0, 1]), '%s: %s' % (sid, r['items'][:1]))

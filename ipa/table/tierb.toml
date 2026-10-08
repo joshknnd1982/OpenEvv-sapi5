@@ -1808,3 +1808,351 @@ bases = ["U+0070", "U+0074", "U+006B"]
 plain_form = "{}ʰ"
 shift = [{ measure = "vot_long_ms", sign = 1 }]
 proof = "ipa/proofs/B_U+02B0+U+02B0.json"
+
+# ---- extIPA's other diacritics (D71, eleventh session) -------------------------------------------
+
+[sound."B:U+034D"]
+ipa = "͍"
+codepoints = ["U+034D"]
+name = "labial spreading: the lips spread rather than neutral or rounded"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { lip_spreading = true }, vowel = { lip_spreading = true } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "one ratio for every sound: the source found F2 raised on a rounded vowel (+0.50 Bark) and not significantly on a spread or neutral one (0.09 and under 0.01 Bark), but this mark raises F2 by the same ratio on [i] as on [o]; on a consonant the same ratio is applied to its F2 locus, where nothing was measured (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+034D".spec]
+
+[sound."B:U+034D".transform.vowel]
+formants = { F2 = { scale = 1.14, tag = "derived", ref = "barthel_quene2015", rule = "smiled against plain speech: F2 of the rounded /o:/ +93 Hz (0.50 Bark, the authors' conversion); as a ratio on this table's [o] (684 Hz): 777 / 684 = 1.136, in the whole per cent the map holds; spreading raises mainly F2 (lasarcyk_trouvain2008)" } }
+
+[sound."B:U+034D".transform.consonant]
+locus = { F2 = { scale = 1.14, tag = "estimated", note = "the vowels' ratio (barthel_quene2015 on /o:/) applied to a consonant's F2 locus; no measurement of a consonant said with the lips spread was found (D71)" } }
+
+[sound."B:U+034D".tests]
+checks = ["T-shift"]
+bases = ["U+006F", "U+0075", "U+0254", "U+0077"]
+shift = [{ measure = "F2_50_hz", sign = 1 }, { measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/B_U+034D.json"
+
+[sound."B:U+0348"]
+ipa = "͈"
+codepoints = ["U+0348"]
+name = "strong articulation: more forceful (not necessarily fortis)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { articulation_force = "strong" } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "force is made as length and friction only, every value estimated: the hold 1.3 times as long and the friction 6 dB louder; a stop's burst rises by less than the harness can tell (0.8 to 2.0 dB on [t] in trials), and on a nasal or an approximant the mark only lengthens it (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0348".spec]
+
+[sound."B:U+0348".transform.consonant]
+duration = { inherent_ms = { scale = 1.3, tag = "estimated", note = "no measurement of force of articulation as such was found; strengthening at the start of a prosodic domain lengthens a consonant (fougeron_keating1997, abstract: no ratio given); the nearest ratios found are of length contrasts, not force (kraehenmann_lahiri2008: Swiss German geminate against singleton closure 1.1 to 3, contact 1.5); 1.3 is below the length contrasts (D71)" } }
+noise = { gain_db = { add = 6, tag = "estimated", note = "a louder friction and burst, in this engine's dB; no measured ratio of frication or burst level for force was found, and Korean fortis and lenis bursts do not differ (cho_jun_ladefoged2002) (D71)" } }
+
+[sound."B:U+0348".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+006B", "U+0073"]
+shift = [{ measure = "duration_ms", sign = 1 }, { measure = "noise_db", sign = 1 }]
+proof = "ipa/proofs/B_U+0348.json"
+
+[sound."B:U+0349"]
+ipa = "͉"
+codepoints = ["U+0349"]
+name = "weak articulation: less forceful (not necessarily lenis)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { articulation_force = "weak" } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "weakness is made as length and friction only, every value estimated: the hold 0.8 times as long and the friction 6 dB softer; a stop's burst is softer on [t] (-5.8 and -7.3 dB, the two contexts where it was read) but hardly on [k] (-1.6 and -0.3), so the burst is not part of the test; a stop keeps its full closure (no spirantised release), and on a nasal or an approximant the mark only shortens it (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0349".spec]
+
+[sound."B:U+0349".transform.consonant]
+duration = { inherent_ms = { scale = 0.8, tag = "estimated", note = "the inverse direction of strong articulation, shorter: no measurement of weakened articulation as such was found (D71)" } }
+noise = { gain_db = { add = -6, tag = "estimated", note = "a softer friction and burst, in this engine's dB, the mirror of strong articulation's; nothing measured (D71)" } }
+
+[sound."B:U+0349".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+006B", "U+0073"]
+shift = [{ measure = "duration_ms", sign = -1 }, { measure = "noise_db", sign = -1 }]
+proof = "ipa/proofs/B_U+0349.json"
+
+[sound."B:U+034A"]
+ipa = "͊"
+codepoints = ["U+034A"]
+name = "partially denasal: the nasal resonance of a nasal reduced (denasal on the 2015 and 2021 charts)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { denasal = "partial" } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the 2025 chart's partial denasalization (the 2015 and 2021 charts' full one is written with the oral letter there); the nasal pole and zero are not moved, the murmur is made weaker and darker, towards the voiced closure of the oral stop; on a letter that is not nasal it weakens the voice the same way, which the mark does not mean (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+034A".spec]
+
+[sound."B:U+034A".transform.consonant]
+voice = { level_db = { add = -11, tag = "estimated", note = "the size of yoshida_korean_denasal's lesser regional mean (Kyungsang -11.46 dB), taken as the murmur's fall: that figure is the nasal channel at the end of a denasalized nasal against the sentence's loudest nasal-channel level, not a change from a plain nasal, and this engine's murmur is the whole signal (D71)" } }
+phonation = { tilt_db = { set = 18, tag = "estimated", note = "half-way from a nasal's own tilt (0) to this engine's voiced closure (35, b): the murmur darker, towards the oral stop's voice bar; no measurement (D71)" } }
+
+[sound."B:U+034A".tests]
+checks = ["T-shift"]
+bases = ["U+006D", "U+006E", "U+014B"]
+shift = [{ measure = "mid_db", sign = -1 }]
+proof = "ipa/proofs/B_U+034A.json"
+
+[sound."B:U+034A+U+1ABB"]
+ipa = "͊᪻"
+codepoints = ["U+034A", "U+1ABB"]
+name = "partial denasal (2015 and 2021 charts); a lesser degree of denasalization (2025)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+after_mark = "B:U+034A"
+edit = { consonant = { denasal = "lesser" } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "as ◌͊ (pole and zero not moved; on a letter that is not nasal the voice weakened), by about half as much; the parentheses' own line (U+1ABB, 5 dB back) is met after ◌͊, and the front-end would also apply it after another mark or on its own, which the reader refuses (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+034A+U+1ABB".spec]
+
+[sound."B:U+034A+U+1ABB".transform.consonant]
+voice = { level_db = { add = 5, tag = "estimated", note = "a lesser degree than ◌͊ (wp_extipa: the parentheses mark less denasalization): 5 dB back from its -11, -6 in all, about half; no measurement of degrees (D71)" } }
+phonation = { tilt_db = { set = 9, tag = "estimated", note = "half of ◌͊'s tilt (D71)" } }
+
+[sound."B:U+034A+U+1ABB".tests]
+checks = ["T-shift"]
+bases = ["U+006D", "U+006E", "U+014B"]
+shift = [{ measure = "mid_db", sign = -1 }]
+proof = "ipa/proofs/B_U+034A+U+1ABB.json"
+
+[sound."B:U+034C"]
+ipa = "͌"
+codepoints = ["U+034C"]
+name = "velopharyngeal friction: noisy airflow through a narrowed velopharyngeal port with the sound"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { velopharyngeal_friction = true } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the friction's quasi-periodic flutter (a period of about 80 to 100 Hz, zajac2015) is not made, since this engine's frames come 200 a second; its noise is put on F2, the lowest resonance the noise branch reaches (about 1.2 to 1.9 kHz on these letters), not below 1 kHz where the source puts its prominent part; the nose is opened over the voiced frames only, the layer's opening acting on the voice (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+034C".spec]
+
+[sound."B:U+034C".transform.consonant]
+noise = { level_db = { set = 60, tag = "estimated", note = "at a fricative's level in this engine (f 58, v 60), as extIPA's nasal friction (D69); no level was measured (D71)" }, F2_db = { set = 60, tag = "estimated", note = "low in the spectrum: the posterior nasal fricative's prominent component lies well below 1 kHz (zajac2015); F2 is the lowest resonance this engine's noise branch has (D71)" } }
+nasal = { open_pct = { set = 70, tag = "estimated", note = "the port open, the air going out through the nose: Tier A's nasalization (̃, 70) (D71)" } }
+
+[sound."B:U+034C".tests]
+checks = ["T-shift"]
+bases = ["U+0073", "U+0066", "U+0283"]
+shift = [{ measure = "centroid_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+034C.json"
+
+[sound."B:U+2193"]
+ipa = "↓"
+codepoints = ["U+2193"]
+name = "ingressive airflow (after a letter): the sound made on an inward pulmonic airstream"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+notation = "extipa"
+edit = { consonant = { ingressive = true }, vowel = { ingressive = true } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "read only in text or a pack that declares extIPA (Q18: the strict IPA's ↓ is not this); of what inspiratory voice measures differently, the pitch (+5.1 semitones) and the breath are made, but not the higher jitter and amplitude perturbation (orlikoff1997; this engine has no key for them) nor the steeper tilt (vanhecke2016, one singer, unquantified); the pitch moves over the marked sound's own stretch, in and out over 15 ms; the breath's 2 dB is asked for but not measured by the test, which judges the pitch (D71)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["pst, notation extipa (D71)"] }
+
+[sound."B:U+2193".spec]
+
+[sound."B:U+2193".transform.vowel]
+pitch = { offset_st = { set = 5.1, tag = "literature", ref = "orlikoff1997", note = "16 adults: inspiratory phonation's mean F0 5.1 semitones above comfortable expiratory voice (abstract)" } }
+breath = { gain_db = { add = 2, tag = "derived", ref = "vanhecke2016", rule = "more noise in inspiratory voice: ANNE -27.80 against -30.10 dB, 2.3 dB, rounded to the engine's whole dB (one trained singer)" } }
+
+[sound."B:U+2193".transform.consonant]
+pitch = { offset_st = { set = 5.1, tag = "literature", ref = "orlikoff1997", note = "as on a vowel, over a consonant's voiced frames" } }
+breath = { gain_db = { add = 2, tag = "derived", ref = "vanhecke2016", rule = "as on a vowel" } }
+
+[sound."B:U+2193".tests]
+checks = ["T-shift"]
+notation = "extipa"
+bases = ["U+0061", "U+0069", "U+0075", "U+006D"]
+shift = [{ measure = "f0_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+2193.json"
+
+[sound."B:U+0354"]
+ipa = "͔"
+codepoints = ["U+0354"]
+name = "main gesture offset right (the listener's right)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { gesture_offset = "right" } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "said as a lateralised sibilant, left and right alike: nothing measured tells the side apart, and one channel of sound cannot carry it; the lateral's slow, almost periodic change of its peak (akagi2001) is not made; on a letter that is not a sibilant the same F4 is moved, which the mark does not mean (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0354".spec]
+
+[sound."B:U+0354".transform.consonant]
+formants = { F4 = { scale = 0.70, tag = "derived", ref = "akagi2001", rule = "a laterally misarticulated sibilant's peak at about 3.2 kHz: this voice's [s] carries its noise peak on F4 (4590 Hz in its frames), 3200 / 4590 = 0.70" } }
+noise = { F5_db = { set = 20, tag = "estimated", note = "the lateral's spectrum flat or falling above about 4 kHz (akagi2001): the noise on F5 brought down from [s]'s 30 (D71)" } }
+
+[sound."B:U+0354".tests]
+checks = ["T-shift"]
+bases = ["U+0073", "U+0283"]
+shift = [{ measure = "peak_hz", sign = -1 }, { measure = "centroid_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+0354.json"
+
+[sound."B:U+0355"]
+ipa = "͕"
+codepoints = ["U+0355"]
+name = "main gesture offset left (the listener's left)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { gesture_offset = "left" } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "as ◌͔: a lateralised sibilant, said as the right offset is, since nothing measured tells the side apart (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0355".spec]
+
+[sound."B:U+0355".transform.consonant]
+formants = { F4 = { scale = 0.70, tag = "derived", ref = "akagi2001", rule = "as ◌͔: 3200 / 4590 = 0.70" } }
+noise = { F5_db = { set = 20, tag = "estimated", note = "as ◌͔ (D71)" } }
+
+[sound."B:U+0355".tests]
+checks = ["T-shift"]
+bases = ["U+0073", "U+0283"]
+shift = [{ measure = "peak_hz", sign = -1 }, { measure = "centroid_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+0355.json"
+
+[sound."B:U+034E"]
+ipa = "͎"
+codepoints = ["U+034E"]
+name = "whistled articulation: a sibilant with a narrow, whistle-like band"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "modifier"
+edit = { consonant = { whistled = true } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the whistle's band is this engine's parallel F2 resonator, 200 Hz wide, where the source's LPC peak was 130 Hz (110 on [z]); the harness reads the band 10 dB under the peak as about 850 Hz on [s] and [ʃ] (plain: 1500 and 1650), a different measure from the source's; the sibilant's own noise higher up is taken away rather than weakened; on a letter that is not a sibilant the same noise is put on its F2 (D71)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+034E".spec]
+
+[sound."B:U+034E".transform.consonant]
+formants = { F2 = { scale = 0.90, tag = "derived", ref = "shosted2006", rule = "whistled [s] peaks at 1.55 kHz (Table 3, one Tshwa speaker): the noise put on F2, this voice's [s] F2 (1732 Hz in its frames) taken to 1559" } }
+noise = { level_db = { set = 62, tag = "derived", rule = "[s]'s own friction level in this template (its frames: 62), kept" }, F2_db = { set = 62, tag = "derived", rule = "the noise on one resonance (the narrow peak of shosted2006 Table 4), F2's, at [s]'s own friction level in this template (62)" }, F3_db = { set = 0, tag = "estimated", note = "shosted2011 found the noise above the whistle weaker, not how much: here taken off entirely (D71)" }, F4_db = { set = 0, tag = "estimated", note = "as F3_db (D71)" }, F5_db = { set = 0, tag = "estimated", note = "as F3_db (D71)" }, F6_db = { set = 0, tag = "estimated", note = "as F3_db (D71)" }, flat_db = { set = 0, tag = "estimated", note = "as F3_db (D71)" } }
+
+[sound."B:U+034E".tests]
+checks = ["T-shift"]
+bases = ["U+0073", "U+0283"]
+shift = [{ measure = "peak_hz", sign = -1 }, { measure = "noise_bw_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+034E.json"
+
+[sound."B:U+0362"]
+ipa = "͢"
+codepoints = ["U+0362"]
+name = "sliding articulation: from one articulation to another within the time of one segment (θ͢s)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "tie"
+edit = { consonant = { sliding = true } }
+placement = "over"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the two articulations are said one after the other, each in half its own time and joined as one segment, not moved from one to the other gradually: the place of each half is its letter's own (D71)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["the tie of two composed letters (Q22), D71"] }
+
+[sound."B:U+0362".spec]
+
+[sound."B:U+0362".transform.consonant]
+duration = { inherent_ms = { scale = 0.5, tag = "estimated", note = "two articulations within the time of a single segment (wp_extipa): halves of equal share are a choice, nothing measured (D71)" } }
+
+[sound."B:U+0362".tests]
+checks = ["T-shift"]
+bases = ["U+03B8"]
+follow = "U+0073"
+plain_form = ".{}"
+shift = [{ measure = "duration_ms", sign = -1 }]
+limit = [{ measure = "duration_ms", max = 165 }]
+proof = "ipa/proofs/B_U+0362.json"
+
+[sound."B:U+005C"]
+ipa = "\\"
+codepoints = ["U+005C"]
+name = "reiteration: a sound said again, as in stuttering (p\\p\\p)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / diacritics"
+kind = "boundary"
+boundary = "reiteration"
+placement = "between"
+state = "composed"
+level = 2
+approximate = true
+deviation = "a consonant is let go into a whispered schwa before it is said again (a stop is released only into a vowel in this engine), and its end carries 10 to 15 ms of the module's voice where it meets a following closure, as ̥ on any vowel does (Q28); a vowel is parted from its repetition by a glottal closure; how long each repetition lasts is the module's, not set from a measurement, and the range it is held to is of children's whole repetitions (tumanova2011), against which the test compares the time from the first release to the last; a stress mark before a reiterated sound goes to the repetition said last (D71)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["reiterate (D71)"] }
+
+[sound."B:U+005C".spec]
+repetition_ms = { min = { v = 280, tag = "literature", ref = "tumanova2011", note = "Table 3: sound-syllable repetitions of 19 preschool children who stutter, 0.28 to 1.69 s (mean 0.87)" }, max = { v = 1690, tag = "literature", ref = "tumanova2011", note = "Table 3, the range's top" } }
+
+[sound."B:U+005C".realization.openevv]
+reiterate = { consonant = "ə̥", vowel = "ʔ" }
+
+[sound."B:U+005C".tests]
+checks = ["T-reiterate"]
+forms = [["ˈp\\p\\pa", "ˈpa"], ["ˈt\\t\\ta", "ˈta"], ["ˈs\\s\\sa", "ˈsa"], ["ˈpa\\pa\\pa", "ˈpa"]]
+proof = "ipa/proofs/B_U+005C.json"

@@ -30,6 +30,10 @@ tongue_root = { set = ["neutral", "advanced", "retracted"], default = "neutral" 
 place_mark = { set = ["none", "bridge-above", "equals-below"], default = "none", note = "extIPA's place marks (Tier B, D69), whose place depends on the letter: bridge above (U+0346) is dentolabial on a labial, interdental with the bridge below on a coronal, bidental on h and ɦ; equals below (U+0347) is labioalveolar on a labial, overtly alveolar on a coronal" }
 nasal_friction = { set = [false, true], default = false, note = "extIPA's U+034B (Tier B, D69): turbulent airflow through the nostrils; on a nasal letter a nareal fricative" }
 voicing_part = { set = ["whole", "initial", "central", "final", "before", "after"], default = "whole", note = "the stretch of the sound its voicing (or phonation) mark is said over: extIPA's partial voicing and devoicing (initial, central, final), its pre- and post-voicing and creaky offglide (before, after) (Tier B)" }
+denasal = { set = ["none", "partial", "lesser"], default = "none", note = "extIPA's U+034A (Tier B): the nasal resonance of a nasal letter reduced, partly (the 2025 chart; a wholly denasal sound is written with the oral letter); lesser: with the parentheses (U+034A U+1ABB)" }
+velopharyngeal_friction = { set = [false, true], default = false, note = "extIPA's U+034C (Tier B): noisy airflow through a narrowed velopharyngeal port with the sound" }
+whistled = { set = [false, true], default = false, note = "extIPA's U+034E (Tier B): a sibilant with a whistle-like narrow band" }
+gesture_offset = { set = ["none", "right", "left"], default = "none", note = "extIPA's U+0354 and U+0355 (Tier B): the main gesture displaced to the (listener's) right or left" }
 
 [vowel]
 height = { scale = ["close", "near-close", "close-mid", "mid", "open-mid", "near-open", "open"] }
@@ -46,13 +50,17 @@ voicing_part = { set = ["whole", "initial", "central", "final", "before", "after
 [both]
 length = { scale = ["extra-short", "short", "half-long", "long"], default = "short" }
 syllabic = { set = ["default", "syllabic", "non-syllabic"], default = "default", note = "default: a vowel is syllabic, a consonant is not" }
+articulation_force = { set = ["plain", "strong", "weak"], default = "plain", note = "extIPA's U+0348 and U+0349 (Tier B): more or less forceful articulation, not necessarily fortis or lenis" }
+lip_spreading = { set = [false, true], default = false, note = "extIPA's U+034D (Tier B): the lips spread rather than neutral or rounded" }
+ingressive = { set = [false, true], default = false, note = "extIPA's U+2193 after a letter (Tier B, read only where extIPA is declared, Q18): the sound made on an inward pulmonic airstream" }
+sliding = { set = [false, true], default = false, note = "extIPA's U+0362 (Tier B): one of two articulations moved between within the time of one segment" }
 
 [syllable]
 stress = { set = ["none", "secondary", "primary"], default = "none" }
 tone = { note = "a sequence of levels 1 (lowest) to 5 (highest), Chao's numerals; a register step up or down before it" }
 
 [boundary]
-kind = { set = ["syllable", "linked", "minor", "major"] }
+kind = { set = ["syllable", "linked", "minor", "major", "reiteration"], note = "reiteration: extIPA's backslash (p\\p\\p, Tier B), the sound before it said again" }
 
 # The nearest-letter fallback: a cost for each feature that differs, a place step costing
 # `place_step` each. Larger is further. All `estimated` (DESIGN.md 2.3).

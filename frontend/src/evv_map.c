@@ -603,6 +603,21 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 		char *key = next_word(&rest);
 		if (!key)
 			continue;
+		if (strcmp(key, "notation") == 0) {
+			/* which reading a character has where the IPA and extIPA differ (Q18):
+			   the IPA's unless the map says extipa, before the lines that need it */
+			char *w = next_word(&rest);
+			map->extipa = w && strcmp(w, "extipa") == 0;
+			if (!w || (strcmp(w, "extipa") != 0 && strcmp(w, "ipa") != 0))
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "notation `%s' is neither ipa nor extipa; ipa is used",
+				         w ? w : "");
+			continue;
+		}
+		if (strcmp(key, "extipa") == 0) {
+			/* a line of extIPA's own reading (ingressive ↓): read only under `notation extipa' */
+			if (!map->extipa || !(key = next_word(&rest)))
+				continue;
+		}
 		if (strcmp(key, "template") == 0) {
 			char *w = next_word(&rest);
 			if (w)
@@ -639,6 +654,17 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			char *w = next_word(&rest);
 			if (w)
 				copy_checked(map->schwa, w, EVV_PHONE_LEN, "phone");
+			continue;
+		}
+		if (strcmp(key, "reiterate") == 0) {
+			/* extIPA's reiteration (Tier B): what is said at a `\' typed in IPA, after
+			   a consonant or after a vowel, before the sound is said again */
+			char *c = next_word(&rest);
+			char *w = next_word(&rest);
+			if (!c || !w || (strcmp(c, "c") != 0 && strcmp(c, "v") != 0))
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "a reiterate line needs c or v and the IPA said");
+			else
+				copy_checked(map->reiterate[c[0] == 'v'], w, sizeof(map->reiterate[0]), "reiteration");
 			continue;
 		}
 		if (strcmp(key, "syllabic") == 0) {
@@ -1188,7 +1214,11 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 			int k;
 			for (k = 0; k < nk && strcmp(keys[k], m->ops[o].key) != 0; k++)
 				;
-			if (k == nk && m->ops[o].op == '+') {
+			/* a level the layer adds to the module's own (voice, breath, noise): a
+			   sound without one has 0 dB of it, so a mark adds to nought */
+			int level = strcmp(m->ops[o].key, "av") == 0 || strcmp(m->ops[o].key, "ah") == 0 ||
+			            strcmp(m->ops[o].key, "af") == 0;
+			if (k == nk && m->ops[o].op == '+' && !level) {
 				evv_diag(EVV_DIAG_LOSS, "mark-left-off", "%s on /%s/: %s+%g has no %s to add to", m->mark, ipa,
 				         m->ops[o].key, m->ops[o].v, m->ops[o].key);
 				continue;
@@ -1204,7 +1234,7 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 					continue;
 				}
 				copy_name(keys[nk], m->ops[o].key, 8);
-				vals[nk++] = m->ops[o].op == '=' ? m->ops[o].v : 100;
+				vals[nk++] = m->ops[o].op == '=' ? m->ops[o].v : level ? 0 : 100;
 				if (m->ops[o].op == '=')
 					continue;
 			}
@@ -1296,7 +1326,62 @@ int evv_map_lookup_ex(const EvvMap *map, const char *table, const char *mnemonic
 			*matched = 1;
 			return n;
 		}
+		/* two letters joined by a tie bar (U+0361, U+035C) or by extIPA's
+		   sliding mark (U+0362) with no line for the pair: each side looked
+		   up, or composed with its own marks, and said one after the other
+		   (Q22: the old lookup below left off every mark on either side).
+		   The sliding mark is a mark of both sides as well: its `mod' line
+		   is what makes the two take the time of one segment. */
+		const char *tie = NULL;
+		int slide = 0;
+		for (const char *q = ipa; *q; q += utf8_len((unsigned char)*q))
+			if ((unsigned char)q[0] == 0xcd && ((unsigned char)q[1] == 0xa1 || (unsigned char)q[1] == 0x9c ||
+			                                    (unsigned char)q[1] == 0xa2)) {
+				tie = q;
+				slide = (unsigned char)q[1] == 0xa2;
+				break;
+			}
+		if (tie && tie > ipa && tie[2] && (size_t)(tie - ipa) + 3 < 64 && strlen(tie + 2) + 3 < 64) {
+			char a[64], b[64];
+			size_t la = (size_t)(tie - ipa);
+			memcpy(a, ipa, la);
+			a[la] = 0;
+			snprintf(b, sizeof(b), "%s", tie + 2);
+			if (slide) {
+				/* the mark goes after each side's own marks, as typed after a letter */
+				memcpy(a + la, tie, 2);
+				a[la + 2] = 0;
+				size_t lb = strlen(b);
+				memcpy(b + lb, tie, 2);
+				b[lb + 2] = 0;
+			}
+			/* only when each side begins with a letter, and the pair itself (its two
+			   letters and the tie, without their marks) has no line: a marked
+			   affricate the template has (t͡sʰ) is said as before, by its line */
+			int l1 = utf8_len((unsigned char)ipa[0]), l2 = utf8_len((unsigned char)tie[2]);
+			char bare[16];
+			int has_bare = 0;
+			if ((size_t)(l1 + 2 + l2) < sizeof(bare)) {
+				memcpy(bare, ipa, (size_t)l1);
+				memcpy(bare + l1, tie, 2);
+				memcpy(bare + l1 + 2, tie + 2, (size_t)l2);
+				has_bare = find(map, bare, (size_t)(l1 + 2 + l2)) != NULL;
+			}
+			if (has_bare || !evv_map_letter(map, ipa, (size_t)l1) || !evv_map_letter(map, tie + 2, (size_t)l2))
+				goto apart;
+			int ma = 0, mb = 0;
+			int na = evv_map_lookup_ex(map, NULL, NULL, a, out, max_out, &ma);
+			int nb = ma ? evv_map_lookup_ex(map, NULL, NULL, b, out + na, max_out - na, &mb) : 0;
+			if (ma && mb) {
+				*matched = 1;
+				if (!slide)
+					evv_diag(EVV_DIAG_LOSS, "tie-as-sequence", "/%s/ has no line: its two sides said one "
+					         "after the other, each with its own marks", ipa);
+				return na + nb;
+			}
+		}
 	}
+apart:;
 	/* taken apart from the left, longest key first; a character no key
 	   starts with is skipped, and reported if the rest is said */
 	int n = 0;

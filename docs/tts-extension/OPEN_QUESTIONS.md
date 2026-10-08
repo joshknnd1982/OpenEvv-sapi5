@@ -136,7 +136,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 ## Added in Phase 4 (2026-10-06)
 
-**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 193 values on 2026-10-07 (regenerated after D70):
+**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 213 values on 2026-10-07 (regenerated after D71):
 
 - `B:U+02EC#post` ˬ: `transform.consonant.voicing.part_from_pct`
 - `B:U+02EC#pre` ˬ: `transform.consonant.voicing.part_to_pct`
@@ -156,9 +156,29 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `B:U+032C+U+1AC4` ̬᫄: `transform.consonant.voicing.part_from_pct`
 - `B:U+0346` ͆: `transform.consonant.locus.F2`
 - `B:U+0347` ͇: `transform.consonant.locus.F2`
+- `B:U+0348` ͈: `transform.consonant.duration.inherent_ms`
+- `B:U+0348` ͈: `transform.consonant.noise.gain_db`
+- `B:U+0349` ͉: `transform.consonant.duration.inherent_ms`
+- `B:U+0349` ͉: `transform.consonant.noise.gain_db`
+- `B:U+034A` ͊: `transform.consonant.phonation.tilt_db`
+- `B:U+034A` ͊: `transform.consonant.voice.level_db`
+- `B:U+034A+U+1ABB` ͊᪻: `transform.consonant.phonation.tilt_db`
+- `B:U+034A+U+1ABB` ͊᪻: `transform.consonant.voice.level_db`
 - `B:U+034B` ͋: `transform.consonant.noise.F5_db`
 - `B:U+034B` ͋: `transform.consonant.noise.flat_db`
 - `B:U+034B` ͋: `transform.consonant.noise.level_db`
+- `B:U+034C` ͌: `transform.consonant.nasal.open_pct`
+- `B:U+034C` ͌: `transform.consonant.noise.F2_db`
+- `B:U+034C` ͌: `transform.consonant.noise.level_db`
+- `B:U+034D` ͍: `transform.consonant.locus.F2`
+- `B:U+034E` ͎: `transform.consonant.noise.F3_db`
+- `B:U+034E` ͎: `transform.consonant.noise.F4_db`
+- `B:U+034E` ͎: `transform.consonant.noise.F5_db`
+- `B:U+034E` ͎: `transform.consonant.noise.F6_db`
+- `B:U+034E` ͎: `transform.consonant.noise.flat_db`
+- `B:U+0354` ͔: `transform.consonant.noise.F5_db`
+- `B:U+0355` ͕: `transform.consonant.noise.F5_db`
+- `B:U+0362` ͢: `transform.consonant.duration.inherent_ms`
 - `B:U+1DF06` 𝼆: `spec.locus.F2`
 - `B:U+1DF06` 𝼆: `spec.locus.F3`
 - `B:U+1DF06` 𝼆: `spec.locus_slope.F2`
@@ -344,7 +364,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 **Q21. `ant` bends a vowel by the carrier's ratios, not towards the consonant's own place** (2026-10-07, D66; for Phase 5's audit or the final engine change of Phase 4). The bend multiplies the vowel's frames by the ratio the consonant applies to its carrier. Where the carrier's place is far from the vowel's, that ratio lands on the wrong base: θ (F2 x 1.84) and f (x 1.63) take an [i]'s F2 (about 2300 Hz) past its F3, so the tracker reads 3270 Hz for f's [i] edge now, and with a bend over half the vowel θ's [i] read 1472 (it failed its contrast with f, which is why that longer bend was not kept). The proofs pass on the median context, and in [i] the value is not the dental or labiodental locus the specification gives. *Default: give the layer the consonant's target as a ratio of the voice's own neutral formants (the voice's scale, not hertz), bend towards that, rebuild, re-run the whole sweep, the golden and the engine gate; then prove ɢ again (rounds 3 to 5 of the protocol; approximate only if they miss, with the deviation D66 records). Until then ɢ is not yet and the [i] edges of the raising consonants are reported as they are.* **Acted on (2026-10-07, seventh session, D67):** the layer has the keys `l1` to `l4` (a place's formant, per mille of the voice's own F5, read from each frame) and `lk` (the locus equation's slope); the vowel before a place ends at locus + slope x (its own formant - locus), and the vowel after one starts there, from its own middle (not the module's way out of the carrier). 27 consonants whose sources give a slope (or are set equal to one that does) are realised so; the rest keep their ratios. θ's [i] edges are now 2357 and 2309 Hz (f's 2485, 2435), where the ratio took them past F3. Only the reference template's F5 is measured (3900 Hz): the other templates keep the ratios until theirs is, at the rebuild of all seven.
 
-**Q22. A tied pair the template has no phone for loses the marks on its letters** (2026-10-07, eighth session, D68; found by the Tier B entries t̼͡θ̼ and d̼͡ð̼). The front-end says such a pair as its letters in a row (D66) by its old longest-match lookup, which skips every mark on either letter (`ipa-char-skipped U+033C ̼ in /t̼͡θ̼/`) as well as the tie: the marked and the plain affricate measured the same edge F2, 1593.7 Hz. This is a Tier A loss too: any marked affricate the template lacks (t̪͡s̪, t̠͡ɹ̠̊˔) is said without its marks, and reported. *Default: in the next front-end change, a tied pair with no line of its own is split at the tie and each letter composed with its own marks (C4); the tie stays reported as said in a row; and the affricate itself (closure, then the stop released into the fricative, as one segment) is built as a mechanism through the USP, after which t̼͡θ̼ and d̼͡ð̼ are proved. Until then those two Tier B records are `MISSING`.*
+**Q22. A tied pair the template has no phone for loses the marks on its letters** (2026-10-07, eighth session, D68; found by the Tier B entries t̼͡θ̼ and d̼͡ð̼). The front-end says such a pair as its letters in a row (D66) by its old longest-match lookup, which skips every mark on either letter (`ipa-char-skipped U+033C ̼ in /t̼͡θ̼/`) as well as the tie: the marked and the plain affricate measured the same edge F2, 1593.7 Hz. This is a Tier A loss too: any marked affricate the template lacks (t̪͡s̪, t̠͡ɹ̠̊˔) is said without its marks, and reported. *Default: in the next front-end change, a tied pair with no line of its own is split at the tie and each letter composed with its own marks (C4); the tie stays reported as said in a row; and the affricate itself (closure, then the stop released into the fricative, as one segment) is built as a mechanism through the USP, after which t̼͡θ̼ and d̼͡ð̼ are proved. Until then those two Tier B records are `MISSING`.* **First half done (2026-10-07, eleventh session, D71):** the front-end (`evv_map.c`, `evv_map_lookup_ex`) splits a tied pair with no line of its own at the tie and looks up, or composes, each side with its own marks (/t̼͡θ̼/ is now `t` with f2=75 and `θ` with f2=75, where both marks were skipped), and reports the pair as `tie-as-sequence` (a loss: it is not yet one segment). extIPA's sliding mark (U+0362) joins two letters the same way. The affricate as one segment is still to do, so t̼͡θ̼ and d̼͡ð̼ stay `MISSING`.
 
 **Q23. The raised mark makes no friction on a consonant** (2026-10-07, eighth session, D68). The IPA's own example of ̝ is an approximant raised to a fricative (ɹ̝, a voiced alveolar fricative), and extIPA's lateral fricatives ꞎ 𝼅 𝼆 𝼄 are defined by the equivalents ɭ̝̊ ɭ̝ ʎ̝̊ ʟ̝̊. In this engine ̝'s consonant transform only lowers F1 by a tenth (an `estimated` value; its proof is on vowels only), so ɭ̝ is an ɭ with a lower F1 and no noise: a mark cannot change the carrier, and the accent layer has no key that turns on a frication source over a voiced approximant's frames. *Default: the four extIPA letters are made letters of their own (created, on a fricative carrier, like ɬ and ɮ), and Tier A's ̝ on an approximant base is given a fricative realisation at the next engine change (a key for a frication source, or a composition rule that moves an approximant + ̝ onto its fricative letter), proved on ɹ and l; until then ̝ on a consonant is the F1 change only, and the proof says so.*
 
@@ -363,3 +383,5 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - English-based packs read by eSpeak NG (en-029, en-gb-x-rp and others): the diphthong cases `e@`, `i@`, `i@3` begin with a `t` whose whole span is closure; harmless, but a sign that the module merges the burst into the vowel.
 
 **Q27. Pre-aspiration is made shorter than asked** (2026-10-07, tenth session, D70). extIPA's ʰ◌ asks the layer's `pre` for 98 ms of breath before a stop's closure (rogers1995, fast speech); between vowels the frames carry 30 ms before p, 40 before t and 20 before k. The layer takes the voice out of a stop's own frames before its closure, and the module gives a stop only that much of the vowel's tail; the vowel before is already spoken by then. The entry is `approximate` with this stated. Making the whole length would mean the layer reaching back into the vowel before (as `lead` reaches before a voiced stop's release), an engine change under R18. *Default: leave it approximate until a pack needs pre-aspiration (Icelandic, Scottish Gaelic, Faroese, Sámi); then extend `pre` and prove it against rogers1995.*
+
+**Q28. A whispered vowel before a stop ends with 10 to 15 ms of voice** (2026-10-07, eleventh session, D71; found while making extIPA's reiteration). In `pə̥pa` the frames of the whispered [ə] carry breath and no voice, but its last two or three (at 115 to 125 ms) carry the module's voice (AV 52) where it moves into the next closure: the layer's `whisper` acts on a sound's own frames, and those belong to the stop's way in. The same happens wherever ̥ marks a vowel before a stop, and in extIPA's reiteration (`p\p\pa`, said with a whispered schwa between the repetitions). Tier A's ̥ on a vowel passes its tests (its proof judges the vowel's own frames), so nothing has been marked as failing. *Default: at the next engine change, carry a whispered sound's voice-off into the next sound's way-in frames while they are still its vowel's, rebuild, run the golden and the whole sweep; until then reiteration states it as a deviation.*

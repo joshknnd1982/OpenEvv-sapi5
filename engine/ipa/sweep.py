@@ -236,6 +236,17 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             if sm:
                 ph.setdefault('meas', {})['peak_hz'] = sm['peak_hz']
                 ph['meas']['centroid_hz'] = sm['centroid_hz']
+    if tgt and (man or base_man) == 'fricative':
+        # how narrow the noise is, above the voice as the peak is read: its spread about the
+        # centroid and the width of its band 10 dB under the peak (extIPA's whistled
+        # articulation, D71); for a mark, on its base's manner as the nasal measure is
+        for ph in tgt:
+            a_, b_ = ph['start_ms'], ph['end_ms']
+            sm = A.spectrum_moments(x, rate, a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_),
+                                    fmin=max(800.0, 0.6 * (layer or {}).get('peak_target', 0)))
+            if sm:
+                ph.setdefault('meas', {})['noise_sd_hz'] = sm['sd_hz']
+                ph['meas']['noise_bw_hz'] = sm['high_edge_hz'] - sm['low_edge_hz']
     if tgt:
         a, b = tgt[0]['start_ms'], tgt[-1]['end_ms']
         ex = dict(span_ms=[a, b])
@@ -265,6 +276,27 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
                     break
                 run += fr3[i, 0]
             ex['voice_out_ms'] = run
+        # the sound's own level: its middle third (a consonant's span begins in the vowel before
+        # it) against the middle 30 ms of the vowel after it (extIPA's strong and weak
+        # articulation, its denasal: a murmur, a noise or a closure louder or softer)
+        nv_ = phones[after] if after is not None else None
+        if nv_ and nv_['cls'] == 'vowel' and nv_['end_ms'] - nv_['start_ms'] >= 40 and b - a >= 30:
+            m_ = (nv_['start_ms'] + nv_['end_ms']) / 2.0
+            ex['mid_db'] = (A.intensity_db(x, rate, a + (b - a) / 3.0, a + 2 * (b - a) / 3.0)
+                            - A.intensity_db(x, rate, m_ - 15.0, m_ + 15.0))
+            if (man or base_man) == 'fricative':
+                # a fricative's noise alone: the middle half of the frames in it whose friction is
+                # at its full level, within 3 of the most (the middle third of a short one is
+                # partly the vowel's, and so are the frames where the noise comes in and goes)
+                tf = E.frame_times(r['frames'])
+                kf = [i for i in range(len(tf)) if a <= tf[i] < b and r['frames'][i, E.P['af']] > 0]
+                top = max([r['frames'][i, E.P['af']] for i in kf] or [0])
+                kf = [i for i in kf if r['frames'][i, E.P['af']] >= top - 3]
+                if kf:
+                    n0, n1 = tf[kf[0]], tf[kf[-1]] + r['frames'][kf[-1], 0]
+                    if n1 - n0 >= 20:
+                        ex['noise_db'] = (A.intensity_db(x, rate, n0 + (n1 - n0) / 4.0, n1 - (n1 - n0) / 4.0)
+                                          - A.intensity_db(x, rate, m_ - 15.0, m_ + 15.0))
         mod = A.modulation(x, rate, a, b)
         if mod:
             ex['modulation'] = mod
@@ -424,7 +456,7 @@ def summary(cases, man):
 
     s = {}
     for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'F3_min_hz', 'peak_hz', 'centroid_hz', 'vot_ms', 'closure_ms',
-              'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz', 'hf_db'):
+              'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz', 'hf_db', 'noise_sd_hz', 'noise_bw_hz'):
         v = vals(tmeas(k))
         if v is not None:
             s[k] = round(v, 1)
@@ -450,7 +482,7 @@ def summary(cases, man):
             s['mod_' + k] = round(v, 2)
     for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms', 'voicing_slope', 'burst_db', 'burst_len_ms',
               'burst_centroid_hz', 'gap_breath_frac', 'voiced_head', 'voiced_mid', 'voiced_tail', 'creak_head',
-              'creak_mid', 'creak_tail', 'preasp_ms', 'voice_in_ms', 'voice_out_ms'):
+              'creak_mid', 'creak_tail', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
         if v is not None:
             s['%s' % k] = round(v, 2)
@@ -751,7 +783,9 @@ def judge(t, sid, cases, diags, said_as):
             # (T-click, T-airstream) the generic checks prove the place, not the sound
             b3['targets']['airstream (T-click, T-airstream)'] = dict(target=air, measured=None, within=False)
             b3['passed'] = False
-    elif e['kind'] == 'modifier':
+    elif e['kind'] == 'modifier' or (e['kind'] == 'tie' and not PZ.check_of(e)):
+        # (a joining mark that is a mark of each side too, extIPA's sliding articulation, is
+        # judged as a mark: the pair it joins against the same letters in sequence)
         b3 = check_shift(t, sid, cases)
         s = b3.pop('summary')
         # every marked case must have been composed with the mark, not said without it
@@ -882,6 +916,14 @@ def say_entry(t, sid, template, pack):
     p, map_path = test_map(pack, template, SWEEP_WORK)
     with open(map_path, 'rb') as f:
         map_sha = hashlib.sha256(f.read()).hexdigest()
+    if (t.sounds[sid].get('tests') or {}).get('notation'):
+        # an entry of extIPA's own reading (Q18) is said by a map that declares extIPA: the
+        # table's map with that one line in front, so the proof keeps the table's map's hash
+        with open(map_path, encoding='utf-8') as f:
+            body = f.read()
+        map_path = map_path[:-4] + '-%s.map' % t.sounds[sid]['tests']['notation']
+        with open(map_path, 'w', encoding='utf-8', newline='\n') as f:
+            f.write('notation %s\n' % t.sounds[sid]['tests']['notation'] + body)
     e = t.sounds[sid]
     r = AD.realize(t, sid, template, (AD.loop_proof(sid) or {}).get('carrier_measured')) if e['kind'] == 'base' else None
     said_as = dict(pack=pack, carrier=r['carrier'] if r else None, keys=r['keys'] if r else None,
@@ -909,7 +951,7 @@ def say_entry(t, sid, template, pack):
     cases = {}
     for (cid, text, out, d), r_ in zip(inputs, rend):
         diags += r_['diag'][len(d):] if r_['diag'][:len(d)] == d else r_['diag']
-        bm_ = t.sounds.get(cid.split('_')[0]) if e['kind'] == 'modifier' else None
+        bm_ = t.sounds.get(cid.split('_')[0]) if e['kind'] in ('modifier', 'tie') else None
         c = measure(r_, p, cid, man_of(t, e), layer, base_man=manner(bm_) if bm_ and bm_['kind'] == 'base' else None)
         c.update(ipa=text, said=out, diag=r_['diag'], fe_diag=d, wav_sha256=r_['wav_sha256'])
         x_, rate_ = E.read_wav(r_['wav'])

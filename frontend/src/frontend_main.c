@@ -656,8 +656,9 @@ static void put_header(void)
    word says where the next syllable begins. A tie bar (U+0361 above, U+035C
    below) makes the letters on each side one segment, looked up whole (an
    affricate the template has, `t͡s'); a tied pair the map has no line for is
-   said by the lookup's own fallback, its letters one after the other, the tie
-   reported as skipped. */
+   said one side after the other, each with its own marks, and reported so.
+   extIPA's sliding mark (U+0362) joins two letters the same way, and is a
+   mark of each (its `mod' line gives the two the time of one segment). */
 static int utf8_char_len(unsigned char c)
 {
 	return c < 0x80 ? 1 : (c & 0xe0) == 0xc0 ? 2 : (c & 0xf0) == 0xe0 ? 3 : (c & 0xf8) == 0xf0 ? 4 : 1;
@@ -778,6 +779,95 @@ static void put_tone(EvvPhone *nuc, int *levels, int *n, int reg, int slope, int
 	*n = 0;
 }
 
+/* extIPA's reiteration (p\p\p, Tier B): each `\' becomes the IPA the map's
+   `reiterate' line gives for the class of the letter before it, and a
+   syllable break, so that the sound after it is said again from its start.
+   A `\' with no letter before it, or no line for its class, is left off and
+   reported. A stress mark typed before a sound that is reiterated before its
+   vowel (ˈp\p\pa) goes to the repetition said last, the one with the vowel.
+   Returns the text to read, or NULL when there is nothing to expand; then
+   `origin' gives, for each character of it, the character of the text given
+   that it stands for (what a position reported to the caller counts). The
+   caller frees both. */
+static int is_space_or_group(char c)
+{
+	return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '|';
+}
+
+static char *expand_reiteration(const char *utf8, int **origin)
+{
+	*origin = NULL;
+	if (!strchr(utf8, '\\') || (!g_map.reiterate[0][0] && !g_map.reiterate[1][0]))
+		return NULL;
+	size_t n = strlen(utf8), k = 0;
+	size_t room = n * (sizeof(g_map.reiterate[0]) + 3) + 1;
+	char *out = (char *)malloc(room);
+	int *org = (int *)malloc(sizeof(int) * room);
+	if (!out || !org) {
+		free(out);
+		free(org);
+		return NULL;
+	}
+	int cls = 0, kc = 0, oc = 0;      /* characters written, characters read */
+	const char *held = NULL, *held_to = NULL;
+	for (const char *p = utf8; *p;) {
+		int l = utf8_char_len((unsigned char)*p);
+		if (l == 2 && (unsigned char)p[0] == 0xcb && ((unsigned char)p[1] == 0x88 || (unsigned char)p[1] == 0x8c)) {
+			/* the last `\' before this word's next vowel, if there is one */
+			const char *last = NULL;
+			for (const char *q = p + 2; *q && !is_space_or_group(*q); q += utf8_char_len((unsigned char)*q)) {
+				const EvvLetter *v = evv_map_letter(&g_map, q, (size_t)utf8_char_len((unsigned char)*q));
+				if (*q == '\\')
+					last = q;
+				else if (v && v->cls == 'v')
+					break;
+			}
+			if (last) {
+				held = p;
+				held_to = last;
+				p += l;
+				oc++;
+				continue;
+			}
+		}
+		if (*p == '\\') {
+			const char *say = cls ? g_map.reiterate[cls == 'v'] : "";
+			if (say[0]) {
+				for (const char *s = say; *s; s += utf8_char_len((unsigned char)*s))
+					org[kc++] = oc;
+				memcpy(out + k, say, strlen(say));
+				k += strlen(say);
+				out[k++] = '.';
+				org[kc++] = oc;
+			} else
+				evv_diag(EVV_DIAG_LOSS, "reiteration-left-off", "a `\\' with %s; left off",
+				         cls ? "no reiterate line for its letter's class" : "no letter before it");
+			if (p == held_to) {
+				memcpy(out + k, held, 2);
+				k += 2;
+				org[kc++] = (int)(oc); /* stands for the `\' after which it is said */
+				held = held_to = NULL;
+			}
+			p++;
+			oc++;
+			continue;
+		}
+		const EvvLetter *lt = evv_map_letter(&g_map, p, (size_t)l);
+		if (lt)
+			cls = lt->cls;
+		else if (is_space_or_group(*p))
+			cls = 0;
+		memcpy(out + k, p, (size_t)l);
+		k += (size_t)l;
+		org[kc++] = oc++;
+		p += l;
+	}
+	out[k] = 0;
+	org[kc] = oc;
+	*origin = org;
+	return out;
+}
+
 static int translate_ipa(const char *given)
 {
 	EvvMapPhone phones[EVV_MAX_PHONES];
@@ -793,7 +883,10 @@ static int translate_ipa(const char *given)
 	utf8 = ipa_normalize(given);
 	if (!utf8)
 		return -1;
-	/* positions are counted in the text as normalised */
+	/* positions are counted in the text as normalised; what is read may have
+	   reiterations written out (then `origin' leads back) */
+	int *origin = NULL;
+	char *expanded = expand_reiteration(utf8, &origin);
 	g_input = utf8;
 	n_clause_words = 0;
 	ClauseWord *cw = NULL;
@@ -803,7 +896,7 @@ static int translate_ipa(const char *given)
 	int next_levels[8], n_next = 0; /* a tone mark on a consonant, for the nucleus after it */
 	int reg = 0, slope = 0, slope_at = 0;
 	EvvPhone *nuc = NULL;           /* the nucleus that typed tone goes to */
-	for (const char *p = utf8; *p;) {
+	for (const char *p = expanded ? expanded : utf8; *p;) {
 		int l = utf8_char_len((unsigned char)*p);
 		if (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
 			cw = NULL;
@@ -867,7 +960,7 @@ static int translate_ipa(const char *given)
 			for (const char *q = p; q + 1 < e; q++)
 				if ((unsigned char)q[0] == 0xcb && ((unsigned char)q[1] == 0x88 || (unsigned char)q[1] == 0x8c))
 					stress = 0;
-			cw = new_word(chars, 0);
+			cw = new_word(origin ? origin[chars] : chars, 0);
 		}
 		if (l == 2 && (unsigned char)p[0] == 0xcb && (unsigned char)p[1] == 0x88) { /* ˈ */
 			stress = 1;
@@ -940,7 +1033,9 @@ static int translate_ipa(const char *given)
 			    (ml == 3 && (unsigned char)p[0] == 0xe2 && (unsigned char)p[1] == 0x80 &&
 			     ((unsigned char)p[2] == 0x96 || (unsigned char)p[2] == 0xbf)))
 				break;
-			if (ml == 2 && (unsigned char)p[0] == 0xcd && ((unsigned char)p[1] == 0xa1 || (unsigned char)p[1] == 0x9c)) {
+			if (ml == 2 && (unsigned char)p[0] == 0xcd && ((unsigned char)p[1] == 0xa1 || (unsigned char)p[1] == 0x9c ||
+			                                               (unsigned char)p[1] == 0xa2)) {
+				/* a tie bar, or extIPA's sliding mark (U+0362), which joins two letters too */
 				tied = 1;
 				had_tie = 1;
 			}
@@ -1011,7 +1106,7 @@ static int translate_ipa(const char *given)
 				}
 			brk_next = 0;
 		}
-		cw->src_len = chars - cw->src;
+		cw->src_len = (origin ? origin[chars] : chars) - cw->src;
 		if (syllabic) {
 			stress = 0;
 			for (int i = cw->w.n - 1; i >= 0; i--)
@@ -1027,6 +1122,8 @@ static int translate_ipa(const char *given)
 	write_clause(CLAUSE_PERIOD);
 	put_header();
 	g_input = NULL;
+	free(expanded);
+	free(origin);
 	free(utf8);
 	return 0;
 }

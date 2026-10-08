@@ -346,9 +346,23 @@ for _i in (2, 3, 4, 5, 6):
 # closure (its pre-aspiration); an onset time the sound takes whatever the base had (unaspirated)
 OPS.update({('voicing.part_from_pct', 'set'): ('vfrom', '='), ('voicing.part_to_pct', 'set'): ('vto', '='),
             ('release.preaspiration_ms', 'set'): ('pre', '='), ('vot_ms', 'set'): ('vot', '=')})
+# levels moved from the base's own, in this engine's dB (extIPA's strong and weak articulation,
+# its denasal): the voice, the friction (its noise, a stop's burst too) and the breath, added to the
+# base's own offset (a sound without one has 0 dB of it, LEVEL_KEYS); the tilt
+# of the voice's spectrum the sound takes (the layer's 0 to 41, a voiced closure's being 24 to 35);
+# a resonance's bandwidth scaled (the cascade's, F1 to F4)
+OPS.update({('voice.level_db', 'add'): ('av', '+'), ('noise.gain_db', 'add'): ('af', '+'),
+            ('breath.gain_db', 'add'): ('ah', '+'), ('phonation.tilt_db', 'set'): ('tl', '=')})
+LEVEL_KEYS = {'av', 'ah', 'af'}
+for _i in (1, 2, 3, 4):
+    OPS[('bandwidths.B%d' % _i, 'scale')] = ('b%d' % _i, '*')
+# a sound's own pitch, away from the voice's line (extIPA's ingressive airflow): semitones in the
+# table, tenths of one in the layer's `pst'
+OPS[('pitch.offset_st', 'set')] = ('pst', '=')
+KEY_UNIT = {'pst': 10.0}
 # a consonant's length is `hold', a vowel's `dur'
 CLASS_KEY = {('consonant', 'dur'): 'hold'}
-RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur', 'hold'}      # absent means the carrier's own: 100
+RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur', 'hold', 'b1', 'b2', 'b3', 'b4'}      # absent: the carrier's own, 100
 
 
 def _flat(tr, prefix=''):
@@ -385,7 +399,8 @@ def mod_ops(t, mid, cls, own=False):
         if key is None:
             lost.append('%s %s: no engine key' % (path, op))
             continue
-        ops.append((CLASS_KEY.get((cls, key[0]), key[0]), key[1], v[op] * (100.0 if key[1] == '*' else 1.0)))
+        ops.append((CLASS_KEY.get((cls, key[0]), key[0]), key[1],
+                    v[op] * (100.0 if key[1] == '*' else KEY_UNIT.get(key[0], 1.0))))
     return ops, lost
 
 
@@ -404,8 +419,8 @@ def merge(keys, ops, exact=False, base_hz=None):
             out[key] = out.get(key, 100) * (hz + (val[0] - hz) * val[1] / 100.0) / hz
         elif op == '=':
             out[key] = val
-        elif key in out:
-            out[key] = out[key] + val
+        elif key in out or key in LEVEL_KEYS:
+            out[key] = out.get(key, 0) + val
         else:
             lost.append('%s+%s: the base has no %s to add to' % (key, val, key))
     return ({k: v if exact else int(round(v)) for k, v in out.items()}, lost)
@@ -596,7 +611,10 @@ def write(t, template, quiet=False):
                             was[1], sid, kind, mark, cls, was[0], body))
                     continue
                 written[(kind, mark, cls)] = (body, sid)
-                lines.append('%s %s %s %s    # %s' % (kind, mark, cls[0], body, sid))
+                # extIPA's own reading of a character the IPA reads otherwise (Q18): a line the
+                # front-end reads only under `notation extipa'
+                lines.append('%s%s %s %s %s    # %s' % ('extipa ' if e.get('notation') == 'extipa' else '', kind, mark,
+                                                       cls[0], body, sid))
     # a mark the reader takes as another (ipa/aliases.toml `always'): the same line under it, since
     # the front-end composes by the character it is given (U+033E for U+034B, Q26)
     import reader as RD
@@ -604,6 +622,11 @@ def write(t, template, quiet=False):
         for (kind, mark, cls), (body, sid) in sorted(written.items()):
             if mark == real and len(alias) == 1:
                 lines.append('%s %s %s %s    # %s, spelt %s' % (kind, alias, cls[0], body, sid, 'U+%04X' % ord(alias)))
+    # extIPA's reiteration (p\p\p, Tier B): what the front-end says at each `\', after a consonant
+    # and after a vowel, before the sound is said again
+    for sid, e in sorted(t.sounds.items()):
+        for cls, ipa in sorted(((e.get('realization') or {}).get('openevv', {}).get('reiterate') or {}).items()):
+            lines.append('reiterate %s %s    # %s' % (cls[0], ipa, sid))
     lines += pitch_lines(t)
     syl = ((t.sounds.get('U+0329') or {}).get('realization') or {}).get('openevv', {}).get('schwa_keys')
     if syl:

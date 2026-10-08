@@ -15,6 +15,9 @@ T-sequence  a tie bar: the tied pair is one segment (no loss reported, said as o
 T-double    a double articulation joined by a tie bar (k͡p): one segment with one closure and one release,
             its closure against the second stop's alone, the vowel before nearer the first stop's F2 and
             the vowel after beginning lower than after the second (4g, D66)
+T-reiterate extIPA's reiteration (p\p\p, Tier B): one release more for every `\' than the plain form
+            has, nothing left off, and the repetition from its first release to its last within a
+            measured repetition's length (the specification's range, of the whole disfluency)
 
 Each check compares two renders of the same text but for the mark, so the voice's own pitch and timing
 cancel; its numbers are the entry's specification (`spec`), each with its provenance.
@@ -30,7 +33,8 @@ import analysis as A  # noqa: E402
 
 # not [i]: its F1 (217 Hz on this voice) sits on the second harmonic, where the trackers fail (D15)
 VOWELS = ('a', 'e', 'u')
-CHECKS = ('T-tone', 'T-register', 'T-slope', 'T-stress', 'T-boundary', 'T-syllable', 'T-sequence', 'T-double')
+CHECKS = ('T-tone', 'T-register', 'T-slope', 'T-stress', 'T-boundary', 'T-syllable', 'T-sequence', 'T-double',
+          'T-reiterate')
 MIN_MS = 8.0     # the contrast minimum of sweep.py for a time
 MIN_ST = 1.0     # a pitch difference that counts: about a third of a Chao step on a 9-semitone stave
 
@@ -99,6 +103,11 @@ def contexts(t, sid):
         for v in VOWELS:
             out.append(('plain_%s' % v, 'ˈ%sp%st%s' % (v, x, v)))     # ap.ta: the other division
             out.append(('marked_%s' % v, 'ˈ%s%spt%s' % (v, x, v)))    # a.pta
+    elif chk == 'T-reiterate':
+        # the forms the test names, each written with the mark and without it
+        for k, (marked, plain) in enumerate((e.get('tests') or {}).get('forms', [])):
+            out.append(('marked_%d' % k, marked))
+            out.append(('plain_%d' % k, plain))
     elif chk == 'T-sequence':
         for pair in (e.get('tests') or {}).get('pairs', []):
             tied = pair.replace('͡', x)
@@ -183,6 +192,13 @@ def measure(x, rate, phones, frames=None, stops=False):
                span_ms=(phones[last]['end_ms'] - phones[first]['start_ms']) if sounding else 0)
     if stops and frames is not None and len(syl) >= 2:
         out['stops'] = stop_span(x, rate, phones, frames, syl[0]['i'], syl[1]['i'])
+    if frames is not None:
+        # where the noise comes in: each frame whose friction reaches 40 from below it (a stop's
+        # release, a fricative begun again; T-reiterate)
+        import engine as E
+        tt = E.frame_times(frames)
+        af = frames[:, E.P['af']]
+        out['noise_onsets_ms'] = [float(tt[k]) for k in range(len(tt)) if af[k] >= 40 and (k == 0 or af[k - 1] < 40)]
     return out
 
 
@@ -459,6 +475,23 @@ def judge(t, sid, cases):
                     None if None in (ft, ff) else ft - ff, None not in (ft, ff) and ff - ft >= MIN_MS)
                 summ.setdefault('ms', {})['%s_%s' % (untied, v)] = dict(tied=ct_ms, untied=cu_ms, friction=ft,
                                                                        plain_fricative=ff)
+    elif chk == 'T-reiterate':
+        lo, hi = _v(spec['repetition_ms']['min']), _v(spec['repetition_ms']['max'])
+        for k, (marked, plain) in enumerate((e.get('tests') or {}).get('forms', [])):
+            n = marked.count(e['ipa'])
+            om, op = (P.get('marked_%d' % k) or {}).get('noise_onsets_ms', []), (P.get('plain_%d' % k) or {}).get(
+                'noise_onsets_ms', [])
+            put('%s: a release more for each of its %d marks than %s' % (marked, n, plain), '+%d' % n,
+                len(om) - len(op), len(om) - len(op) == n)
+            # the letter before each mark said as often as it is written: the front-end's phones
+            said = cases['marked_%d' % k].get('said', '').split('`')[-1]
+            lost = [d for d in cases['marked_%d' % k]['diag'] + cases['marked_%d' % k].get('fe_diag', [])
+                    if d['level'] == 'loss']
+            put('%s: nothing left off' % marked, 'no loss', len(lost), not lost)
+            span = om[-1] - om[0] if len(om) >= 2 else None
+            summ['%s' % marked] = dict(onsets_ms=om, plain_onsets_ms=op, said=said)
+            put('%s: from its first release to its last (ms)' % marked, '%g to %g' % (lo, hi), span,
+                span is not None and lo <= span <= hi)
     else:
         put('no check', chk, None, False)
     if 'T-double' in (e.get('tests') or {}).get('checks', []):

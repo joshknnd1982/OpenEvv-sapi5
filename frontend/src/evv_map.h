@@ -104,12 +104,16 @@ enum { W_STRICTURE, W_AIRSTREAM, W_NASAL, W_LATERAL, W_SIBILANT, W_PLACE, W_PLAC
 typedef struct {
 	char tmpl[16];          /* the openevv module the phones are for, e.g. "itit" */
 	int french;             /* 1: the stress digit goes before the nucleus, as frfr/frca write it */
+	int extipa;             /* 1: `notation extipa': the lines marked `extipa' are read (extIPA's own
+	                           readings of characters the IPA reads otherwise, Q18) */
 	char vowels[64][EVV_PHONE_LEN];
 	int n_vowels;
 	char glides[32][EVV_PHONE_LEN];   /* may follow an obstruent inside an onset */
 	int n_glides;
 	char schwa[EVV_PHONE_LEN];        /* put before a syllabic consonant */
 	char syl_sound[EVV_ID_LEN];       /* and the sound it is said with, if the map names one */
+	char reiterate[2][64];            /* extIPA's reiteration (p\p\p): the IPA said at a `\' after a
+	                                     consonant [0] and after a vowel [1] (`reiterate c|v IPA') */
 	char secondary;                   /* the digit secondary stress is written with: the Italian
 	                                     and Spanish modules have none, and refuse a 2 */
 	int apart;                        /* 1: every syllable is a word of its own, as a language

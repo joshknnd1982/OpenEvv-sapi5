@@ -181,6 +181,10 @@ typedef struct {
                            it, that voi, whisper and creak are said over
                            (extIPA's partial voicing and devoicing, a
                            creaky offglide); 0 and 100: all of it */
+    int  pst;           /* the sound said at a pitch of its own, so many
+                           tenths of a semitone from the voice's line over
+                           its own stretch (extIPA's ingressive airflow);
+                           nought: the voice's */
 } Def;
 
 typedef struct {
@@ -721,6 +725,7 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "l3", offsetof(Def, l[2]) }, { "l4", offsetof(Def, l[3]) },
         { "lk", offsetof(Def, lk) },
         { "vfrom", offsetof(Def, vfrom) }, { "vto", offsetof(Def, vto) },
+        { "pst", offsetof(Def, pst) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -2752,6 +2757,16 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 f[P_F0] = pitch_at(a, at, dt, f);
             else
                 f[P_F0] = pitch_of_module(a, f);
+            /* A sound at a pitch of its own (`pst'), in and out over 15 ms
+               at the edges of its stretch, the voice's line kept beyond. */
+            if (def != 0 && own && def->pst != 0 && f[P_F0] > 0) {
+                double q = smooth(into / 15.0);
+
+                if (own_ms - into < 15)
+                    q *= smooth((own_ms - into) / 15.0);
+                f[P_F0] = (int32_t)(f[P_F0] * pow(2.0, def->pst * q / 120.0)
+                                    + 0.5);
+            }
 
             t += dt;
             if (!emit(context, f))

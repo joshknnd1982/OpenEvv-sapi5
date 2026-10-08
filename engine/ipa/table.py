@@ -31,7 +31,7 @@ TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximat
 FIELDS = {'ipa', 'codepoints', 'name', 'section', 'tier', 'kind', 'features', 'edit', 'levels', 'register',
           'slope', 'stress', 'boundary', 'placement', 'equivalent_to', 'state', 'level', 'approximate',
           'deviation', 'plan', 'spec', 'transform', 'realization', 'tests', 'history', 'registry',
-          'chart', 'parts', 'said_as', 'after_mark'}
+          'chart', 'parts', 'said_as', 'after_mark', 'notation'}
 VALUE_FIELDS = {'v', 'tag', 'ref', 'note', 'proof', 'rule', 'deviation', 'key', 'part'}
 # a modifier's transform of a value (DESIGN.md 2.2): scale it, or add to it
 TRANSFORM_OPS = {'scale', 'add', 'set', 'toward'}
@@ -195,7 +195,9 @@ def validate(t):
             for k in ('spec', 'features', 'transform', 'realization', 'edit'):
                 if e.get(k):
                     problems.append('%s: a composite has no %s of its own (its parts\' are its values)' % (sid, k))
-        if kind == 'modifier':
+        if e.get('notation') not in (None, 'extipa'):
+            problems.append('%s: notation %r (extipa, or none for the IPA)' % (sid, e.get('notation')))
+        if kind == 'modifier' or (kind == 'tie' and e.get('edit')):
             edit = e.get('edit') or {}
             if not edit:
                 problems.append('%s: a modifier with no class of base' % sid)
@@ -203,9 +205,11 @@ def validate(t):
                 # a mark of two characters, a Tier A mark and one more (extIPA's ◌̥᪽, ◌ʰʰ: Tier B);
                 # its transform is the second character's alone, the first's is its own entry's
                 am = t.sounds.get(e['after_mark']) or {}
-                if e.get('tier') != 'B' or am.get('tier') != 'A' or am.get('kind') != 'modifier' \
+                # (or a Tier B mark of one character: extIPA's ◌͊᪻ begins with its own ◌͊)
+                if e.get('tier') != 'B' or am.get('tier') not in ('A', 'B') or am.get('kind') != 'modifier' \
+                        or am.get('after_mark') \
                         or cps[:-1] != am.get('codepoints') or len(cps) != len(am.get('codepoints') or []) + 1:
-                    problems.append('%s: after_mark %s is not a Tier A mark this one begins with' % (sid, e['after_mark']))
+                    problems.append('%s: after_mark %s is not a mark of one character this one begins with' % (sid, e['after_mark']))
                 # its second character is written as that character's line: where the character is
                 # a Tier A mark of its own (ʰ in ◌ʰʰ), the line is that mark's, so the transform must be
                 last = [x for x in t.sounds.values() if x.get('tier') == 'A' and x.get('kind') == 'modifier'
@@ -257,7 +261,8 @@ def validate(t):
         for k, v in (e.get('spec') or {}).items():
             _check_value(sid, 'spec.' + k, v, t, problems, estimated)
         for cls, tr in (e.get('transform') or {}).items():
-            if kind != 'modifier' or cls not in (e.get('edit') or {}):
+            # (a joining mark that is a mark of each side, extIPA's sliding articulation, has one too)
+            if kind not in ('modifier', 'tie') or cls not in (e.get('edit') or {}):
                 problems.append('%s: a transform for %s, which is not a class this modifier edits' % (sid, cls))
             for k, v in tr.items():
                 _check_value(sid, 'transform.%s.%s' % (cls, k), v, t, problems, estimated)
@@ -357,6 +362,11 @@ def _plants(t):
         ('a part that ends before it starts', setv('B:U+0325+U+1ABD', ['transform', 'consonant', 'voicing',
                                                                         'part_to_pct'], {'set': 20, 'tag': 'estimated'})),
         ('two marks before a letter spelt alike', setv('B:U+02EC#pre', ['ipa'], 'ʰ')),
+        # D71: a notation the front-end does not have; a two-character mark after one of two
+        ('a notation that is not extipa', setv('B:U+2193', ['notation'], 'voqs')),
+        ('an after_mark of two characters', lambda c: c.sounds.update({'B:U+0325+U+1ABD+U+1ABB': dict(
+            c.sounds['B:U+034A+U+1ABB'], ipa='̥᪽᪻', codepoints=['U+0325', 'U+1ABD', 'U+1ABB'],
+            after_mark='B:U+0325+U+1ABD')})),
     ]
 
 
