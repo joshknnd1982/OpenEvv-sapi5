@@ -10,7 +10,11 @@ any map needs) and the realised map of the master table (ipa/realized/<template>
 sample holds, the sound it composed (its `composed` note) must have the keys the adapter composes,
 each within 1 (the front-end rounds the base and each step; the adapter once at the end). Then
 the fallbacks: a letter with no line (said as the nearest by features), a mark with no `mod` line
-for its class (left off), a character that is no letter: each must be reported as a loss.
+for its class (left off), a character that is no letter: each must be reported as a loss. A mark of
+extIPA's own reading (`notation', Q18) is composed through the map with `notation extipa' in
+front, and must be left off, and reported, by the map without it. The adapter is given the marks in
+the order the front-end meets them (as written, in canonical order): where two marks set one key,
+the one met last is the one said.
 """
 
 import argparse
@@ -90,6 +94,15 @@ def main():
     os.makedirs(work, exist_ok=True)
     p, map_path = test_map(a.pack, a.template, work)
     without_letter(map_path, 'ɯ')
+    # a mark of extIPA's own reading (Q18, D71: ingressive ↓) is composed only by a map that
+    # declares extIPA: the same map with that one line in front
+    with open(map_path, encoding='utf-8') as f:
+        body = f.read()
+    declared = {}
+    for n in sorted({e['notation'] for e in t.sounds.values() if e.get('notation')}):
+        declared[n] = map_path[:-4] + '-%s.map' % n
+        with open(declared[n], 'w', encoding='utf-8', newline='\n') as f:
+            f.write('notation %s\n' % n + body)
     # the sample: every realised letter with every modifier that has a transform for its class,
     # one at a time and in pairs
     # (not ɯ: its line is taken out, to show the fallback below)
@@ -113,13 +126,20 @@ def main():
         # a mark written before its letter (Tier B, D70) goes before it
         ipa = ''.join(t.sounds[m]['ipa'] for m in ms if t.sounds[m].get('placement') == 'before') + \
             t.sounds[b]['ipa'] + ''.join(t.sounds[m]['ipa'] for m in ms if t.sounds[m].get('placement') != 'before')
+        # the marks in the order the front-end meets them: as written, put in canonical order (a
+        # mark below before a mark above); where two set one key (◌͎ and ◌͋ the friction's level,
+        # D71), the one met last is the one said
+        fe = fe_form(ipa)
+        ms = sorted(ms, key=lambda m: fe.find(fe_form(t.sounds[m]['ipa'])))
         want = AD.compose(t, b, ms, a.template, _carrier_meas(b))
+        notation = next((t.sounds[m]['notation'] for m in ms if t.sounds[m].get('notation')), None)
+        mp = declared[notation] if notation else map_path
         if ms and t.sounds[ms[0]].get('kind') == 'syllable-mark':
             # a stressed vowel: the front-end composes its nucleus with the stress mark after it
-            code, out, diags = say_ipa(p, map_path, ms and t.sounds[ms[0]]['ipa'] + t.sounds[b]['ipa'])
+            code, out, diags = say_ipa(p, mp, ms and t.sounds[ms[0]]['ipa'] + t.sounds[b]['ipa'])
         else:
             # after a stressed syllable, so that the letter under test carries no stress of its own
-            code, out, diags = say_ipa(p, map_path, 'ˈpa' + ipa)
+            code, out, diags = say_ipa(p, mp, 'ˈpa' + ipa)
         # the front-end puts marks in canonical order (a mark below before a mark above)
         got = composed_keys(diags).get(fe_form(ipa))
         losses = [d for d in diags if d['level'] == 'loss']
@@ -134,8 +154,11 @@ def main():
     # each fallback warns
     # (every mark has a transform now, D63: a mark on a class it has none for is left off, as ʼ on
     # a vowel; tʼ was this case until ʼ had one)
+    # and a mark of extIPA's own reading is left off, and reported, where extIPA is not declared
     fallbacks = [('ɯ', 'nearest-letter'), ('aʰ', 'mark-left-off'), ('5', 'ipa-not-a-letter'),
-                 ('aʼ', 'mark-left-off')]
+                 ('aʼ', 'mark-left-off')] + [
+        ('a' + e['ipa'], 'mark-left-off') for sid, e in sorted(t.sounds.items())
+        if e.get('notation') and e.get('kind') == 'modifier' and 'vowel' in (e.get('transform') or {})]
     for ipa, kind in fallbacks:
         code, out, diags = say_ipa(p, map_path, ipa)
         kinds = sorted({d['kind'] for d in diags if d['level'] == 'loss'})
