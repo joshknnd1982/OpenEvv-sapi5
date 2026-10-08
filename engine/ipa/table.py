@@ -25,6 +25,7 @@ import tomli
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 IPA = os.path.join(ROOT, 'ipa')
 
+MAX_OPS = 12          # keys a mark's line may hold in the front-end (EVV_MAX_OPS)
 KINDS = {'base', 'modifier', 'syllable-mark', 'tone', 'boundary', 'tie', 'composite'}
 STATES = {'MISSING', 'mapped', 'composed', 'created', 'BLOCKED'}
 TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximate'}
@@ -221,6 +222,11 @@ def validate(t):
                     problems.append('%s: its last character is %s, whose line it shares: the same transform' % (
                         sid, last[0]['ipa']))
             for cls, tr in (e.get('transform') or {}).items():
+                # the front-end holds MAX_OPS keys a mark's line (frontend/src/evv_map.h EVV_MAX_OPS)
+                # and drops the rest: a mark of more is refused here (D72: a ninth key dropped `ab')
+                if sum(1 for _ in _flat_values(tr)) > MAX_OPS:
+                    problems.append('%s: %d keys for a %s, more than a mark line holds (%d)' % (
+                        sid, sum(1 for _ in _flat_values(tr)), cls, MAX_OPS))
                 part = tr.get('voicing') or {}
                 lo, hi = (part.get('part_from_pct') or {}).get('set', 0), (part.get('part_to_pct') or {}).get('set', 100)
                 if not 0 <= lo < hi <= 100:
@@ -367,6 +373,10 @@ def _plants(t):
         ('an after_mark of two characters', lambda c: c.sounds.update({'B:U+0325+U+1ABD+U+1ABB': dict(
             c.sounds['B:U+034A+U+1ABB'], ipa='̥᪽᪻', codepoints=['U+0325', 'U+1ABD', 'U+1ABB'],
             after_mark='B:U+0325+U+1ABD')})),
+        # D72: a mark with more keys than the front-end's line holds
+        ('a mark of more keys than a line holds', lambda c: c.sounds['B:U+1DBF']['transform']['consonant'].update(
+            vot_ms={'add': 1, 'tag': 'estimated'}, duration={'inherent_ms': {'scale': 1.1, 'tag': 'estimated'}},
+            formants={'F2': {'scale': 1.1, 'tag': 'estimated'}, 'F3': {'scale': 1.1, 'tag': 'estimated'}})),
     ]
 
 

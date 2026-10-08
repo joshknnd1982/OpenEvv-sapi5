@@ -68,7 +68,9 @@ typedef struct {
 	int hz[4];               /* a vowel's formants as the map realises it (`f1hz'...), or 0 */
 } EvvLetter;
 
-#define EVV_MAX_OPS 8
+/* keys a mark's line may hold: 12 since extIPA's fricated releases (a stop's
+   friction, its level, the voice under it and six noise bands, D72) */
+#define EVV_MAX_OPS 12
 typedef struct {
 	char key[8];
 	char op;                 /* '*' a ratio, multiplied; '+' a time, added; '=' a value, set;

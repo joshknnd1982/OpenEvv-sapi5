@@ -185,6 +185,14 @@ typedef struct {
                            tenths of a semitone from the voice's line over
                            its own stretch (extIPA's ingressive airflow);
                            nought: the voice's */
+    int  frel;          /* a stop released into friction, so many ms from
+                           its release, noise on the bands a2 to ab
+                           (extIPA's fricated releases, t with a superscript
+                           theta); a voiceless stop's voice waits for it */
+    int  frelaf;        /* and its level, dB as the synthesiser has it */
+    int  frelav;        /* and the voice under it, dB either way: a voiced
+                           stop's friction is said over a voiced fricative's
+                           voice, weaker than a vowel's */
 } Def;
 
 typedef struct {
@@ -726,6 +734,8 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "lk", offsetof(Def, lk) },
         { "vfrom", offsetof(Def, vfrom) }, { "vto", offsetof(Def, vto) },
         { "pst", offsetof(Def, pst) },
+        { "frel", offsetof(Def, frel) }, { "frelaf", offsetof(Def, frelaf) },
+        { "frelav", offsetof(Def, frelav) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -1746,6 +1756,55 @@ static int clamp(int v, int lo, int hi)
     return v < lo ? lo : v > hi ? hi : v;
 }
 
+/* Whether a stop is said without voice: as its definition says if it says
+   (a voicing mark's `voi'), else as the module's phone is (its record's
+   second field: 0 for a voiced phone in every module). */
+static int stop_voiceless(const Def *d, const Phone *stop)
+{
+    return d->voi == 0 || (d->voi != 1 && stop->record[1] != 0);
+}
+
+/* The voice onset a stop asks for after its release: its own `vot', but a
+   voiceless stop released into friction (`frel') not before the friction is
+   over. Nought `frel': `vot' as it is. */
+static int release_vot(const Def *d, const Phone *stop)
+{
+    if (d->frel > 0 && stop_voiceless(d, stop)
+        && (d->vot == UNSET || d->vot < d->frel))
+        return d->frel;
+    return d->vot;
+}
+
+/* A stop's friction after its release (`frel'), in one frame `since' ms
+   from it: the noise at its level on the definition's bands, fading over
+   the last 10 ms; a voiceless stop's breath gives way to it, and its voice
+   until the frame before the friction ends, where the voice's own rise
+   begins (release_vot); a voiced stop's voice is moved by `frelav' while it
+   lasts. */
+static void release_friction(const Def *d, const Phone *stop, int since,
+                             int step, int32_t *f)
+{
+    int i, level;
+    double x;
+
+    if (d->frel <= 0 || since < 0 || since >= d->frel)
+        return;
+    x = d->frel - since < 10 ? (d->frel - since) / 10.0 : 1.0;
+    level = (int)(d->frelaf * x + 0.5);
+    if (f[P_AF] < level)
+        f[P_AF] = clamp(level, 0, 80);
+    for (i = 0; i < 6; i++)
+        if (d->amp[i] != UNSET)
+            f[NOISE[i]] = clamp(d->amp[i], 0, 80);
+    if (stop_voiceless(d, stop)) {
+        f[P_AH] = 0;
+        if (since < d->frel - step)
+            f[P_AV] = 0;
+    } else if (d->frelav != 0 && f[P_AV] > 0) {
+        f[P_AV] = clamp((int)(f[P_AV] + d->frelav * x + 0.5), 0, 80);
+    }
+}
+
 static int32_t *room_for(Accent *a, int frames)
 {
     if (frames > a->out_room) {
@@ -1969,26 +2028,28 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
     /* A voice onset later than the module makes it has to be given the
        time. One that is earlier needs none: the voice is begun sooner. */
     if (was != 0 && is_stop(a, before) && release_voiced >= 0
-        && was->vot != UNSET && was->vot > 0) {
+        && release_vot(was, before) != UNSET
+        && release_vot(was, before) > 0) {
         int native = 0;
+        int vot = release_vot(was, before);
 
         for (i = release_from; i < release_voiced; i++)
             native += frames[(size_t)i * P_COUNT + P_STEP];
         if (a->release_at >= 0 && a->sounded - a->release_at <= 30)
             native += a->sounded - a->release_at;
         if (native > 0 && release_voiced > release_from
-            && was->vot > native + step) {
-            double s = (double)(was->vot - (native
+            && vot > native + step) {
+            double s = (double)(vot - (native
                 - (release_voiced - release_from) * step))
                 / ((release_voiced - release_from) * step);
 
             for (i = release_from; i < release_voiced; i++)
                 rate[i] = s;
             changed = 1;
-        } else if (release_voiced <= release_from && was->vot > native + step) {
+        } else if (release_voiced <= release_from && vot > native + step) {
             /* No time at all between the release and the voice, so the
                first frames of the vowel are what is lengthened. */
-            int want = (was->vot - native + step - 1) / step;
+            int want = (vot - native + step - 1) / step;
             int have = 2;
 
             if (release_voiced + have > count)
@@ -2267,7 +2328,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
            asks with a key no pack used before (burstms, noburst): the
            older keys keep what they did. */
         int own_shape = def != 0 && is_stop(a, ph) && ph->whole
-            && (def->burstms > 0 || def->noburst);
+            && (def->burstms > 0 || def->noburst || def->frel > 0);
         int own_shut = 0;
         double own_rel = -1;
 
@@ -2381,6 +2442,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 int voiced_phone = !ph->pause && ph->record[0] != 0
                     && ph->record[1] == 0;
                 int voice_follows = release_voiced >= 0 || voiced_phone;
+                int vot;
 
                 if (since >= 0 && since < 25 && f[P_AF] > 0) {
                     if (was->burst != 0)
@@ -2401,30 +2463,36 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                             f[NOISE[i]] = clamp(was->amp[i], 0, 80);
                 }
 
-                if (was->vot != UNSET && since >= 0) {
-                    if (since >= was->vot - step && since < voiced_at
+                vot = release_vot(was, before);
+                if (vot != UNSET && since >= 0) {
+                    if (since >= vot - step && since < voiced_at
                         && voice_follows) {
                         /* The voice begins here rather than where the
                            module had it: a frame before the moment, so
                            that it is up by then. */
-                        double up = smooth((since - was->vot + 2 * step)
+                        double up = smooth((since - vot + 2 * step)
                                            / 15.0);
 
                         f[P_AV] = (int32_t)(vowel_av * up + 0.5);
                         f[P_AH] = (int32_t)(f[P_AH] * (1.0 - up));
                         f[P_AF] = (int32_t)(f[P_AF] * (1.0 - up));
-                    } else if (since < was->vot - step) {
+                    } else if (since < vot - step) {
                         /* And not before. */
                         if (since >= 10 || f[P_AV] > 0) {
                             int asp = was->asp != UNSET ? was->asp : 45;
 
                             if (since >= 10 && f[P_AH] < asp
-                                && was->vot > 25 && was->ej == 0)
+                                && vot > 25 && was->ej == 0)
                                 f[P_AH] = asp;
                             f[P_AV] = 0;
                         }
                     }
                 }
+                /* released into friction: its noise from the burst on, from
+                   where the stop let go in its own stretch if it did (that
+                   part of the friction is said there) */
+                release_friction(was, before, a->release_at >= 0
+                                 ? (int)(at - a->release_at) : since, step, f);
 
                 if (was->bgain > 0 && since >= 0
                     && since < (was->burstms > 0 ? was->burstms : 10)
@@ -2523,6 +2591,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                             f[NOISE[i]] = 0;
                         f[P_A2F] = clamp(def->rel2af, 0, 80);
                     }
+                    release_friction(def, ph, since, step, f);
                 }
             }
 

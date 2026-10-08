@@ -322,6 +322,39 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             # AF only: the synthesiser sounds the bypass (AB) only with AF on, and p's frames carry
             # AB with AF at nought
             ex['burst_found'] = int(bool((fr0[win, E.P['af']] > 0).any()))
+            if closed:
+                # a release into friction (extIPA's fricated releases, D72): from where the closure
+                # opens, how long the frames ask for friction at a fricative's level without a
+                # break (AF 50 or more: 5 dB under this template's weakest fricative, x at 55; a
+                # plain stop's burst fades under it at once); and how periodic the signal above
+                # 1.5 kHz is in the 30 ms after it, its harmonics-to-noise ratio (a lateral
+                # friction's peak lies near 1.6 to 2 kHz, kye2025): a voiced stop's friction rides
+                # on its voice, which it makes less periodic, while its level there may stay under
+                # the vowel's harmonics; a voiceless stop's friction shows as a later voice onset
+                c1_ = t_[closed[-1]] + fr0[closed[-1], 0]
+                run_ = 0.0
+                for i in range(len(t_)):
+                    if t_[i] < c1_:
+                        continue
+                    if fr0[i, E.P['af']] < 50:
+                        break
+                    run_ += fr0[i, 0]
+                ex['rel_af_ms'] = run_
+                # the friction heard: the middle half of that run, its first 10 ms (the burst) left
+                # out, against the vowel after's middle 30 ms; silence reads far under the 40 dB the
+                # harness takes for nothing (stop_timing's voice), a weak fricative does not (θ's
+                # own noise is 18 to 25 dB under the vowel)
+                nv_ = phones[after] if after is not None else None
+                n0_, n1_ = c1_ + 10.0, c1_ + run_
+                if nv_ and nv_['cls'] == 'vowel' and nv_['end_ms'] - nv_['start_ms'] >= 40 and n1_ - n0_ >= 20:
+                    m_ = (nv_['start_ms'] + nv_['end_ms']) / 2.0
+                    ex['rel_noise_db'] = (A.intensity_db(x, rate, n0_ + (n1_ - n0_) / 4.0, n1_ - (n1_ - n0_) / 4.0)
+                                          - A.intensity_db(x, rate, m_ - 15.0, m_ + 15.0))
+                if after is not None and phones[after]['cls'] != 'silence':
+                    hp_ = A.signal.sosfilt(A.signal.butter(4, 1500.0 / (rate / 2.0), 'high', output='sos'), x)
+                    v_ = A.hnr_db(hp_, rate, c1_ + 2.0, c1_ + 32.0)
+                    if v_ is not None:
+                        ex['rel_hnr_db'] = v_
             if closed and after is not None and phones[after]['cls'] != 'silence':
                 c1 = t_[closed[-1]] + fr0[closed[-1], 0]
                 nv = phones[after]
@@ -482,7 +515,8 @@ def summary(cases, man):
             s['mod_' + k] = round(v, 2)
     for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms', 'voicing_slope', 'burst_db', 'burst_len_ms',
               'burst_centroid_hz', 'gap_breath_frac', 'voiced_head', 'voiced_mid', 'voiced_tail', 'creak_head',
-              'creak_mid', 'creak_tail', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db'):
+              'creak_mid', 'creak_tail', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db',
+              'rel_af_ms', 'rel_hnr_db', 'rel_noise_db'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
         if v is not None:
             s['%s' % k] = round(v, 2)

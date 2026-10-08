@@ -2156,3 +2156,315 @@ reiterate = { consonant = "ə̥", vowel = "ʔ" }
 checks = ["T-reiterate"]
 forms = [["ˈp\\p\\pa", "ˈpa"], ["ˈt\\t\\ta", "ˈta"], ["ˈs\\s\\sa", "ˈsa"], ["ˈpa\\pa\\pa", "ˈpa"]]
 proof = "ipa/proofs/B_U+005C.json"
+
+[sound."B:U+1DBF"]
+ipa = "ᶿ"
+codepoints = ["U+1DBF"]
+name = "median fricated release into a dental fricative (a superscript theta after a stop: tᶿ)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "modifier"
+edit = { consonant = { fricated_release = "dental" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the friction is θ's noise (this template's flat path) over the formants of the vowel's onset, not a dental fricative's own resonances; its length is a fricated stop's of Liverpool English (sangster2002), which measured no difference from an affricate's (nothing found tells a fricated release from an affricate by measurement: Q29); the voicing is the stop's; the superscript set is open (the chart's etc.): only the six superscripts of the chart's examples are marks here; the stop's own burst takes the fricative's bands too (its noise keys are the stop's own: an affricate-like release) (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+1DBF".spec]
+
+[sound."B:U+1DBF".transform.consonant]
+release = { fricated_ms = { set = 75, tag = "derived", rule = "the median of the eight intervocalic means of Liverpool English's fricated /t/ and /k/ (sangster2002, Tables 6.iii and 6.v: 55 to 98 ms, friction from the closure's end); a voiceless superscript's length (D72)" }, fricated_db = { set = 58, tag = "derived", rule = "the friction of θ at its own level in this template (D72)" }, fricated_voice_db = { set = -10, tag = "derived", rule = "a voiced fricative's voice against a vowel's in this template: the median of v z ʒ (43, 44, 40: 43) against the median of its 24 vowels (53), chassis dedx; the voice of a voiced stop under its release friction (round 2: on the full vowel voice the voiced releases moved the release's periodicity by 1 to 2 dB, D72); a voiceless stop has none" } }
+noise = { F2_db = { set = 0, tag = "derived", rule = "the noise of θ on each band, as this template realises it: θ's (its carrier f's measured bands, chassis dedx: the flat path alone at 60; f's friction 58) (D72)" }, F3_db = { set = 0, tag = "derived", rule = "the noise of θ on each band, as this template realises it: θ's (its carrier f's measured bands, chassis dedx: the flat path alone at 60; f's friction 58) (D72)" }, F4_db = { set = 0, tag = "derived", rule = "the noise of θ on each band, as this template realises it: θ's (its carrier f's measured bands, chassis dedx: the flat path alone at 60; f's friction 58) (D72)" }, F5_db = { set = 0, tag = "derived", rule = "the noise of θ on each band, as this template realises it: θ's (its carrier f's measured bands, chassis dedx: the flat path alone at 60; f's friction 58) (D72)" }, F6_db = { set = 0, tag = "derived", rule = "the noise of θ on each band, as this template realises it: θ's (its carrier f's measured bands, chassis dedx: the flat path alone at 60; f's friction 58) (D72)" }, flat_db = { set = 60, tag = "derived", rule = "the noise of θ on each band, as this template realises it: θ's (its carrier f's measured bands, chassis dedx: the flat path alone at 60; f's friction 58) (D72)" } }
+
+[sound."B:U+1DBF".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+006B", "U+0070"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+proof = "ipa/proofs/B_U+1DBF.json"
+
+[sound."B:U+02E3"]
+ipa = "ˣ"
+codepoints = ["U+02E3"]
+name = "median fricated release into a velar fricative (a superscript x after a stop: kˣ)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "modifier"
+edit = { consonant = { fricated_release = "velar" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the friction is x's noise over the formants of the vowel's onset; its length is a fricated stop's of Liverpool English (sangster2002), as long as an affricate's there (Q29); the voicing is the stop's; only the chart's six superscripts are marks here; the stop's own burst takes the fricative's bands too (its noise keys are the stop's own: an affricate-like release) (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+02E3".spec]
+
+[sound."B:U+02E3".transform.consonant]
+release = { fricated_ms = { set = 75, tag = "derived", rule = "as for ᶿ: Liverpool English's fricated /t/ and /k/, intervocalic (sangster2002) (D72)" }, fricated_db = { set = 55, tag = "derived", rule = "the friction of x at its own level in this template (D72)" }, fricated_voice_db = { set = -10, tag = "derived", rule = "a voiced fricative's voice against a vowel's in this template: the median of v z ʒ (43, 44, 40: 43) against the median of its 24 vowels (53), chassis dedx; the voice of a voiced stop under its release friction (round 2: on the full vowel voice the voiced releases moved the release's periodicity by 1 to 2 dB, D72); a voiceless stop has none" } }
+noise = { F2_db = { set = 50, tag = "derived", rule = "the noise of x on each band, as this template realises it: x's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier's flat path 0; x's friction 55) (D72)" }, F3_db = { set = 70, tag = "derived", rule = "the noise of x on each band, as this template realises it: x's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier's flat path 0; x's friction 55) (D72)" }, F4_db = { set = 50, tag = "derived", rule = "the noise of x on each band, as this template realises it: x's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier's flat path 0; x's friction 55) (D72)" }, F5_db = { set = 0, tag = "derived", rule = "the noise of x on each band, as this template realises it: x's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier's flat path 0; x's friction 55) (D72)" }, F6_db = { set = 0, tag = "derived", rule = "the noise of x on each band, as this template realises it: x's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier's flat path 0; x's friction 55) (D72)" }, flat_db = { set = 0, tag = "derived", rule = "the noise of x on each band, as this template realises it: x's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier's flat path 0; x's friction 55) (D72)" } }
+
+[sound."B:U+02E3".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+006B", "U+0070"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+proof = "ipa/proofs/B_U+02E3.json"
+
+[sound."B:U+1079E"]
+ipa = "𐞞"
+codepoints = ["U+1079E"]
+name = "lateral fricated release into an alveolar lateral fricative (a superscript lezh after a stop: d𐞞)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "modifier"
+edit = { consonant = { fricated_release = "lateral" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the friction is ɮ's noise bands over the formants of the vowel's onset, without a lateral's own resonances; a voiced superscript: its length is a voiced stop's friction (sangster2002's /d/), on a voiceless stop it is said voiceless and as short; only the chart's six superscripts are marks here; the stop's own burst takes the fricative's bands too (its noise keys are the stop's own: an affricate-like release) (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+1079E".spec]
+
+[sound."B:U+1079E".transform.consonant]
+release = { fricated_ms = { set = 46, tag = "derived", rule = "Liverpool English's /d/, word-initial, 45.5 ms of friction from the closure's end (sangster2002, Table 4.iii; 65.8 word-finally), in the whole ms the layer takes: a voiced superscript's length; a lateral affricate's release friction, 48.24 ms (kye2025), agrees (D72)" }, fricated_db = { set = 66, tag = "derived", rule = "the friction of ɮ at its own level in this template (D72)" }, fricated_voice_db = { set = -10, tag = "derived", rule = "a voiced fricative's voice against a vowel's in this template: the median of v z ʒ (43, 44, 40: 43) against the median of its 24 vowels (53), chassis dedx; the voice of a voiced stop under its release friction (round 2: on the full vowel voice the voiced releases moved the release's periodicity by 1 to 2 dB, D72); a voiceless stop has none" } }
+noise = { F2_db = { set = 0, tag = "derived", rule = "the noise of ɮ on each band, as this template realises it: ɮ's (its line a2=0 a3=50 a4=30 a5=30 a6=0, its carrier z's flat path 0; z's friction 66) (D72)" }, F3_db = { set = 50, tag = "derived", rule = "the noise of ɮ on each band, as this template realises it: ɮ's (its line a2=0 a3=50 a4=30 a5=30 a6=0, its carrier z's flat path 0; z's friction 66) (D72)" }, F4_db = { set = 30, tag = "derived", rule = "the noise of ɮ on each band, as this template realises it: ɮ's (its line a2=0 a3=50 a4=30 a5=30 a6=0, its carrier z's flat path 0; z's friction 66) (D72)" }, F5_db = { set = 30, tag = "derived", rule = "the noise of ɮ on each band, as this template realises it: ɮ's (its line a2=0 a3=50 a4=30 a5=30 a6=0, its carrier z's flat path 0; z's friction 66) (D72)" }, F6_db = { set = 0, tag = "derived", rule = "the noise of ɮ on each band, as this template realises it: ɮ's (its line a2=0 a3=50 a4=30 a5=30 a6=0, its carrier z's flat path 0; z's friction 66) (D72)" }, flat_db = { set = 0, tag = "derived", rule = "the noise of ɮ on each band, as this template realises it: ɮ's (its line a2=0 a3=50 a4=30 a5=30 a6=0, its carrier z's flat path 0; z's friction 66) (D72)" } }
+
+[sound."B:U+1079E".tests]
+checks = ["T-shift"]
+bases = ["U+0064", "U+0261", "U+0062"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "rel_hnr_db", sign = -1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+proof = "ipa/proofs/B_U+1079E.json"
+
+[sound."B:U+1079C"]
+ipa = "𐞜"
+codepoints = ["U+1079C"]
+name = "lateral fricated release into a velar lateral fricative (a superscript small capital L with belt after a stop: k𐞜)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "modifier"
+edit = { consonant = { fricated_release = "velar-lateral" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the friction is 𝼄's noise bands, which in this table are x's (𝼄's laterality lies in its formants, which a release over the vowel's onset does not move): said as ˣ is, the lateral not made; the voicing is the stop's; the stop's own burst takes the fricative's bands too (its noise keys are the stop's own: an affricate-like release) (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+1079C".spec]
+
+[sound."B:U+1079C".transform.consonant]
+release = { fricated_ms = { set = 75, tag = "derived", rule = "as for ᶿ (sangster2002); no measurement of a lateral fricated release was found: a lateral ejective affricate's release friction is 48.24 ms (kye2025) (D72)" }, fricated_db = { set = 55, tag = "derived", rule = "the friction of 𝼄 at its own level in this template (D72)" }, fricated_voice_db = { set = -10, tag = "derived", rule = "a voiced fricative's voice against a vowel's in this template: the median of v z ʒ (43, 44, 40: 43) against the median of its 24 vowels (53), chassis dedx; the voice of a voiced stop under its release friction (round 2: on the full vowel voice the voiced releases moved the release's periodicity by 1 to 2 dB, D72); a voiceless stop has none" } }
+noise = { F2_db = { set = 50, tag = "derived", rule = "the noise of 𝼄 on each band, as this template realises it: 𝼄's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier x's flat path 0; x's friction 55) (D72)" }, F3_db = { set = 70, tag = "derived", rule = "the noise of 𝼄 on each band, as this template realises it: 𝼄's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier x's flat path 0; x's friction 55) (D72)" }, F4_db = { set = 50, tag = "derived", rule = "the noise of 𝼄 on each band, as this template realises it: 𝼄's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier x's flat path 0; x's friction 55) (D72)" }, F5_db = { set = 0, tag = "derived", rule = "the noise of 𝼄 on each band, as this template realises it: 𝼄's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier x's flat path 0; x's friction 55) (D72)" }, F6_db = { set = 0, tag = "derived", rule = "the noise of 𝼄 on each band, as this template realises it: 𝼄's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier x's flat path 0; x's friction 55) (D72)" }, flat_db = { set = 0, tag = "derived", rule = "the noise of 𝼄 on each band, as this template realises it: 𝼄's (its line a2=50 a3=70 a4=50 a5=0 a6=0, its carrier x's flat path 0; x's friction 55) (D72)" } }
+
+[sound."B:U+1079C".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+006B", "U+0070"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+proof = "ipa/proofs/B_U+1079C.json"
+
+[sound."B:U+10799"]
+ipa = "𐞙"
+codepoints = ["U+10799"]
+name = "lateral and median fricated release, voiceless (a superscript ls digraph after a stop: t𐞙)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "modifier"
+edit = { consonant = { fricated_release = "lateral-and-median" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "lateral and median friction at once is made as one noise with each band the louder of ɬ's and s's, over the formants of the vowel's onset; nothing measured was found for it; the voicing is the stop's; the stop's own burst takes the fricative's bands too (its noise keys are the stop's own: an affricate-like release) (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+10799".spec]
+
+[sound."B:U+10799".transform.consonant]
+release = { fricated_ms = { set = 75, tag = "derived", rule = "as for ᶿ (sangster2002); no measurement of a lateral and median release was found (D72)" }, fricated_db = { set = 62, tag = "derived", rule = "the friction of ɬ s at its own level in this template (D72)" }, fricated_voice_db = { set = -10, tag = "derived", rule = "a voiced fricative's voice against a vowel's in this template: the median of v z ʒ (43, 44, 40: 43) against the median of its 24 vowels (53), chassis dedx; the voice of a voiced stop under its release friction (round 2: on the full vowel voice the voiced releases moved the release's periodicity by 1 to 2 dB, D72); a voiceless stop has none" } }
+noise = { F2_db = { set = 0, tag = "derived", rule = "the noise of ɬ s on each band, as this template realises it: ɬ's and s's together, each band the louder of the two (ɬ a3=50 a5=30, s a4=50 a5=30; both on s's friction, 62) (D72)" }, F3_db = { set = 50, tag = "derived", rule = "the noise of ɬ s on each band, as this template realises it: ɬ's and s's together, each band the louder of the two (ɬ a3=50 a5=30, s a4=50 a5=30; both on s's friction, 62) (D72)" }, F4_db = { set = 50, tag = "derived", rule = "the noise of ɬ s on each band, as this template realises it: ɬ's and s's together, each band the louder of the two (ɬ a3=50 a5=30, s a4=50 a5=30; both on s's friction, 62) (D72)" }, F5_db = { set = 30, tag = "derived", rule = "the noise of ɬ s on each band, as this template realises it: ɬ's and s's together, each band the louder of the two (ɬ a3=50 a5=30, s a4=50 a5=30; both on s's friction, 62) (D72)" }, F6_db = { set = 0, tag = "derived", rule = "the noise of ɬ s on each band, as this template realises it: ɬ's and s's together, each band the louder of the two (ɬ a3=50 a5=30, s a4=50 a5=30; both on s's friction, 62) (D72)" }, flat_db = { set = 0, tag = "derived", rule = "the noise of ɬ s on each band, as this template realises it: ɬ's and s's together, each band the louder of the two (ɬ a3=50 a5=30, s a4=50 a5=30; both on s's friction, 62) (D72)" } }
+
+[sound."B:U+10799".tests]
+checks = ["T-shift"]
+bases = ["U+0074", "U+006B", "U+0070"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+proof = "ipa/proofs/B_U+10799.json"
+
+[sound."B:U+1079A"]
+ipa = "𐞚"
+codepoints = ["U+1079A"]
+name = "lateral and median fricated release, voiced (a superscript lz digraph after a stop: d𐞚)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "modifier"
+edit = { consonant = { fricated_release = "lateral-and-median" } }
+placement = "after"
+state = "composed"
+level = 2
+approximate = true
+deviation = "lateral and median friction at once is made as one noise with each band the louder of ɮ's and z's, over the formants of the vowel's onset; a voiced superscript's length (sangster2002's /d/); nothing measured was found for it; the voicing is the stop's; the stop's own burst takes the fricative's bands too (its noise keys are the stop's own: an affricate-like release) (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+1079A".spec]
+
+[sound."B:U+1079A".transform.consonant]
+release = { fricated_ms = { set = 46, tag = "derived", rule = "as for 𐞞: Liverpool English's /d/, 45.5 ms (sangster2002, Table 4.iii), in whole ms (D72)" }, fricated_db = { set = 66, tag = "derived", rule = "the friction of ɮ z at its own level in this template (D72)" }, fricated_voice_db = { set = -10, tag = "derived", rule = "a voiced fricative's voice against a vowel's in this template: the median of v z ʒ (43, 44, 40: 43) against the median of its 24 vowels (53), chassis dedx; the voice of a voiced stop under its release friction (round 2: on the full vowel voice the voiced releases moved the release's periodicity by 1 to 2 dB, D72); a voiceless stop has none" } }
+noise = { F2_db = { set = 0, tag = "derived", rule = "the noise of ɮ z on each band, as this template realises it: ɮ's and z's together, each band the louder of the two (ɮ a3=50 a4=30 a5=30, z's carrier a4=50 a5=50; both on z's friction, 66) (D72)" }, F3_db = { set = 50, tag = "derived", rule = "the noise of ɮ z on each band, as this template realises it: ɮ's and z's together, each band the louder of the two (ɮ a3=50 a4=30 a5=30, z's carrier a4=50 a5=50; both on z's friction, 66) (D72)" }, F4_db = { set = 50, tag = "derived", rule = "the noise of ɮ z on each band, as this template realises it: ɮ's and z's together, each band the louder of the two (ɮ a3=50 a4=30 a5=30, z's carrier a4=50 a5=50; both on z's friction, 66) (D72)" }, F5_db = { set = 50, tag = "derived", rule = "the noise of ɮ z on each band, as this template realises it: ɮ's and z's together, each band the louder of the two (ɮ a3=50 a4=30 a5=30, z's carrier a4=50 a5=50; both on z's friction, 66) (D72)" }, F6_db = { set = 0, tag = "derived", rule = "the noise of ɮ z on each band, as this template realises it: ɮ's and z's together, each band the louder of the two (ɮ a3=50 a4=30 a5=30, z's carrier a4=50 a5=50; both on z's friction, 66) (D72)" }, flat_db = { set = 0, tag = "derived", rule = "the noise of ɮ z on each band, as this template realises it: ɮ's and z's together, each band the louder of the two (ɮ a3=50 a4=30 a5=30, z's carrier a4=50 a5=50; both on z's friction, 66) (D72)" } }
+
+[sound."B:U+1079A".tests]
+checks = ["T-shift"]
+bases = ["U+0064", "U+0261", "U+0062"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "rel_hnr_db", sign = -1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+proof = "ipa/proofs/B_U+1079A.json"
+
+[sound."B:U+0074+U+1DBF"]
+ipa = "tᶿ"
+codepoints = ["U+0074", "U+1DBF"]
+name = "median fricated release (example): [t] released into dental friction"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0074", "B:U+1DBF"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "the release mark ᶿ's deviation: θ's noise over the vowel's onset, a fricated stop's length as measured in Liverpool English, not told from an affricate's (Q29) (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+0074+U+1DBF".tests]
+checks = ["T-shift"]
+bases = ["U+0074"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+judged_by = "B:U+1DBF"
+proof = "ipa/proofs/B_U+0074+U+1DBF.json"
+
+[sound."B:U+006B+U+02E3"]
+ipa = "kˣ"
+codepoints = ["U+006B", "U+02E3"]
+name = "median fricated release (example): [k] released into velar friction"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+006B", "B:U+02E3"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "the release mark ˣ's deviation: x's noise over the vowel's onset, a fricated stop's length as measured in Liverpool English (Q29) (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+006B+U+02E3".tests]
+checks = ["T-shift"]
+bases = ["U+006B"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+judged_by = "B:U+02E3"
+proof = "ipa/proofs/B_U+006B+U+02E3.json"
+
+[sound."B:U+0064+U+1079E"]
+ipa = "d𐞞"
+codepoints = ["U+0064", "U+1079E"]
+name = "lateral fricated release (example): [d] released into voiced lateral friction"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0064", "B:U+1079E"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "the release mark 𐞞's deviation: ɮ's noise bands over the vowel's onset, without a lateral's own resonances; voiced, as long as Liverpool English's /d/ friction (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+0064+U+1079E".tests]
+checks = ["T-shift"]
+bases = ["U+0064"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "rel_hnr_db", sign = -1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+judged_by = "B:U+1079E"
+proof = "ipa/proofs/B_U+0064+U+1079E.json"
+
+[sound."B:U+006B+U+1079C"]
+ipa = "k𐞜"
+codepoints = ["U+006B", "U+1079C"]
+name = "lateral fricated release (example): [k] released into velar lateral friction"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+006B", "B:U+1079C"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "said as kˣ: the release mark 𐞜 makes 𝼄's noise bands, which in this table are x's; the lateral is not made (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+006B+U+1079C".tests]
+checks = ["T-shift"]
+bases = ["U+006B"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+judged_by = "B:U+1079C"
+proof = "ipa/proofs/B_U+006B+U+1079C.json"
+
+[sound."B:U+0074+U+10799"]
+ipa = "t𐞙"
+codepoints = ["U+0074", "U+10799"]
+name = "lateral and median release: [t] released with lateral and central friction at once"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0074", "B:U+10799"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "the release mark 𐞙's deviation: one noise with ɬ's and s's bands, over the vowel's onset; nothing measured for it (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+0074+U+10799".tests]
+checks = ["T-shift"]
+bases = ["U+0074"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+judged_by = "B:U+10799"
+proof = "ipa/proofs/B_U+0074+U+10799.json"
+
+[sound."B:U+0064+U+1079A"]
+ipa = "d𐞚"
+codepoints = ["U+0064", "U+1079A"]
+name = "lateral and median release: [d] released with lateral and central friction at once"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["U+0064", "B:U+1079A"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "the release mark 𐞚's deviation: one noise with ɮ's and z's bands, over the vowel's onset; nothing measured for it (D72)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["frel (D72)"] }
+
+[sound."B:U+0064+U+1079A".tests]
+checks = ["T-shift"]
+bases = ["U+0064"]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "rel_hnr_db", sign = -1 }]
+limit = [{ measure = "rel_noise_db", min = -40 }]
+judged_by = "B:U+1079A"
+proof = "ipa/proofs/B_U+0064+U+1079A.json"

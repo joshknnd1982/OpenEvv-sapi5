@@ -359,6 +359,11 @@ for _i in (1, 2, 3, 4):
 # a sound's own pitch, away from the voice's line (extIPA's ingressive airflow): semitones in the
 # table, tenths of one in the layer's `pst'
 OPS[('pitch.offset_st', 'set')] = ('pst', '=')
+# a stop released into friction (extIPA's fricated releases, D72): how long after the release, and
+# its level in this engine's dB, and the voice under it moved (a voiced stop's); its spectrum is the noise
+# keys above (a2 to a6, ab)
+OPS.update({('release.fricated_ms', 'set'): ('frel', '='), ('release.fricated_db', 'set'): ('frelaf', '='),
+            ('release.fricated_voice_db', 'set'): ('frelav', '=')})
 KEY_UNIT = {'pst': 10.0}
 # a consonant's length is `hold', a vowel's `dur'
 CLASS_KEY = {('consonant', 'dur'): 'hold'}

@@ -89,12 +89,17 @@ def tier_b(t, listing):
     and may end unsupported-with-justification only with the human's acknowledgement (R19e, USP 8);
     every other record is MISSING; a composite is done only while each of its parts is. How many
     Tier B records are done does not decide the exit code (the project's exit is the Tier A
-    checklist's), but a Tier B entry the inventory lacks, or one whose state or proof disagrees with
-    the map (the checks below over every entry), fails it like a Tier A one."""
+    checklist's), but a Tier B entry the inventory lacks (other than a mark a record's composite
+    names as a part, D72), or one whose state or proof disagrees with the map (the checks below
+    over every entry), fails it like a Tier A one."""
     with open(TIERB, encoding='utf-8') as f:
         recs = json.load(f)['symbols']
     ids = {r['id'] for r in recs}
-    stray = sorted(sid for sid, e in t.sounds.items() if e.get('tier') == 'B' and sid not in ids)
+    # a mark the inventory spells only on its examples (extIPA's fricated releases: tᶿ kˣ "etc.", D72)
+    # is an entry of its own, a part of a composite that is a record
+    implied = {x for sid, e in t.sounds.items() if sid in ids for x in e.get('parts') or []
+               if (t.sounds.get(x) or {}).get('kind') == 'modifier'}
+    stray = sorted(sid for sid, e in t.sounds.items() if e.get('tier') == 'B' and sid not in ids and sid not in implied)
     cnt = collections.OrderedDict()
     rows = []
     for r in recs:
