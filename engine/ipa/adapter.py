@@ -364,6 +364,11 @@ OPS[('pitch.offset_st', 'set')] = ('pst', '=')
 # keys above (a2 to a6, ab)
 OPS.update({('release.fricated_ms', 'set'): ('frel', '='), ('release.fricated_db', 'set'): ('frelaf', '='),
             ('release.fricated_voice_db', 'set'): ('frelav', '=')})
+# and the friction's own F2 and F3, the named fricative's (D73: k with a superscript velar lateral
+# against k with a superscript x, whose noise bands are the same): hertz in the table, per mille of
+# the voice's own F5 in the layer's `frelf2', `frelf3' (as a place's `l2', `l3' are, Q21)
+OPS.update({('release.fricated_F2', 'set'): ('frelf2', '='), ('release.fricated_F3', 'set'): ('frelf3', '=')})
+VOICE_SCALE_KEYS = {'frelf2', 'frelf3'}
 KEY_UNIT = {'pst': 10.0}
 # a consonant's length is `hold', a vowel's `dur'
 CLASS_KEY = {('consonant', 'dur'): 'hold'}
@@ -378,18 +383,18 @@ def _flat(tr, prefix=''):
             yield prefix + k, v
 
 
-def mod_ops(t, mid, cls, own=False):
+def mod_ops(t, mid, cls, own=False, template='dedx'):
     """[(key, op, value)] for one modifier and class, or None if it has no transform for it;
     with what it could not express. A mark of two characters (`after_mark', Tier B) is its first
     mark's ops and then its own; `own' asks for its own alone (its map line, under its last
-    character)."""
+    character). A frequency in the voice's own scale needs the template's F5 (VOICE_F5)."""
     tr = ((t.sounds[mid].get('transform') or {}).get(cls))
     if tr is None:
         return None, []
     ops, lost = [], []
     am = t.sounds[mid].get('after_mark')
     if am and not own:
-        ops, lost = mod_ops(t, am, cls)
+        ops, lost = mod_ops(t, am, cls, template=template)
         ops, lost = list(ops or []), list(lost)
     for path, v in _flat(tr):
         op = 'add' if 'add' in v else 'set' if 'set' in v else 'toward' if 'toward' in v else 'scale'
@@ -403,6 +408,12 @@ def mod_ops(t, mid, cls, own=False):
         key = OPS.get((path, op))
         if key is None:
             lost.append('%s %s: no engine key' % (path, op))
+            continue
+        if key[0] in VOICE_SCALE_KEYS:
+            if template not in VOICE_F5:
+                lost.append('%s: the %s voice\'s F5 is not measured (adapter.VOICE_F5)' % (path, template))
+                continue
+            ops.append((key[0], key[1], v[op] * 1000.0 / VOICE_F5[template]))
             continue
         ops.append((CLASS_KEY.get((cls, key[0]), key[0]), key[1],
                     v[op] * (100.0 if key[1] == '*' else KEY_UNIT.get(key[0], 1.0))))
@@ -439,7 +450,7 @@ def compose(t, base_sid, mod_sids, template, carrier_meas=None):
     cls = t.sounds[base_sid]['features']['class']
     lost = []
     for m in mod_sids:
-        ops, l1 = mod_ops(t, m, cls)
+        ops, l1 = mod_ops(t, m, cls, template=template)
         lost += l1
         if ops is None:
             lost.append('%s has no transform for a %s' % (t.sounds[m]['ipa'], cls))
@@ -598,7 +609,7 @@ def write(t, template, quiet=False):
     written = {}
     for sid, e in sorted(t.sounds.items(), key=lambda x: (x[1].get('tier') == 'B', x[0])):
         for cls in sorted((e.get('transform') or {})):
-            ops, lost = mod_ops(t, sid, cls, own=True)
+            ops, lost = mod_ops(t, sid, cls, own=True, template=template)
             for l in lost:
                 lines.append('#   not realised: %s %s' % (e['ipa'], l))
                 unrealised += 1

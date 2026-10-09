@@ -350,6 +350,14 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
                     m_ = (nv_['start_ms'] + nv_['end_ms']) / 2.0
                     ex['rel_noise_db'] = (A.intensity_db(x, rate, n0_ + (n1_ - n0_) / 4.0, n1_ - (n1_ - n0_) / 4.0)
                                           - A.intensity_db(x, rate, m_ - 15.0, m_ + 15.0))
+                if n1_ - n0_ >= 20:
+                    # the friction's spectrum over the same run (D73: two releases with the same
+                    # noise bands told apart by the fricative's own resonances), from 500 Hz as for
+                    # a fricative; on a voiced stop the voice's harmonics are in it too
+                    mo_ = A.spectrum_moments(x, rate, n0_, n1_)
+                    if mo_:
+                        ex['rel_peak_hz'] = mo_['peak_hz']
+                        ex['rel_centroid_hz'] = mo_['centroid_hz']
                 if after is not None and phones[after]['cls'] != 'silence':
                     hp_ = A.signal.sosfilt(A.signal.butter(4, 1500.0 / (rate / 2.0), 'high', output='sos'), x)
                     v_ = A.hnr_db(hp_, rate, c1_ + 2.0, c1_ + 32.0)
@@ -516,7 +524,7 @@ def summary(cases, man):
     for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms', 'voicing_slope', 'burst_db', 'burst_len_ms',
               'burst_centroid_hz', 'gap_breath_frac', 'voiced_head', 'voiced_mid', 'voiced_tail', 'creak_head',
               'creak_mid', 'creak_tail', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db',
-              'rel_af_ms', 'rel_hnr_db', 'rel_noise_db'):
+              'rel_af_ms', 'rel_hnr_db', 'rel_noise_db', 'rel_peak_hz', 'rel_centroid_hz'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
         if v is not None:
             s['%s' % k] = round(v, 2)
@@ -712,8 +720,12 @@ def _spec_value(t, sid, path):
 def specified(t, sid, c):
     """True when the two entries' specifications set this measure apart in the stated direction
     (by the contrast minimum), so that the engine must show it; otherwise why it is only reported.
-    Voicing is a feature, always specified."""
+    Voicing is a feature, always specified. Two symbols the chart tells apart (`distinct', D73) must
+    not be said alike: their contrast is required whatever their specifications say (the human's
+    rule, 2026-10-08)."""
     if c['measure'] == 'voiced_frac':
+        return True
+    if c.get('distinct'):
         return True
     if c['measure'] == 'voicing_slope' and t.sounds[sid]['features'].get('airstream') == 'implosive':
         # the airstream is a feature: an implosive's voice swells where the plain stop's does not
@@ -1134,10 +1146,17 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
             if other is None:
                 path = os.path.join(PROOFS, T.file_id(c['with']) + '.json')
                 other = json.load(open(path, encoding='utf-8')) if os.path.exists(path) else None
-            theirs = (other or {}).get('summary', {}).get(c['measure'])
-            ok, d = contrast_ok(c['measure'], res['summary'].get(c['measure']), theirs, c['sign'])
+            if c.get('base'):
+                # a mark against another mark (or their spellings) on the same base, as said (D73):
+                # the marked sounds' measures, each over the same contexts
+                def marked(r, base=c['base']):
+                    return (((r or {}).get('summary') or {}).get(base) or {}).get('marked') or {}
+                mine, theirs = marked(res).get(c['measure']), marked(other).get(c['measure'])
+            else:
+                mine, theirs = res['summary'].get(c['measure']), (other or {}).get('summary', {}).get(c['measure'])
+            ok, d = contrast_ok(c['measure'], mine, theirs, c['sign'])
             why = specified(t, sid, c)
-            row = dict(c, mine=res['summary'].get(c['measure']), theirs=theirs, difference=d, holds=ok,
+            row = dict(c, mine=mine, theirs=theirs, difference=d, holds=ok,
                        required=why is True, basis=why if why is not True else 'the specifications differ so')
             ap = c.get('approximate')
             if not ok and ap and t.sounds[sid].get('approximate') and d is not None and d * c['sign'] >= ap['min'] \

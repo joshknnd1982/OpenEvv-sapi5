@@ -193,6 +193,10 @@ typedef struct {
     int  frelav;        /* and the voice under it, dB either way: a voiced
                            stop's friction is said over a voiced fricative's
                            voice, weaker than a vowel's */
+    int  frelf[2];      /* and its own second and third formants, per mille
+                           of the voice's fifth (as a place's `l2', `l3'):
+                           the resonances of the fricative it names, which
+                           its noise is shaped by; nought: the vowel's */
 } Def;
 
 typedef struct {
@@ -736,6 +740,8 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "pst", offsetof(Def, pst) },
         { "frel", offsetof(Def, frel) }, { "frelaf", offsetof(Def, frelaf) },
         { "frelav", offsetof(Def, frelav) },
+        { "frelf2", offsetof(Def, frelf[0]) },
+        { "frelf3", offsetof(Def, frelf[1]) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -1780,11 +1786,12 @@ static int release_vot(const Def *d, const Phone *stop)
    the last 10 ms; a voiceless stop's breath gives way to it, and its voice
    until the frame before the friction ends, where the voice's own rise
    begins (release_vot); a voiced stop's voice is moved by `frelav' while it
-   lasts. */
+   lasts. F2 and F3 are the fricative's own (`frelf2', `frelf3') where the
+   definition gives them, going back to the frame's over the same 10 ms. */
 static void release_friction(const Def *d, const Phone *stop, int since,
                              int step, int32_t *f)
 {
-    int i, level;
+    int i, level, moved = 0;
     double x;
 
     if (d->frel <= 0 || since < 0 || since >= d->frel)
@@ -1796,6 +1803,23 @@ static void release_friction(const Def *d, const Phone *stop, int since,
     for (i = 0; i < 6; i++)
         if (d->amp[i] != UNSET)
             f[NOISE[i]] = clamp(d->amp[i], 0, 80);
+    for (i = 0; i < 2; i++)
+        if (d->frelf[i] > 0 && f[P_F5] > 0) {
+            double hz = d->frelf[i] / 1000.0 * f[P_F5];
+            int k = FORMANT[i + 1];
+
+            f[k] = (int32_t)(f[k] + (hz - f[k]) * x + 0.5);
+            moved = 1;
+        }
+    if (moved) {
+        /* formants keep their order and their distance */
+        if (f[P_F2] < f[P_F1] + 200)
+            f[P_F1] = f[P_F2] - 200 >= 200 ? f[P_F2] - 200 : 200;
+        if (f[P_F3] < f[P_F2] + 200)
+            f[P_F3] = f[P_F2] + 200;
+        if (f[P_F4] < f[P_F3] + 200)
+            f[P_F4] = f[P_F3] + 200;
+    }
     if (stop_voiceless(d, stop)) {
         f[P_AH] = 0;
         if (since < d->frel - step)
