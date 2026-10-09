@@ -72,15 +72,20 @@ def fe_form(ipa):
     return re.sub('c([\u0300-\u036f]*?)\u0327', '\u00e7\\1', unicodedata.normalize('NFD', ipa))
 
 
-def composed_keys(diags):
-    """{ipa: {key: value}} from the front-end's `composed` notes."""
+def composed_keys(diags, said):
+    """{ipa: {key: value}}: each `composed' note names the letter and the id it was composed as,
+    and the definition is read under that id from what the front-end says (the note's own copy
+    is cut at the front-end's 200 bytes of a note: a long one lost its last key, D72)."""
     out = {}
     for d in diags:
         if d['kind'] != 'composed':
             continue
-        m = re.match(r'/(.+?)/ = .* as \{D \S+ ?(.*)\}$', d['detail'])
-        if m:
-            out[m.group(1)] = {k: int(v) for k, v in (kv.split('=') for kv in m.group(2).split())}
+        m = re.match(r'/(.+?)/ = .* as \{D (\S+)', d['detail'])
+        if not m:
+            continue
+        df = re.search(r'\{D %s(?=[ }]) ?([^}]*)\}' % re.escape(m.group(2)), said)
+        if df:
+            out[m.group(1)] = {k: int(v) for k, v in (kv.split('=') for kv in df.group(1).split())}
     return out
 
 
@@ -141,7 +146,7 @@ def main():
             # after a stressed syllable, so that the letter under test carries no stress of its own
             code, out, diags = say_ipa(p, mp, 'ˈpa' + ipa)
         # the front-end puts marks in canonical order (a mark below before a mark above)
-        got = composed_keys(diags).get(fe_form(ipa))
+        got = composed_keys(diags, out).get(fe_form(ipa))
         losses = [d for d in diags if d['level'] == 'loss']
         # equal keys, and the two agree on whether a transform could not be applied (ʰ on a
         # fricative: no voice onset to add to), which both must report
