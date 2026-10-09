@@ -984,29 +984,6 @@ shift = [{ measure = "edge_F2", sign = -1 }]
 judged_by = "B:U+0346"
 proof = "ipa/proofs/B_U+006C+U+032A+U+0346.json"
 
-[sound."B:U+0074+U+02B0+U+032A+U+0346"]
-ipa = "tʰ̪͆"
-codepoints = ["U+0074", "U+02B0", "U+032A", "U+0346"]
-name = "[t] with bidental aspiration (2021/2025); interdental aspiration (2015) (aspiration noise made at the teeth)"
-section = "tierb"
-tier = "B"
-chart = "extIPA / other sounds"
-kind = "composite"
-parts = ["U+0074", "U+02B0", "U+032A", "B:U+0346"]
-state = "MISSING"
-level = 2
-approximate = true
-deviation = "extIPA defines it as [t] with bidental aspiration (the breath made between the teeth); it is said as an aspirated dental t with the bridge's F2 lowering, the breath itself not moved (D69)"
-plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
-
-[sound."B:U+0074+U+02B0+U+032A+U+0346".tests]
-checks = ["T-shift"]
-bases = ["U+0074"]
-plain = "tʰ̪"
-shift = [{ measure = "edge_F2", sign = -1 }]
-judged_by = "B:U+0346"
-proof = "ipa/proofs/B_U+0074+U+02B0+U+032A+U+0346.json"
-
 [sound."B:U+0347"]
 ipa = "͇"
 codepoints = ["U+0347"]
@@ -2931,3 +2908,86 @@ proof = "ipa/proofs/B_U+0266+U+032A+U+0346.json"
 # ɦ's breathy voice, made by the accent layer on the vowel's own formants, with h̪͆'s friction through the teeth
 carrier = "<h"
 keys = { ms = { v = 102, tag = "derived", rule = "as ɦ's line (ipa/realized/dedx.map: ms=102 voi=1 whisper=38)" }, voi = { v = 1, tag = "derived", rule = "as ɦ's line" }, whisper = { v = 38, tag = "derived", rule = "as ɦ's line" }, fric = { v = 55, tag = "derived", rule = "h̪͆'s" }, a2 = { v = 20, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, a3 = { v = 50, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, a4 = { v = 50, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, a5 = { v = 30, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, a6 = { v = 0, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, ab = { v = 0, tag = "derived", rule = "h̪͆'s" } }
+
+[sound."B:U+0074+U+02B0+U+032A+U+0346"]
+ipa = "tʰ̪͆"
+codepoints = ["U+0074", "U+02B0", "U+032A", "U+0346"]
+name = "voiceless alveolar plosive with bidental aspiration (its aspiration made at the clenched teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "closure", voicing = "voiceless", airstream = "pulmonic", aspiration = "after", fricated_release = "bidental" }
+state = "created"
+level = 2
+approximate = true
+deviation = "the chart says only bidental aspiration (interdental on the 2015 chart): t released into the friction of h̪͆ (its estimated noise, between this engine's ʃ and f) for the length of tʰ's aspiration, over tʰ's own breath; nothing measured was found for it, so its noise and length are h̪͆'s and tʰ's, not a measurement; the jaw closing towards the teeth is not made (the vowel's own formants under the noise, as for h̪͆); a letter spelt with four characters, the ̪ and ͆ read on the ʰ (D80)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X4"], builds = ["a letter of four characters (D80)"] }
+
+[sound."B:U+0074+U+02B0+U+032A+U+0346".spec]
+vot_ms = { v = 72.5, tag = "derived", rule = "tʰ's: the median of the aspirated /t/ means in Cho and Ladefoged (1997), as ʰ's transform has it; the aspiration is moved to the teeth, not lengthened" }
+release = { fricated_ms = { v = 72, tag = "derived", rule = "the friction lasts the aspiration: tʰ's voice onset, 72.5 ms, as the frames count it in whole steps" }, centroid_hz = { v = 3514, tag = "derived", rule = "h̪͆'s noise centre (its specification, estimated): the aspiration's noise made at the clenched teeth is the bidental fricative's, as the superscript ʰ̪͆ names it (the chart's superscripts after a stop name the release's fricative, D72)" } }
+
+[sound."B:U+0074+U+02B0+U+032A+U+0346".tests]
+checks = ["T-stop", "T-contrast"]
+contrast = [{ with = "U+02B0", base = "U+0074", measure = "rel_hf_db", sign = 1, distinct = true }, { with = "U+0074", measure = "rel_af_ms", sign = 1, distinct = true }, { with = "B:U+0074+U+1DBF", measure = "rel_hf_db", sign = 1, distinct = true }, { with = "B:U+0074+U+032A+U+0346", measure = "rel_hf_db", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0074+U+02B0+U+032A+U+0346.json"
+
+[sound."B:U+0074+U+02B0+U+032A+U+0346".realization.openevv]
+# t aspirated as tʰ is, released into h̪͆'s friction for the length of the aspiration (the layer's `frel', D72)
+carrier = "t"
+keys = { ant = { v = 50, tag = "derived", rule = "as t's line (ipa/realized/dedx.map: ant=50 l2=417 lk=69 vot=6): its place" }, l2 = { v = 417, tag = "derived", rule = "as t's line" }, lk = { v = 69, tag = "derived", rule = "as t's line" }, vot = { v = 70, tag = "derived", rule = "tʰ's, as the front-end composes it (t's 6 and ʰ's 64)" }, frel = { v = 72, tag = "derived", rule = "the release's fricated_ms" }, frelaf = { v = 55, tag = "derived", rule = "h̪͆'s friction level (its line: fric=55)" }, a2 = { v = 0, tag = "derived", rule = "h̪͆'s noise bands (its line: a2=0 a3=40 a4=60 a5=40 a6=0 ab=0)" }, a3 = { v = 40, tag = "derived", rule = "h̪͆'s noise bands" }, a4 = { v = 60, tag = "derived", rule = "h̪͆'s noise bands" }, a5 = { v = 40, tag = "derived", rule = "h̪͆'s noise bands" }, a6 = { v = 0, tag = "derived", rule = "h̪͆'s noise bands" }, ab = { v = 0, tag = "derived", rule = "h̪͆'s noise bands" } }
+
+[sound."B:U+2180+U+0361+U+0072"]
+ipa = "ↀ͡r"
+codepoints = ["U+2180", "U+0361", "U+0072"]
+name = "buccal alveolar trill (the tongue tip trilled by air pushed from the cheeks, the larynx not in it): the raspberry's letter without its place marks"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds (the letter of ↀ͡r̪͆, 2021 and 2025, and of ↀ͡r̼, 2015)"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "trill", voicing = "voiceless", airstream = "buccal" }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing measured was found for a raspberry or any buccal trill (wikipedia_buccal gives no rate, spectrum or level): it is r's trill (its rate, closures and formants) with no voice and no breath from the glottis (the larynx is not in a buccal airstream), its only source friction where the cheeks' air passes the teeth, on h̪͆'s bands, at this template's weakest fricative's level; the cheeks' air lasts about 2 s, which nothing here limits (D80)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "C11"], builds = ["a tied letter (D80)"] }
+
+[sound."B:U+2180+U+0361+U+0072".spec]
+trill = { rate_hz = { v = 27.8, tag = "estimated", note = "r's (camara_alcala_2026, its specification), taken for want of anything measured: no rate of a raspberry or any buccal trill was found (wikipedia_buccal), and the tongue trilled against the lip by the cheeks' air need not beat as an alveolar r does" } }
+source = { voice_frac = { v = 0, tag = "derived", rule = "a buccal airstream does not pass the larynx (wikipedia_buccal): no voice" }, breath_frac = { v = 0, tag = "derived", rule = "nor breath from the glottis: the air is the cheeks'" }, noise_frac = { v = 1, tag = "derived", rule = "the cheeks' air pushed through a gap at the teeth (wikipedia_buccal) is turbulent where it passes: friction is the sound's one source" } }
+
+[sound."B:U+2180+U+0361+U+0072".tests]
+checks = ["T-trill", "T-contrast"]
+contrast = [{ with = "U+0072", measure = "voiced_frac", sign = -1, distinct = true }, { with = "U+0325", base = "U+0072", measure = "hf_db", sign = 1, distinct = true }, { with = "B:U+1DF00", measure = "hf_db", sign = 1, distinct = true }, { with = "B:U+0068+U+032A+U+0346", measure = "mod_dips", sign = 1, distinct = true }, { with = "U+03B8", measure = "mod_dips", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+2180+U+0361+U+0072.json"
+
+[sound."B:U+2180+U+0361+U+0072".realization.openevv]
+# r's trill on its carrier l, voiceless with no breath: friction alone, where the cheeks' air passes the teeth (C11)
+carrier = "l"
+keys = { ant = { v = 50, tag = "derived", rule = "as r's line (ipa/realized/dedx.map: ant=50 f1=143 f2=100 f3=79 hold=104 tapms=15 tdepth=20 trate=28)" }, f1 = { v = 143, tag = "derived", rule = "as r's line" }, f2 = { v = 100, tag = "derived", rule = "as r's line" }, f3 = { v = 79, tag = "derived", rule = "as r's line" }, hold = { v = 104, tag = "derived", rule = "as r's line" }, tapms = { v = 15, tag = "derived", rule = "as r's line" }, tdepth = { v = 20, tag = "derived", rule = "as r's line" }, trate = { v = 28, tag = "estimated", rule = "as r's line (its rate): the rate_hz chosen, r's" }, voi = { v = 0, tag = "derived", rule = "a buccal airstream does not pass the larynx (wikipedia_buccal): no voice" }, whisper = { v = 0, tag = "derived", rule = "no breath from the glottis either: the air is the cheeks'" }, fric = { v = 55, tag = "estimated", rule = "the friction's level: this template's weakest fricative's (x, 55), as h̪͆'s" }, a2 = { v = 0, tag = "estimated", rule = "the cheeks' air pushed through a gap at the teeth (wikipedia_buccal): h̪͆'s bands (its line: a2=0 a3=40 a4=60 a5=40 a6=0 ab=0)" }, a3 = { v = 40, tag = "estimated", rule = "see a2" }, a4 = { v = 60, tag = "estimated", rule = "see a2" }, a5 = { v = 40, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, ab = { v = 0, tag = "estimated", rule = "see a2" } }
+trim.dedx = [{ key = "trate", v = 22.0, scale = false, tag = "measured", proof = "ipa/proofs/B_U+2180+U+0361+U+0072.json" }]
+
+[sound."B:U+2180+U+0361+U+0072+U+032A+U+0346"]
+ipa = "ↀ͡r̪͆"
+codepoints = ["U+2180", "U+0361", "U+0072", "U+032A", "U+0346"]
+name = "buccal interdental trill (raspberry)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "composite"
+parts = ["B:U+2180+U+0361+U+0072", "U+032A", "B:U+0346"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "ↀ͡r's deviations (nothing measured: r's trill with friction alone, no voice or breath); the interdental place is the dental mark with the bridge's F2 lowering on top, as on r̪͆ (D69); the tongue against the lower lip, as the raspberry is usually blown, is not made apart from that (D80)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+2180+U+0361+U+0072+U+032A+U+0346".tests]
+checks = ["T-shift"]
+bases = ["B:U+2180+U+0361+U+0072"]
+plain = "ↀ͡r̪"
+shift = [{ measure = "edge_F2", sign = -1 }]
+judged_by = "B:U+0346"
+contrast = [{ with = "B:U+0072+U+032A+U+0346", measure = "voiced_frac", sign = -1, distinct = true }, { with = "B:U+0072+U+032A+U+0346", measure = "hf_db", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+2180+U+0361+U+0072+U+032A+U+0346.json"

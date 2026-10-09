@@ -60,6 +60,12 @@ def module_phones(template):
     return out
 
 
+# the consonant features a letter line carries and the fallback counts (the last five since D80, Q34:
+# ǃ¡ against ǃ, tʰ̪͆ against t)
+CONSONANT_KEYS = ('stricture', 'airstream', 'nasal', 'lateral', 'sibilant', 'place2', 'voicing', 'release', 'place_mark',
+                  'aspiration', 'fricated_release', 'tongue_part')
+
+
 def distance(t, a, b):
     """The nearest-letter cost of ipa/features.toml between two bundles."""
     w = t.features['weights']
@@ -75,7 +81,7 @@ def distance(t, a, b):
     cw = w['consonant']
     places = t.features['consonant']['place']['scale']
     d = cw['place_step'] * abs(places.index(a['place']) - places.index(b['place']))
-    for k in ('stricture', 'airstream', 'nasal', 'lateral', 'sibilant', 'place2', 'voicing'):
+    for k in CONSONANT_KEYS:
         d += cw[k] * (a.get(k) != b.get(k))
     return d
 
@@ -492,8 +498,7 @@ def letter_line(t, sid, template='dedx', features=None, ipa=None):
             f['rounding'], ''.join(' f%dhz=%d' % (i + 1, x) for i, x in enumerate(hz or [])))
     c = t.features['consonant']
     return 'letter %s c place=%d %s' % (ipa, c['place']['scale'].index(f['place']), ' '.join(
-        '%s=%s' % (k, str(f[k]).lower()) for k in ('stricture', 'airstream', 'nasal', 'lateral', 'sibilant', 'place2',
-                                                    'voicing')))
+        '%s=%s' % (k, str(f[k]).lower()) for k in CONSONANT_KEYS))
 
 
 def weights_line(t):

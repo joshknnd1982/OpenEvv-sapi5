@@ -384,7 +384,8 @@ static const char *keyword_like(const char *key)
 /* `letter IPA c|v name=value ...' */
 static int read_letter(EvvMap *map, char *rest)
 {
-	static const char *cons[7] = {"stricture", "airstream", "nasal", "lateral", "sibilant", "place2", "voicing"};
+	static const char *cons[12] = {"stricture", "airstream", "nasal", "lateral", "sibilant", "place2", "voicing",
+	                               "release", "place_mark", "aspiration", "fricated_release", "tongue_part"};
 	char *ipa = next_word(&rest), *cls = next_word(&rest), *w;
 	if (!ipa || !cls) {
 		evv_diag(EVV_DIAG_LOSS, "map-ignored", "a letter line needs a letter and a class");
@@ -419,9 +420,9 @@ static int read_letter(EvvMap *map, char *rest)
 			l->hz[w[1] - '1'] = atoi(eq); /* the letter as realised, for a mark that moves towards a target */
 		else {
 			int k;
-			for (k = 0; k < 7 && strcmp(cons[k], w) != 0; k++)
+			for (k = 0; k < 12 && strcmp(cons[k], w) != 0; k++)
 				;
-			if (k < 7)
+			if (k < 12)
 				copy_checked(l->f[k], eq, sizeof(l->f[k]), "feature");
 			else
 				evv_diag(EVV_DIAG_LOSS, "map-ignored", "letter %s: no feature %s", ipa, w);
@@ -785,7 +786,8 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 		if (strcmp(key, "weights") == 0) {
 			static const char *names[W_COUNT] = {"stricture", "airstream", "nasal", "lateral", "sibilant",
 			                                     "place_step", "place2", "voicing", "height_step",
-			                                     "backness_step", "rounding", "class"};
+			                                     "backness_step", "rounding", "class", "release",
+			                                     "place_mark", "aspiration", "fricated_release", "tongue_part"};
 			char *w;
 			while ((w = next_word(&rest)) != NULL) {
 				char *eq = strchr(w, '=');
@@ -1087,6 +1089,23 @@ const EvvLetter *evv_map_letter(const EvvMap *map, const char *ch, size_t len)
 	return NULL;
 }
 
+/* A tied letter (extIPA's buccal trill ↀ͡r, D80): a character, a tie bar
+   (U+0361, U+035C) and a letter, which the map lists as a letter with a line
+   of its own; its length in bytes in *len. NULL where `p' begins none. */
+const EvvLetter *evv_map_tied_letter(const EvvMap *map, const char *p, size_t *len)
+{
+	int l1 = *p ? utf8_len((unsigned char)p[0]) : 0;
+	if (!l1 || (unsigned char)p[l1] != 0xcd || ((unsigned char)p[l1 + 1] != 0xa1 && (unsigned char)p[l1 + 1] != 0x9c))
+		return NULL;
+	int l2 = p[l1 + 2] ? utf8_len((unsigned char)p[l1 + 2]) : 0;
+	size_t n = (size_t)(l1 + 2 + l2);
+	const EvvLetter *lt = l2 ? evv_map_letter(map, p, n) : NULL;
+	if (!lt || !find(map, p, n))
+		return NULL;
+	*len = n;
+	return lt;
+}
+
 static const EvvMod *find_mod_of(const EvvMap *map, const char *mark, size_t len, char cls, int pre)
 {
 	for (int i = 0; i < map->n_mods; i++)
@@ -1140,9 +1159,12 @@ static int letter_distance(const EvvMap *map, const EvvLetter *a, const EvvLette
 	if (a->cls == 'v')
 		return w[W_HEIGHT] * abs(a->height - b->height) + w[W_BACKNESS] * abs(a->backness - b->backness) +
 		       w[W_ROUNDING] * (strcmp(a->f[0], b->f[0]) != 0);
-	static const int k[7] = {W_STRICTURE, W_AIRSTREAM, W_NASAL, W_LATERAL, W_SIBILANT, W_PLACE2, W_VOICING};
+	/* (a letter line without the last five, as before D80, has them empty: they count only
+	   between two letters whose lines carry them; Q34) */
+	static const int k[12] = {W_STRICTURE, W_AIRSTREAM, W_NASAL, W_LATERAL, W_SIBILANT, W_PLACE2, W_VOICING,
+	                          W_RELEASE, W_PLACE_MARK, W_ASPIRATION, W_FRICATED, W_TONGUE_PART};
 	int d = w[W_PLACE] * abs(a->place - b->place);
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 12; i++)
 		d += w[k[i]] * (strcmp(a->f[i], b->f[i]) != 0);
 	return d;
 }
@@ -1196,7 +1218,15 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	if (!*lp)
 		return -1;
 	int bl = utf8_len((unsigned char)lp[0]);
-	const EvvLetter *letter = evv_map_letter(map, lp, (size_t)bl);
+	/* a tied letter, a character, a tie bar and a letter the map lists as a
+	   letter of its own (extIPA's buccal trill ↀ͡r, D80): the three are the
+	   letter, and the marks after it are composed on its line */
+	size_t tl = 0;
+	const EvvLetter *letter = evv_map_tied_letter(map, lp, &tl);
+	if (letter)
+		bl = (int)tl;
+	else
+		letter = evv_map_letter(map, lp, (size_t)bl);
 	if (!letter)
 		return -1;
 	char two[16];
@@ -1205,7 +1235,7 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	/* a letter of two letters, the second right after the first (extIPA's
 	   cluck ǃ¡: a click and the tongue's slap): the pair is the letter where
 	   the map has a line for it, and its marks are composed on that line */
-	{
+	if (!tl) {
 		const char *q = lp + bl;
 		int ql = *q ? utf8_len((unsigned char)*q) : 0;
 		if (ql && bl + ql < (int)sizeof(two) && evv_map_letter(map, q, (size_t)ql)) {
@@ -1219,63 +1249,68 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 		}
 	}
 	for (const char *p = joined ? joined + jl : lp + bl; *p; p += utf8_len((unsigned char)*p))
-		if (evv_map_letter(map, p, (size_t)utf8_len((unsigned char)*p)))
+		if (evv_map_letter(map, p, (size_t)utf8_len((unsigned char)*p)) || evv_map_tied_letter(map, p, &tl))
 			return -1; /* two letters: an affricate or a sequence */
-	/* a letter of three characters, a letter and two marks its own line
-	   reads otherwise (extIPA's bidental fricatives h̪͆ ɦ̪͆, D79), the two
-	   marks in their order wherever they stand among the others: the three
-	   are the letter, and neither mark is composed again */
-	char three[24];
-	const char *joined2 = NULL;
-	int jl2 = 0;
-	for (const char *q = lp + bl; *q && !joined; q += utf8_len((unsigned char)*q)) {
-		int ql = utf8_len((unsigned char)*q);
-		for (const char *r = q + ql; *r && !joined; r += utf8_len((unsigned char)*r)) {
-			int rl = utf8_len((unsigned char)*r);
-			if (bl + ql + rl >= (int)sizeof(three))
+	/* a letter of more characters, a letter and one to three marks its own
+	   line reads otherwise (extIPA's bunched and apical r ɹ̈ ɹ̺, D74; the
+	   bidental fricatives h̪͆ ɦ̪͆, D79; the bidental aspiration tʰ̪͆, D80): the
+	   marks, in their order, wherever they stand among the letter's others
+	   (canonical order puts a mark below before one above, so ɹ̩̈ comes as ɹ,
+	   ̩, ̈), the most marks first and the earliest first, are the letter, and
+	   none of them is composed again. A mark that begins a mark of two makes
+	   no letter (𝼀̬᪽ is 𝼀 with ◌̬᪽, not 𝼀̬ with ᪽: D77) */
+	const char *own[3] = {NULL, NULL, NULL};
+	int n_own = 0;
+	char whole[64];
+	size_t wl = 0;
+	if (!joined) {
+		const char *mk[16];
+		int mkl[16], nm = 0;
+		for (const char *q = lp + bl; *q && nm < 16; q += utf8_len((unsigned char)*q)) {
+			int ql = utf8_len((unsigned char)*q);
+			const char *nq = q + ql;
+			const char *fs = *nq ? after_of(map, nq, (size_t)utf8_len((unsigned char)*nq)) : NULL;
+			if (fs && among(fs, q, (size_t)ql))
 				continue;
-			/* (a mark that begins a mark of two makes no letter, as below) */
-			const char *nr = r + rl;
-			const char *fr = *nr ? after_of(map, nr, (size_t)utf8_len((unsigned char)*nr)) : NULL;
-			if (fr && among(fr, r, (size_t)rl))
+			mk[nm] = q;
+			mkl[nm++] = ql;
+		}
+		for (int want = 3; want >= 1 && !n_own; want--) {
+			int ix[3] = {0, 1, 2}; /* the marks chosen, by index, in order */
+			if (want > nm)
 				continue;
-			memcpy(three, lp, (size_t)bl);
-			memcpy(three + bl, q, (size_t)ql);
-			memcpy(three + bl + ql, r, (size_t)rl);
-			if (evv_map_letter(map, three, (size_t)(bl + ql + rl)) && find(map, three, (size_t)(bl + ql + rl))) {
-				letter = evv_map_letter(map, three, (size_t)(bl + ql + rl));
-				joined = q;
-				jl = ql;
-				joined2 = r;
-				jl2 = rl;
+			for (;;) {
+				size_t n = (size_t)bl;
+				for (int k = 0; k < want; k++)
+					n += (size_t)mkl[ix[k]];
+				if (n < sizeof(whole)) {
+					memcpy(whole, lp, (size_t)bl);
+					wl = (size_t)bl;
+					for (int k = 0; k < want; k++) {
+						memcpy(whole + wl, mk[ix[k]], (size_t)mkl[ix[k]]);
+						wl += (size_t)mkl[ix[k]];
+					}
+					if (evv_map_letter(map, whole, wl) && find(map, whole, wl)) {
+						letter = evv_map_letter(map, whole, wl);
+						for (int k = 0; k < want; k++)
+							own[k] = mk[ix[k]];
+						n_own = want;
+						break;
+					}
+				}
+				/* the next choice of `want' marks of `nm', the earliest first */
+				int k = want - 1;
+				while (k >= 0 && ix[k] == nm - want + k)
+					k--;
+				if (k < 0)
+					break;
+				ix[k]++;
+				for (int k2 = k + 1; k2 < want; k2++)
+					ix[k2] = ix[k2 - 1] + 1;
 			}
 		}
 	}
-	/* a letter of two characters, a letter and a mark the letter's own line
-	   reads otherwise (extIPA's bunched r, the apical r: D74), wherever the
-	   mark stands among the others (canonical order puts a mark below before
-	   one above, so ɹ̩̈ comes as ɹ, ̩, ̈): the pair is the letter, and that
-	   mark is not composed again */
-	for (const char *q = lp + bl; *q && !joined; q += utf8_len((unsigned char)*q)) {
-		int ql = utf8_len((unsigned char)*q);
-		if (bl + ql >= (int)sizeof(two))
-			continue;
-		/* a mark that begins a mark of two makes no letter (𝼀̬᪽ is 𝼀 with
-		   ◌̬᪽, not 𝼀̬ with ᪽: D77) */
-		const char *nq = q + ql;
-		const char *fs = *nq ? after_of(map, nq, (size_t)utf8_len((unsigned char)*nq)) : NULL;
-		if (fs && among(fs, q, (size_t)ql))
-			continue;
-		memcpy(two, lp, (size_t)bl);
-		memcpy(two + bl, q, (size_t)ql);
-		if (evv_map_letter(map, two, (size_t)(bl + ql)) && find(map, two, (size_t)(bl + ql))) {
-			letter = evv_map_letter(map, two, (size_t)(bl + ql));
-			joined = q;
-			jl = ql;
-			break;
-		}
-	}
-	const EvvMapEntry *base = joined2 ? find(map, three, (size_t)(bl + jl + jl2))
+	const EvvMapEntry *base = n_own ? find(map, whole, wl)
 	                          : joined ? find(map, two, (size_t)(bl + jl)) : find(map, lp, (size_t)bl);
 	if (!base) {
 		int best = -1, best_d = 0;
@@ -1307,13 +1342,11 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	const char *prev = NULL; /* the code point before p */
 	const char *kept = NULL; /* the one before p that is not the letter's own mark */
 	for (const char *p = ipa; *p; prev = p, p += utf8_len((unsigned char)*p)) {
-		if (prev && prev != joined && prev != joined2)
+		if (prev && prev != joined && prev != own[0] && prev != own[1] && prev != own[2])
 			kept = prev; /* (h̥̪᪽͆ is h̪͆ with ◌̥᪽, as the reader has it) */
-		if (p == lp) {
-			p += bl - utf8_len((unsigned char)*p); /* the letter itself */
-			continue;
-		}
-		if (p == joined || p == joined2)
+		if (p >= lp && p < lp + bl)
+			continue; /* the letter itself (each of a tied letter's characters, ↀ͡r: D80) */
+		if (p == joined || p == own[0] || p == own[1] || p == own[2])
 			continue; /* the mark that is part of it */
 		int ml = utf8_len((unsigned char)*p);
 		const char *fs = after_of(map, p, (size_t)ml);

@@ -156,6 +156,12 @@ def validate(t):
         if kind not in ('base', 'composite') and e.get('placement') not in PLACEMENTS:
             problems.append('%s: placement %r' % (sid, e.get('placement')))
         if kind == 'base':
+            # a letter's spelling within the front-end's 7 bytes of a letter (EvvLetter.ipa), and a
+            # tied letter (ↀ͡r, D80) spelt with no marks of its own: the reader would not find them
+            if len(e.get('ipa', '').encode('utf-8')) > 7:
+                problems.append('%s: a letter spelt with more than 7 bytes' % sid)
+            if len(e.get('ipa', '')) > 3 and e['ipa'][1] in '͜͡':
+                problems.append('%s: a tied letter with marks of its own' % sid)
             f = dict(e.get('features') or {})
             cls = f.pop('class', None)
             if cls not in ('consonant', 'vowel'):

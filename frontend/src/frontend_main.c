@@ -1025,6 +1025,9 @@ static int translate_ipa(const char *given)
 		   segment */
 		const char *s = p;
 		const EvvLetter *letter = evv_map_letter(&g_map, p, (size_t)l);
+		size_t tied_len = 0;
+		if (!letter)
+			letter = evv_map_tied_letter(&g_map, p, &tied_len); /* ↀ͡r: its tie and letter join below (D80) */
 		int seg_tone[8], n_seg_tone = 0;
 		char seg[64];
 		int seg_len = 0, cut = 0, tied = 0, had_tie = 0;
@@ -1039,6 +1042,8 @@ static int translate_ipa(const char *given)
 			while (*p && seg_len + 4 < (int)sizeof(seg)) {
 				int ml = utf8_char_len((unsigned char)*p);
 				const EvvLetter *lt = evv_map_letter(&g_map, p, (size_t)ml);
+				if (!lt)
+					lt = evv_map_tied_letter(&g_map, p, &tied_len); /* ʰↀ͡r (D80) */
 				if (!lt && !evv_map_has_premod(&g_map, p, (size_t)ml))
 					break;
 				memcpy(seg + seg_len, p, (size_t)ml);
@@ -1083,7 +1088,8 @@ static int translate_ipa(const char *given)
 				while (*q && !evv_map_letter(&g_map, q, (size_t)utf8_char_len((unsigned char)*q)) &&
 				       evv_map_has_premod(&g_map, q, (size_t)utf8_char_len((unsigned char)*q)))
 					q += utf8_char_len((unsigned char)*q);
-				if (*q && evv_map_letter(&g_map, q, (size_t)utf8_char_len((unsigned char)*q)))
+				if (*q && (evv_map_letter(&g_map, q, (size_t)utf8_char_len((unsigned char)*q)) ||
+				           evv_map_tied_letter(&g_map, q, &tied_len)))
 					break;
 			}
 			int after_tie = 0;
@@ -1092,7 +1098,7 @@ static int translate_ipa(const char *given)
 				   may begin a letter of two: ŋ͡ǃ¡) */
 				tied = 0;
 				after_tie = 1;
-			} else if (evv_map_letter(&g_map, p, (size_t)ml) ||
+			} else if (evv_map_letter(&g_map, p, (size_t)ml) || evv_map_tied_letter(&g_map, p, &tied_len) ||
 			    (ml == 2 && (unsigned char)p[0] == 0xcb && ((unsigned char)p[1] == 0x88 || (unsigned char)p[1] == 0x8c)) ||
 			    (m && !(m->kind == 't' && is_combining((const unsigned char *)p, ml))) ||
 			    (ml == 3 && (unsigned char)p[0] == 0xe2 && (unsigned char)p[1] == 0x80 &&

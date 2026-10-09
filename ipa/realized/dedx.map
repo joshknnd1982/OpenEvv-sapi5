@@ -3,6 +3,9 @@
 
 sound u35debb288c a2=0 a3=40 a4=60 a5=40 a6=0 ab=0 fric=55 ms=102 whisper=44    # B:U+0068+U+032A+U+0346 voiceless bidental fricative (air through clenched teeth)
 h̪͆          <h=u35debb288c
+sound u039c268bfd a2=0 a3=40 a4=60 a5=40 a6=0 ab=0 ant=50 frel=72 frelaf=55 l2=417 lk=69 vot=70    # B:U+0074+U+02B0+U+032A+U+0346 voiceless alveolar plosive with bidental aspiration (its aspiration made at the clenched teeth)
+#   not realised: release: the adapter has no key for it yet
+tʰ̪͆         t=u039c268bfd
 sound u00a1 a2=60 a3=40 a4=0 a5=0 a6=0 ab=0 hit=40 hitaf=68 hitg=20 hitms=5    # B:U+00A1 sublaminal lower-alveolar percussive (tongue slap)
 ¡            l=u00a1
 sound u01c3_00a1 a2=80 a3=0 a4=0 a5=0 a6=0 bgain=28 burst=10 burstms=5 ej=14 f2=55 rel2=20 rel2af=80 rel2g=26 rel2ms=5 vot=2    # B:U+01C3+U+00A1 alveolar click with a sublaminal percussive release (cluck)
@@ -35,6 +38,9 @@ sound u1df06 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=508 lk=34    # B:U+1DF06
 𝼆            X=u1df06
 sound u1df07 ant=50 f1=160 f2=72 f3=103 f4=106 hold=117 l2=263 l3=641 lk=100 lmur=1    # B:U+1DF07 velodorsal nasal
 𝼇            G=u1df07
+sound u66be7b4995 a2=0 a3=40 a4=60 a5=40 a6=0 ab=0 ant=50 f1=143 f2=100 f3=79 fric=55 hold=104 tapms=15 tdepth=20 trate=22 voi=0 whisper=0    # B:U+2180+U+0361+U+0072 buccal alveolar trill (the tongue tip trilled by air pushed from the cheeks, the larynx not in it): the raspberry's letter without its place marks
+#   not realised: source: the adapter has no key for it yet
+ↀ͡r          l=u66be7b4995
 sound ua78e a2=0 a3=50 a4=0 a5=30 a6=0 ant=50 f3=92 hold=145    # B:U+A78E voiceless retroflex lateral fricative
 ꞎ            s=ua78e
 sound u0061 ah=-6 av=-6 f1=127 f2=125 f3=110    # U+0061 open front unrounded vowel
@@ -293,137 +299,139 @@ sound ua7af ant=50 f1=124 f2=94 l2=150 lk=78 vot=23    # B:U+A7AF upper-pharynge
 
 # composition when speaking (C4): read only by a map with `version 2`
 version 2
-weights stricture=8 airstream=6 nasal=6 lateral=4 sibilant=3 place_step=1 place2=2 voicing=2 height_step=2 backness_step=2 rounding=1 class=50
-letter h̪͆ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter ¡ c place=4 stricture=tap airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified
-letter ǃ¡ c place=5 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
-letter ɦ̪͆ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɹ̈ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɹ̺ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʪ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiceless
-letter ʫ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiced
-letter ʬ c place=0 stricture=closure airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified
-letter ʭ c place=3 stricture=closure airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified
-letter 𝼀 c place=9 stricture=trill airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiceless
-letter 𝼀̬ c place=9 stricture=trill airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter 𝼁 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter 𝼃 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter 𝼄 c place=9 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
-letter 𝼆 c place=8 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
-letter 𝼇 c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter ꞎ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
+weights stricture=8 airstream=6 nasal=6 lateral=4 sibilant=3 place_step=1 place2=2 voicing=2 release=2 place_mark=1 aspiration=2 fricated_release=2 tongue_part=1 height_step=2 backness_step=2 rounding=1 class=50
+letter h̪͆ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=bridge-above aspiration=none fricated_release=none tongue_part=none
+letter tʰ̪͆ c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=after fricated_release=bidental tongue_part=unspecified
+letter ¡ c place=4 stricture=tap airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ǃ¡ c place=5 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified release=percussive place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɦ̪͆ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=bridge-above aspiration=none fricated_release=none tongue_part=none
+letter ɹ̈ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=bunched
+letter ɹ̺ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=apical
+letter ʪ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʫ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʬ c place=0 stricture=closure airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʭ c place=3 stricture=closure airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified release=plain place_mark=bridge-above aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼀 c place=9 stricture=trill airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼀̬ c place=9 stricture=trill airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼁 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼃 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼄 c place=9 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼆 c place=8 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼇 c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ↀ͡r c place=4 stricture=trill airstream=buccal nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ꞎ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter a v height=6 backness=0 rounding=unrounded f1hz=991 f2hz=1562 f3hz=2750
-letter b c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter c c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter d c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter b c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter c c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter d c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter e v height=2 backness=0 rounding=unrounded f1hz=418 f2hz=2537 f3hz=2943
-letter f c place=1 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter h c place=13 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter f c place=1 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter h c place=13 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter i v height=0 backness=0 rounding=unrounded f1hz=217 f2hz=2774 f3hz=3654
-letter j c place=8 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter k c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter l c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
-letter m c place=0 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter n c place=4 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter j c place=8 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter k c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter l c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter m c place=0 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter n c place=4 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter o v height=2 backness=4 rounding=rounded f1hz=425 f2hz=684 f3hz=2592
-letter p c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter q c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter r c place=4 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter s c place=4 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
-letter t c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter p c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter q c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter r c place=4 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter s c place=4 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter t c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter u v height=0 backness=4 rounding=rounded f1hz=308 f2hz=578 f3hz=2472
-letter v c place=1 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter w c place=0 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiced
-letter x c place=9 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter v c place=1 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter w c place=0 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter x c place=9 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter y v height=0 backness=0 rounding=rounded f1hz=249 f2hz=2257 f3hz=2668
-letter z c place=4 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
+letter z c place=4 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter æ v height=5 backness=0 rounding=unrounded f1hz=632 f2hz=1710 f3hz=2496
-letter ç c place=8 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter ð c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ç c place=8 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ð c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ø v height=2 backness=0 rounding=rounded f1hz=422 f2hz=1963 f3hz=2487
-letter ħ c place=11 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter ŋ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter ħ c place=11 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ŋ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter œ v height=4 backness=0 rounding=rounded f1hz=513 f2hz=1768 f3hz=2461
-letter ǀ c place=3 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
-letter ǁ c place=4 stricture=closure airstream=click nasal=false lateral=true sibilant=false place2=velar voicing=unspecified
-letter ǂ c place=8 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
-letter ǃ c place=5 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
+letter ǀ c place=3 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ǁ c place=4 stricture=closure airstream=click nasal=false lateral=true sibilant=false place2=velar voicing=unspecified release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ǂ c place=8 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ǃ c place=5 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ɐ v height=5 backness=2 rounding=unspecified f1hz=742 f2hz=1392 f3hz=2575
 letter ɑ v height=6 backness=4 rounding=unrounded f1hz=741 f2hz=999 f3hz=2975
 letter ɒ v height=6 backness=4 rounding=rounded f1hz=678 f2hz=927 f3hz=3000
-letter ɓ c place=0 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɓ c place=0 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ɔ v height=4 backness=4 rounding=rounded f1hz=536 f2hz=801 f3hz=2650
-letter ɕ c place=7 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
-letter ɖ c place=6 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɗ c place=4 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɕ c place=7 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɖ c place=6 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɗ c place=4 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ɘ v height=2 backness=2 rounding=unrounded f1hz=446 f2hz=1696 f3hz=2725
 letter ə v height=3 backness=2 rounding=unspecified f1hz=468 f2hz=1456 f3hz=2425
 letter ɛ v height=4 backness=0 rounding=unrounded f1hz=561 f2hz=2160 f3hz=2756
 letter ɜ v height=4 backness=2 rounding=unrounded f1hz=562 f2hz=1392 f3hz=2475
 letter ɞ v height=4 backness=2 rounding=rounded f1hz=522 f2hz=1280 f3hz=2575
-letter ɟ c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɠ c place=9 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɡ c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɢ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɣ c place=9 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɟ c place=8 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɠ c place=9 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɡ c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɢ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɣ c place=9 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ɤ v height=2 backness=4 rounding=unrounded f1hz=476 f2hz=845 f3hz=2496
-letter ɥ c place=0 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=palatal voicing=voiced
-letter ɦ c place=13 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɧ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiceless
+letter ɥ c place=0 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=palatal voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɦ c place=13 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɧ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ɨ v height=0 backness=2 rounding=unrounded f1hz=308 f2hz=1940 f3hz=2604
 letter ɪ v height=1 backness=1 rounding=unrounded f1hz=342 f2hz=1800 f3hz=2492
-letter ɬ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
-letter ɭ c place=6 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
-letter ɮ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
+letter ɬ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɭ c place=6 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɮ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ɯ v height=0 backness=4 rounding=unrounded f1hz=370 f2hz=810 f3hz=2520
-letter ɰ c place=9 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɱ c place=1 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter ɲ c place=8 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter ɳ c place=6 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter ɴ c place=10 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
+letter ɰ c place=9 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɱ c place=1 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɲ c place=8 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɳ c place=6 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɴ c place=10 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ɵ v height=2 backness=2 rounding=rounded f1hz=410 f2hz=1216 f3hz=2500
 letter ɶ v height=6 backness=0 rounding=rounded f1hz=679 f2hz=1375 f3hz=2625
-letter ɸ c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter ɹ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɺ c place=4 stricture=tap airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
-letter ɻ c place=6 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɽ c place=6 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ɾ c place=4 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʀ c place=10 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʁ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʂ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
-letter ʃ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless
-letter ʄ c place=8 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʈ c place=6 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ɸ c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɹ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɺ c place=4 stricture=tap airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɻ c place=6 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɽ c place=6 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ɾ c place=4 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʀ c place=10 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʁ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʂ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʃ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʄ c place=8 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʈ c place=6 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ʉ v height=0 backness=2 rounding=rounded f1hz=307 f2hz=1004 f3hz=2400
 letter ʊ v height=1 backness=3 rounding=rounded f1hz=382 f2hz=1060 f3hz=2352
-letter ʋ c place=1 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʋ c place=1 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ʌ v height=4 backness=4 rounding=unrounded f1hz=593 f2hz=909 f3hz=2800
-letter ʍ c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiceless
-letter ʎ c place=8 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
+letter ʍ c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=velar voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʎ c place=8 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ʏ v height=1 backness=1 rounding=rounded f1hz=376 f2hz=1436 f3hz=2289
-letter ʐ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
-letter ʑ c place=7 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
-letter ʒ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced
-letter ʔ c place=13 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter ʕ c place=11 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʘ c place=0 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
-letter ʙ c place=0 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʛ c place=10 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʜ c place=12 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter ʝ c place=8 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʟ c place=9 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
-letter ʡ c place=12 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=unspecified
-letter ʢ c place=12 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter β c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter θ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter χ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
-letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter ʩ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiceless
-letter ʩ̬ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
-letter 𝼂 c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
-letter 𝼅 c place=6 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
-letter ꞯ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
+letter ʐ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʑ c place=7 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʒ c place=5 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=true place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʔ c place=13 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʕ c place=11 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʘ c place=0 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʙ c place=0 stricture=trill airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʛ c place=10 stricture=closure airstream=implosive nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʜ c place=12 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʝ c place=8 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʟ c place=9 stricture=approximation airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʡ c place=12 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=unspecified release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʢ c place=12 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter β c place=0 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter θ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter χ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʩ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ʩ̬ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼂 c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter 𝼅 c place=6 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter ꞯ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 mod ʰ c vot+64    # U+02B0
 mod ʲ c f2*143    # U+02B2
 mod ʷ c f2*85    # U+02B7

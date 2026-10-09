@@ -19,6 +19,7 @@ import json
 import os
 import random
 import sys
+import itertools
 import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -218,16 +219,21 @@ def read(text, strict=True, t=None, notation='ipa'):
             def begins_two(k):
                 # a mark that begins a mark of two characters makes no letter (as in the front-end)
                 return k + 1 < len(s) and s[k:k + 2] in idx and t.sounds[idx[s[k:k + 2]]]['kind'] == 'modifier'
-            found3 = next(((x, y) for xi, x in enumerate(run3) for y in run3[xi + 1:]
-                           if ch + s[x] + s[y] in idx and t.sounds[idx[ch + s[x] + s[y]]]['kind'] == 'base'
-                           and not begins_two(y)), None)
+            # (and of four, a letter and three marks: extIPA's bidental aspiration tʰ̪͆, D80; the most
+            # marks first, the earliest first, every one of them beginning no mark of two)
+            free = [k for k in run3 if not begins_two(k)]
+            found3 = next((c for w in (3, 2) for c in itertools.combinations(free, w)
+                           if ch + ''.join(s[k] for k in c) in idx
+                           and t.sounds[idx[ch + ''.join(s[k] for k in c)]]['kind'] == 'base'), None)
             if found3:
-                x, y = found3
-                rest = ''.join(s[k] for k in run3 if k not in (x, y))
-                s = s[:i + 1] + s[x] + s[y] + rest + s[k3:]
-        if i + 2 < len(s) and s[i:i + 3] in idx and t.sounds[idx[s[i:i + 3]]]['kind'] == 'base' and not (
-                i + 3 < len(s) and s[i + 2:i + 4] in idx and t.sounds[idx[s[i + 2:i + 4]]]['kind'] == 'modifier'):
-            sid, n = idx[s[i:i + 3]], 3
+                rest = ''.join(s[k] for k in run3 if k not in found3)
+                s = s[:i + 1] + ''.join(s[k] for k in found3) + rest + s[k3:]
+        # a letter of four or three characters (the above; or a tied letter, extIPA's buccal trill
+        # ↀ͡r: a character, a tie bar and a letter, D80)
+        for w in (4, 3):
+            if n == 1 and i + w - 1 < len(s) and s[i:i + w] in idx and t.sounds[idx[s[i:i + w]]]['kind'] == 'base'                     and not (i + w < len(s) and s[i + w - 1:i + w + 1] in idx
+                             and t.sounds[idx[s[i + w - 1:i + w + 1]]]['kind'] == 'modifier'):
+                sid, n = idx[s[i:i + w]], w
         if sid is not None and n == 1 and t.sounds[sid]['kind'] == 'base':
             # a letter of two characters whose mark canonical order has put behind another mark
             # (ɹ̩̈ comes as ɹ, ̩, ̈: a mark below before one above): the mark is moved next to its
@@ -259,6 +265,8 @@ def read(text, strict=True, t=None, notation='ipa'):
             while j < len(s) and s[j] in pre_idx and not (idx.get(s[j]) and t.sounds[idx[s[j]]]['kind'] == 'base'):
                 j += 1
             nxt = idx.get(s[j]) if j < len(s) else None
+            if nxt is None and s[j:j + 3] in idx and t.sounds[idx[s[j:j + 3]]]['kind'] == 'base':
+                nxt = idx[s[j:j + 3]]      # a tied letter (ʰↀ͡r), as the front-end has it (D80)
             if (sid is None or tg is None or cls not in (t.sounds[sid].get('edit') or {})) \
                     and nxt is not None and t.sounds[nxt]['kind'] == 'base':
                 pre.append((pre_idx[ch], i))
@@ -475,11 +483,14 @@ def test(n_random=20000, seed=1):
                 sg = _segments(read(unicodedata.normalize('NFD', x), t=t))
                 check(len(sg) == 1 and sg[0]['base'] == sid and sg[0]['mods'] == [mark],
                       '%s read as %s' % (x, [(g.get('base'), g.get('mods')) for g in sg]))
-    # a letter of three characters (h̪͆ ɦ̪͆, D79) stays itself with a mark after it, and with a mark
-    # of its first mark's class typed between its two marks (canonical order keeps it there)
+    # a letter of three characters (h̪͆ ɦ̪͆, D79) or four (tʰ̪͆, D80) stays itself with a mark after
+    # it, and with a mark of its next-to-last mark's class typed before its last (canonical order
+    # keeps it there); a tied letter (ↀ͡r, D80) with marks after it
     for sid, e in t.sounds.items():
-        if e['kind'] == 'base' and len(e['ipa']) == 3:
-            for x, mark in ((e['ipa'] + 'ː', 'U+02D0'), (e['ipa'][:2] + '̥' + e['ipa'][2], 'U+0325')):
+        if e['kind'] == 'base' and len(e['ipa']) in (3, 4):
+            tied = e['ipa'][1] in '͜͡'
+            for x, mark in ((e['ipa'] + 'ː', 'U+02D0'), (e['ipa'] + '̥' if tied else e['ipa'][:-1] + '̥' + e['ipa'][-1],
+                                                        'U+0325')):
                 sg = _segments(read(unicodedata.normalize('NFD', x), t=t))
                 check(len(sg) == 1 and sg[0]['base'] == sid and sg[0]['mods'] == [mark],
                       '%s read as %s' % (x, [(g.get('base'), g.get('mods')) for g in sg]))

@@ -18,7 +18,7 @@ nasal = { set = [false, true], default = false }
 lateral = { set = [false, true], default = false }
 nasalized = { set = [false, true], default = false, note = "the nose open through an oral sound (a nasalized approximant); `nasal` is a closure with the nose open" }
 sibilant = { set = [false, true], default = false }
-airstream = { set = ["pulmonic", "ejective", "implosive", "click", "percussive"], default = "pulmonic", note = "percussive: no airstream at all, two parts of the mouth struck together, the sound the impact (extIPA's ʬ ʭ ¡, Tier B, D78)" }
+airstream = { set = ["pulmonic", "ejective", "implosive", "click", "percussive", "buccal"], default = "pulmonic", note = "percussive: no airstream at all, two parts of the mouth struck together, the sound the impact (extIPA's ʬ ʭ ¡, Tier B, D78); buccal: air held between the cheek and the jaw pushed out past the teeth, the larynx not in it (VoQS ↀ; extIPA's raspberry ↀ͡r̪͆, Tier B, D80)" }
 voicing = { scale = ["voiceless", "breathy", "voiced", "creaky"], extra = ["unspecified"], note = "unspecified: a click letter, whose voicing its accompaniment sets" }
 aspiration = { set = ["none", "after", "before", "long-after"], default = "none", note = "before: extIPA's pre-aspiration (ʰp); long-after: its long aspiration (pʰʰ) (Tier B)" }
 release = { set = ["plain", "none", "nasal", "lateral", "percussive"], default = "plain", note = "percussive: a click whose tongue tip, released, goes on to slap the floor of the mouth (extIPA's cluck ǃ¡, Tier B, D78)" }
@@ -35,7 +35,7 @@ denasal = { set = ["none", "partial", "lesser"], default = "none", note = "extIP
 velopharyngeal_friction = { set = [false, true], default = false, note = "extIPA's U+034C (Tier B): noisy airflow through a narrowed velopharyngeal port with the sound" }
 whistled = { set = [false, true], default = false, note = "extIPA's U+034E (Tier B): a sibilant with a whistle-like narrow band" }
 gesture_offset = { set = ["none", "right", "left"], default = "none", note = "extIPA's U+0354 and U+0355 (Tier B): the main gesture displaced to the (listener's) right or left" }
-fricated_release = { set = ["none", "dental", "velar", "lateral", "velar-lateral", "lateral-and-median"], default = "none", note = "extIPA's fricated releases (Tier B, D72): a stop released into a short friction of the place a superscript fricative names (tᶿ kˣ d𐞞 k𐞜; t𐞙 d𐞚 lateral and median at once), its voicing the stop's" }
+fricated_release = { set = ["none", "dental", "velar", "lateral", "velar-lateral", "lateral-and-median", "bidental"], default = "none", note = "extIPA's fricated releases (Tier B, D72): a stop released into a short friction of the place a superscript fricative names (tᶿ kˣ d𐞞 k𐞜; t𐞙 d𐞚 lateral and median at once), its voicing the stop's; bidental: its aspiration made at the clenched teeth (tʰ̪͆, D80)" }
 
 [vowel]
 height = { scale = ["close", "near-close", "close-mid", "mid", "open-mid", "near-open", "open"] }
@@ -68,6 +68,6 @@ kind = { set = ["syllable", "linked", "minor", "major", "reiteration"], note = "
 # `place_step` each. Larger is further. All `estimated` (DESIGN.md 2.3).
 [weights]
 tag = "estimated"
-consonant = { stricture = 8, airstream = 6, nasal = 6, lateral = 4, sibilant = 3, place_step = 1, place2 = 2, voicing = 2 }
+consonant = { stricture = 8, airstream = 6, nasal = 6, lateral = 4, sibilant = 3, place_step = 1, place2 = 2, voicing = 2, release = 2, place_mark = 1, aspiration = 2, fricated_release = 2, tongue_part = 1 }
 vowel = { height_step = 2, backness_step = 2, rounding = 1 }
 class = 50

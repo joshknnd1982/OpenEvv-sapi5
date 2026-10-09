@@ -63,8 +63,9 @@ typedef struct {
 	char ipa[8];
 	char cls;                /* 'c' consonant, 'v' vowel */
 	int place, height, backness;
-	char f[7][16];           /* consonant: stricture airstream nasal lateral sibilant place2
-	                            voicing; vowel: rounding in f[0] */
+	char f[12][24];          /* consonant: stricture airstream nasal lateral sibilant place2
+	                            voicing release place_mark aspiration fricated_release
+	                            tongue_part (the last five since D80, Q34); vowel: rounding in f[0] */
 	int hz[4];               /* a vowel's formants as the map realises it (`f1hz'...), or 0 */
 } EvvLetter;
 
@@ -101,7 +102,7 @@ typedef struct {
 } EvvToneMark;
 
 enum { W_STRICTURE, W_AIRSTREAM, W_NASAL, W_LATERAL, W_SIBILANT, W_PLACE, W_PLACE2, W_VOICING, W_HEIGHT,
-       W_BACKNESS, W_ROUNDING, W_CLASS, W_COUNT };
+       W_BACKNESS, W_ROUNDING, W_CLASS, W_RELEASE, W_PLACE_MARK, W_ASPIRATION, W_FRICATED, W_TONGUE_PART, W_COUNT };
 
 typedef struct {
 	char tmpl[16];          /* the openevv module the phones are for, e.g. "itit" */
@@ -186,6 +187,8 @@ const char *evv_map_ipa_tone(EvvMap *map, const int *levels, int n, int from, in
 /* Whether a character (UTF-8, one code point) is a chart letter the map
    lists, and which. */
 const EvvLetter *evv_map_letter(const EvvMap *map, const char *ch, size_t len);
+/* a tied letter at p (ↀ͡r, D80): its letter, and its length in bytes in *len; NULL if none */
+const EvvLetter *evv_map_tied_letter(const EvvMap *map, const char *p, size_t *len);
 
 /* Whether the map has a `mod' line for a mark (one code point) on a letter of
    class `cls' (c or v), and whether it has a `premod' line for it on any. */

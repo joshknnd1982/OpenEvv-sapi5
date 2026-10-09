@@ -250,7 +250,8 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             if sm:
                 ph.setdefault('meas', {})['peak_hz'] = sm['peak_hz']
                 ph['meas']['centroid_hz'] = sm['centroid_hz']
-    if tgt and man == 'fricative':
+    if tgt and (man or base_man) in ('fricative', 'trill'):
+        # (and every trill: a voiceless trill's friction, the raspberry's letter ↀ͡r, D80)
         # the noise's centre over one window for every fricative, from 1 kHz (the peak and centroid
         # above are read from 60 per cent of a target, which differs from entry to entry, so two of
         # them are not comparable), and the energy above 3 kHz against below 1 kHz, which needs no
@@ -288,6 +289,10 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             if k3:
                 ex['voiced_' + name] = sum(1 for i in k3 if fr3[i, E.P['av']] > 0) / float(len(k3))
                 ex['creak_' + name] = sum(1 for i in k3 if fr3[i, E.P['di']] > 0) / float(len(k3))
+                # and what sources it is made of: breath (AH) and friction (AF), as voice (AV) above:
+                # a buccal airstream's sound has friction alone, the larynx not in it (D80)
+                ex['breath_' + name] = sum(1 for i in k3 if fr3[i, E.P['ah']] > 0) / float(len(k3))
+                ex['noise_' + name] = sum(1 for i in k3 if fr3[i, E.P['af']] > 0) / float(len(k3))
         # how long the voice runs on into the sound from its start, and how long the sound ends
         # voiced: a consonant's span begins in the vowel before it, so its thirds cannot say where
         # a voicing mark put the voice; these runs, against the plain sound's, can (D70)
@@ -454,7 +459,20 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
                     if fr0[i, E.P['af']] < 50:
                         break
                     run_ += fr0[i, 0]
-                ex['rel_af_ms'] = run_
+                ex['rel_af_ms'] = float(run_)
+                # what the release's noise is, over one window for every stop (the 30 ms after its
+                # burst's first 10, so that the windows of two stops compare): its centre from 1 kHz
+                # and its energy above 3 kHz against below 1 kHz, as a fricative's (D79), whatever
+                # the frames ask; a plain stop's window holds the vowel's start, an aspirated
+                # stop's its breath on the vowel's formants, a fricated release its friction (D80)
+                if after is not None and phones[after]['cls'] != 'silence':
+                    mo_ = A.spectrum_moments(x, rate, c1_ + 10.0, c1_ + 40.0, fmin=1000.0)
+                    if mo_:
+                        ex['rel_centroid1k_hz'] = mo_['centroid_hz']
+                    f_, p_ = A.spectrum(x, rate, c1_ + 10.0, c1_ + 40.0)
+                    hi, lo = p_[f_ >= 3000.0].sum(), p_[f_ < 1000.0].sum()
+                    if hi > 0 and lo > 0:
+                        ex['rel_hf_db'] = 10.0 * math.log10(hi / lo)
                 # the friction heard: the middle half of that run, its first 10 ms (the burst) left
                 # out, against the vowel after's middle 30 ms; silence reads far under the 40 dB the
                 # harness takes for nothing (stop_timing's voice), a weak fricative does not (θ's
@@ -639,8 +657,9 @@ def summary(cases, man):
             s['mod_' + k] = round(v, 2)
     for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms', 'voicing_slope', 'burst_db', 'burst_len_ms',
               'burst_centroid_hz', 'gap_breath_frac', 'voiced_head', 'voiced_mid', 'voiced_tail', 'creak_head',
-              'creak_mid', 'creak_tail', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db',
-              'rel_af_ms', 'rel_hnr_db', 'rel_noise_db', 'rel_peak_hz', 'rel_centroid_hz', 'strike_found',
+              'creak_mid', 'creak_tail', 'breath_mid', 'noise_mid', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db',
+              'rel_af_ms', 'rel_hnr_db', 'rel_noise_db', 'rel_peak_hz', 'rel_centroid_hz', 'rel_centroid1k_hz',
+              'rel_hf_db', 'strike_found',
               'strike_db', 'strike_centroid_hz', 'strike_ms', 'strike_len_ms', 'slap_found', 'slap_ms', 'slap_db',
               'slap_centroid_hz', 'slap_len_ms'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
@@ -653,7 +672,8 @@ def summary(cases, man):
         if pairs:
             s['next_req_F%d_pairs' % k] = pairs
     for k in ('voicing_slope', 'burst_db', 'burst_len_ms', 'burst_centroid_hz', 'strike_db', 'strike_centroid_hz',
-              'strike_ms', 'strike_len_ms', 'slap_ms', 'slap_db', 'slap_len_ms'):
+              'strike_ms', 'strike_len_ms', 'slap_ms', 'slap_db', 'slap_len_ms', 'rel_af_ms', 'rel_centroid1k_hz',
+              'voiced_mid', 'breath_mid', 'noise_mid'):
         # in how many contexts the measure was found: a median of one is not a proof (check_b3)
         s['n_' + k] = sum(1 for cid, c in cases.items() if cid != 'alone' and (c.get('extra') or {}).get(k) is not None)
     if s.get('F2_50_hz') is not None:
@@ -793,6 +813,24 @@ def check_b3(e, s):
                 tol_ = 0.25 * w if tol is None else tol
                 out['%s %s' % (grp, k)] = dict(target=w, measured=got, contexts=n,
                                                within=got is not None and n >= 2 and abs(got - w) <= tol_)
+    # a letter's own release into friction (tʰ̪͆, D80): how long the frames ask for it, within a quarter
+    # (and 5 ms, the frame's step), and its noise's centre over the release window, within the
+    # peak's tolerance; each found in two contexts at least
+    for k, mk in (('fricated_ms', 'rel_af_ms'), ('centroid_hz', 'rel_centroid1k_hz')):
+        x = (spec.get('release') or {}).get(k)
+        if x is not None:
+            got, w, n = s.get(mk), v(x), s.get('n_' + mk, 0)
+            ok = got is not None and n >= 2 and (abs(got - w) <= max(0.25 * w, 5.0) if k == 'fricated_ms'
+                                                 else PR.within('peak', got, w))
+            out['release %s' % k] = dict(target=w, measured=got, contexts=n, within=ok)
+    # the sources a sound is made of (a buccal airstream's: friction alone, D80): the share of the
+    # middle third's frames with voice, breath and friction, within a tenth, in two contexts at least
+    for k, mk in (('voice_frac', 'voiced_mid'), ('breath_frac', 'breath_mid'), ('noise_frac', 'noise_mid')):
+        x = (spec.get('source') or {}).get(k)
+        if x is not None:
+            got, w, n = s.get(mk), v(x), s.get('n_' + mk, 0)
+            out['source %s' % k] = dict(target=w, measured=got, contexts=n,
+                                        within=got is not None and n >= 2 and abs(got - w) <= 0.1)
     # T-airstream: the voice's level through the closure, dB per 10 ms, within 1 (the measure's
     # own error is 0.4 on a synthetic swell, selftest.py; the source is a curve read from a figure)
     x = (spec.get('closure') or {}).get('voicing_slope_db10')
@@ -842,7 +880,8 @@ SPEC_OF = {'peak_hz': ('noise', 'peak_hz'), 'centroid_hz': ('noise', 'peak_hz'),
            'centroid1k_hz': ('noise', 'centroid_hz'),
            'burst_centroid_hz': ('burst', 'centroid_hz'), 'burst_len_ms': ('burst', 'length_ms'),
            'burst_db': ('burst', 'level_db'),
-           'duration_ms': ('duration', 'inherent_ms'), 'mod_rate_hz': ('trill', 'rate_hz')}
+           'duration_ms': ('duration', 'inherent_ms'), 'mod_rate_hz': ('trill', 'rate_hz'),
+           'rel_af_ms': ('release', 'fricated_ms'), 'rel_centroid1k_hz': ('release', 'centroid_hz')}
 for _k in (1, 2, 3, 4):
     SPEC_OF['F%d_50_hz' % _k] = ('formants', 'F%d' % _k)
     SPEC_OF['edge_F%d' % _k] = ('locus', 'F%d' % _k)
@@ -906,7 +945,7 @@ def contrast_ok(measure, mine, theirs, sign, same_base=False):
     if mine is None or theirs is None:
         return False, None
     d = mine - theirs
-    if measure == 'voiced_frac' or measure[:7] in ('voiced_', 'creak_h', 'creak_m', 'creak_t'):
+    if measure == 'voiced_frac' or measure[:7] in ('voiced_', 'creak_h', 'creak_m', 'creak_t', 'breath_')             or measure[:6] == 'noise_' and measure != 'noise_db' and not measure.endswith('_hz'):
         # a share of the frames: a fifth of the sound voiced or not is the least that counts
         return (d * sign >= 0.2), round(d, 2)
     if measure == 'voicing_slope':
@@ -966,7 +1005,8 @@ def judge(t, sid, cases, diags, said_as):
     if e['kind'] == 'base':
         b3 = check_b3(e, s)
         air = e['features'].get('airstream', 'pulmonic')
-        need = {'click': 'burst ', 'implosive': 'closure voicing slope', 'percussive': 'strike '}.get(air)
+        need = {'click': 'burst ', 'implosive': 'closure voicing slope', 'percussive': 'strike ',
+                'buccal': 'source '}.get(air)
         if air != 'pulmonic' and not (need and any(k.startswith(need) for k in b3['targets'])):
             # what makes a click or an implosive is its airstream: without its own targets
             # (T-click, T-airstream, T-percussive) the generic checks prove the place, not the sound
@@ -1294,7 +1334,9 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
                 # the marked sounds' measures, each over the same contexts
                 def marked(r, base=c['base']):
                     return (((r or {}).get('summary') or {}).get(base) or {}).get('marked') or {}
-                mine, theirs = marked(res).get(c['measure']), marked(other).get(c['measure'])
+                # (a letter against a mark on a base: tʰ̪͆ against ʰ on t, tʰ; ↀ͡r against ̥ on r, D80)
+                mine = (marked(res) if t.sounds[sid]['kind'] != 'base' else res['summary']).get(c['measure'])
+                theirs = marked(other).get(c['measure'])
             else:
                 def flat(r):
                     # a composite's summary is per base, its plain and marked sounds: against one,
