@@ -1168,7 +1168,28 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	for (const char *p = lp + bl; *p; p += utf8_len((unsigned char)*p))
 		if (evv_map_letter(map, p, (size_t)utf8_len((unsigned char)*p)))
 			return -1; /* two letters: an affricate or a sequence */
-	const EvvMapEntry *base = find(map, lp, (size_t)bl);
+	/* a letter of two characters, a letter and a mark the letter's own line
+	   reads otherwise (extIPA's bunched r, the apical r: D74), wherever the
+	   mark stands among the others (canonical order puts a mark below before
+	   one above, so ɹ̩̈ comes as ɹ, ̩, ̈): the pair is the letter, and that
+	   mark is not composed again */
+	char two[16];
+	const char *joined = NULL;
+	int jl = 0;
+	for (const char *q = lp + bl; *q; q += utf8_len((unsigned char)*q)) {
+		int ql = utf8_len((unsigned char)*q);
+		if (bl + ql >= (int)sizeof(two))
+			continue;
+		memcpy(two, lp, (size_t)bl);
+		memcpy(two + bl, q, (size_t)ql);
+		if (evv_map_letter(map, two, (size_t)(bl + ql)) && find(map, two, (size_t)(bl + ql))) {
+			letter = evv_map_letter(map, two, (size_t)(bl + ql));
+			joined = q;
+			jl = ql;
+			break;
+		}
+	}
+	const EvvMapEntry *base = joined ? find(map, two, (size_t)(bl + jl)) : find(map, lp, (size_t)bl);
 	if (!base) {
 		int best = -1, best_d = 0;
 		for (int i = 0; i < map->n_letters; i++) {
@@ -1199,6 +1220,10 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	for (const char *p = ipa; *p;) {
 		if (p == lp) {
 			p += bl; /* the letter itself */
+			continue;
+		}
+		if (p == joined) {
+			p += jl; /* the mark that is part of it */
 			continue;
 		}
 		int ml = utf8_len((unsigned char)*p);

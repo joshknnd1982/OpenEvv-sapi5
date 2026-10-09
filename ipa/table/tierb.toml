@@ -264,23 +264,56 @@ proof = "ipa/proofs/B_U+006C+U+033C.json"
 [sound."B:U+0279+U+033A"]
 ipa = "ɹ̺"
 codepoints = ["U+0279", "U+033A"]
-name = "apical r (approximant r made with the tongue tip)"
+name = "apical r: approximant r made with the tongue tip"
 section = "tierb"
 tier = "B"
 chart = "extIPA / other sounds"
-kind = "composite"
-parts = ["U+0279", "U+033A"]
-state = "composed"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", tongue_part = "apical" }
+state = "created"
 level = 2
-approximate = false
-plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+approximate = true
+deviation = "its F4 to F5 spacing is the tip-up (retroflex) /r/ of zhou_etal_2008, which may curl the tip further than an apical r need; F1 to F3 are ɹ's, without the slightly lower F3 Tier A's apical mark gives a t, s or n; D74 makes it a letter of its own: as ɹ with ̺ composed it kept ɹ's F4, the bunched spacing (D74)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."B:U+0279+U+033A".spec]
+formants = { F1 = { v = 419, tag = "derived", rule = "ɹ's (espy_wilson_1992 Table VI, American English): F1 to F3 of bunched and retroflex /r/ are similar (zhou_etal_2008: what tells them apart is F4 against F5) (D74)" }, F2 = { v = 1285, tag = "derived", rule = "ɹ's (espy_wilson_1992 Table VI), as for F1 (D74)" }, F3 = { v = 1779, tag = "derived", rule = "ɹ's (espy_wilson_1992 Table VI), as for F1 (D74)" }, F4 = { v = 2300, tag = "derived", rule = "this voice's F5 (3900 Hz, dedx, adapter.F5_HZ) less the median F5 - F4 of retroflex (tip-up) /r/ in zhou_etal_2008, 1600 Hz: 1531 and 1406 (S1 sustained, supine and upright, Table III: 4328 - 2797, 4234 - 2828; the text gives 1469 for upright), about 1900 and 2000 (S3, S4, sustained), about 2100, 1500, 1600 (S1, S3, S4, warav at the F3 minimum); the spacing is kept, not the frequencies (D74)" } }
 
 [sound."B:U+0279+U+033A".tests]
-checks = ["T-shift"]
-bases = ["U+0279"]
-shift = [{ measure = "edge_F3", sign = -1 }]
-judged_by = "U+033A"
+checks = ["T-approx"]
+check_F4 = true
+contrast = [{ with = "B:U+0279+U+0308", measure = "F4_50_hz", sign = -1, distinct = true }, { with = "U+0279", measure = "F4_50_hz", sign = -1 }]
 proof = "ipa/proofs/B_U+0279+U+033A.json"
+
+[sound."B:U+0279+U+033A".realization.openevv]
+carrier = "r"
+
+[sound."B:U+0279+U+0308"]
+ipa = "ɹ̈"
+codepoints = ["U+0279", "U+0308"]
+name = "bunched r (molar r): approximant r made with the tongue body bunched, tip down"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "approximation", voicing = "voiced", airstream = "pulmonic", tongue_part = "bunched" }
+state = "created"
+level = 2
+approximate = true
+deviation = "its F1 to F3 are ɹ's (American English, whose speakers use both tongue shapes); only the F4 to F5 spacing tells it from the apical r, taken from six speakers of American English (zhou_etal_2008) and applied below this voice's F5, which is lower than theirs; ɹ itself, an average over speakers of both kinds, has F4 3350, already near the bunched spacing: ɹ̈ against ɹ differs by 150 Hz in F4 (tested), against ɹ̺ by 900 (D74)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."B:U+0279+U+0308".spec]
+formants = { F1 = { v = 419, tag = "derived", rule = "ɹ's (espy_wilson_1992 Table VI, American English): F1 to F3 of bunched and retroflex /r/ are similar (zhou_etal_2008: what tells them apart is F4 against F5) (D74)" }, F2 = { v = 1285, tag = "derived", rule = "ɹ's (espy_wilson_1992 Table VI), as for F1 (D74)" }, F3 = { v = 1779, tag = "derived", rule = "ɹ's (espy_wilson_1992 Table VI), as for F1 (D74)" }, F4 = { v = 3200, tag = "derived", rule = "this voice's F5 (3900 Hz, dedx, adapter.F5_HZ, which the layer does not move) less the median F5 - F4 of bunched /r/ in zhou_etal_2008, 700 Hz: 796 and 735 (S2 sustained, supine and upright, Table IV: 4109 - 3313, 4016 - 3281; the text gives 651 for upright), about 500 and 600 (S5, S6, sustained), about 700, 900, 600 (S2, S5, S6, warav at the F3 minimum); human F5 lies higher than this voice's (4016 to 4109 for S2): the spacing is kept, not the frequencies (D74)" } }
+
+[sound."B:U+0279+U+0308".tests]
+checks = ["T-approx"]
+check_F4 = true
+contrast = [{ with = "B:U+0279+U+033A", measure = "F4_50_hz", sign = 1, distinct = true }, { with = "U+0279", measure = "F4_50_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0279+U+0308.json"
+
+[sound."B:U+0279+U+0308".realization.openevv]
+carrier = "r"
 
 [sound."B:U+0073+U+033B"]
 ipa = "s̻"
@@ -2472,3 +2505,143 @@ limit = [{ measure = "rel_noise_db", min = -40 }]
 judged_by = "B:U+1079A"
 contrast = [{ with = "B:U+0064+U+1079E", base = "U+0064", measure = "rel_centroid_hz", sign = 1, distinct = true }]
 proof = "ipa/proofs/B_U+0064+U+1079A.json"
+
+[sound."B:U+1DF03"]
+ipa = "𝼃"
+codepoints = ["U+1DF03"]
+name = "voiceless velodorsal plosive (the soft palate lowered onto the back of the tongue)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiceless", airstream = "pulmonic", nasal = false, velodorsal = true }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing measured was found for a velodorsal; the one cue made is what its articulation implies, the vowels' own F2 and F3 kept to the closure (no tongue-body transition), where k bends them to its place; its burst and voice onset is k's; any nasal air escape while the soft palate is lowered (hypernasality went with it in the one case studied, ball_manuel_muller_2004) is not made; told from k by F3 at the vowel's edge (tested, D75)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."B:U+1DF03".spec]
+locus = { F2 = { v = 1026, tag = "derived", rule = "k's F2 locus (stoakes2013), inert under a slope of 1 (the layer takes the edge as locus + slope x (vowel - locus): the vowel's own): stated only so that the letter has a place for F2 (D75)" }, F3 = { v = 2500, tag = "created", rule = "no velar in the table has an F3 locus: 2500 Hz, inert under a slope of 1 as F2's is, stated only so that the layer has a place for F3, whose transition the module's own velar would make otherwise (D75)" } }
+locus_slope = { F2 = { v = 1.0, tag = "estimated", note = "the articulation: the soft palate lowered onto the back of a tongue that does not move (wikipedia_velar_consonant; ball_manuel_muller_2004, videofluorography of one child), so the vowels beside it keep their own formant to the closure: a locus equation of slope 1, whatever the locus; nothing measured was found for a velodorsal (D75)" }, F3 = { v = 1.0, tag = "estimated", note = "the articulation: the soft palate lowered onto the back of a tongue that does not move (wikipedia_velar_consonant; ball_manuel_muller_2004, videofluorography of one child), so the vowels beside it keep their own formant to the closure: a locus equation of slope 1, whatever the locus; nothing measured was found for a velodorsal (D75)" } }
+vot_ms = { v = 23, tag = "derived", rule = "k's, as the table has it (stoakes2013 Table 6.13): the release of a velodorsal is not described (D75)" }
+
+[sound."B:U+1DF03".tests]
+checks = ["T-stop"]
+contrast = [{ with = "U+006B", measure = "edge_F3", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+1DF03.json"
+
+[sound."B:U+1DF03".realization.openevv]
+carrier = "k"
+
+[sound."B:U+1DF01"]
+ipa = "𝼁"
+codepoints = ["U+1DF01"]
+name = "voiced velodorsal plosive"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = false, velodorsal = true }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing measured was found for a velodorsal; the one cue made is what its articulation implies, the vowels' own F2 and F3 kept to the closure (no tongue-body transition), where ɡ bends them to its place; its burst and voicing is ɡ's; any nasal air escape while the soft palate is lowered (hypernasality went with it in the one case studied, ball_manuel_muller_2004) is not made; told from ɡ by F3 at the vowel's edge (tested, D75)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."B:U+1DF01".spec]
+locus = { F2 = { v = 984, tag = "derived", rule = "ɡ's F2 locus (stoakes2013), inert under a slope of 1 (the layer takes the edge as locus + slope x (vowel - locus): the vowel's own): stated only so that the letter has a place for F2 (D75)" }, F3 = { v = 2500, tag = "created", rule = "no velar in the table has an F3 locus: 2500 Hz, inert under a slope of 1 as F2's is, stated only so that the layer has a place for F3, whose transition the module's own velar would make otherwise (D75)" } }
+locus_slope = { F2 = { v = 1.0, tag = "estimated", note = "the articulation: the soft palate lowered onto the back of a tongue that does not move (wikipedia_velar_consonant; ball_manuel_muller_2004, videofluorography of one child), so the vowels beside it keep their own formant to the closure: a locus equation of slope 1, whatever the locus; nothing measured was found for a velodorsal (D75)" }, F3 = { v = 1.0, tag = "estimated", note = "the articulation: the soft palate lowered onto the back of a tongue that does not move (wikipedia_velar_consonant; ball_manuel_muller_2004, videofluorography of one child), so the vowels beside it keep their own formant to the closure: a locus equation of slope 1, whatever the locus; nothing measured was found for a velodorsal (D75)" } }
+
+[sound."B:U+1DF01".tests]
+checks = ["T-stop"]
+contrast = [{ with = "U+0261", measure = "edge_F3", sign = 1, distinct = true }, { with = "B:U+1DF03", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/B_U+1DF01.json"
+
+[sound."B:U+1DF01".realization.openevv]
+carrier = "g"
+
+[sound."B:U+1DF07"]
+ipa = "𝼇"
+codepoints = ["U+1DF07"]
+name = "velodorsal nasal"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "closure", voicing = "voiced", airstream = "pulmonic", nasal = true, velodorsal = true }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing measured was found for a velodorsal; the one cue made is what its articulation implies, the vowels' own F2 and F3 kept to the closure (no tongue-body transition), where ŋ bends them to its place; its murmur is ŋ's; any nasal air escape while the soft palate is lowered (hypernasality went with it in the one case studied, ball_manuel_muller_2004) is not made; told from ŋ by F3 at the vowel's edge (tested, D75)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X2"], builds = [] }
+
+[sound."B:U+1DF07".spec]
+locus = { F2 = { v = 1026, tag = "derived", rule = "k's F2 locus (stoakes2013; ŋ has none in the table), inert under a slope of 1 (the layer takes the edge as locus + slope x (vowel - locus): the vowel's own): stated only so that the letter has a place for F2 (D75)" }, F3 = { v = 2500, tag = "created", rule = "no velar in the table has an F3 locus: 2500 Hz, inert under a slope of 1 as F2's is, stated only so that the layer has a place for F3, whose transition the module's own velar would make otherwise (D75)" } }
+locus_slope = { F2 = { v = 1.0, tag = "estimated", note = "the articulation: the soft palate lowered onto the back of a tongue that does not move (wikipedia_velar_consonant; ball_manuel_muller_2004, videofluorography of one child), so the vowels beside it keep their own formant to the closure: a locus equation of slope 1, whatever the locus; nothing measured was found for a velodorsal (D75)" }, F3 = { v = 1.0, tag = "estimated", note = "the articulation: the soft palate lowered onto the back of a tongue that does not move (wikipedia_velar_consonant; ball_manuel_muller_2004, videofluorography of one child), so the vowels beside it keep their own formant to the closure: a locus equation of slope 1, whatever the locus; nothing measured was found for a velodorsal (D75)" } }
+formants = { F1 = { v = 361, tag = "derived", rule = "ŋ's, as the table has it (maselli_etal2026): maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B1 117 Hz" }, F2 = { v = 1294, tag = "derived", rule = "ŋ's, as the table has it (maselli_etal2026): maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B2 788 Hz" }, F3 = { v = 2388, tag = "derived", rule = "ŋ's, as the table has it (maselli_etal2026): maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B3 338 Hz" }, F4 = { v = 3603, tag = "derived", rule = "ŋ's, as the table has it (maselli_etal2026): maselli_etal2026 Appendix pt. 2, \"Average values (consonants)\": murmur median over 10-90 % of the segment; North Boma (Bantu B82), 4 M; analysis range 0-5000 Hz; bandwidth B4 688 Hz" } }
+duration = { inherent_ms = { v = 117, tag = "derived", rule = "ŋ's, as the table has it (maselli_etal2026): Appendix pt. 2, segment duration, North Boma, 4 M; Bininj Gun-wok 84 ms (SD 28; stoakes2013 Table 9.1)." } }
+
+[sound."B:U+1DF07".tests]
+checks = ["T-nasal"]
+contrast = [{ with = "U+014B", measure = "edge_F3", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+1DF07.json"
+
+[sound."B:U+1DF07".realization.openevv]
+carrier = "G"
+keys = { lmur = { v = 1, tag = "derived", rule = "its formant ratios are ŋ's murmur, said over its own stretch only: the place it gives the vowels beside it (the vowels' own formants, a slope of 1) is not moved by them (the layer's `lmur`, D75)" } }
+trim.dedx = [{ key = "f1", v = 133.4, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF07.json" }, { key = "f2", v = 110.8, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF07.json" }, { key = "f3", v = 112.4, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF07.json" }]
+
+[sound."B:U+02AA"]
+ipa = "ʪ"
+codepoints = ["U+02AA"]
+name = "voiceless lateral and median (grooved lateral) alveolar fricative: a lateral lisp of s"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", lateral = true, sibilant = true }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing measured was found for a lateral and median fricative (the twelfth session's read-ahead); made as one friction with each noise band the louder of ɬ's and s's, the lateral's noise on F3 and the groove's on F4, at s's level, as D72's lateral-and-median release (𐞙 𐞚) is; a lateral's antiresonance is not made; told from ɬ and s by its spectral centroid (tested, D76)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X3"], builds = [] }
+
+[sound."B:U+02AA".spec]
+locus = { F2 = { v = 1437, tag = "derived", rule = "ɬ's (chong2022 Table 6, F2 at the vowel's onset): the lateral channel is ɬ's constriction (D76)" }, F3 = { v = 2699, tag = "derived", rule = "ɬ's (chong2022 Table 6), as for F2 (D76)" } }
+
+[sound."B:U+02AA".tests]
+checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+026C", measure = "centroid_hz", sign = 1, distinct = true }, { with = "U+0073", measure = "centroid_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+02AA.json"
+
+[sound."B:U+02AA".realization.openevv]
+carrier = "s"
+keys = { f4 = { v = 135, tag = "derived", rule = "s's F4 ratio in this template (its line, f4=135): the median groove's noise where s has its own (D76)" }, a2 = { v = 0, tag = "derived", rule = "each noise band the louder of ɬ's and s's as this template has them (ɬ a3=50 a5=30, s a4=50 a5=30; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a3 = { v = 50, tag = "derived", rule = "each noise band the louder of ɬ's and s's as this template has them (ɬ a3=50 a5=30, s a4=50 a5=30; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a4 = { v = 50, tag = "derived", rule = "each noise band the louder of ɬ's and s's as this template has them (ɬ a3=50 a5=30, s a4=50 a5=30; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a5 = { v = 30, tag = "derived", rule = "each noise band the louder of ɬ's and s's as this template has them (ɬ a3=50 a5=30, s a4=50 a5=30; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a6 = { v = 0, tag = "derived", rule = "each noise band the louder of ɬ's and s's as this template has them (ɬ a3=50 a5=30, s a4=50 a5=30; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, ab = { v = 0, tag = "derived", rule = "each noise band the louder of ɬ's and s's as this template has them (ɬ a3=50 a5=30, s a4=50 a5=30; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" } }
+
+[sound."B:U+02AB"]
+ipa = "ʫ"
+codepoints = ["U+02AB"]
+name = "voiced lateral and median alveolar fricative: a lateral lisp of z"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "friction", voicing = "voiced", airstream = "pulmonic", lateral = true, sibilant = true }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing measured was found for a lateral and median fricative (the twelfth session's read-ahead); made as one friction with each noise band the louder of ɮ's and z's, the lateral's noise on F3 and the groove's on F4, at z's level, as D72's lateral-and-median release (𐞙 𐞚) is; a lateral's antiresonance is not made; told from ɮ and z by its spectral centroid (tested, D76)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "X3"], builds = [] }
+
+[sound."B:U+02AB".spec]
+locus = { F2 = { v = 1437, tag = "derived", rule = "ɬ's (chong2022 Table 6, F2 at the vowel's onset): the lateral channel is ɬ's constriction, with ɮ's peak taken equal to ɬ's (the table's ɮ) (D76)" }, F3 = { v = 2699, tag = "derived", rule = "ɬ's (chong2022 Table 6), as for F2 (D76)" } }
+
+[sound."B:U+02AB".tests]
+checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+026E", measure = "centroid_hz", sign = 1, distinct = true }, { with = "U+007A", measure = "centroid_hz", sign = -1, distinct = true }, { with = "B:U+02AA", measure = "voiced_frac", sign = 1 }]
+proof = "ipa/proofs/B_U+02AB.json"
+
+[sound."B:U+02AB".realization.openevv]
+carrier = "z"
+keys = { a2 = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a3 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a4 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a5 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a6 = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, ab = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" } }

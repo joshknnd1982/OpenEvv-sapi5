@@ -161,8 +161,19 @@ def read(text, strict=True, t=None, notation='ipa'):
             i = j
             continue
         sid, n = idx.get(ch), 1
-        if i + 1 < len(s) and s[i:i + 2] in idx and t.sounds[idx[s[i:i + 2]]]['kind'] == 'modifier':
-            # a mark of two characters (extIPA's ◌̥᪽, ◌ʰʰ: Tier B) is one
+        if sid is not None and t.sounds[sid]['kind'] == 'base':
+            # a letter of two characters whose mark canonical order has put behind another mark
+            # (ɹ̩̈ comes as ɹ, ̩, ̈: a mark below before one above): the mark is moved next to its
+            # letter, as the front-end finds it wherever it stands among the letter's marks (D74)
+            j = i + 1
+            while j < len(s) and s[j] in idx and t.sounds[idx[s[j]]]['kind'] == 'modifier':
+                if j > i + 1 and ch + s[j] in idx and t.sounds[idx[ch + s[j]]]['kind'] == 'base':
+                    s = s[:i + 1] + s[j] + s[i + 1:j] + s[j + 1:]
+                    break
+                j += 1
+        if i + 1 < len(s) and s[i:i + 2] in idx and t.sounds[idx[s[i:i + 2]]]['kind'] in ('modifier', 'base'):
+            # a mark of two characters (extIPA's ◌̥᪽, ◌ʰʰ: Tier B) is one; so is a letter of two (a
+            # letter and a mark that the letter's own entry reads otherwise: extIPA's ɹ̈ ɹ̺, D74)
             sid, n = idx[s[i:i + 2]], 2
         if n == 1 and ch in pre_idx:
             # a mark written before a letter: it is the letter's when the letter before it (if
@@ -190,15 +201,15 @@ def read(text, strict=True, t=None, notation='ipa'):
         e = t.sounds[sid]
         kind = e['kind']
         if kind == 'base':
-            seg = dict(t='seg', base=sid, ipa=ch, mods=[m for m, _ in pre], src=[pre[0][1] if pre else i, i + 1])
+            seg = dict(t='seg', base=sid, ipa=s[i:i + n], mods=[m for m, _ in pre], src=[pre[0][1] if pre else i, i + n])
             pre = []
             if tie_next is not None:
                 first = items.pop(tie_next)
-                items.append(dict(t='seg', tied=[first, seg], tie=first.pop('tie_mark'), src=[first['src'][0], i + 1]))
+                items.append(dict(t='seg', tied=[first, seg], tie=first.pop('tie_mark'), src=[first['src'][0], i + n]))
                 tie_next = None
             else:
                 items.append(seg)
-            i += 1
+            i += n
             continue
         target = last_segment()
         if target is not None and 'tied' in target:
@@ -379,6 +390,16 @@ def test(n_random=20000, seed=1):
         for x, want in (('aʰpa', pre_sid), ('tʰa', 'U+02B0'), ('t͡sʰa', 'U+02B0')):
             got = [m for s_ in _segments(read(x, t=t)) for m in s_['mods']]
             check(got == [want], '%s: ʰ read as %s' % (x, got))
+
+    # a letter of two characters (ɹ̈ ɹ̺, D74) stays itself with a mark after it, and with a mark
+    # below that canonical order puts before its own mark (ɹ̩̈ comes as ɹ, ̩, ̈)
+    for sid, e in t.sounds.items():
+        if e['kind'] == 'base' and len(e['ipa']) == 2:
+            for x, mark in ((e['ipa'] + 'ː', 'U+02D0'), (e['ipa'][0] + '̩' + e['ipa'][1], 'U+0329'),
+                            (e['ipa'][0] + '̥' + e['ipa'][1], 'U+0325')):
+                sg = _segments(read(unicodedata.normalize('NFD', x), t=t))
+                check(len(sg) == 1 and sg[0]['base'] == sid and sg[0]['mods'] == [mark],
+                      '%s read as %s' % (x, [(g.get('base'), g.get('mods')) for g in sg]))
 
     # a mark spelt two ways (ipa/aliases.toml) reads alike on a letter (U+033E for U+034B, Q26)
     for alias, real in ALWAYS.items():

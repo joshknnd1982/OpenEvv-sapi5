@@ -211,10 +211,13 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
     if tgt and man in ('approximant', 'trill', 'tap', 'nasal'):
         for ph in tgt:
             me = ph.setdefault('meas', {}) if ph.get('meas') is not None else ph.setdefault('meas', {})
-            if me.get('F1_50_hz') is None and ph['end_ms'] - ph['start_ms'] >= 20:
+            if (me.get('F1_50_hz') is None or me.get('F4_50_hz') is None) and ph['end_ms'] - ph['start_ms'] >= 20:
+                # F1 to F3 where the phone's class gave none; F4 always (D74: an r's tongue shape shows
+                # in F4 against F5, which the voice holds; checked only where an entry asks, check_F4)
                 fs = A.formants(x, rate, (ph['start_ms'] + ph['end_ms']) / 2.0)
-                for i in range(3):
-                    me['F%d_50_hz' % (i + 1)] = fs[i][0] if len(fs) > i else None
+                for i in range(4):
+                    if i == 3 or me.get('F%d_50_hz' % (i + 1)) is None:
+                        me['F%d_50_hz' % (i + 1)] = fs[i][0] if len(fs) > i else None
     if tgt and (man or base_man) == 'nasal':
         # the energy above 3 kHz against the murmur's below 1 kHz: noise in the nose (extIPA's
         # nasal friction, D69) is aperiodic energy above 3 kHz (zajac2021); for a mark, on its
@@ -496,7 +499,7 @@ def summary(cases, man):
         return fn
 
     s = {}
-    for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'F3_min_hz', 'peak_hz', 'centroid_hz', 'vot_ms', 'closure_ms',
+    for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'F4_50_hz', 'F3_min_hz', 'peak_hz', 'centroid_hz', 'vot_ms', 'closure_ms',
               'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz', 'hf_db', 'noise_sd_hz', 'noise_bw_hz'):
         v = vals(tmeas(k))
         if v is not None:
@@ -609,8 +612,9 @@ def check_b3(e, s):
     spec = e.get('spec') or {}
     v = lambda x: x['v'] if isinstance(x, dict) else x  # noqa: E731
     want = {}
+    f4 = (e.get('tests') or {}).get('check_F4')
     for k, x in (spec.get('formants') or {}).items():
-        if k != 'F4':   # realised, but the harness measures F1 to F3 only
+        if k != 'F4' or f4:   # F4 realised everywhere, measured for an approximant, checked where asked (D74)
             want[k] = ('%s_50_hz' % k, v(x))
     if 'vot_ms' in spec:
         want['vot_ms'] = ('vot_ms', v(spec['vot_ms']))
@@ -703,7 +707,7 @@ SPEC_OF = {'peak_hz': ('noise', 'peak_hz'), 'centroid_hz': ('noise', 'peak_hz'),
            'burst_centroid_hz': ('burst', 'centroid_hz'), 'burst_len_ms': ('burst', 'length_ms'),
            'burst_db': ('burst', 'level_db'),
            'duration_ms': ('duration', 'inherent_ms'), 'mod_rate_hz': ('trill', 'rate_hz')}
-for _k in (1, 2, 3):
+for _k in (1, 2, 3, 4):
     SPEC_OF['F%d_50_hz' % _k] = ('formants', 'F%d' % _k)
     SPEC_OF['edge_F%d' % _k] = ('locus', 'F%d' % _k)
 
@@ -1159,8 +1163,9 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
             row = dict(c, mine=mine, theirs=theirs, difference=d, holds=ok,
                        required=why is True, basis=why if why is not True else 'the specifications differ so')
             ap = c.get('approximate')
-            if not ok and ap and t.sounds[sid].get('approximate') and d is not None and d * c['sign'] >= ap['min'] \
-                    and res['B3']['passed']:
+            # (never for two symbols the chart tells apart: `distinct', D73)
+            if not ok and ap and not c.get('distinct') and t.sounds[sid].get('approximate') and d is not None \
+                    and d * c['sign'] >= ap['min'] and res['B3']['passed']:
                 # an entry marked approximate (its deviation stated, R7) may hold a contrast to a
                 # smaller stated difference, once nothing in B3 is left to correct: reported as
                 # approximate, never as met (D65)

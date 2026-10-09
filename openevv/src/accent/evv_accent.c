@@ -197,6 +197,11 @@ typedef struct {
                            of the voice's fifth (as a place's `l2', `l3'):
                            the resonances of the fricative it names, which
                            its noise is shaped by; nought: the vowel's */
+    int  lmur;          /* the sound's own formant ratios are its nasal
+                           murmur, said over its own stretch only: the
+                           sounds beside it neither start nor end at them,
+                           and the place it gives them is not moved by
+                           them (a velodorsal nasal) */
 } Def;
 
 typedef struct {
@@ -742,6 +747,7 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "frelav", offsetof(Def, frelav) },
         { "frelf2", offsetof(Def, frelf[0]) },
         { "frelf3", offsetof(Def, frelf[1]) },
+        { "lmur", offsetof(Def, lmur) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -1726,10 +1732,11 @@ static double ratio_log(int percent)
    F2 at the edge = locus +
    slope x (F2 of the vowel - locus), so a place far from a vowel bends it
    by as much as the place says and never past it. A ratio the sound also
-   has for that formant (a mark on the letter) moves the place by it. 0 if
-   the place does not name formant i. */
+   has for that formant (a mark on the letter) moves the place by it, but
+   for a sound beside it (`beside') not if the ratio is the sound's murmur
+   (`lmur'). 0 if the place does not name formant i. */
 static int place_log(const Def *d, int i, const int32_t *f, double v,
-                     double *out)
+                     int beside, double *out)
 {
     double locus, e;
 
@@ -1739,7 +1746,8 @@ static int place_log(const Def *d, int i, const int32_t *f, double v,
     e = locus + d->lk / 100.0 * (v - locus);
     if (e < 50)
         e = 50;
-    *out = log(e / f[FORMANT[i]]) + ratio_log(d->f[i]);
+    *out = log(e / f[FORMANT[i]])
+           + (beside && d->lmur ? 0 : ratio_log(d->f[i]));
     return 1;
 }
 
@@ -2290,7 +2298,9 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
             ant_ms = own_ms * 0.4;
 
         for (i = 0; i < 4; i++) {
-            lf_from[i] = prev != 0
+            /* (a murmur's ratios, `lmur', are said over its own stretch
+               only: the sounds beside it neither start nor end at them) */
+            lf_from[i] = prev != 0 && !prev->lmur
                 ? ratio_log(prev->g[i] != UNSET ? prev->g[i] : prev->f[i])
                 : 0;
             lf_to[i] = def != 0 ? ratio_log(def->f[i]) : 0;
@@ -2303,7 +2313,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                                                        : lf_to[i];
             lb_from[i] = prev != 0 ? ratio_log(prev->b[i]) : 0;
             lb_to[i] = def != 0 ? ratio_log(def->b[i]) : 0;
-            lf_nx[i] = ant_ms > 0 ? ratio_log(nx->f[i]) : 0;
+            lf_nx[i] = ant_ms > 0 && !nx->lmur ? ratio_log(nx->f[i]) : 0;
             if (lf_from[i] != 0 || lf_to[i] != 0 || lf_end[i] != 0
                 || lb_from[i] != 0 || lb_to[i] != 0 || lf_nx[i] != 0)
                 any_formant = 1;
@@ -2406,7 +2416,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                        after it starts where it took that sound (or, if this
                        one was met on the way in, where this one is). */
                     if (!ph->pause)
-                        place_log(def, i, f, f[FORMANT[i]], &here);
+                        place_log(def, i, f, f[FORMANT[i]], 0, &here);
                     if (def != 0 && def->ant > 0 && before != 0
                         && !before->pause) {
                         if (def->l[i] != UNSET)
@@ -2415,7 +2425,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                         /* from the vowel's own formant, as its middle has
                            it, not the module's way out of the consonant's
                            own place, which is the carrier's */
-                        place_log(prev, i, f, own_mid[i] * exp(here), &from);
+                        place_log(prev, i, f, own_mid[i] * exp(here), 1, &from);
                     }
                     l = from + (here - from) * w;
                     lb = lb_from[i] + (lb_to[i] - lb_from[i]) * w;
@@ -2424,7 +2434,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                         double l_own = l;
                         double to_nx = lf_nx[i];
 
-                        place_log(nx, i, f, f[FORMANT[i]] * exp(l), &to_nx);
+                        place_log(nx, i, f, f[FORMANT[i]] * exp(l), 1, &to_nx);
                         l += (to_nx - l)
                             * smooth(1.0 - (own_ms - into) / ant_ms);
                         if (i == 1 && l < l_own)

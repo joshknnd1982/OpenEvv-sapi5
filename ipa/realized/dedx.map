@@ -1,10 +1,24 @@
 # The master table realised for dedx (engine/ipa/adapter.py --write). Generated: do not edit.
 # Each letter: its sound line (if it differs from the carrier), and its IPA said as the carrier.
 
+sound u0279_0308 ah=-2 ant=50 av=-2 f1=105 f2=97 f3=85 f4=89    # B:U+0279+U+0308 bunched r (molar r): approximant r made with the tongue body bunched, tip down
+ɹ̈           r=u0279_0308
+sound u0279_033a ah=-3 ant=50 av=-3 f1=105 f2=97 f3=85 f4=64    # B:U+0279+U+033A apical r: approximant r made with the tongue tip
+ɹ̺           r=u0279_033a
+sound u02aa a2=0 a3=50 a4=50 a5=30 a6=0 ab=0 ant=50 f2=96 f3=104 f4=135    # B:U+02AA voiceless lateral and median (grooved lateral) alveolar fricative: a lateral lisp of s
+ʪ            s=u02aa
+sound u02ab a2=0 a3=50 a4=50 a5=50 a6=0 ab=0 ant=50 f2=103 f3=104    # B:U+02AB voiced lateral and median alveolar fricative: a lateral lisp of z
+ʫ            z=u02ab
+sound u1df01 ant=50 l2=252 l3=641 lk=100    # B:U+1DF01 voiced velodorsal plosive
+𝼁            g=u1df01
+sound u1df03 ant=50 l2=263 l3=641 lk=100 vot=23    # B:U+1DF03 voiceless velodorsal plosive (the soft palate lowered onto the back of the tongue)
+𝼃            k=u1df03
 sound u1df04 a2=50 a3=70 a4=50 a5=0 a6=0 f2=106 f3=96 hold=136    # B:U+1DF04 voiceless velar lateral fricative
 𝼄            x=u1df04
 sound u1df06 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=508 lk=34    # B:U+1DF06 voiceless palatal lateral fricative
 𝼆            X=u1df06
+sound u1df07 ant=50 f1=160 f2=72 f3=103 f4=106 hold=117 l2=263 l3=641 lk=100 lmur=1    # B:U+1DF07 velodorsal nasal
+𝼇            G=u1df07
 sound ua78e a2=0 a3=50 a4=0 a5=30 a6=0 ant=50 f3=92 hold=145    # B:U+A78E voiceless retroflex lateral fricative
 ꞎ            s=ua78e
 sound u0061 ah=-6 av=-6 f1=127 f2=125 f3=110    # U+0061 open front unrounded vowel
@@ -260,8 +274,15 @@ sound ua7af ant=50 f1=124 f2=94 l2=150 lk=78 vot=23    # B:U+A7AF upper-pharynge
 # composition when speaking (C4): read only by a map with `version 2`
 version 2
 weights stricture=8 airstream=6 nasal=6 lateral=4 sibilant=3 place_step=1 place2=2 voicing=2 height_step=2 backness_step=2 rounding=1 class=50
+letter ɹ̈ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ɹ̺ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʪ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiceless
+letter ʫ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiced
+letter 𝼁 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter 𝼃 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter 𝼄 c place=9 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
 letter 𝼆 c place=8 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
+letter 𝼇 c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
 letter ꞎ c place=6 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
 letter a v height=6 backness=0 rounding=unrounded f1hz=991 f2hz=1562 f3hz=2750
 letter b c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
