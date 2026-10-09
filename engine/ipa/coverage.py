@@ -130,8 +130,10 @@ def tier_b(t, listing):
         tot.update(c)
         print('%-58s %s %5d' % (k[:58], ' '.join('%9d' % c[x] for x in cols), sum(c.values())))
     print('%-58s %s %5d' % ('all', ' '.join('%9d' % tot[x] for x in cols), sum(tot.values())))
-    print('tier B: %d done and proved (mapped %d, composed %d, created %d), %d MISSING, %d notation only (to be '
-          'acknowledged by the human as unsupported-with-justification: nothing to say); approximate %d' % (
+    # the human acknowledged every notation-only record as unsupported-with-justification on 2026-10-09
+    # (DECISIONS.md D81): each says only that a sound was there, not what it was
+    print('tier B: %d done and proved (mapped %d, composed %d, created %d), %d MISSING, %d notation only '
+          '(acknowledged by the human as unsupported-with-justification, D81: nothing to say); approximate %d' % (
               sum(tot[x] for x in DONE), tot['mapped'], tot['composed'], tot['created'], tot['MISSING'],
               tot['notation'], sum(1 for r in recs if (t.sounds.get(r['id']) or {}).get('approximate'))))
     if stray:
