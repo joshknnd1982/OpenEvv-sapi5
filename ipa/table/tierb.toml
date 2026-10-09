@@ -2000,19 +2000,21 @@ placement = "over"
 state = "composed"
 level = 2
 approximate = true
-deviation = "the friction's quasi-periodic flutter (a period of about 80 to 100 Hz, zajac2015) is not made, since this engine's frames come 200 a second; its noise is put on F2, the lowest resonance the noise branch reaches (about 1.2 to 1.9 kHz on these letters), not below 1 kHz where the source puts its prominent part; the nose is opened over the voiced frames only, the layer's opening acting on the voice (D71)"
+deviation = "the friction's quasi-periodic flutter (a period of about 80 to 100 Hz, zajac2015) is not made, since this engine's frames come 200 a second; its noise is put on F2, the lowest resonance the noise branch reaches (about 1.2 to 1.9 kHz on these letters), not below 1 kHz where the source puts its prominent part; the nose is opened over the voiced frames only, the layer's opening acting on the voice (D71); over a voice the friction is made 15 dB louder than the synthesiser's parallel gains reach (the layer's `fgain`), a level estimated so that it shows in the sound's periodicity, as at 60 dB it did not (D77)"
 plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
 
 [sound."B:U+034C".spec]
 
 [sound."B:U+034C".transform.consonant]
-noise = { level_db = { set = 60, tag = "estimated", note = "at a fricative's level in this engine (f 58, v 60), as extIPA's nasal friction (D69); no level was measured (D71)" }, F2_db = { set = 60, tag = "estimated", note = "low in the spectrum: the posterior nasal fricative's prominent component lies well below 1 kHz (zajac2015); F2 is the lowest resonance this engine's noise branch has (D71)" } }
+noise = { level_db = { set = 60, tag = "estimated", note = "at a fricative's level in this engine (f 58, v 60), as extIPA's nasal friction (D69); no level was measured (D71)" }, F2_db = { set = 60, tag = "estimated", note = "low in the spectrum: the posterior nasal fricative's prominent component lies well below 1 kHz (zajac2015); F2 is the lowest resonance this engine's noise branch has (D71)" }, over_voice_db = { set = 15, tag = "estimated", note = "the friction louder than the synthesiser's parallel gains reach (their sum is held at 120 dB, which 60 and 60 already make), over a voice only: at 60 dB on ŋ and m it moved the periodicity above 1 kHz by -1.5 and -1.8 dB and the band from 0.8 to 2.5 kHz not at all, the murmur covering it; at 15 dB more, -5.1 and -6.0 dB, and +4.5 and +9.4 dB (three vowels each, medians); a posterior nasal fricative's turbulence is loud (zajac2019) but no level against the voice was found (D77)" } }
 nasal = { open_pct = { set = 70, tag = "estimated", note = "the port open, the air going out through the nose: Tier A's nasalization (̃, 70) (D71)" } }
 
 [sound."B:U+034C".tests]
 checks = ["T-shift"]
-bases = ["U+0073", "U+0066", "U+0283"]
-shift = [{ measure = "centroid_hz", sign = -1 }]
+# ŋ: a voiced base, whose voice the friction must keep (Q32) and whose periodicity it must lower (D77)
+bases = ["U+0073", "U+0066", "U+0283", "U+014B"]
+shift = [{ measure = "centroid_hz", sign = -1 }, { measure = "hnr_hi_db", sign = -1 }, { measure = "band_db", sign = 1 }]
+steady = ["voiced_mid"]
 proof = "ipa/proofs/B_U+034C.json"
 
 [sound."B:U+2193"]
@@ -2648,3 +2650,115 @@ proof = "ipa/proofs/B_U+02AB.json"
 [sound."B:U+02AB".realization.openevv]
 carrier = "z"
 keys = { a2 = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a3 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a4 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a5 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a6 = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, ab = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" } }
+
+[sound."B:U+02A9"]
+ipa = "ʩ"
+codepoints = ["U+02A9"]
+name = "voiceless velopharyngeal fricative (a posterior nasal fricative)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+# the mouth closed by the back of the tongue against the soft palate and all the air sent through a
+# narrowed velopharyngeal port (zajac2019: a posterior nasal fricative, the lingual-velar closure the most
+# common of three): a voiceless velar nasal with velopharyngeal friction (D77)
+parts = ["U+014B", "U+030A", "B:U+034C"]
+said_as = "ŋ̊͌"
+state = "composed"
+level = 2
+approximate = true
+deviation = "said as ŋ̊͌: ŋ's closure and murmur, voiceless, with ͌'s friction, whose own deviations it has (its noise on F2, about 1.2 kHz here, not below 1 kHz where zajac2019 puts a posterior nasal fricative's quasi-periodic energy; its flutter not made); the oral closure may be bilabial or alveolar instead (zajac2019); the extIPA chart's own description was not opened (Ball, Howard and Miller 2018) (D77)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+02A9".tests]
+checks = ["T-shift"]
+bases = ["U+014B"]
+plain = "ŋ̊"
+shift = [{ measure = "band_db", sign = 1 }]
+judged_by = "B:U+034C"
+proof = "ipa/proofs/B_U+02A9.json"
+
+[sound."B:U+02A9+U+032C"]
+ipa = "ʩ̬"
+codepoints = ["U+02A9", "U+032C"]
+name = "voiced velopharyngeal fricative"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "composite"
+# ʩ with the voicing mark: ŋ͌, not ʩ's spelling with ̬ added, which carries both ̊ and ̬ (the later in
+# canonical order, ̊, wins: the twelfth session's attempt measured it voiceless, Q32) (D77)
+parts = ["U+014B", "B:U+034C"]
+said_as = "ŋ͌"
+state = "composed"
+level = 2
+approximate = true
+deviation = "said as ŋ͌: ʩ's deviations, with ŋ's voice kept (D77)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+02A9+U+032C".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+014B"]
+shift = [{ measure = "hnr_hi_db", sign = -1 }, { measure = "band_db", sign = 1 }]
+judged_by = "B:U+034C"
+# voiced against ʩ, on the base both are said on (the human's rule: two symbols the chart tells apart
+# must differ, D73)
+contrast = [{ with = "B:U+02A9", base = "U+014B", measure = "voiced_mid", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+02A9+U+032C.json"
+
+[sound."B:U+1DF00"]
+ipa = "𝼀"
+codepoints = ["U+1DF00"]
+name = "voiceless velopharyngeal trill (snort)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "trill", voicing = "voiceless", airstream = "pulmonic", nasal = true, velopharyngeal_friction = true }
+state = "created"
+level = 2
+approximate = true
+deviation = "said as ʩ (ŋ̊͌: ŋ's closure and murmur, voiceless, with ͌'s friction and its deviations) with ʀ's uvular trill, the friction's and the breath's level dropping at each beat: the reading (wikipedia_velopharyngeal: a velopharyngeal fricative with a uvular trill, adopted in 2015) cites nothing, and no rate of a velopharyngeal flutter was found in a source that could be opened, so ʀ's rate stands for it; no formant of the snort is specified, ŋ's murmur ratios are kept as they are (D77)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "C11"], builds = [] }
+
+[sound."B:U+1DF00".spec]
+trill = { rate_hz = { v = 23.2, tag = "derived", rule = "ʀ's (kochetov_howson_2015 Table 1, a sustained uvular trill, 23.2 Hz): the snort read as a velopharyngeal fricative with a uvular trill (wikipedia_velopharyngeal) (D77)" } }
+
+[sound."B:U+1DF00".tests]
+checks = ["T-trill", "T-contrast"]
+contrast = [{ with = "B:U+02A9", measure = "mod_dips", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+1DF00.json"
+
+[sound."B:U+1DF00".realization.openevv]
+# ʩ's sound (its line) on ŋ's carrier, with ʀ's trill (C11)
+carrier = "G"
+keys = { f1 = { v = 158, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f2 = { v = 72, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f3 = { v = 103, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f4 = { v = 106, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, ant = { v = 50, tag = "derived", rule = "as ŋ's line" }, fric = { v = 60, tag = "derived", rule = "͌'s (its line): the friction's level" }, a2 = { v = 60, tag = "derived", rule = "͌'s: its noise on F2" }, nas = { v = 70, tag = "derived", rule = "͌'s: the port open" }, fgain = { v = 15, tag = "derived", rule = "͌'s: the friction over a voice (D77)" }, tdepth = { v = 20, tag = "derived", rule = "ʀ's (its line): the trill's depth" }, trate = { v = 19, tag = "derived", rule = "ʀ's realised rate (its line, trimmed to meet 23.2 Hz, measured, ipa/proofs/U+0280.json)" }, voi = { v = 0, tag = "derived", rule = "̊'s (its line): the voice taken out" }, whisper = { v = 44, tag = "derived", rule = "̊'s: breath for the voice" }, hold = { v = 153, tag = "derived", rule = "ʩ's (its line): ŋ's length lengthened as ̊ lengthens a consonant" } }
+
+[sound."B:U+1DF00+U+032C"]
+ipa = "𝼀̬"
+codepoints = ["U+1DF00", "U+032C"]
+name = "voiced velopharyngeal trill (voiced snort)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "velar", stricture = "trill", voicing = "voiced", airstream = "pulmonic", nasal = true, velopharyngeal_friction = true }
+state = "created"
+level = 2
+approximate = true
+deviation = "said as ʩ̬ (ŋ͌) with ʀ's uvular trill: 𝼀's deviations, with ŋ's voice kept; a letter of its own, since ̬ does not voice a whispered letter in this engine (D77)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "C11"], builds = [] }
+
+[sound."B:U+1DF00+U+032C".spec]
+trill = { rate_hz = { v = 23.2, tag = "derived", rule = "ʀ's (kochetov_howson_2015 Table 1, a sustained uvular trill, 23.2 Hz): the snort read as a velopharyngeal fricative with a uvular trill (wikipedia_velopharyngeal) (D77)" } }
+
+[sound."B:U+1DF00+U+032C".tests]
+checks = ["T-trill", "T-contrast"]
+contrast = [{ with = "B:U+1DF00", measure = "voiced_frac", sign = 1, distinct = true }, { with = "B:U+02A9+U+032C", measure = "mod_dips", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+1DF00+U+032C.json"
+
+[sound."B:U+1DF00+U+032C".realization.openevv]
+# ʩ's sound (its line) on ŋ's carrier, with ʀ's trill (C11)
+carrier = "G"
+keys = { f1 = { v = 158, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f2 = { v = 72, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f3 = { v = 103, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f4 = { v = 106, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, ant = { v = 50, tag = "derived", rule = "as ŋ's line" }, fric = { v = 60, tag = "derived", rule = "͌'s (its line): the friction's level" }, a2 = { v = 60, tag = "derived", rule = "͌'s: its noise on F2" }, nas = { v = 70, tag = "derived", rule = "͌'s: the port open" }, fgain = { v = 15, tag = "derived", rule = "͌'s: the friction over a voice (D77)" }, tdepth = { v = 20, tag = "derived", rule = "ʀ's (its line): the trill's depth" }, trate = { v = 19, tag = "derived", rule = "ʀ's realised rate (its line, trimmed to meet 23.2 Hz, measured, ipa/proofs/U+0280.json)" }, hold = { v = 117, tag = "derived", rule = "ʩ̬'s (its line): ŋ's length" } }
+trim.dedx = [{ key = "trate", v = 21.8, scale = false, tag = "measured", proof = "ipa/proofs/B_U+1DF00+U+032C.json" }]

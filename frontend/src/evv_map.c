@@ -368,7 +368,7 @@ static const char *keyword_like(const char *key)
 {
 	static const char *words[] = {"template", "style", "vowels", "glides", "secondary", "schwa", "words", "cluster",
 	                              "onset", "accent", "sound", "tone", "whwords", "weaktones", "tonename", "says",
-	                              "version", "weights", "letter", "tonemark", "register", "slope", "syllabic"};
+	                              "version", "weights", "letter", "tonemark", "register", "slope", "syllabic", "after"};
 	size_t n = strlen(key);
 	if (n < 4)
 		return NULL;
@@ -810,6 +810,21 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 			failed |= read_mod(map, rest, key[0] == 'p');
 			continue;
 		}
+		if (strcmp(key, "after") == 0) {
+			/* `after ᪽ ̥ ̬': the second character of a mark of two (D77) */
+			char *mark = next_word(&rest), *w;
+			if (!mark || map->n_after >= (int)(sizeof(map->after) / sizeof(map->after[0]))) {
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "an after line needs a mark (and at most 16 are read)");
+				continue;
+			}
+			copy_checked(map->after[map->n_after].mark, mark, sizeof(map->after[0].mark), "mark");
+			map->after[map->n_after].firsts[0] = 0;
+			while ((w = next_word(&rest)) != NULL)
+				if (strlen(map->after[map->n_after].firsts) + strlen(w) < sizeof(map->after[0].firsts))
+					strcat(map->after[map->n_after].firsts, w);
+			map->n_after++;
+			continue;
+		}
 		if (strcmp(key, "tonemark") == 0 || strcmp(key, "register") == 0 || strcmp(key, "slope") == 0) {
 			failed |= read_tonemark(map, key[0] == 't' ? 't' : key[0] == 'r' ? 'r' : 's', rest);
 			continue;
@@ -1081,6 +1096,25 @@ static const EvvMod *find_mod_of(const EvvMap *map, const char *mark, size_t len
 	return NULL;
 }
 
+/* The first characters a second character of a mark of two is said after
+   (`after' lines), or NULL for a mark of its own (D77). */
+static const char *after_of(const EvvMap *map, const char *mark, size_t len)
+{
+	for (int i = 0; i < map->n_after; i++)
+		if (strlen(map->after[i].mark) == len && memcmp(map->after[i].mark, mark, len) == 0)
+			return map->after[i].firsts;
+	return NULL;
+}
+
+/* Whether the code point at `p' (of `len' bytes) is one of `firsts'. */
+static int among(const char *firsts, const char *p, size_t len)
+{
+	for (const char *f = firsts; *f; f += utf8_len((unsigned char)*f))
+		if ((size_t)utf8_len((unsigned char)*f) == len && memcmp(f, p, len) == 0)
+			return 1;
+	return 0;
+}
+
 static const EvvMod *find_mod(const EvvMap *map, const char *mark, size_t len, char cls)
 {
 	return find_mod_of(map, mark, len, cls, 0);
@@ -1180,6 +1214,12 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 		int ql = utf8_len((unsigned char)*q);
 		if (bl + ql >= (int)sizeof(two))
 			continue;
+		/* a mark that begins a mark of two makes no letter (𝼀̬᪽ is 𝼀 with
+		   ◌̬᪽, not 𝼀̬ with ᪽: D77) */
+		const char *nq = q + ql;
+		const char *fs = *nq ? after_of(map, nq, (size_t)utf8_len((unsigned char)*nq)) : NULL;
+		if (fs && among(fs, q, (size_t)ql))
+			continue;
 		memcpy(two, lp, (size_t)bl);
 		memcpy(two + bl, q, (size_t)ql);
 		if (evv_map_letter(map, two, (size_t)(bl + ql)) && find(map, two, (size_t)(bl + ql))) {
@@ -1217,22 +1257,26 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 			break;
 		}
 	int applied = 0;
-	for (const char *p = ipa; *p;) {
+	const char *prev = NULL; /* the code point before p */
+	for (const char *p = ipa; *p; prev = p, p += utf8_len((unsigned char)*p)) {
 		if (p == lp) {
-			p += bl; /* the letter itself */
+			p += bl - utf8_len((unsigned char)*p); /* the letter itself */
 			continue;
 		}
-		if (p == joined) {
-			p += jl; /* the mark that is part of it */
-			continue;
-		}
+		if (p == joined)
+			continue; /* the mark that is part of it */
 		int ml = utf8_len((unsigned char)*p);
+		const char *fs = after_of(map, p, (size_t)ml);
+		if (fs && !(prev && among(fs, prev, (size_t)utf8_len((unsigned char)*prev)))) {
+			evv_diag(EVV_DIAG_LOSS, "mark-left-off", "U+%04lX %.*s on /%s/: the second half of a mark of two, "
+			         "without its first; left off", code_point((const unsigned char *)p, ml), ml, p, ipa);
+			continue;
+		}
 		const EvvMod *m = find_mod_of(map, p, (size_t)ml, letter->cls, p < lp);
 		if (!m) {
 			evv_diag(EVV_DIAG_LOSS, "mark-left-off", "U+%04lX %.*s on /%s/: no %smod line for a %s; left off",
 			         code_point((const unsigned char *)p, ml), ml, p, ipa, p < lp ? "pre" : "",
 			         letter->cls == 'v' ? "vowel" : "consonant");
-			p += ml;
 			continue;
 		}
 		for (int o = 0; o < m->n; o++) {
@@ -1279,7 +1323,6 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 			vals[k] = m->ops[o].op == '*' ? vals[k] * m->ops[o].v / 100.0 : vals[k] + m->ops[o].v;
 		}
 		applied++;
-		p += ml;
 	}
 	/* the composed sound, under an id of its own: the same string keeps its id,
 	   and is composed (and its fallbacks reported) every time it is met */

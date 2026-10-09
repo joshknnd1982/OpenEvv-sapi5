@@ -339,6 +339,9 @@ OPS.update({('nasal.open_pct', 'set'): ('nas', '='), ('phonation.breathy_pct', '
 # noise added with the voice kept (D69: extIPA's nasal friction): its level, and its level on each
 # resonance of the parallel branch (F2 to F6) and on the flat bypass, in this engine's dB
 OPS.update({('noise.level_db', 'set'): ('fric', '='), ('noise.flat_db', 'set'): ('ab', '=')})
+# and how much louder than the synthesiser's parallel gains reach it is over a voice (D77: the
+# layer's `fgain')
+OPS[('noise.over_voice_db', 'set')] = ('fgain', '=')
 for _i in (2, 3, 4, 5, 6):
     OPS[('noise.F%d_db' % _i, 'set')] = ('a%d' % _i, '=')
 # the part of the sound a voicing or phonation mark is said over (extIPA's partial voicing and
@@ -581,9 +584,9 @@ def write(t, template, quiet=False):
                 said.append('%s=%s' % (r['carrier'], name))
             lines.append('%-12s %s' % (pair.replace('͡', e['ipa']), ' '.join(said)))
     # Tier B (D68): a new letter that stands for a Tier A spelling is that spelling as the front-end
-    # composes it, a line of its own; marks after it compose on it like on any letter
-    stands = [(sid, e) for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'composite' and e.get('said_as')
-              and len(e['ipa']) == 1]
+    # composes it, a line of its own; marks after it compose on it like on any letter. One spelt with
+    # a letter and a mark (ʩ̬ for ŋ͌, D77) is read whole by the front-end, as a letter of two (D74)
+    stands = [(sid, e) for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'composite' and e.get('said_as')]
     if stands:
         lines += ['', '# Tier B letters that stand for a Tier A spelling (ipa/table/tierb.toml, D68)']
     for sid, e in stands:
@@ -631,6 +634,16 @@ def write(t, template, quiet=False):
                 # front-end reads only under `notation extipa'
                 lines.append('%s%s %s %s %s    # %s' % ('extipa ' if e.get('notation') == 'extipa' else '', kind, mark,
                                                        cls[0], body, sid))
+    # the second character of a mark of two that is no mark on its own (◌̥᪽'s ᪽): the first
+    # characters it is said after; alone it is left off with a word, and a mark it follows makes no
+    # letter of two (𝼀̬᪽ is 𝼀 with ◌̬᪽), as the reader reads it (D77)
+    by_ipa = t.by_ipa()
+    firsts = {}
+    for sid, e in sorted(t.sounds.items()):
+        if e.get('after_mark') and not (e['ipa'][-1] in by_ipa and t.sounds[by_ipa[e['ipa'][-1]]]['kind'] == 'modifier'):
+            firsts.setdefault(e['ipa'][-1], []).append(e['ipa'][:-1])
+    for mark, fs in sorted(firsts.items()):
+        lines.append('after %s %s' % (mark, ' '.join(sorted(set(fs)))))
     # a mark the reader takes as another (ipa/aliases.toml `always'): the same line under it, since
     # the front-end composes by the character it is given (U+033E for U+034B, Q26)
     import reader as RD

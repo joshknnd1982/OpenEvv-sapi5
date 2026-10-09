@@ -54,14 +54,49 @@ def table():
     return _table
 
 
+# combining marks of Unicode 14 (extIPA's partial voicing ◌᫃ ◌᫄ among them) with their canonical
+# class (UnicodeData.txt, 18.0.0): Python 3.10's tables (13.0) and Windows' NormalizeString know
+# none of them and leave them where they stand, so canonically equal text would read differently
+# (D77). The front-end has the same list (frontend_main.c ipa_normalize).
+LATE_CCC = {0x1AC1: 230, 0x1AC2: 230, 0x1AC3: 220, 0x1AC4: 220, 0x1AC5: 230, 0x1AC6: 230, 0x1AC7: 230,
+            0x1AC8: 230, 0x1AC9: 230, 0x1ACA: 220, 0x1ACB: 230, 0x1ACC: 230, 0x1ACD: 230, 0x1ACE: 230}
+
+
+def canonical_order(s):
+    """Canonical ordering (Unicode 3.11) with LATE_CCC added: each run of marks sorted, stably, by
+    class."""
+    ccc = [LATE_CCC.get(ord(c)) or unicodedata.combining(c) for c in s]
+    out, i = [], 0
+    while i < len(s):
+        j = i
+        while j < len(s) and ccc[j]:
+            j += 1
+        if j > i:
+            out += [c for _, c in sorted(zip(ccc[i:j], s[i:j]), key=lambda x: x[0])]
+            i = j
+        else:
+            out.append(s[i])
+            i += 1
+    return ''.join(out)
+
+
+def _cedilla(s):
+    """c and a cedilla put back together as the chart letter ç, wherever the cedilla stands among
+    c's marks (canonical order puts an overlay, class 1, before it), as the front-end does
+    (frontend_main.c ipa_normalize; D77)."""
+    import re
+    return re.sub('c([\u0300-\u036f]*?)\u0327', '\u00e7\\1', s)
+
+
 def normalize(text, strict=True):
-    s = unicodedata.normalize('NFD', text).replace('ç', 'ç')
+    s = _cedilla(canonical_order(unicodedata.normalize('NFD', text))).replace('ç', 'ç')
     for a, b in ALWAYS.items():
         s = s.replace(a, b)
     if not strict:
         for a, b in sorted(LOOSE.items(), key=lambda kv: -len(kv[0])):
             s = s.replace(a, b)
-        s = unicodedata.normalize('NFD', s)
+        # (and ç put back together again: the second decomposition splits it, D77)
+        s = _cedilla(canonical_order(unicodedata.normalize('NFD', s)))
     return s
 
 
@@ -162,17 +197,28 @@ def read(text, strict=True, t=None, notation='ipa'):
             i = j
             continue
         sid, n = idx.get(ch), 1
+
+        def makes_letter(k):
+            # the mark at k makes a letter of two with ch, unless it begins a mark of two
+            # characters (𝼀̬᪽ is 𝼀 with ◌̬᪽, not 𝼀̬ with ᪽), as in the front-end (D77)
+            return ch + s[k] in idx and t.sounds[idx[ch + s[k]]]['kind'] == 'base' and not (
+                k + 1 < len(s) and s[k:k + 2] in idx and t.sounds[idx[s[k:k + 2]]]['kind'] == 'modifier')
         if sid is not None and t.sounds[sid]['kind'] == 'base':
             # a letter of two characters whose mark canonical order has put behind another mark
             # (ɹ̩̈ comes as ɹ, ̩, ̈: a mark below before one above): the mark is moved next to its
             # letter, as the front-end finds it wherever it stands among the letter's marks (D74)
-            j = i + 1
-            while j < len(s) and s[j] in idx and t.sounds[idx[s[j]]]['kind'] == 'modifier':
-                if j > i + 1 and ch + s[j] in idx and t.sounds[idx[ch + s[j]]]['kind'] == 'base':
+            # the first mark that makes a letter is the letter's, as in the front-end: ɹ̺̈ is ɹ̺
+            # with ̈ on it, not ɹ̈ with ̺ (D77)
+            j = i + 1 if not (i + 1 < len(s) and makes_letter(i + 1)) else len(s)
+            # (over the second character of a mark of two, ◌̥᪽, too: ɹ̥᪽̈ is ɹ̈ with ◌̥᪽, D77)
+            while j < len(s) and any(x in idx and t.sounds[idx[x]]['kind'] == 'modifier'
+                                     for x in (s[j], s[j - 1:j + 1])):
+                if j > i + 1 and makes_letter(j):
                     s = s[:i + 1] + s[j] + s[i + 1:j] + s[j + 1:]
                     break
                 j += 1
-        if i + 1 < len(s) and s[i:i + 2] in idx and t.sounds[idx[s[i:i + 2]]]['kind'] in ('modifier', 'base'):
+        if i + 1 < len(s) and s[i:i + 2] in idx and (t.sounds[idx[s[i:i + 2]]]['kind'] == 'modifier' or (
+                t.sounds[idx[s[i:i + 2]]]['kind'] == 'base' and makes_letter(i + 1))):
             # a mark of two characters (extIPA's ◌̥᪽, ◌ʰʰ: Tier B) is one; so is a letter of two (a
             # letter and a mark that the letter's own entry reads otherwise: extIPA's ɹ̈ ɹ̺, D74)
             sid, n = idx[s[i:i + 2]], 2
@@ -401,6 +447,29 @@ def test(n_random=20000, seed=1):
                 sg = _segments(read(unicodedata.normalize('NFD', x), t=t))
                 check(len(sg) == 1 and sg[0]['base'] == sid and sg[0]['mods'] == [mark],
                       '%s read as %s' % (x, [(g.get('base'), g.get('mods')) for g in sg]))
+    # two marks that each make a letter of ɹ: the first in canonical order is the letter's, as in
+    # the front-end (D77)
+    sg = _segments(read('ɹ̺̈', strict=False, t=t))
+    check(len(sg) == 1 and sg[0]['base'] == ipa.get('ɹ̺') and sg[0]['mods'] == ['U+0308'],
+          'ɹ̺̈ read as %s' % [(g.get('base'), g.get('mods')) for g in sg])
+    # and the letter's own mark is found behind a mark of two characters (ɹ̈ with ◌̥᪽: ɹ, ̥, ᪽, ̈)
+    sg = _segments(read(unicodedata.normalize('NFD', 'ɹ̥᪽̈'), t=t))
+    check(len(sg) == 1 and sg[0]['base'] == ipa.get('ɹ̈') and sg[0]['mods'] == ['B:U+0325+U+1ABD'],
+          'ɹ̥᪽̈ read as %s' % [(g.get('base'), g.get('mods')) for g in sg])
+    # a mark that begins a mark of two makes no letter of two (𝼀̬᪽ is 𝼀 with ◌̬᪽); ç stays ç in
+    # loose reading too, its cedilla behind an overlay (D77, the review)
+    sg = _segments(read('𝼀̬᪽', strict=False, t=t))
+    check(len(sg) == 1 and sg[0]['base'] == ipa.get('𝼀') and sg[0]['mods'] == ['B:U+032C+U+1ABD'],
+          '𝼀̬᪽ read as %s' % [(g.get('base'), g.get('mods')) for g in sg])
+    for st in (True, False):
+        sg = _segments(read('ç̴', strict=st, t=t))
+        check(len(sg) == 1 and sg[0]['base'] == ipa.get('ç') and sg[0]['mods'] == ['U+0334'],
+              'ç̴ (strict %s) read as %s' % (st, [(g.get('base'), g.get('mods')) for g in sg]))
+    # a mark of Unicode 14 is put in canonical order, as Python's tables (13.0) do not (D77): the
+    # two orders of ◌̈ and extIPA's ◌̥᫃ on t read alike, the mark of two characters kept whole
+    a, b = read('ẗ̥᫃', strict=False, t=t), read('ẗ̥᫃', strict=False, t=t)
+    check(a['items'] == b['items'] and 'B:U+0325+U+1AC3' in _segments(a)[0]['mods'],
+          'ẗ̥᫃ and ẗ̥᫃ read %s and %s' % (_segments(a)[0].get('mods'), _segments(b)[0].get('mods')))
 
     # a mark spelt two ways (ipa/aliases.toml) reads alike on a letter (U+033E for U+034B, Q26)
     for alias, real in ALWAYS.items():

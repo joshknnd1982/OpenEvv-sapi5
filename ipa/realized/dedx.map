@@ -9,6 +9,10 @@ sound u02aa a2=0 a3=50 a4=50 a5=30 a6=0 ab=0 ant=50 f2=96 f3=104 f4=135 hold=131
 ʪ            s=u02aa
 sound u02ab a2=0 a3=50 a4=50 a5=50 a6=0 ab=0 ant=50 f3=104    # B:U+02AB voiced lateral and median alveolar fricative: a lateral lisp of z
 ʫ            z=u02ab
+sound u1df00 a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=153 nas=70 tdepth=20 trate=19 voi=0 whisper=44    # B:U+1DF00 voiceless velopharyngeal trill (snort)
+𝼀            G=u1df00
+sound u1df00_032c a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=117 nas=70 tdepth=20 trate=21    # B:U+1DF00+U+032C voiced velopharyngeal trill (voiced snort)
+𝼀̬           G=u1df00_032c
 sound u1df01 ant=50 l2=252 l3=641 lk=100    # B:U+1DF01 voiced velodorsal plosive
 𝼁            g=u1df01
 sound u1df03 ant=50 l2=263 l3=641 lk=100 vot=23    # B:U+1DF03 voiceless velodorsal plosive (the soft palate lowered onto the back of the tongue)
@@ -264,6 +268,10 @@ k͡p          k=u93dcd560a2 p=u65d3e6ec41
 ɡ͡b          g=u1f03dedb4a b=udd0ba12375
 
 # Tier B letters that stand for a Tier A spelling (ipa/table/tierb.toml, D68)
+sound u02a9 a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=153 nas=70 voi=0 whisper=44    # B:U+02A9 voiceless velopharyngeal fricative (a posterior na = ŋ̊͌
+ʩ            G=u02a9
+sound u02a9_032c a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=117 nas=70    # B:U+02A9+U+032C voiced velopharyngeal fricative = ŋ͌
+ʩ̬           G=u02a9_032c
 sound u1df02 ant=50 f1=122 f2=94 l2=150 lk=78    # B:U+1DF02 upper-pharyngeal plosive (voiced plosive in the up = ɢ̠
 𝼂            g=u1df02
 sound u1df05 a2=0 a3=50 a4=0 a5=30 a6=0 ant=50 f3=92 hold=145 voi=1    # B:U+1DF05 voiced retroflex lateral fricative (ɭ̝ in IPA) = ꞎ̬
@@ -278,6 +286,8 @@ letter ɹ̈ c place=4 stricture=approximation airstream=pulmonic nasal=false lat
 letter ɹ̺ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ʪ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiceless
 letter ʫ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiced
+letter 𝼀 c place=9 stricture=trill airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiceless
+letter 𝼀̬ c place=9 stricture=trill airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
 letter 𝼁 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter 𝼃 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter 𝼄 c place=9 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiceless
@@ -391,6 +401,8 @@ letter β c place=0 stricture=friction airstream=pulmonic nasal=false lateral=fa
 letter θ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter χ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
+letter ʩ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiceless
+letter ʩ̬ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
 letter 𝼂 c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter 𝼅 c place=6 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced
 letter ꞯ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
@@ -464,7 +476,7 @@ mod ͉ c hold*80 af+-6    # B:U+0349
 mod ͊ c av+-11 tl=18    # B:U+034A
 mod ᪻ c av+5 tl=9    # B:U+034A+U+1ABB
 mod ͋ c fric=60 a5=60 ab=60    # B:U+034B
-mod ͌ c fric=60 a2=60 nas=70    # B:U+034C
+mod ͌ c fric=60 a2=60 fgain=15 nas=70    # B:U+034C
 mod ͍ c f2*114    # B:U+034D
 mod ͍ v f2*114    # B:U+034D
 mod ͎ c f2*90 fric=62 a2=62 a3=0 a4=0 a5=0 a6=0 ab=0    # B:U+034E
@@ -478,8 +490,12 @@ mod 𐞞 c frel=46 frelaf=66 frelav=-13 a2=0 a3=50 a4=30 a5=30 a6=0 ab=0    # B:
 mod ᶿ c frel=75 frelaf=58 frelav=-10 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60    # B:U+1DBF
 extipa mod ↓ c pst=51 ah+2    # B:U+2193
 extipa mod ↓ v pst=51 ah+2    # B:U+2193
+after ᪻ ͊
+after ᪽ ̥ ̬
+after ᫃ ̥ ̬
+after ᫄ ̥ ̬
 mod ̾ c fric=60 a5=60 ab=60    # B:U+034B, spelt U+033E
-mod 𐞐 c fric=60 a2=60 nas=70    # B:U+034C, spelt U+10790
+mod 𐞐 c fric=60 a2=60 fgain=15 nas=70    # B:U+034C, spelt U+10790
 reiterate c ə̥    # B:U+005C
 reiterate v ʔ    # B:U+005C
 

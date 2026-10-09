@@ -680,9 +680,48 @@ static char *ipa_normalize(const char *utf8)
 	int wn = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);
 	wchar_t *w = (wchar_t *)malloc(sizeof(wchar_t) * (size_t)wn);
 	if (w && MultiByteToWideChar(CP_UTF8, 0, utf8, -1, w, wn) > 0) {
+		/* the combining marks of Unicode 14 (extIPA's partial voicing ◌᫃ ◌᫄
+		   among them) are unknown to Windows' tables, which leave them where
+		   they stand: each is put in order as a Hebrew accent of its class
+		   (U+0591 220, U+0592 230; UnicodeData.txt), never met in IPA, and
+		   given back after. The reader has the same list (reader.py LATE_CCC). */
+		static const wchar_t late[] = { 0x1ac1, 0x1ac2, 0x1ac3, 0x1ac4, 0x1ac5, 0x1ac6, 0x1ac7,
+		                                0x1ac8, 0x1ac9, 0x1aca, 0x1acb, 0x1acc, 0x1acd, 0x1ace };
+		static const unsigned char late_ccc[] = { 230, 230, 220, 220, 230, 230, 230,
+		                                          230, 230, 220, 230, 230, 230, 230 };
+		const int n_late = (int)(sizeof(late) / sizeof(late[0]));
+		int stood_in = !wcschr(w, 0x0591) && !wcschr(w, 0x0592);
+		wchar_t *orig = stood_in ? _wcsdup(w) : NULL; /* the marks themselves, in the order written */
+		int n_in = 0;
+		if (orig)
+			for (int i = 0; w[i]; i++)
+				for (int k = 0; k < n_late; k++)
+					if (w[i] == late[k]) {
+						w[i] = late_ccc[k] == 220 ? 0x0591 : 0x0592;
+						n_in++;
+					}
 		int dn = NormalizeString(NormalizationD, w, -1, NULL, 0);
 		wchar_t *d = dn > 0 ? (wchar_t *)malloc(sizeof(wchar_t) * (size_t)dn) : NULL;
 		if (d && (dn = NormalizeString(NormalizationD, w, -1, d, dn)) > 0) {
+			if (n_in) {
+				/* back to the marks: canonical ordering is stable, so the
+				   stand-ins of one class keep the order their marks were in
+				   (a pointer into the marks as written for each class) */
+				int j[2] = { 0, 0 };
+				for (int i = 0; d[i]; i++)
+					if (d[i] == 0x0591 || d[i] == 0x0592) {
+						int below = d[i] == 0x0591;
+						for (; orig[j[below]]; j[below]++) {
+							int k = 0;
+							while (k < n_late && orig[j[below]] != late[k])
+								k++;
+							if (k < n_late && (late_ccc[k] == 220) == below) {
+								d[i] = orig[j[below]++];
+								break;
+							}
+						}
+					}
+			}
 			/* the affricate ligatures the IPA withdrew are their two
 			   letters joined by a tie bar (ipa/aliases.toml): one code
 			   point becomes three, so the result has a buffer of its own */
@@ -737,6 +776,7 @@ static char *ipa_normalize(const char *utf8)
 			evv_diag(EVV_DIAG_LOSS, "ipa-not-normalized", "the text could not be put in canonical form; read as given");
 		}
 		free(d);
+		free(orig);
 	}
 	free(w);
 #endif

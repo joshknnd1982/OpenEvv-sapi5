@@ -229,6 +229,17 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
                 hi, lo = p_[f_ >= 3000.0].sum(), p_[f_ < 1000.0].sum()
                 if hi > 0 and lo > 0:
                     ph.setdefault('meas', {})['hf_db'] = 10.0 * math.log10(hi / lo)
+                # velopharyngeal friction (extIPA's ◌͌, D71; its noise on F2, about 1.2 kHz on a
+                # nasal): the energy from 800 Hz to 2.5 kHz against the murmur's below 800 Hz, and,
+                # since over a voice a level follows the voice (D72), the periodicity above 1 kHz
+                # (D77)
+                band, low = p_[(f_ >= 800.0) & (f_ < 2500.0)].sum(), p_[f_ < 800.0].sum()
+                if band > 0 and low > 0:
+                    ph.setdefault('meas', {})['band_db'] = 10.0 * math.log10(band / low)
+                hp_ = A.signal.sosfilt(A.signal.butter(4, 1000.0 / (rate / 2.0), 'high', output='sos'), x)
+                v_ = A.hnr_db(hp_, rate, a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_))
+                if v_ is not None:
+                    ph.setdefault('meas', {})['hnr_hi_db'] = v_
     if tgt and man == 'fricative':
         # the noise peak above the voice: a voiced fricative's own spectrum below 800 Hz is the
         # voice's (it read 601 Hz for every one); the literature's peaks are of the noise
@@ -500,7 +511,8 @@ def summary(cases, man):
 
     s = {}
     for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'F4_50_hz', 'F3_min_hz', 'peak_hz', 'centroid_hz', 'vot_ms', 'closure_ms',
-              'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz', 'hf_db', 'noise_sd_hz', 'noise_bw_hz'):
+              'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz', 'hf_db', 'noise_sd_hz', 'noise_bw_hz',
+              'band_db', 'hnr_hi_db'):
         v = vals(tmeas(k))
         if v is not None:
             s[k] = round(v, 1)
@@ -1157,7 +1169,15 @@ def run(t, ids, template, pack, apply=False, rounds=ROUNDS):
                     return (((r or {}).get('summary') or {}).get(base) or {}).get('marked') or {}
                 mine, theirs = marked(res).get(c['measure']), marked(other).get(c['measure'])
             else:
-                mine, theirs = res['summary'].get(c['measure']), (other or {}).get('summary', {}).get(c['measure'])
+                def flat(r):
+                    # a composite's summary is per base, its plain and marked sounds: against one,
+                    # its marked sound on its base (𝼀 against ʩ, D77); against one of several
+                    # bases, nothing (the contrast must name its `base')
+                    s_ = (r or {}).get('summary') or {}
+                    if s_ and all(isinstance(v, dict) and 'marked' in v for v in s_.values()):
+                        return (next(iter(s_.values()))['marked'] or {}) if len(s_) == 1 else {}
+                    return s_
+                mine, theirs = flat(res).get(c['measure']), flat(other).get(c['measure'])
             ok, d = contrast_ok(c['measure'], mine, theirs, c['sign'])
             why = specified(t, sid, c)
             row = dict(c, mine=mine, theirs=theirs, difference=d, holds=ok,

@@ -1,7 +1,7 @@
 """The C4 test (DESIGN.md 4.3): the front-end's composition equals the adapter's, and each
 fallback warns. MIT licence.
 
-    python engine/ipa/compose_test.py [--template dedx] [--pack hi]
+    python engine/ipa/compose_test.py [--template dedx] [--pack hi] [--letters ɹ̈ ɹ̺ ...]
 
 A test map is made of the pack's own header lines (template, vowels, glides, schwa, accent: what
 any map needs) and the realised map of the master table (ipa/realized/<template>.map, with its
@@ -14,7 +14,9 @@ for its class (left off), a character that is no letter: each must be reported a
 extIPA's own reading (`notation', Q18) is composed through the map with `notation extipa' in
 front, and must be left off, and reported, by the map without it. The adapter is given the marks in
 the order the front-end meets them (as written, in canonical order): where two marks set one key,
-the one met last is the one said.
+the one met last is the one said. Which letter and marks a string is, and that order, are the
+reader's (engine/ipa/reader.py), which reads as the front-end does: `ɹ̈' with ̺ is written as `ɹ̺'
+with ̈, and is that (D77). `--letters' tests only those letters (with every mark).
 """
 
 import argparse
@@ -31,6 +33,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, 'docs', 'tts-extension', 'harness'))
 import adapter as AD  # noqa: E402
+import reader as R  # noqa: E402
 import table as T  # noqa: E402
 import engine as E  # noqa: E402
 
@@ -66,10 +69,11 @@ def say_ipa(p, map_path, text):
 
 
 def fe_form(ipa):
-    """The IPA as the front-end keeps it: canonical decomposition, then c and a cedilla put back
-    together as the chart letter ç (frontend_main.c ipa_normalize, ipa/aliases.toml)."""
+    """The IPA as the front-end keeps it: canonical decomposition (the marks of Unicode 14 put in
+    order too, D77), then c and a cedilla put back together as the chart letter ç
+    (frontend_main.c ipa_normalize, ipa/aliases.toml)."""
     # the cedilla may follow other marks of c in canonical order (an overlay comes first)
-    return re.sub('c([\u0300-\u036f]*?)\u0327', '\u00e7\\1', unicodedata.normalize('NFD', ipa))
+    return re.sub('c([\u0300-\u036f]*?)\u0327', '\u00e7\\1', R.canonical_order(unicodedata.normalize('NFD', ipa)))
 
 
 def composed_keys(diags, said):
@@ -93,6 +97,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--template', default='dedx')
     ap.add_argument('--pack', default='hi')
+    ap.add_argument('--letters', nargs='*', help='only these letters (as IPA)')
     a = ap.parse_args()
     t = T.load()
     work = os.path.join(E.WORK, 'c4')
@@ -111,7 +116,8 @@ def main():
     # the sample: every realised letter with every modifier that has a transform for its class,
     # one at a time and in pairs
     # (not ɯ: its line is taken out, to show the fallback below)
-    letters = [sid for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'base' and e.get('spec') and e['ipa'] != 'ɯ']
+    letters = [sid for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'base' and e.get('spec') and e['ipa'] != 'ɯ'
+               and (not a.letters or e['ipa'] in a.letters)]
     # marks written after a letter; the stress mark is not one of them (it stands before a
     # syllable), and is tested on its own below
     mods = [sid for sid, e in sorted(t.sounds.items()) if e.get('transform') and e.get('kind') == 'modifier']
@@ -126,18 +132,27 @@ def main():
         for m in stress:
             if cls in t.sounds[m]['transform']:
                 sample.append((b, [m]))
-    failures, compared = [], 0
+    failures, compared, letters_of_two = [], 0, 0
     for b, ms in sample:
         # a mark written before its letter (Tier B, D70) goes before it
         ipa = ''.join(t.sounds[m]['ipa'] for m in ms if t.sounds[m].get('placement') == 'before') + \
             t.sounds[b]['ipa'] + ''.join(t.sounds[m]['ipa'] for m in ms if t.sounds[m].get('placement') != 'before')
-        # the marks in the order the front-end meets them: as written, put in canonical order (a
-        # mark below before a mark above); where two set one key (◌͎ and ◌͋ the friction's level,
-        # D71), the one met last is the one said
-        fe = fe_form(ipa)
-        ms = sorted(ms, key=lambda m: fe.find(fe_form(t.sounds[m]['ipa'])))
-        want = AD.compose(t, b, ms, a.template, _carrier_meas(b))
         notation = next((t.sounds[m]['notation'] for m in ms if t.sounds[m].get('notation')), None)
+        # the letter and its marks as the reader reads the string, the marks in the order met: as
+        # written, put in canonical order (a mark below before a mark above), the letter's own
+        # mark taken out wherever it stands (D74); where two set one key (◌͎ and ◌͋ the friction's
+        # level, D71), the one met last is the one said
+        if not (ms and t.sounds[ms[0]].get('kind') == 'syllable-mark'):
+            rd = R.read(ipa, strict=False, t=t, notation=notation or 'ipa')
+            seg = [it for it in rd['items'] if it['t'] == 'seg'][0]
+            b, ms = seg['base'], seg['mods']
+            if not ms and len(t.sounds[b]['ipa']) == 2 and len(rd['items']) == 1:
+                # the letter and mark spell a letter of two characters (ɹ with ̺ is ɹ̺, D74),
+                # nothing else read: it is said by its own line, not composed, and proved as its
+                # own entry
+                letters_of_two += 1
+                continue
+        want = AD.compose(t, b, ms, a.template, _carrier_meas(b))
         mp = declared[notation] if notation else map_path
         if ms and t.sounds[ms[0]].get('kind') == 'syllable-mark':
             # a stressed vowel: the front-end composes its nucleus with the stress mark after it
@@ -171,7 +186,8 @@ def main():
         print('%-4s %-6s fallback reported: %s' % ('ok' if ok else 'FAIL', ipa, ', '.join(kinds) or 'nothing'))
         if not ok:
             failures.append(ipa)
-    print('compose: %d compositions compared, %d fallbacks; %d failed' % (compared, len(fallbacks), len(failures)))
+    print('compose: %d compositions compared, %d fallbacks; %d failed (%d letters of two, not compositions)' % (
+        compared, len(fallbacks), len(failures), letters_of_two))
     return 1 if failures else 0
 
 

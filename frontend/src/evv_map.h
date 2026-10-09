@@ -159,6 +159,14 @@ typedef struct {
 	int n_letters, cap_letters;
 	EvvMod *mods;
 	int n_mods, cap_mods;
+	/* the second character of a mark of two characters (extIPA's ◌̥᪽):
+	   `after ᪽ ̥ ̬', the first characters it is a mark after; it is said only
+	   after one of them, and that one makes no letter of two (D77) */
+	struct {
+		char mark[8];
+		char firsts[32];
+	} after[16];
+	int n_after;
 	int n_composed;
 	EvvDefined *composed;             /* each string composed: its sound id (id) and IPA (group) */
 	int n_comp, cap_comp;

@@ -202,6 +202,12 @@ typedef struct {
                            sounds beside it neither start nor end at them,
                            and the place it gives them is not moved by
                            them (a velodorsal nasal) */
+    int  fgain;         /* the friction louder by so many dB than the
+                           synthesiser's parallel gains reach, over the
+                           sound's own stretch where the voice is going
+                           (frame word ATV, as `bgain' for a burst):
+                           friction heard over a voice, a velopharyngeal
+                           one (D77); nought: as before */
 } Def;
 
 typedef struct {
@@ -748,6 +754,7 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "frelf2", offsetof(Def, frelf[0]) },
         { "frelf3", offsetof(Def, frelf[1]) },
         { "lmur", offsetof(Def, lmur) },
+        { "fgain", offsetof(Def, fgain) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -1905,6 +1912,8 @@ static void made(int32_t *f, const Def *d, double w)
         f[P_OQ] = clamp(f[P_OQ] + 25, 10, 99);
         f[P_TL] = 12;
     }
+    if (d->fric > 0 && d->fgain > 0 && f[P_AV] > 0)
+        f[P_ATV] = clamp((int)(d->fgain * w + 0.5), 0, 40);
     for (i = 0; i < 4; i++) {
         double l = ratio_log(d->f[i]);
 
@@ -2707,6 +2716,13 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                             if (def->amp[i] != UNSET)
                                 f[NOISE[i]] = def->amp[i];
                     }
+                    /* louder than the parallel gains reach, over a
+                       voice (D77): never on a sound set voiceless, or
+                       whispered and not voiced, whose voice the frames
+                       before it may still carry */
+                    if (def->fgain > 0 && f[P_AF] > 0 && f[P_AV] > 0 && (def->voi == 1
+                        || (def->voi == UNSET && def->whisper == UNSET)))
+                        f[P_ATV] = clamp((int)(def->fgain * x + 0.5), 0, 40);
                 }
                 if (f[P_AF] > 0 && !is_stop(a, ph)) {
                     for (i = 0; i < 6; i++)
