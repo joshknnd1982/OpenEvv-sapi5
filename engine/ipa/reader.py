@@ -204,6 +204,31 @@ def read(text, strict=True, t=None, notation='ipa'):
             return ch + s[k] in idx and t.sounds[idx[ch + s[k]]]['kind'] == 'base' and not (
                 k + 1 < len(s) and s[k:k + 2] in idx and t.sounds[idx[s[k:k + 2]]]['kind'] == 'modifier')
         if sid is not None and t.sounds[sid]['kind'] == 'base':
+            # a letter of three characters, a letter and two marks its own entry reads otherwise
+            # (extIPA's bidental fricatives h̪͆ ɦ̪͆, D79): the two marks, in their order, wherever
+            # they stand among the letter's marks, are moved next to it, as the front-end finds them
+            run3 = []
+            k3 = i + 1
+            # (extIPA's marks of Unicode 14, ◌᫃ ◌᫄, are combining too: Python 3.10 does not know them)
+            while k3 < len(s) and (unicodedata.combining(s[k3]) or ord(s[k3]) in LATE_CCC or (
+                    s[k3] in idx and t.sounds[idx[s[k3]]]['kind'] == 'modifier')):
+                run3.append(k3)
+                k3 += 1
+
+            def begins_two(k):
+                # a mark that begins a mark of two characters makes no letter (as in the front-end)
+                return k + 1 < len(s) and s[k:k + 2] in idx and t.sounds[idx[s[k:k + 2]]]['kind'] == 'modifier'
+            found3 = next(((x, y) for xi, x in enumerate(run3) for y in run3[xi + 1:]
+                           if ch + s[x] + s[y] in idx and t.sounds[idx[ch + s[x] + s[y]]]['kind'] == 'base'
+                           and not begins_two(y)), None)
+            if found3:
+                x, y = found3
+                rest = ''.join(s[k] for k in run3 if k not in (x, y))
+                s = s[:i + 1] + s[x] + s[y] + rest + s[k3:]
+        if i + 2 < len(s) and s[i:i + 3] in idx and t.sounds[idx[s[i:i + 3]]]['kind'] == 'base' and not (
+                i + 3 < len(s) and s[i + 2:i + 4] in idx and t.sounds[idx[s[i + 2:i + 4]]]['kind'] == 'modifier'):
+            sid, n = idx[s[i:i + 3]], 3
+        if sid is not None and n == 1 and t.sounds[sid]['kind'] == 'base':
             # a letter of two characters whose mark canonical order has put behind another mark
             # (ɹ̩̈ comes as ɹ, ̩, ̈: a mark below before one above): the mark is moved next to its
             # letter, as the front-end finds it wherever it stands among the letter's marks (D74)
@@ -217,7 +242,7 @@ def read(text, strict=True, t=None, notation='ipa'):
                     s = s[:i + 1] + s[j] + s[i + 1:j] + s[j + 1:]
                     break
                 j += 1
-        if i + 1 < len(s) and s[i:i + 2] in idx and (t.sounds[idx[s[i:i + 2]]]['kind'] == 'modifier' or (
+        if n == 1 and i + 1 < len(s) and s[i:i + 2] in idx and (t.sounds[idx[s[i:i + 2]]]['kind'] == 'modifier' or (
                 t.sounds[idx[s[i:i + 2]]]['kind'] == 'base' and makes_letter(i + 1))):
             # a mark of two characters (extIPA's ◌̥᪽, ◌ʰʰ: Tier B) is one; so is a letter of two (a
             # letter and a mark that the letter's own entry reads otherwise: extIPA's ɹ̈ ɹ̺, D74)
@@ -447,6 +472,14 @@ def test(n_random=20000, seed=1):
             for x, mark in ((e['ipa'] + 'ː', 'U+02D0'),
                             (e['ipa'][0] + '̩' + e['ipa'][1] if mark2 else e['ipa'] + '̩', 'U+0329'),
                             (e['ipa'][0] + '̥' + e['ipa'][1] if mark2 else e['ipa'] + '̥', 'U+0325')):
+                sg = _segments(read(unicodedata.normalize('NFD', x), t=t))
+                check(len(sg) == 1 and sg[0]['base'] == sid and sg[0]['mods'] == [mark],
+                      '%s read as %s' % (x, [(g.get('base'), g.get('mods')) for g in sg]))
+    # a letter of three characters (h̪͆ ɦ̪͆, D79) stays itself with a mark after it, and with a mark
+    # of its first mark's class typed between its two marks (canonical order keeps it there)
+    for sid, e in t.sounds.items():
+        if e['kind'] == 'base' and len(e['ipa']) == 3:
+            for x, mark in ((e['ipa'] + 'ː', 'U+02D0'), (e['ipa'][:2] + '̥' + e['ipa'][2], 'U+0325')):
                 sg = _segments(read(unicodedata.normalize('NFD', x), t=t))
                 check(len(sg) == 1 and sg[0]['base'] == sid and sg[0]['mods'] == [mark],
                       '%s read as %s' % (x, [(g.get('base'), g.get('mods')) for g in sg]))

@@ -126,8 +126,14 @@ def realize(t, sid, template, carrier_meas=None):
 
     if layer:
         for k in ('formants', 'locus', 'bandwidths', 'noise', 'glide'):
-            if k in spec:
+            if k == 'noise' and set(spec.get(k) or {}) == {'centroid_hz'}:
+                # a noise's centre alone (the bidental fricatives, D79): a measured target, met by
+                # the entry's own engine keys (realization.openevv.keys), as a click's burst is
+                rules.append('noise centroid: a measured target, realised by the engine keys below')
+            elif k in spec:
                 unrealised.append('%s: the layer-made carrier %s takes no ratio' % (k, car))
+    elif 'centroid_hz' in (spec.get('noise') or {}):
+        rules.append('noise centroid: a measured target, realised by the engine keys below')
     else:
         # steady targets (a vowel, a sonorant) against the carrier's own formants; an obstruent's
         # place against the carrier's locus: where the vowels beside it point

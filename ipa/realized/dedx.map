@@ -1,10 +1,14 @@
 # The master table realised for dedx (engine/ipa/adapter.py --write). Generated: do not edit.
 # Each letter: its sound line (if it differs from the carrier), and its IPA said as the carrier.
 
+sound u35debb288c a2=0 a3=40 a4=60 a5=40 a6=0 ab=0 fric=55 ms=102 whisper=44    # B:U+0068+U+032A+U+0346 voiceless bidental fricative (air through clenched teeth)
+h̪͆          <h=u35debb288c
 sound u00a1 a2=60 a3=40 a4=0 a5=0 a6=0 ab=0 hit=40 hitaf=68 hitg=20 hitms=5    # B:U+00A1 sublaminal lower-alveolar percussive (tongue slap)
 ¡            l=u00a1
 sound u01c3_00a1 a2=80 a3=0 a4=0 a5=0 a6=0 bgain=28 burst=10 burstms=5 ej=14 f2=55 rel2=20 rel2af=80 rel2g=26 rel2ms=5 vot=2    # B:U+01C3+U+00A1 alveolar click with a sublaminal percussive release (cluck)
 ǃ¡           t=u01c3_00a1
+sound ue4141dcc92 a2=20 a3=50 a4=50 a5=30 a6=0 ab=0 fric=55 ms=102 voi=1 whisper=38    # B:U+0266+U+032A+U+0346 voiced bidental fricative
+ɦ̪͆          <h=ue4141dcc92
 sound u0279_0308 ah=-2 ant=50 av=-2 f1=105 f2=97 f3=85 f4=89    # B:U+0279+U+0308 bunched r (molar r): approximant r made with the tongue body bunched, tip down
 ɹ̈           r=u0279_0308
 sound u0279_033a ah=-3 ant=50 av=-3 f1=105 f2=97 f3=85 f4=64    # B:U+0279+U+033A apical r: approximant r made with the tongue tip
@@ -290,8 +294,10 @@ sound ua7af ant=50 f1=124 f2=94 l2=150 lk=78 vot=23    # B:U+A7AF upper-pharynge
 # composition when speaking (C4): read only by a map with `version 2`
 version 2
 weights stricture=8 airstream=6 nasal=6 lateral=4 sibilant=3 place_step=1 place2=2 voicing=2 height_step=2 backness_step=2 rounding=1 class=50
+letter h̪͆ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless
 letter ¡ c place=4 stricture=tap airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified
 letter ǃ¡ c place=5 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
+letter ɦ̪͆ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɹ̈ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɹ̺ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ʪ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiceless

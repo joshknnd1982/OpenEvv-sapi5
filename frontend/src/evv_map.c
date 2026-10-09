@@ -1221,6 +1221,36 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	for (const char *p = joined ? joined + jl : lp + bl; *p; p += utf8_len((unsigned char)*p))
 		if (evv_map_letter(map, p, (size_t)utf8_len((unsigned char)*p)))
 			return -1; /* two letters: an affricate or a sequence */
+	/* a letter of three characters, a letter and two marks its own line
+	   reads otherwise (extIPA's bidental fricatives h̪͆ ɦ̪͆, D79), the two
+	   marks in their order wherever they stand among the others: the three
+	   are the letter, and neither mark is composed again */
+	char three[24];
+	const char *joined2 = NULL;
+	int jl2 = 0;
+	for (const char *q = lp + bl; *q && !joined; q += utf8_len((unsigned char)*q)) {
+		int ql = utf8_len((unsigned char)*q);
+		for (const char *r = q + ql; *r && !joined; r += utf8_len((unsigned char)*r)) {
+			int rl = utf8_len((unsigned char)*r);
+			if (bl + ql + rl >= (int)sizeof(three))
+				continue;
+			/* (a mark that begins a mark of two makes no letter, as below) */
+			const char *nr = r + rl;
+			const char *fr = *nr ? after_of(map, nr, (size_t)utf8_len((unsigned char)*nr)) : NULL;
+			if (fr && among(fr, r, (size_t)rl))
+				continue;
+			memcpy(three, lp, (size_t)bl);
+			memcpy(three + bl, q, (size_t)ql);
+			memcpy(three + bl + ql, r, (size_t)rl);
+			if (evv_map_letter(map, three, (size_t)(bl + ql + rl)) && find(map, three, (size_t)(bl + ql + rl))) {
+				letter = evv_map_letter(map, three, (size_t)(bl + ql + rl));
+				joined = q;
+				jl = ql;
+				joined2 = r;
+				jl2 = rl;
+			}
+		}
+	}
 	/* a letter of two characters, a letter and a mark the letter's own line
 	   reads otherwise (extIPA's bunched r, the apical r: D74), wherever the
 	   mark stands among the others (canonical order puts a mark below before
@@ -1245,7 +1275,8 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 			break;
 		}
 	}
-	const EvvMapEntry *base = joined ? find(map, two, (size_t)(bl + jl)) : find(map, lp, (size_t)bl);
+	const EvvMapEntry *base = joined2 ? find(map, three, (size_t)(bl + jl + jl2))
+	                          : joined ? find(map, two, (size_t)(bl + jl)) : find(map, lp, (size_t)bl);
 	if (!base) {
 		int best = -1, best_d = 0;
 		for (int i = 0; i < map->n_letters; i++) {
@@ -1274,16 +1305,19 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 		}
 	int applied = 0;
 	const char *prev = NULL; /* the code point before p */
+	const char *kept = NULL; /* the one before p that is not the letter's own mark */
 	for (const char *p = ipa; *p; prev = p, p += utf8_len((unsigned char)*p)) {
+		if (prev && prev != joined && prev != joined2)
+			kept = prev; /* (h̥̪᪽͆ is h̪͆ with ◌̥᪽, as the reader has it) */
 		if (p == lp) {
 			p += bl - utf8_len((unsigned char)*p); /* the letter itself */
 			continue;
 		}
-		if (p == joined)
+		if (p == joined || p == joined2)
 			continue; /* the mark that is part of it */
 		int ml = utf8_len((unsigned char)*p);
 		const char *fs = after_of(map, p, (size_t)ml);
-		if (fs && !(prev && among(fs, prev, (size_t)utf8_len((unsigned char)*prev)))) {
+		if (fs && !(kept && among(fs, kept, (size_t)utf8_len((unsigned char)*kept)))) {
 			evv_diag(EVV_DIAG_LOSS, "mark-left-off", "U+%04lX %.*s on /%s/: the second half of a mark of two, "
 			         "without its first; left off", code_point((const unsigned char *)p, ml), ml, p, ipa);
 			continue;

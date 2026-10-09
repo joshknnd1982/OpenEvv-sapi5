@@ -23,7 +23,7 @@ voicing = { scale = ["voiceless", "breathy", "voiced", "creaky"], extra = ["unsp
 aspiration = { set = ["none", "after", "before", "long-after"], default = "none", note = "before: extIPA's pre-aspiration (ʰp); long-after: its long aspiration (pʰʰ) (Tier B)" }
 release = { set = ["plain", "none", "nasal", "lateral", "percussive"], default = "plain", note = "percussive: a click whose tongue tip, released, goes on to slap the floor of the mouth (extIPA's cluck ǃ¡, Tier B, D78)" }
 secondary = { list = ["labialized", "palatalized", "velarized", "pharyngealized", "velarized-or-pharyngealized"], default = [], note = "the last is the chart's tilde through a letter (ɫ), which leaves the choice open" }
-tongue_part = { set = ["unspecified", "apical", "laminal", "bunched"], default = "unspecified", note = "bunched: the tongue body bunched up, its tip down (extIPA's molar r, ɹ̈, Tier B, D74)" }
+tongue_part = { set = ["unspecified", "apical", "laminal", "bunched", "none"], default = "unspecified", note = "bunched: the tongue body bunched up, its tip down (extIPA's molar r, ɹ̈, Tier B, D74); none: no part of the tongue makes the sound (extIPA's bidental fricatives, the teeth clenched, Tier B, D79)" }
 velodorsal = { set = [false, true], default = false, note = "extIPA's velodorsals (𝼃 𝼁 𝼇, Tier B, D75): the closure made by the soft palate lowered onto the back of a tongue that does not move, the reverse of a dorsovelar (k ɡ ŋ)" }
 place_shift = { set = ["none", "advanced", "retracted"], default = "none", note = "part of a step along the place scale" }
 stricture_shift = { set = ["none", "raised", "lowered"], default = "none", note = "towards closer or more open stricture" }

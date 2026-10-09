@@ -2875,3 +2875,59 @@ proof = "ipa/proofs/B_U+01C3+U+00A1.json"
 # ǃ's line (the click), with a second release 20 ms after the first: the tongue's slap (the layer's `rel2', `rel2g')
 carrier = "t"
 keys = { a2 = { v = 80, tag = "derived", rule = "as ǃ's line (ipa/realized/dedx.map: a2=80 a3=0 a4=0 a5=0 a6=0 bgain=28 burst=10 burstms=5 ej=1 f2=55 vot=2): the click's burst" }, a3 = { v = 0, tag = "derived", rule = "as ǃ's line" }, a4 = { v = 0, tag = "derived", rule = "as ǃ's line" }, a5 = { v = 0, tag = "derived", rule = "as ǃ's line" }, a6 = { v = 0, tag = "derived", rule = "as ǃ's line" }, bgain = { v = 28, tag = "derived", rule = "as ǃ's line (its trim, measured, ipa/proofs/U+01C3.json)" }, burst = { v = 10, tag = "derived", rule = "as ǃ's line" }, burstms = { v = 5, tag = "derived", rule = "as ǃ's line" }, ej = { v = 14, tag = "estimated", rule = "ǃ's release kept quiet after its burst until the slap (ǃ's line has 1 ms, after which the release goes on as noise for some 10 ms): the slap a second release of its own, the click's release almost inaudible as wright_etal_1995 p. 16 says it may be" }, f2 = { v = 55, tag = "derived", rule = "as ǃ's line" }, vot = { v = 2, tag = "derived", rule = "as ǃ's line (its trim, measured, ipa/proofs/U+01C3.json)" }, rel2 = { v = 20, tag = "derived", rule = "the slap's delay_ms" }, rel2ms = { v = 5, tag = "estimated", rule = "one frame of the engine (the slap's length_ms is 3)" }, rel2af = { v = 80, tag = "estimated", rule = "the slap's noise level, with rel2g, chosen to meet its level_db" }, rel2g = { v = 26, tag = "estimated", rule = "the slap louder than the parallel gains reach, chosen to meet its level_db" } }
+
+[sound."B:U+0068+U+032A+U+0346"]
+ipa = "h̪͆"
+codepoints = ["U+0068", "U+032A", "U+0346"]
+name = "voiceless bidental fricative (air through clenched teeth)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "dental", stricture = "friction", voicing = "voiceless", place_mark = "bridge-above", tongue_part = "none" }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing measured was found for a bidental fricative: its noise centre is placed midway between this engine's ʃ and f, as the one description says it sounds between them (wikipedia_bidental); among this engine's fricatives it stands apart by its energy above 3 kHz against below 1 kHz rather than by its centre (ɕ, ç, ʃ lie within 10 per cent of it); the jaw's closing is not made (the vowel's own formants under the noise, as h has them, the tongue flat and still); a letter spelt with three characters (D79)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1"], builds = ["a letter of three characters (D79)"] }
+
+[sound."B:U+0068+U+032A+U+0346".spec]
+noise = { centroid_hz = { v = 3514, tag = "estimated", note = "placed midway between this engine's ʃ (3828 Hz) and f (3200 Hz), their noise centres as the sweep measures every fricative, from 1 kHz (ipa/proofs/U+0283.json, U+0066.json): the sound intermediate between [ʃ] and [f] (wikipedia_bidental, after Ladefoged and Maddieson 1996, pp. 144-145), which does not say where between" } }
+
+[sound."B:U+0068+U+032A+U+0346".tests]
+checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "U+0068", measure = "hf_db", sign = 1, distinct = true }, { with = "U+0283", measure = "centroid1k_hz", sign = -1, distinct = true }, { with = "U+0066", measure = "hf_db", sign = 1, distinct = true }, { with = "U+03B8", measure = "hf_db", sign = 1, distinct = true }, { with = "U+0073", measure = "hf_db", sign = 1, distinct = true }, { with = "U+0255", measure = "hf_db", sign = 1, distinct = true }, { with = "U+00E7", measure = "hf_db", sign = 1, distinct = true }, { with = "U+0078", measure = "hf_db", sign = 1, distinct = true }, { with = "B:U+03B8+U+032A+U+0346", measure = "hf_db", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0068+U+032A+U+0346.json"
+
+[sound."B:U+0068+U+032A+U+0346".realization.openevv]
+# h's breath, made by the accent layer on the vowel's own formants (the tongue flat and still), with friction through the teeth on the high bands
+carrier = "<h"
+keys = { ms = { v = 102, tag = "derived", rule = "as h's line (ipa/realized/dedx.map: ms=102 whisper=44)" }, whisper = { v = 44, tag = "derived", rule = "as h's line" }, fric = { v = 55, tag = "estimated", rule = "the friction's level: this template's weakest fricative's (x, 55)" }, a2 = { v = 0, tag = "estimated", rule = "the friction on F4 to F6, to put its centre near its centroid_hz" }, a3 = { v = 40, tag = "estimated", rule = "see a2" }, a4 = { v = 60, tag = "estimated", rule = "see a2" }, a5 = { v = 40, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, ab = { v = 0, tag = "estimated", rule = "see a2" } }
+
+[sound."B:U+0266+U+032A+U+0346"]
+ipa = "ɦ̪͆"
+codepoints = ["U+0266", "U+032A", "U+0346"]
+name = "voiced bidental fricative"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "dental", stricture = "friction", voicing = "voiced", place_mark = "bridge-above", tongue_part = "none" }
+state = "created"
+level = 2
+approximate = true
+deviation = "h̪͆'s with ɦ's voice: nothing measured was found; its noise a band lower than h̪͆'s (its centre about 3200 Hz against h̪͆'s 3470); it stands apart from ʒ, z, ʑ and ʫ by its energy above 3 kHz against below 1 kHz, not by its centre; the jaw's closing is not made; a letter spelt with three characters (D79)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1"], builds = ["a letter of three characters (D79)"] }
+
+[sound."B:U+0266+U+032A+U+0346".spec]
+noise = { centroid_hz = { v = 3514, tag = "estimated", note = "h̪͆'s: the same teeth, with the voice (wikipedia_bidental: a fricative through clenched teeth with vibration of the vocal cords, no source given)" } }
+
+[sound."B:U+0266+U+032A+U+0346".tests]
+checks = ["T-fric", "T-contrast"]
+contrast = [{ with = "B:U+0068+U+032A+U+0346", measure = "voiced_frac", sign = 1, distinct = true }, { with = "U+0266", measure = "hf_db", sign = 1, distinct = true }, { with = "U+0076", measure = "centroid1k_hz", sign = 1, distinct = true }, { with = "U+00F0", measure = "centroid1k_hz", sign = 1, distinct = true }, { with = "B:U+00F0+U+032A+U+0346", measure = "centroid1k_hz", sign = 1, distinct = true }, { with = "U+0292", measure = "hf_db", sign = -1, distinct = true }, { with = "U+007A", measure = "hf_db", sign = -1, distinct = true }, { with = "U+0291", measure = "hf_db", sign = -1, distinct = true }, { with = "B:U+02AB", measure = "hf_db", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0266+U+032A+U+0346.json"
+
+[sound."B:U+0266+U+032A+U+0346".realization.openevv]
+# ɦ's breathy voice, made by the accent layer on the vowel's own formants, with h̪͆'s friction through the teeth
+carrier = "<h"
+keys = { ms = { v = 102, tag = "derived", rule = "as ɦ's line (ipa/realized/dedx.map: ms=102 voi=1 whisper=38)" }, voi = { v = 1, tag = "derived", rule = "as ɦ's line" }, whisper = { v = 38, tag = "derived", rule = "as ɦ's line" }, fric = { v = 55, tag = "derived", rule = "h̪͆'s" }, a2 = { v = 20, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, a3 = { v = 50, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, a4 = { v = 50, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, a5 = { v = 30, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, a6 = { v = 0, tag = "estimated", rule = "the friction a band lower than h̪͆'s (on h̪͆'s bands its centre fell 3 per cent from z's)" }, ab = { v = 0, tag = "derived", rule = "h̪͆'s" } }

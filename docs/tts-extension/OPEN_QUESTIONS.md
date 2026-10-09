@@ -136,8 +136,16 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 ## Added in Phase 4 (2026-10-06)
 
-**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 258 values on 2026-10-09 (regenerated after D78):
+**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 272 values on 2026-10-09 (regenerated after D79):
 
+- `B:U+0068+U+032A+U+0346` h̪͆: `spec.noise.centroid_hz`
+- `B:U+0068+U+032A+U+0346` h̪͆: `keys.fric`
+- `B:U+0068+U+032A+U+0346` h̪͆: `keys.a2`
+- `B:U+0068+U+032A+U+0346` h̪͆: `keys.a3`
+- `B:U+0068+U+032A+U+0346` h̪͆: `keys.a4`
+- `B:U+0068+U+032A+U+0346` h̪͆: `keys.a5`
+- `B:U+0068+U+032A+U+0346` h̪͆: `keys.a6`
+- `B:U+0068+U+032A+U+0346` h̪͆: `keys.ab`
 - `B:U+00A1` ¡: `spec.strike.delay_ms`
 - `B:U+00A1` ¡: `spec.strike.length_ms`
 - `B:U+00A1` ¡: `spec.strike.centroid_hz`
@@ -154,6 +162,12 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `B:U+01C3+U+00A1` ǃ¡: `keys.rel2ms`
 - `B:U+01C3+U+00A1` ǃ¡: `keys.rel2af`
 - `B:U+01C3+U+00A1` ǃ¡: `keys.rel2g`
+- `B:U+0266+U+032A+U+0346` ɦ̪͆: `spec.noise.centroid_hz`
+- `B:U+0266+U+032A+U+0346` ɦ̪͆: `keys.a2`
+- `B:U+0266+U+032A+U+0346` ɦ̪͆: `keys.a3`
+- `B:U+0266+U+032A+U+0346` ɦ̪͆: `keys.a4`
+- `B:U+0266+U+032A+U+0346` ɦ̪͆: `keys.a5`
+- `B:U+0266+U+032A+U+0346` ɦ̪͆: `keys.a6`
 - `B:U+02AC` ʬ: `spec.strike.length_ms`
 - `B:U+02AC` ʬ: `spec.strike.level_db`
 - `B:U+02AC` ʬ: `spec.strike.centroid_hz`
@@ -417,7 +431,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 **Q24. A mark's test compares the medians of the plain and the marked cases, not their differences context by context** (2026-10-07, ninth session, D69). `check_shift` takes the median over the three contexts of the plain sound and, separately, of the marked one, and compares the two; its own comment says the comparison is "a mark against its own base in the same context: the context's variation cancels", which is true only of paired differences. m͇ shows the cost: the engine raised the vowel's requested F2 onset in all three contexts (1640 to 1770, 2132 to 2301, 1148 to 1239 Hz), but the tracker read [i] after m as 3092 Hz plain and 1325 marked, and the medians came from different contexts (plain 1670, marked 1651: -18.7 Hz, "the wrong way"). *Default: at the next change of the sweep, judge a mark by the median of its per-context differences; then run the whole sweep, since every mark's proof and some Tier A ones may move. Until then m͇ is MISSING.* **Done 2026-10-07 (tenth session, D70):** `check_shift` judges each measure by the median of its per-context differences (marked minus plain, wherever both were found; the medians as before where fewer than two contexts have both), against the plain median's size; each target in a proof lists the differences (`paired`). m͇ then moved +78 Hz (differences -1193, +78, +79: the tracker's [i] outvoted), n̪͆ -25 Hz (-82, -25, -19), ɬ̪͆ -36 Hz (-42, -36, -19); tʰ̪͆ -13 Hz (-59, -13, -5), still short of the 1.5 per cent (Q25).
 
-**Q25. Four extIPA spellings on the new marks are not yet** (2026-10-07, ninth session, D69). n̪͆ and ɬ̪͆ moved their edge F2 by -18.8 and -18.6 Hz against a minimum of about 19.7 (1.5 per cent): the engine realises about 1.4 per cent of the 6 per cent asked of n and ɬ (the mark's own bases p, f, m move by 2.0 to 3.6 per cent); tʰ̪͆ by -5.2 Hz (the aspiration lies between the release and the vowel, which begins after the place's transition is mostly over); m͇ by Q24. The bidental fricatives h̪͆ and ɦ̪͆ are not composites: h is made by the layer from the vowel after it, so the marks have nothing to move, and a bidental fricative needs a letter of its own through the USP (no measurement of one has been looked for yet). *Default: n̪͆ and ɬ̪͆ wait for Q24's paired test, not for a larger value (0.94 comes from its source); tʰ̪͆ is judged at the release's noise instead of the vowel's onset once a measure of where a release's noise lies exists; h̪͆ and ɦ̪͆ go through the USP with the other needs-new letters.*
+**Q25. Four extIPA spellings on the new marks are not yet** (2026-10-07, ninth session, D69). n̪͆ and ɬ̪͆ moved their edge F2 by -18.8 and -18.6 Hz against a minimum of about 19.7 (1.5 per cent): the engine realises about 1.4 per cent of the 6 per cent asked of n and ɬ (the mark's own bases p, f, m move by 2.0 to 3.6 per cent); tʰ̪͆ by -5.2 Hz (the aspiration lies between the release and the vowel, which begins after the place's transition is mostly over); m͇ by Q24. The bidental fricatives h̪͆ and ɦ̪͆ are not composites: h is made by the layer from the vowel after it, so the marks have nothing to move, and a bidental fricative needs a letter of its own through the USP (no measurement of one has been looked for yet). *Default: n̪͆ and ɬ̪͆ wait for Q24's paired test, not for a larger value (0.94 comes from its source); tʰ̪͆ is judged at the release's noise instead of the vowel's onset once a measure of where a release's noise lies exists; h̪͆ and ɦ̪͆ go through the USP with the other needs-new letters.* **The bidental fricatives done 2026-10-09 (fifteenth session, D79)**: letters of their own, spelt with three characters, on h's and ɦ's layer-made breath with friction through the teeth.
 
 **Q26. The nareal fricative's current spelling, U+033E, is not read** (2026-10-07, ninth session, D69; found by the R15 review). The Tier B inventory and `ipa/unicode_net.toml` record that extIPA changed the mark from U+034B to U+033E (vertical tilde) in 2024, and the 2025 chart uses U+033E. The table has U+034B only, so text written to the current chart is not read as nasal friction (the reader refuses U+033E in strict IPA; the front-end leaves it off with a `mark-left-off` loss). *Default: make U+033E an alias of U+034B (`ipa/aliases.toml`, and its own `mod` line from the adapter so the front-end composes it), with a test that both spellings say the same, at the next change of the reader or the adapter.* **Done 2026-10-07 (tenth session, D70):** U+033E is an `always` alias of U+034B in `ipa/aliases.toml` (the reader reads it as U+034B), and the adapter writes every mark's line again under a one-character alias of it (`mod ̾ c fric=60 a5=60 ab=60`), since the front-end composes by the character it is given; the reader's test now checks that each such alias reads alike on a letter.
 

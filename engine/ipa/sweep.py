@@ -250,6 +250,21 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             if sm:
                 ph.setdefault('meas', {})['peak_hz'] = sm['peak_hz']
                 ph['meas']['centroid_hz'] = sm['centroid_hz']
+    if tgt and man == 'fricative':
+        # the noise's centre over one window for every fricative, from 1 kHz (the peak and centroid
+        # above are read from 60 per cent of a target, which differs from entry to entry, so two of
+        # them are not comparable), and the energy above 3 kHz against below 1 kHz, which needs no
+        # window: the bidental fricatives against their neighbours and their own carriers (D79)
+        for ph in tgt:
+            a_, b_ = ph['start_ms'], ph['end_ms']
+            sm = A.spectrum_moments(x, rate, a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_), fmin=1000.0)
+            if sm:
+                ph.setdefault('meas', {})['centroid1k_hz'] = sm['centroid_hz']
+            if b_ - a_ >= 20:
+                f_, p_ = A.spectrum(x, rate, a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_))
+                hi, lo = p_[f_ >= 3000.0].sum(), p_[f_ < 1000.0].sum()
+                if hi > 0 and lo > 0:
+                    ph.setdefault('meas', {})['hf_db'] = 10.0 * math.log10(hi / lo)
     if tgt and (man or base_man) == 'fricative':
         # how narrow the noise is, above the voice as the peak is read: its spread about the
         # centroid and the width of its band 10 dB under the peak (extIPA's whistled
@@ -596,7 +611,7 @@ def summary(cases, man):
         return fn
 
     s = {}
-    for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'F4_50_hz', 'F3_min_hz', 'peak_hz', 'centroid_hz', 'vot_ms', 'closure_ms',
+    for k in ('F1_50_hz', 'F2_50_hz', 'F3_50_hz', 'F4_50_hz', 'F3_min_hz', 'peak_hz', 'centroid_hz', 'centroid1k_hz', 'vot_ms', 'closure_ms',
               'murmur_F1_hz', 'antiformant_hz', 'intensity_db', 'f0_50_hz', 'hf_db', 'noise_sd_hz', 'noise_bw_hz',
               'band_db', 'hnr_hi_db'):
         v = vals(tmeas(k))
@@ -721,6 +736,10 @@ def check_b3(e, s):
         want['vot_ms'] = ('vot_ms', v(spec['vot_ms']))
     if 'peak_hz' in (spec.get('noise') or {}):
         want['peak_hz'] = ('peak_hz', v(spec['noise']['peak_hz']))
+    if 'centroid_hz' in (spec.get('noise') or {}):
+        # a broad noise's centre, where its peak says little (the bidental fricatives, D79), over
+        # the one window every fricative is read in (from 1 kHz): within the peak's tolerance
+        want['centroid_hz'] = ('centroid1k_hz', v(spec['noise']['centroid_hz']))
     dur = (spec.get('duration') or {}).get('inherent_ms')
     out = {}
     # a trill's rate (the modulation of its level) within 15 per cent; a tap's or trill's closed
@@ -736,7 +755,7 @@ def check_b3(e, s):
                                            within=got is not None and abs(got - w) <= 0.4 * w)
     for k, (mk, w) in want.items():
         got = s.get(mk)
-        ok = PR.within(k if k != 'peak_hz' else 'peak', got, w)
+        ok = PR.within(k if k not in ('peak_hz', 'centroid_hz') else 'peak', got, w)
         if k == 'F1' and got is not None:
             # a low F1 sits among the voice's harmonics, where the tracker is known to err (D15):
             # the tolerance check A uses for F1, the larger of 8 per cent and 0.75 F0
@@ -820,6 +839,7 @@ def check_b3(e, s):
 
 
 SPEC_OF = {'peak_hz': ('noise', 'peak_hz'), 'centroid_hz': ('noise', 'peak_hz'), 'vot_ms': ('vot_ms',),
+           'centroid1k_hz': ('noise', 'centroid_hz'),
            'burst_centroid_hz': ('burst', 'centroid_hz'), 'burst_len_ms': ('burst', 'length_ms'),
            'burst_db': ('burst', 'level_db'),
            'duration_ms': ('duration', 'inherent_ms'), 'mod_rate_hz': ('trill', 'rate_hz')}
