@@ -2609,10 +2609,12 @@ plan = { decision = "new letter", end_state = "created", uses = ["X1", "X3"], bu
 
 [sound."B:U+02AA".spec]
 locus = { F2 = { v = 1437, tag = "derived", rule = "ɬ's (chong2022 Table 6, F2 at the vowel's onset): the lateral channel is ɬ's constriction (D76)" }, F3 = { v = 2699, tag = "derived", rule = "ɬ's (chong2022 Table 6), as for F2 (D76)" } }
+duration = { inherent_ms = { v = 177.5, tag = "derived", rule = "ɬ's, as the table has it (chowbabel2024, the mean of two male speakers): s, whose groove it shares, is said as long in this template (165 ms both, their proofs); without it ʪ was the carrier's 125 ms (the R15 review of D76)" } }
+
 
 [sound."B:U+02AA".tests]
 checks = ["T-fric", "T-contrast"]
-contrast = [{ with = "U+026C", measure = "centroid_hz", sign = 1, distinct = true }, { with = "U+0073", measure = "centroid_hz", sign = -1, distinct = true }]
+contrast = [{ with = "U+026C", measure = "centroid_hz", sign = 1, distinct = true }, { with = "U+0073", measure = "centroid_hz", sign = -1, distinct = true }, { with = "U+0283", measure = "centroid_hz", sign = 1, distinct = true }, { with = "U+00E7", measure = "centroid_hz", sign = 1, distinct = true }]
 proof = "ipa/proofs/B_U+02AA.json"
 
 [sound."B:U+02AA".realization.openevv]
@@ -2635,13 +2637,14 @@ deviation = "nothing measured was found for a lateral and median fricative (the 
 plan = { decision = "new letter", end_state = "created", uses = ["X1", "X3"], builds = [] }
 
 [sound."B:U+02AB".spec]
-locus = { F2 = { v = 1437, tag = "derived", rule = "ɬ's (chong2022 Table 6, F2 at the vowel's onset): the lateral channel is ɬ's constriction, with ɮ's peak taken equal to ɬ's (the table's ɮ) (D76)" }, F3 = { v = 2699, tag = "derived", rule = "ɬ's (chong2022 Table 6), as for F2 (D76)" } }
+locus = { F3 = { v = 2699, tag = "derived", rule = "ɬ's (chong2022 Table 6, F3 at the vowel's onset): the lateral channel is the constriction of ɬ and ɮ (the table takes ɮ's own noise peak equal to ɬ's, an estimated value); F2 is left to the carrier z, as ɮ's is: an F2 ratio is reckoned against z's last frame, not the frames the check reads, and moved F2 away from the target (the R15 review of D76)" } }
+
 
 [sound."B:U+02AB".tests]
 checks = ["T-fric", "T-contrast"]
-contrast = [{ with = "U+026E", measure = "centroid_hz", sign = 1, distinct = true }, { with = "U+007A", measure = "centroid_hz", sign = -1, distinct = true }, { with = "B:U+02AA", measure = "voiced_frac", sign = 1 }]
+contrast = [{ with = "U+026E", measure = "centroid_hz", sign = 1, distinct = true }, { with = "U+007A", measure = "centroid_hz", sign = -1, distinct = true }, { with = "B:U+02AA", measure = "voiced_frac", sign = 1 }, { with = "U+0291", measure = "peak_hz", sign = 1, distinct = true }]
 proof = "ipa/proofs/B_U+02AB.json"
 
 [sound."B:U+02AB".realization.openevv]
 carrier = "z"
-keys = { a2 = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a3 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a4 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a5 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a6 = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, ab = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, z a4=50 a5=50; their lines), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" } }
+keys = { a2 = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a3 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a4 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a5 = { v = 50, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, a6 = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" }, ab = { v = 0, tag = "derived", rule = "each noise band the louder of ɮ's and z's as this template has them (ɮ a3=50 a4=30 a5=30, its line; z a4=50 a5=50, its carrier's), as D72's lateral-and-median release: the lateral channel's noise on F3, the median groove's on F4 (D76)" } }
