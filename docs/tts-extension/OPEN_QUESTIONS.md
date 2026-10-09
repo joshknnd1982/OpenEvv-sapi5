@@ -136,8 +136,46 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 ## Added in Phase 4 (2026-10-06)
 
-**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 220 values on 2026-10-09 (regenerated after D77):
+**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 258 values on 2026-10-09 (regenerated after D78):
 
+- `B:U+00A1` ¡: `spec.strike.delay_ms`
+- `B:U+00A1` ¡: `spec.strike.length_ms`
+- `B:U+00A1` ¡: `spec.strike.centroid_hz`
+- `B:U+00A1` ¡: `keys.hitaf`
+- `B:U+00A1` ¡: `keys.hitg`
+- `B:U+00A1` ¡: `keys.a2`
+- `B:U+00A1` ¡: `keys.a3`
+- `B:U+00A1` ¡: `keys.a4`
+- `B:U+00A1` ¡: `keys.a5`
+- `B:U+00A1` ¡: `keys.a6`
+- `B:U+00A1` ¡: `keys.ab`
+- `B:U+01C3+U+00A1` ǃ¡: `spec.slap.length_ms`
+- `B:U+01C3+U+00A1` ǃ¡: `keys.ej`
+- `B:U+01C3+U+00A1` ǃ¡: `keys.rel2ms`
+- `B:U+01C3+U+00A1` ǃ¡: `keys.rel2af`
+- `B:U+01C3+U+00A1` ǃ¡: `keys.rel2g`
+- `B:U+02AC` ʬ: `spec.strike.length_ms`
+- `B:U+02AC` ʬ: `spec.strike.level_db`
+- `B:U+02AC` ʬ: `spec.strike.centroid_hz`
+- `B:U+02AC` ʬ: `keys.hitaf`
+- `B:U+02AC` ʬ: `keys.hitg`
+- `B:U+02AC` ʬ: `keys.a2`
+- `B:U+02AC` ʬ: `keys.a3`
+- `B:U+02AC` ʬ: `keys.a4`
+- `B:U+02AC` ʬ: `keys.a5`
+- `B:U+02AC` ʬ: `keys.a6`
+- `B:U+02AC` ʬ: `keys.ab`
+- `B:U+02AD` ʭ: `spec.strike.length_ms`
+- `B:U+02AD` ʭ: `spec.strike.level_db`
+- `B:U+02AD` ʭ: `spec.strike.centroid_hz`
+- `B:U+02AD` ʭ: `keys.hitaf`
+- `B:U+02AD` ʭ: `keys.hitg`
+- `B:U+02AD` ʭ: `keys.a2`
+- `B:U+02AD` ʭ: `keys.a3`
+- `B:U+02AD` ʭ: `keys.a4`
+- `B:U+02AD` ʭ: `keys.a5`
+- `B:U+02AD` ʭ: `keys.a6`
+- `B:U+02AD` ʭ: `keys.ab`
 - `B:U+02EC#post` ˬ: `transform.consonant.voicing.part_from_pct`
 - `B:U+02EC#pre` ˬ: `transform.consonant.voicing.part_to_pct`
 - `B:U+02F7` ˷: `transform.vowel.voicing.part_from_pct`
@@ -402,3 +440,5 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 **Q32. extIPA's ͌ (velopharyngeal friction, D71) silences the voice of a voiced letter** (2026-10-09, thirteenth session; found while designing ʩ̬). ͌'s transform sets the friction's level (`fric`), and the accent layer says a sound with `fric` as a sound it makes itself, with no voice unless `voi=1` (`made()`). D71 tested ͌ on s, f, ʃ only, which are voiceless. On ŋ, ŋ͌ measured a voiced share of 0.097 (`%USERPROFILE%\OpenEvvBuild-ttsext\d77_attempt\sweep_d77a.log`), the same as ŋ̊͌: voiced and voiceless velopharyngeal friction would be said alike. *Default: at the next engine change, keep a voiced letter's voice under a mark's added friction (or have the mark's line carry `voi` from its letter), add a voiced base to ͌'s tests (ŋ, or a voiced fricative), and re-run the whole sweep; nothing for the human to decide.* **Answered 2026-10-09 (fourteenth session, D77): a misdiagnosis.** ŋ͌ keeps its voice (23 of 23 frames voiced); the attempt's ʩ̬ was spelt `ŋ̬̊͌`, and ̊ set the voice off. What was real: at 60 dB ͌'s friction did not show over a voice (the synthesiser holds AF plus a parallel gain at 120 dB). The layer's new key `fgain` makes it 15 dB louder over a voice; ŋ is now one of ͌'s test bases, its voice kept and its periodicity lowered by 5.1 dB; the whole sweep was re-run.
 
 **Q33. ̬ cannot voice a letter whose own line is whispered** (2026-10-09, fourteenth session, D77). The accent layer takes the voice out of any sound that carries `whisper` (it makes ŋ̊, ʩ and 𝼀 voiceless that way), and ̬ only sets `voi=1`, so 𝼀 with extIPA's partial voicing ◌̬᪽, or ʩ written with ◌̬᪽, is composed with `voi=1` and `whisper` together and is said voiceless: the front-end and the adapter agree on the keys (`compose_test.py`), but the sound loses the voicing the marks ask for. It cannot simply be let go: ɦ and ʕ are `voi=1` with `whisper` on purpose (breathy voice). ʩ̬ and 𝼀̬ are not affected (letters of their own, no `whisper`). *Default: at the next engine change, give a mark's voicing a key of its own that overrides a letter's whisper (or have the front-end drop a letter's `whisper` when a mark sets `voi=1` on a letter whose `voi` is 0), test ̬ and ◌̬᪽ on ʩ and 𝼀 by their voiced share, and re-run the whole sweep; nothing for the human to decide.*
+
+**Q34. Two latent gaps found with the percussives** (2026-10-09, fifteenth session, D78; neither changes what any entry says today). (1) The map's `letter` lines carry no `release` (nor `place_mark`), so ǃ¡ and ǃ have the same letter line and the front-end's nearest-letter fallback finds them 0 apart; ǃ¡ comes first, so a letter with no line of its own whose nearest is ǃ would be said with a slap. Every letter of the dedx map has a line, so it cannot happen now. (2) A strike's noise bands and a fricated release's (`frel`, D72) are the same keys, `a2` to `ab`: ¡ with ˣ is composed with ˣ's bands in place of ¡'s, so its strike takes the velar friction's spectrum (the front-end and the adapter agree, `compose_test.py`). *Default: at the next front-end or adapter change, write `release` and `place_mark` into the letter lines and count them in the fallback's distance; give the strike bands of its own if a mark on a percussive ever matters (none is attested); nothing for the human to decide.*

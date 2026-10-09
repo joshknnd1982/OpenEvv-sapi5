@@ -1199,7 +1199,26 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	const EvvLetter *letter = evv_map_letter(map, lp, (size_t)bl);
 	if (!letter)
 		return -1;
-	for (const char *p = lp + bl; *p; p += utf8_len((unsigned char)*p))
+	char two[16];
+	const char *joined = NULL;
+	int jl = 0;
+	/* a letter of two letters, the second right after the first (extIPA's
+	   cluck ǃ¡: a click and the tongue's slap): the pair is the letter where
+	   the map has a line for it, and its marks are composed on that line */
+	{
+		const char *q = lp + bl;
+		int ql = *q ? utf8_len((unsigned char)*q) : 0;
+		if (ql && bl + ql < (int)sizeof(two) && evv_map_letter(map, q, (size_t)ql)) {
+			memcpy(two, lp, (size_t)bl);
+			memcpy(two + bl, q, (size_t)ql);
+			if (evv_map_letter(map, two, (size_t)(bl + ql)) && find(map, two, (size_t)(bl + ql))) {
+				letter = evv_map_letter(map, two, (size_t)(bl + ql));
+				joined = q;
+				jl = ql;
+			}
+		}
+	}
+	for (const char *p = joined ? joined + jl : lp + bl; *p; p += utf8_len((unsigned char)*p))
 		if (evv_map_letter(map, p, (size_t)utf8_len((unsigned char)*p)))
 			return -1; /* two letters: an affricate or a sequence */
 	/* a letter of two characters, a letter and a mark the letter's own line
@@ -1207,10 +1226,7 @@ static int compose(EvvMap *map, const char *ipa, EvvMapPhone *out, int max_out)
 	   mark stands among the others (canonical order puts a mark below before
 	   one above, so ɹ̩̈ comes as ɹ, ̩, ̈): the pair is the letter, and that
 	   mark is not composed again */
-	char two[16];
-	const char *joined = NULL;
-	int jl = 0;
-	for (const char *q = lp + bl; *q; q += utf8_len((unsigned char)*q)) {
+	for (const char *q = lp + bl; *q && !joined; q += utf8_len((unsigned char)*q)) {
 		int ql = utf8_len((unsigned char)*q);
 		if (bl + ql >= (int)sizeof(two))
 			continue;

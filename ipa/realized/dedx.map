@@ -1,6 +1,10 @@
 # The master table realised for dedx (engine/ipa/adapter.py --write). Generated: do not edit.
 # Each letter: its sound line (if it differs from the carrier), and its IPA said as the carrier.
 
+sound u00a1 a2=60 a3=40 a4=0 a5=0 a6=0 ab=0 hit=40 hitaf=68 hitg=20 hitms=5    # B:U+00A1 sublaminal lower-alveolar percussive (tongue slap)
+¡            l=u00a1
+sound u01c3_00a1 a2=80 a3=0 a4=0 a5=0 a6=0 bgain=28 burst=10 burstms=5 ej=14 f2=55 rel2=20 rel2af=80 rel2g=26 rel2ms=5 vot=2    # B:U+01C3+U+00A1 alveolar click with a sublaminal percussive release (cluck)
+ǃ¡           t=u01c3_00a1
 sound u0279_0308 ah=-2 ant=50 av=-2 f1=105 f2=97 f3=85 f4=89    # B:U+0279+U+0308 bunched r (molar r): approximant r made with the tongue body bunched, tip down
 ɹ̈           r=u0279_0308
 sound u0279_033a ah=-3 ant=50 av=-3 f1=105 f2=97 f3=85 f4=64    # B:U+0279+U+033A apical r: approximant r made with the tongue tip
@@ -9,6 +13,10 @@ sound u02aa a2=0 a3=50 a4=50 a5=30 a6=0 ab=0 ant=50 f2=96 f3=104 f4=135 hold=131
 ʪ            s=u02aa
 sound u02ab a2=0 a3=50 a4=50 a5=50 a6=0 ab=0 ant=50 f3=104    # B:U+02AB voiced lateral and median alveolar fricative: a lateral lisp of z
 ʫ            z=u02ab
+sound u02ac a2=60 a3=60 a4=40 a5=0 a6=0 ab=0 ant=50 hit=0 hitaf=60 hitg=20 hitms=5 l2=216 lk=75 noburst=1 vot=0    # B:U+02AC bilabial percussive (the lips smacked together)
+ʬ            p=u02ac
+sound u02ad a2=0 a3=0 a4=60 a5=40 a6=0 ab=0 ant=50 hit=0 hitaf=52 hitg=20 hitms=5 l2=417 lk=69 noburst=1 vot=0    # B:U+02AD bidental percussive (the teeth clashed together)
+ʭ            t=u02ad
 sound u1df00 a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=153 nas=70 tdepth=20 trate=19 voi=0 whisper=44    # B:U+1DF00 voiceless velopharyngeal trill (snort)
 𝼀            G=u1df00
 sound u1df00_032c a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=117 nas=70 tdepth=20 trate=21    # B:U+1DF00+U+032C voiced velopharyngeal trill (voiced snort)
@@ -282,10 +290,14 @@ sound ua7af ant=50 f1=124 f2=94 l2=150 lk=78 vot=23    # B:U+A7AF upper-pharynge
 # composition when speaking (C4): read only by a map with `version 2`
 version 2
 weights stricture=8 airstream=6 nasal=6 lateral=4 sibilant=3 place_step=1 place2=2 voicing=2 height_step=2 backness_step=2 rounding=1 class=50
+letter ¡ c place=4 stricture=tap airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified
+letter ǃ¡ c place=5 stricture=closure airstream=click nasal=false lateral=false sibilant=false place2=velar voicing=unspecified
 letter ɹ̈ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ɹ̺ c place=4 stricture=approximation airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced
 letter ʪ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiceless
 letter ʫ c place=4 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=true place2=none voicing=voiced
+letter ʬ c place=0 stricture=closure airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified
+letter ʭ c place=3 stricture=closure airstream=percussive nasal=false lateral=false sibilant=false place2=none voicing=unspecified
 letter 𝼀 c place=9 stricture=trill airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiceless
 letter 𝼀̬ c place=9 stricture=trill airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced
 letter 𝼁 c place=9 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced

@@ -225,13 +225,14 @@ def realize(t, sid, template, carrier_meas=None):
     if nas is not None:
         keys['nas'] = int(round(_v(nas)))
         rules.append('nas = %s per cent' % _v(nas))
-    for k in ('burst', 'closure'):
+    for k in ('burst', 'closure', 'strike', 'slap'):
         if k in spec:
-            # a click's burst and an implosive's closure (T-click, T-airstream): targets the sweep
-            # measures, met through the entry's own engine keys (realization.openevv.keys)
+            # a click's burst and an implosive's closure (T-click, T-airstream), a percussive's
+            # strike and a click's slap (T-percussive, D78): targets the sweep measures, met
+            # through the entry's own engine keys (realization.openevv.keys)
             rules.append('%s: measured targets, realised by the engine keys below' % k)
     known = {'formants', 'locus', 'locus_slope', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap',
-             'nasal', 'trill', 'burst', 'closure'}
+             'nasal', 'trill', 'burst', 'closure', 'strike', 'slap'}
     for k in spec:
         if k not in known:
             unrealised.append('%s: the adapter has no key for it yet' % k)

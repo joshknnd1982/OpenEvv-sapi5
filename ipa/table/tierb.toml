@@ -2762,3 +2762,116 @@ proof = "ipa/proofs/B_U+1DF00+U+032C.json"
 carrier = "G"
 keys = { f1 = { v = 158, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f2 = { v = 72, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f3 = { v = 103, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f4 = { v = 106, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, ant = { v = 50, tag = "derived", rule = "as ŋ's line" }, fric = { v = 60, tag = "derived", rule = "͌'s (its line): the friction's level" }, a2 = { v = 60, tag = "derived", rule = "͌'s: its noise on F2" }, nas = { v = 70, tag = "derived", rule = "͌'s: the port open" }, fgain = { v = 15, tag = "derived", rule = "͌'s: the friction over a voice (D77)" }, tdepth = { v = 20, tag = "derived", rule = "ʀ's (its line): the trill's depth" }, trate = { v = 19, tag = "derived", rule = "ʀ's realised rate (its line, trimmed to meet 23.2 Hz, measured, ipa/proofs/U+0280.json)" }, hold = { v = 117, tag = "derived", rule = "ʩ̬'s (its line): ŋ's length" } }
 trim.dedx = [{ key = "trate", v = 21.8, scale = false, tag = "measured", proof = "ipa/proofs/B_U+1DF00+U+032C.json" }]
+
+[sound."B:U+02AC"]
+ipa = "ʬ"
+codepoints = ["U+02AC"]
+name = "bilabial percussive (the lips smacked together)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "bilabial", stricture = "closure", voicing = "unspecified", airstream = "percussive" }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing about a lip smack was found measured (wikipedia_percussive gives no duration, level or spectrum): the strike's level and spectrum are estimates, it lasts one 5 ms frame (the engine's step) where an impact may be shorter, and the closure after it is p's own length in this module (D78)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1"], builds = ["strike (D78)"] }
+
+[sound."B:U+02AC".spec]
+strike = { delay_ms = { v = 0, tag = "derived", rule = "a percussive's sound is the impact of the parts that meet (wikipedia_percussive): heard as the lips meet, where the closure begins" }, length_ms = { v = 5, tag = "estimated", note = "one frame of this engine; nothing measured for a lip smack" }, level_db = { v = 0, tag = "estimated", note = "its loudest 2 ms against the loudest 2 ms of the middle of the vowel after (of the vowel before, at a word's end), peak against peak: as loud as the vowel, so that it stands over the last pulses of the vowel before, which it cuts off; at -6 dB against the vowel's level it lay under them (D78); nothing measured for a lip smack" }, centroid_hz = { v = 2000, tag = "estimated", note = "nothing measured for a lip smack; an engineering patent's detector of lip smacks (Yeh, Cengarle and De Burgh, US 2023/0267945, read by a research helper, REFERENCES.md, fourteenth session) looks for their largest spectral peak above 1.5 kHz, which is not a measurement; set below ʭ's, soft lips against hard teeth" } }
+
+[sound."B:U+02AC".tests]
+checks = ["T-percussive", "T-contrast"]
+contrast = [{ with = "U+0070", measure = "strike_found", sign = 1, distinct = true }, { with = "U+0070", measure = "burst_found", sign = -1, distinct = true }, { with = "B:U+02AD", measure = "strike_centroid_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+02AC.json"
+
+[sound."B:U+02AC".realization.openevv]
+# the lips' closure of the module's p, struck as it begins (the layer's `hit'), parted with no burst
+carrier = "p"
+keys = { ant = { v = 50, tag = "derived", rule = "as p's line (ipa/realized/dedx.map: ant=50 l2=216 lk=75): the lips' place" }, l2 = { v = 216, tag = "derived", rule = "as p's line: the lips' place" }, lk = { v = 75, tag = "derived", rule = "as p's line: the lips' place" }, noburst = { v = 1, tag = "derived", rule = "no airstream (wikipedia_percussive): nothing is held behind the lips, so their parting makes no burst" }, vot = { v = 0, tag = "derived", rule = "no airstream and no burst: the voice of a vowel after begins as the lips part" }, hit = { v = 0, tag = "derived", rule = "the strike's delay_ms" }, hitms = { v = 5, tag = "derived", rule = "the strike's length_ms" }, hitaf = { v = 60, tag = "estimated", rule = "the strike's noise level, with hitg, chosen to meet its level_db" }, hitg = { v = 20, tag = "estimated", rule = "the strike louder than the parallel gains reach, chosen to meet its level_db" }, a2 = { v = 60, tag = "estimated", rule = "the strike's noise on F2 and F3, to put its centre near its centroid_hz" }, a3 = { v = 60, tag = "estimated", rule = "see a2" }, a4 = { v = 40, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, ab = { v = 0, tag = "estimated", rule = "see a2" } }
+
+[sound."B:U+02AD"]
+ipa = "ʭ"
+codepoints = ["U+02AD"]
+name = "bidental percussive (the teeth clashed together)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / consonants (non-IPA)"
+kind = "base"
+features = { class = "consonant", place = "dental", stricture = "closure", voicing = "unspecified", airstream = "percussive", place_mark = "bridge-above" }
+state = "created"
+level = 2
+approximate = true
+deviation = "nothing about teeth clashed in speech was found measured (wikipedia_percussive gives no duration, level or spectrum): the strike's level and spectrum are estimates, it lasts one 5 ms frame, and the closure is t's own (the tongue's, in this module), its place t's; the jaw closing carries the tongue to the teeth, but a real ʭ need not close the mouth at all (D78)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1"], builds = ["strike (D78)"] }
+
+[sound."B:U+02AD".spec]
+strike = { delay_ms = { v = 0, tag = "derived", rule = "a percussive's sound is the impact of the parts that meet (wikipedia_percussive): heard as the teeth meet, where the closure begins" }, length_ms = { v = 5, tag = "estimated", note = "one frame of this engine; tooth contact heard by bone conduction lasts 10 to 20 ms (Xie, Li, Wu and Wang 2024, read by a research helper), not what is heard in the air" }, level_db = { v = 0, tag = "estimated", note = "its loudest 2 ms against the loudest 2 ms of the middle of the vowel after (of the vowel before, at a word's end), peak against peak: as loud as the vowel, so that it stands over the last pulses of the vowel before, which it cuts off; at -6 dB against the vowel's level it lay under them (D78); nothing measured in the air (Xie et al. 2024: the air-conducted sound of clenched teeth much weaker than the bone-conducted, no figure)" }, centroid_hz = { v = 3000, tag = "estimated", note = "nothing measured for speech; Xia and Wang 2022 (BMC Oral Health 22:74, CC BY 4.0, read by a research helper) report a Praat pitch of 2906 Hz (SD 755) for tooth contact heard by bone conduction, of doubtful meaning on a transient; set above ʬ's, hard teeth against soft lips" } }
+
+[sound."B:U+02AD".tests]
+checks = ["T-percussive", "T-contrast"]
+contrast = [{ with = "U+0074", measure = "strike_found", sign = 1, distinct = true }, { with = "U+0074", measure = "burst_found", sign = -1, distinct = true }, { with = "B:U+02AC", measure = "strike_centroid_hz", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+02AD.json"
+
+[sound."B:U+02AD".realization.openevv]
+# the module's t closure, struck as it begins (the layer's `hit'), parted with no burst
+carrier = "t"
+keys = { ant = { v = 50, tag = "derived", rule = "as t's line (ipa/realized/dedx.map: ant=50 l2=417 lk=69): the place at the teeth" }, l2 = { v = 417, tag = "derived", rule = "as t's line: the place at the teeth" }, lk = { v = 69, tag = "derived", rule = "as t's line: the place at the teeth" }, noburst = { v = 1, tag = "derived", rule = "no airstream (wikipedia_percussive): nothing is held behind the closure, so its parting makes no burst" }, vot = { v = 0, tag = "derived", rule = "no airstream and no burst: the voice of a vowel after begins as the teeth part" }, hit = { v = 0, tag = "derived", rule = "the strike's delay_ms" }, hitms = { v = 5, tag = "derived", rule = "the strike's length_ms" }, hitaf = { v = 52, tag = "estimated", rule = "the strike's noise level, with hitg, chosen to meet its level_db" }, hitg = { v = 20, tag = "estimated", rule = "the strike louder than the parallel gains reach, chosen to meet its level_db" }, a2 = { v = 0, tag = "estimated", rule = "the strike's noise on the high bands, to put its centre near its centroid_hz" }, a3 = { v = 0, tag = "estimated", rule = "see a2" }, a4 = { v = 60, tag = "estimated", rule = "see a2" }, a5 = { v = 40, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, ab = { v = 0, tag = "estimated", rule = "see a2" } }
+
+[sound."B:U+00A1"]
+ipa = "¡"
+codepoints = ["U+00A1"]
+name = "sublaminal lower-alveolar percussive (tongue slap)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "base"
+features = { class = "consonant", place = "alveolar", stricture = "tap", voicing = "unspecified", airstream = "percussive" }
+state = "created"
+level = 2
+approximate = true
+deviation = "only the slap after a click has been described (wright_etal_1995: its time and its level); ¡ alone is that slap with no click before it, the tongue tip raised as for l and flicked down, the voice of the vowels around it going on (nothing closes the mouth or the glottis); the slap's spectrum is an estimate and it lasts one 5 ms frame where the one measured lasted about 3 ms (D78)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1"], builds = ["strike (D78)"] }
+
+[sound."B:U+00A1".spec]
+strike = { delay_ms = { v = 40, tag = "estimated", note = "the tip raised before it is flicked down: about the middle of the module's l between vowels" }, length_ms = { v = 5, tag = "estimated", note = "one frame of this engine; about 3 ms read off wright_etal_1995 Fig. 17 by a research helper" }, level_db = { v = 0, tag = "derived", rule = "the slap after a click, as loud as the vowel after or louder (wright_etal_1995 p. 16): the least of that" }, centroid_hz = { v = 1500, tag = "estimated", note = "read off wright_etal_1995 Fig. 17 by a research helper (about four cycles in 2.5 ms), not stated in the text" } }
+
+[sound."B:U+00A1".tests]
+checks = ["T-percussive", "T-contrast"]
+contrast = [{ with = "U+006C", measure = "strike_found", sign = 1, distinct = true }, { with = "U+027E", measure = "strike_found", sign = 1, distinct = true }, { with = "U+01C3", measure = "strike_found", sign = 1, distinct = true }, { with = "U+01C3", measure = "voiced_frac", sign = 1, distinct = true }, { with = "B:U+02AC", measure = "strike_centroid_hz", sign = -1, distinct = true }, { with = "B:U+02AD", measure = "strike_centroid_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+00A1.json"
+
+[sound."B:U+00A1".realization.openevv]
+# the module's l (the tip raised), its tip flicked down onto the floor of the mouth: a strike (the layer's `hit')
+carrier = "l"
+keys = { hit = { v = 40, tag = "derived", rule = "the strike's delay_ms" }, hitms = { v = 5, tag = "derived", rule = "the strike's length_ms" }, hitaf = { v = 68, tag = "estimated", rule = "the strike's noise level, with hitg, chosen to meet its level_db" }, hitg = { v = 20, tag = "estimated", rule = "the strike louder than the parallel gains reach, chosen to meet its level_db" }, a2 = { v = 60, tag = "estimated", rule = "the strike's noise on F2 and F3, to put its centre near its centroid_hz" }, a3 = { v = 40, tag = "estimated", rule = "see a2" }, a4 = { v = 0, tag = "estimated", rule = "see a2" }, a5 = { v = 0, tag = "estimated", rule = "see a2" }, a6 = { v = 0, tag = "estimated", rule = "see a2" }, ab = { v = 0, tag = "estimated", rule = "see a2" } }
+
+[sound."B:U+01C3+U+00A1"]
+ipa = "ǃ¡"
+codepoints = ["U+01C3", "U+00A1"]
+name = "alveolar click with a sublaminal percussive release (cluck)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / other sounds"
+kind = "base"
+features = { class = "consonant", place = "postalveolar", place2 = "velar", stricture = "closure", voicing = "unspecified", airstream = "click", release = "percussive" }
+state = "created"
+level = 2
+approximate = true
+deviation = "ǃ's deviations (its voice onset); the slap lasts one 5 ms frame where the one measured lasted about 3 ms, and its noise lies on the second formant the frames carry 20 ms after the release, ǃ's lowered F2 still on its way to the vowel's (its centre measured 760 to 900 Hz, against the 1.5 kHz a research helper read off wright_etal_1995 Fig. 17, which the text does not state: no spectrum of the slap was published, so none is specified); its voice onset is not held to ǃ's, the slap breaking into it (D78)"
+plan = { decision = "new letter", end_state = "created", uses = ["X1", "C10"], builds = ["rel2g (D78)"] }
+
+[sound."B:U+01C3+U+00A1".spec]
+burst = { length_ms = { v = 9, tag = "derived", rule = "ǃ's (its specification: miller_shah2009 figure 2, the two men's mean): the click's own release" }, level_db = { v = 0.7, tag = "derived", rule = "ǃ's (its specification: miller_shah2009 figure 3)" }, centroid_hz = { v = 1000, tag = "derived", rule = "ǃ's (its specification: miller_shah2009 section 3.2)" } }
+slap = { delay_ms = { v = 20, tag = "literature", ref = "wright_etal_1995", note = "p. 16: about 20 ms from the click's release to the slap, where both can be seen" }, length_ms = { v = 3, tag = "estimated", note = "read off wright_etal_1995 Fig. 17 by a research helper, not stated in the text" }, level_db = { v = 0, tag = "derived", rule = "as loud as the vowel after or louder (wright_etal_1995 p. 16): the least of that" } }
+
+[sound."B:U+01C3+U+00A1".tests]
+checks = ["T-click", "T-percussive", "T-contrast"]
+contrast = [{ with = "U+01C3", measure = "slap_found", sign = 1, distinct = true }, { with = "B:U+00A1", measure = "slap_found", sign = 1, distinct = true }, { with = "B:U+00A1", measure = "voiced_frac", sign = -1, distinct = true }, { with = "B:U+02AC", measure = "slap_found", sign = 1, distinct = true }, { with = "B:U+02AD", measure = "slap_found", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+01C3+U+00A1.json"
+
+[sound."B:U+01C3+U+00A1".realization.openevv]
+# ǃ's line (the click), with a second release 20 ms after the first: the tongue's slap (the layer's `rel2', `rel2g')
+carrier = "t"
+keys = { a2 = { v = 80, tag = "derived", rule = "as ǃ's line (ipa/realized/dedx.map: a2=80 a3=0 a4=0 a5=0 a6=0 bgain=28 burst=10 burstms=5 ej=1 f2=55 vot=2): the click's burst" }, a3 = { v = 0, tag = "derived", rule = "as ǃ's line" }, a4 = { v = 0, tag = "derived", rule = "as ǃ's line" }, a5 = { v = 0, tag = "derived", rule = "as ǃ's line" }, a6 = { v = 0, tag = "derived", rule = "as ǃ's line" }, bgain = { v = 28, tag = "derived", rule = "as ǃ's line (its trim, measured, ipa/proofs/U+01C3.json)" }, burst = { v = 10, tag = "derived", rule = "as ǃ's line" }, burstms = { v = 5, tag = "derived", rule = "as ǃ's line" }, ej = { v = 14, tag = "estimated", rule = "ǃ's release kept quiet after its burst until the slap (ǃ's line has 1 ms, after which the release goes on as noise for some 10 ms): the slap a second release of its own, the click's release almost inaudible as wright_etal_1995 p. 16 says it may be" }, f2 = { v = 55, tag = "derived", rule = "as ǃ's line" }, vot = { v = 2, tag = "derived", rule = "as ǃ's line (its trim, measured, ipa/proofs/U+01C3.json)" }, rel2 = { v = 20, tag = "derived", rule = "the slap's delay_ms" }, rel2ms = { v = 5, tag = "estimated", rule = "one frame of the engine (the slap's length_ms is 3)" }, rel2af = { v = 80, tag = "estimated", rule = "the slap's noise level, with rel2g, chosen to meet its level_db" }, rel2g = { v = 26, tag = "estimated", rule = "the slap louder than the parallel gains reach, chosen to meet its level_db" } }

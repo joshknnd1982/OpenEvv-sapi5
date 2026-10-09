@@ -311,6 +311,92 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
                     if n1 - n0 >= 20:
                         ex['noise_db'] = (A.intensity_db(x, rate, n0 + (n1 - n0) / 4.0, n1 - (n1 - n0) / 4.0)
                                           - A.intensity_db(x, rate, m_ - 15.0, m_ + 15.0))
+        # a strike (extIPA's percussives, D78): two parts of the mouth heard hitting each other.
+        # Where it is, the frames say: noise with no voice and no breath under it, just before a
+        # closure begins (the lips or the teeth meeting, ʬ ʭ), or, in a sound with no closure, a
+        # break of at most 10 ms in its voice (the tongue's slap on the floor of the mouth, ¡; a
+        # voiceless fricative's noise is no strike); a click's slap (ǃ¡) is such noise from 10 to
+        # 45 ms after the release, apart from the release's own (no such noise in the 10 ms
+        # before it: ǃ's release goes on as noise 10 to 15 ms after it, 5 ms after its burst, as
+        # loud as the vowel), that the signal shows within 10 dB of the vowel's peaks or louder
+        # (word-finally, after a stressed schwa, the slap reads -6 dB: the engine's ceiling).
+        # How loud and where in the spectrum, the signal says: its loudest 2 ms against the
+        # loudest 2 ms of the middle 30 ms of the vowel after (of the vowel before, at a word's
+        # end), peak against peak, as wright_etal_1995 compare the slap with the vowel; its
+        # spectral centre; when it comes (from the closure's start, or the sound's) and how long
+        # it lasts, from the frames
+        tS, frS = E.frame_times(r['frames']), r['frames']
+        P_ = E.P
+
+        def bare_noise(i):
+            return frS[i, P_['af']] > 0 and frS[i, P_['av']] == 0 and frS[i, P_['ah']] == 0
+        inS = [i for i in range(len(tS)) if a <= tS[i] < b]
+        shutS = [i for i in inS if frS[i, P_['af']] == 0 and frS[i, P_['ah']] == 0 and frS[i, P_['av']] < 30]
+        if shutS:
+            hits = [i for i in inS if bare_noise(i) and shutS[0] - 2 <= i < shutS[0]]
+        else:
+            hits, i = [], 0
+            while i < len(inS):
+                if not bare_noise(inS[i]):
+                    i += 1
+                    continue
+                j = i
+                while j + 1 < len(inS) and bare_noise(inS[j + 1]):
+                    j += 1
+                run_ = inS[i:j + 1]
+                k0, k1 = run_[0] - 1, run_[-1] + 1
+                if not hits and sum(frS[k, 0] for k in run_) <= 10.0 and k0 >= 0 and k1 < len(tS) \
+                        and frS[k0, P_['av']] > 0 and frS[k1, P_['av']] > 0:
+                    hits = run_
+                i = j + 1
+        refS = None
+        # (the phones right after and right before the sound: a case alone names no neighbours, and
+        # its schwa before is the only vowel it has)
+        for vS in [phones[k_] for k_ in (idx[-1] + 1, idx[0] - 1) if 0 <= k_ < len(phones)]:
+            if vS['cls'] == 'vowel' and vS['end_ms'] - vS['start_ms'] >= 40:
+                mS = (vS['start_ms'] + vS['end_ms']) / 2.0
+                env_, _ = A.envelope_db(x, rate, mS - 15.0, mS + 15.0, hop_ms=0.5, win_ms=2.0)
+                if len(env_):
+                    refS = float(env_.max())
+                    break
+
+        def level_at(i0, i1):
+            s0, s1 = tS[i0], tS[i1] + frS[i1, 0]
+            if refS is None:
+                return None
+            env_, _ = A.envelope_db(x, rate, s0, s1 + 3.0, hop_ms=0.5, win_ms=2.0)
+            return float(env_.max()) - refS if len(env_) else None
+
+        def strike_at(i0, i1, key):
+            s0, s1 = tS[i0], tS[i1] + frS[i1, 0]
+            lv_ = level_at(i0, i1)
+            if lv_ is not None:
+                ex[key + '_db'] = lv_
+            ex[key + '_len_ms'] = float(s1 - s0)
+            sm_ = A.spectrum_moments(x, rate, s0, s1, fmin=300.0)
+            if sm_:
+                ex[key + '_centroid_hz'] = float(sm_['centroid_hz'])
+        ex['strike_found'] = int(bool(hits))
+        if hits:
+            strike_at(hits[0], hits[-1], 'strike')
+            # from where the closure begins (the strike is its first moment) or the sound begins
+            ex['strike_ms'] = 0.0 if shutS else float(tS[hits[0]] - a)
+        ex['slap_found'] = 0    # (no closure, no release, no slap)
+        if shutS:
+            # the first closure's end (a click's own release follows it)
+            run_ = [shutS[0]]
+            for i in shutS[1:]:
+                if i != run_[-1] + 1:
+                    break
+                run_.append(i)
+            relS = tS[run_[-1]] + frS[run_[-1], 0]
+            slaps = [i for i in range(len(tS)) if relS + 10.0 <= tS[i] < relS + 45.0 and bare_noise(i)
+                     and not any(bare_noise(j) for j in range(len(tS)) if tS[i] - 10.0 <= tS[j] < tS[i])
+                     and (level_at(i, i) if refS is not None else -99.0) >= -10.0]
+            ex['slap_found'] = int(bool(slaps))
+            if slaps:
+                ex['slap_ms'] = float(tS[slaps[0]] - relS)
+                strike_at(slaps[0], slaps[0], 'slap')
         mod = A.modulation(x, rate, a, b)
         if mod:
             ex['modulation'] = mod
@@ -539,7 +625,9 @@ def summary(cases, man):
     for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms', 'voicing_slope', 'burst_db', 'burst_len_ms',
               'burst_centroid_hz', 'gap_breath_frac', 'voiced_head', 'voiced_mid', 'voiced_tail', 'creak_head',
               'creak_mid', 'creak_tail', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db',
-              'rel_af_ms', 'rel_hnr_db', 'rel_noise_db', 'rel_peak_hz', 'rel_centroid_hz'):
+              'rel_af_ms', 'rel_hnr_db', 'rel_noise_db', 'rel_peak_hz', 'rel_centroid_hz', 'strike_found',
+              'strike_db', 'strike_centroid_hz', 'strike_ms', 'strike_len_ms', 'slap_found', 'slap_ms', 'slap_db',
+              'slap_centroid_hz', 'slap_len_ms'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
         if v is not None:
             s['%s' % k] = round(v, 2)
@@ -549,7 +637,8 @@ def summary(cases, man):
                  for cid, c in sorted(cases.items()) if cid != 'alone' and 'next_req_F%d_0' % k in c.get('edges', {})]
         if pairs:
             s['next_req_F%d_pairs' % k] = pairs
-    for k in ('voicing_slope', 'burst_db', 'burst_len_ms', 'burst_centroid_hz'):
+    for k in ('voicing_slope', 'burst_db', 'burst_len_ms', 'burst_centroid_hz', 'strike_db', 'strike_centroid_hz',
+              'strike_ms', 'strike_len_ms', 'slap_ms', 'slap_db', 'slap_len_ms'):
         # in how many contexts the measure was found: a median of one is not a proof (check_b3)
         s['n_' + k] = sum(1 for cid, c in cases.items() if cid != 'alone' and (c.get('extra') or {}).get(k) is not None)
     if s.get('F2_50_hz') is not None:
@@ -670,6 +759,21 @@ def check_b3(e, s):
             tol = {'length_ms': max(0.4 * w, 5.0), 'level_db': 3.0, 'centroid_hz': 0.25 * w}[k]
             out['burst %s' % k] = dict(target=w, measured=got, contexts=n,
                                        within=got is not None and n >= 2 and abs(got - w) <= tol)
+    # T-percussive (D78): a strike's level against the vowel's peaks within 3 dB and its spectral
+    # centre within 25 per cent (as a click's burst), when it comes and how long it lasts within 5
+    # ms (the frame step); a click's slap, its time from the release and its length within 5 ms,
+    # its level within 3 dB; each found in two contexts at least
+    for grp, keys in (('strike', (('level_db', 'strike_db', 3.0), ('centroid_hz', 'strike_centroid_hz', None),
+                                  ('delay_ms', 'strike_ms', 5.0), ('length_ms', 'strike_len_ms', 5.0))),
+                      ('slap', (('delay_ms', 'slap_ms', 5.0), ('level_db', 'slap_db', 3.0),
+                                ('length_ms', 'slap_len_ms', 5.0)))):
+        for k, mk, tol in keys:
+            x = (spec.get(grp) or {}).get(k)
+            if x is not None:
+                got, w, n = s.get(mk), v(x), s.get('n_' + mk, 0)
+                tol_ = 0.25 * w if tol is None else tol
+                out['%s %s' % (grp, k)] = dict(target=w, measured=got, contexts=n,
+                                               within=got is not None and n >= 2 and abs(got - w) <= tol_)
     # T-airstream: the voice's level through the closure, dB per 10 ms, within 1 (the measure's
     # own error is 0.4 on a synthetic swell, selftest.py; the source is a curve read from a figure)
     x = (spec.get('closure') or {}).get('voicing_slope_db10')
@@ -788,6 +892,9 @@ def contrast_ok(measure, mine, theirs, sign, same_base=False):
     if measure == 'voicing_slope':
         # dB per 10 ms: twice the measure's error on a synthetic swell (0.4, selftest.py)
         return (d * sign >= 0.8), round(d, 2)
+    if measure.endswith('_found'):
+        # found or not (in the median context): one against nought (D78)
+        return (d * sign >= 1), round(d, 2)
     if same_base and not (measure.endswith('_ms') or measure.endswith('_db') or measure.startswith('mod_dips')):
         # a mark against its own base in the same context: the context's variation cancels, so
         # a smaller move is real (1.5 per cent, at least 15 Hz)
@@ -839,10 +946,10 @@ def judge(t, sid, cases, diags, said_as):
     if e['kind'] == 'base':
         b3 = check_b3(e, s)
         air = e['features'].get('airstream', 'pulmonic')
-        need = {'click': 'burst ', 'implosive': 'closure voicing slope'}.get(air)
+        need = {'click': 'burst ', 'implosive': 'closure voicing slope', 'percussive': 'strike '}.get(air)
         if air != 'pulmonic' and not (need and any(k.startswith(need) for k in b3['targets'])):
             # what makes a click or an implosive is its airstream: without its own targets
-            # (T-click, T-airstream) the generic checks prove the place, not the sound
+            # (T-click, T-airstream, T-percussive) the generic checks prove the place, not the sound
             b3['targets']['airstream (T-click, T-airstream)'] = dict(target=air, measured=None, within=False)
             b3['passed'] = False
     elif e['kind'] == 'modifier' or (e['kind'] == 'tie' and not PZ.check_of(e)):

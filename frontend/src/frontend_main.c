@@ -1032,6 +1032,7 @@ static int translate_ipa(const char *given)
 		seg_len = l;
 		p += l;
 		chars++;
+		int lt_len = letter ? l : 0; /* the letter's bytes, at the end of seg so far */
 		if (!letter && evv_map_has_premod(&g_map, s, (size_t)l)) {
 			/* marks written before a letter (extIPA's ʰp, ˬz: `premod' lines),
 			   then the letter they belong to */
@@ -1046,6 +1047,7 @@ static int translate_ipa(const char *given)
 				chars++;
 				if (lt) {
 					letter = lt;
+					lt_len = ml;
 					break;
 				}
 			}
@@ -1053,6 +1055,26 @@ static int translate_ipa(const char *given)
 		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && *p != '.' && *p != '|') {
 			int ml = utf8_char_len((unsigned char)*p);
 			const EvvToneMark *m = evv_map_tonemark(&g_map, p, (size_t)ml);
+			if (lt_len && !tied && lt_len + ml < 16 && seg_len + ml < (int)sizeof(seg) &&
+			    evv_map_letter(&g_map, p, (size_t)ml)) {
+				/* a letter of two letters, the second right after the first
+				   (extIPA's cluck ǃ¡: a click and the tongue's slap), is one
+				   letter where the map lists the pair */
+				char two[16];
+				memcpy(two, seg + seg_len - lt_len, (size_t)lt_len);
+				memcpy(two + lt_len, p, (size_t)ml);
+				const EvvLetter *lt2 = evv_map_letter(&g_map, two, (size_t)(lt_len + ml));
+				if (lt2) {
+					letter = lt2;
+					memcpy(seg + seg_len, p, (size_t)ml);
+					seg_len += ml;
+					p += ml;
+					chars++;
+					lt_len = 0; /* the pair is the letter: no third joins it */
+					continue;
+				}
+			}
+			lt_len = 0; /* anything between: no letter of two after it */
 			if (letter && !tied && evv_map_has_premod(&g_map, p, (size_t)ml) &&
 			    !evv_map_has_mod(&g_map, p, (size_t)ml, letter->cls)) {
 				/* a mark this letter has no line for, written before the
@@ -1064,9 +1086,12 @@ static int translate_ipa(const char *given)
 				if (*q && evv_map_letter(&g_map, q, (size_t)utf8_char_len((unsigned char)*q)))
 					break;
 			}
+			int after_tie = 0;
 			if (tied && evv_map_letter(&g_map, p, (size_t)ml)) {
-				/* the letter after a tie bar belongs to this segment */
+				/* the letter after a tie bar belongs to this segment (and
+				   may begin a letter of two: ŋ͡ǃ¡) */
 				tied = 0;
+				after_tie = 1;
 			} else if (evv_map_letter(&g_map, p, (size_t)ml) ||
 			    (ml == 2 && (unsigned char)p[0] == 0xcb && ((unsigned char)p[1] == 0x88 || (unsigned char)p[1] == 0x8c)) ||
 			    (m && !(m->kind == 't' && is_combining((const unsigned char *)p, ml))) ||
@@ -1085,6 +1110,8 @@ static int translate_ipa(const char *given)
 			} else if (seg_len + ml < (int)sizeof(seg)) {
 				memcpy(seg + seg_len, p, (size_t)ml);
 				seg_len += ml;
+				if (after_tie)
+					lt_len = ml;
 			} else {
 				cut = 1;
 			}

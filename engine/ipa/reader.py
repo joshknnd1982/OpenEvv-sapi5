@@ -439,11 +439,14 @@ def test(n_random=20000, seed=1):
             check(got == [want], '%s: ʰ read as %s' % (x, got))
 
     # a letter of two characters (ɹ̈ ɹ̺, D74) stays itself with a mark after it, and with a mark
-    # below that canonical order puts before its own mark (ɹ̩̈ comes as ɹ, ̩, ̈)
+    # below that canonical order puts before its own mark (ɹ̩̈ comes as ɹ, ̩, ̈); a letter of two
+    # letters (ǃ¡, D78) takes its marks after its second (one between is the first letter's)
     for sid, e in t.sounds.items():
         if e['kind'] == 'base' and len(e['ipa']) == 2:
-            for x, mark in ((e['ipa'] + 'ː', 'U+02D0'), (e['ipa'][0] + '̩' + e['ipa'][1], 'U+0329'),
-                            (e['ipa'][0] + '̥' + e['ipa'][1], 'U+0325')):
+            mark2 = unicodedata.combining(e['ipa'][1]) != 0
+            for x, mark in ((e['ipa'] + 'ː', 'U+02D0'),
+                            (e['ipa'][0] + '̩' + e['ipa'][1] if mark2 else e['ipa'] + '̩', 'U+0329'),
+                            (e['ipa'][0] + '̥' + e['ipa'][1] if mark2 else e['ipa'] + '̥', 'U+0325')):
                 sg = _segments(read(unicodedata.normalize('NFD', x), t=t))
                 check(len(sg) == 1 and sg[0]['base'] == sid and sg[0]['mods'] == [mark],
                       '%s read as %s' % (x, [(g.get('base'), g.get('mods')) for g in sg]))

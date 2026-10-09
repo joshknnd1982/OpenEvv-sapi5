@@ -208,6 +208,20 @@ typedef struct {
                            (frame word ATV, as `bgain' for a burst):
                            friction heard over a voice, a velopharyngeal
                            one (D77); nought: as before */
+    int  rel2g;         /* the second release louder by so many dB than the
+                           parallel gains reach (ATV, as `bgain'): the
+                           tongue's slap after a click, as loud as the
+                           vowel (extIPA's cluck); nought: as before */
+    int  hit, hitms;    /* a strike: two parts of the mouth hitting each
+                           other, heard as a noise this long (ms), so many
+                           ms after the sound's closure begins (a stop) or
+                           after its own stretch begins (any other sound);
+                           the noise on the bands a2 to ab, no voice or
+                           breath under it (extIPA's percussives); hitms
+                           nought: none */
+    int  hitaf;         /* and its level, dB as the synthesiser has it */
+    int  hitg;          /* and louder by so many dB than the parallel gains
+                           reach (ATV, as `bgain') */
 } Def;
 
 typedef struct {
@@ -755,6 +769,9 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "frelf3", offsetof(Def, frelf[1]) },
         { "lmur", offsetof(Def, lmur) },
         { "fgain", offsetof(Def, fgain) },
+        { "rel2g", offsetof(Def, rel2g) },
+        { "hit", offsetof(Def, hit) }, { "hitms", offsetof(Def, hitms) },
+        { "hitaf", offsetof(Def, hitaf) }, { "hitg", offsetof(Def, hitg) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -2354,6 +2371,31 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
             tap_every = 0;
         }
 
+        /* a strike (`hitms'): counted from where a stop's closure begins
+           in the module's own frames, or from the start of any other
+           sound's own stretch */
+        int hit_from = n_on;
+        double hit_at = 0;
+
+        if (def != 0 && def->hitms > 0 && is_stop(a, ph))
+            for (k = n_on; k < n_on + n_own; k++) {
+                const int32_t *f = out + (size_t)k * P_COUNT;
+
+                if (is_silent(f) || f[P_AV] < 30) {
+                    hit_from = k;
+                    break;
+                }
+            }
+        if (def != 0 && def->hitms > 0) {
+            /* in a stretch too short for it (a quick l), the strike
+               comes at the stretch's end rather than not at all */
+            double room = (n_on + n_own - hit_from) * step - def->hitms;
+
+            hit_at = def->hit < room ? def->hit : room;
+            if (hit_at < 0)
+                hit_at = 0;
+        }
+
         if (def != 0 && def->pre > 0 && is_stop(a, ph)) {
             for (k = n_on; k < n_on + n_own; k++) {
                 const int32_t *f = out + (size_t)k * P_COUNT;
@@ -2561,6 +2603,8 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     for (i = 0; i < 6; i++)
                         f[NOISE[i]] = 0;
                     f[P_A2F] = clamp(was->rel2af, 0, 80);
+                    if (was->rel2g > 0)
+                        f[P_ATV] = clamp(was->rel2g, 0, 40);
                 }
 
                 if (was->brth > 0 && since >= 0 && since < was->brth) {
@@ -2633,6 +2677,8 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                         for (i = 0; i < 6; i++)
                             f[NOISE[i]] = 0;
                         f[P_A2F] = clamp(def->rel2af, 0, 80);
+                        if (def->rel2g > 0)
+                            f[P_ATV] = clamp(def->rel2g, 0, 40);
                     }
                     release_friction(def, ph, since, step, f);
                 }
@@ -2828,6 +2874,20 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                        out early, and breath is heard until the closure. */
                     f[P_AH] = clamp(f[P_AV] - 2, 0, 60);
                     f[P_AV] = 0;
+                }
+                if (def->hitms > 0 && k >= hit_from
+                    && (k - hit_from) * step + dt > hit_at
+                    && (k - hit_from) * step < hit_at + def->hitms) {
+                    /* A strike: the parts that meet are heard hitting,
+                       a noise with nothing under it, as loud as asked. */
+                    f[P_AV] = 0;
+                    f[P_AH] = 0;
+                    f[P_AF] = clamp(def->hitaf, 0, 80);
+                    for (i = 0; i < 6; i++)
+                        f[NOISE[i]] = def->amp[i] != UNSET
+                            ? clamp(def->amp[i], 0, 80) : 0;
+                    if (def->hitg > 0)
+                        f[P_ATV] = clamp(def->hitg, 0, 40);
                 }
             }
 
