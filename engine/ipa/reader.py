@@ -128,7 +128,8 @@ def read(text, strict=True, t=None, notation='ipa'):
     s = normalize(text, strict)
     # a Tier B letter that stands for a Tier A spelling (ꞯ for q̠, D68) is read as that spelling;
     # every other Tier B composite is its own parts already
-    for e in t.sounds.values():
+    # (the longest first: ʩ̬ stands for ŋ͌, ʩ for ŋ̊͌, D77)
+    for e in sorted(t.sounds.values(), key=lambda e: -len(e['ipa'])):
         if e['kind'] == 'composite' and e.get('said_as'):
             s = s.replace(e['ipa'], e['said_as'])
     items, warnings = [], []
