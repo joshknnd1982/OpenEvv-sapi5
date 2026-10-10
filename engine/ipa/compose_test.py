@@ -154,10 +154,10 @@ def main():
             rd = R.read(ipa, strict=False, t=t, notation=notation or 'ipa')
             seg = [it for it in rd['items'] if it['t'] == 'seg'][0]
             b, ms = seg['base'], seg['mods']
-            if not ms and len(t.sounds[b]['ipa']) == 2 and len(rd['items']) == 1:
-                # the letter and mark spell a letter of two characters (ɹ with ̺ is ɹ̺, D74),
-                # nothing else read: it is said by its own line, not composed, and proved as its
-                # own entry
+            if not ms and len(t.sounds[b]['ipa']) >= 2 and len(rd['items']) == 1:
+                # the letter and mark spell a letter of two characters (ɹ with ̺ is ɹ̺, D74), or of
+                # three or four (h with ̪ and ͆ is h̪͆, D79; D87: the whole run met it), nothing else
+                # read: it is said by its own line, not composed, and proved as its own entry
                 letters_of_two += 1
                 continue
         want = AD.compose(t, b, ms, a.template, _carrier_meas(b))
