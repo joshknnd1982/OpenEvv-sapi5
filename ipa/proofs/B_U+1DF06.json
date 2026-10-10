@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "11e84320a7b2ef600742d5a85d0d521255b3d53d158b46a01501755b270028bc",
+ "map_sha256": "5000e65ec1ea68846d3a2ca3d455281600fa65379860a109f4f6218097774e99",
  "said_as": {
   "pack": "hi",
   "carrier": "X",
@@ -185,6 +185,7 @@
     "noise_tail": 1.0,
     "voice_in_ms": 20.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 160.0,
     "strike_found": 0,
     "slap_found": 0,
     "modulation": {
@@ -439,6 +440,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 35.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 90.0,
+    "voice_after_ms": 0.0,
     "mid_db": -12.715233215317301,
     "noise_db": -14.168919767443096,
     "strike_found": 0,
@@ -702,6 +705,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 30.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 90.0,
+    "voice_after_ms": 0.0,
     "mid_db": -6.093383073507965,
     "noise_db": -6.565758194447412,
     "strike_found": 0,
@@ -965,6 +970,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 35.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 90.0,
+    "voice_after_ms": 0.0,
     "mid_db": -14.592573317287314,
     "noise_db": -15.295204022213351,
     "strike_found": 0,
@@ -1039,6 +1046,8 @@
   "noise_mid": 1.0,
   "voice_in_ms": 35.0,
   "voice_out_ms": 0.0,
+  "voice_gap_ms": 90.0,
+  "voice_after_ms": 0.0,
   "mid_db": -12.72,
   "noise_db": -14.17,
   "strike_found": 0,
@@ -1178,60 +1187,8 @@
  "rounds": [
   {
    "round": 1,
-   "trims": {},
-   "B3": {
-    "peak_hz": {
-     "target": 2832,
-     "measured": 2856.5,
-     "within": true
-    },
-    "locus F2 (equation, frames)": {
-     "target": "1981 + 0.34 x (vowel - 1981)",
-     "measured": [
-      [
-       2002.0,
-       1562
-      ],
-      [
-       2452.0,
-       2774
-      ],
-      [
-       1705.0,
-       578
-      ]
-     ],
-     "deviation": [
-      0.089,
-      0.089,
-      0.134
-     ],
-     "locus": 1981,
-     "slope": 0.34,
-     "within": false
-    },
-    "locus F3 (frames)": {
-     "target": 2878,
-     "measured": 2842.0,
-     "within": true
-    }
-   },
-   "keys": {
-    "l2": 508,
-    "lk": 34,
-    "f3": 98,
-    "a2": 36,
-    "a3": 56,
-    "a4": 0,
-    "a5": 0,
-    "a6": 0,
-    "ant": 50
-   }
-  },
-  {
-   "round": 2,
    "trims": {
-    "l2": 90.47366805845127
+    "l2": 90.5
    },
    "B3": {
     "peak_hz": {

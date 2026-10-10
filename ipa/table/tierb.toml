@@ -1494,7 +1494,7 @@ plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], buil
 [sound."B:U+02EC#pre".spec]
 
 [sound."B:U+02EC#pre".transform.consonant]
-voicing = { voiced = { set = 1, tag = "derived", rule = "the mark itself: voice on" }, part_to_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
+voicing = { voiced = { set = 1, tag = "derived", rule = "the mark itself: voice on" }, over_whisper = { set = 1, tag = "derived", rule = "a mark's voice, heard over a whispered letter's own whisper, as ◌̬'s (Q33)" }, part_to_pct = { set = 50, tag = "estimated", note = "half the sound: extIPA marks where in the sound, not how much of it; no measurement of a partly (de)voiced sound's share was found (D70)" } }
 
 [sound."B:U+02EC#pre".tests]
 checks = ["T-shift"]
@@ -2374,7 +2374,7 @@ plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], buil
 [sound."B:U+0074+U+1DBF".tests]
 checks = ["T-shift"]
 bases = ["U+0074"]
-shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1 }]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "vot_long_ms", sign = 1, bases = ["U+0074", "U+006B", "U+0070"] }]
 limit = [{ measure = "rel_noise_db", min = -40 }]
 judged_by = "B:U+1DBF"
 proof = "ipa/proofs/B_U+0074+U+1DBF.json"
@@ -2420,7 +2420,7 @@ plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], buil
 [sound."B:U+0064+U+1079E".tests]
 checks = ["T-shift"]
 bases = ["U+0064"]
-shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "rel_hnr_db", sign = -1 }]
+shift = [{ measure = "rel_af_ms", sign = 1 }, { measure = "rel_mid_db", sign = 1 }]
 limit = [{ measure = "rel_noise_db", min = -40 }]
 judged_by = "B:U+1079E"
 proof = "ipa/proofs/B_U+0064+U+1079E.json"

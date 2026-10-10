@@ -493,10 +493,13 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             t_ = E.frame_times(r['frames'])
             fr0 = r['frames']
             # (or shut under a voice bar: a closure the layer voices is at AV 34 with F1 at 250 Hz or
-            # under, the walls of the mouth letting through only what is low, Q30)
+            # under, the walls of the mouth letting through only what is low, Q30; only before the
+            # stop's first friction, since a voice coming back after the release may look the same)
+            af_at = next((t_[i] for i in range(len(t_)) if a <= t_[i] < b and fr0[i, E.P['af']] > 0), b)
             closed = [i for i in range(len(t_)) if a <= t_[i] < b and fr0[i, E.P['af']] == 0
                       and fr0[i, E.P['ah']] == 0 and (fr0[i, E.P['av']] < 30
-                                                      or (fr0[i, E.P['av']] < 40 and fr0[i, E.P['f1']] <= 250))]
+                                                      or (t_[i] < af_at and fr0[i, E.P['av']] < 40
+                                                          and fr0[i, E.P['f1']] <= 250))]
             c0 = t_[closed[0]] if closed else b
             if closed:
                 # breath before the closure (pre-aspiration, D70): the frames just before it with

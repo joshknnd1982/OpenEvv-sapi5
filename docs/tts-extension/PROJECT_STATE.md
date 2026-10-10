@@ -4,8 +4,9 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 4 (Master IPA → acoustic table): IN PROGRESS, paused for context (2026-10-10, seventeenth session)** on branch `tts-ext/phase-4`. Sessions of 2026-10-06 to 2026-10-10: Opus 5.5. The sixteenth session's commits end at `6711dd2`; this session's are after it: **D83** (Tier B: the braces of extIPA and VoQS, a label over a stretch, built as labels the front-end composes on every letter of the stretch; extIPA's pauses, loudness and tempo; every VoQS label; ( ) and ⸨ ⸩ given D81's behaviour; the left and right offsets told apart; new engine keys `di`, `mono`, `mute`) and **D84** (Q22's second half: an affricate the template lacks made as the stop released into the fricative; t̼͡θ̼ d̼͡ð̼ proved). and **D85** (𝼆 and 𝼆̬ proved: the correction loop learns a locus equation). **Tier B is done: 186 records proved, 0 MISSING, 17 notation only.** **Next: continue Phase 4 in a new session** (same prompt); start with "For the next Phase 4 session" below.
-### Phase 4: where it stands (coverage.py, 2026-10-10, end of the seventeenth session)
+**Phase 4 (Master IPA → acoustic table): COMPLETE (2026-10-10, eighteenth session)** on branch `tts-ext/phase-4`. Sessions of 2026-10-06 to 2026-10-10: Opus 5.5. The eighteenth session's work is D87 (the engine change before the rebuild, the two research steps, the review's fixes). **Next: Phase 5 (Independent audit)**, in a new session; read "For Phase 5" below first.
+
+### Phase 4 at its end (coverage.py on the final stage, 2026-10-10)
 
     section             mapped  composed   created   MISSING   BLOCKED  no entry    all
     pulmonic                30         0        29         0         0         0     59
@@ -18,32 +19,34 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
     all                     67        53        55         0         0         0    175
     coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0;
     rendered and measured 175 (proof passed 175); approximate 3
-    provenance of every value in the table: derived 183, estimated 168, literature 209, measured 37
+    provenance of every value in the table: derived 186, estimated 170, literature 210, measured 37
     state against proof: every entry that is not MISSING has a passing proof
     proof against map: every proof of a done entry was made on the map as it stands
     Unicode net: 891 of 891 classified; A 123, B 48, C 575, alias 73, not-phonetic 72
-    tier B: 186 done and proved (mapped 5, composed 162, created 19), 0 MISSING, 17 notation only (of 203); approximate 117
+    Tier B (extIPA, VoQS): 203 records; 186 done and proved, 0 MISSING, 17 notation only
 
-Every Tier A entry is done **on the development stage, not yet on the final one**: the exit also needs Tier B (4f), the rebuild of all seven templates, the golden, the engine gate and the final 4i sweep there (below).
+The exit criteria, each with its evidence (logs in `%USERPROFILE%\OpenEvvBuild-ttsext\`):
 
-**The proofs are on the development stage** `%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`: dedx rebuilt from the tree's `openevv/src` **as it is now** (`build4t\modules\dedx`: D83's `di`, `mono`, `mute` and the held `pst`, on top of D78's strike and `rel2g`, D77's `fgain` and the rest); the front-end `fe\p27-x64` (D83's braces, labels and pauses, D84's released affricates; on top of p23's letters of up to four characters and tied letters). The stages before are kept: `stage-dev-dedx-4s` (D83's first engine, with `fl`), `stage-dev-dedx-4r` (D80); front-ends `stage-dev-fe-p26`, `p25`, `p24` (D83's steps), `p23` (D80) and back. The other six templates in `stage-dev` are still the 3A ones (C1). Before Phase 4 ends: rebuild all seven templates from the final source, stage them, run the golden and the engine gate, and re-run the whole sweep there (the final 4i).
-| Step (playbook Phase 4) | State |
+| Exit criterion (playbook Phase 4) | State |
 |---|---|
-| tools: sweep (4i), coverage, register, the correction loop | **done** (D53, D58, D61, D63, D64, D66); D67: the place check (B3 "locus (equation, frames)"), `specified()` by the equations, `vot_long`'s level, the frames fallback of T-register, coverage's Tier B section |
-| 4a pulmonic consonants | **59 of 59** (D67: ɢ proved on round 3 of the protocol, no bound) |
-| 4b non-pulmonic | **11 of 11**; ǀ ǂ ǃ are `approximate` (D64) |
-| 4c vowels | **28 of 28** |
-| other symbols | **12 of 12** |
-| 4d diacritics | **32 of 32** |
-| 4e suprasegmentals, stress, tones | suprasegmentals **9 of 9**; tones **24 of 24** |
-| 4f Tier B (extIPA, VoQS) | **designed** (`DESIGN.md` 3.5, D68 to D84); **done: 186 records proved, 0 MISSING**: D68 to D80's 108, D83's 74 (the braces of both charts, the degrees, extIPA's pauses, loudness and tempo, every VoQS label, ( ) and ⸨ ⸩), D84's t̼͡θ̼ d̼͡ð̼ and D85's 𝼆 𝼆̬; 17 notation only, acknowledged |
-| 4h holes via the USP | **none left in Tier A** (ɢ, D67) |
-| 4i full sweep on the final stage | not yet |
-| CREATED_SOUNDS register | 75 created (`register.py`; D85 added 𝼆) |
-| estimated values in OPEN_QUESTIONS | **436** by the validator (D83's labels: most VoQS sizes, the dynamics' levels); Q15's list regenerated after D84 |
-| R15 review | of each session's diff, the seventeenth's (D83, D84) included: ten findings, each acted on (D83's last bullet), one noted; **D85's diff (the locus-equation correction in `sweep.py`, 𝼆's trim) is not yet reviewed: include it in the next R15** |
+| zero MISSING / BLOCKED | **met**: coverage above (`coverage_d87.log`) |
+| mapped + composed + created = the Phase 0 count (175) | **met**: 67 + 53 + 55 = 175 |
+| every symbol has a rendered, measured test | **met**: the final 4i, the whole sweep with `--apply` on the final stage (all seven templates rebuilt from the final source, `build4x`; front-end `p28`): `sweep: 392 entries, 392 rendered, 392 passed every check, 0 not yet`, `settle 1: 0 proofs made on another map` (`sweep_d87.log`) |
+| every created sound in CREATED_SOUNDS.md with a stable ID | **met**: `register: 75 created sounds, 75 lines` (`register_d87.log`) |
+| legacy golden regression passes | **met, with intended changes recorded**: the staged golden moved in 117 cases (83 packs, dedx) and then 78 cases (56 packs, the other six templates), every one Q28's rule (a voiceless l, w or ɬ before s: the s no longer begins with its voice), recorded again (D87); the engine's own gate `matrix_each`: 10 languages, 979 cases, every one as it was (`matrix_d87.log`); the front-end `p28` against `p27` on every golden input and sentence of 145 packs: 0 differ (`diag_d87.log`) |
+| estimated values in OPEN_QUESTIONS.md | **met**: Q15 regenerated, 436 values (the validator: 0 problems) |
+| PROJECT_STATE updated | this |
+| R15 review | done (D87's last bullet): seven findings, five fixed and re-proved, one already planned (the golden after the rebuild), one not changed with its reason (V‼) |
 
-### For the next Phase 4 session (read first)
+**The final stage** is `%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`: all seven templates rebuilt from the tree's `openevv/src` (`build4x\modules`), the front-end `fe\p28-x64`. Kept: `stage-dev-langs-4v` (the stage's languages before, dedx `build4v` and six 3A templates), `stage-dev-dedx-4t`, `stage-dev-fe-p27` and older. Nothing in `languages\` or `dist\` has changed: replacing the shipped modules and front-end is a separate step, shown to the human and done only with their say-so (D34); `docs/tts-extension/SOUNDS_STAGED.md` is the text to merge into `docs/SOUNDS.md` then.
+
+### For Phase 5 (read first)
+
+- **What D87 changed** (read it): the accent layer's new keys `vmark`, `jit`, `rfric`; a whispered sound's voice carried off into the next (Q28); a stop the layer voices found released under its bar (Q30); `phone-unplaced` (Q14: 0 over the golden; `phone-unsounded` 65, as before); the link ‿ a mark of the consonant before it (front-end `p28`); shorter fricated releases and made affricates told from them (Q29); `rel_mid_db` (Q31); the left/right conventions widened (Q35); every template's F5 (3900 Hz).
+- **Known and stated, not fixed**: on the six templates other than dedx, a voiceless l, w or ɬ before s leaves the s 2 or 3 faint voiced frames (voice under 30, the carry stopping where the module's voice falls under that); dedx has none. The harsh label's slight degree (`jit` 19) adds almost no jitter (the calibration is not a straight line under 40). Œ and Ю measure above their literature means but within one standard deviation (tested). Q27 (pre-aspiration) and Q34 part 2 stand as the human answered.
+- **The audit's material**: `DECISIONS.md` D1 to D87; `HUMAN_ANSWERS.md`; `OPEN_QUESTIONS.md` (Q15 the 436 estimated values); the proofs `ipa/proofs/*.json`; the logs named above. The composition tests of the final map: `compose_d87_labels.log`, `compose_d87_g0.log` to `g2.log`.
+
+### Phase 4 working notes, sessions one to seventeen (kept for the record)
 
 - **Done in the seventeenth session** (D83, D84; read them before a new entry). The braces: a label (`kind = "label"`, in `ipa/table/tierb_braces.toml`) is a transform of every letter of its class in its stretch; the adapter gives each degree and each ramp step a private-use mark with `mod` lines and writes `label` lines (`d` a base, `m` a mark on the base before it, `r` a ramp, `-` none, `g=` a group) and `pause` lines; the front-end (`p27`) composes each letter in a stretch with them, a degree on one symbol, the same labels written again passed over before `}`, an inner label of a group replacing the outer; a map with no `label` or `pause` lines (every pack's) reads braces and parentheses as before. New engine keys: `di`, `mono`, `mute` (and `pst` held between two sounds at the same pitch of their own). New measures: `pulses` (`pulse_hz`, `pulse_jitter_pct`: a voice no tracker follows), `ah_mid`, `f0_span_st`, `f0_low_hz`, `gap_ms`, `vowel_voiced`, `vowel_db`; new checks T-pause, T-brace, T-degree, T-ramp, T-same; a semitone measure needs 0.5 and a per-cent one 2 points. **What the design rounds taught**: test voice quality on [a e ɛ] long vowels (this module's [i u o] read F1, pulses and breath badly, and its high vowels already carry breath); compare two entries only on the same words (long against long); a level offset does not silence a sound's transitions (`mute` does); the synthesiser's flutter is too small to measure (Q36). D84: the tie entry's `released` pairs (t͡θ, d͡ð) get a line and a `letter` line, the module's own affricates a `letter` line too, and the front-end composes both sides' marks on a pair that is a letter. Logs (`%USERPROFILE%\OpenEvvBuild-ttsext\`): `sweep_d83a.log` to `sweep_d83e.log` (design rounds), `matrix_d83.log`, `chain_d83.log`, `diag_d83.log`, `compose_d83a.log` (labels), `compose_d83b.log`, `golden_d83.log`, `sweep_d83.log`, `register_d83.log`, `coverage_d83.log`, `selftest_d83.log`, `reader_d83.log`, `table_d83.log`; builds `build4s`, `build4t`, front-ends `fe\p24` to `fe\p27`.
 - **Native speakers come after Phase 9** (the human, 2026-10-09, D82): no phase waits for or asks for one; Phase 7 builds the review packets and stops at level 4; "authentic" (level 5) only after a named native reviewer signs off, later.
@@ -109,7 +112,7 @@ Small items queued for 3A: Q12 (make a template buildable without its parent, in
 
 Phase 2 complete and the design APPROVED, 2026-10-05 (commit `7713bfc`). Phase 1 complete, 2026-10-05 (`cdcd70f`). Phase 0 complete, 2026-10-05 (`53a830d`).
 
-BLOCKED symbols: none. (At the start of Phase 4 all 175 were `MISSING`; none is now, on the development stage; see the Phase 4 table above.)
+BLOCKED symbols: none. (At the start of Phase 4 all 175 were `MISSING`; at its end none is, on the final stage; see the Phase 4 table above.)
 
 ## What Phase 2 did
 

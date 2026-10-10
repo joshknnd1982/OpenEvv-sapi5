@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "11e84320a7b2ef600742d5a85d0d521255b3d53d158b46a01501755b270028bc",
+ "map_sha256": "5000e65ec1ea68846d3a2ca3d455281600fa65379860a109f4f6218097774e99",
  "said_as": {
   "pack": "hi",
   "carrier": null,
@@ -168,6 +168,7 @@
     "noise_tail": 0.5,
     "voice_in_ms": 20.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 75.0,
     "strike_found": 0,
     "slap_found": 0,
     "modulation": {
@@ -179,9 +180,9 @@
     "vot_long_ms": null,
     "preasp_ms": 0.0,
     "burst_found": 1,
-    "rel_af_ms": 70.0,
-    "rel_peak_hz": 2605.909090909091,
-    "rel_centroid_hz": 2694.3803476957537,
+    "rel_af_ms": 35.0,
+    "rel_peak_hz": 2756.25,
+    "rel_centroid_hz": 2713.2853615909894,
     "schwa_ms": 0,
     "f0_range_st": 17.78867193475291,
     "gap_ms": 44.89795918367347,
@@ -194,14 +195,14 @@
    },
    "edges": {},
    "ipa": "k𐞜",
-   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D c1 ant=50 l2=263 lk=86 vot=28 frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}{W .1 @^- k=c1}`[.1@k]{P s}.\r\n",
+   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D c1 ant=50 l2=263 lk=86 vot=28 frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}{W .1 @^- k=c1}`[.1@k]{P s}.\r\n",
    "diag": [],
    "fe_diag": [
     {
      "source": "frontend",
      "level": "note",
      "kind": "composed",
-     "detail": "/k𐞜/ = /k/ and 1 mark(s), as {D c1 ant=50 l2=263 lk=86 vot=28 frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}",
+     "detail": "/k𐞜/ = /k/ and 1 mark(s), as {D c1 ant=50 l2=263 lk=86 vot=28 frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}",
      "count": 1
     },
     {
@@ -212,7 +213,7 @@
      "count": 1
     }
    ],
-   "wav_sha256": "33c741d41d363212fe34d38f8d9682e4f12bea54576ddd00faf271130aa35dd9",
+   "wav_sha256": "ee9592cd2e705b28a9f39b397cd972ec663dca6ee043c6fd80d2d841256c2d96",
    "clipped": 0,
    "near_full_scale": 0
   },
@@ -428,6 +429,8 @@
     "noise_tail": 0.2857142857142857,
     "voice_in_ms": 20.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 95.0,
+    "voice_after_ms": 0.0,
     "mid_db": -48.33186592239464,
     "strike_found": 0,
     "slap_found": 0,
@@ -443,6 +446,7 @@
     "rel_af_ms": 20.0,
     "rel_centroid1k_hz": 1628.9879543799975,
     "rel_hf_db": -14.09350431608038,
+    "rel_mid_db": 0.1534754569000028,
     "rel_hnr_db": 0.5334149594745439,
     "closure_quiet": 1,
     "voicing_slope": -55.50440346177621,
@@ -696,6 +700,8 @@
     "noise_tail": 0.2857142857142857,
     "voice_in_ms": 25.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 95.0,
+    "voice_after_ms": 0.0,
     "mid_db": -35.98989583984721,
     "strike_found": 0,
     "slap_found": 0,
@@ -711,6 +717,7 @@
     "rel_af_ms": 25.0,
     "rel_centroid1k_hz": 2891.1442826547695,
     "rel_hf_db": 1.935403228733831,
+    "rel_mid_db": 7.677297489717275,
     "rel_hnr_db": -3.3276384896753974,
     "closure_quiet": 1,
     "voicing_slope": -60.380387033690184,
@@ -964,6 +971,8 @@
     "noise_tail": 0.2857142857142857,
     "voice_in_ms": 20.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 95.0,
+    "voice_after_ms": 0.0,
     "mid_db": -47.286193318290515,
     "strike_found": 0,
     "slap_found": 0,
@@ -979,6 +988,7 @@
     "rel_af_ms": 20.0,
     "rel_centroid1k_hz": 1502.9026170471727,
     "rel_hf_db": -40.20097414135277,
+    "rel_mid_db": -31.777338418225796,
     "rel_hnr_db": -2.451808528548346,
     "closure_quiet": 1,
     "voicing_slope": -60.607777263711384,
@@ -1094,8 +1104,8 @@
       "intensity_db": -25.84,
       "closure_ms": 65.0,
       "burst_ms": 155.0,
-      "voicing_onset_ms": null,
-      "vot_ms": null
+      "voicing_onset_ms": 201.0,
+      "vot_ms": 46.0
      },
      "req": {
       "duration_ms": 100.0,
@@ -1142,26 +1152,26 @@
      "sound": "u0061",
      "cls": "vowel",
      "start_ms": 165,
-     "end_ms": 320,
+     "end_ms": 305,
      "meas": {
-      "duration_ms": 155.0,
-      "intensity_db": -25.88,
-      "F1_20_hz": 1471.25,
-      "F2_20_hz": 1979.27,
-      "F3_20_hz": 2604.03,
-      "F1_50_hz": 878.63,
-      "F2_50_hz": 1558.91,
-      "F3_50_hz": 2637.25,
-      "F1_80_hz": 884.44,
-      "F2_80_hz": 1561.44,
-      "F3_80_hz": 2634.93,
-      "f0_50_hz": null,
-      "F3_min_hz": 2515.36
+      "duration_ms": 140.0,
+      "intensity_db": -24.73,
+      "F1_20_hz": 1357.35,
+      "F2_20_hz": 2310.35,
+      "F3_20_hz": 2806.18,
+      "F1_50_hz": 893.85,
+      "F2_50_hz": 1555.66,
+      "F3_50_hz": 2637.75,
+      "F1_80_hz": 883.48,
+      "F2_80_hz": 1557.91,
+      "F3_80_hz": 2637.54,
+      "f0_50_hz": 113.94,
+      "F3_min_hz": 2551.58
      },
      "req": {
-      "duration_ms": 155.0,
-      "f0_hz": 113.0,
-      "f0_mid40_hz": 112.725,
+      "duration_ms": 140.0,
+      "f0_hz": 113.3,
+      "f0_mid40_hz": 114.1,
       "av": 42.0,
       "ah": 28.0,
       "af": 0.0,
@@ -1187,23 +1197,23 @@
       "B4_hz": 330.0,
       "F5_hz": 3900.0,
       "B5_hz": 260.0,
-      "F1_20_hz": 546.0,
-      "F2_20_hz": 1349.0,
-      "F3_20_hz": 2539.0,
+      "F1_20_hz": 572.0,
+      "F2_20_hz": 1404.0,
+      "F3_20_hz": 2504.0,
       "F1_80_hz": 889.0,
       "F2_80_hz": 1563.0,
       "F3_80_hz": 2640.0,
-      "voiced_frames": 19.0,
-      "noise_frames": 31.0,
-      "frames": 31.0
+      "voiced_frames": 22.0,
+      "noise_frames": 26.0,
+      "frames": 28.0
      }
     },
     {
      "name": "#",
      "sound": null,
      "cls": "silence",
-     "start_ms": 320,
-     "end_ms": 779,
+     "start_ms": 305,
+     "end_ms": 764,
      "meas": null,
      "req": {}
     }
@@ -1232,7 +1242,9 @@
     "noise_tail": 0.2857142857142857,
     "voice_in_ms": 20.0,
     "voice_out_ms": 0.0,
-    "mid_db": -46.26917303310094,
+    "voice_gap_ms": 110.0,
+    "voice_after_ms": 0.0,
+    "mid_db": -48.26316827579633,
     "strike_found": 0,
     "slap_found": 0,
     "modulation": {
@@ -1241,41 +1253,42 @@
      "depth_db": 204.2476287964725,
      "closed_ms": 40.90702947845805
     },
-    "vot_long_ms": 84.0,
+    "vot_long_ms": 46.0,
     "preasp_ms": 0.0,
     "burst_found": 1,
-    "rel_af_ms": 70.0,
-    "rel_centroid1k_hz": 2676.9863347769437,
-    "rel_hf_db": 18.00396174094162,
-    "rel_noise_db": -12.571798889397023,
+    "rel_af_ms": 35.0,
+    "rel_centroid1k_hz": 2647.5732289324515,
+    "rel_hf_db": 16.490756901520857,
+    "rel_mid_db": 23.143609205256872,
+    "rel_noise_db": -14.267570002216182,
     "rel_peak_hz": 2605.909090909091,
-    "rel_centroid_hz": 2695.849298281949,
-    "rel_hnr_db": -3.143155610377615,
+    "rel_centroid_hz": 2668.5880710181145,
+    "rel_hnr_db": -3.169146301436233,
     "closure_quiet": 1,
     "voicing_slope": -55.75452665436414,
-    "burst_len_ms": 83.26530612244899,
-    "burst_centroid_hz": 2734.275876607719,
-    "burst_db": -13.192955979960118,
+    "burst_len_ms": 41.36054421768708,
+    "burst_centroid_hz": 2741.051044139272,
+    "burst_db": -15.08519348186487,
     "gap_breath_frac": 0.0,
     "schwa_ms": 0,
-    "f0_range_st": 19.482538206644016,
+    "f0_range_st": 19.33873026938602,
     "gap_ms": 54.87528344671202,
     "vowel_voiced": [
      1.0,
-     0.613
+     0.786
     ],
     "vowel_db": [
      -15.38,
-     -24.8
+     -23.01
     ]
    },
    "edges": {
     "prev_F1_80": 900.7734305602274,
     "prev_F2_80": 1439.321631396586,
     "prev_F3_80": 2661.1310169420035,
-    "next_F1_20": 887.7773523129362,
-    "next_F2_20": 1598.6799928252915,
-    "next_F3_20": 2665.868671921928,
+    "next_F1_20": 780.6720850512075,
+    "next_F2_20": 1613.5187600516206,
+    "next_F3_20": 2555.588680901024,
     "next_req_F1_0": 308.0,
     "next_req_F1_mid": 889.0,
     "next_req_F2_0": 1349.0,
@@ -1284,18 +1297,18 @@
     "next_req_F3_mid": 2640.0
    },
    "ipa": "ˈak𐞜a",
-   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0061 ah=-6 av=-6 f1=127 f2=125 f3=110}{D c1 ant=50 l2=263 lk=86 vot=28 frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}{W .1 A=u0061^- .0 k=c1 A=u0061^-}`[.1A.0kA]{P s}.\r\n",
+   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0061 ah=-6 av=-6 f1=127 f2=125 f3=110}{D c1 ant=50 l2=263 lk=86 vot=28 frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}{W .1 A=u0061^- .0 k=c1 A=u0061^-}`[.1A.0kA]{P s}.\r\n",
    "diag": [],
    "fe_diag": [
     {
      "source": "frontend",
      "level": "note",
      "kind": "composed",
-     "detail": "/k𐞜/ = /k/ and 1 mark(s), as {D c1 ant=50 l2=263 lk=86 vot=28 frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}",
+     "detail": "/k𐞜/ = /k/ and 1 mark(s), as {D c1 ant=50 l2=263 lk=86 vot=28 frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}",
      "count": 1
     }
    ],
-   "wav_sha256": "cf675dbaf5077bf50d232710d12bf6c0ac4f14fec3b0c56ea7efa131a4f3f3fa",
+   "wav_sha256": "669e89bb000e844bb704225cbde48a5617e0369d0b3e07d099a90c491edf5e72",
    "clipped": 0,
    "near_full_scale": 0
   },
@@ -1373,8 +1386,8 @@
       "intensity_db": -24.47,
       "closure_ms": 60.0,
       "burst_ms": 204.0,
-      "voicing_onset_ms": null,
-      "vot_ms": null
+      "voicing_onset_ms": 258.0,
+      "vot_ms": 54.0
      },
      "req": {
       "duration_ms": 105.0,
@@ -1421,26 +1434,26 @@
      "sound": "u0069",
      "cls": "vowel",
      "start_ms": 215,
-     "end_ms": 420,
+     "end_ms": 405,
      "meas": {
-      "duration_ms": 205.0,
-      "intensity_db": -30.32,
-      "F1_20_hz": 1484.19,
-      "F2_20_hz": 2522.9,
-      "F3_20_hz": 3110.46,
-      "F1_50_hz": 230.61,
-      "F2_50_hz": 2779.06,
-      "F3_50_hz": 3650.52,
-      "F1_80_hz": 225.92,
-      "F2_80_hz": 2760.56,
-      "F3_80_hz": 3661.2,
-      "f0_50_hz": 114.98,
-      "F3_min_hz": 2551.83
+      "duration_ms": 190.0,
+      "intensity_db": -29.67,
+      "F1_20_hz": 229.02,
+      "F2_20_hz": 2156.1,
+      "F3_20_hz": 2931.82,
+      "F1_50_hz": 235.65,
+      "F2_50_hz": 2776.9,
+      "F3_50_hz": 3629.11,
+      "F1_80_hz": 228.56,
+      "F2_80_hz": 2768.63,
+      "F3_80_hz": 3651.15,
+      "f0_50_hz": null,
+      "F3_min_hz": 2634.11
      },
      "req": {
-      "duration_ms": 205.0,
-      "f0_hz": 110.2,
-      "f0_mid40_hz": 110.05,
+      "duration_ms": 190.0,
+      "f0_hz": 110.4,
+      "f0_mid40_hz": 111.0375,
       "av": 34.0,
       "ah": 18.0,
       "af": 0.0,
@@ -1466,23 +1479,23 @@
       "B4_hz": 330.0,
       "F5_hz": 3900.0,
       "B5_hz": 260.0,
-      "F1_20_hz": 234.0,
-      "F2_20_hz": 1349.0,
-      "F3_20_hz": 2539.0,
+      "F1_20_hz": 235.0,
+      "F2_20_hz": 2733.0,
+      "F3_20_hz": 3459.0,
       "F1_80_hz": 217.0,
       "F2_80_hz": 2774.0,
       "F3_80_hz": 3654.0,
-      "voiced_frames": 28.0,
-      "noise_frames": 41.0,
-      "frames": 41.0
+      "voiced_frames": 32.0,
+      "noise_frames": 36.0,
+      "frames": 38.0
      }
     },
     {
      "name": "#",
      "sound": null,
      "cls": "silence",
-     "start_ms": 420,
-     "end_ms": 876,
+     "start_ms": 405,
+     "end_ms": 861,
      "meas": null,
      "req": {}
     }
@@ -1511,7 +1524,9 @@
     "noise_tail": 0.2857142857142857,
     "voice_in_ms": 25.0,
     "voice_out_ms": 0.0,
-    "mid_db": -36.820676421852376,
+    "voice_gap_ms": 110.0,
+    "voice_after_ms": 0.0,
+    "mid_db": -35.78341818932536,
     "strike_found": 0,
     "slap_found": 0,
     "modulation": {
@@ -1520,41 +1535,42 @@
      "depth_db": 207.79828416015073,
      "closed_ms": 44.897959183673464
     },
-    "vot_long_ms": 88.0,
+    "vot_long_ms": 54.0,
     "preasp_ms": 0.0,
     "burst_found": 1,
-    "rel_af_ms": 70.0,
-    "rel_centroid1k_hz": 2756.999133757298,
-    "rel_hf_db": 18.438405705680367,
-    "rel_noise_db": -9.530679448529696,
+    "rel_af_ms": 35.0,
+    "rel_centroid1k_hz": 2664.8760795903477,
+    "rel_hf_db": 17.106717445493405,
+    "rel_mid_db": 23.355666796934543,
+    "rel_noise_db": -8.264770289422387,
     "rel_peak_hz": 2605.909090909091,
-    "rel_centroid_hz": 2759.0738433555466,
-    "rel_hnr_db": -4.52919458280753,
+    "rel_centroid_hz": 2694.514135109324,
+    "rel_hnr_db": -4.627429845168956,
     "closure_quiet": 1,
     "voicing_slope": -60.380387033690184,
-    "burst_len_ms": 70.74829931972789,
-    "burst_centroid_hz": 2850.812905627427,
-    "burst_db": -8.940999855555951,
+    "burst_len_ms": 40.81632653061225,
+    "burst_centroid_hz": 2881.029716736494,
+    "burst_db": -7.806566658227553,
     "gap_breath_frac": 0.0,
     "schwa_ms": 0,
-    "f0_range_st": 28.561357489097844,
+    "f0_range_st": 29.590392299942984,
     "gap_ms": 54.87528344671202,
     "vowel_voiced": [
      1.0,
-     0.683
+     0.842
     ],
     "vowel_db": [
      -24.85,
-     -28.37
+     -28.31
     ]
    },
    "edges": {
     "prev_F1_80": 243.013222108717,
     "prev_F2_80": 2578.6761241043046,
     "prev_F3_80": 3074.3271294734295,
-    "next_F1_20": 236.12186632751178,
-    "next_F2_20": 2769.7824404055555,
-    "next_F3_20": 3659.6423328611177,
+    "next_F1_20": 251.82548222683047,
+    "next_F2_20": 2760.947407181445,
+    "next_F3_20": 3571.0256849036937,
     "next_req_F1_0": 300.0,
     "next_req_F1_mid": 217.0,
     "next_req_F2_0": 1349.0,
@@ -1563,18 +1579,18 @@
     "next_req_F3_mid": 3654.0
    },
    "ipa": "ˈik𐞜i",
-   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0069 ah=-16 av=-16 f1=82 f2=129 f3=126}{D c1 ant=50 l2=263 lk=86 vot=28 frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}{W .1 i=u0069^- .0 k=c1 i=u0069^-}`[.1i.0ki]{P s}.\r\n",
+   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0069 ah=-16 av=-16 f1=82 f2=129 f3=126}{D c1 ant=50 l2=263 lk=86 vot=28 frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}{W .1 i=u0069^- .0 k=c1 i=u0069^-}`[.1i.0ki]{P s}.\r\n",
    "diag": [],
    "fe_diag": [
     {
      "source": "frontend",
      "level": "note",
      "kind": "composed",
-     "detail": "/k𐞜/ = /k/ and 1 mark(s), as {D c1 ant=50 l2=263 lk=86 vot=28 frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}",
+     "detail": "/k𐞜/ = /k/ and 1 mark(s), as {D c1 ant=50 l2=263 lk=86 vot=28 frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}",
      "count": 1
     }
    ],
-   "wav_sha256": "109f67084edc58f54700d0ebc41c0aa113cff656de539e5149a4cbf3b43c85ae",
+   "wav_sha256": "bab33532ae4f57499597e88e4b8722bf4235152b7992ea3929bb905f81cb2ff6",
    "clipped": 0,
    "near_full_scale": 0
   },
@@ -1652,8 +1668,8 @@
       "intensity_db": -23.0,
       "closure_ms": 61.0,
       "burst_ms": 204.0,
-      "voicing_onset_ms": null,
-      "vot_ms": null
+      "voicing_onset_ms": 244.0,
+      "vot_ms": 40.0
      },
      "req": {
       "duration_ms": 100.0,
@@ -1700,26 +1716,26 @@
      "sound": "u0075",
      "cls": "vowel",
      "start_ms": 215,
-     "end_ms": 420,
+     "end_ms": 405,
      "meas": {
-      "duration_ms": 205.0,
-      "intensity_db": -23.7,
-      "F1_20_hz": 1447.34,
-      "F2_20_hz": 2521.44,
-      "F3_20_hz": 3059.81,
-      "F1_50_hz": 306.35,
-      "F2_50_hz": 581.14,
-      "F3_50_hz": 2466.98,
-      "F1_80_hz": 316.04,
-      "F2_80_hz": 585.38,
-      "F3_80_hz": 2454.47,
-      "f0_50_hz": 111.6,
-      "F3_min_hz": 2451.06
+      "duration_ms": 190.0,
+      "intensity_db": -22.84,
+      "F1_20_hz": 284.0,
+      "F2_20_hz": 641.12,
+      "F3_20_hz": 2293.81,
+      "F1_50_hz": 310.8,
+      "F2_50_hz": 579.28,
+      "F3_50_hz": 2472.28,
+      "F1_80_hz": 311.59,
+      "F2_80_hz": 586.1,
+      "F3_80_hz": 2465.6,
+      "f0_50_hz": 111.9,
+      "F3_min_hz": 2379.57
      },
      "req": {
-      "duration_ms": 205.0,
-      "f0_hz": 110.2,
-      "f0_mid40_hz": 110.075,
+      "duration_ms": 190.0,
+      "f0_hz": 110.5,
+      "f0_mid40_hz": 111.0875,
       "av": 48.0,
       "ah": 30.0,
       "af": 0.0,
@@ -1745,23 +1761,23 @@
       "B4_hz": 330.0,
       "F5_hz": 3900.0,
       "B5_hz": 260.0,
-      "F1_20_hz": 324.0,
-      "F2_20_hz": 1349.0,
-      "F3_20_hz": 2539.0,
+      "F1_20_hz": 311.0,
+      "F2_20_hz": 675.0,
+      "F3_20_hz": 2342.0,
       "F1_80_hz": 308.0,
       "F2_80_hz": 578.0,
       "F3_80_hz": 2472.0,
-      "voiced_frames": 29.0,
-      "noise_frames": 41.0,
-      "frames": 41.0
+      "voiced_frames": 32.0,
+      "noise_frames": 36.0,
+      "frames": 38.0
      }
     },
     {
      "name": "#",
      "sound": null,
      "cls": "silence",
-     "start_ms": 420,
-     "end_ms": 876,
+     "start_ms": 405,
+     "end_ms": 861,
      "meas": null,
      "req": {}
     }
@@ -1790,7 +1806,9 @@
     "noise_tail": 0.2857142857142857,
     "voice_in_ms": 20.0,
     "voice_out_ms": 0.0,
-    "mid_db": -47.641951335835174,
+    "voice_gap_ms": 110.0,
+    "voice_after_ms": 0.0,
+    "mid_db": -47.28957854635088,
     "strike_found": 0,
     "slap_found": 0,
     "modulation": {
@@ -1799,41 +1817,42 @@
      "depth_db": 206.51982465907963,
      "closed_ms": 41.904761904761905
     },
-    "vot_long_ms": 78.0,
+    "vot_long_ms": 40.0,
     "preasp_ms": 0.0,
     "burst_found": 1,
-    "rel_af_ms": 70.0,
-    "rel_centroid1k_hz": 2710.925037761865,
-    "rel_hf_db": 18.032660339306098,
-    "rel_noise_db": -16.240633083231472,
+    "rel_af_ms": 35.0,
+    "rel_centroid1k_hz": 2647.9015102117287,
+    "rel_hf_db": 16.624635492155456,
+    "rel_mid_db": 23.225984634953086,
+    "rel_noise_db": -15.729977687140046,
     "rel_peak_hz": 2605.909090909091,
-    "rel_centroid_hz": 2709.3456651329107,
-    "rel_hnr_db": -4.059871818515594,
+    "rel_centroid_hz": 2670.3432126776183,
+    "rel_hnr_db": -3.9514461671397267,
     "closure_quiet": 1,
     "voicing_slope": -60.607777263711384,
-    "burst_len_ms": 70.74829931972789,
-    "burst_centroid_hz": 2776.3676558383218,
-    "burst_db": -16.126618074293184,
+    "burst_len_ms": 38.63945578231293,
+    "burst_centroid_hz": 2887.800520141873,
+    "burst_db": -15.757654648021425,
     "gap_breath_frac": 0.0,
     "schwa_ms": 0,
-    "f0_range_st": 2.7917026613623377,
+    "f0_range_st": 2.721333869611305,
     "gap_ms": 54.87528344671202,
     "vowel_voiced": [
      1.0,
-     0.707
+     0.842
     ],
     "vowel_db": [
      -17.68,
-     -21.64
+     -21.1
     ]
    },
    "edges": {
     "prev_F1_80": 261.93093832109236,
     "prev_F2_80": 635.632480510083,
     "prev_F3_80": 2414.631103990866,
-    "next_F1_20": 283.5836987806733,
-    "next_F2_20": 576.8160873851324,
-    "next_F3_20": 2427.222868632816,
+    "next_F1_20": 310.02274142740674,
+    "next_F2_20": 661.3985337384827,
+    "next_F3_20": 2389.0509114687534,
     "next_req_F1_0": 299.0,
     "next_req_F1_mid": 308.0,
     "next_req_F2_0": 1349.0,
@@ -1842,18 +1861,18 @@
     "next_req_F3_mid": 2472.0
    },
    "ipa": "ˈuk𐞜u",
-   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0075 ah=-4 av=-4 f1=123 f2=77 f3=103}{D c1 ant=50 l2=263 lk=86 vot=28 frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}{W .1 u=u0075^- .0 k=c1 u=u0075^-}`[.1u.0ku]{P s}.\r\n",
+   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0075 ah=-4 av=-4 f1=123 f2=77 f3=103}{D c1 ant=50 l2=263 lk=86 vot=28 frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}{W .1 u=u0075^- .0 k=c1 u=u0075^-}`[.1u.0ku]{P s}.\r\n",
    "diag": [],
    "fe_diag": [
     {
      "source": "frontend",
      "level": "note",
      "kind": "composed",
-     "detail": "/k𐞜/ = /k/ and 1 mark(s), as {D c1 ant=50 l2=263 lk=86 vot=28 frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}",
+     "detail": "/k𐞜/ = /k/ and 1 mark(s), as {D c1 ant=50 l2=263 lk=86 vot=28 frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0}",
      "count": 1
     }
    ],
-   "wav_sha256": "2ec0a2e986e2b45ec94d40cda2afc9c125811c1424532f9e19fc6ed388ab7a4f",
+   "wav_sha256": "4e15b8b85c94619330c9d7e3ecfe49be358e9e4ec9901ce16821a6215082c570",
    "clipped": 0,
    "near_full_scale": 0
   }
@@ -1893,11 +1912,14 @@
     "preasp_ms": 0.0,
     "voice_in_ms": 20.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 95.0,
+    "voice_after_ms": 0.0,
     "mid_db": -47.29,
     "rel_af_ms": 20.0,
     "rel_hnr_db": -2.45,
     "rel_centroid1k_hz": 1628.99,
     "rel_hf_db": -14.09,
+    "rel_mid_db": 0.15,
     "strike_found": 0,
     "f0_range_st": 19.34,
     "gap_ms": 54.88,
@@ -1972,24 +1994,25 @@
     "voiced_frac": 0.2
    },
    "marked": {
+    "vot_ms": 46.0,
     "closure_ms": 61.0,
     "intensity_db": -24.5,
     "req_F1_hz": 300.0,
     "req_F2_hz": 1597.0,
     "req_F3_hz": 2180.0,
     "duration_ms": 100,
-    "edge_F1": 272.8,
-    "edge_F2": 1519.0,
-    "edge_F3": 2663.5,
-    "vot_long_ms": 84.0,
+    "edge_F1": 286.0,
+    "edge_F2": 1526.4,
+    "edge_F3": 2608.4,
+    "vot_long_ms": 46.0,
     "mod_dips": 1,
     "mod_closed_ms": 41.9,
     "burst_found": 1,
     "schwa_ms": 0,
     "voicing_slope": -60.38,
-    "burst_db": -13.19,
-    "burst_len_ms": 70.75,
-    "burst_centroid_hz": 2776.37,
+    "burst_db": -15.09,
+    "burst_len_ms": 40.82,
+    "burst_centroid_hz": 2881.03,
     "gap_breath_frac": 0.0,
     "voiced_head": 0.57,
     "voiced_mid": 0.0,
@@ -2002,16 +2025,19 @@
     "preasp_ms": 0.0,
     "voice_in_ms": 20.0,
     "voice_out_ms": 0.0,
-    "mid_db": -46.27,
-    "rel_af_ms": 70.0,
-    "rel_hnr_db": -4.06,
-    "rel_noise_db": -12.57,
+    "voice_gap_ms": 110.0,
+    "voice_after_ms": 0.0,
+    "mid_db": -47.29,
+    "rel_af_ms": 35.0,
+    "rel_hnr_db": -3.95,
+    "rel_noise_db": -14.27,
     "rel_peak_hz": 2605.91,
-    "rel_centroid_hz": 2709.35,
-    "rel_centroid1k_hz": 2710.93,
-    "rel_hf_db": 18.03,
+    "rel_centroid_hz": 2670.34,
+    "rel_centroid1k_hz": 2647.9,
+    "rel_hf_db": 16.62,
+    "rel_mid_db": 23.23,
     "strike_found": 0,
-    "f0_range_st": 19.48,
+    "f0_range_st": 19.34,
     "gap_ms": 54.88,
     "slap_found": 0,
     "next_req_F1_pairs": [
@@ -2110,33 +2136,33 @@
   "targets": {
    "k rel_af_ms": {
     "target": "+1",
-    "measured": 50.0,
+    "measured": 15.0,
     "within": true,
     "plain": 20.0,
-    "marked": 70.0,
+    "marked": 35.0,
     "paired": [
-     45.0,
-     50.0,
-     50.0
+     10.0,
+     15.0,
+     15.0
     ]
    },
    "k vot_long_ms": {
     "target": "+1",
-    "measured": 54.0,
+    "measured": 18.0,
     "within": true,
     "plain": 28.0,
-    "marked": 84.0,
+    "marked": 46.0,
     "paired": [
-     52.0,
-     54.0,
-     56.0
+     16.0,
+     18.0,
+     18.0
     ]
    },
    "k rel_noise_db >= -40": {
     "target": -40,
-    "measured": -12.57,
+    "measured": -14.27,
     "within": true,
-    "marked": -12.57
+    "marked": -14.27
    }
   },
   "empty": false
@@ -2148,33 +2174,33 @@
    "B3": {
     "k rel_af_ms": {
      "target": "+1",
-     "measured": 50.0,
+     "measured": 15.0,
      "within": true,
      "plain": 20.0,
-     "marked": 70.0,
+     "marked": 35.0,
      "paired": [
-      45.0,
-      50.0,
-      50.0
+      10.0,
+      15.0,
+      15.0
      ]
     },
     "k vot_long_ms": {
      "target": "+1",
-     "measured": 54.0,
+     "measured": 18.0,
      "within": true,
      "plain": 28.0,
-     "marked": 84.0,
+     "marked": 46.0,
      "paired": [
-      52.0,
-      54.0,
-      56.0
+      16.0,
+      18.0,
+      18.0
      ]
     },
     "k rel_noise_db >= -40": {
      "target": -40,
-     "measured": -12.57,
+     "measured": -14.27,
      "within": true,
-     "marked": -12.57
+     "marked": -14.27
     }
    },
    "keys": null
@@ -2191,8 +2217,8 @@
     "sign": 1,
     "distinct": true,
     "mine": 2605.91,
-    "theirs": 2205.0,
-    "difference": 400.9,
+    "theirs": 2154.89,
+    "difference": 451.0,
     "holds": true,
     "required": true,
     "basis": "the specifications differ so"

@@ -1129,8 +1129,11 @@ static void unplaced(Accent *a, const char *why)
 /* The module's arrays have had their last run: the phrase it was saying is
    over, and its phones still waiting will not be said (Q14). The phrase is
    the one the last phone placed is in, up to the phones of its last
-   syllable; one whose end the markup has not given yet is left alone. The
-   waiting phones stay in the queue, so that nothing said changes. */
+   syllable, and only the last phrase the markup has given: the module may
+   end a run inside a phrase, and a phone with more of the text after it is
+   told as `phone-unsounded' when a later one is placed past it. One whose
+   end the markup has not given yet is left alone. The waiting phones stay
+   in the queue, so that nothing said changes. */
 static void unplaced_phrase(Accent *a)
 {
     int k, end = -1, in_last = 0;
@@ -1146,8 +1149,8 @@ static void unplaced_phrase(Accent *a)
             in_last = 1;
         end = k;
     }
-    if (in_last)
-        unplaced_to(a, end + 1, "the phrase ended");
+    if (in_last && end == a->n_queue - 1)
+        unplaced_to(a, end + 1, "the text ended");
 }
 
 static void queue_reset(Accent *a)
@@ -2533,6 +2536,13 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
            sound's vowel, voiced as the module has it (into a stop's
            closure, at most 40 ms); they are whispered as it was (Q28). */
         int carry = 0;
+        /* whether the module's own frames of this sound have friction
+           anywhere: `rfric' is for a sound with none of its own */
+        int fricless = 1;
+
+        for (k = n_on; k < n_on + n_own; k++)
+            if (out[(size_t)k * P_COUNT + P_AF] > 0)
+                fricless = 0;
 
         if (prev != 0 && !before->pause && !ph->pause
             && prev->whisper != UNSET
@@ -2920,12 +2930,13 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                                 + (def->amp[i] - has) * w + 0.5), 0, 80);
                         }
                 }
-                if (def->rfric > 0 && def->fric <= 0 && f[P_AF] == 0
-                    && f[P_AV] > 0 && !is_stop(a, ph)) {
+                if (def->rfric > 0 && def->fric <= 0 && fricless
+                    && (f[P_AV] > 0 || f[P_AH] > 0) && !is_stop(a, ph)) {
                     /* A sound with no friction of its own made narrow
                        enough for the air to be heard (Q23): friction over
-                       its voice, on its own resonances from the third up,
-                       where a raised tongue's noise is. */
+                       its voice, or over its breath where it is voiceless
+                       (ɹ̝̊), on its own resonances from the third up, where
+                       a raised tongue's noise is. */
                     double x = w;
 
                     if (own_ms - into < 15)
@@ -2937,7 +2948,7 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     f[P_A5F] = clamp(def->rfric - 6, 0, 80);
                     f[P_A6F] = 0;
                     f[P_AB] = 0;
-                    if (def->fgain > 0 && f[P_AF] > 0)
+                    if (def->fgain > 0 && f[P_AF] > 0 && f[P_AV] > 0)
                         f[P_ATV] = clamp((int)(def->fgain * x + 0.5), 0, 40);
                 }
                 if (def->nas > 0 && f[P_AV] > 0) {

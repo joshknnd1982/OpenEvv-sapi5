@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "11e84320a7b2ef600742d5a85d0d521255b3d53d158b46a01501755b270028bc",
+ "map_sha256": "5000e65ec1ea68846d3a2ca3d455281600fa65379860a109f4f6218097774e99",
  "said_as": {
   "pack": "hi",
   "carrier": "r",
@@ -107,7 +107,8 @@
       "F1_50_hz": 404.45729742905746,
       "F2_50_hz": 1263.2800591366527,
       "F3_50_hz": 1769.816093488865,
-      "F4_50_hz": null
+      "F4_50_hz": null,
+      "hnr_hi_db": -1.9258311836195838
      },
      "req": {
       "duration_ms": 65.0,
@@ -183,6 +184,7 @@
     "noise_tail": 1.0,
     "voice_in_ms": 65.0,
     "voice_out_ms": 65.0,
+    "voice_gap_ms": 0.0,
     "strike_found": 0,
     "slap_found": 0,
     "modulation": {
@@ -300,7 +302,8 @@
       "F1_50_hz": 457.14078283506717,
       "F2_50_hz": 1299.0678452642483,
       "F3_50_hz": 1757.6722964599583,
-      "F4_50_hz": 3173.918688318633
+      "F4_50_hz": 3173.918688318633,
+      "hnr_hi_db": -2.267608428378014
      },
      "req": {
       "duration_ms": 75.0,
@@ -437,6 +440,8 @@
     "noise_tail": 0.0,
     "voice_in_ms": 25.0,
     "voice_out_ms": 35.0,
+    "voice_gap_ms": 15.0,
+    "voice_after_ms": 100.0,
     "mid_db": -3.932200521449275,
     "strike_found": 0,
     "slap_found": 0,
@@ -562,7 +567,8 @@
       "F1_50_hz": 435.8700298458206,
       "F2_50_hz": 1321.4921870482783,
       "F3_50_hz": 1803.5581565452294,
-      "F4_50_hz": 3199.2511043583986
+      "F4_50_hz": 3199.2511043583986,
+      "hnr_hi_db": 0.47738200008353054
      },
      "req": {
       "duration_ms": 95.0,
@@ -699,6 +705,8 @@
     "noise_tail": 0.0,
     "voice_in_ms": 45.0,
     "voice_out_ms": 35.0,
+    "voice_gap_ms": 15.0,
+    "voice_after_ms": 160.0,
     "mid_db": 6.484149928243333,
     "strike_found": 0,
     "slap_found": 0,
@@ -824,7 +832,8 @@
       "F1_50_hz": 436.2554579303109,
       "F2_50_hz": 839.9498786075461,
       "F3_50_hz": 1703.801246724101,
-      "F4_50_hz": 3165.3086610579185
+      "F4_50_hz": 3165.3086610579185,
+      "hnr_hi_db": 4.558257866673127
      },
      "req": {
       "duration_ms": 95.0,
@@ -961,6 +970,8 @@
     "noise_tail": 0.0,
     "voice_in_ms": 45.0,
     "voice_out_ms": 35.0,
+    "voice_gap_ms": 15.0,
+    "voice_after_ms": 160.0,
     "mid_db": 1.35254971555619,
     "strike_found": 0,
     "slap_found": 0,
@@ -1014,6 +1025,7 @@
   "peak_hz": 601.4,
   "centroid_hz": 891.7,
   "intensity_db": -22.5,
+  "hnr_hi_db": 0.5,
   "req_F1_hz": 420.0,
   "req_F2_hz": 1280.0,
   "req_F3_hz": 1785.0,
@@ -1034,6 +1046,8 @@
   "noise_mid": 0.0,
   "voice_in_ms": 45.0,
   "voice_out_ms": 35.0,
+  "voice_gap_ms": 15.0,
+  "voice_after_ms": 160.0,
   "mid_db": 1.35,
   "strike_found": 0,
   "f0_range_st": 2.66,

@@ -7,7 +7,7 @@
  "staged": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev",
  "frontend": "C:\\Users\\joshk\\OpenEvvBuild-ttsext\\stage-dev\\x64\\OpenEvvFrontend.exe",
  "map": "C:\\Users\\joshk\\AppData\\Local\\Temp\\OpenEvvTests\\harness\\sweep\\sweep-dedx.map",
- "map_sha256": "11e84320a7b2ef600742d5a85d0d521255b3d53d158b46a01501755b270028bc",
+ "map_sha256": "5000e65ec1ea68846d3a2ca3d455281600fa65379860a109f4f6218097774e99",
  "said_as": {
   "pack": "hi",
   "carrier": null,
@@ -175,6 +175,7 @@
     "noise_tail": 1.0,
     "voice_in_ms": 180.0,
     "voice_out_ms": 180.0,
+    "voice_gap_ms": 0.0,
     "strike_found": 0,
     "slap_found": 0,
     "modulation": {
@@ -195,14 +196,14 @@
    },
    "edges": {},
    "ipa": "𝼆̬",
-   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1}{W .1 @^- X=c1}`[.1@X]{P s}.\r\n",
+   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1 vmark=1 vot=0}{W .1 @^- X=c1}`[.1@X]{P s}.\r\n",
    "diag": [],
    "fe_diag": [
     {
      "source": "frontend",
      "level": "note",
      "kind": "composed",
-     "detail": "/𝼆̬/ = /𝼆/ and 1 mark(s), as {D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1}",
+     "detail": "/𝼆̬/ = /𝼆/ and 1 mark(s), as {D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1 vmark=1 vot=0}",
      "count": 1
     },
     {
@@ -436,6 +437,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 35.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 90.0,
+    "voice_after_ms": 0.0,
     "mid_db": -12.715233215317301,
     "noise_db": -14.168919767443096,
     "strike_found": 0,
@@ -699,6 +702,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 30.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 90.0,
+    "voice_after_ms": 0.0,
     "mid_db": -6.093383073507965,
     "noise_db": -6.565758194447412,
     "strike_found": 0,
@@ -962,6 +967,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 35.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 90.0,
+    "voice_after_ms": 0.0,
     "mid_db": -14.592573317287314,
     "noise_db": -15.295204022213351,
     "strike_found": 0,
@@ -1225,6 +1232,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 120.0,
     "voice_out_ms": 120.0,
+    "voice_gap_ms": 5.0,
+    "voice_after_ms": 0.0,
     "mid_db": -7.260959783156483,
     "strike_found": 0,
     "slap_found": 0,
@@ -1261,14 +1270,14 @@
     "next_req_F3_mid": 2750.0
    },
    "ipa": "ˈa𝼆̬a",
-   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0061 ah=-6 av=-6 f1=127 f2=125 f3=110}{D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1}{W .1 A=u0061^- .0 X=c1 A=u0061^-}`[.1A.0XA]{P s}.\r\n",
+   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0061 ah=-6 av=-6 f1=127 f2=125 f3=110}{D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1 vmark=1 vot=0}{W .1 A=u0061^- .0 X=c1 A=u0061^-}`[.1A.0XA]{P s}.\r\n",
    "diag": [],
    "fe_diag": [
     {
      "source": "frontend",
      "level": "note",
      "kind": "composed",
-     "detail": "/𝼆̬/ = /𝼆/ and 1 mark(s), as {D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1}",
+     "detail": "/𝼆̬/ = /𝼆/ and 1 mark(s), as {D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1 vmark=1 vot=0}",
      "count": 1
     }
    ],
@@ -1495,6 +1504,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 115.0,
     "voice_out_ms": 115.0,
+    "voice_gap_ms": 5.0,
+    "voice_after_ms": 0.0,
     "mid_db": -0.654254188486,
     "strike_found": 0,
     "slap_found": 0,
@@ -1531,14 +1542,14 @@
     "next_req_F3_mid": 3654.0
    },
    "ipa": "ˈi𝼆̬i",
-   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0069 ah=-16 av=-16 f1=82 f2=129 f3=126}{D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1}{W .1 i=u0069^- .0 X=c1 i=u0069^-}`[.1i.0Xi]{P s}.\r\n",
+   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0069 ah=-16 av=-16 f1=82 f2=129 f3=126}{D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1 vmark=1 vot=0}{W .1 i=u0069^- .0 X=c1 i=u0069^-}`[.1i.0Xi]{P s}.\r\n",
    "diag": [],
    "fe_diag": [
     {
      "source": "frontend",
      "level": "note",
      "kind": "composed",
-     "detail": "/𝼆̬/ = /𝼆/ and 1 mark(s), as {D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1}",
+     "detail": "/𝼆̬/ = /𝼆/ and 1 mark(s), as {D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1 vmark=1 vot=0}",
      "count": 1
     }
    ],
@@ -1765,6 +1776,8 @@
     "noise_tail": 1.0,
     "voice_in_ms": 120.0,
     "voice_out_ms": 120.0,
+    "voice_gap_ms": 5.0,
+    "voice_after_ms": 0.0,
     "mid_db": -8.277711879575882,
     "strike_found": 0,
     "slap_found": 0,
@@ -1801,14 +1814,14 @@
     "next_req_F3_mid": 2472.0
    },
    "ipa": "ˈu𝼆̬u",
-   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0075 ah=-4 av=-4 f1=123 f2=77 f3=103}{D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1}{W .1 u=u0075^- .0 X=c1 u=u0075^-}`[.1u.0Xu]{P s}.\r\n",
+   "said": "{A v=1 f0=own range=90 shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stop=1}{X C t S}{X J d Z}{X P p f}{X T t s}{D u0075 ah=-4 av=-4 f1=123 f2=77 f3=103}{D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1 vmark=1 vot=0}{W .1 u=u0075^- .0 X=c1 u=u0075^-}`[.1u.0Xu]{P s}.\r\n",
    "diag": [],
    "fe_diag": [
     {
      "source": "frontend",
      "level": "note",
      "kind": "composed",
-     "detail": "/𝼆̬/ = /𝼆/ and 1 mark(s), as {D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1}",
+     "detail": "/𝼆̬/ = /𝼆/ and 1 mark(s), as {D c1 a2=36 a3=56 a4=0 a5=0 a6=0 ant=50 f3=98 l2=460 lk=34 voi=1 vmark=1 vot=0}",
      "count": 1
     }
    ],
@@ -1848,6 +1861,8 @@
     "noise_mid": 1.0,
     "voice_in_ms": 35.0,
     "voice_out_ms": 0.0,
+    "voice_gap_ms": 90.0,
+    "voice_after_ms": 0.0,
     "mid_db": -12.72,
     "noise_db": -14.17,
     "strike_found": 0,
@@ -1951,6 +1966,8 @@
     "noise_mid": 1.0,
     "voice_in_ms": 120.0,
     "voice_out_ms": 120.0,
+    "voice_gap_ms": 5.0,
+    "voice_after_ms": 0.0,
     "mid_db": -7.26,
     "strike_found": 0,
     "f0_range_st": 2.98,

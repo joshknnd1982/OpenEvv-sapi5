@@ -1520,6 +1520,8 @@ checks = ["T-shift"]
 bases = ["U+0061", "U+0065", "U+025B"]
 long = true
 shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+# and its level within one standard deviation of the speakers' mean (allegra2019 Table 2: 3.91 +/- 2.36 per cent; D87)
+limit = [{ measure = "pulse_jitter_pct", min = 1.55 }, { measure = "pulse_jitter_pct", max = 6.27 }]
 proof = "ipa/proofs/B_U+0152.json"
 
 [sound."B:U+042E"]
@@ -1552,6 +1554,8 @@ checks = ["T-shift", "T-contrast"]
 bases = ["U+0061", "U+0065", "U+025B"]
 long = true
 shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+# and its level within one standard deviation of the speakers' mean (allegra2019 Table 2: 2.92 +/- 1.95 per cent; D87)
+limit = [{ measure = "pulse_jitter_pct", min = 0.97 }, { measure = "pulse_jitter_pct", max = 4.87 }]
 # by the mean pulse rate over the vowel's middle: with a jittered voice the pitch read at one point follows
 # each frame's random move (D87)
 contrast = [{ with = "B:U+0152", base = "U+0061", measure = "pulse_hz", sign = -1, distinct = true }]

@@ -404,7 +404,8 @@ VOICE_SCALE_KEYS = {'frelf2', 'frelf3'}
 # the table's jitter is the jitter measured (pulse_jitter_pct, as the literature's is); the layer's `jit' moves
 # each 5 ms frame's pitch by up to so many tenths of a per cent, and a period that starts in the same frame as
 # the one before has its pitch, so about two and a half times the measured jitter is asked for (D87,
-# calib_jit_d87.log on dedx: jit 0 measured 0.88 per cent, 60 2.30, 80 3.16, 100 3.81 on [a e ɛ])
+# docs/tts-extension/harness/results/calib_jit_d87.txt, calib_jit.py on dedx: jit 0 measured 0.88 per cent,
+# 60 2.30, 80 3.16, 100 3.81 on [a e ɛ]; not a straight line below 40, where 20 adds 0.1)
 KEY_UNIT = {'pst': 10.0, 'jit': 25.0}
 # a consonant's length is `hold', a vowel's `dur'
 CLASS_KEY = {('consonant', 'dur'): 'hold'}
