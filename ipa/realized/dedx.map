@@ -276,7 +276,7 @@ sound udd0ba12375 ant=50 f2=86 hold=60 l2=215 lk=82    # U+0062, part 2 of ɡ͡b
 ɡ͜b          g=u1f03dedb4a b=udd0ba12375
 
 # affricates made as a stop released into the fricative, one sound each (͜ U+035C, D84)
-sound u7d96036898 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60 ant=50 frel=46 frelaf=58 frelav=-13 l2=428 lk=80    # d͡ð, d released into ᶿ
+sound u7d96036898 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60 ant=50 frel=55 frelaf=58 frelav=-13 l2=428 lk=80    # d͡ð, d released into ᶿ
 d͜ð          d=u7d96036898
 sound u27675b42d5 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60 ant=50 frel=75 frelaf=58 frelav=-10 l2=417 lk=69 vot=6    # t͡θ, t released into ᶿ
 t͜θ          t=u27675b42d5
@@ -302,7 +302,7 @@ sound u02a9_032c a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=1
 ʩ̬           G=u02a9_032c
 sound u1df02 ant=50 f1=122 f2=94 l2=150 lk=78    # B:U+1DF02 upper-pharyngeal plosive (voiced plosive in the up = ɢ̠
 𝼂            g=u1df02
-sound u1df05 a2=0 a3=50 a4=0 a5=30 a6=0 ant=50 f3=92 hold=145 voi=1    # B:U+1DF05 voiced retroflex lateral fricative (ɭ̝ in IPA) = ꞎ̬
+sound u1df05 a2=0 a3=50 a4=0 a5=30 a6=0 ant=50 f3=92 hold=145 vmark=1 voi=1 vot=0    # B:U+1DF05 voiced retroflex lateral fricative (ɭ̝ in IPA) = ꞎ̬
 𝼅            s=u1df05
 sound ua7af ant=50 f1=124 f2=94 l2=150 lk=78 vot=23    # B:U+A7AF upper-pharyngeal plosive (voiceless plosive made i = q̠
 ꞯ            k=ua7af
@@ -479,7 +479,7 @@ mod ̙ c f1*105    # U+0319
 mod ̙ v f1~921:14 f2*96    # U+0319
 mod ̚ c noburst=1    # U+031A
 mod ̜ v f2*107 f3*104    # U+031C
-mod ̝ c f1*90    # U+031D
+mod ̝ c f1*90 rfric=55 fgain=15    # U+031D
 mod ̝ v f1*90    # U+031D
 mod ̞ c f1*110    # U+031E
 mod ̞ v f1~921:14    # U+031E
@@ -493,7 +493,7 @@ mod ̥ c voi=0 whisper=44 hold*131    # U+0325
 mod ̥ v voi=0 whisper=44    # U+0325
 mod ̩ c hold*150    # U+0329
 mod ̪ c f2*93    # U+032A
-mod ̬ c voi=1    # U+032C
+mod ̬ c voi=1 vmark=1 vot=0    # U+032C
 mod ̯ v dur*50    # U+032F
 mod ̰ c creak=60    # U+0330
 mod ̰ v creak=60    # U+0330
@@ -503,10 +503,11 @@ mod ̺ c f3*95    # U+033A
 mod ̻ c f2*108    # U+033B
 mod ̼ c f2*75    # U+033C
 mod ̽ v f1~467:50 f2~1454:50    # U+033D
+mod ‿ c hold*84    # U+203F
 mod ⁿ c noburst=1    # U+207F
 premod ʰ c pre=98    # B:U+02B0#pre
-mod ˣ c frel=75 frelaf=55 frelav=-10 frelf2=318 frelf3=564 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0    # B:U+02E3
-mod ˬ c voi=1 vfrom=50    # B:U+02EC#post
+mod ˣ c frel=43 frelaf=55 frelav=-10 frelf2=318 frelf3=564 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0    # B:U+02E3
+mod ˬ c voi=1 vmark=1 vfrom=50 vot=0    # B:U+02EC#post
 premod ˬ c voi=1 vto=50    # B:U+02EC#pre
 mod ˭ c vot=15    # B:U+02ED
 mod ˷ c creak=60 vfrom=50    # B:U+02F7
@@ -529,13 +530,13 @@ mod ͍ c f2*114    # B:U+034D
 mod ͍ v f2*114    # B:U+034D
 mod ͎ c f2*90 fric=62 a2=62 a3=0 a4=0 a5=0 a6=0 ab=0    # B:U+034E
 mod ͔ c f4*70 a5=20    # B:U+0354
-mod ͕ c f4*76 a5=20    # B:U+0355
+mod ͕ c f4*84 a5=20    # B:U+0355
 mod ͢ c hold*50    # B:U+0362
-mod 𐞙 c frel=75 frelaf=62 frelav=-10 frelf3=680 a2=0 a3=50 a4=50 a5=30 a6=0 ab=0    # B:U+10799
+mod 𐞙 c frel=43 frelaf=62 frelav=-10 frelf3=680 a2=0 a3=50 a4=50 a5=30 a6=0 ab=0    # B:U+10799
 mod 𐞚 c frel=46 frelaf=66 frelav=-13 frelf3=680 a2=0 a3=50 a4=50 a5=50 a6=0 ab=0    # B:U+1079A
-mod 𐞜 c frel=75 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0    # B:U+1079C
-mod 𐞞 c frel=46 frelaf=66 frelav=-13 a2=0 a3=50 a4=30 a5=30 a6=0 ab=0    # B:U+1079E
-mod ᶿ c frel=75 frelaf=58 frelav=-10 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60    # B:U+1DBF
+mod 𐞜 c frel=43 frelaf=55 frelav=-10 frelf2=346 frelf3=651 a2=50 a3=70 a4=50 a5=0 a6=0 ab=0    # B:U+1079C
+mod 𐞞 c frelf3=680 frel=46 frelaf=66 frelav=-13 a2=0 a3=50 a4=30 a5=30 a6=0 ab=0    # B:U+1079E
+mod ᶿ c frel=43 frelaf=58 frelav=-10 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60    # B:U+1DBF
 extipa mod ↓ c pst=51 ah+2    # B:U+2193
 extipa mod ↓ v pst=51 ah+2    # B:U+2193
 after ᪻ ͊
@@ -610,12 +611,12 @@ label allegro d 󰂗 󰂘 󰂙 g=tempo    # B:term:allegro
 label alleɡro d 󰂗 󰂘 󰂙 g=tempo    # B:term:allegro
 label crescendo r 󰂚 󰂛 󰂜 󰂝 󰂞 g=dyn    # B:term:crescendo
 label lento d 󰂟 󰂠 󰂡 g=tempo    # B:term:lento
-mod 󰀁 c di=18 oq=50    # B:U+0021#label, ! x0.50
-mod 󰀁 v di=18 oq=50    # B:U+0021#label, ! x0.50
-mod 󰀂 c di=35 oq=45    # B:U+0021#label, ! x1.00
-mod 󰀂 v di=35 oq=45    # B:U+0021#label, ! x1.00
-mod 󰀃 c di=52 oq=40    # B:U+0021#label, ! x1.50
-mod 󰀃 v di=52 oq=40    # B:U+0021#label, ! x1.50
+mod 󰀁 c di=18 oq=50 jit=19    # B:U+0021#label, ! x0.50
+mod 󰀁 v di=18 oq=50 jit=19    # B:U+0021#label, ! x0.50
+mod 󰀂 c di=35 oq=45 jit=38    # B:U+0021#label, ! x1.00
+mod 󰀂 v di=35 oq=45 jit=38    # B:U+0021#label, ! x1.00
+mod 󰀃 c di=52 oq=40 jit=56    # B:U+0021#label, ! x1.50
+mod 󰀃 v di=52 oq=40 jit=56    # B:U+0021#label, ! x1.50
 mod 󰀄 c di=30 oq=48    # B:U+0021+U+0021#label, !! x0.50
 mod 󰀄 v di=30 oq=48    # B:U+0021+U+0021#label, !! x0.50
 mod 󰀅 c di=60 oq=40    # B:U+0021+U+0021#label, !! x1.00
@@ -658,18 +659,18 @@ mod 󰀗 c f2*106    # B:U+004A+U+031F, J̟ x1.00
 mod 󰀗 v f2*106    # B:U+004A+U+031F, J̟ x1.00
 mod 󰀘 c f2*109    # B:U+004A+U+031F, J̟ x1.50
 mod 󰀘 v f2*109    # B:U+004A+U+031F, J̟ x1.50
-mod 󰀙 c f1*98 f3*98    # B:U+004A+U+0354, J͔ x0.50
-mod 󰀙 v f1*98 f3*98    # B:U+004A+U+0354, J͔ x0.50
-mod 󰀚 c f1*95 f3*97    # B:U+004A+U+0354, J͔ x1.00
-mod 󰀚 v f1*95 f3*97    # B:U+004A+U+0354, J͔ x1.00
-mod 󰀛 c f1*92 f3*96    # B:U+004A+U+0354, J͔ x1.50
-mod 󰀛 v f1*92 f3*96    # B:U+004A+U+0354, J͔ x1.50
-mod 󰀜 c f1*98 f3*102    # B:U+004A+U+0355, J͕ x0.50
-mod 󰀜 v f1*98 f3*102    # B:U+004A+U+0355, J͕ x0.50
-mod 󰀝 c f1*95 f3*103    # B:U+004A+U+0355, J͕ x1.00
-mod 󰀝 v f1*95 f3*103    # B:U+004A+U+0355, J͕ x1.00
-mod 󰀞 c f1*92 f3*104    # B:U+004A+U+0355, J͕ x1.50
-mod 󰀞 v f1*92 f3*104    # B:U+004A+U+0355, J͕ x1.50
+mod 󰀙 c f1*98 f3*97    # B:U+004A+U+0354, J͔ x0.50
+mod 󰀙 v f1*98 f3*97    # B:U+004A+U+0354, J͔ x0.50
+mod 󰀚 c f1*95 f3*94    # B:U+004A+U+0354, J͔ x1.00
+mod 󰀚 v f1*95 f3*94    # B:U+004A+U+0354, J͔ x1.00
+mod 󰀛 c f1*92 f3*91    # B:U+004A+U+0354, J͔ x1.50
+mod 󰀛 v f1*92 f3*91    # B:U+004A+U+0354, J͔ x1.50
+mod 󰀜 c f1*98 f3*103    # B:U+004A+U+0355, J͕ x0.50
+mod 󰀜 v f1*98 f3*103    # B:U+004A+U+0355, J͕ x0.50
+mod 󰀝 c f1*95 f3*106    # B:U+004A+U+0355, J͕ x1.00
+mod 󰀝 v f1*95 f3*106    # B:U+004A+U+0355, J͕ x1.00
+mod 󰀞 c f1*92 f3*109    # B:U+004A+U+0355, J͕ x1.50
+mod 󰀞 v f1*92 f3*109    # B:U+004A+U+0355, J͕ x1.50
 mod 󰀟 c f1*103 f2*103 f3*103 f4*103 pst=15    # B:U+004C+U+031D, L̝ x0.50
 mod 󰀟 v f1*103 f2*103 f3*103 f4*103 pst=15    # B:U+004C+U+031D, L̝ x0.50
 mod 󰀠 c f1*106 f2*106 f3*106 f4*106 pst=30    # B:U+004C+U+031D, L̝ x1.00
@@ -730,12 +731,12 @@ mod 󰀻 c av+-12 ah+-12 af+-12 pst=-50    # B:U+0070+U+0070#dyn, pp x1.00
 mod 󰀻 v av+-12 ah+-12 pst=-50 f1*93    # B:U+0070+U+0070#dyn, pp x1.00
 mod 󰀼 c av+-18 ah+-18 af+-18 pst=-75    # B:U+0070+U+0070#dyn, pp x1.50
 mod 󰀼 v av+-18 ah+-18 pst=-75 f1*90    # B:U+0070+U+0070#dyn, pp x1.50
-mod 󰀽 c di=6 breathy=22 pst=0    # B:U+0152, Œ x0.50
-mod 󰀽 v di=6 breathy=22 pst=0    # B:U+0152, Œ x0.50
-mod 󰀾 c di=12 breathy=45 pst=1    # B:U+0152, Œ x1.00
-mod 󰀾 v di=12 breathy=45 pst=1    # B:U+0152, Œ x1.00
-mod 󰀿 c di=18 breathy=68 pst=2    # B:U+0152, Œ x1.50
-mod 󰀿 v di=18 breathy=68 pst=2    # B:U+0152, Œ x1.50
+mod 󰀽 c jit=49 breathy=22 pst=0    # B:U+0152, Œ x0.50
+mod 󰀽 v jit=49 breathy=22 pst=0    # B:U+0152, Œ x0.50
+mod 󰀾 c jit=98 breathy=45 pst=1    # B:U+0152, Œ x1.00
+mod 󰀾 v jit=98 breathy=45 pst=1    # B:U+0152, Œ x1.00
+mod 󰀿 c jit=146 breathy=68 pst=2    # B:U+0152, Œ x1.50
+mod 󰀿 v jit=146 breathy=68 pst=2    # B:U+0152, Œ x1.50
 mod 󰁀 c f2*122    # B:U+02B2#label, ʲ x0.50
 mod 󰁀 v f2*106    # B:U+02B2#label, ʲ x0.50
 mod 󰁁 c f2*143    # B:U+02B2#label, ʲ x1.00
@@ -856,12 +857,12 @@ mod 󰁺 c mono=100    # B:U+0418, И x1.00
 mod 󰁺 v mono=100 tl=0    # B:U+0418, И x1.00
 mod 󰁻 c mono=100    # B:U+0418, И x1.50
 mod 󰁻 v mono=100 tl=0    # B:U+0418, И x1.50
-mod 󰁼 c di=4 breathy=15 pst=-9    # B:U+042E, Ю x0.50
-mod 󰁼 v di=4 breathy=15 pst=-9    # B:U+042E, Ю x0.50
-mod 󰁽 c di=8 breathy=30 pst=-18    # B:U+042E, Ю x1.00
-mod 󰁽 v di=8 breathy=30 pst=-18    # B:U+042E, Ю x1.00
-mod 󰁾 c di=12 breathy=45 pst=-27    # B:U+042E, Ю x1.50
-mod 󰁾 v di=12 breathy=45 pst=-27    # B:U+042E, Ю x1.50
+mod 󰁼 c jit=36 breathy=15 pst=-9    # B:U+042E, Ю x0.50
+mod 󰁼 v jit=36 breathy=15 pst=-9    # B:U+042E, Ю x0.50
+mod 󰁽 c jit=72 breathy=30 pst=-18    # B:U+042E, Ю x1.00
+mod 󰁽 v jit=72 breathy=30 pst=-18    # B:U+042E, Ю x1.00
+mod 󰁾 c jit=109 breathy=45 pst=-27    # B:U+042E, Ю x1.50
+mod 󰁾 v jit=109 breathy=45 pst=-27    # B:U+042E, Ю x1.50
 mod 󰁿 c di=18 oq=48 pst=-15    # B:U+10780#label, 𐞀 x0.50
 mod 󰁿 v di=18 oq=48 pst=-15    # B:U+10780#label, 𐞀 x0.50
 mod 󰂀 c di=35 oq=40 pst=-30    # B:U+10780#label, 𐞀 x1.00

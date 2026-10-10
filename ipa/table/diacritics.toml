@@ -31,6 +31,7 @@ breath = { whisper_db = { set = 44, tag = "estimated", note = "as for consonants
 checks = ["T-shift"]
 bases = ["U+006E", "U+006C", "U+0061", "U+0072"]
 shift = [{ measure = "voiced_frac", sign = -1 }]
+limit = [{ measure = "voice_after_ms", max = 5, bases = ["U+0061"] }]
 proof = "ipa/proofs/U+0325.json"
 
 [sound."U+030A"]
@@ -63,6 +64,7 @@ breath = { whisper_db = { set = 44, tag = "estimated", note = "as for consonants
 checks = ["T-shift"]
 bases = ["U+006E", "U+006C", "U+0061"]
 shift = [{ measure = "voiced_frac", sign = -1 }]
+limit = [{ measure = "voice_after_ms", max = 5, bases = ["U+0061"] }]
 proof = "ipa/proofs/U+030A.json"
 
 [sound."U+032C"]
@@ -82,12 +84,14 @@ plan = { decision = "composition", end_state = "composed", uses = ["X4"], builds
 [sound."U+032C".spec]
 
 [sound."U+032C".transform.consonant]
-voicing = { voiced = { set = 1, tag = "derived", rule = "the mark itself: voicing on through the sound" } }
+voicing = { voiced = { set = 1, tag = "derived", rule = "the mark itself: voicing on through the sound" }, over_whisper = { set = 1, tag = "derived", rule = "the mark's voice is the sound's, heard over a whispered letter's own whisper, which keeps only what the mark does not voice (Q33)" } }
+vot_ms = { set = 0, tag = "derived", rule = "voicing through the sound, its release too: the voice does not wait after a stop's release (Q30); an aspiration mark after it adds its own lag" }
 
 [sound."U+032C".tests]
 checks = ["T-shift"]
 bases = ["U+0074", "U+0070", "U+0073"]
 shift = [{ measure = "voiced_frac", sign = 1 }]
+limit = [{ measure = "voice_gap_ms", max = 0, bases = ["U+0074", "U+0070"] }]
 proof = "ipa/proofs/U+032C.json"
 
 [sound."U+02B0"]
@@ -573,11 +577,12 @@ formants = { F1 = { scale = 0.9, tag = "estimated", note = "a closer tongue lowe
 
 [sound."U+031D".transform.consonant]
 formants = { F1 = { scale = 0.9, tag = "estimated", note = "a closer constriction lowers F1; no measured size" } }
+noise = { raised_db = { set = 55, tag = "estimated", note = "friction over the voice of a sound with none of its own, an approximant raised to a fricative (ɹ̝, l̝; Q23): the level of this engine's fricatives' own friction (52 to 60); no measured level of a raised approximant's noise was found" }, over_voice_db = { set = 15, tag = "estimated", note = "as velopharyngeal friction's (D77): without it friction at this level does not show over a voice" } }
 
 [sound."U+031D".tests]
 checks = ["T-shift"]
-bases = ["U+0065", "U+006F", "U+0061"]
-shift = [{ measure = "F1_50_hz", sign = -1 }]
+bases = ["U+0065", "U+006F", "U+0061", "U+0279", "U+006C"]
+shift = [{ measure = "F1_50_hz", sign = -1 }, { measure = "hnr_hi_db", sign = -1 }]
 proof = "ipa/proofs/U+031D.json"
 
 [sound."U+031E"]

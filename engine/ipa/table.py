@@ -311,10 +311,11 @@ def validate(t):
         for k, v in (e.get('spec') or {}).items():
             _check_value(sid, 'spec.' + k, v, t, problems, estimated)
         for cls, tr in (e.get('transform') or {}).items():
-            # (a joining mark that is a mark of each side, extIPA's sliding articulation, has one too)
+            # (a joining mark that is a mark of each side, extIPA's sliding articulation, has one too; and
+            # a boundary that changes the sound before it, the link ‿, Q19)
             if kind == 'label' and cls in ('consonant', 'vowel'):
                 pass        # a label's transform is of every letter of its class in its stretch
-            elif kind not in ('modifier', 'tie') or cls not in (e.get('edit') or {}):
+            elif kind not in ('modifier', 'tie', 'boundary') or cls not in (e.get('edit') or {}):
                 problems.append('%s: a transform for %s, which is not a class this modifier edits' % (sid, cls))
             for k, v in tr.items():
                 _check_value(sid, 'transform.%s.%s' % (cls, k), v, t, problems, estimated)

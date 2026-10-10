@@ -285,9 +285,11 @@ ANT_MS = 50
 # bandwidths of F4 and F5; and the bandwidths of a carrier that has none measured.
 F5_HZ, B4_HZ, B5_HZ = 3900, 330, 260
 B_DEFAULT = [120, 100, 150]
-# The voice's own F5 at preset 1, per template: the scale a locus is given in (`l2`, Q21). Only
-# the reference template's is measured; another template keeps the ratio until its F5 is.
-VOICE_F5 = {'dedx': F5_HZ}
+# The voice's own F5 at preset 1, per template: the scale a locus is given in (`l2`, Q21). Measured
+# for all seven (D87): the F5 of the voiced vowels' frames in each template's first pack of the staged
+# golden, its most common value 3900 Hz in every one (dedx ab 270 vowels, engx cy 356, enux chr 382,
+# esex an 357, esux gn 291, frfx fr-be 641, itix bn 454).
+VOICE_F5 = {t: F5_HZ for t in ('dedx', 'engx', 'enux', 'esex', 'esux', 'frfx', 'itix')}
 
 
 def level_rise(ch, keys):
@@ -392,8 +394,18 @@ OPS.update({('release.fricated_ms', 'set'): ('frel', '='), ('release.fricated_db
 # against k with a superscript x, whose noise bands are the same): hertz in the table, per mille of
 # the voice's own F5 in the layer's `frelf2', `frelf3' (as a place's `l2', `l3' are, Q21)
 OPS.update({('release.fricated_F2', 'set'): ('frelf2', '='), ('release.fricated_F3', 'set'): ('frelf3', '=')})
+# a mark's voice heard over a whispered letter's own whisper (Q33: ◌̬ on ʩ, the layer's `vmark'); friction
+# over the voice of a sound with none of its own (Q23: ◌̝ on an approximant, `rfric', dB as the synthesiser
+# has it); each period's length moved at random (Q36: a harsh voice's jitter, per cent in the table,
+# tenths of one in the layer's `jit')
+OPS.update({('voicing.over_whisper', 'set'): ('vmark', '='), ('noise.raised_db', 'set'): ('rfric', '='),
+            ('phonation.jitter_pct', 'set'): ('jit', '=')})
 VOICE_SCALE_KEYS = {'frelf2', 'frelf3'}
-KEY_UNIT = {'pst': 10.0}
+# the table's jitter is the jitter measured (pulse_jitter_pct, as the literature's is); the layer's `jit' moves
+# each 5 ms frame's pitch by up to so many tenths of a per cent, and a period that starts in the same frame as
+# the one before has its pitch, so about two and a half times the measured jitter is asked for (D87,
+# calib_jit_d87.log on dedx: jit 0 measured 0.88 per cent, 60 2.30, 80 3.16, 100 3.81 on [a e ɛ])
+KEY_UNIT = {'pst': 10.0, 'jit': 25.0}
 # a consonant's length is `hold', a vowel's `dur'
 CLASS_KEY = {('consonant', 'dur'): 'hold'}
 RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur', 'hold', 'b1', 'b2', 'b3', 'b4'}      # absent: the carrier's own, 100
@@ -456,7 +468,7 @@ def _body(ops):
 # template's neutral open quotient and tilt); a switch (voice off, whisper's breath) is not graded.
 LABEL_MARK0 = 0xF0001
 DEGREES = (0.5, 1.0, 1.5)
-GRADED = {'creak', 'breathy', 'pst', 'di', 'mono', 'nas', 'tdepth', 'fric'}
+GRADED = {'creak', 'breathy', 'pst', 'di', 'mono', 'nas', 'tdepth', 'fric', 'jit'}
 NEUTRAL = {'oq': 56, 'tl': 0}       # the frames' OQ and TL of a modal vowel, dedx (D83, measured)
 LIMIT = {'di': 95, 'mono': 100, 'oq': 99, 'tl': 41, 'creak': 100, 'breathy': 100}
 

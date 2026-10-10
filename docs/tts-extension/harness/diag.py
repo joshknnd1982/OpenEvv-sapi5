@@ -192,6 +192,8 @@ ACCENT_PLANTS = [
     ('rule-empty', A + '{X q}' + W),
     ('key-inert', '{A v=1 f0=own}{D s1 f0=-15}{W .1 a=s1^-}`[.1a]'),
     ('phone-unsounded', A + '{W .1 a^- x .0 i^-}`[.1a.0i]'),
+    # a phone the markup asks for last that the module never says: still waiting when its phrase is over (Q14)
+    ('phone-unplaced', A + '{W .1 a^- .0 i^-}`[.1a]{P s}'),
 ]
 ACCENT_GUARDS = ['machines-full (16 engines at once)', 'out-of-memory', 'pitch-points-full', 'line-up-full (a note)']
 

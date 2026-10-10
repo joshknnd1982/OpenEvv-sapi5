@@ -93,6 +93,8 @@ def contexts(t, sid):
                 # a word-final consonant before a vowel-initial word: linked, it is the next syllable's onset
                 out.append(('plain_%s' % v, 'p%sk %s' % (v, v)))
                 out.append(('marked_%s' % v, 'p%sk%s%s' % (v, x, v)))
+                # and the same consonant beginning the word (Q19: a liaison consonant is shorter)
+                out.append(('initial_%s' % v, 'p%s k%s' % (v, v)))
             else:
                 w = 'p%sm%s' % (v, v)
                 out.append(('plain_%s' % v, w + ' ' + w))
@@ -425,6 +427,13 @@ def judge(t, sid, cases):
                 d = (km[0] - kp[0]) if kp and km else None
                 put('%s: the consonant differs from the unlinked one (ms)' % v, '|d| >= %d' % MIN_MS, d,
                     d is not None and abs(d) >= MIN_MS)
+                # against the consonant that begins a word: its share, as measured (Q19, D87)
+                want = _v((((e.get('transform') or {}).get('consonant') or {}).get('duration') or {})
+                          .get('inherent_ms', {}).get('scale', 1.0))
+                ki = [c['ms'] for c in (P.get('initial_%s' % v) or {}).get('consonants', []) if c['name'] == 'k']
+                r_ = (km[0] / ki[0]) if km and ki and ki[0] else None
+                put('%s: linked / word-initial consonant' % v, '%.2f within 0.08' % want, r_,
+                    r_ is not None and abs(r_ - want) <= 0.08)
             else:
                 lo, hi = _v(spec.get('pause_min_ms', 0)), _v(spec.get('pause_max_ms', 1e9))
                 # a pause the plain word boundary does not have, within what the languages measured span

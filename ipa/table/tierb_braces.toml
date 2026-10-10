@@ -762,14 +762,14 @@ kind = "label"
 state = "composed"
 level = 2
 approximate = true
-deviation = "the irregularity of a harsh voice made as this synthesiser's diplophonia (every second period later and weaker, not random from cycle to cycle) on a constricted voice; its size estimated, none was opened"
+deviation = "the irregularity of a harsh voice made as this synthesiser's diplophonia (every second period later and weaker) with a random jitter of each period (Q36), on a constricted voice; their sizes estimated, no measurement of harsh voice as such was found"
 plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
 
 [sound."B:U+0021#label".transform.vowel]
-phonation = { diplophonia_pct = { set = 35, tag = "estimated", note = "harsh voice is irregular in period and amplitude (wikipedia_voqs names it; no size of its irregularity was opened): every second period later and weaker, more than creaky voice's 15 and less than ventricular phonation's 60; this synthesiser's flutter, a slow wobble of the pitch, moved the pulses' spacing by under a point at its most (D83) and is not used" }, open_quotient_pct = { set = 45, tag = "estimated", note = "a harsh voice is constricted: the glottis open less than modal voice's 56" } }
+phonation = { diplophonia_pct = { set = 35, tag = "estimated", note = "harsh voice is irregular in period and amplitude (wikipedia_voqs names it; no size of its irregularity was opened): every second period later and weaker, more than creaky voice's 15 and less than ventricular phonation's 60; this synthesiser's flutter, a slow wobble of the pitch, moved the pulses' spacing by under a point at its most (D83) and is not used" }, open_quotient_pct = { set = 45, tag = "estimated", note = "a harsh voice is constricted: the glottis open less than modal voice's 56" }, jitter_pct = { set = 1.5, tag = "estimated", note = "a harsh voice's periods differ at random as well as alternating (Q36): above the 0.92 per cent of voices heard as moderately hoarse (brockmann2011, grade G2) and below oesophageal speech's 3.9 (allegra2019); no measured jitter of harsh voice as such was found" } }
 
 [sound."B:U+0021#label".transform.consonant]
-phonation = { diplophonia_pct = { set = 35, tag = "estimated", note = "harsh voice is irregular in period and amplitude (wikipedia_voqs names it; no size of its irregularity was opened): every second period later and weaker, more than creaky voice's 15 and less than ventricular phonation's 60; this synthesiser's flutter, a slow wobble of the pitch, moved the pulses' spacing by under a point at its most (D83) and is not used" }, open_quotient_pct = { set = 45, tag = "estimated", note = "a harsh voice is constricted: the glottis open less than modal voice's 56" } }
+phonation = { diplophonia_pct = { set = 35, tag = "estimated", note = "harsh voice is irregular in period and amplitude (wikipedia_voqs names it; no size of its irregularity was opened): every second period later and weaker, more than creaky voice's 15 and less than ventricular phonation's 60; this synthesiser's flutter, a slow wobble of the pitch, moved the pulses' spacing by under a point at its most (D83) and is not used" }, open_quotient_pct = { set = 45, tag = "estimated", note = "a harsh voice is constricted: the glottis open less than modal voice's 56" }, jitter_pct = { set = 1.5, tag = "estimated", note = "a harsh voice's periods differ at random as well as alternating (Q36): above the 0.92 per cent of voices heard as moderately hoarse (brockmann2011, grade G2) and below oesophageal speech's 3.9 (allegra2019); no measured jitter of harsh voice as such was found" } }
 
 [sound."B:U+0021#label".realization.openevv]
 label = "!"
@@ -1505,11 +1505,11 @@ deviation = "the oesophagus's vibration made as a voice a little irregular and b
 plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
 
 [sound."B:U+0152".transform.vowel]
-phonation = { diplophonia_pct = { set = 12, tag = "estimated", note = "oesophageal speakers' jitter 3.9 per cent against tracheo-oesophageal 2.9 (allegra2019, in the read-ahead, not re-opened): the order kept, the size set so that this test resolves it (D83)" }, breathy_pct = { set = 45, tag = "estimated", note = "noise to harmonics 0.43 (allegra2019, in the read-ahead): taken as so much breathiness" } }
+phonation = { jitter_pct = { set = 3.9, tag = "literature", ref = "allegra2019", note = "oesophageal speakers' jitter, 3.91 +/- 2.36 per cent (32 speakers, Table 2): each period a little longer or shorter than the last, at random (the layer's `jit', Q36), in place of D83's diplophonia, whose alternation is regular" }, breathy_pct = { set = 45, tag = "estimated", note = "noise to harmonics 0.43 (allegra2019, in the read-ahead): taken as so much breathiness" } }
 pitch = { offset_st = { set = 0.1, tag = "estimated", note = "133 Hz oesophageal against 119 Hz tracheo-oesophageal (allegra2019, mixed speakers), 1.9 semitones above Ю's" } }
 
 [sound."B:U+0152".transform.consonant]
-phonation = { diplophonia_pct = { set = 12, tag = "estimated", note = "oesophageal speakers' jitter 3.9 per cent against tracheo-oesophageal 2.9 (allegra2019, in the read-ahead, not re-opened): the order kept, the size set so that this test resolves it (D83)" }, breathy_pct = { set = 45, tag = "estimated", note = "noise to harmonics 0.43 (allegra2019, in the read-ahead): taken as so much breathiness" } }
+phonation = { jitter_pct = { set = 3.9, tag = "literature", ref = "allegra2019", note = "oesophageal speakers' jitter, 3.91 +/- 2.36 per cent (32 speakers, Table 2): each period a little longer or shorter than the last, at random (the layer's `jit', Q36), in place of D83's diplophonia, whose alternation is regular" }, breathy_pct = { set = 45, tag = "estimated", note = "noise to harmonics 0.43 (allegra2019, in the read-ahead): taken as so much breathiness" } }
 pitch = { offset_st = { set = 0.1, tag = "estimated", note = "133 Hz oesophageal against 119 Hz tracheo-oesophageal (allegra2019, mixed speakers), 1.9 semitones above Ю's" } }
 
 [sound."B:U+0152".realization.openevv]
@@ -1537,11 +1537,11 @@ deviation = "as oesophageal speech's, a little less irregular and breathy and lo
 plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
 
 [sound."B:U+042E".transform.vowel]
-phonation = { diplophonia_pct = { set = 8, tag = "estimated", note = "tracheo-oesophageal jitter 2.9 per cent, below oesophageal 3.9 (allegra2019, in the read-ahead, not re-opened): set below Œ's 12 (D83)" }, breathy_pct = { set = 30, tag = "estimated", note = "noise to harmonics 0.31 (allegra2019): taken as so much breathiness" } }
+phonation = { jitter_pct = { set = 2.9, tag = "literature", ref = "allegra2019", note = "tracheo-oesophageal speakers' jitter, 2.92 +/- 1.95 per cent (35 speakers, Table 2), below oesophageal 3.9 (the layer's `jit', Q36), in place of D83's diplophonia" }, breathy_pct = { set = 30, tag = "estimated", note = "noise to harmonics 0.31 (allegra2019): taken as so much breathiness" } }
 pitch = { offset_st = { set = -1.8, tag = "estimated", note = "106 Hz, tracheo-oesophageal men (schindler2005, in the read-ahead), against men's modal 117.5 Hz (chen_etal_1997)" } }
 
 [sound."B:U+042E".transform.consonant]
-phonation = { diplophonia_pct = { set = 8, tag = "estimated", note = "tracheo-oesophageal jitter 2.9 per cent, below oesophageal 3.9 (allegra2019, in the read-ahead, not re-opened): set below Œ's 12 (D83)" }, breathy_pct = { set = 30, tag = "estimated", note = "noise to harmonics 0.31 (allegra2019): taken as so much breathiness" } }
+phonation = { jitter_pct = { set = 2.9, tag = "literature", ref = "allegra2019", note = "tracheo-oesophageal speakers' jitter, 2.92 +/- 1.95 per cent (35 speakers, Table 2), below oesophageal 3.9 (the layer's `jit', Q36), in place of D83's diplophonia" }, breathy_pct = { set = 30, tag = "estimated", note = "noise to harmonics 0.31 (allegra2019): taken as so much breathiness" } }
 pitch = { offset_st = { set = -1.8, tag = "estimated", note = "106 Hz, tracheo-oesophageal men (schindler2005, in the read-ahead), against men's modal 117.5 Hz (chen_etal_1997)" } }
 
 [sound."B:U+042E".realization.openevv]
@@ -1552,7 +1552,9 @@ checks = ["T-shift", "T-contrast"]
 bases = ["U+0061", "U+0065", "U+025B"]
 long = true
 shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
-contrast = [{ with = "B:U+0152", base = "U+0061", measure = "f0_50_hz", sign = -1, distinct = true }]
+# by the mean pulse rate over the vowel's middle: with a jittered voice the pitch read at one point follows
+# each frame's random move (D87)
+contrast = [{ with = "B:U+0152", base = "U+0061", measure = "pulse_hz", sign = -1, distinct = true }]
 proof = "ipa/proofs/B_U+042E.json"
 
 [sound."B:U+004C+U+031D"]
@@ -1724,10 +1726,10 @@ deviation = "which side the jaw is moved to cannot be heard in one channel of so
 plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
 
 [sound."B:U+004A+U+0354".transform.vowel]
-formants = { F1 = { scale = 0.95, tag = "estimated", note = "the jaw off its line: the mouth a little less open" }, F3 = { scale = 0.97, tag = "estimated", note = "a convention, F3 a little lower to the right and higher to the left, so that the two sides are not one sound (the human's rule); nothing measured tells them apart" } }
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "the jaw off its line: the mouth a little less open" }, F3 = { scale = 0.94, tag = "estimated", note = "a convention, F3 lower to the right and higher to the left, so that the two sides are not one sound (the human's rule); nothing measured tells them apart; D83's 0.97, widened at the human's answer to Q35 (D87)" } }
 
 [sound."B:U+004A+U+0354".transform.consonant]
-formants = { F1 = { scale = 0.95, tag = "estimated", note = "the jaw off its line: the mouth a little less open" }, F3 = { scale = 0.97, tag = "estimated", note = "a convention, F3 a little lower to the right and higher to the left, so that the two sides are not one sound (the human's rule); nothing measured tells them apart" } }
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "the jaw off its line: the mouth a little less open" }, F3 = { scale = 0.94, tag = "estimated", note = "a convention, F3 lower to the right and higher to the left, so that the two sides are not one sound (the human's rule); nothing measured tells them apart; D83's 0.97, widened at the human's answer to Q35 (D87)" } }
 
 [sound."B:U+004A+U+0354".realization.openevv]
 label = "J͔"
@@ -1755,10 +1757,10 @@ deviation = "as the right offset jaw: told apart by a convention (its F3 higher)
 plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
 
 [sound."B:U+004A+U+0355".transform.vowel]
-formants = { F1 = { scale = 0.95, tag = "estimated", note = "as the right offset" }, F3 = { scale = 1.03, tag = "estimated", note = "the convention: the left offset's F3 a little higher (see J͔)" } }
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "as the right offset" }, F3 = { scale = 1.06, tag = "estimated", note = "the convention: the left offset's F3 higher (see J͔); D83's 1.03, widened at the human's answer to Q35 (D87)" } }
 
 [sound."B:U+004A+U+0355".transform.consonant]
-formants = { F1 = { scale = 0.95, tag = "estimated", note = "as the right offset" }, F3 = { scale = 1.03, tag = "estimated", note = "the convention: the left offset's F3 a little higher (see J͔)" } }
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "as the right offset" }, F3 = { scale = 1.06, tag = "estimated", note = "the convention: the left offset's F3 higher (see J͔); D83's 1.03, widened at the human's answer to Q35 (D87)" } }
 
 [sound."B:U+004A+U+0355".realization.openevv]
 label = "J͕"

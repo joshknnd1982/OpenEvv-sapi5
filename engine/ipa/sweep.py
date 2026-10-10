@@ -272,6 +272,16 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
                 v_ = A.hnr_db(hp_, rate, a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_))
                 if v_ is not None:
                     ph.setdefault('meas', {})['hnr_hi_db'] = v_
+    if tgt and (man or base_man) == 'approximant':
+        # friction over an approximant's voice (◌̝ on ɹ and l, Q23): the periodicity above 1 kHz, as
+        # for a nasal's (over a voice a level follows the voice, D72)
+        for ph in tgt:
+            a_, b_ = ph['start_ms'], ph['end_ms']
+            if b_ - a_ >= 20:
+                hp_ = A.signal.sosfilt(A.signal.butter(4, 1000.0 / (rate / 2.0), 'high', output='sos'), x)
+                v_ = A.hnr_db(hp_, rate, a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_))
+                if v_ is not None:
+                    ph.setdefault('meas', {})['hnr_hi_db'] = v_
     if tgt and man == 'fricative':
         # the noise peak above the voice: a voiced fricative's own spectrum below 800 Hz is the
         # voice's (it read 601 Hz for every one); the literature's peaks are of the noise
@@ -342,6 +352,29 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
                     break
                 run += fr3[i, 0]
             ex['voice_out_ms'] = run
+        # the longest stretch without voice from the sound's start to the middle of the sound after
+        # it: a stop a mark voices has none, its release included (Q30: a t voiced by ◌̬ lost its
+        # voice for 5 to 10 ms after its release)
+        nx_ = phones[after] if after is not None else None
+        end_ = (nx_['start_ms'] + nx_['end_ms']) / 2.0 if nx_ else b
+        k4 = [i for i in range(len(t3)) if a <= t3[i] + fr3[i, 0] / 2.0 < end_]
+        if k4:
+            run, best = 0.0, 0.0
+            for i in k4:
+                run = run + fr3[i, 0] if fr3[i, E.P['av']] == 0 else 0.0
+                best = max(best, run)
+            ex['voice_gap_ms'] = best
+        # how long the sound after it begins with voice: none after a whispered vowel when that sound
+        # has no voice of its own (Q28: the frames that take the mouth into a stop's closure carried
+        # the module's voice for 10 to 15 ms)
+        if nx_:
+            k5 = [i for i in range(len(t3)) if nx_['start_ms'] <= t3[i] + fr3[i, 0] / 2.0 < nx_['end_ms']]
+            run = 0.0
+            for i in k5:
+                if fr3[i, E.P['av']] == 0:
+                    break
+                run += fr3[i, 0]
+            ex['voice_after_ms'] = run
         # the sound's own level: its middle third (a consonant's span begins in the vowel before
         # it) against the middle 30 ms of the vowel after it (extIPA's strong and weak
         # articulation, its denasal: a murmur, a noise or a closure louder or softer)
@@ -459,8 +492,11 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             # shut frames at least 20 ms long, the signal there 20 dB or more under the next phone
             t_ = E.frame_times(r['frames'])
             fr0 = r['frames']
+            # (or shut under a voice bar: a closure the layer voices is at AV 34 with F1 at 250 Hz or
+            # under, the walls of the mouth letting through only what is low, Q30)
             closed = [i for i in range(len(t_)) if a <= t_[i] < b and fr0[i, E.P['af']] == 0
-                      and fr0[i, E.P['ah']] == 0 and fr0[i, E.P['av']] < 30]
+                      and fr0[i, E.P['ah']] == 0 and (fr0[i, E.P['av']] < 30
+                                                      or (fr0[i, E.P['av']] < 40 and fr0[i, E.P['f1']] <= 250))]
             c0 = t_[closed[0]] if closed else b
             if closed:
                 # breath before the closure (pre-aspiration, D70): the frames just before it with
@@ -505,6 +541,12 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
                     hi, lo = p_[f_ >= 3000.0].sum(), p_[f_ < 1000.0].sum()
                     if hi > 0 and lo > 0:
                         ex['rel_hf_db'] = 10.0 * math.log10(hi / lo)
+                    # and from 1.5 to 3.5 kHz against below 1 kHz: a release into a lateral fricative,
+                    # whose noise lies on its own F3 (ɮ's 2652 Hz), under 3 kHz, where a voiced stop's
+                    # periodicity cannot tell it from the stop's own release noise (Q31, D87)
+                    mid_ = p_[(f_ >= 1500.0) & (f_ < 3500.0)].sum()
+                    if mid_ > 0 and lo > 0:
+                        ex['rel_mid_db'] = 10.0 * math.log10(mid_ / lo)
                 # the friction heard: the middle half of that run, its first 10 ms (the burst) left
                 # out, against the vowel after's middle 30 ms; silence reads far under the 40 dB the
                 # harness takes for nothing (stop_timing's voice), a weak fricative does not (θ's
@@ -740,9 +782,10 @@ def summary(cases, man):
             s['mod_' + k] = round(v, 2)
     for k in ('h1h2_db', 'a1_p0_db', 'burst_found', 'schwa_ms', 'voicing_slope', 'burst_db', 'burst_len_ms',
               'burst_centroid_hz', 'gap_breath_frac', 'voiced_head', 'voiced_mid', 'voiced_tail', 'creak_head',
-              'creak_mid', 'creak_tail', 'breath_mid', 'noise_mid', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db',
+              'creak_mid', 'creak_tail', 'breath_mid', 'noise_mid', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'voice_gap_ms',
+              'voice_after_ms', 'mid_db', 'noise_db',
               'rel_af_ms', 'rel_hnr_db', 'rel_noise_db', 'rel_peak_hz', 'rel_centroid_hz', 'rel_centroid1k_hz',
-              'rel_hf_db', 'strike_found', 'jitter_pct', 'hnr_db', 'f0_sd_st', 'f0_range_st', 'gap_ms', 'f0_low_hz', 'pulse_hz', 'pulse_jitter_pct', 'pulse_drift_pct', 'f0_span_st', 'ah_mid',
+              'rel_hf_db', 'rel_mid_db', 'strike_found', 'jitter_pct', 'hnr_db', 'f0_sd_st', 'f0_range_st', 'gap_ms', 'f0_low_hz', 'pulse_hz', 'pulse_jitter_pct', 'pulse_drift_pct', 'f0_span_st', 'ah_mid',
               'strike_db', 'strike_centroid_hz', 'strike_ms', 'strike_len_ms', 'slap_found', 'slap_ms', 'slap_db',
               'slap_centroid_hz', 'slap_len_ms'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
@@ -1186,6 +1229,9 @@ def check_shift(t, sid, cases):
             m = sh['measure']
             if sp.get(m) is None and sm.get(m) is None:
                 continue
+            if 'bases' in sh and base not in sh['bases']:
+                # a shift that holds for some of the bases only (a voiceless stop's later voice, D87)
+                continue
             if man == 'vowel' and m.startswith('edge_'):
                 # a vowel's edges are its neighbours' places: since the consonant after a vowel
                 # starts at its own ratios (D64, `ant'), a mark on the vowel reaches them no more,
@@ -1220,6 +1266,9 @@ def check_shift(t, sid, cases):
                 marked=sm.get(m), paired=[round(x, 3) for x in diffs] if diffs else None)
             ok_all &= ok
         for lim in tests.get('limit', []):
+            if 'bases' in lim and base not in lim['bases']:
+                # a bound that holds for some of the bases only (Q28, Q30)
+                continue
             got = sm.get(lim['measure'])
             ok = got is not None and (got <= lim['max'] if 'max' in lim else got >= lim['min'])
             targets['%s %s %s' % (t.sounds[base]['ipa'], lim['measure'], '<= %s' % lim['max'] if 'max' in lim

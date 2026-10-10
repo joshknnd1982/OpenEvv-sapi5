@@ -660,7 +660,8 @@ static void put_header(void)
    upstep) moves every tone after it to the end of the phrase; a global rise
    or fall gives each syllable after it to the end of the phrase a tone a step
    higher or lower than the one before. `|' ends a minor group and `‖' a major
-   one (a phrase each); `‿' links, and is otherwise nothing. A `.' inside a
+   one (a phrase each); `‿' links, and with a `mod' line is a mark of the
+   consonant before it (said shorter, Q19). A `.' inside a
    word says where the next syllable begins. A tie bar (U+0361 above, U+035C
    below) makes the letters on each side one segment, looked up whole (an
    affricate the template has, `t͡s'); a tied pair the map has no line for is
@@ -1456,7 +1457,10 @@ static int translate_ipa(const char *given)
 			    (ml == 2 && (unsigned char)p[0] == 0xcb && ((unsigned char)p[1] == 0x88 || (unsigned char)p[1] == 0x8c)) ||
 			    (m && !(m->kind == 't' && is_combining((const unsigned char *)p, ml))) ||
 			    (ml == 3 && (unsigned char)p[0] == 0xe2 && (unsigned char)p[1] == 0x80 &&
-			     ((unsigned char)p[2] == 0x96 || (unsigned char)p[2] == 0xbf)))
+			     ((unsigned char)p[2] == 0x96 ||
+			      /* ‿ is a mark of the letter before it where the map has a line for it there (a
+			         linking consonant said shorter, Q19); else it ends the letter */
+			      ((unsigned char)p[2] == 0xbf && !(letter && evv_map_has_mod(&g_map, p, (size_t)ml, letter->cls))))))
 				break;
 			if (ml == 2 && (unsigned char)p[0] == 0xcd && ((unsigned char)p[1] == 0xa1 || (unsigned char)p[1] == 0x9c ||
 			                                               (unsigned char)p[1] == 0xa2)) {

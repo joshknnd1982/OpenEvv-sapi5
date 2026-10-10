@@ -237,6 +237,23 @@ typedef struct {
                            articulation); 2 no voice or breath, its
                            friction kept (extIPA's extraneous noise, a
                            noise in the speech's place); nought: as before */
+    int  vmark;         /* the voice `voi' gives is a mark's (a voicing
+                           diacritic): heard over the whisper of the letter
+                           it is written on, which keeps the rest of the
+                           sound outside vfrom and vto; nought: as before, a
+                           whisper taking the voice out wherever it is said
+                           (ɦ's breathy voice is voi and whisper together) */
+    int  jit;           /* each frame's pitch moved at random by up to so
+                           many tenths of a per cent, so that each period of
+                           the voice is a little longer or shorter than the
+                           last (a harsh voice's jitter, VoQS); the same
+                           every time the same is said; nought: as before */
+    int  rfric;         /* friction at this level over the voice of a sound
+                           with none of its own (an approximant raised to a
+                           fricative: ̝ on ɹ or l), on the sound's own third
+                           to fifth formants, louder over the voice by
+                           `fgain'; never on a stop, nor on a frame with
+                           friction of its own; nought: none */
 } Def;
 
 typedef struct {
@@ -320,7 +337,8 @@ enum {
     EX_LAST = 8,        /* the phrase ends with this phone's syllable */
     EX_ONSET = 16,      /* before the nucleus of its syllable */
     EX_BEFORE = 32,     /* made here, out of the phone after it */
-    EX_AFTER = 64       /* made here, out of the phone before it */
+    EX_AFTER = 64,      /* made here, out of the phone before it */
+    EX_TOLD = 128       /* reported as never said (Q14), not to be again */
 };
 
 #define EX_MADE (EX_BEFORE | EX_AFTER)
@@ -502,12 +520,15 @@ static Accent *find(void *machine, int make)
     return 0;
 }
 
+static void unplaced(Accent *a, const char *why);
+
 void evv_accent_free(void *machine)
 {
     int i;
 
     for (i = 0; i < MACHINES; i++) {
         if (machines[i] != 0 && machines[i]->machine == machine) {
+            unplaced(machines[i], "the text ended");
             free(machines[i]->queue);
             free(machines[i]->out);
             free(machines[i]->held);
@@ -789,6 +810,8 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "hitaf", offsetof(Def, hitaf) }, { "hitg", offsetof(Def, hitg) },
         { "di", offsetof(Def, di) }, { "mono", offsetof(Def, mono) },
         { "mute", offsetof(Def, mute) },
+        { "vmark", offsetof(Def, vmark) }, { "jit", offsetof(Def, jit) },
+        { "rfric", offsetof(Def, rfric) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -1080,6 +1103,53 @@ static void syllables_set(Accent *a, int from)
     }
 }
 
+/* The phones the markup asked for that are still waiting: no phone the module
+   said was matched with them, nor with any after them (those passed over for
+   a later one are told as `phone-unsounded' when it comes). They are told
+   when the text is stopped and when the engine lets go of its machine, the
+   two places they are dropped (Q14). */
+static void unplaced_to(Accent *a, int end, const char *why)
+{
+    int k;
+
+    for (k = a->next; k < end && k < a->n_queue; k++)
+        if (!(a->queue[k].flags & (EX_MADE | EX_TOLD))) {
+            diag("loss", "phone-unplaced", "%s asked for; never said (%s)", a->queue[k].name, why);
+            a->queue[k].flags |= EX_TOLD;
+        }
+    if (trace() != 0)
+        fflush(trace());
+}
+
+static void unplaced(Accent *a, const char *why)
+{
+    unplaced_to(a, a->n_queue, why);
+}
+
+/* The module's arrays have had their last run: the phrase it was saying is
+   over, and its phones still waiting will not be said (Q14). The phrase is
+   the one the last phone placed is in, up to the phones of its last
+   syllable; one whose end the markup has not given yet is left alone. The
+   waiting phones stay in the queue, so that nothing said changes. */
+static void unplaced_phrase(Accent *a)
+{
+    int k, end = -1, in_last = 0;
+
+    for (k = a->next > 0 ? a->next - 1 : 0; k < a->n_queue; k++) {
+        int f = a->queue[k].flags;
+
+        /* past the last syllable: a phone not in it, or a syllable begun
+           again (the next phrase, one of a single syllable too) */
+        if (in_last && (!(f & EX_LAST) || (f & EX_SYLLABLE)))
+            break;
+        if (f & EX_LAST)
+            in_last = 1;
+        end = k;
+    }
+    if (in_last)
+        unplaced_to(a, end + 1, "the phrase ended");
+}
+
 static void queue_reset(Accent *a)
 {
     a->n_queue = 0;
@@ -1137,6 +1207,7 @@ char *evv_accent_strip(void *machine, const char *text, uint32_t len,
     o = out;
 
     if (a->cleared) {
+        unplaced(a, "the text was stopped");
         queue_reset(a);
         a->cleared = 0;
     }
@@ -1307,6 +1378,7 @@ void evv_accent_place(void *machine, const char *name,
     if (a == 0 || !a->on)
         return;
     if (a->cleared) {
+        unplaced(a, "the text was stopped");
         queue_reset(a);
         a->cleared = 0;
     }
@@ -1342,7 +1414,7 @@ void evv_accent_place(void *machine, const char *name,
             p->whole = used;
             p->first = first;
             for (k = a->next; k < at; k++)
-                if (!(a->queue[k].flags & EX_MADE))
+                if (!(a->queue[k].flags & (EX_MADE | EX_TOLD)))
                     diag("loss", "phone-unsounded", "%s asked for; the module said %s after it", a->queue[k].name,
                          p->name);
             /* What is made here out of this phone: whatever was written
@@ -1747,6 +1819,19 @@ static int is_stop(const Accent *a, const Phone *p)
 static int is_vowel(const Phone *p)
 {
     return p->record[0] == 1;
+}
+
+/* A number from -1 to 1 that looks drawn at random and is the same for the
+   same n (an integer hash), so that a voice's jitter is said alike every
+   time. */
+static double scatter(uint32_t n)
+{
+    n ^= n >> 16;
+    n *= 0x7feb352dU;
+    n ^= n >> 15;
+    n *= 0x846ca68bU;
+    n ^= n >> 16;
+    return n / 2147483647.5 - 1.0;
 }
 
 static double smooth(double x)
@@ -2442,6 +2527,25 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 own_mid[i] = out[(size_t)(n_on + n_own / 2) * P_COUNT
                                 + FORMANT[i]];
 
+        /* A whispered sound's voice gone where it ends, not where the
+           module's frames for this one take the mouth on from it: a sound
+           without voice of its own begins with frames that are still that
+           sound's vowel, voiced as the module has it (into a stop's
+           closure, at most 40 ms); they are whispered as it was (Q28). */
+        int carry = 0;
+
+        if (prev != 0 && !before->pause && !ph->pause
+            && prev->whisper != UNSET
+            && (prev->vmark ? prev->vto < 100
+                            : prev->voi != 1 && prev->vto >= 100)
+            && !is_vowel(ph) && ph->record[1] != 0
+            && !(def != 0 && def->voi == 1))
+            for (k = n_on; k < n_on + n_own && (k - n_on) * step < 40; k++) {
+                if (out[(size_t)k * P_COUNT + P_AV] < 30)
+                    break;
+                carry = k - n_on + 1;
+            }
+
         for (k = 0; k < n_out && ok; k++) {
             int32_t *f = out + (size_t)k * P_COUNT;
             int dt = f[P_STEP];
@@ -2701,6 +2805,11 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 }
             }
 
+            if (own && k - n_on < carry) {
+                f[P_AH] = clamp(prev->whisper, 0, 70);
+                f[P_AV] = 0;
+            }
+
             /* ---- the sound itself ---- */
             if (def != 0 && own) {
                 double w = smooth(into / reach_ms);
@@ -2737,19 +2846,34 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                         f[P_TL] = 0;
                     }
                 }
-                if (def->whisper != UNSET && f[P_AV] > 0 && in_part) {
+                if (def->whisper != UNSET && f[P_AV] > 0
+                    && (def->vmark ? !in_part : in_part)) {
                     /* The mouth as it was, the voice taken out: at once
                        after a silence or a sound without voice, and
                        within a few milliseconds after one with it; over
-                       a part of the sound, in and out over as long. */
-                    double q = smooth((into - part0) / 15.0);
-
-                    if (part0 == 0 && (before == 0 || before->pause
+                       a part of the sound, in and out over as long. A
+                       letter's own whisper under a mark's voice (`vmark')
+                       is said around the part the mark voices, the voice
+                       coming in and going out over as long at its edges
+                       (Q33). */
+                    int quiet_before = before == 0 || before->pause
                         || (prev != 0 && (prev->whisper != UNSET
-                                          || prev->voi == 0))))
-                        q = 1.0;
-                    if (part1 < own_ms)
-                        q *= smooth((part1 - into) / 15.0);
+                                          || prev->voi == 0));
+                    double q;
+
+                    if (def->vmark) {
+                        q = into + dt / 2.0 < part0
+                            ? smooth((part0 - into) / 15.0)
+                            : smooth((into - part1) / 15.0);
+                        if (into + dt / 2.0 < part0 && !quiet_before)
+                            q *= smooth(into / 15.0);
+                    } else {
+                        q = smooth((into - part0) / 15.0);
+                        if (part0 == 0 && quiet_before)
+                            q = 1.0;
+                        if (part1 < own_ms)
+                            q *= smooth((part1 - into) / 15.0);
+                    }
                     f[P_AH] = clamp((int)(f[P_AH]
                         + (def->whisper - f[P_AH]) * q), 0, 70);
                     f[P_AV] = (int32_t)(f[P_AV] * (1.0 - q));
@@ -2795,6 +2919,26 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                             f[NOISE[i]] = clamp((int)(has
                                 + (def->amp[i] - has) * w + 0.5), 0, 80);
                         }
+                }
+                if (def->rfric > 0 && def->fric <= 0 && f[P_AF] == 0
+                    && f[P_AV] > 0 && !is_stop(a, ph)) {
+                    /* A sound with no friction of its own made narrow
+                       enough for the air to be heard (Q23): friction over
+                       its voice, on its own resonances from the third up,
+                       where a raised tongue's noise is. */
+                    double x = w;
+
+                    if (own_ms - into < 15)
+                        x *= (own_ms - into) / 15.0;
+                    f[P_AF] = clamp((int)(def->rfric * x + 0.5), 0, 80);
+                    f[P_A2F] = 0;
+                    f[P_A3F] = clamp(def->rfric, 0, 80);
+                    f[P_A4F] = clamp(def->rfric, 0, 80);
+                    f[P_A5F] = clamp(def->rfric - 6, 0, 80);
+                    f[P_A6F] = 0;
+                    f[P_AB] = 0;
+                    if (def->fgain > 0 && f[P_AF] > 0)
+                        f[P_ATV] = clamp((int)(def->fgain * x + 0.5), 0, 40);
                 }
                 if (def->nas > 0 && f[P_AV] > 0) {
                     /* The nose opened: its zero moves up and away from its
@@ -2981,6 +3125,17 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 f[P_F0] = (int32_t)(f[P_F0] * pow(2.0, def->pst * q / 120.0)
                                     + 0.5);
             }
+            /* A voice whose periods differ at random (`jit'): the
+               synthesiser takes a period's length from the frame it
+               begins in, so each frame's pitch is moved by up to so many
+               tenths of a per cent, by a number drawn from where it is
+               in what has sounded: the same each time the same is said. */
+            if (def != 0 && own && def->jit > 0 && f[P_F0] > 0) {
+                double r = scatter((uint32_t)(at * 8.0 + 0.5));
+
+                f[P_F0] = (int32_t)(f[P_F0] * (1.0 + def->jit / 1000.0 * r)
+                                    + 0.5);
+            }
 
             /* A sound not heard (`mute'): its sources off over its whole
                stretch, the frames that lead into it and out of it too. */
@@ -3001,11 +3156,17 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
     a->release_at = -1;
     if (is_stop(a, ph) && ph->whole) {
         int shut = 0;
+        /* A stop the layer voices (`voi' on a phone the module says without
+           voice) is shut under the voice it was given there, `bar' (Q30):
+           without this its release was not found, and the voice it asks
+           for after the release was not given. */
+        int barred = def != 0 && def->voi == 1 && ph->record[1] != 0;
 
         for (k = n_on; k < n_on + n_own; k++) {
             const int32_t *f = out + (size_t)k * P_COUNT;
 
-            if (f[P_AF] == 0 && f[P_AH] == 0 && f[P_AV] < 30)
+            if (f[P_AF] == 0 && f[P_AH] == 0
+                && (f[P_AV] < 30 || (barred && f[P_AV] <= def->bar)))
                 shut = 1;
             else if (shut && f[P_AF] > 0) {
                 a->release_at = a->sounded + k * step;
@@ -3172,6 +3333,7 @@ int evv_accent_run(void *machine, int32_t from, int32_t to, int32_t first,
 
     if (a->cleared) {
         /* What was waiting to be said is not going to be. */
+        unplaced(a, "the text was stopped");
         queue_reset(a);
         a->cleared = 0;
     }
@@ -3228,5 +3390,9 @@ int evv_accent_run(void *machine, int32_t from, int32_t to, int32_t first,
         if (!held_add(a, frames + (size_t)i * P_COUNT, first + i * step))
             return 0;
 
-    return work(a, step, last, emit, context);
+    if (!work(a, step, last, emit, context))
+        return 0;
+    if (last)
+        unplaced_phrase(a);
+    return 1;
 }

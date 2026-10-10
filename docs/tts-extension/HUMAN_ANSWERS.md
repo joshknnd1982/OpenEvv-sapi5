@@ -50,3 +50,12 @@ Q2, Q6, Q10, Q11, Q13, Q16, Q17, Q18, Q20, Q21, Q22, Q24, Q25, Q26, Q32 are answ
 
 - **Q1, changed by the human:** "make the file for me". Claude created `.claude/settings.json` at the human's direct request: the content of Q1, with Claude's own commands added (`engine\ipa\*`, the Bash forms of `git add`, `commit`, `status`, `diff`, `log` and `cmake`) and `git stash` refused in both shells (it takes every session's uncommitted work out of the shared tree). `git push` is not allowed by it, so pushing still asks.
 - **Commit the new .claude/settings.json?** Choices: Keep it local (recommended) · Commit and push it. **Answer: commit and push it** to the `tts-ext/phase-4` branch.
+
+## 2026-10-10, eighteenth session: the two research steps, Q29 and Q19
+
+Asked after the research the human chose in batch 2 and batch 4 (findings in `REFERENCES.md`, "Phase 4, eighteenth session").
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| **Q29.** One same-speaker study (North German, Fischer-Jørgensen 1976): an affricate's friction about 2.3 times a stop's release (138 ms against 60), its closure shorter. Here extIPA's fricated releases have 75 ms of friction, the template's own t͡s about as much, and t͡θ is said exactly like tᶿ | Shorter releases (recommended) · Keep 75 ms, split t͡θ only · Leave as is | **Shorter releases:** about 45 ms of friction for a fricated release (the study's ratio over this template's own affricate); t͡θ and d͡ð keep the affricate length; a test proves tᶿ and t͡θ differ; still approximate, for an expert after Phase 9. |
+| **Q19.** A French liaison consonant about 16 % shorter than the same consonant word-initially (84 against 101 ms, 6 speakers, VOT unchanged); inside a word a syllable break moves a consonant by only a few ms | Use the linking cue (recommended) · Record only | **Use the linking cue:** a consonant linked by ‿ said 16 % shorter than at a word's start, with a test that measures it; `.` keeps its structural proof, the few-ms finding its reason. |

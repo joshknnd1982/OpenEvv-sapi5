@@ -204,13 +204,19 @@ tier = "A"
 kind = "boundary"
 boundary = "linked"
 placement = "between"
+# a consonant before the link, the next word's onset, is said shorter than one that begins a word (Q19, D87):
+# the link is a mark of the consonant before it, as the front-end reads it
+edit = { consonant = { linked = "onset across the link" } }
 state = "mapped"
 level = 2
 approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X13"], builds = [] }
 
 [sound."U+203F".spec]
-onset_across_link = { v = true, tag = "derived", rule = "the chart's definition: no break between the words, a linking consonant becoming the onset of the next syllable (checklist entry)", note = "no measured value opened: Spinelli, McQueen and Cutler 2003 (JML 48) report liaison consonants shorter than word-initial ones, in the abstract only, with no figure. The check: no pause, the consonant begins the next syllable, and its length differs from the unlinked one (8 ms). Queued." }
+onset_across_link = { v = true, tag = "derived", rule = "the chart's definition: no break between the words, a linking consonant becoming the onset of the next syllable (checklist entry)", note = "measured since (Q19, D87): a liaison consonant 0.84 of the same consonant word-initially (shoemaker2012, Table 1; Spinelli, McQueen and Cutler 2003 report it shorter too). The check: no pause, the consonant begins the next syllable, its length differs from the unlinked one (8 ms), and it is 0.84 of a word-initial one within 0.08 (the measured spread: /n/ 0.80 to /z/ 0.88)" }
+
+[sound."U+203F".transform.consonant]
+duration = { inherent_ms = { scale = 0.84, tag = "literature", ref = "shoemaker2012", note = "French liaison consonants 84.4 ms against the same consonants word-initially 100.7 (six speakers, 860 tokens, Table 1): 0.84; /n/ 0.80, /t/'s closure 0.80, /z/ 0.88; the VOT unchanged (footnote 3)" } }
 
 [sound."U+203F".tests]
 checks = ["T-boundary"]
