@@ -936,6 +936,7 @@ def check_b3(e, s):
             dev = [round(a / (v(x) + v(slopes[k]) * (o - v(x))) - 1.0, 3) for a, o in got if o]
             out['locus %s (equation, frames)' % k] = dict(
                 target='%s + %s x (vowel - %s)' % (v(x), v(slopes[k]), v(x)), measured=got, deviation=dev,
+                locus=v(x), slope=v(slopes[k]),
                 within=len(dev) >= 2 and all(abs(d) <= 0.08 for d in dev))
             continue
         # a locus is where the consonant sends the formants; a closure has no formants to measure in
@@ -1429,6 +1430,17 @@ def corrections(res, trims):
             nxt = cur + (tg['target'] - tg['measured']) * 4.0 * (0.5 if 'impl' in trims else 1.0)
             out['impl'] = min(40.0, max(2.0, nxt))
             any_ = True
+            continue
+        if k.endswith('(equation, frames)') and not tg['within'] and tg.get('measured') and tg.get('locus')                 and tg.get('slope', 1) < 1:
+            # a place given as a locus equation (Q21): the locus the frames reached in each context,
+            # (onset - slope x vowel) / (1 - slope), against the table's; its key (`l2', `l3') moved
+            # by the ratio, damped as the other corrections are (D83: 𝼆's onsets 9 to 13 per cent
+            # high, a locus of 2270 Hz reached for 1981)
+            eff = sorted((a - tg['slope'] * o) / (1.0 - tg['slope']) for a, o in tg['measured'] if o)
+            if eff:
+                key = 'l' + k.split()[1][1]
+                out[key] = out.get(key, 100.0) * (tg['locus'] / eff[len(eff) // 2]) ** 0.7
+                any_ = True
             continue
         if tg['within'] or not tg['measured'] or k not in TRIM_KEYS:
             continue

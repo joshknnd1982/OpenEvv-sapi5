@@ -512,8 +512,8 @@ tier = "B"
 chart = "extIPA / consonants (non-IPA)"
 kind = "base"
 features = { class = "consonant", place = "palatal", stricture = "friction", voicing = "voiceless", airstream = "pulmonic", lateral = true }
-state = "MISSING"
-level = 1
+state = "created"
+level = 2
 approximate = false
 plan = { decision = "new letter", end_state = "created", uses = ["X1", "X3"], builds = [] }
 
@@ -525,11 +525,13 @@ locus_slope = { F2 = { v = 0.34, tag = "estimated", note = "set equal to the pal
 [sound."B:U+1DF06".tests]
 checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+028E", measure = "voiced_frac", sign = -1 }, { with = "U+026C", measure = "edge_F2", sign = 1 }]
+proof = "ipa/proofs/B_U+1DF06.json"
 
 [sound."B:U+1DF06".realization.openevv]
 # the module's ç with its noise peak moved down to a lateral's
 carrier = "X"
 keys = { ant = { v = 50, tag = "derived", rule = "the adapter's own ant (ANT_MS, D64), which it withholds from a fricative whose noise moves a formant: here the noise is on F3 at the F3 locus, and F2 is the palatal place's own locus, so the bend is towards the place (as ꞎ's, D68)" } }
+trim.dedx = [{ key = "l2", v = 90.5, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF06.json" }]
 
 [sound."B:U+1DF04"]
 ipa = "𝼄"
@@ -569,8 +571,8 @@ tier = "B"
 chart = "extIPA / consonants (non-IPA)"
 kind = "composite"
 parts = ["B:U+1DF06", "U+032C"]
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
 
