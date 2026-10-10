@@ -45,3 +45,8 @@ Answers given before this file existed are in `DECISIONS.md` (D34, the design's 
 ### Questions not asked (already closed)
 
 Q2, Q6, Q10, Q11, Q13, Q16, Q17, Q18, Q20, Q21, Q22, Q24, Q25, Q26, Q32 are answered or done (their text in OPEN_QUESTIONS.md says how); Q3 is a standing rule (new sound definitions in files of our own); Q15 is the queue of `estimated` values, not a question.
+
+### Afterwards (same day)
+
+- **Q1, changed by the human:** "make the file for me". Claude created `.claude/settings.json` at the human's direct request: the content of Q1, with Claude's own commands added (`engine\ipa\*`, the Bash forms of `git add`, `commit`, `status`, `diff`, `log` and `cmake`) and `git stash` refused in both shells (it takes every session's uncommitted work out of the shared tree). `git push` is not allowed by it, so pushing still asks.
+- **Commit the new .claude/settings.json?** Choices: Keep it local (recommended) · Commit and push it. **Answer: commit and push it** to the `tts-ext/phase-4` branch.
