@@ -18,6 +18,7 @@ listed in `warnings`. Loose typing (`:` for ː, `'` for ˈ, ...) is read only wh
 import json
 import os
 import random
+import re
 import sys
 import itertools
 import unicodedata
@@ -107,12 +108,77 @@ def _index(t, notation='ipa'):
     known only in text that declares extIPA."""
     out = {}
     for sid, e in t.sounds.items():
-        if (e['kind'] == 'tone' and len(e['ipa']) > 1) or e['kind'] == 'composite' or (
+        if (e['kind'] == 'tone' and len(e['ipa']) > 1) or e['kind'] in ('composite', 'label', 'pause') or (
                 e['kind'] == 'modifier' and e.get('placement') == 'before') or (
                 e.get('notation') and e['notation'] != notation):
             continue
         out[e['ipa']] = sid
     return out
+
+
+def _label_index(t):
+    """label spelling -> entry id (D83): every label of its own, by its spelling and its others."""
+    out = {}
+    for sid, e in t.sounds.items():
+        ov = (e.get('realization') or {}).get('openevv', {})
+        if e['kind'] == 'label' and ov.get('label') and not e.get('parts'):
+            for sp in [ov['label']] + list(ov.get('spellings') or []):
+                # as the text is read: allegro's g is ɡ; and loosely, where ! is read as the click ǃ
+                out[normalize(sp)] = sid
+                out.setdefault(normalize(sp, strict=False), sid)
+    return out
+
+
+def _pause_index(t):
+    """pause spelling -> (entry id, ms) (D83), and the id of the timed pause."""
+    out, timed = {}, None
+    for sid, e in t.sounds.items():
+        ov = (e.get('realization') or {}).get('openevv', {})
+        if e['kind'] == 'pause':
+            for sp in ov.get('pause') or []:
+                out[sp] = (sid, e['spec']['pause_ms']['v'])
+            if ov.get('timed'):
+                timed = sid
+    return out, timed
+
+
+def read_labels(tok, lidx):
+    """[(label id, degree)] for a label as written (VoQS's {L̞1V! ...}: L̞, and V! at degree 1),
+    the longest spelling first; a degree goes on the symbol written after it, a base label and
+    the marks after it (a label that is a mark, `#label', keeps its base's degree), 2 where none
+    is written, as the front-end reads it; None if any of it is no label."""
+    out, i, pending, cur = [], 0, 0, 2
+    while i < len(tok):
+        if tok[i] in '123' and i + 1 < len(tok):
+            pending = int(tok[i])
+            i += 1
+            continue
+        k = next((k for k in range(len(tok), i, -1) if tok[i:k] in lidx), None)
+        if k is None:
+            return None
+        if not lidx[tok[i:k]].endswith('#label') or pending:
+            cur = pending or 2
+        pending = 0
+        out.append((lidx[tok[i:k]], cur))
+        i = k
+    return out or None
+
+
+def _group(t, sid):
+    return ((t.sounds[sid].get('realization') or {}).get('openevv', {})).get('group')
+
+
+def span_labels(t, spans):
+    """The labels a letter in these stretches is said with, outermost first: a label of a group
+    (extIPA's loudness, its tempo) gives way to one of its group in a stretch inside it."""
+    out = []
+    for k, (_, ls) in enumerate(spans):
+        inner = {_group(t, x) for _, ls2 in spans[k + 1:] for x, _ in ls2} - {None}
+        out += [(x, d) for x, d in ls if _group(t, x) not in inner]
+    return out
+
+
+TIMED = re.compile(r'\((\d+(?:\.\d+)?) ?(?:sec|s)?\)')
 
 
 def _pre_index(t):
@@ -171,6 +237,9 @@ def read(text, strict=True, t=None, notation='ipa'):
     items, warnings = [], []
     i = 0
     tie_next = None
+    lidx = _label_index(t)
+    pidx, timed_id = _pause_index(t)
+    spans = []              # the stretches open: (what closes it, [(label id, degree)])
 
     def fail(msg, at):
         if strict:
@@ -187,6 +256,64 @@ def read(text, strict=True, t=None, notation='ipa'):
 
     while i < len(s):
         ch = s[i]
+        # braces, a stretch's labels, and pauses (D83), as the front-end reads them
+        if spans and spans[-1][0] == '}' and (i == 0 or s[i - 1] in ' \t\n'):
+            # the same labels written again just before the closing brace, in any order
+            j = i
+            while j < len(s) and s[j] not in ' \t\n}':
+                j += 1
+            k = j
+            while k < len(s) and s[k] in ' \t\n':
+                k += 1
+            if j > i and s.startswith('}', k) and sorted(read_labels(s[i:j], lidx) or []) == sorted(spans[-1][1]):
+                items.append(dict(t='label', again=s[i:j], src=[i, k]))
+                i = k
+                continue
+        if ch == '{':
+            j = i + 1
+            while j < len(s) and s[j] in ' \t\n':
+                j += 1
+            k = j
+            while k < len(s) and s[k] not in ' \t\n}':
+                k += 1
+            labels = read_labels(s[j:k], lidx)
+            if labels is None:
+                fail('the label %r is no label the table lists' % s[j:k], i)
+                labels = []
+            spans.append(('}', labels))
+            items.append(dict(t='label', open=labels, src=[i, k]))
+            i = k
+            continue
+        if ch in '})\u2e29':
+            if spans and spans[-1][0] == ch:
+                spans.pop()
+                items.append(dict(t='label', close=ch, src=[i, i + 1]))
+            else:
+                fail('%s closes no stretch' % ch, i)
+                items.append(dict(t='ignored', char=ch, why='closes no stretch', src=[i, i + 1]))
+            i += 1
+            continue
+        if ch == '(':
+            e_ = s.find(')', i)
+            m_ = TIMED.match(s, i)
+            if e_ > 0 and s[i:e_ + 1] in pidx:
+                items.append(dict(t='pause', id=pidx[s[i:e_ + 1]][0], ms=pidx[s[i:e_ + 1]][1], src=[i, e_ + 1]))
+                i = e_ + 1
+                continue
+            if m_ and timed_id and float(m_.group(1)) <= 60:
+                items.append(dict(t='pause', id=timed_id, ms=float(m_.group(1)) * 1000.0, src=[i, m_.end()]))
+                i = m_.end()
+                continue
+            # extIPA's silent articulation: a stretch under the label `()', which the table may lack
+            spans.append((')', [(lidx['()'], 2)] if '()' in lidx else []))
+            items.append(dict(t='label', open=spans[-1][1], src=[i, i + 1]))
+            i += 1
+            continue
+        if ch == '\u2e28':
+            spans.append(('\u2e29', [(lidx['\u2e28\u2e29'], 2)] if '\u2e28\u2e29' in lidx else []))
+            items.append(dict(t='label', open=spans[-1][1], src=[i, i + 1]))
+            i += 1
+            continue
         if ch in ' \t\n':
             j = i
             while j < len(s) and s[j] in ' \t\n':
@@ -282,6 +409,9 @@ def read(text, strict=True, t=None, notation='ipa'):
         kind = e['kind']
         if kind == 'base':
             seg = dict(t='seg', base=sid, ipa=s[i:i + n], mods=[m for m, _ in pre], src=[pre[0][1] if pre else i, i + n])
+            if spans:
+                # the labels of every stretch it is in (D83), outermost first
+                seg['labels'] = span_labels(t, spans)
             pre = []
             if tie_next is not None:
                 first = items.pop(tie_next)
@@ -342,6 +472,8 @@ def read(text, strict=True, t=None, notation='ipa'):
         i += 1
     if tie_next is not None:
         fail('a tie bar at the end joins nothing', len(s))
+    if spans:
+        fail('a stretch opened is not closed (%s)' % spans[-1][0], len(s))
     for m, at in pre:
         fail('%s (%s) has no letter after it' % (t.sounds[m]['ipa'], m), at)
         items.append(dict(t='ignored', id=m, why='a mark with no letter after it', src=[at, at + 1]))
@@ -404,6 +536,23 @@ def test(n_random=20000, seed=1):
             segs = _segments(r)
             check(len(segs) == 1 and segs[0]['features'] == T.full_bundle(t, e['features']),
                   '%s %s read as %s' % (sid, e['ipa'], [s.get('features') for s in segs]))
+        elif kind == 'label' and ((e.get('realization') or {}).get('openevv', {}).get('label') or e.get('parts')):
+            # a label (D83): each letter in its braces carries it, and the letters outside do not
+            sp = ''.join(t.sounds[x]['realization']['openevv']['label'] for x in e['parts']) if e.get('parts') \
+                else e['realization']['openevv']['label']
+            r = read('pa {%s ˈpa %s} pa' % (sp, sp), t=t)
+            segs = _segments(r)
+            want = [(x, 2) for x in e.get('parts') or [sid]]
+            got = [sg.get('labels') for sg in segs]
+            check(got == [None, None, want, want, None, None], '%s {%s ...} read as %s' % (sid, sp, got))
+        elif kind == 'pause' and (e.get('realization') or {}).get('openevv', {}).get('pause'):
+            for sp in e['realization']['openevv']['pause']:
+                r = read('pa %s pa' % sp, t=t)
+                ps = [it for it in r['items'] if it['t'] == 'pause']
+                check(len(ps) == 1 and ps[0]['ms'] == e['spec']['pause_ms']['v'], '%s %s read as %s' % (sid, sp, ps))
+        elif kind == 'pause':
+            r = read('pa (1.3 sec) pa (0.4) pa', t=t)
+            check([it['ms'] for it in r['items'] if it['t'] == 'pause'] == [1300.0, 400.0], '%s timed' % sid)
         elif kind == 'modifier':
             cls = 'vowel' if 'vowel' in e['edit'] and 'consonant' not in e['edit'] else 'consonant'
             base = ipa['ə'] if cls == 'vowel' else ipa['t' if sid != 'U+02BC' else 'p']
@@ -454,6 +603,23 @@ def test(n_random=20000, seed=1):
             r = read(e['ipa'] + 'ma', t=t)
             check(r['items'][0]['t'] == what and r['items'][0]['value'] == e.get(what), sid)
         read_ok += len(fails) == before
+    # the braces (D83): a degree goes on one symbol; a word spelt like a label is kept unless the
+    # stretch's own labels are written again; an inner label of a group replaces the outer one; a
+    # timed pause is 60 s at most
+    lid = _label_index(t)
+    if {'V', '!', 'L̞', 'f', 'p'} <= set(lid):
+        segs = _segments(read('{1V!L̞ ˈpa 1V!L̞}', t=t))
+        check(segs and segs[0].get('labels') == [(lid['V'], 1), (lid['!'], 1), (lid['L̞'], 2)],
+              '{1V!L̞ ...} read as %s' % (segs and segs[0].get('labels')))
+        segs = _segments(read('{V! ˈma p}', t=t))
+        check([g['base'] for g in segs] == [ipa['m'], ipa['a'], ipa['p']], '{V! ˈma p}: the word p kept, read %s'
+              % [g['base'] for g in segs])
+        segs = _segments(read('{f ˈma {p ˈna p} ˈla f}', t=t))
+        check([g.get('labels') for g in segs] == [[(lid['f'], 2)]] * 2 + [[(lid['p'], 2)]] * 2 + [[(lid['f'], 2)]] * 2,
+              'nested f and p read as %s' % [g.get('labels') for g in segs])
+    if _pause_index(t)[1]:
+        r = read('pa (70 sec) pa', strict=False, t=t)
+        check(not [it for it in r['items'] if it['t'] == 'pause'], '(70 sec) read as a pause')
     # equal marks give equal bundles; the chart's equivalent pairs are read alike
     for sid, e in t.sounds.items():
         other = e.get('equivalent_to')

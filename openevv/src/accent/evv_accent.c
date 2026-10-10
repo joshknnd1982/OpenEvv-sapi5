@@ -222,6 +222,21 @@ typedef struct {
     int  hitaf;         /* and its level, dB as the synthesiser has it */
     int  hitg;          /* and louder by so many dB than the parallel gains
                            reach (ATV, as `bgain') */
+    int  di;            /* every second period of the voice later and
+                           weaker by so many percent (the synthesiser's
+                           diplophonia, DI), 0 to 95: ventricular voice,
+                           diplophonia, harshness (VoQS); nought: as before,
+                           `creak' still giving its own */
+    int  mono;          /* the pitch drawn so many percent of the way to
+                           the voice's middle, the tune flattened: 100 a
+                           monotone (an electrolarynx, VoQS); nought: as
+                           before */
+    int  mute;          /* the sound not heard, over every frame of its
+                           stretch, its way in and out too: 1 no voice,
+                           breath or friction (extIPA's silent
+                           articulation); 2 no voice or breath, its
+                           friction kept (extIPA's extraneous noise, a
+                           noise in the speech's place); nought: as before */
 } Def;
 
 typedef struct {
@@ -772,6 +787,8 @@ static void def_set(Accent *a, const char *p, const char *end)
         { "rel2g", offsetof(Def, rel2g) },
         { "hit", offsetof(Def, hit) }, { "hitms", offsetof(Def, hitms) },
         { "hitaf", offsetof(Def, hitaf) }, { "hitg", offsetof(Def, hitg) },
+        { "di", offsetof(Def, di) }, { "mono", offsetof(Def, mono) },
+        { "mute", offsetof(Def, mute) },
     };
 
     p = word(p, end, w, sizeof w);
@@ -2800,6 +2817,12 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                     f[P_OQ] = clamp(f[P_OQ] - def->creak * 30 / 100, 10, 99);
                     f[P_DI] = clamp(def->creak / 4, 0, 40);
                 }
+                if (def->di > 0 && f[P_AV] > 0) {
+                    int d = (int)(def->di * w);
+
+                    if (d > f[P_DI])
+                        f[P_DI] = clamp(d, 0, 95);
+                }
                 if (tap_every > 0) {
                     /* A tap is the tongue shutting the mouth for a moment,
                        and a trill is that several times. */
@@ -2936,15 +2959,36 @@ static int stretch(Accent *a, Phone *ph, int32_t step,
                 f[P_F0] = pitch_at(a, at, dt, f);
             else
                 f[P_F0] = pitch_of_module(a, f);
-            /* A sound at a pitch of its own (`pst'), in and out over 15 ms
-               at the edges of its stretch, the voice's line kept beyond. */
-            if (def != 0 && own && def->pst != 0 && f[P_F0] > 0) {
-                double q = smooth(into / 15.0);
+            /* A tune flattened (`mono'): the pitch drawn towards the
+               voice's middle. */
+            if (def != 0 && own && def->mono > 0 && f[P_F0] > 0
+                && a->mid_hz > 0) {
+                double m = def->mono > 100 ? 1.0 : def->mono / 100.0;
 
-                if (own_ms - into < 15)
+                f[P_F0] = (int32_t)(f[P_F0]
+                                    + (a->mid_hz * 10.0 - f[P_F0]) * m + 0.5);
+            }
+            /* A sound at a pitch of its own (`pst'), in and out over 15 ms
+               at the edges of its stretch, the voice's line kept beyond;
+               not at an edge where the sound beside it is at the same pitch
+               of its own (a stretch said so, VoQS's falsetto). */
+            if (def != 0 && own && def->pst != 0 && f[P_F0] > 0) {
+                double q = prev != 0 && prev->pst == def->pst
+                           ? 1.0 : smooth(into / 15.0);
+
+                if (own_ms - into < 15 && !(nx != 0 && nx->pst == def->pst))
                     q *= smooth((own_ms - into) / 15.0);
                 f[P_F0] = (int32_t)(f[P_F0] * pow(2.0, def->pst * q / 120.0)
                                     + 0.5);
+            }
+
+            /* A sound not heard (`mute'): its sources off over its whole
+               stretch, the frames that lead into it and out of it too. */
+            if (def != 0 && def->mute > 0) {
+                f[P_AV] = 0;
+                f[P_AH] = 0;
+                if (def->mute == 1)
+                    f[P_AF] = 0;
             }
 
             t += dt;

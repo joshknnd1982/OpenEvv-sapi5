@@ -275,6 +275,12 @@ sound u1f03dedb4a ant=50 hold=40 l2=252 lk=88 noburst=1    # U+0261, part 1 of �
 sound udd0ba12375 ant=50 f2=86 hold=60 l2=215 lk=82    # U+0062, part 2 of ɡ͡b
 ɡ͜b          g=u1f03dedb4a b=udd0ba12375
 
+# affricates made as a stop released into the fricative, one sound each (͜ U+035C, D84)
+sound u7d96036898 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60 ant=50 frel=46 frelaf=58 frelav=-13 l2=428 lk=80    # d͡ð, d released into ᶿ
+d͜ð          d=u7d96036898
+sound u27675b42d5 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60 ant=50 frel=75 frelaf=58 frelav=-10 l2=417 lk=69 vot=6    # t͡θ, t released into ᶿ
+t͜θ          t=u27675b42d5
+
 # tied pairs said as one phone of the module (͡ U+0361)
 d͡ʒ          J
 p͡f          P
@@ -284,6 +290,10 @@ t͡ʃ          C
 # double articulations, two phones under one closure (͡ U+0361)
 k͡p          k=u93dcd560a2 p=u65d3e6ec41
 ɡ͡b          g=u1f03dedb4a b=udd0ba12375
+
+# affricates made as a stop released into the fricative, one sound each (͡ U+0361, D84)
+d͡ð          d=u7d96036898
+t͡θ          t=u27675b42d5
 
 # Tier B letters that stand for a Tier A spelling (ipa/table/tierb.toml, D68)
 sound u02a9 a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=153 nas=70 voi=0 whisper=44    # B:U+02A9 voiceless velopharyngeal fricative (a posterior na = ŋ̊͌
@@ -427,6 +437,18 @@ letter β c place=0 stricture=friction airstream=pulmonic nasal=false lateral=fa
 letter θ c place=3 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter χ c place=10 stricture=friction airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ⱱ c place=1 stricture=tap airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter d͜ʒ c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter p͜f c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter t͜s c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter t͜ʃ c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter d͜ð c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=dental tongue_part=unspecified
+letter t͜θ c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=dental tongue_part=unspecified
+letter d͡ʒ c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter p͡f c place=0 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter t͡s c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter t͡ʃ c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
+letter d͡ð c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=dental tongue_part=unspecified
+letter t͡θ c place=4 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=dental tongue_part=unspecified
 letter ʩ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ʩ̬ c place=9 stricture=closure airstream=pulmonic nasal=true lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter 𝼂 c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
@@ -507,7 +529,7 @@ mod ͍ c f2*114    # B:U+034D
 mod ͍ v f2*114    # B:U+034D
 mod ͎ c f2*90 fric=62 a2=62 a3=0 a4=0 a5=0 a6=0 ab=0    # B:U+034E
 mod ͔ c f4*70 a5=20    # B:U+0354
-mod ͕ c f4*70 a5=20    # B:U+0355
+mod ͕ c f4*76 a5=20    # B:U+0355
 mod ͢ c hold*50    # B:U+0362
 mod 𐞙 c frel=75 frelaf=62 frelav=-10 frelf3=680 a2=0 a3=50 a4=50 a5=30 a6=0 ab=0    # B:U+10799
 mod 𐞚 c frel=46 frelaf=66 frelav=-13 frelf3=680 a2=0 a3=50 a4=50 a5=50 a6=0 ab=0    # B:U+1079A
@@ -524,6 +546,396 @@ mod ̾ c fric=60 a5=60 ab=60    # B:U+034B, spelt U+033E
 mod 𐞐 c fric=60 a2=60 fgain=15 nas=70    # B:U+034C, spelt U+10790
 reiterate c ə̥    # B:U+005C
 reiterate v ʔ    # B:U+005C
+
+# the labels of a stretch in braces and the pauses typed in IPA (extIPA, VoQS: D83); a
+# label is a mark (a private character) for each degree or step, composed on every letter in it
+label ! m 󰀁 󰀂 󰀃    # B:U+0021#label
+label !! m 󰀄 󰀅 󰀆    # B:U+0021+U+0021#label
+label ‼ m 󰀄 󰀅 󰀆    # B:U+0021+U+0021#label
+label () d 󰀇 󰀈 󰀉    # B:U+0028+U+0029
+label C d 󰀊 󰀋 󰀌    # B:U+0043
+label F d 󰀍 󰀎 󰀏    # B:U+0046
+label J̝ d 󰀐 󰀑 󰀒    # B:U+004A+U+031D
+label J̞ d 󰀓 󰀔 󰀕    # B:U+004A+U+031E
+label J̟ d 󰀖 󰀗 󰀘    # B:U+004A+U+031F
+label J͔ d 󰀙 󰀚 󰀛    # B:U+004A+U+0354
+label J͕ d 󰀜 󰀝 󰀞    # B:U+004A+U+0355
+label L̝ d 󰀟 󰀠 󰀡    # B:U+004C+U+031D
+label L̞ d 󰀢 󰀣 󰀤    # B:U+004C+U+031E
+label V -    # B:U+0056
+label V̙ˤ d 󰀥 󰀦 󰀧    # B:U+0056+U+0319+U+02E4
+label V̬!! d 󰀨 󰀩 󰀪    # B:U+0056+U+032C+U+0021+U+0021
+label V̬‼ d 󰀨 󰀩 󰀪    # B:U+0056+U+032C+U+0021+U+0021
+label W d 󰀫 󰀬 󰀭    # B:U+0057
+label W͈ d 󰀮 󰀯 󰀰    # B:U+0057+U+0348
+label f d 󰀱 󰀲 󰀳 g=dyn    # B:U+0066#dyn
+label 𝆑 d 󰀱 󰀲 󰀳 g=dyn    # B:U+0066#dyn
+label ff d 󰀴 󰀵 󰀶 g=dyn    # B:U+0066+U+0066#dyn
+label 𝆑𝆑 d 󰀴 󰀵 󰀶 g=dyn    # B:U+0066+U+0066#dyn
+label p d 󰀷 󰀸 󰀹 g=dyn    # B:U+0070#dyn
+label 𝆏 d 󰀷 󰀸 󰀹 g=dyn    # B:U+0070#dyn
+label pp d 󰀺 󰀻 󰀼 g=dyn    # B:U+0070+U+0070#dyn
+label 𝆏𝆏 d 󰀺 󰀻 󰀼 g=dyn    # B:U+0070+U+0070#dyn
+label Œ d 󰀽 󰀾 󰀿    # B:U+0152
+label ʲ m 󰁀 󰁁 󰁂    # B:U+02B2#label
+label ʶ m 󰁃 󰁄 󰁅    # B:U+02B6#label
+label ʷ m 󰁆 󰁇 󰁈    # B:U+02B7#label
+label ˞ m 󰁉 󰁊 󰁋    # B:U+02DE#label
+label ˠ m 󰁌 󰁍 󰁎    # B:U+02E0#label
+label ˤ m 󰁏 󰁐 󰁑    # B:U+02E4#label
+label ̃ m 󰁒 󰁓 󰁔    # B:U+0303#label
+label ̣ m 󰁕 󰁖 󰁗    # B:U+0323#label
+label ̤ m 󰁘 󰁙 󰁚    # B:U+0324#label
+label ̪ m 󰁛 󰁜 󰁝    # B:U+032A#label
+label ̰ m 󰁞 󰁟 󰁠    # B:U+0330#label
+label ̺ m 󰁡 󰁢 󰁣    # B:U+033A#label
+label ̻ m 󰁤 󰁥 󰁦    # B:U+033B#label
+label ͇ m 󰁧 󰁨 󰁩    # B:U+0347#label
+label ͈ m 󰁪 󰁫 󰁬    # B:U+0348#label
+label ͉ m 󰁭 󰁮 󰁯    # B:U+0349#label
+label ͊ m 󰁰 󰁱 󰁲    # B:U+034A#label
+label ͍ m 󰁳 󰁴 󰁵    # B:U+034D#label
+label Θ d 󰁶 󰁷 󰁸    # B:U+0398
+label И d 󰁹 󰁺 󰁻    # B:U+0418
+label Ю d 󰁼 󰁽 󰁾    # B:U+042E
+label 𐞀 m 󰁿 󰂀 󰂁    # B:U+10780#label
+label ᶹ m 󰂂 󰂃 󰂄    # B:U+1DB9#label
+label ↀ d 󰂅 󰂆 󰂇    # B:U+2180
+label ↓ d 󰂈 󰂉 󰂊    # B:U+2193#voqs
+label ⸨⸩ d 󰂋 󰂌 󰂍    # B:U+2E28+U+2E29
+label ꟸ m 󰂎 󰂏 󰂐    # B:U+A7F8#label
+label ꟹ m 󰂑 󰂒 󰂓    # B:U+A7F9#label
+label ꟿ d 󰂔 󰂕 󰂖    # B:U+A7FF
+label allegro d 󰂗 󰂘 󰂙 g=tempo    # B:term:allegro
+label alleɡro d 󰂗 󰂘 󰂙 g=tempo    # B:term:allegro
+label crescendo r 󰂚 󰂛 󰂜 󰂝 󰂞 g=dyn    # B:term:crescendo
+label lento d 󰂟 󰂠 󰂡 g=tempo    # B:term:lento
+mod 󰀁 c di=18 oq=50    # B:U+0021#label, ! x0.50
+mod 󰀁 v di=18 oq=50    # B:U+0021#label, ! x0.50
+mod 󰀂 c di=35 oq=45    # B:U+0021#label, ! x1.00
+mod 󰀂 v di=35 oq=45    # B:U+0021#label, ! x1.00
+mod 󰀃 c di=52 oq=40    # B:U+0021#label, ! x1.50
+mod 󰀃 v di=52 oq=40    # B:U+0021#label, ! x1.50
+mod 󰀄 c di=30 oq=48    # B:U+0021+U+0021#label, !! x0.50
+mod 󰀄 v di=30 oq=48    # B:U+0021+U+0021#label, !! x0.50
+mod 󰀅 c di=60 oq=40    # B:U+0021+U+0021#label, !! x1.00
+mod 󰀅 v di=60 oq=40    # B:U+0021+U+0021#label, !! x1.00
+mod 󰀆 c di=90 oq=32    # B:U+0021+U+0021#label, !! x1.50
+mod 󰀆 v di=90 oq=32    # B:U+0021+U+0021#label, !! x1.50
+mod 󰀇 c mute=1    # B:U+0028+U+0029, () x0.50
+mod 󰀇 v mute=1    # B:U+0028+U+0029, () x0.50
+mod 󰀈 c mute=1    # B:U+0028+U+0029, () x1.00
+mod 󰀈 v mute=1    # B:U+0028+U+0029, () x1.00
+mod 󰀉 c mute=1    # B:U+0028+U+0029, () x1.50
+mod 󰀉 v mute=1    # B:U+0028+U+0029, () x1.50
+mod 󰀊 c pst=-76 creak=50    # B:U+0043, C x0.50
+mod 󰀊 v pst=-76 creak=50    # B:U+0043, C x0.50
+mod 󰀋 c pst=-151 creak=100    # B:U+0043, C x1.00
+mod 󰀋 v pst=-151 creak=100    # B:U+0043, C x1.00
+mod 󰀌 c pst=-226 creak=100    # B:U+0043, C x1.50
+mod 󰀌 v pst=-226 creak=100    # B:U+0043, C x1.50
+mod 󰀍 c pst=60 oq=70    # B:U+0046, F x0.50
+mod 󰀍 v pst=60 oq=70 tl=6    # B:U+0046, F x0.50
+mod 󰀎 c pst=120 oq=83    # B:U+0046, F x1.00
+mod 󰀎 v pst=120 oq=83 tl=12    # B:U+0046, F x1.00
+mod 󰀏 c pst=180 oq=96    # B:U+0046, F x1.50
+mod 󰀏 v pst=180 oq=96 tl=18    # B:U+0046, F x1.50
+mod 󰀐 c f1*95    # B:U+004A+U+031D, J̝ x0.50
+mod 󰀐 v f1*95    # B:U+004A+U+031D, J̝ x0.50
+mod 󰀑 c f1*90    # B:U+004A+U+031D, J̝ x1.00
+mod 󰀑 v f1*90    # B:U+004A+U+031D, J̝ x1.00
+mod 󰀒 c f1*85    # B:U+004A+U+031D, J̝ x1.50
+mod 󰀒 v f1*85    # B:U+004A+U+031D, J̝ x1.50
+mod 󰀓 c f1*105    # B:U+004A+U+031E, J̞ x0.50
+mod 󰀓 v f1*105    # B:U+004A+U+031E, J̞ x0.50
+mod 󰀔 c f1*110    # B:U+004A+U+031E, J̞ x1.00
+mod 󰀔 v f1*110    # B:U+004A+U+031E, J̞ x1.00
+mod 󰀕 c f1*115    # B:U+004A+U+031E, J̞ x1.50
+mod 󰀕 v f1*115    # B:U+004A+U+031E, J̞ x1.50
+mod 󰀖 c f2*103    # B:U+004A+U+031F, J̟ x0.50
+mod 󰀖 v f2*103    # B:U+004A+U+031F, J̟ x0.50
+mod 󰀗 c f2*106    # B:U+004A+U+031F, J̟ x1.00
+mod 󰀗 v f2*106    # B:U+004A+U+031F, J̟ x1.00
+mod 󰀘 c f2*109    # B:U+004A+U+031F, J̟ x1.50
+mod 󰀘 v f2*109    # B:U+004A+U+031F, J̟ x1.50
+mod 󰀙 c f1*98 f3*98    # B:U+004A+U+0354, J͔ x0.50
+mod 󰀙 v f1*98 f3*98    # B:U+004A+U+0354, J͔ x0.50
+mod 󰀚 c f1*95 f3*97    # B:U+004A+U+0354, J͔ x1.00
+mod 󰀚 v f1*95 f3*97    # B:U+004A+U+0354, J͔ x1.00
+mod 󰀛 c f1*92 f3*96    # B:U+004A+U+0354, J͔ x1.50
+mod 󰀛 v f1*92 f3*96    # B:U+004A+U+0354, J͔ x1.50
+mod 󰀜 c f1*98 f3*102    # B:U+004A+U+0355, J͕ x0.50
+mod 󰀜 v f1*98 f3*102    # B:U+004A+U+0355, J͕ x0.50
+mod 󰀝 c f1*95 f3*103    # B:U+004A+U+0355, J͕ x1.00
+mod 󰀝 v f1*95 f3*103    # B:U+004A+U+0355, J͕ x1.00
+mod 󰀞 c f1*92 f3*104    # B:U+004A+U+0355, J͕ x1.50
+mod 󰀞 v f1*92 f3*104    # B:U+004A+U+0355, J͕ x1.50
+mod 󰀟 c f1*103 f2*103 f3*103 f4*103 pst=15    # B:U+004C+U+031D, L̝ x0.50
+mod 󰀟 v f1*103 f2*103 f3*103 f4*103 pst=15    # B:U+004C+U+031D, L̝ x0.50
+mod 󰀠 c f1*106 f2*106 f3*106 f4*106 pst=30    # B:U+004C+U+031D, L̝ x1.00
+mod 󰀠 v f1*106 f2*106 f3*106 f4*106 pst=30    # B:U+004C+U+031D, L̝ x1.00
+mod 󰀡 c f1*109 f2*109 f3*109 f4*109 pst=45    # B:U+004C+U+031D, L̝ x1.50
+mod 󰀡 v f1*109 f2*109 f3*109 f4*109 pst=45    # B:U+004C+U+031D, L̝ x1.50
+mod 󰀢 c f1*97 f2*97 f3*97 f4*97 pst=-15    # B:U+004C+U+031E, L̞ x0.50
+mod 󰀢 v f1*97 f2*97 f3*97 f4*97 pst=-15    # B:U+004C+U+031E, L̞ x0.50
+mod 󰀣 c f1*94 f2*94 f3*94 f4*94 pst=-30    # B:U+004C+U+031E, L̞ x1.00
+mod 󰀣 v f1*94 f2*94 f3*94 f4*94 pst=-30    # B:U+004C+U+031E, L̞ x1.00
+mod 󰀤 c f1*91 f2*91 f3*91 f4*91 pst=-45    # B:U+004C+U+031E, L̞ x1.50
+mod 󰀤 v f1*91 f2*91 f3*91 f4*91 pst=-45    # B:U+004C+U+031E, L̞ x1.50
+mod 󰀥 c f1*106 f2*92 oq=50    # B:U+0056+U+0319+U+02E4, V̙ˤ x0.50
+mod 󰀥 v f1*106 f2*92 oq=50    # B:U+0056+U+0319+U+02E4, V̙ˤ x0.50
+mod 󰀦 c f1*112 f2*85 oq=45    # B:U+0056+U+0319+U+02E4, V̙ˤ x1.00
+mod 󰀦 v f1*112 f2*85 oq=45    # B:U+0056+U+0319+U+02E4, V̙ˤ x1.00
+mod 󰀧 c f1*118 f2*78 oq=40    # B:U+0056+U+0319+U+02E4, V̙ˤ x1.50
+mod 󰀧 v f1*118 f2*78 oq=40    # B:U+0056+U+0319+U+02E4, V̙ˤ x1.50
+mod 󰀨 c di=20    # B:U+0056+U+032C+U+0021+U+0021, V̬!! x0.50
+mod 󰀨 v di=20    # B:U+0056+U+032C+U+0021+U+0021, V̬!! x0.50
+mod 󰀩 c di=40    # B:U+0056+U+032C+U+0021+U+0021, V̬!! x1.00
+mod 󰀩 v di=40    # B:U+0056+U+032C+U+0021+U+0021, V̬!! x1.00
+mod 󰀪 c di=60    # B:U+0056+U+032C+U+0021+U+0021, V̬!! x1.50
+mod 󰀪 v di=60    # B:U+0056+U+032C+U+0021+U+0021, V̬!! x1.50
+mod 󰀫 c voi=0 whisper=44    # B:U+0057, W x0.50
+mod 󰀫 v voi=0 whisper=44 f1*128 f2*103 f3*99    # B:U+0057, W x0.50
+mod 󰀬 c voi=0 whisper=44    # B:U+0057, W x1.00
+mod 󰀬 v voi=0 whisper=44 f1*156 f2*106 f3*98    # B:U+0057, W x1.00
+mod 󰀭 c voi=0 whisper=44    # B:U+0057, W x1.50
+mod 󰀭 v voi=0 whisper=44 f1*184 f2*109 f3*97    # B:U+0057, W x1.50
+mod 󰀮 c voi=0 whisper=50    # B:U+0057+U+0348, W͈ x0.50
+mod 󰀮 v voi=0 whisper=50 f1*128 f2*103 f3*99    # B:U+0057+U+0348, W͈ x0.50
+mod 󰀯 c voi=0 whisper=50    # B:U+0057+U+0348, W͈ x1.00
+mod 󰀯 v voi=0 whisper=50 f1*156 f2*106 f3*98    # B:U+0057+U+0348, W͈ x1.00
+mod 󰀰 c voi=0 whisper=50    # B:U+0057+U+0348, W͈ x1.50
+mod 󰀰 v voi=0 whisper=50 f1*184 f2*109 f3*97    # B:U+0057+U+0348, W͈ x1.50
+mod 󰀱 c av+3 ah+3 af+3 pst=20    # B:U+0066#dyn, f x0.50
+mod 󰀱 v av+3 ah+3 pst=20 f1*102    # B:U+0066#dyn, f x0.50
+mod 󰀲 c av+6 ah+6 af+6 pst=39    # B:U+0066#dyn, f x1.00
+mod 󰀲 v av+6 ah+6 pst=39 f1*103    # B:U+0066#dyn, f x1.00
+mod 󰀳 c av+9 ah+9 af+9 pst=58    # B:U+0066#dyn, f x1.50
+mod 󰀳 v av+9 ah+9 pst=58 f1*105    # B:U+0066#dyn, f x1.50
+mod 󰀴 c av+6 ah+6 af+6 pst=36    # B:U+0066+U+0066#dyn, ff x0.50
+mod 󰀴 v av+6 ah+6 pst=36 f1*104    # B:U+0066+U+0066#dyn, ff x0.50
+mod 󰀵 c av+12 ah+12 af+12 pst=71    # B:U+0066+U+0066#dyn, ff x1.00
+mod 󰀵 v av+12 ah+12 pst=71 f1*107    # B:U+0066+U+0066#dyn, ff x1.00
+mod 󰀶 c av+18 ah+18 af+18 pst=106    # B:U+0066+U+0066#dyn, ff x1.50
+mod 󰀶 v av+18 ah+18 pst=106 f1*110    # B:U+0066+U+0066#dyn, ff x1.50
+mod 󰀷 c av+-3 ah+-3 af+-3 pst=-25    # B:U+0070#dyn, p x0.50
+mod 󰀷 v av+-3 ah+-3 pst=-25 f1*98    # B:U+0070#dyn, p x0.50
+mod 󰀸 c av+-6 ah+-6 af+-6 pst=-50    # B:U+0070#dyn, p x1.00
+mod 󰀸 v av+-6 ah+-6 pst=-50 f1*96    # B:U+0070#dyn, p x1.00
+mod 󰀹 c av+-9 ah+-9 af+-9 pst=-75    # B:U+0070#dyn, p x1.50
+mod 󰀹 v av+-9 ah+-9 pst=-75 f1*95    # B:U+0070#dyn, p x1.50
+mod 󰀺 c av+-6 ah+-6 af+-6 pst=-25    # B:U+0070+U+0070#dyn, pp x0.50
+mod 󰀺 v av+-6 ah+-6 pst=-25 f1*96    # B:U+0070+U+0070#dyn, pp x0.50
+mod 󰀻 c av+-12 ah+-12 af+-12 pst=-50    # B:U+0070+U+0070#dyn, pp x1.00
+mod 󰀻 v av+-12 ah+-12 pst=-50 f1*93    # B:U+0070+U+0070#dyn, pp x1.00
+mod 󰀼 c av+-18 ah+-18 af+-18 pst=-75    # B:U+0070+U+0070#dyn, pp x1.50
+mod 󰀼 v av+-18 ah+-18 pst=-75 f1*90    # B:U+0070+U+0070#dyn, pp x1.50
+mod 󰀽 c di=6 breathy=22 pst=0    # B:U+0152, Œ x0.50
+mod 󰀽 v di=6 breathy=22 pst=0    # B:U+0152, Œ x0.50
+mod 󰀾 c di=12 breathy=45 pst=1    # B:U+0152, Œ x1.00
+mod 󰀾 v di=12 breathy=45 pst=1    # B:U+0152, Œ x1.00
+mod 󰀿 c di=18 breathy=68 pst=2    # B:U+0152, Œ x1.50
+mod 󰀿 v di=18 breathy=68 pst=2    # B:U+0152, Œ x1.50
+mod 󰁀 c f2*122    # B:U+02B2#label, ʲ x0.50
+mod 󰁀 v f2*106    # B:U+02B2#label, ʲ x0.50
+mod 󰁁 c f2*143    # B:U+02B2#label, ʲ x1.00
+mod 󰁁 v f2*112    # B:U+02B2#label, ʲ x1.00
+mod 󰁂 c f2*164    # B:U+02B2#label, ʲ x1.50
+mod 󰁂 v f2*118    # B:U+02B2#label, ʲ x1.50
+mod 󰁃 c f2*90 f1*103    # B:U+02B6#label, ʶ x0.50
+mod 󰁃 v f2*95 f1*103    # B:U+02B6#label, ʶ x0.50
+mod 󰁄 c f2*80 f1*106    # B:U+02B6#label, ʶ x1.00
+mod 󰁄 v f2*90 f1*106    # B:U+02B6#label, ʶ x1.00
+mod 󰁅 c f2*70 f1*109    # B:U+02B6#label, ʶ x1.50
+mod 󰁅 v f2*85 f1*109    # B:U+02B6#label, ʶ x1.50
+mod 󰁆 c f2*92    # B:U+02B7#label, ʷ x0.50
+mod 󰁆 v f2*92 f3*98    # B:U+02B7#label, ʷ x0.50
+mod 󰁇 c f2*85    # B:U+02B7#label, ʷ x1.00
+mod 󰁇 v f2*85 f3*95    # B:U+02B7#label, ʷ x1.00
+mod 󰁈 c f2*78    # B:U+02B7#label, ʷ x1.50
+mod 󰁈 v f2*78 f3*92    # B:U+02B7#label, ʷ x1.50
+mod 󰁉 c f3*95    # B:U+02DE#label, ˞ x0.50
+mod 󰁉 v f3~1679:35    # B:U+02DE#label, ˞ x0.50
+mod 󰁊 c f3*90    # B:U+02DE#label, ˞ x1.00
+mod 󰁊 v f3~1679:70    # B:U+02DE#label, ˞ x1.00
+mod 󰁋 c f3*85    # B:U+02DE#label, ˞ x1.50
+mod 󰁋 v f3~1679:105    # B:U+02DE#label, ˞ x1.50
+mod 󰁌 c f2*80    # B:U+02E0#label, ˠ x0.50
+mod 󰁌 v f2*92    # B:U+02E0#label, ˠ x0.50
+mod 󰁍 c f2*60    # B:U+02E0#label, ˠ x1.00
+mod 󰁍 v f2*85    # B:U+02E0#label, ˠ x1.00
+mod 󰁎 c f2*40    # B:U+02E0#label, ˠ x1.50
+mod 󰁎 v f2*78    # B:U+02E0#label, ˠ x1.50
+mod 󰁏 c f2*84 f1*105    # B:U+02E4#label, ˤ x0.50
+mod 󰁏 v f2*95 f1*104    # B:U+02E4#label, ˤ x0.50
+mod 󰁐 c f2*68 f1*110    # B:U+02E4#label, ˤ x1.00
+mod 󰁐 v f2*90 f1*107    # B:U+02E4#label, ˤ x1.00
+mod 󰁑 c f2*52 f1*115    # B:U+02E4#label, ˤ x1.50
+mod 󰁑 v f2*85 f1*110    # B:U+02E4#label, ˤ x1.50
+mod 󰁒 c nas=35    # B:U+0303#label, ̃ x0.50
+mod 󰁒 v nas=35    # B:U+0303#label, ̃ x0.50
+mod 󰁓 c nas=70    # B:U+0303#label, ̃ x1.00
+mod 󰁓 v nas=70    # B:U+0303#label, ̃ x1.00
+mod 󰁔 c nas=105    # B:U+0303#label, ̃ x1.50
+mod 󰁔 v nas=105    # B:U+0303#label, ̃ x1.50
+mod 󰁕 c breathy=40    # B:U+0323#label, ̣ x0.50
+mod 󰁕 v breathy=40    # B:U+0323#label, ̣ x0.50
+mod 󰁖 c breathy=80    # B:U+0323#label, ̣ x1.00
+mod 󰁖 v breathy=80    # B:U+0323#label, ̣ x1.00
+mod 󰁗 c breathy=100    # B:U+0323#label, ̣ x1.50
+mod 󰁗 v breathy=100    # B:U+0323#label, ̣ x1.50
+mod 󰁘 c breathy=20    # B:U+0324#label, ̤ x0.50
+mod 󰁘 v breathy=20    # B:U+0324#label, ̤ x0.50
+mod 󰁙 c breathy=40    # B:U+0324#label, ̤ x1.00
+mod 󰁙 v breathy=40    # B:U+0324#label, ̤ x1.00
+mod 󰁚 c breathy=60    # B:U+0324#label, ̤ x1.50
+mod 󰁚 v breathy=60    # B:U+0324#label, ̤ x1.50
+mod 󰁛 c f2*96    # B:U+032A#label, ̪ x0.50
+mod 󰁛 v f2*96    # B:U+032A#label, ̪ x0.50
+mod 󰁜 c f2*93    # B:U+032A#label, ̪ x1.00
+mod 󰁜 v f2*93    # B:U+032A#label, ̪ x1.00
+mod 󰁝 c f2*90    # B:U+032A#label, ̪ x1.50
+mod 󰁝 v f2*90    # B:U+032A#label, ̪ x1.50
+mod 󰁞 c creak=30    # B:U+0330#label, ̰ x0.50
+mod 󰁞 v creak=30    # B:U+0330#label, ̰ x0.50
+mod 󰁟 c creak=60    # B:U+0330#label, ̰ x1.00
+mod 󰁟 v creak=60    # B:U+0330#label, ̰ x1.00
+mod 󰁠 c creak=90    # B:U+0330#label, ̰ x1.50
+mod 󰁠 v creak=90    # B:U+0330#label, ̰ x1.50
+mod 󰁡 c f3*98    # B:U+033A#label, ̺ x0.50
+mod 󰁡 v f3*98    # B:U+033A#label, ̺ x0.50
+mod 󰁢 c f3*95    # B:U+033A#label, ̺ x1.00
+mod 󰁢 v f3*95    # B:U+033A#label, ̺ x1.00
+mod 󰁣 c f3*92    # B:U+033A#label, ̺ x1.50
+mod 󰁣 v f3*92    # B:U+033A#label, ̺ x1.50
+mod 󰁤 c f2*104    # B:U+033B#label, ̻ x0.50
+mod 󰁤 v f2*104    # B:U+033B#label, ̻ x0.50
+mod 󰁥 c f2*108    # B:U+033B#label, ̻ x1.00
+mod 󰁥 v f2*108    # B:U+033B#label, ̻ x1.00
+mod 󰁦 c f2*112    # B:U+033B#label, ̻ x1.50
+mod 󰁦 v f2*112    # B:U+033B#label, ̻ x1.50
+mod 󰁧 c f2*104    # B:U+0347#label, ͇ x0.50
+mod 󰁧 v f2*102    # B:U+0347#label, ͇ x0.50
+mod 󰁨 c f2*108    # B:U+0347#label, ͇ x1.00
+mod 󰁨 v f2*104    # B:U+0347#label, ͇ x1.00
+mod 󰁩 c f2*112    # B:U+0347#label, ͇ x1.50
+mod 󰁩 v f2*106    # B:U+0347#label, ͇ x1.50
+mod 󰁪 c oq=48 tl=0    # B:U+0348#label, ͈ x0.50
+mod 󰁪 v oq=48 tl=0    # B:U+0348#label, ͈ x0.50
+mod 󰁫 c oq=40 tl=0    # B:U+0348#label, ͈ x1.00
+mod 󰁫 v oq=40 tl=0    # B:U+0348#label, ͈ x1.00
+mod 󰁬 c oq=32 tl=0    # B:U+0348#label, ͈ x1.50
+mod 󰁬 v oq=32 tl=0    # B:U+0348#label, ͈ x1.50
+mod 󰁭 c oq=63    # B:U+0349#label, ͉ x0.50
+mod 󰁭 v oq=63    # B:U+0349#label, ͉ x0.50
+mod 󰁮 c oq=70    # B:U+0349#label, ͉ x1.00
+mod 󰁮 v oq=70    # B:U+0349#label, ͉ x1.00
+mod 󰁯 c oq=77    # B:U+0349#label, ͉ x1.50
+mod 󰁯 v oq=77    # B:U+0349#label, ͉ x1.50
+mod 󰁰 c av+-6 tl=9    # B:U+034A#label, ͊ x0.50
+mod 󰁰 v nas=0    # B:U+034A#label, ͊ x0.50
+mod 󰁱 c av+-11 tl=18    # B:U+034A#label, ͊ x1.00
+mod 󰁱 v nas=0    # B:U+034A#label, ͊ x1.00
+mod 󰁲 c av+-16 tl=27    # B:U+034A#label, ͊ x1.50
+mod 󰁲 v nas=0    # B:U+034A#label, ͊ x1.50
+mod 󰁳 c f2*107    # B:U+034D#label, ͍ x0.50
+mod 󰁳 v f2*107    # B:U+034D#label, ͍ x0.50
+mod 󰁴 c f2*114    # B:U+034D#label, ͍ x1.00
+mod 󰁴 v f2*114    # B:U+034D#label, ͍ x1.00
+mod 󰁵 c f2*121    # B:U+034D#label, ͍ x1.50
+mod 󰁵 v f2*121    # B:U+034D#label, ͍ x1.50
+mod 󰁶 c f2*105 f3*97    # B:U+0398, Θ x0.50
+mod 󰁶 v f2*105 f3*97    # B:U+0398, Θ x0.50
+mod 󰁷 c f2*110 f3*94    # B:U+0398, Θ x1.00
+mod 󰁷 v f2*110 f3*94    # B:U+0398, Θ x1.00
+mod 󰁸 c f2*115 f3*91    # B:U+0398, Θ x1.50
+mod 󰁸 v f2*115 f3*91    # B:U+0398, Θ x1.50
+mod 󰁹 c mono=50    # B:U+0418, И x0.50
+mod 󰁹 v mono=50 tl=0    # B:U+0418, И x0.50
+mod 󰁺 c mono=100    # B:U+0418, И x1.00
+mod 󰁺 v mono=100 tl=0    # B:U+0418, И x1.00
+mod 󰁻 c mono=100    # B:U+0418, И x1.50
+mod 󰁻 v mono=100 tl=0    # B:U+0418, И x1.50
+mod 󰁼 c di=4 breathy=15 pst=-9    # B:U+042E, Ю x0.50
+mod 󰁼 v di=4 breathy=15 pst=-9    # B:U+042E, Ю x0.50
+mod 󰁽 c di=8 breathy=30 pst=-18    # B:U+042E, Ю x1.00
+mod 󰁽 v di=8 breathy=30 pst=-18    # B:U+042E, Ю x1.00
+mod 󰁾 c di=12 breathy=45 pst=-27    # B:U+042E, Ю x1.50
+mod 󰁾 v di=12 breathy=45 pst=-27    # B:U+042E, Ю x1.50
+mod 󰁿 c di=18 oq=48 pst=-15    # B:U+10780#label, 𐞀 x0.50
+mod 󰁿 v di=18 oq=48 pst=-15    # B:U+10780#label, 𐞀 x0.50
+mod 󰂀 c di=35 oq=40 pst=-30    # B:U+10780#label, 𐞀 x1.00
+mod 󰂀 v di=35 oq=40 pst=-30    # B:U+10780#label, 𐞀 x1.00
+mod 󰂁 c di=52 oq=32 pst=-45    # B:U+10780#label, 𐞀 x1.50
+mod 󰂁 v di=52 oq=32 pst=-45    # B:U+10780#label, 𐞀 x1.50
+mod 󰂂 c f2*98 f3*96    # B:U+1DB9#label, ᶹ x0.50
+mod 󰂂 v f2*98 f3*96    # B:U+1DB9#label, ᶹ x0.50
+mod 󰂃 c f2*95 f3*92    # B:U+1DB9#label, ᶹ x1.00
+mod 󰂃 v f2*95 f3*92    # B:U+1DB9#label, ᶹ x1.00
+mod 󰂄 c f2*92 f3*88    # B:U+1DB9#label, ᶹ x1.50
+mod 󰂄 v f2*92 f3*88    # B:U+1DB9#label, ᶹ x1.50
+mod 󰂅 c voi=0 whisper=0 fric=28 a2=0 a3=40 a4=60 a5=40 a6=0 ab=0    # B:U+2180, ↀ x0.50
+mod 󰂅 v voi=0 whisper=0 fric=28 a2=0 a3=40 a4=60 a5=40 a6=0 ab=0    # B:U+2180, ↀ x0.50
+mod 󰂆 c voi=0 whisper=0 fric=55 a2=0 a3=40 a4=60 a5=40 a6=0 ab=0    # B:U+2180, ↀ x1.00
+mod 󰂆 v voi=0 whisper=0 fric=55 a2=0 a3=40 a4=60 a5=40 a6=0 ab=0    # B:U+2180, ↀ x1.00
+mod 󰂇 c voi=0 whisper=0 fric=82 a2=0 a3=40 a4=60 a5=40 a6=0 ab=0    # B:U+2180, ↀ x1.50
+mod 󰂇 v voi=0 whisper=0 fric=82 a2=0 a3=40 a4=60 a5=40 a6=0 ab=0    # B:U+2180, ↀ x1.50
+mod 󰂈 c pst=26 ah+1    # B:U+2193#voqs, ↓ x0.50
+mod 󰂈 v pst=26 ah+1    # B:U+2193#voqs, ↓ x0.50
+mod 󰂉 c pst=51 ah+2    # B:U+2193#voqs, ↓ x1.00
+mod 󰂉 v pst=51 ah+2    # B:U+2193#voqs, ↓ x1.00
+mod 󰂊 c pst=76 ah+3    # B:U+2193#voqs, ↓ x1.50
+mod 󰂊 v pst=76 ah+3    # B:U+2193#voqs, ↓ x1.50
+mod 󰂋 c mute=2 fric=25 ab=60 a2=0 a3=0 a4=0 a5=0 a6=0    # B:U+2E28+U+2E29, ⸨⸩ x0.50
+mod 󰂋 v mute=2 fric=25 ab=60 a2=0 a3=0 a4=0 a5=0 a6=0    # B:U+2E28+U+2E29, ⸨⸩ x0.50
+mod 󰂌 c mute=2 fric=50 ab=60 a2=0 a3=0 a4=0 a5=0 a6=0    # B:U+2E28+U+2E29, ⸨⸩ x1.00
+mod 󰂌 v mute=2 fric=50 ab=60 a2=0 a3=0 a4=0 a5=0 a6=0    # B:U+2E28+U+2E29, ⸨⸩ x1.00
+mod 󰂍 c mute=2 fric=75 ab=60 a2=0 a3=0 a4=0 a5=0 a6=0    # B:U+2E28+U+2E29, ⸨⸩ x1.50
+mod 󰂍 v mute=2 fric=75 ab=60 a2=0 a3=0 a4=0 a5=0 a6=0    # B:U+2E28+U+2E29, ⸨⸩ x1.50
+mod 󰂎 c f1*98    # B:U+A7F8#label, ꟸ x0.50
+mod 󰂎 v f1*98 f3*98 b1*115    # B:U+A7F8#label, ꟸ x0.50
+mod 󰂏 c f1*95    # B:U+A7F8#label, ꟸ x1.00
+mod 󰂏 v f1*95 f3*95 b1*130    # B:U+A7F8#label, ꟸ x1.00
+mod 󰂐 c f1*92    # B:U+A7F8#label, ꟸ x1.50
+mod 󰂐 v f1*92 f3*92 b1*145    # B:U+A7F8#label, ꟸ x1.50
+mod 󰂑 c f2*96    # B:U+A7F9#label, ꟹ x0.50
+mod 󰂑 v f2*96 f3*100    # B:U+A7F9#label, ꟹ x0.50
+mod 󰂒 c f2*91    # B:U+A7F9#label, ꟹ x1.00
+mod 󰂒 v f2*91 f3*99    # B:U+A7F9#label, ꟹ x1.00
+mod 󰂓 c f2*86    # B:U+A7F9#label, ꟹ x1.50
+mod 󰂓 v f2*86 f3*98    # B:U+A7F9#label, ꟹ x1.50
+mod 󰂔 c oq=48    # B:U+A7FF, ꟿ x0.50
+mod 󰂔 v trate=7 tdepth=12 oq=48    # B:U+A7FF, ꟿ x0.50
+mod 󰂕 c oq=40    # B:U+A7FF, ꟿ x1.00
+mod 󰂕 v trate=7 tdepth=25 oq=40    # B:U+A7FF, ꟿ x1.00
+mod 󰂖 c oq=32    # B:U+A7FF, ꟿ x1.50
+mod 󰂖 v trate=7 tdepth=38 oq=32    # B:U+A7FF, ꟿ x1.50
+mod 󰂗 c hold*90    # B:term:allegro, allegro x0.50
+mod 󰂗 v dur*90    # B:term:allegro, allegro x0.50
+mod 󰂘 c hold*79    # B:term:allegro, allegro x1.00
+mod 󰂘 v dur*79    # B:term:allegro, allegro x1.00
+mod 󰂙 c hold*68    # B:term:allegro, allegro x1.50
+mod 󰂙 v dur*68    # B:term:allegro, allegro x1.50
+mod 󰂚 c av+0 ah+0 af+0    # B:term:crescendo, crescendo x0.00
+mod 󰂚 v av+0 ah+0    # B:term:crescendo, crescendo x0.00
+mod 󰂛 c av+2 ah+2 af+2    # B:term:crescendo, crescendo x0.25
+mod 󰂛 v av+2 ah+2    # B:term:crescendo, crescendo x0.25
+mod 󰂜 c av+3 ah+3 af+3    # B:term:crescendo, crescendo x0.50
+mod 󰂜 v av+3 ah+3    # B:term:crescendo, crescendo x0.50
+mod 󰂝 c av+4 ah+4 af+4    # B:term:crescendo, crescendo x0.75
+mod 󰂝 v av+4 ah+4    # B:term:crescendo, crescendo x0.75
+mod 󰂞 c av+6 ah+6 af+6    # B:term:crescendo, crescendo x1.00
+mod 󰂞 v av+6 ah+6    # B:term:crescendo, crescendo x1.00
+mod 󰂟 c hold*112    # B:term:lento, lento x0.50
+mod 󰂟 v dur*112    # B:term:lento, lento x0.50
+mod 󰂠 c hold*123    # B:term:lento, lento x1.00
+mod 󰂠 v dur*123    # B:term:lento, lento x1.00
+mod 󰂡 c hold*134    # B:term:lento, lento x1.50
+mod 󰂡 v dur*134    # B:term:lento, lento x1.50
+pause (.) 150    # B:U+0028+U+002E+U+0029
+pause (..) 500    # B:U+0028+U+002E+U+002E+U+0029
+pause (…) 1585    # B:U+0028+U+2026+U+0029
+pause (...) 1585    # B:U+0028+U+2026+U+0029
 
 # pitch typed in IPA (C2, C5): tone letters and marks, register steps, slopes; tenths of a Chao
 # level, a semitone being 4.44 of them (a range of 9 semitones)

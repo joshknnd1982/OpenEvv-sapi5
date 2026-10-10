@@ -100,6 +100,28 @@ def contexts(t, sid):
         if manner(e) == 'vowel':
             return [('alone', x)] + [('%s_%s' % (c, c), 'ˈ%s%s%s' % (c, x, c)) for c in CONSONANTS_AROUND]
         return [('alone', x)] + [('%s_%s' % (v, v), 'ˈ%s%s%s' % (v, x, v)) for v in VOWELS_AROUND]
+    if e['kind'] in ('label', 'pause'):
+        # a label over a stretch, a pause, the braces, the degrees (D83): the forms its test names,
+        # each variant a case (`f0_plain', `f0_marked'; a test's own variants, `f0_deg1' ...); or
+        # each base's words said plain and wrapped whole in the label's braces, as a mark's are
+        if tests.get('forms'):
+            names = tests.get('variants') or ['plain', 'marked']
+            return [('f%d_%s' % (i, v), x) for i, form in enumerate(tests['forms']) for v, x in zip(names, form)]
+        sp = label_spelling(t, sid)
+        out = []
+        for base in tests.get('bases', []):
+            b = t.sounds[base]
+            # (a voice's quality read on a long vowel where the test says: a voice of 47 Hz has four
+            # periods in a short one's middle)
+            lg = 'ː' if tests.get('long') and manner(b) == 'vowel' else ''
+            words = ([('%s' % c, 'ˈ%s%s%s%s' % (c, b['ipa'], lg, c)) for c in CONSONANTS_AROUND] if manner(b) == 'vowel'
+                     else [('%s' % v, 'ˈ%s%s%s' % (v, b['ipa'], v)) for v in VOWELS_AROUND])
+            for c, w in words:
+                out.append(('%s_plain_%s' % (base, c), w))
+                # (or as its test writes the stretch: extIPA's silent articulation `(ʃ)', `{}' for the word)
+                out.append(('%s_marked_%s' % (base, c), tests['wrap'].replace('{}', w) if tests.get('wrap')
+                            else '{%s %s %s}' % (sp, w, sp)))
+        return out
     if e['kind'] == 'composite':
         # a Tier B spelling (D68): alone, and between vowels against its plain base (or the plain
         # spelling its tests name) in the same contexts, as its marks are judged
@@ -134,6 +156,16 @@ def contexts(t, sid):
             else:
                 out += [('%s_%s_%s' % (base, variant, v), 'ˈ%s%s%s%s' % (v, x, follow, v)) for v in VOWELS_AROUND]
     return out
+
+
+def label_spelling(t, sid):
+    """How a label is written in braces: its own spelling, or its parts' one after another (D83)."""
+    e = t.sounds[sid]
+    if (e.get('tests') or {}).get('label'):
+        return e['tests']['label']
+    if e.get('parts'):
+        return ''.join(t.sounds[x]['realization']['openevv']['label'] for x in e['parts'])
+    return e['realization']['openevv']['label']
 
 
 def target_phones(phones, case_id, kind):
@@ -568,8 +600,59 @@ def measure(r, p, case_id, man=None, layer=None, base_man=None):
             f1 = (last.get('req') or {}).get('F1_hz') or (last.get('meas') or {}).get('F1_50_hz')
             if f1:
                 ex['a1_p0_db'] = A.a1_p0(x, rate, mid, f1)
+        if last['cls'] in ('vowel', 'nasal', 'liquid', 'glide') and last['end_ms'] - last['start_ms'] >= 60:
+            # a voice's quality over its middle (VoQS's settings, D83): the period's regularity
+            # (local jitter), the harmonics against the noise, the pitch's wobble in semitones
+            a_, b_ = last['start_ms'], last['end_ms']
+            a_, b_ = a_ + 0.2 * (b_ - a_), b_ - 0.2 * (b_ - a_)
+            ex['jitter_pct'] = A.jitter_pct(x, rate, a_, b_)
+            # (and a voice below the tracker's 50 and jitter's 75 Hz floors: creak, vocal fry's 49 Hz)
+            ex['f0_low_hz'] = A.f0_at(x, rate, (a_ + b_) / 2.0, fmin=30.0)
+            if ex['jitter_pct'] is None:
+                ex['jitter_pct'] = A.jitter_pct(x, rate, a_, b_, fmin=30.0)
+            # the pitch's span within the vowel, 5th to 95th percentile (an electrolarynx's flat tune)
+            tr2 = sorted(f for _, f in A.f0_track(x, rate, a_, b_) if f)
+            if len(tr2) >= 6:
+                ex['f0_span_st'] = 12.0 * math.log2(tr2[int(0.95 * (len(tr2) - 1))] / tr2[int(0.05 * (len(tr2) - 1))])
+            # the breath the frames give the middle third, its median level (breathiness, D83)
+            tf_ = E.frame_times(r['frames'])
+            ks_ = [i for i in range(len(tf_)) if a_ <= tf_[i] < b_]
+            if ks_:
+                ex['ah_mid'] = float(sorted(r['frames'][i, E.P['ah']] for i in ks_)[len(ks_) // 2])
+            pu_ = A.pulses(x, rate, a_, b_)
+            if pu_:
+                ex['pulse_hz'], ex['pulse_jitter_pct'], ex['pulse_drift_pct'] = pu_
+            ex['hnr_db'] = A.hnr_db(x, rate, a_, b_)
+            tr_ = [f for _, f in A.f0_track(x, rate, a_, b_) if f]
+            if len(tr_) >= 4:
+                st_ = [12.0 * math.log2(f / tr_[len(tr_) // 2]) for f in tr_]
+                mu_ = sum(st_) / len(st_)
+                ex['f0_sd_st'] = math.sqrt(sum((v - mu_) ** 2 for v in st_) / len(st_))
         ex['schwa_ms'] = sum(ph['end_ms'] - ph['start_ms'] for ph in tgt if ph['name'] == '@')
         out['extra'] = ex
+    # the whole case (D83): the pitch's range over the sounding stretch (5th to 95th percentile, in
+    # semitones), the longest silence inside it, and each vowel's voiced share, in order
+    snd = [ph for ph in phones if ph['cls'] != 'silence']
+    if snd:
+        ex2 = out.setdefault('extra', {})
+        tr_ = [f for _, f in A.f0_track(x, rate, snd[0]['start_ms'], snd[-1]['end_ms']) if f]
+        if len(tr_) >= 6:
+            tr_.sort()
+            ex2['f0_range_st'] = 12.0 * math.log2(tr_[int(0.95 * (len(tr_) - 1))] / tr_[int(0.05 * (len(tr_) - 1))])
+        env, st_ = A.envelope_db(x, rate, snd[0]['start_ms'], snd[-1]['end_ms'], hop_ms=5.0, win_ms=10.0)
+        if len(env):
+            quiet = env < env.max() - 40.0
+            run, best = 0, 0
+            for q in quiet:
+                run = run + 1 if q else 0
+                best = max(best, run)
+            ex2['gap_ms'] = best * st_
+        ex2['vowel_voiced'] = [round((ph.get('req') or {}).get('voiced_frames', 0) / float(max(1, (ph.get('req') or {}).get('frames', 0))), 3)
+                               for ph in phones if ph['cls'] == 'vowel']
+        # and each vowel's level over its middle third, dB
+        ex2['vowel_db'] = [round(A.intensity_db(x, rate, ph['start_ms'] + (ph['end_ms'] - ph['start_ms']) / 3.0,
+                                                ph['end_ms'] - (ph['end_ms'] - ph['start_ms']) / 3.0), 2)
+                           for ph in phones if ph['cls'] == 'vowel']
     # the vowels' formants at the consonant's edges, 12 ms from the boundary over 20 ms: where a
     # locus shows; at 20 per cent into the vowel the transition is mostly over. The vowel after is
     # read from where its voice begins (a locus is the F2 at the first glottal pulse): the module
@@ -659,7 +742,7 @@ def summary(cases, man):
               'burst_centroid_hz', 'gap_breath_frac', 'voiced_head', 'voiced_mid', 'voiced_tail', 'creak_head',
               'creak_mid', 'creak_tail', 'breath_mid', 'noise_mid', 'preasp_ms', 'voice_in_ms', 'voice_out_ms', 'mid_db', 'noise_db',
               'rel_af_ms', 'rel_hnr_db', 'rel_noise_db', 'rel_peak_hz', 'rel_centroid_hz', 'rel_centroid1k_hz',
-              'rel_hf_db', 'strike_found',
+              'rel_hf_db', 'strike_found', 'jitter_pct', 'hnr_db', 'f0_sd_st', 'f0_range_st', 'gap_ms', 'f0_low_hz', 'pulse_hz', 'pulse_jitter_pct', 'pulse_drift_pct', 'f0_span_st', 'ah_mid',
               'strike_db', 'strike_centroid_hz', 'strike_ms', 'strike_len_ms', 'slap_found', 'slap_ms', 'slap_db',
               'slap_centroid_hz', 'slap_len_ms'):
         v = vals(lambda c: (c.get('extra') or {}).get(k))
@@ -954,6 +1037,12 @@ def contrast_ok(measure, mine, theirs, sign, same_base=False):
     if measure.endswith('_found'):
         # found or not (in the median context): one against nought (D78)
         return (d * sign >= 1), round(d, 2)
+    if measure.endswith('_st'):
+        # semitones (a pitch's wobble, its range: D83)
+        return (d * sign >= 0.5), round(d, 2)
+    if measure.endswith('_pct'):
+        # per cent of a period (jitter, drift: D83): two points, above a steady voice's own 1 to 2
+        return (d * sign >= 2.0), round(d, 2)
     if same_base and not (measure.endswith('_ms') or measure.endswith('_db') or measure.startswith('mod_dips')):
         # a mark against its own base in the same context: the context's variation cancels, so
         # a smaller move is real (1.5 per cent, at least 15 Hz)
@@ -976,7 +1065,12 @@ def judge(t, sid, cases, diags, said_as):
     losses = [d for d in diags if d['level'] == 'loss']
     a0 = dict(passed=not losses and not said_as.get('substitute'), losses=losses[:20],
               substitute=said_as.get('substitute'))
-    a1 = check_a1(cases, man)
+    # a label that silences its stretch (extIPA's silent articulation, D83): its marked cases have
+    # nothing to sound, and check A asks it of them no more
+    mute = e['kind'] == 'label' and 'mute' in json.dumps(e.get('transform') or {})
+    if mute:
+        cases_a = {cid: c for cid, c in cases.items() if '_marked_' not in cid}
+    a1 = check_a1(cases_a if mute else cases, man)
     # A2 on the phones under test: the vowels around a consonant are the context, not the sound
     # (a cardinal [i]'s F1, 217 Hz, sits on the voice's second harmonic, where the tracker fails, D15)
     creak = e['kind'] == 'modifier' and 'creaky_pct' in json.dumps(e.get('transform') or {})
@@ -988,7 +1082,8 @@ def judge(t, sid, cases, diags, said_as):
         # marked cases' F0 is not held to the frames' (D64)
         if man == 'stop' and ph['cls'] == 'made':
             ph = dict(ph, cls='stop')
-        if creak and '_marked_' in cid:
+        if (creak or e['kind'] == 'label') and '_marked_' in cid:
+            # (a label's pitch, a voice made irregular or moved on purpose, is its own test's: D83)
             ph = dict(ph, req=dict(ph.get('req') or {}, f0_mid40_hz=None))
         if e['ipa'] == '̯' and '_marked_' in cid and ph['cls'] == 'vowel':
             # a non-syllabic vowel is a glide: check A compares a vowel's middle with its frames,
@@ -997,7 +1092,7 @@ def judge(t, sid, cases, diags, said_as):
         return ph
     a2 = RP.check_a(dict(cases={cid: dict(c['gold'], phones=[a2_phone(cid, c['gold']['phones'][i]) for i in c['target']
                                                               if i < len(c['gold']['phones'])])
-                                for cid, c in cases.items()}), E.pack(said_as['pack']).phone_module)
+                                for cid, c in (cases_a if mute else cases).items()}), E.pack(said_as['pack']).phone_module)
     if a2['a1_phones'] == 0 and not a2['substituted']:
         a2 = dict(a2, passed=True, note='nothing check A measures in the sound under test (a stop, a made sound)')
     a2 = {k: a2[k] for k in ('passed', 'note', 'a1_phones', 'a1_silent', 'a2_checks', 'a2_ok', 'a2_rate', 'substituted',
@@ -1039,6 +1134,17 @@ def judge(t, sid, cases, diags, said_as):
             lost = AD.compose(t, e['parts'][0], e['parts'][1:], E.pack(said_as['pack']).template)['lost']
             if lost:
                 a0 = dict(a0, passed=False, composition_lost=lost)
+    elif e['kind'] == 'label' and 'T-shift' in (e.get('tests') or {}).get('checks', []):
+        # a label over a stretch (D83): its test against the same words said plain, as a mark's,
+        # and every marked case composed with its marks (a label with none is T-same)
+        b3 = check_shift(t, sid, cases)
+        s = b3.pop('summary')
+        unc = [cid for cid, c in cases.items() if '_marked_' in cid and not any(
+            d['kind'] == 'composed' for d in c['diag'] + c.get('fe_diag', []))]
+        if unc:
+            a0 = dict(a0, passed=False, not_composed=unc[:6])
+    elif e['kind'] in ('label', 'pause'):
+        b3, s = check_forms(t, sid, cases)
     elif PZ.check_of(e):
         b3, s = PZ.judge(t, sid, cases)
     else:
@@ -1089,7 +1195,13 @@ def check_shift(t, sid, cases):
             ok, d = contrast_ok(m, mine, sp.get(m), sh['sign'], same_base=True) if m != 'burst_found' else (
                 (mine is not None and sp.get(m) is not None and (mine - sp[m]) * sh['sign'] >= 1),
                 None if mine is None or sp.get(m) is None else mine - sp[m])
-            targets['%s %s' % (t.sounds[base]['ipa'], m)] = dict(target='%+d' % sh['sign'], measured=d, within=ok,
+            # (and how far, where the test says: a label's level or pitch within its target, D83)
+            if ('min' in sh or 'max' in sh) and (d is None or d < sh.get('min', -1e9) or d > sh.get('max', 1e9)):
+                ok = False
+            targets['%s %s' % (t.sounds[base]['ipa'], m)] = dict(target='%+d' % sh['sign'] + (
+                                                                     ' within %s to %s' % (sh.get('min'), sh.get('max'))
+                                                                     if 'min' in sh or 'max' in sh else ''),
+                                                                 measured=d, within=ok,
                                                                plain=sp.get(m), marked=sm.get(m),
                                                                paired=[round(x, 3) for x in diffs] if paired else None)
             checked += 1
@@ -1117,6 +1229,84 @@ def check_shift(t, sid, cases):
             targets['%s (none)' % t.sounds[base]['ipa']] = dict(target='a measure', measured=None, within=False)
             ok_all = False
     return dict(passed=ok_all and bool(per), targets=targets, empty=not per, summary=per)
+
+
+def check_forms(t, sid, cases):
+    """The tests of a label or pause said as named forms (D83). T-same: a label that changes nothing
+    (VoQS's modal voice) said as the text without it, sample for sample. T-pause: the longest silence
+    of the marked form longer than the plain one's by the pause's length, within a tenth or 25 ms.
+    T-brace: the label acts on the vowels inside its braces and on no others (each vowel's voiced
+    share, a whisper's: inside 0.2 or less, outside 0.8 or more). T-degree: a measure moving one way
+    from degree 1 to 2 to 3, each step by the contrast minimum."""
+    e = t.sounds[sid]
+    tests = e.get('tests') or {}
+    checks = tests.get('checks', [])
+    targets, ok_all = {}, True
+    forms = tests.get('forms') or []
+    names = tests.get('variants') or ['plain', 'marked']
+    summ = {}
+    for i, form in enumerate(forms):
+        cs = {v: cases.get('f%d_%s' % (i, v)) for v in names}
+        summ['f%d' % i] = {v: {k: (c.get('extra') or {}).get(k) for k in ('gap_ms', 'f0_range_st', 'vowel_voiced', 'vowel_db')}
+                           for v, c in cs.items() if c}
+        if 'T-same' in checks:
+            ok = cs['plain'] is not None and cs['marked'] is not None and cs['plain']['wav_sha256'] == cs['marked']['wav_sha256']
+            targets['%s same as %s' % (form[1], form[0])] = dict(target='the same samples', measured=ok, within=ok)
+            ok_all &= ok
+        if 'T-pause' in checks:
+            want = (tests.get('pause_ms') or [None] * len(forms))[i]
+            if want is None:
+                want = e['spec']['pause_ms']['v']
+            g0 = ((cs['plain'] or {}).get('extra') or {}).get('gap_ms')
+            g1 = ((cs['marked'] or {}).get('extra') or {}).get('gap_ms')
+            d = None if g0 is None or g1 is None else g1 - g0
+            ok = d is not None and abs(d - want) <= max(25.0, 0.1 * want)
+            targets['%s pause' % form[1]] = dict(target=want, measured=d, within=ok, plain=g0, marked=g1)
+            ok_all &= ok
+        if 'T-brace' in checks:
+            # each vowel marked against the same vowel plain: inside the braces moved the label's
+            # way by at least `need', outside by less than `keep' (a voiced share; a level in dB)
+            inside = set(tests['inside'])
+            m, sign = tests.get('measure', 'vowel_voiced'), tests.get('sign', -1)
+            need, keep = (0.6, 0.2) if m == 'vowel_voiced' else (CONTRAST_MIN['db'], 1.0)
+            v0 = ((cs['plain'] or {}).get('extra') or {}).get(m) or []
+            v1 = ((cs['marked'] or {}).get('extra') or {}).get(m) or []
+            if len(v0) != len(v1) or len(v1) != tests.get('vowels', len(v1)):
+                targets['%s vowels' % form[1]] = dict(target=tests.get('vowels'), measured=[len(v0), len(v1)], within=False)
+                ok_all = False
+            for k, (a_, b_) in enumerate(zip(v0, v1)):
+                d = b_ - a_
+                ok = d * sign >= need if k in inside else abs(d) < keep
+                targets['%s vowel %d %s (%s)' % (form[1], k, m, 'inside' if k in inside else 'outside')] = dict(
+                    target=('%+g or more' % (sign * need)) if k in inside else 'within %g' % keep, measured=round(d, 3),
+                    within=ok, plain=a_, marked=b_)
+                ok_all &= ok
+        if 'T-ramp' in checks:
+            # a ramp (crescendo): each vowel's level against the same vowel plain, rising from the
+            # first vowel to the last by the contrast minimum or more, never falling back by 1 dB
+            v0 = ((cs['plain'] or {}).get('extra') or {}).get('vowel_db') or []
+            v1 = ((cs['marked'] or {}).get('extra') or {}).get('vowel_db') or []
+            ds = [b_ - a_ for a_, b_ in zip(v0, v1)]
+            sign = tests.get('sign', 1)
+            ok = len(ds) >= 3 and len(v0) == len(v1) and (ds[-1] - ds[0]) * sign >= CONTRAST_MIN['db'] and all(
+                (ds[k] - ds[k - 1]) * sign > -1.0 for k in range(1, len(ds)))
+            targets['%s level against plain, vowel by vowel' % form[1]] = dict(
+                target='%s by %g dB or more, first to last' % ('rising' if sign > 0 else 'falling', CONTRAST_MIN['db']),
+                measured=[round(d, 2) for d in ds], within=ok)
+            ok_all &= ok
+        if 'T-degree' in checks:
+            m, sign = tests['measure'], tests['sign']
+            per = {v: summary({'c': c}, None) for v, c in cs.items() if c}
+            vals = [per.get(v, {}).get(m) for v in names]
+            for k in range(1, len(names)):
+                ok, d = contrast_ok(m, vals[k], vals[k - 1], sign)
+                targets['%s %s %s against %s' % (form[0], m, names[k], names[k - 1])] = dict(
+                    target='%+d' % sign, measured=d, within=ok, values=vals)
+                ok_all &= ok
+    if not targets:
+        targets['(none)'] = dict(target='a check', measured=None, within=False)
+        ok_all = False
+    return dict(passed=ok_all, targets=targets, empty=False), summ
 
 
 def test_map(pack, template, work):

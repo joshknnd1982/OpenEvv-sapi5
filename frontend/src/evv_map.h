@@ -117,6 +117,29 @@ typedef struct {
 	char syl_sound[EVV_ID_LEN];       /* and the sound it is said with, if the map names one */
 	char reiterate[2][64];            /* extIPA's reiteration (p\p\p): the IPA said at a `\' after a
 	                                     consonant [0] and after a vowel [1] (`reiterate c|v IPA') */
+	/* the labels of a stretch (extIPA's and VoQS's braces, D83): `label W d m1 m2 m3', a
+	   label and the mark each letter in its stretch is composed with, at each degree
+	   (VoQS's 1 2 3; none written: 2); `label ̰ m m1 m2 m3', a label that is a mark on
+	   the base label before it (a degree goes on a base and its marks); `label
+	   crescendo r m1 .. mN', a mark for each step of a ramp, the first letter's to the
+	   last's; `label V -', none; `g=dyn' after the marks, its group (one of a group in
+	   an inner stretch replaces it there). Each mark is a character with `mod' lines of
+	   its own. `(' and `⸨' open a stretch under the labels `()' and `⸨⸩' (said silent,
+	   said as noise) */
+	struct {
+		char spelling[24];
+		char kind;                    /* d, m, r, or - */
+		char marks[8][8];
+		int n;
+		char group[12];
+	} labels[128];
+	int n_labels;
+	/* a pause typed in IPA (extIPA's (.) (..) (…)): `pause (.) 150', how long, ms */
+	struct {
+		char spelling[16];
+		int ms;
+	} pauses[8];
+	int n_pauses;
 	char secondary;                   /* the digit secondary stress is written with: the Italian
 	                                     and Spanish modules have none, and refuse a 2 */
 	int apart;                        /* 1: every syllable is a word of its own, as a language
@@ -189,6 +212,11 @@ const char *evv_map_ipa_tone(EvvMap *map, const int *levels, int n, int from, in
 const EvvLetter *evv_map_letter(const EvvMap *map, const char *ch, size_t len);
 /* a tied letter at p (ↀ͡r, D80): its letter, and its length in bytes in *len; NULL if none */
 const EvvLetter *evv_map_tied_letter(const EvvMap *map, const char *p, size_t *len);
+
+/* The label the map lists spelt exactly as the `len' bytes at p (D83), or -1. */
+int evv_map_label(const EvvMap *map, const char *p, size_t len);
+/* The length of the pause the map lists spelt as the `len' bytes at p, ms, or -1. */
+int evv_map_pause(const EvvMap *map, const char *p, size_t len);
 
 /* Whether the map has a `mod' line for a mark (one code point) on a letter of
    class `cls' (c or v), and whether it has a `premod' line for it on any. */

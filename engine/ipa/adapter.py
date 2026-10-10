@@ -375,6 +375,14 @@ for _i in (1, 2, 3, 4):
 # a sound's own pitch, away from the voice's line (extIPA's ingressive airflow): semitones in the
 # table, tenths of one in the layer's `pst'
 OPS[('pitch.offset_st', 'set')] = ('pst', '=')
+# a voice's quality over a stretch (VoQS's settings, D83): every second period later and weaker (the
+# synthesiser's diplophonia, the layer's `di', per cent), the tune flattened towards the voice's middle
+# (`mono', per cent), the glottis open for so much of each period (`oq', per cent, as it is to be),
+# the level dropped so far at each closure of a trill or a voice broken by one (`tdepth', dB); a
+# sound not heard (`mute': 1 nothing, 2 its friction alone: extIPA's silent articulation and noise)
+OPS.update({('phonation.diplophonia_pct', 'set'): ('di', '='),
+            ('pitch.flatten_pct', 'set'): ('mono', '='), ('phonation.open_quotient_pct', 'set'): ('oq', '='),
+            ('trill.depth_db', 'set'): ('tdepth', '='), ('silence.mute', 'set'): ('mute', '=')})
 # a stop released into friction (extIPA's fricated releases, D72): how long after the release, and
 # its level in this engine's dB, and the voice under it moved (a voiced stop's); its spectrum is the noise
 # keys above (a2 to a6, ab)
@@ -434,6 +442,97 @@ def mod_ops(t, mid, cls, own=False, template='dedx'):
         ops.append((CLASS_KEY.get((cls, key[0]), key[0]), key[1],
                     v[op] * (100.0 if key[1] == '*' else KEY_UNIT.get(key[0], 1.0))))
     return ops, lost
+
+
+def _body(ops):
+    return ' '.join(('%s~%d:%d' % (k, v[0], v[1])) if op == '~' else '%s%s%d' % (k, op, int(round(v))) for k, op, v in ops)
+
+
+# The labels of a stretch in braces (D83). Each degree of a label (VoQS's 1 2 3: slight, moderate,
+# extreme; none written is 2) and each step of a ramp is a mark of its own, a character of Unicode's
+# private use plane 15 that no text holds, with its `mod' lines; the front-end composes every letter
+# in the stretch with it. A degree scales what is graded: a ratio's departure from 100, an amount
+# added, a phonation's or a pitch's departure from the voice's own (from nought, or from the
+# template's neutral open quotient and tilt); a switch (voice off, whisper's breath) is not graded.
+LABEL_MARK0 = 0xF0001
+DEGREES = (0.5, 1.0, 1.5)
+GRADED = {'creak', 'breathy', 'pst', 'di', 'mono', 'nas', 'tdepth', 'fric'}
+NEUTRAL = {'oq': 56, 'tl': 0}       # the frames' OQ and TL of a modal vowel, dedx (D83, measured)
+LIMIT = {'di': 95, 'mono': 100, 'oq': 99, 'tl': 41, 'creak': 100, 'breathy': 100}
+
+
+def graded(ops, k):
+    """A label's ops at a degree or a ramp's step, `k' times what the label says."""
+    out = []
+    for key, op, v in ops:
+        if op == '*':
+            x = max(1.0, 100.0 + (v - 100.0) * k)
+        elif op == '+':
+            x = v * k
+        elif op == '~':
+            x = (v[0], v[1] * k)
+        elif key in GRADED:
+            x = v * k
+        elif key in NEUTRAL:
+            x = NEUTRAL[key] + (v - NEUTRAL[key]) * k
+        else:
+            x = v
+        if key in LIMIT and op != '~':
+            x = max(-LIMIT[key] if key == 'pst' else 0, min(LIMIT[key], x))
+        out.append((key, op, x))
+    return out
+
+
+def label_lines(t, template):
+    """(lines, targets not realised): every label of its own, its spellings and its marks' lines;
+    every pause the table lists and how long it is."""
+    head, mods, lost_n = [], [], 0
+    at = LABEL_MARK0
+    for sid, e in sorted(t.sounds.items()):
+        ov = (e.get('realization') or {}).get('openevv', {})
+        if e.get('kind') != 'label' or e.get('parts') or not ov.get('label'):
+            continue
+        # its group: one of a group in a stretch inside it replaces it there (extIPA's loudness, tempo)
+        grp = ' g=%s' % ov['group'] if ov.get('group') else ''
+        # each spelling as written and as the front-end normalises the text (allegro's g is ɡ)
+        import reader as RD
+        spellings = []
+        for sp in [ov['label']] + list(ov.get('spellings') or []):
+            for x in (sp, RD.normalize(sp)):
+                if x not in spellings:
+                    spellings.append(x)
+        per = {}
+        for cls in ('consonant', 'vowel'):
+            ops, lost = mod_ops(t, sid, cls, template=template)
+            for l in lost:
+                head.append('#   not realised: %s %s' % (ov['label'], l))
+                lost_n += 1
+            if ops:
+                per[cls] = ops
+        if not per:
+            head += ['label %s -%s    # %s' % (sp, grp, sid) for sp in spellings]
+            continue
+        ramp = ov.get('ramp')
+        ks = [i / (ramp - 1.0) for i in range(ramp)] if ramp else list(DEGREES)
+        chars = [chr(at + i) for i in range(len(ks))]
+        at += len(ks)
+        # a label that is a mark on the base before it (VoQS's ̰ in V̰, a part spelt with no base:
+        # `#label') is `m': a degree written before a base goes on its marks too, no further
+        kind = 'r' if ramp else 'm' if sid.endswith('#label') else 'd'
+        head += ['label %s %s %s%s    # %s' % (sp, kind, ' '.join(chars), grp, sid) for sp in spellings]
+        for ch, k in zip(chars, ks):
+            for cls, ops in sorted(per.items()):
+                mods.append('mod %s %s %s    # %s, %s x%.2f' % (ch, cls[0], _body(graded(ops, k)), sid, ov['label'], k))
+    pauses = []
+    for sid, e in sorted(t.sounds.items()):
+        if e.get('kind') == 'pause' and (e['realization']['openevv'].get('pause')):
+            ms = int(round(e['spec']['pause_ms']['v']))
+            pauses += ['pause %s %d    # %s' % (sp, ms, sid) for sp in e['realization']['openevv']['pause']]
+    if not (head or pauses):
+        return [], 0
+    return (['', '# the labels of a stretch in braces and the pauses typed in IPA (extIPA, VoQS: D83); a',
+             '# label is a mark (a private character) for each degree or step, composed on every letter in it']
+            + head + mods + pauses), lost_n
 
 
 def merge(keys, ops, exact=False, base_hz=None):
@@ -562,6 +661,7 @@ def write(t, template, quiet=False):
     # tied pairs (DESIGN.md 2.4): an affricate the template has is one segment, said as its phone;
     # the tie below says the same as the tie above
     made = set()
+    released = []
     for sid, e in sorted(t.sounds.items()):
         if e.get('kind') != 'tie':
             continue
@@ -571,6 +671,9 @@ def write(t, template, quiet=False):
             lines += ['', '# tied pairs said as one phone of the module (%s %s)' % (e['ipa'], sid)]
         for pair, phone in sorted(pairs.items()):
             lines.append('%-12s %s' % (pair.replace('͡', e['ipa']), phone))
+            # and a letter, the stop's, so that a mark or a label composes on the affricate's phone
+            # (a label over a stretch holding t͡ʃ, D83)
+            released.append((pair.replace('͡', e['ipa']), dict(base=t.by_ipa()[pair.split('͡')[0]])))
         # double articulations (4g): the two stops as they are realised, one after the other, each
         # with the keys the table adds to make them one closure with one release
         doubles = ((src.get('realization') or {}).get('openevv', {}).get('double') or {}).get(template, {})
@@ -595,6 +698,27 @@ def write(t, template, quiet=False):
                     lines.append('%s    # %s, part %d of %s' % (sound_line(name, keys), lsid, k + 1, pair))
                 said.append('%s=%s' % (r['carrier'], name))
             lines.append('%-12s %s' % (pair.replace('͡', e['ipa']), ' '.join(said)))
+        # affricates the template has no phone for (D84): the stop released into the fricative's
+        # friction, one sound, a line and a letter of their own, so that marks on either side
+        # compose on it (extIPA's t̼͡θ̼)
+        rel = ((src.get('realization') or {}).get('openevv', {}).get('released') or {}).get(template, {})
+        if rel:
+            lines += ['', '# affricates made as a stop released into the fricative, one sound each (%s %s, D84)' % (e['ipa'], sid)]
+        for pair, how in sorted(rel.items()):
+            c = compose(t, how['base'], [how['mark']], template, (loop_proof(how['base']) or {}).get('carrier_measured'))
+            keys = dict(c['keys'])
+            keys.update({kk: _v(vv) for kk, vv in (how.get('keys') or {}).items()})
+            for l in c['lost']:
+                lines.append('#   not realised: %s %s' % (pair, l))
+                unrealised += 1
+            name = map_name('+'.join('U+%04X' % ord(ch) for ch in pair))
+            if name not in made:
+                # (one sound for the pair, whichever tie bar joins it)
+                made.add(name)
+                lines.append('%s    # %s, %s released into %s' % (sound_line(name, keys), pair, t.sounds[how['base']]['ipa'],
+                                                                t.sounds[how['mark']]['ipa']))
+            lines.append('%-12s %s=%s' % (pair.replace('͡', e['ipa']), c['carrier'], name))
+            released.append((pair.replace('͡', e['ipa']), how))
     # Tier B (D68): a new letter that stands for a Tier A spelling is that spelling as the front-end
     # composes it, a line of its own; marks after it compose on it like on any letter. One spelt with
     # a letter and a mark (ʩ̬ for ŋ͌, D77) is read whole by the front-end, as a letter of two (D74)
@@ -616,6 +740,12 @@ def write(t, template, quiet=False):
     for sid, e in sorted(t.sounds.items()):
         if e.get('kind') == 'base':
             lines.append(letter_line(t, sid, template))
+    for pair, how in released:
+        # an affricate made as a released stop (D84), or one the template has (its stop's letter): the
+        # stop's letter with its release, so that a mark on either side composes on its line
+        import reader as RD
+        f = RD.compose(t, t.sounds[how['base']]['features'], [how['mark']] if how.get('mark') else [], lambda *_: None)
+        lines.append(letter_line(t, how['base'], template, features=f, ipa=pair))
     for sid, e in stands:
         # the letter of the spelling it stands for: a mark after it composes for that class
         import reader as RD
@@ -623,6 +753,8 @@ def write(t, template, quiet=False):
         lines.append(letter_line(t, e['parts'][0], template, features=f, ipa=e['ipa']))
     written = {}
     for sid, e in sorted(t.sounds.items(), key=lambda x: (x[1].get('tier') == 'B', x[0])):
+        if e.get('kind') == 'label':
+            continue        # a label's marks are its own characters' (label_lines, D83)
         for cls in sorted((e.get('transform') or {})):
             ops, lost = mod_ops(t, sid, cls, own=True, template=template)
             for l in lost:
@@ -668,6 +800,9 @@ def write(t, template, quiet=False):
     for sid, e in sorted(t.sounds.items()):
         for cls, ipa in sorted(((e.get('realization') or {}).get('openevv', {}).get('reiterate') or {}).items()):
             lines.append('reiterate %s %s    # %s' % (cls[0], ipa, sid))
+    ll, lost_n = label_lines(t, template)
+    lines += ll
+    unrealised += lost_n
     lines += pitch_lines(t)
     syl = ((t.sounds.get('U+0329') or {}).get('realization') or {}).get('openevv', {}).get('schwa_keys')
     if syl:

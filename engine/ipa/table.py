@@ -26,7 +26,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 IPA = os.path.join(ROOT, 'ipa')
 
 MAX_OPS = 12          # keys a mark's line may hold in the front-end (EVV_MAX_OPS)
-KINDS = {'base', 'modifier', 'syllable-mark', 'tone', 'boundary', 'tie', 'composite'}
+KINDS = {'base', 'modifier', 'syllable-mark', 'tone', 'boundary', 'tie', 'composite', 'label', 'pause'}
+# kinds that are no symbol of a segment: a label over a stretch in braces, and a pause (extIPA's and
+# VoQS's, D83); their spelling may be a letter's (extIPA's forte is f), so they are not indexed by it
+SPAN_KINDS = {'label', 'pause'}
 STATES = {'MISSING', 'mapped', 'composed', 'created', 'BLOCKED'}
 TAGS = {'measured', 'literature', 'derived', 'estimated', 'created', 'approximate'}
 FIELDS = {'ipa', 'codepoints', 'name', 'section', 'tier', 'kind', 'features', 'edit', 'levels', 'register',
@@ -55,7 +58,7 @@ class Table(object):
         return {i: e for i, e in self.sounds.items() if e.get('kind') == 'base'}
 
     def by_ipa(self):
-        return {e['ipa']: i for i, e in self.sounds.items()}
+        return {e['ipa']: i for i, e in self.sounds.items() if e.get('kind') not in SPAN_KINDS}
 
 
 def load(folder=IPA):
@@ -140,9 +143,18 @@ def validate(t):
         cps = e.get('codepoints') or []
         # a Tier B id is `B:' and its code points (inventory/tierb, D68)
         # (a Tier B id may carry the inventory's `#pre', `#post', `#voqs' after its points)
-        if (sid.split('#')[0] if e.get('tier') == 'B' else sid) != ('B:' if e.get('tier') == 'B' else '') + '+'.join(cps):
+        # (a word the chart writes in braces, extIPA's allegro, is `B:term:' and the word; VoQS's
+        # degree numerals, alternatives, are written with `/': each with its rule, D83)
+        if sid.startswith('B:term:'):
+            if e.get('kind') not in SPAN_KINDS or e.get('ipa') != sid[len('B:term:'):] or cps:
+                problems.append('%s: a term is a label spelt as its word, with no code points' % sid)
+        elif '/' in sid:
+            alts = sid[2:].split('/')
+            if e.get('kind') not in SPAN_KINDS or cps != alts or e.get('ipa') != ' '.join(chr(int(c[2:], 16)) for c in alts):
+                problems.append('%s: alternatives are a label whose code points and ipa are each of them' % sid)
+        elif (sid.split('#')[0] if e.get('tier') == 'B' else sid) != ('B:' if e.get('tier') == 'B' else '') + '+'.join(cps):
             problems.append('%s: the id is not its code points %s' % (sid, '+'.join(cps)))
-        if ''.join(chr(int(c[2:], 16)) for c in cps) != e.get('ipa'):
+        if not sid.startswith('B:term:') and '/' not in sid and ''.join(chr(int(c[2:], 16)) for c in cps) != e.get('ipa'):
             problems.append('%s: the code points are not its ipa %r' % (sid, e.get('ipa')))
         kind = e.get('kind')
         if kind not in KINDS:
@@ -153,7 +165,33 @@ def validate(t):
             problems.append('%s: approximate with no deviation stated' % sid)
         if e.get('equivalent_to') and e['equivalent_to'] not in t.sounds:
             problems.append('%s: equivalent to %s, which the table lacks' % (sid, e['equivalent_to']))
-        if kind not in ('base', 'composite') and e.get('placement') not in PLACEMENTS:
+        if kind in SPAN_KINDS:
+            # a label (D83): its spelling in braces, written once, and its parts where it is the
+            # labels it is spelt with (V̰ is V and ̰); a pause: how long it is
+            ov_ = (e.get('realization') or {}).get('openevv', {})
+            if e.get('tier') != 'B':
+                problems.append('%s: a label or a pause is a Tier B entry' % sid)
+            if kind == 'label' and e.get('parts'):
+                for x in e['parts']:
+                    if (t.sounds.get(x) or {}).get('kind') != 'label' or (t.sounds.get(x) or {}).get('parts'):
+                        problems.append('%s: part %s is not a label of its own' % (sid, x))
+                spelt = ''.join(((t.sounds.get(x) or {}).get('realization') or {}).get('openevv', {}).get('label', '?')
+                                for x in e['parts'])
+                if spelt != ov_.get('label', e.get('ipa')):
+                    problems.append('%s: its parts spell %r, not %r' % (sid, spelt, ov_.get('label', e.get('ipa'))))
+                if e.get('transform'):
+                    problems.append('%s: a label of parts has no transform of its own' % sid)
+            elif kind == 'label' and not ov_.get('label') and not ov_.get('braces'):
+                problems.append('%s: a label with no spelling (realization.openevv.label)' % sid)
+            if kind == 'label' and ov_.get('ramp') is not None and not (isinstance(ov_['ramp'], int) and 2 <= ov_['ramp'] <= 8):
+                problems.append('%s: a ramp of 2 to 8 steps' % sid)
+            if kind == 'pause' and not (ov_.get('pause') or ov_.get('timed')):
+                problems.append('%s: a pause with no spelling and length, or no timed form' % sid)
+            for cls, tr in (e.get('transform') or {}).items():
+                if sum(1 for _ in _flat_values(tr)) > MAX_OPS:
+                    problems.append('%s: %d keys for a %s, more than a mark line holds (%d)' % (
+                        sid, sum(1 for _ in _flat_values(tr)), cls, MAX_OPS))
+        elif kind not in ('base', 'composite') and e.get('placement') not in PLACEMENTS:
             problems.append('%s: placement %r' % (sid, e.get('placement')))
         if kind == 'base':
             # a letter's spelling within the front-end's 7 bytes of a letter (EvvLetter.ipa), and a
@@ -274,7 +312,9 @@ def validate(t):
             _check_value(sid, 'spec.' + k, v, t, problems, estimated)
         for cls, tr in (e.get('transform') or {}).items():
             # (a joining mark that is a mark of each side, extIPA's sliding articulation, has one too)
-            if kind not in ('modifier', 'tie') or cls not in (e.get('edit') or {}):
+            if kind == 'label' and cls in ('consonant', 'vowel'):
+                pass        # a label's transform is of every letter of its class in its stretch
+            elif kind not in ('modifier', 'tie') or cls not in (e.get('edit') or {}):
                 problems.append('%s: a transform for %s, which is not a class this modifier edits' % (sid, cls))
             for k, v in tr.items():
                 _check_value(sid, 'transform.%s.%s' % (cls, k), v, t, problems, estimated)
@@ -286,6 +326,14 @@ def validate(t):
         for k, v in (ov.get('keys') or {}).items():
             _check_value(sid, 'keys.' + k, v, t, problems, estimated)
         # a double articulation's keys added to each of its two stops (4g)
+        # an affricate made as a stop released into its fricative (D84): a stop of the table, a
+        # fricated release mark, and keys of its own each with its provenance
+        for tmpl, pairs in (ov.get('released') or {}).items():
+            for pair, how in pairs.items():
+                if len(pair.split('͡')) != 2 or (t.sounds.get(how.get('base')) or {}).get('kind') != 'base'                         or (t.sounds.get(how.get('mark')) or {}).get('kind') != 'modifier':
+                    problems.append('%s released.%s.%s: two letters joined by ͡, a base and a mark' % (sid, tmpl, pair))
+                for k, v in (how.get('keys') or {}).items():
+                    _check_value(sid, 'released.%s.%s.%s' % (tmpl, pair, k), v, t, problems, estimated)
         for tmpl, pairs in (ov.get('double') or {}).items():
             for pair, how in pairs.items():
                 if len(pair.split('͡')) != 2 or len(how.get('add') or []) != 2:

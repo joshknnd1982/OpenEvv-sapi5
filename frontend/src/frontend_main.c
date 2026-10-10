@@ -130,6 +130,7 @@ typedef struct {
 	EvvWord w;
 	int src;      /* the word's first character in the text, from nought */
 	int src_len;
+	int pause_ms; /* a pause typed before it in IPA (extIPA's (.), D83) */
 } ClauseWord;
 
 #define MAX_CLAUSE_WORDS 400
@@ -258,6 +259,7 @@ static ClauseWord *new_word(int src, int src_len)
 	evv_word_clear(&cw->w);
 	cw->src = src;
 	cw->src_len = src_len;
+	cw->pause_ms = 0;
 	return cw;
 }
 
@@ -428,6 +430,12 @@ static void write_clause(int terminator)
 		}
 		if (out.len > 0)
 			out_put(" ", 1);
+		if (cw->pause_ms > 0) {
+			/* a pause typed in IPA: the engine's own pause annotation, so long */
+			char pz[24];
+			int pl = snprintf(pz, sizeof(pz), "`p%d ", cw->pause_ms);
+			out_put(pz, (size_t)pl);
+		}
 		out_anchor((uint32_t)cw->src, (uint32_t)cw->src_len);
 		out_put(buf, l);
 		wrote = 1;
@@ -908,6 +916,282 @@ static char *expand_reiteration(const char *utf8, int **origin)
 	return out;
 }
 
+/* ---- a stretch under a label (extIPA's and VoQS's braces, D83) ----
+
+   `{L ... L}': every letter between the braces is composed with the marks the
+   map's `label' lines give L, as if they were written after it (a mark of its
+   own written on a letter comes before them). A label is read as the map's
+   labels one after another, the longest first (V̰! is V, ̰ and !). A label is
+   a base (V, F, L̞, f, allegro) or a mark that goes on the base before it (̰,
+   !, ʲ); a degree, 1 2 or 3 (VoQS: slight, moderate, extreme; none written:
+   2), goes on the symbol written after it, the base and its marks, and no
+   further ({1V!L̞ ...} is a slight V! and L̞). The same labels written again,
+   in any order, just before the closing brace are passed over. Labels of one
+   group (the map's `g=': extIPA's loudness, its tempo) do not add up: the
+   innermost stretch's is said ({f ... {p ... p} ... f} is piano inside). A
+   ramp's mark goes from its first step on the stretch's first letter to its
+   last on the last (crescendo). `(' and `⸨' open a stretch under the labels
+   `()' and `⸨⸩' (extIPA's silent articulation and extraneous noise), unless
+   `(' begins a pause: one the map lists ((.) (..) (…)), or a time in seconds
+   ((1.3 sec), (1.3), 60 at most), said as the engine's own pause before the
+   next word. Stretches may hold stretches, four deep. A map with no `label'
+   or `pause' lines reads braces and parentheses as it did before (D83). */
+
+#define SPAN_LABELS 8
+
+typedef struct {
+	char close[4];               /* what closes it */
+	int label[SPAN_LABELS];      /* its labels (the map's), and each one's degree */
+	int degree[SPAN_LABELS];
+	int n;
+	int letters;                 /* a ramp: the letters in the stretch, and how many are said */
+	int at;
+} Span;
+
+static Span g_spans[4];
+static int g_n_spans;
+static int g_pause_ms; /* a pause typed and not yet given to a word */
+
+static int is_space(char c)
+{
+	return c == ' ' || c == '\t' || c == '\n' || c == '\r';
+}
+
+static int is_tie(const char *p)
+{
+	return (unsigned char)p[0] == 0xcd && ((unsigned char)p[1] == 0xa1 || (unsigned char)p[1] == 0x9c ||
+	                                       (unsigned char)p[1] == 0xa2);
+}
+
+/* The labels written as the `len' bytes at tok, each with its degree, into
+   label[] and degree[]; their number, or -1 where any of it is no label the
+   map lists (and `bad' then points at it). */
+static int read_labels(const char *tok, size_t len, int *label, int *degree, int max, const char **bad)
+{
+	size_t i = 0;
+	int n = 0, pending = 0, cur = 2;
+	if (len == 0)
+		return -1;
+	while (i < len) {
+		if (tok[i] >= '1' && tok[i] <= '3' && i + 1 < len) {
+			pending = tok[i] - '0'; /* the degree of the symbol after it */
+			i++;
+			continue;
+		}
+		int best = -1;
+		size_t best_l = 0;
+		for (size_t l = len - i; l > 0 && best < 0; l--) {
+			best = evv_map_label(&g_map, tok + i, l);
+			best_l = l;
+		}
+		if (best < 0) {
+			if (bad)
+				*bad = tok + i;
+			return -1;
+		}
+		if (g_map.labels[best].kind != 'm' || pending)
+			cur = pending ? pending : 2; /* a base begins a symbol (a mark keeps its base's degree) */
+		pending = 0;
+		if (n < max) {
+			label[n] = best;
+			degree[n++] = cur;
+		}
+		i += best_l;
+	}
+	return n;
+}
+
+/* Whether the `len' bytes at tok are the labels of span s, at their degrees, in any order. */
+static int same_labels(const char *tok, size_t len, const Span *s)
+{
+	int label[SPAN_LABELS], degree[SPAN_LABELS];
+	int n = read_labels(tok, len, label, degree, SPAN_LABELS, NULL);
+	if (n != s->n)
+		return 0;
+	int used[SPAN_LABELS] = {0};
+	for (int k = 0; k < n; k++) {
+		int found = 0;
+		for (int j = 0; j < n && !found; j++)
+			if (!used[j] && s->label[j] == label[k] && s->degree[j] == degree[k])
+				used[j] = found = 1;
+		if (!found)
+			return 0;
+	}
+	return 1;
+}
+
+/* A timed pause, `(1.3 sec)' or `(1.3)', `in' the text between the
+   parentheses: its length in ms, or -1. Digits, a point and digits, a space
+   and `sec' or `s' may follow; 60 seconds at most. */
+static int timed_pause(const char *in, size_t len)
+{
+	size_t i = 0;
+	double v = 0, scale = 0;
+	while (i < len && in[i] >= '0' && in[i] <= '9')
+		v = v * 10 + (in[i++] - '0');
+	if (i == 0)
+		return -1;
+	if (i < len && in[i] == '.') {
+		i++;
+		if (i >= len || in[i] < '0' || in[i] > '9')
+			return -1;
+		for (scale = 0.1; i < len && in[i] >= '0' && in[i] <= '9'; scale /= 10)
+			v += (in[i++] - '0') * scale;
+	}
+	if (i < len && in[i] == ' ')
+		i++;
+	if (!(i == len || (len - i == 3 && strncmp(in + i, "sec", 3) == 0) || (len - i == 1 && in[i] == 's')))
+		return -1;
+	if (v > 60)
+		return -1;
+	return (int)(v * 1000 + 0.5);
+}
+
+/* The length of the pause that begins at p, `(' to `)', or -1 (and its end in *end). */
+static int pause_at(const char *p, const char **end)
+{
+	const char *e = strchr(p, ')');
+	int ms = -1;
+	if (e && e - p < 24) {
+		ms = evv_map_pause(&g_map, p, (size_t)(e - p + 1));
+		if (ms < 0)
+			ms = timed_pause(p + 1, (size_t)(e - p - 1));
+	}
+	*end = e;
+	return ms;
+}
+
+/* The letters from p up to span s's end, counted for a ramp as the reading
+   goes: not the labels written again before a closing brace (nor an inner
+   stretch's), nor the letter after a tie bar, nor what a pause holds. */
+static int count_letters(const char *p, const Span *s)
+{
+	int n = 0, depth = 0;
+	size_t cl = strlen(s->close);
+	const char *prev = NULL;
+	while (*p) {
+		int l = utf8_char_len((unsigned char)*p);
+		if (strncmp(p, s->close, cl) == 0) {
+			if (depth-- == 0)
+				break;
+		} else if (*p == s->close[0] - (s->close[0] == '}' ? 2 : 1) && cl == 1) {
+			depth++; /* `{' or `(' of the same kind */
+		} else if (cl == 3 && strncmp(p, "\xe2\xb8\xa8", 3) == 0) {
+			depth++;
+		}
+		if (*p == '(') {
+			const char *e;
+			if (pause_at(p, &e) >= 0) {
+				prev = NULL;
+				p = e + 1;
+				continue;
+			}
+		}
+		if (!is_space(*p) && *p != '{' && (prev == NULL || is_space(*prev) || *prev == '{')) {
+			/* a word's start: labels written again before a closing brace are no letters */
+			const char *te = p, *q;
+			while (*te && !is_space(*te) && *te != '}')
+				te += utf8_char_len((unsigned char)*te);
+			for (q = te; is_space(*q); q++)
+				;
+			if (*q == '}' && read_labels(p, (size_t)(te - p), NULL, NULL, 0, NULL) >= 0) {
+				prev = NULL;
+				p = q;
+				continue;
+			}
+		}
+		if (prev && *prev == '{' && !is_space(*p)) {
+			/* an inner stretch's opening labels */
+			while (*p && !is_space(*p) && *p != '}')
+				p += utf8_char_len((unsigned char)*p);
+			prev = NULL;
+			continue;
+		}
+		if (evv_map_letter(&g_map, p, (size_t)l) && !(prev && is_tie(prev)))
+			n++;
+		prev = p;
+		p += l;
+	}
+	return n;
+}
+
+/* Opens a stretch under the labels `tok' (len bytes), closed by `close'. */
+static void open_span(const char *tok, size_t len, const char *close, const char *rest)
+{
+	if (g_n_spans >= 4) {
+		evv_diag(EVV_DIAG_LOSS, "label-too-deep", "a fifth stretch inside four: its label `%.*s' is left off", (int)len,
+		         tok);
+		return;
+	}
+	Span *s = &g_spans[g_n_spans++];
+	memset(s, 0, sizeof(*s));
+	snprintf(s->close, sizeof(s->close), "%s", close);
+	const char *bad = NULL;
+	int n = read_labels(tok, len, s->label, s->degree, SPAN_LABELS, &bad);
+	if (n < 0) {
+		evv_diag(EVV_DIAG_LOSS, "label-unknown", "`%.*s' in the label `%.*s' is no label the map lists; the label "
+		         "is left off", (int)(len - (size_t)(bad - tok)), bad, (int)len, tok);
+		n = 0;
+	}
+	s->n = n;
+	int ramps = 0;
+	for (int k = 0; k < n; k++)
+		ramps += g_map.labels[s->label[k]].kind == 'r';
+	if (ramps > 1)
+		evv_diag(EVV_DIAG_LOSS, "label-left-off", "a second ramp in the label `%.*s' is left off", (int)len, tok);
+	if (ramps)
+		s->letters = count_letters(rest, s);
+}
+
+static void close_span(const char *close)
+{
+	if (g_n_spans == 0 || strcmp(g_spans[g_n_spans - 1].close, close) != 0) {
+		evv_diag(EVV_DIAG_LOSS, "label-unopened", "`%s' closes no stretch opened before it; passed over", close);
+		return;
+	}
+	g_n_spans--;
+}
+
+/* Whether a label of span k is replaced by one of its group in a stretch inside it. */
+static int replaced(int k, int label)
+{
+	const char *g = g_map.labels[label].group;
+	if (!g[0])
+		return 0;
+	for (int j = k + 1; j < g_n_spans; j++)
+		for (int i = 0; i < g_spans[j].n; i++)
+			if (strcmp(g_map.labels[g_spans[j].label[i]].group, g) == 0)
+				return 1;
+	return 0;
+}
+
+/* The marks the stretches open now give the next letter (and counts it). */
+static void span_marks(char *out, size_t room)
+{
+	out[0] = 0;
+	for (int k = 0; k < g_n_spans; k++) {
+		Span *s = &g_spans[k];
+		int ramped = 0;
+		for (int i = 0; i < s->n; i++) {
+			const EvvMap *m = &g_map;
+			int lb = s->label[i];
+			const char *mk = NULL;
+			if (m->labels[lb].kind == 'r') {
+				if (ramped++)
+					continue;
+				int steps = m->labels[lb].n;
+				int step = s->letters > 1 ? (int)((double)s->at * (steps - 1) / (s->letters - 1) + 0.5) : steps - 1;
+				mk = m->labels[lb].marks[step > steps - 1 ? steps - 1 : step];
+			} else if (m->labels[lb].kind == 'd' || m->labels[lb].kind == 'm') {
+				mk = m->labels[lb].marks[s->degree[i] - 1];
+			}
+			if (mk && !replaced(k, lb) && strlen(out) + strlen(mk) < room)
+				strcat(out, mk);
+		}
+		s->at++;
+	}
+}
+
 static int translate_ipa(const char *given)
 {
 	EvvMapPhone phones[EVV_MAX_PHONES];
@@ -936,13 +1220,79 @@ static int translate_ipa(const char *given)
 	int next_levels[8], n_next = 0; /* a tone mark on a consonant, for the nucleus after it */
 	int reg = 0, slope = 0, slope_at = 0;
 	EvvPhone *nuc = NULL;           /* the nucleus that typed tone goes to */
-	for (const char *p = expanded ? expanded : utf8; *p;) {
+	g_n_spans = 0;
+	g_pause_ms = 0;
+	int spans_on = g_map.n_labels > 0 || g_map.n_pauses > 0;
+	const char *text0 = expanded ? expanded : utf8;
+	for (const char *p = text0; *p;) {
 		int l = utf8_char_len((unsigned char)*p);
 		if (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
 			cw = NULL;
 			brk_next = 0;
 			p++;
 			chars++;
+			continue;
+		}
+		/* braces, a stretch's labels, and pauses (D83): only with a map that has labels or pauses */
+		if (spans_on && g_n_spans && g_spans[g_n_spans - 1].close[0] == '}' && (p == text0 || is_space(p[-1]))) {
+			/* its labels written again just before the closing brace (in any order) */
+			const Span *s = &g_spans[g_n_spans - 1];
+			const char *te = p;
+			while (*te && !is_space(*te) && *te != '}')
+				te += utf8_char_len((unsigned char)*te);
+			const char *q = te;
+			while (is_space(*q))
+				q++;
+			if (te > p && *q == '}' && same_labels(p, (size_t)(te - p), s)) {
+				for (; p < q; p += utf8_char_len((unsigned char)*p))
+					chars++;
+				continue;
+			}
+		}
+		if (spans_on && *p == '{') {
+			const char *t = p + 1;
+			while (is_space(*t))
+				t++;
+			const char *te = t;
+			while (*te && !is_space(*te) && *te != '}')
+				te++;
+			open_span(t, (size_t)(te - t), "}", te);
+			for (; p < te; p += utf8_char_len((unsigned char)*p))
+				chars++;
+			cw = NULL;
+			continue;
+		}
+		if (spans_on && (*p == '}' || *p == ')' || (l == 3 && strncmp(p, "\xe2\xb8\xa9", 3) == 0))) {
+			char c[4];
+			memcpy(c, p, (size_t)l);
+			c[l] = 0;
+			close_span(c);
+			p += l;
+			chars++;
+			cw = NULL;
+			continue;
+		}
+		if (spans_on && *p == '(') {
+			const char *e;
+			int ms = pause_at(p, &e);
+			if (ms >= 0) {
+				g_pause_ms += ms;
+				for (; p <= e; p += utf8_char_len((unsigned char)*p))
+					chars++;
+				cw = NULL;
+				continue;
+			}
+			open_span("()", 2, ")", p + 1);
+			p++;
+			chars++;
+			cw = NULL;
+			continue;
+		}
+		if (spans_on && l == 3 && strncmp(p, "\xe2\xb8\xa8", 3) == 0) {
+			open_span("\xe2\xb8\xa8\xe2\xb8\xa9", 6, "\xe2\xb8\xa9", p + 3);
+			p += l;
+			chars++;
+			cw = NULL;
 			continue;
 		}
 		/* a group boundary ends the phrase: its pitch, its register, its slope */
@@ -1001,6 +1351,8 @@ static int translate_ipa(const char *given)
 				if ((unsigned char)q[0] == 0xcb && ((unsigned char)q[1] == 0x88 || (unsigned char)q[1] == 0x8c))
 					stress = 0;
 			cw = new_word(origin ? origin[chars] : chars, 0);
+			cw->pause_ms = g_pause_ms;
+			g_pause_ms = 0;
 		}
 		if (l == 2 && (unsigned char)p[0] == 0xcb && (unsigned char)p[1] == 0x88) { /* ˈ */
 			stress = 1;
@@ -1057,7 +1409,9 @@ static int translate_ipa(const char *given)
 				}
 			}
 		}
-		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && *p != '.' && *p != '|') {
+		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && *p != '.' && *p != '|' &&
+		       !(spans_on && (*p == '{' || *p == '}' || *p == '(' || *p == ')' || strncmp(p, "\xe2\xb8\xa8", 3) == 0 ||
+		                      strncmp(p, "\xe2\xb8\xa9", 3) == 0))) {
 			int ml = utf8_char_len((unsigned char)*p);
 			const EvvToneMark *m = evv_map_tonemark(&g_map, p, (size_t)ml);
 			if (lt_len && !tied && lt_len + ml < 16 && seg_len + ml < (int)sizeof(seg) &&
@@ -1132,7 +1486,16 @@ static int translate_ipa(const char *given)
 		if (!letter)
 			evv_diag(EVV_DIAG_LOSS, "ipa-not-a-letter", "`%s' does not begin with a letter the map lists", seg);
 		int matched = 0;
-		int n = evv_map_lookup_ex(&g_map, NULL, NULL, seg, phones, EVV_MAX_PHONES, &matched);
+		/* a letter in a stretch under a label: composed with the label's marks too (D83) */
+		char segx[64 + 4 * 96];
+		const char *look = seg;
+		if (letter && g_n_spans) {
+			char sm[4 * 96];
+			span_marks(sm, sizeof(sm));
+			snprintf(segx, sizeof(segx), "%s%s", seg, sm);
+			look = segx;
+		}
+		int n = evv_map_lookup_ex(&g_map, NULL, NULL, look, phones, EVV_MAX_PHONES, &matched);
 		if (!matched)
 			evv_diag(EVV_DIAG_LOSS, "phoneme-dropped", "/%s/ has no line in the map and cannot be composed", seg);
 		int vowel = letter && letter->cls == 'v';
@@ -1192,7 +1555,16 @@ static int translate_ipa(const char *given)
 	if ((n_levels && nuc == NULL) || n_next)
 		evv_diag(EVV_DIAG_LOSS, "tone-no-syllable", "a tone with no syllable to carry it is left off");
 	put_tone(nuc, levels, &n_levels, reg, slope, &slope_at);
+	if (g_n_spans)
+		evv_diag(EVV_DIAG_LOSS, "label-unclosed", "a stretch that %s closes is not closed; it ends with the text",
+		         g_spans[g_n_spans - 1].close);
 	write_clause(CLAUSE_PERIOD);
+	if (g_pause_ms > 0) {
+		/* a pause typed after the last word */
+		char pz[24];
+		int pl = snprintf(pz, sizeof(pz), " `p%d", g_pause_ms);
+		out_put(pz, (size_t)pl);
+	}
 	put_header();
 	g_input = NULL;
 	free(expanded);

@@ -274,6 +274,31 @@ def test_phase3():
     y = S.vowel([(600, 80), (1100, 90), (2500, 150)], f0=120.0, dur_ms=400.0)
     j0 = A.jitter_pct(y, R, 50, 350)
     check('jitter of a steady 120 Hz voice', j0 is not None and j0 < 1.0, 'under 1 %', j0 and round(j0, 2))
+    # T-phonation (D83): glottal pulses one by one where no pitch tracker follows: vocal fry with
+    # every second period later and weaker (24 and 17.5 ms, the second at 0.6 of the first), and a
+    # steady 120 Hz voice
+    starts, tt = [], 0.0
+    while tt < 0.4:
+        starts.append(int(tt * R))
+        tt += 0.024 if len(starts) % 2 else 0.0175
+    src = np.zeros(int(0.4 * R) + 64)
+    for k, a in enumerate(starts):
+        src[a:a + 46] += (1.0 if k % 2 == 0 else 0.6) * 0.5 * (1 - np.cos(np.pi * np.arange(46) / 46.0))
+    y = np.diff(src, prepend=0.0)
+    for f, bw in ((600, 80), (1100, 90), (2500, 150)):
+        y = S.resonator(y, f, bw, R)
+    y = 20000 * y / np.max(np.abs(y))
+    at = np.array([a for a in starts if int(0.05 * R) <= a < int(0.35 * R)])
+    per = np.diff(at).astype(float) / R
+    pu = A.pulses(y, R, 50, 350)
+    rate_t, jit_t = 1.0 / np.mean(per), 100.0 * np.mean(np.abs(np.diff(per))) / np.mean(per)
+    check('pulses of vocal fry, every second later and weaker', pu is not None and near(pu[0], rate_t, 0.03)
+          and near(pu[1], jit_t, absol=4.0), '%.1f Hz +-3%%, %.1f %% +-4' % (rate_t, jit_t),
+          pu and '%.1f Hz, %.1f %%' % pu[:2])
+    y = S.vowel([(600, 80), (1100, 90), (2500, 150)], f0=120.0, dur_ms=400.0)
+    pu = A.pulses(y, R, 50, 350)
+    check('pulses of a steady 120 Hz voice', pu is not None and near(pu[0], 120.0, 0.03) and pu[1] < 2.0,
+          '120 Hz +-3%, under 2 %', pu and '%.1f Hz, %.1f %%' % pu[:2])
     # T-nasality: A1-P0 of harmonics whose levels are set
     y = np.zeros(len(t))
     for hk in range(1, 30):

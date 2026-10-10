@@ -449,13 +449,13 @@ def hnr_db(x, rate, a_ms, b_ms, fmin=75.0, fmax=500.0):
     return 10 * math.log10(r / (1 - r)) if r > 0 else None
 
 
-def jitter_pct(x, rate, a_ms, b_ms):
+def jitter_pct(x, rate, a_ms, b_ms, fmin=75.0):
     """T-phonation: period regularity. Each period by waveform matching: from the start of a cycle,
     the lag in 0.7 to 1.3 of the mean period at which the cycle best repeats (normalised
     correlation, refined between samples by a parabola); the next cycle starts there. Local
     jitter = mean |T(i) - T(i-1)| / mean T, in per cent."""
     y = _seg(x, rate, a_ms, b_ms)
-    f0 = f0_at(x, rate, (a_ms + b_ms) / 2.0, fmin=75.0)
+    f0 = f0_at(x, rate, (a_ms + b_ms) / 2.0, fmin=fmin)
     if not f0 or len(y) < 4 * rate / f0:
         return None
     t0 = rate / f0
@@ -479,6 +479,27 @@ def jitter_pct(x, rate, a_ms, b_ms):
         return None
     t = np.array(periods)
     return float(100.0 * np.mean(np.abs(np.diff(t))) / np.mean(t))
+
+
+def pulses(x, rate, a_ms, b_ms):
+    """T-phonation (D83): the glottal pulses one by one, for a voice no pitch tracker follows (vocal
+    fry at 47 Hz, every second period later and weaker): the peaks of the envelope of the signal
+    band-passed 60 to 1500 Hz, smoothed under 300 Hz, at least 2.5 ms apart and 15 per cent of the
+    largest high. Returns (pulses a second, local jitter of their spacing in per cent, and their
+    drift: the spread of each two periods' mean, the alternation taken out, in per cent of the
+    mean: a pitch that wobbles slowly, the synthesiser's flutter), or None."""
+    y = _seg(x, rate, a_ms, b_ms)
+    if len(y) < rate * 0.04:
+        return None
+    env = np.abs(signal.hilbert(signal.sosfilt(signal.butter(4, [60, 1500], 'band', fs=rate, output='sos'), y)))
+    env = signal.sosfilt(signal.butter(2, 300, 'low', fs=rate, output='sos'), env)
+    pk, _ = signal.find_peaks(env, distance=max(1, int(rate / 400)), prominence=env.max() * 0.15)
+    if len(pk) < 4:
+        return None
+    t = np.diff(pk) / float(rate)
+    two = (t[:-1] + t[1:]) / 2.0
+    return (float(1.0 / np.mean(t)), float(100.0 * np.mean(np.abs(np.diff(t))) / np.mean(t)),
+            float(100.0 * np.std(two) / np.mean(t)))
 
 
 def a1_p0(x, rate, t_ms, f1_hz, p0_hz=250.0, f0=None):

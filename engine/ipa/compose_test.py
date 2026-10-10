@@ -17,6 +17,11 @@ the order the front-end meets them (as written, in canonical order): where two m
 the one met last is the one said. Which letter and marks a string is, and that order, are the
 reader's (engine/ipa/reader.py), which reads as the front-end does: `ɹ̈' with ̺ is written as `ɹ̺'
 with ̈, and is that (D77). `--letters' tests only those letters (with every mark).
+
+`--labels' tests the labels of a stretch in braces instead (D83): every letter said inside each
+label's braces at degree 2 (and at degrees 1 and 3 on a vowel and a consonant) must have the keys of
+its own line with the label's ops at that degree (adapter.graded), and a label the map lacks, a
+brace that closes nothing and a stretch not closed must be reported.
 """
 
 import argparse
@@ -98,7 +103,10 @@ def main():
     ap.add_argument('--template', default='dedx')
     ap.add_argument('--pack', default='hi')
     ap.add_argument('--letters', nargs='*', help='only these letters (as IPA)')
+    ap.add_argument('--labels', action='store_true', help='the labels of a stretch in braces (D83)')
     a = ap.parse_args()
+    if a.labels:
+        return labels(a)
     t = T.load()
     work = os.path.join(E.WORK, 'c4')
     os.makedirs(work, exist_ok=True)
@@ -188,6 +196,58 @@ def main():
             failures.append(ipa)
     print('compose: %d compositions compared, %d fallbacks; %d failed (%d letters of two, not compositions)' % (
         compared, len(fallbacks), len(failures), letters_of_two))
+    return 1 if failures else 0
+
+
+def labels(a):
+    """D83: each label of its own (not one spelt with others) on every letter, as the front-end
+    composes it in braces, against the adapter's composition of the letter with the label's ops."""
+    t = T.load()
+    work = os.path.join(E.WORK, 'c4')
+    os.makedirs(work, exist_ok=True)
+    p, map_path = test_map(a.pack, a.template, work)
+    with open(map_path, encoding='utf-8') as f:
+        marks = {}
+        for line in f:
+            w = line.split()
+            if w[:1] == ['label'] and w[2] in ('d', 'm'):
+                marks.setdefault(w[1], w[3:6])
+    letters = [sid for sid, e in sorted(t.sounds.items()) if e.get('kind') == 'base' and e.get('spec')
+               and (not a.letters or e['ipa'] in a.letters)]
+    failures, compared = [], 0
+    for sid, e in sorted(t.sounds.items()):
+        ov = (e.get('realization') or {}).get('openevv', {})
+        if e.get('kind') != 'label' or e.get('parts') or not ov.get('label') or ov.get('ramp') or ov['label'] not in marks:
+            continue
+        sp = ov['label']
+        for b in letters:
+            cls = t.sounds[b]['features']['class']
+            ops, lost = AD.mod_ops(t, sid, cls, template=a.template)
+            if not ops:
+                continue
+            for deg in ((1, 2, 3) if t.sounds[b]['ipa'] in ('a', 't') else (2,)):
+                base = AD.compose(t, b, [], a.template, _carrier_meas(b))
+                hz = AD.realised_hz(t, b, a.template) if cls == 'vowel' else None
+                keys, l2 = AD.merge(base['keys'], AD.graded(ops, AD.DEGREES[deg - 1]), exact=True,
+                                    base_hz={'f%d' % (i + 1): x for i, x in enumerate(hz or [])})
+                want = {k: int(round(v + 1e-9)) for k, v in keys.items()}
+                lab = '%s%s' % ('' if deg == 2 else deg, sp)
+                code, out, diags = say_ipa(p, map_path, '{%s ˈpa%s %s}' % (lab, t.sounds[b]['ipa'], lab))
+                got = composed_keys(diags, out).get(fe_form(t.sounds[b]['ipa']) + marks[sp][deg - 1])
+                ok = got is not None and set(got) == set(want) and all(abs(got[k] - want[k]) <= 1 for k in got)
+                compared += 1
+                print('%-4s %-10s %-6s front-end %-28s adapter %s' % ('ok' if ok else 'FAIL', lab, t.sounds[b]['ipa'], got, want))
+                if not ok:
+                    failures.append('%s %s' % (lab, t.sounds[b]['ipa']))
+    fallbacks = [('{Q ˈpa Q}', 'label-unknown'), ('ˈpa}', 'label-unopened'), ('{W ˈpa', 'label-unclosed')]
+    for ipa, kind in fallbacks:
+        code, out, diags = say_ipa(p, map_path, ipa)
+        kinds = sorted({d['kind'] for d in diags if d['level'] == 'loss'})
+        ok = kind in kinds
+        print('%-4s %-10s fallback reported: %s' % ('ok' if ok else 'FAIL', ipa, ', '.join(kinds) or 'nothing'))
+        if not ok:
+            failures.append(ipa)
+    print('compose labels: %d compositions compared, %d fallbacks; %d failed' % (compared, len(fallbacks), len(failures)))
     return 1 if failures else 0
 
 

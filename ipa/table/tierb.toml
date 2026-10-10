@@ -366,8 +366,8 @@ tier = "B"
 chart = "extIPA / other sounds"
 kind = "composite"
 parts = ["U+0074", "U+033C", "U+0361", "U+03B8", "U+033C"]
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
 
@@ -377,6 +377,7 @@ bases = ["U+0074"]
 plain = "t͡θ"
 shift = [{ measure = "edge_F2", sign = -1 }]
 judged_by = "U+033C"
+proof = "ipa/proofs/B_U+0074+U+033C+U+0361+U+03B8+U+033C.json"
 
 [sound."B:U+0064+U+033C+U+0361+U+00F0+U+033C"]
 ipa = "d̼͡ð̼"
@@ -387,8 +388,8 @@ tier = "B"
 chart = "extIPA / other sounds"
 kind = "composite"
 parts = ["U+0064", "U+033C", "U+0361", "U+00F0", "U+033C"]
-state = "MISSING"
-level = 1
+state = "composed"
+level = 2
 approximate = false
 plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
 
@@ -398,6 +399,7 @@ bases = ["U+0064"]
 plain = "d͡ð"
 shift = [{ measure = "edge_F2", sign = -1 }]
 judged_by = "U+033C"
+proof = "ipa/proofs/B_U+0064+U+033C+U+0361+U+00F0+U+033C.json"
 
 [sound."B:U+A7AF"]
 ipa = "ꞯ"
@@ -2069,19 +2071,20 @@ placement = "over"
 state = "composed"
 level = 2
 approximate = true
-deviation = "as ◌͔: a lateralised sibilant, said as the right offset is, since nothing measured tells the side apart (D71)"
+deviation = "as ◌͔: a lateralised sibilant; nothing measured tells the side apart, and one channel of sound cannot carry it, so the left is set apart from the right by a convention, its peak a little higher (F4 at 0.76 of [s]'s against the right's 0.70), that the two are not one sound (the human's rule, D83; D71 had said them alike)"
 plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
 
 [sound."B:U+0355".spec]
 
 [sound."B:U+0355".transform.consonant]
-formants = { F4 = { scale = 0.70, tag = "derived", ref = "akagi2001", rule = "as ◌͔: 3200 / 4590 = 0.70" } }
+formants = { F4 = { scale = 0.76, tag = "estimated", note = "the convention that tells the left offset from the right (D83): the right's 0.70 (akagi2001: 3200 / 4590) raised to 0.76, a lateral sibilant's peak still below [s]'s" } }
 noise = { F5_db = { set = 20, tag = "estimated", note = "as ◌͔ (D71)" } }
 
 [sound."B:U+0355".tests]
-checks = ["T-shift"]
+checks = ["T-shift", "T-contrast"]
 bases = ["U+0073", "U+0283"]
 shift = [{ measure = "peak_hz", sign = -1 }, { measure = "centroid_hz", sign = -1 }]
+contrast = [{ with = "B:U+0354", base = "U+0073", measure = "peak_hz", sign = 1, distinct = true }]
 proof = "ipa/proofs/B_U+0355.json"
 
 [sound."B:U+034E"]

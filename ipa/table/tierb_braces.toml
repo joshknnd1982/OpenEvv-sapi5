@@ -1,0 +1,2778 @@
+# Tier B: the braces of extIPA and VoQS (a label over a stretch of speech), extIPA's pauses, and the
+# labels themselves (DECISIONS.md D83). MIT, as the rest of the table; facts cited, nothing copied.
+#
+# A label (`kind = "label"`) is a transform of every letter of its class in the stretch its braces
+# hold, written as a mark's is; the adapter gives each degree (VoQS's 1 2 3) or step of a ramp a mark
+# of its own, which the front-end composes on each letter. A label spelt with other labels (VoQS's V̰
+# is V and the creaky voice ̰) names them as `parts' and has no transform of its own. A pause
+# (`kind = "pause"`) is said as the engine's own pause annotation, so long.
+
+# ---- the braces themselves ----
+
+[sound."B:U+007B+U+007D"]
+ipa = "{}"
+codepoints = ["U+007B", "U+007D"]
+name = "labelled braces: the stretch a prosodic label applies to (extIPA)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+007B+U+007D".spec]
+stretch = { v = 1, tag = "derived", rule = "the convention itself: the label written after the opening brace (and again before the closing one) applies to the speech between them and to nothing else (wp_extipa: {𝆑 ˈlaʊd 𝆑})" }
+
+[sound."B:U+007B+U+007D".realization.openevv]
+braces = true
+
+[sound."B:U+007B+U+007D".tests]
+checks = ["T-brace"]
+forms = [["ˈmama ˈnana ˈlala", "ˈmama {𝆑 ˈnana 𝆑} ˈlala"], ["ˈnami ˈmanu ˈlami", "ˈnami {f ˈmanu f} ˈlami"]]
+measure = "vowel_db"
+sign = 1
+inside = [2, 3]
+vowels = 6
+proof = "ipa/proofs/B_U+007B+U+007D.json"
+
+[sound."B:U+007B+U+007D#voqs"]
+ipa = "{}"
+codepoints = ["U+007B", "U+007D"]
+name = "labelled braces: the stretch a voice quality applies to (VoQS)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / conventions"
+kind = "label"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+007B+U+007D#voqs".spec]
+stretch = { v = 1, tag = "derived", rule = "the convention itself, as extIPA's (wikipedia_voqs: the labels in braces round the stretch they apply to)" }
+
+[sound."B:U+007B+U+007D#voqs".realization.openevv]
+braces = true
+
+[sound."B:U+007B+U+007D#voqs".tests]
+checks = ["T-brace"]
+forms = [["ˈmama ˈnana ˈlala", "ˈmama {W ˈnana W} ˈlala"], ["ˈnami ˈmanu ˈlami", "ˈnami {W ˈmanu W} ˈlami"]]
+measure = "vowel_voiced"
+sign = -1
+inside = [2, 3]
+vowels = 6
+proof = "ipa/proofs/B_U+007B+U+007D#voqs.json"
+
+[sound."B:U+0031/U+0032/U+0033"]
+ipa = "1 2 3"
+codepoints = ["U+0031", "U+0032", "U+0033"]
+name = "the degree of a VoQS label, written before it: 1 slight, 2 moderate, 3 extreme"
+section = "tierb"
+tier = "B"
+chart = "VoQS / conventions"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "a degree scales what a label grades (a ratio's departure from 100, an amount added, a phonation or a pitch away from the voice's own) by a half, once and one and a half; a switch (the voice off in whisper) is not graded, so 1W, W and 3W are said alike; no measure of what slight, moderate and extreme are was found"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0031/U+0032/U+0033".spec]
+degree_scale = { v = 0.5, tag = "estimated", note = "slight, moderate and extreme taken as a half, once and one and a half of what the label says, none written being moderate (wikipedia_voqs gives the three degrees, no size)" }
+
+[sound."B:U+0031/U+0032/U+0033".realization.openevv]
+braces = true
+
+[sound."B:U+0031/U+0032/U+0033".tests]
+checks = ["T-degree"]
+forms = [["{1F ˈpap 1F}", "{F ˈpap F}", "{3F ˈpap 3F}"]]
+variants = ["deg1", "deg2", "deg3"]
+measure = "f0_50_hz"
+sign = 1
+
+# ---- extIPA's pauses ----
+proof = "ipa/proofs/B_U+0031_U+0032_U+0033.json"
+
+[sound."B:U+0028+U+002E+U+0029"]
+ipa = "(.)"
+codepoints = ["U+0028", "U+002E", "U+0029"]
+name = "short pause"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "pause"
+state = "mapped"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "mapped", uses = ["C4"], builds = ["pauses typed in IPA (D83)"] }
+
+[sound."B:U+0028+U+002E+U+0029".spec]
+pause_ms = { v = 150, tag = "literature", ref = "campione_veronis_2002", note = "brief pauses peak around 150 ms (read speech in five languages; 100 to 150 ms by language, 78 ms in spontaneous speech); extIPA gives no length (wp_extipa)" }
+
+[sound."B:U+0028+U+002E+U+0029".realization.openevv]
+pause = ["(.)"]
+
+[sound."B:U+0028+U+002E+U+0029".tests]
+checks = ["T-pause"]
+forms = [["ˈmama ˈnana", "ˈmama (.) ˈnana"], ["ˈnami ˈlamu", "ˈnami (.) ˈlamu"]]
+proof = "ipa/proofs/B_U+0028+U+002E+U+0029.json"
+
+[sound."B:U+0028+U+002E+U+002E+U+0029"]
+ipa = "(..)"
+codepoints = ["U+0028", "U+002E", "U+002E", "U+0029"]
+name = "medium pause"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "pause"
+state = "mapped"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "mapped", uses = ["C4"], builds = ["pauses typed in IPA (D83)"] }
+
+[sound."B:U+0028+U+002E+U+002E+U+0029".spec]
+pause_ms = { v = 500, tag = "literature", ref = "campione_veronis_2002", note = "medium pauses peak around 500 ms (500 to 600 ms in read speech, 426 ms spontaneous)" }
+
+[sound."B:U+0028+U+002E+U+002E+U+0029".realization.openevv]
+pause = ["(..)"]
+
+[sound."B:U+0028+U+002E+U+002E+U+0029".tests]
+checks = ["T-pause"]
+forms = [["ˈmama ˈnana", "ˈmama (..) ˈnana"], ["ˈnami ˈlamu", "ˈnami (..) ˈlamu"]]
+proof = "ipa/proofs/B_U+0028+U+002E+U+002E+U+0029.json"
+
+[sound."B:U+0028+U+2026+U+0029"]
+ipa = "(…)"
+codepoints = ["U+0028", "U+2026", "U+0029"]
+name = "long pause"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "pause"
+state = "mapped"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "mapped", uses = ["C4"], builds = ["pauses typed in IPA (D83)"] }
+
+[sound."B:U+0028+U+2026+U+0029".spec]
+pause_ms = { v = 1585, tag = "literature", ref = "campione_veronis_2002", note = "long pauses, found in spontaneous speech only, centred around 1585 ms" }
+
+[sound."B:U+0028+U+2026+U+0029".realization.openevv]
+pause = ["(…)", "(...)"]
+
+[sound."B:U+0028+U+2026+U+0029".tests]
+checks = ["T-pause"]
+forms = [["ˈmama ˈnana", "ˈmama (…) ˈnana"], ["ˈnami ˈlamu", "ˈnami (...) ˈlamu"]]
+proof = "ipa/proofs/B_U+0028+U+2026+U+0029.json"
+
+[sound."B:U+0028+U+0029#timed"]
+ipa = "()"
+codepoints = ["U+0028", "U+0029"]
+name = "timed pause: its length in seconds between the parentheses, (1.3 sec) or (1.3)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "pause"
+state = "mapped"
+level = 2
+approximate = false
+plan = { decision = "new mechanism", end_state = "mapped", uses = ["C4"], builds = ["pauses typed in IPA (D83)"] }
+
+[sound."B:U+0028+U+0029#timed".spec]
+second_ms = { v = 1000, tag = "derived", rule = "the number written is seconds (wp_extipa: (1.2) a pause of 1.2 seconds; the chart's (1.3 sec)); 60 seconds at most is read" }
+
+[sound."B:U+0028+U+0029#timed".realization.openevv]
+timed = true
+
+[sound."B:U+0028+U+0029#timed".tests]
+checks = ["T-pause"]
+forms = [["ˈmama ˈnana", "ˈmama (1.3 sec) ˈnana"], ["ˈnami ˈlamu", "ˈnami (0.4) ˈlamu"]]
+pause_ms = [1300, 400]
+
+# ---- extIPA's loudness and tempo ----
+proof = "ipa/proofs/B_U+0028+U+0029#timed.json"
+
+[sound."B:U+0066#dyn"]
+ipa = "f"
+codepoints = ["U+0066"]
+name = "loud speech (forte), over the stretch in its braces"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "no source gives a level for forte: 6 dB is estimated; the pitch and F1 rise with it at the rates measured for vocal effort (lienard_dibenedetto_1999), the spectrum's flattening is not made (this engine's tilt key is a level the voice takes, not one it moves by); written f or with the musical glyph 𝆑 (U+1D191)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0066#dyn".spec]
+level_db = { v = 6, tag = "estimated", note = "one step of the musical dynamics taken as 6 dB louder than the voice's own; no source found for speech" }
+
+[sound."B:U+0066#dyn".transform.vowel]
+voice = { level_db = { add = 6, tag = "estimated", note = "the spec's level, on the voice" } }
+breath = { gain_db = { add = 6, tag = "estimated", note = "and on the breath" } }
+pitch = { offset_st = { set = 3.9, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: F0 up about 5 Hz a dB of vocal effort: 30 Hz at 6 dB, from this voice's middle, 119 Hz: 12 log2(149/119) = 3.9 semitones" } }
+formants = { F1 = { scale = 1.035, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: F1 up about 3.5 Hz a dB: 21 Hz at 6 dB, on an F1 of 600 Hz 1.035" } }
+
+[sound."B:U+0066#dyn".transform.consonant]
+voice = { level_db = { add = 6, tag = "estimated", note = "as on a vowel" } }
+breath = { gain_db = { add = 6, tag = "estimated", note = "as on a vowel" } }
+noise = { gain_db = { add = 6, tag = "estimated", note = "the friction and a burst as loud again" } }
+pitch = { offset_st = { set = 3.9, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: as on a vowel (over a consonant's voiced frames)" } }
+
+[sound."B:U+0066#dyn".realization.openevv]
+label = "f"
+group = "dyn"
+spellings = ["𝆑"]
+
+[sound."B:U+0066#dyn".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0069", "U+0075"]
+shift = [{ measure = "intensity_db", sign = 1 }, { measure = "f0_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+0066#dyn.json"
+
+[sound."B:U+0066+U+0066#dyn"]
+ipa = "ff"
+codepoints = ["U+0066", "U+0066"]
+name = "louder speech (fortissimo), over the stretch in its braces"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "as forte's, two steps: 12 dB estimated; written ff or 𝆑𝆑"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0066+U+0066#dyn".spec]
+level_db = { v = 12, tag = "estimated", note = "two steps of the musical dynamics, 6 dB each (as forte's)" }
+
+[sound."B:U+0066+U+0066#dyn".transform.vowel]
+voice = { level_db = { add = 12, tag = "estimated", note = "the spec's level" } }
+breath = { gain_db = { add = 12, tag = "estimated", note = "and on the breath" } }
+pitch = { offset_st = { set = 7.1, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: 5 Hz a dB: 60 Hz at 12 dB from 119 Hz: 12 log2(179/119) = 7.1 semitones" } }
+formants = { F1 = { scale = 1.07, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: 3.5 Hz a dB: 42 Hz on an F1 of 600 Hz" } }
+
+[sound."B:U+0066+U+0066#dyn".transform.consonant]
+voice = { level_db = { add = 12, tag = "estimated", note = "as on a vowel" } }
+breath = { gain_db = { add = 12, tag = "estimated", note = "as on a vowel" } }
+noise = { gain_db = { add = 12, tag = "estimated", note = "as forte's" } }
+pitch = { offset_st = { set = 7.1, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: as on a vowel" } }
+
+[sound."B:U+0066+U+0066#dyn".realization.openevv]
+label = "ff"
+group = "dyn"
+spellings = ["𝆑𝆑"]
+
+[sound."B:U+0066+U+0066#dyn".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0069", "U+0075"]
+shift = [{ measure = "intensity_db", sign = 1 }, { measure = "f0_50_hz", sign = 1 }]
+contrast = [{ with = "B:U+0066#dyn", base = "U+0061", measure = "intensity_db", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0066+U+0066#dyn.json"
+
+[sound."B:U+0070#dyn"]
+ipa = "p"
+codepoints = ["U+0070"]
+name = "quiet speech (piano), over the stretch in its braces"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "as forte's, downwards: 6 dB estimated, the pitch and F1 falling at the rates measured for vocal effort; written p or with the musical glyph 𝆏 (U+1D18F)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0070#dyn".spec]
+level_db = { v = -6, tag = "estimated", note = "one step of the musical dynamics, 6 dB quieter" }
+
+[sound."B:U+0070#dyn".transform.vowel]
+voice = { level_db = { add = -6, tag = "estimated", note = "the spec's level" } }
+breath = { gain_db = { add = -6, tag = "estimated", note = "and on the breath" } }
+pitch = { offset_st = { set = -5.0, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: 5 Hz a dB: 30 Hz lower at -6 dB from 119 Hz: 12 log2(89/119) = -5.0 semitones" } }
+formants = { F1 = { scale = 0.965, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: 3.5 Hz a dB: 21 Hz on an F1 of 600 Hz" } }
+
+[sound."B:U+0070#dyn".transform.consonant]
+voice = { level_db = { add = -6, tag = "estimated", note = "as on a vowel" } }
+breath = { gain_db = { add = -6, tag = "estimated", note = "as on a vowel" } }
+noise = { gain_db = { add = -6, tag = "estimated", note = "the friction and a burst as quiet again" } }
+pitch = { offset_st = { set = -5.0, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: as on a vowel" } }
+
+[sound."B:U+0070#dyn".realization.openevv]
+label = "p"
+group = "dyn"
+spellings = ["𝆏"]
+
+[sound."B:U+0070#dyn".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0069", "U+0075"]
+shift = [{ measure = "intensity_db", sign = -1 }, { measure = "f0_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+0070#dyn.json"
+
+[sound."B:U+0070+U+0070#dyn"]
+ipa = "pp"
+codepoints = ["U+0070", "U+0070"]
+name = "quieter speech (pianissimo), over the stretch in its braces"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "as piano's, two steps: 12 dB quieter, estimated; its pitch falls only as piano's (5 Hz a dB over 12 dB would take this voice to 59 Hz, into vocal fry: chen_etal_1997, 49 Hz); written pp or 𝆏𝆏"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0070+U+0070#dyn".spec]
+level_db = { v = -12, tag = "estimated", note = "two steps of the musical dynamics, 6 dB each" }
+
+[sound."B:U+0070+U+0070#dyn".transform.vowel]
+voice = { level_db = { add = -12, tag = "estimated", note = "the spec's level" } }
+breath = { gain_db = { add = -12, tag = "estimated", note = "and on the breath" } }
+pitch = { offset_st = { set = -5.0, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: piano's: the slope not carried below 6 dB quieter (59 Hz would be fry, chen_etal_1997)" } }
+formants = { F1 = { scale = 0.93, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: 3.5 Hz a dB: 42 Hz on an F1 of 600 Hz" } }
+
+[sound."B:U+0070+U+0070#dyn".transform.consonant]
+voice = { level_db = { add = -12, tag = "estimated", note = "as on a vowel" } }
+breath = { gain_db = { add = -12, tag = "estimated", note = "as on a vowel" } }
+noise = { gain_db = { add = -12, tag = "estimated", note = "as piano's" } }
+pitch = { offset_st = { set = -5.0, tag = "estimated", ref = "lienard_dibenedetto_1999", note = "on the estimated level: as on a vowel" } }
+
+[sound."B:U+0070+U+0070#dyn".realization.openevv]
+label = "pp"
+group = "dyn"
+spellings = ["𝆏𝆏"]
+
+[sound."B:U+0070+U+0070#dyn".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0069", "U+0075"]
+shift = [{ measure = "intensity_db", sign = -1 }, { measure = "f0_50_hz", sign = -1 }]
+contrast = [{ with = "B:U+0070#dyn", base = "U+0061", measure = "intensity_db", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0070+U+0070#dyn.json"
+
+[sound."B:term:allegro"]
+ipa = "allegro"
+codepoints = []
+name = "fast speech (allegro), over the stretch in its braces"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "every sound shortened alike; fast speech's other changes (fewer and shorter pauses, reduced forms: trouvain2004) are not made, and how much a module's own timing rules let a sound shrink is theirs"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:term:allegro".spec]
+rate_ratio = { v = 1.26, tag = "derived", ref = "trouvain2004", rule = "articulation rate fast against normal, three German speakers (Table 6.1): 6.06/4.81 = 1.26, 6.49/5.42 = 1.20, 7.43/5.68 = 1.31; the median" }
+
+[sound."B:term:allegro".transform.vowel]
+duration = { inherent_ms = { scale = 0.79, tag = "derived", ref = "trouvain2004", rule = "1 / 1.26, the spec's rate" } }
+
+[sound."B:term:allegro".transform.consonant]
+duration = { inherent_ms = { scale = 0.79, tag = "derived", ref = "trouvain2004", rule = "as a vowel's" } }
+
+[sound."B:term:allegro".realization.openevv]
+label = "allegro"
+group = "tempo"
+
+[sound."B:term:allegro".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0069", "U+0075"]
+shift = [{ measure = "duration_ms", sign = -1 }]
+proof = "ipa/proofs/B_term_allegro.json"
+
+[sound."B:term:lento"]
+ipa = "lento"
+codepoints = []
+name = "slow speech (lento), over the stretch in its braces"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "every sound lengthened alike; slow speech's more and longer pauses (trouvain2004) are not made"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:term:lento".spec]
+rate_ratio = { v = 0.81, tag = "derived", ref = "trouvain2004", rule = "articulation rate slow against normal (Table 6.1): 3.90/4.81 = 0.81, 4.49/5.42 = 0.83, 4.13/5.68 = 0.73; the median" }
+
+[sound."B:term:lento".transform.vowel]
+duration = { inherent_ms = { scale = 1.23, tag = "derived", ref = "trouvain2004", rule = "1 / 0.81, the spec's rate" } }
+
+[sound."B:term:lento".transform.consonant]
+duration = { inherent_ms = { scale = 1.23, tag = "derived", ref = "trouvain2004", rule = "as a vowel's" } }
+
+[sound."B:term:lento".realization.openevv]
+label = "lento"
+group = "tempo"
+
+[sound."B:term:lento".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0069", "U+0075"]
+shift = [{ measure = "duration_ms", sign = 1 }]
+contrast = [{ with = "B:term:allegro", base = "U+0061", measure = "duration_ms", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_term_lento.json"
+
+[sound."B:term:crescendo"]
+ipa = "crescendo"
+codepoints = []
+name = "getting louder through the stretch (crescendo; the chart allows other musical terms)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the level rises in five steps from the voice's own on the first letter to forte's on the last (each letter one step's level, not a smooth rise within it); forte's level is estimated (6 dB); its pitch is not raised with it"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:term:crescendo".spec]
+level_rise_db = { v = 6, tag = "estimated", note = "from the voice's own level to forte's (B:U+0066#dyn, estimated)" }
+
+[sound."B:term:crescendo".transform.vowel]
+voice = { level_db = { add = 6, tag = "estimated", note = "the spec's rise, reached on the last letter" } }
+breath = { gain_db = { add = 6, tag = "estimated", note = "as the voice's" } }
+
+[sound."B:term:crescendo".transform.consonant]
+voice = { level_db = { add = 6, tag = "estimated", note = "as on a vowel" } }
+breath = { gain_db = { add = 6, tag = "estimated", note = "as on a vowel" } }
+noise = { gain_db = { add = 6, tag = "estimated", note = "as on a vowel" } }
+
+[sound."B:term:crescendo".realization.openevv]
+label = "crescendo"
+group = "dyn"
+ramp = 5
+
+[sound."B:term:crescendo".tests]
+checks = ["T-ramp"]
+forms = [["ˈmama ˈnana ˈlala", "{crescendo ˈmama ˈnana ˈlala crescendo}"]]
+
+# ---- VoQS: phonation ----
+proof = "ipa/proofs/B_term_crescendo.json"
+
+[sound."B:U+0056"]
+ipa = "V"
+codepoints = ["U+0056"]
+name = "modal voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "mapped"
+level = 2
+approximate = false
+plan = { decision = "as-is", end_state = "mapped", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056".spec]
+modal = { v = 1, tag = "derived", rule = "the voice as it is: this engine's own voice is modal (the checklist's 'engine default')" }
+
+[sound."B:U+0056".realization.openevv]
+label = "V"
+
+[sound."B:U+0056".tests]
+checks = ["T-same"]
+forms = [["ˈmama ˈnana", "{V ˈmama ˈnana V}"], ["ˈpasi ˈtuku", "{V ˈpasi ˈtuku V}"]]
+proof = "ipa/proofs/B_U+0056.json"
+
+[sound."B:U+0057"]
+ipa = "W"
+codepoints = ["U+0057"]
+name = "whisper"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the voice off and breath through the tract at the level the voiceless marks use (44, as ̥ and ̊); a voiceless consonant is given that breath too (its own noise kept); the formants of a whispered vowel are moved as men's were in one study of Mandarin (zhao_lin_2016), its longer duration is not made"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0057".spec]
+voice = { voiced = { v = 0, tag = "derived", rule = "whisper: the voice off on the segments normally voiced, the voiceless kept voiceless (wikipedia_voqs)" } }
+
+[sound."B:U+0057".transform.vowel]
+voicing = { voiced = { set = 0, tag = "derived", rule = "the spec" } }
+breath = { whisper_db = { set = 44, tag = "derived", rule = "the level of ̥'s and ̊'s breath (U+0325, U+030A)" } }
+formants = { F1 = { scale = 1.56, tag = "literature", ref = "zhao_lin_2016", note = "whispered against voiced vowels, men, Table 1" }, F2 = { scale = 1.06, tag = "literature", ref = "zhao_lin_2016", note = "Table 1" }, F3 = { scale = 0.98, tag = "literature", ref = "zhao_lin_2016", note = "Table 1" } }
+
+[sound."B:U+0057".transform.consonant]
+voicing = { voiced = { set = 0, tag = "derived", rule = "the spec" } }
+breath = { whisper_db = { set = 44, tag = "derived", rule = "as on a vowel" } }
+
+[sound."B:U+0057".realization.openevv]
+label = "W"
+
+[sound."B:U+0057".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B", "U+006D"]
+long = true
+shift = [{ measure = "voiced_mid", sign = -1 }, { measure = "hnr_db", sign = -1 }]
+proof = "ipa/proofs/B_U+0057.json"
+
+[sound."B:U+0046"]
+ipa = "F"
+codepoints = ["U+0046"]
+name = "falsetto"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "an octave above the voice's own (estimated: no measure of a speaking falsetto's pitch was opened), the glottis open longer (the contact quotient 0.27 lower than in chest voice, henrich_bernardoni_2014) and the voice's top weaker (estimated); the tract's lower resonances in falsetto are not made"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0046".spec]
+pitch = { offset_st = { v = 12, tag = "estimated", note = "an octave above the voice's own" } }
+
+[sound."B:U+0046".transform.vowel]
+pitch = { offset_st = { set = 12, tag = "estimated", note = "the spec's pitch" } }
+phonation = { open_quotient_pct = { set = 83, tag = "derived", ref = "henrich_bernardoni_2014", rule = "the frames' open quotient of a modal vowel, 56 (D83), and the contact quotient 0.27 lower in falsetto: 56 + 27" }, tilt_db = { set = 12, tag = "estimated", note = "the voice's top weaker, as the breathy voice of this engine makes it (+12); falsetto's first harmonic above its second (Neiman et al. 1997, abstract, not entered as a source: no number)" } }
+
+[sound."B:U+0046".transform.consonant]
+pitch = { offset_st = { set = 12, tag = "estimated", note = "as on a vowel" } }
+phonation = { open_quotient_pct = { set = 83, tag = "derived", ref = "henrich_bernardoni_2014", rule = "as on a vowel" } }
+
+[sound."B:U+0046".realization.openevv]
+label = "F"
+
+[sound."B:U+0046".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0069", "U+0075"]
+shift = [{ measure = "f0_50_hz", sign = 1 }, { measure = "h1h2_db", sign = 1 }]
+proof = "ipa/proofs/B_U+0046.json"
+
+[sound."B:U+0043"]
+ipa = "C"
+codepoints = ["U+0043"]
+name = "creak (vocal fry)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the creak at the most this engine makes (the layer's creak 100: the glottis open 30 per cent less, every second period later and weaker) and the pitch taken down to vocal fry's (chen_etal_1997); fry's irregular pulses are this synthesiser's regular alternation"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0043".spec]
+pitch = { offset_st = { v = -15.1, tag = "literature", ref = "chen_etal_1997", note = "men's vocal fry 49.1 Hz against modal 117.5 Hz: 12 log2(49.1/117.5)" } }
+
+[sound."B:U+0043".transform.vowel]
+pitch = { offset_st = { set = -15.1, tag = "literature", ref = "chen_etal_1997", note = "the spec's pitch" } }
+phonation = { creaky_pct = { set = 100, tag = "derived", rule = "creak, not creaky voice: the layer's creak at its most (creaky voice, ̰, is 60)" } }
+
+[sound."B:U+0043".transform.consonant]
+pitch = { offset_st = { set = -15.1, tag = "literature", ref = "chen_etal_1997", note = "as on a vowel" } }
+phonation = { creaky_pct = { set = 100, tag = "derived", rule = "as on a vowel" } }
+
+[sound."B:U+0043".realization.openevv]
+label = "C"
+
+[sound."B:U+0043".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0069", "U+0075"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }, { measure = "pulse_hz", sign = -1 }, { measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0330", base = "U+0061", measure = "pulse_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0043.json"
+
+[sound."B:U+0330#label"]
+ipa = "̰"
+codepoints = ["U+0330"]
+name = "creaky voice over a stretch (VoQS's ◌̰ on a phonation label: V̰, F̰)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0330#label".transform.vowel]
+phonation = { creaky_pct = { set = 60, tag = "derived", rule = "the IPA's creaky voice (U+0330) on every letter of the stretch: its transform" } }
+
+[sound."B:U+0330#label".transform.consonant]
+phonation = { creaky_pct = { set = 60, tag = "derived", rule = "as on a vowel" } }
+
+[sound."B:U+0330#label".realization.openevv]
+label = "̰"
+
+[sound."B:U+0330#label".tests]
+checks = ["T-shift"]
+label = "V̰"
+bases = ["U+0061", "U+0069", "U+0075"]
+shift = [{ measure = "creak_mid", sign = 1 }]
+proof = "ipa/proofs/B_U+0330#label.json"
+
+[sound."B:U+0324#label"]
+ipa = "̤"
+codepoints = ["U+0324"]
+name = "breathy voice over a stretch (VoQS's ◌̤: V̤), lighter than whispery voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "half the breathiness of whispery voice (Ṿ, the IPA's breathy voice): VoQS's breathy voice is the lighter of the two (wikipedia_voqs), by how much no source says"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0324#label".transform.vowel]
+phonation = { breathy_pct = { set = 40, tag = "estimated", note = "half of whispery voice's 80 (the IPA's breathy voice, U+0324)" } }
+
+[sound."B:U+0324#label".transform.consonant]
+phonation = { breathy_pct = { set = 40, tag = "estimated", note = "as on a vowel" } }
+
+[sound."B:U+0324#label".realization.openevv]
+label = "̤"
+
+[sound."B:U+0324#label".tests]
+checks = ["T-shift"]
+label = "V̤"
+bases = ["U+0061", "U+0069", "U+0075"]
+long = true
+shift = [{ measure = "h1h2_db", sign = 1 }]
+proof = "ipa/proofs/B_U+0324#label.json"
+
+[sound."B:U+0323#label"]
+ipa = "̣"
+codepoints = ["U+0323"]
+name = "whispery voice over a stretch (VoQS's ◌̣: Ṿ, F̣, C̣), the IPA's breathy voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0323#label".transform.vowel]
+phonation = { breathy_pct = { set = 80, tag = "derived", rule = "VoQS's whispery voice is the IPA's breathy voice (wikipedia_voqs): the transform of U+0324 on every letter of the stretch" } }
+
+[sound."B:U+0323#label".transform.consonant]
+phonation = { breathy_pct = { set = 80, tag = "derived", rule = "as on a vowel" } }
+
+[sound."B:U+0323#label".realization.openevv]
+label = "̣"
+
+[sound."B:U+0323#label".tests]
+checks = ["T-shift"]
+label = "Ṿ"
+bases = ["U+0061", "U+0069", "U+0075"]
+long = true
+shift = [{ measure = "h1h2_db", sign = 1 }]
+proof = "ipa/proofs/B_U+0323#label.json"
+
+[sound."B:U+0056+U+0330"]
+ipa = "V̰"
+codepoints = ["U+0056", "U+0330"]
+name = "creaky voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0330#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0330".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0069", "U+0075"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }, { measure = "pulse_jitter_pct", sign = 1 }]
+proof = "ipa/proofs/B_U+0056+U+0330.json"
+
+[sound."B:U+0056+U+0324"]
+ipa = "V̤"
+codepoints = ["U+0056", "U+0324"]
+name = "breathy voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0324#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its breathiness half of whispery voice's, estimated (B:U+0324#label)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0324".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0069", "U+0075"]
+long = true
+shift = [{ measure = "h1h2_db", sign = 1 }]
+proof = "ipa/proofs/B_U+0056+U+0324.json"
+
+[sound."B:U+0056+U+0323"]
+ipa = "Ṿ"
+codepoints = ["U+0056", "U+0323"]
+name = "whispery voice (murmur)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0323#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0323".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0069", "U+0075"]
+long = true
+shift = [{ measure = "h1h2_db", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0324", base = "U+0061", measure = "h1h2_db", sign = 1, distinct = true }]
+
+
+
+
+# ---- VoQS, the rest (D83) ----
+proof = "ipa/proofs/B_U+0056+U+0323.json"
+
+[sound."B:U+0021#label"]
+ipa = "!"
+codepoints = ["U+0021"]
+name = "harsh voice over a stretch (VoQS's ! after a phonation label: V!, F!, C!)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the irregularity of a harsh voice made as this synthesiser's diplophonia (every second period later and weaker, not random from cycle to cycle) on a constricted voice; its size estimated, none was opened"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0021#label".transform.vowel]
+phonation = { diplophonia_pct = { set = 35, tag = "estimated", note = "harsh voice is irregular in period and amplitude (wikipedia_voqs names it; no size of its irregularity was opened): every second period later and weaker, more than creaky voice's 15 and less than ventricular phonation's 60; this synthesiser's flutter, a slow wobble of the pitch, moved the pulses' spacing by under a point at its most (D83) and is not used" }, open_quotient_pct = { set = 45, tag = "estimated", note = "a harsh voice is constricted: the glottis open less than modal voice's 56" } }
+
+[sound."B:U+0021#label".transform.consonant]
+phonation = { diplophonia_pct = { set = 35, tag = "estimated", note = "harsh voice is irregular in period and amplitude (wikipedia_voqs names it; no size of its irregularity was opened): every second period later and weaker, more than creaky voice's 15 and less than ventricular phonation's 60; this synthesiser's flutter, a slow wobble of the pitch, moved the pulses' spacing by under a point at its most (D83) and is not used" }, open_quotient_pct = { set = 45, tag = "estimated", note = "a harsh voice is constricted: the glottis open less than modal voice's 56" } }
+
+[sound."B:U+0021#label".realization.openevv]
+label = "!"
+
+[sound."B:U+0021#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+label = "V!"
+proof = "ipa/proofs/B_U+0021#label.json"
+
+[sound."B:U+0021+U+0021#label"]
+ipa = "!!"
+codepoints = ["U+0021", "U+0021"]
+name = "ventricular phonation over a stretch (VoQS's !! after a phonation label: V!!, Ṿ!!)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the ventricular folds' vibration made as this synthesiser's diplophonia (every second period later and weaker), on a constricted voice; its sizes are estimated"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0021+U+0021#label".transform.vowel]
+phonation = { diplophonia_pct = { set = 60, tag = "estimated", note = "every second period much later and weaker: the ventricular folds closing every second cycle, the voice heard about an octave down (Henrich et al. 2006, in the read-ahead of REFERENCES.md, not re-opened); the size estimated" }, open_quotient_pct = { set = 40, tag = "estimated", note = "the glottis constricted: open less of each period than modal voice (56)" } }
+
+[sound."B:U+0021+U+0021#label".transform.consonant]
+phonation = { diplophonia_pct = { set = 60, tag = "estimated", note = "every second period much later and weaker: the ventricular folds closing every second cycle, the voice heard about an octave down (Henrich et al. 2006, in the read-ahead of REFERENCES.md, not re-opened); the size estimated" }, open_quotient_pct = { set = 40, tag = "estimated", note = "the glottis constricted: open less of each period than modal voice (56)" } }
+
+[sound."B:U+0021+U+0021#label".realization.openevv]
+label = "!!"
+spellings = ["‼"]
+
+[sound."B:U+0021+U+0021#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }, { measure = "h1h2_db", sign = -1 }]
+label = "V!!"
+proof = "ipa/proofs/B_U+0021+U+0021#label.json"
+
+[sound."B:U+0348#label"]
+ipa = "͈"
+codepoints = ["U+0348"]
+name = "pressed (tight) voice over a stretch (VoQS's ◌͈: V͈)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "how much less the glottis is open is estimated"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0348#label".transform.vowel]
+phonation = { open_quotient_pct = { set = 40, tag = "estimated", note = "pressed voice: the glottis constricted, its F0 regular (keating_garellek_kreiman_2015_icphs, qualitative): open 16 points less of each period than modal (56)" }, tilt_db = { set = 0, tag = "estimated", note = "its top not weakened" } }
+
+[sound."B:U+0348#label".transform.consonant]
+phonation = { open_quotient_pct = { set = 40, tag = "estimated", note = "pressed voice: the glottis constricted, its F0 regular (keating_garellek_kreiman_2015_icphs, qualitative): open 16 points less of each period than modal (56)" }, tilt_db = { set = 0, tag = "estimated", note = "its top not weakened" } }
+
+[sound."B:U+0348#label".realization.openevv]
+label = "͈"
+
+[sound."B:U+0348#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "h1h2_db", sign = -1 }]
+label = "V͈"
+proof = "ipa/proofs/B_U+0348#label.json"
+
+[sound."B:U+0349#label"]
+ipa = "͉"
+codepoints = ["U+0349"]
+name = "slack (lax) voice over a stretch (VoQS's ◌͉: V͉)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "how much longer the glottis is open is estimated"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0349#label".transform.vowel]
+phonation = { open_quotient_pct = { set = 70, tag = "estimated", note = "slack (lax) voice: the glottis open longer than modal (56), no breath added (breathy voice has it)" } }
+
+[sound."B:U+0349#label".transform.consonant]
+phonation = { open_quotient_pct = { set = 70, tag = "estimated", note = "slack (lax) voice: the glottis open longer than modal (56), no breath added (breathy voice has it)" } }
+
+[sound."B:U+0349#label".realization.openevv]
+label = "͉"
+
+[sound."B:U+0349#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "h1h2_db", sign = 1 }]
+label = "V͉"
+proof = "ipa/proofs/B_U+0349#label.json"
+
+[sound."B:U+10780#label"]
+ipa = "𐞀"
+codepoints = ["U+10780"]
+name = "aryepiglottic phonation over a stretch (VoQS's V𐞀)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the aryepiglottic folds' trilling made as this synthesiser's diplophonia on a lower, constricted voice; every size estimated, none opened"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+10780#label".transform.vowel]
+phonation = { diplophonia_pct = { set = 35, tag = "estimated", note = "the aryepiglottic folds vibrating over the voice: every second period much later and weaker" }, open_quotient_pct = { set = 40, tag = "estimated", note = "the larynx constricted" } }
+pitch = { offset_st = { set = -3, tag = "estimated", note = "lower: the constriction above the glottis" } }
+
+[sound."B:U+10780#label".transform.consonant]
+phonation = { diplophonia_pct = { set = 35, tag = "estimated", note = "the aryepiglottic folds vibrating over the voice: every second period much later and weaker" }, open_quotient_pct = { set = 40, tag = "estimated", note = "the larynx constricted" } }
+pitch = { offset_st = { set = -3, tag = "estimated", note = "lower: the constriction above the glottis" } }
+
+[sound."B:U+10780#label".realization.openevv]
+label = "𐞀"
+
+[sound."B:U+10780#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }, { measure = "f0_low_hz", sign = -1 }]
+label = "V𐞀"
+proof = "ipa/proofs/B_U+10780#label.json"
+
+[sound."B:U+0056+U+032C+U+0021+U+0021"]
+ipa = "V̬!!"
+codepoints = ["U+0056", "U+032C", "U+0021", "U+0021"]
+name = "diplophonia"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "two vibrations at once made as this synthesiser's diplophonia, whose two are an octave apart; its size estimated"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0056+U+032C+U+0021+U+0021".transform.vowel]
+phonation = { diplophonia_pct = { set = 40, tag = "estimated", note = "two vibrations at once (the ventricular folds with the vocal folds, wikipedia_voqs) made as every second period later and weaker; the voice not constricted (ventricular phonation is)" } }
+
+[sound."B:U+0056+U+032C+U+0021+U+0021".transform.consonant]
+phonation = { diplophonia_pct = { set = 40, tag = "estimated", note = "two vibrations at once (the ventricular folds with the vocal folds, wikipedia_voqs) made as every second period later and weaker; the voice not constricted (ventricular phonation is)" } }
+
+[sound."B:U+0056+U+032C+U+0021+U+0021".realization.openevv]
+label = "V̬!!"
+spellings = ["V̬‼"]
+
+[sound."B:U+0056+U+032C+U+0021+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0021+U+0021", base = "U+0061", measure = "h1h2_db", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+032C+U+0021+U+0021.json"
+
+[sound."B:U+0056+U+0021"]
+ipa = "V!"
+codepoints = ["U+0056", "U+0021"]
+name = "harsh voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "harsh's irregularity estimated (B:U+0021#label)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0330", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0021.json"
+
+[sound."B:U+0056+U+0021+U+0021"]
+ipa = "V!!"
+codepoints = ["U+0056", "U+0021", "U+0021"]
+name = "ventricular phonation"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0021+U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "made as this synthesiser's diplophonia (B:U+0021+U+0021#label)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0021+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0021", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0021+U+0021.json"
+
+[sound."B:U+0056+U+0323+U+0021"]
+ipa = "Ṿ!"
+codepoints = ["U+0056", "U+0323", "U+0021"]
+name = "harsh whispery voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0323#label", "B:U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "harsh's irregularity estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0323+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "h1h2_db", sign = 1 }, { measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0323", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0323+U+0021.json"
+
+[sound."B:U+0056+U+0330+U+0021"]
+ipa = "V̰!"
+codepoints = ["U+0056", "U+0330", "U+0021"]
+name = "harsh creaky voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0330#label", "B:U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "harsh's irregularity estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0330+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }, { measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0330", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0330+U+0021.json"
+
+[sound."B:U+0056+U+0330+U+0323"]
+ipa = "V̰̣"
+codepoints = ["U+0056", "U+0330", "U+0323"]
+name = "whispery creaky voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0330#label", "B:U+0323#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0330+U+0323".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0330", base = "U+0061", measure = "ah_mid", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0330+U+0323.json"
+
+[sound."B:U+0056+U+0330+U+0323+U+0021"]
+ipa = "V̰̣!"
+codepoints = ["U+0056", "U+0330", "U+0323", "U+0021"]
+name = "harsh whispery creaky voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0330#label", "B:U+0323#label", "B:U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "harsh's irregularity estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0330+U+0323+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }, { measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0330+U+0323", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0330+U+0323+U+0021.json"
+
+[sound."B:U+0046+U+0323"]
+ipa = "F̣"
+codepoints = ["U+0046", "U+0323"]
+name = "whispery falsetto"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0046", "B:U+0323#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "falsetto's pitch estimated (B:U+0046)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0046+U+0323".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "f0_50_hz", sign = 1 }]
+contrast = [{ with = "B:U+0046", base = "U+0061", measure = "ah_mid", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0046+U+0323.json"
+
+[sound."B:U+0046+U+0330"]
+ipa = "F̰"
+codepoints = ["U+0046", "U+0330"]
+name = "creaky falsetto"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0046", "B:U+0330#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "falsetto's pitch estimated (B:U+0046)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0046+U+0330".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }]
+contrast = [{ with = "B:U+0046", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0046+U+0330.json"
+
+[sound."B:U+0046+U+0021"]
+ipa = "F!"
+codepoints = ["U+0046", "U+0021"]
+name = "harsh falsetto"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0046", "B:U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "falsetto's pitch and harsh's irregularity estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0046+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0046", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0046+U+0021.json"
+
+[sound."B:U+0043+U+0021"]
+ipa = "C!"
+codepoints = ["U+0043", "U+0021"]
+name = "harsh creak"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0043", "B:U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "harsh's irregularity estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0043+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }, { measure = "pulse_hz", sign = -1 }]
+contrast = [{ with = "B:U+0043", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0043+U+0021.json"
+
+[sound."B:U+0046+U+0330+U+0323"]
+ipa = "F̰̣"
+codepoints = ["U+0046", "U+0330", "U+0323"]
+name = "whispery creaky falsetto"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0046", "B:U+0330#label", "B:U+0323#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "falsetto's pitch estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0046+U+0330+U+0323".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }]
+contrast = [{ with = "B:U+0046+U+0330", base = "U+0061", measure = "ah_mid", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0046+U+0330+U+0323.json"
+
+[sound."B:U+0046+U+0330+U+0323+U+0021"]
+ipa = "F̰̣!"
+codepoints = ["U+0046", "U+0330", "U+0323", "U+0021"]
+name = "harsh whispery creaky falsetto"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0046", "B:U+0330#label", "B:U+0323#label", "B:U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "falsetto's pitch and harsh's irregularity estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0046+U+0330+U+0323+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }, { measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0046+U+0330+U+0323", base = "U+0061", measure = "pulse_jitter_pct", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0046+U+0330+U+0323+U+0021.json"
+
+[sound."B:U+0056+U+0349"]
+ipa = "V͉"
+codepoints = ["U+0056", "U+0349"]
+name = "slack (lax) voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0349#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its open quotient estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0349".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "h1h2_db", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0324", base = "U+0061", measure = "ah_mid", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0349.json"
+
+[sound."B:U+0056+U+0348"]
+ipa = "V͈"
+codepoints = ["U+0056", "U+0348"]
+name = "pressed phonation (tight voice)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0348#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its open quotient estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0348".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "h1h2_db", sign = -1 }]
+proof = "ipa/proofs/B_U+0056+U+0348.json"
+
+[sound."B:U+0056+U+0323+U+0021+U+0021"]
+ipa = "Ṿ!!"
+codepoints = ["U+0056", "U+0323", "U+0021", "U+0021"]
+name = "whispery ventricular phonation"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+0323#label", "B:U+0021+U+0021#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "made as this synthesiser's diplophonia with breathy voice"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0323+U+0021+U+0021".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0021+U+0021", base = "U+0061", measure = "ah_mid", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0323+U+0021+U+0021.json"
+
+[sound."B:U+0056+U+10780"]
+ipa = "V𐞀"
+codepoints = ["U+0056", "U+10780"]
+name = "aryepiglottic phonation"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0056", "B:U+10780#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "made as this synthesiser's diplophonia on a lower voice (B:U+10780#label)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+10780".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0021", base = "U+0061", measure = "f0_low_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+10780.json"
+
+[sound."B:U+0043+U+0323"]
+ipa = "C̣"
+codepoints = ["U+0043", "U+0323"]
+name = "whispery creak"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+parts = ["B:U+0043", "B:U+0323#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0043+U+0323".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0069", "U+0075"]
+long = true
+shift = [{ measure = "creak_mid", sign = 1 }, { measure = "pulse_hz", sign = -1 }]
+contrast = [{ with = "B:U+0043", base = "U+0061", measure = "ah_mid", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0043+U+0323.json"
+
+[sound."B:U+0057+U+0348"]
+ipa = "W͈"
+codepoints = ["U+0057", "U+0348"]
+name = "tight whisper"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "whisper with louder breath; how much louder is estimated; its narrower glottis's spectrum is not made"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0057+U+0348".transform.vowel]
+voicing = { voiced = { set = 0, tag = "derived", rule = "whisper's (B:U+0057)" } }
+breath = { whisper_db = { set = 50, tag = "estimated", note = "tight whisper: the glottis narrower, the breath through it harder: 6 dB more than whisper's 44" } }
+formants = { F1 = { scale = 1.56, tag = "literature", ref = "zhao_lin_2016", note = "whisper's (Table 1, men)" }, F2 = { scale = 1.06, tag = "literature", ref = "zhao_lin_2016", note = "whisper's" }, F3 = { scale = 0.98, tag = "literature", ref = "zhao_lin_2016", note = "whisper's" } }
+
+[sound."B:U+0057+U+0348".transform.consonant]
+voicing = { voiced = { set = 0, tag = "derived", rule = "whisper's (B:U+0057)" } }
+breath = { whisper_db = { set = 50, tag = "estimated", note = "tight whisper: the glottis narrower, the breath through it harder: 6 dB more than whisper's 44" } }
+
+[sound."B:U+0057+U+0348".realization.openevv]
+label = "W͈"
+
+[sound."B:U+0057+U+0348".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "voiced_mid", sign = -1 }]
+contrast = [{ with = "B:U+0057", base = "U+0061", measure = "intensity_db", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0057+U+0348.json"
+
+[sound."B:U+A7FF"]
+ipa = "ꟿ"
+codepoints = ["U+A7FF"]
+name = "spasmodic dysphonia"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "its voice breaks made as a trill's closures at a steady rate (a person's are irregular), on a constricted voice; every size estimated"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+A7FF".transform.vowel]
+trill = { rate_hz = { set = 7, tag = "estimated", note = "the voice broken off and on several times a second (spasmodic dysphonia: wikipedia_voqs names it; no rate opened)" }, depth_db = { set = 25, tag = "estimated", note = "and how far it drops at each break" } }
+phonation = { open_quotient_pct = { set = 40, tag = "estimated", note = "strained: the glottis constricted" } }
+
+[sound."B:U+A7FF".transform.consonant]
+phonation = { open_quotient_pct = { set = 40, tag = "estimated", note = "strained: the glottis constricted" } }
+
+[sound."B:U+A7FF".realization.openevv]
+label = "ꟿ"
+
+[sound."B:U+A7FF".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "mod_dips", sign = 1 }]
+proof = "ipa/proofs/B_U+A7FF.json"
+
+[sound."B:U+0418"]
+ipa = "И"
+codepoints = ["U+0418"]
+name = "electrolarynx phonation"
+section = "tierb"
+tier = "B"
+chart = "VoQS / phonation types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the device's buzz made as the voice at one pitch with its top kept; its own spectrum and the noise of its coupling are not made; consonants keep their voicing"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0418".transform.vowel]
+pitch = { flatten_pct = { set = 100, tag = "derived", rule = "an electrolarynx buzzes at the one pitch it is set to: the tune flattened to the voice's middle (wikipedia_voqs names it)" } }
+phonation = { tilt_db = { set = 0, tag = "estimated", note = "a buzz, its top not weakened" } }
+
+[sound."B:U+0418".transform.consonant]
+pitch = { flatten_pct = { set = 100, tag = "derived", rule = "an electrolarynx buzzes at the one pitch it is set to: the tune flattened to the voice's middle (wikipedia_voqs names it)" } }
+
+[sound."B:U+0418".realization.openevv]
+label = "И"
+
+[sound."B:U+0418".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "f0_span_st", sign = -1 }]
+proof = "ipa/proofs/B_U+0418.json"
+
+[sound."B:U+2193#voqs"]
+ipa = "↓"
+codepoints = ["U+2193"]
+name = "pulmonic ingressive speech (VoQS)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / airstream types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA's ingressive mark (B:U+2193) over the stretch: its pitch and breath, not inspiratory voice's higher jitter"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+2193#voqs".transform.vowel]
+pitch = { offset_st = { set = 5.1, tag = "literature", ref = "orlikoff1997", note = "inspiratory phonation's F0 5.1 semitones above expiratory (as extIPA's ingressive mark B:U+2193)" } }
+breath = { gain_db = { add = 2, tag = "derived", rule = "as extIPA's ingressive mark (B:U+2193, vanhecke2016)" } }
+
+[sound."B:U+2193#voqs".transform.consonant]
+pitch = { offset_st = { set = 5.1, tag = "literature", ref = "orlikoff1997", note = "as on a vowel" } }
+breath = { gain_db = { add = 2, tag = "derived", rule = "as on a vowel" } }
+
+[sound."B:U+2193#voqs".realization.openevv]
+label = "↓"
+
+[sound."B:U+2193#voqs".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+shift = [{ measure = "f0_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+2193#voqs.json"
+
+[sound."B:U+2180"]
+ipa = "ↀ"
+codepoints = ["U+2180"]
+name = "buccal airstream (speech on the cheeks' air)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / airstream types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "every sound made with the friction of ↀ͡r's air between the teeth, no voice and no breath; buccal speech's high pitch (a rough sound with no glottal pitch) is not made"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+2180".transform.vowel]
+voicing = { voiced = { set = 0, tag = "derived", rule = "the larynx not in it (as ↀ͡r, D80)" } }
+breath = { whisper_db = { set = 0, tag = "derived", rule = "no breath from the glottis either" } }
+noise = { level_db = { set = 55, tag = "estimated", note = "the cheeks' air through the teeth: ↀ͡r's friction" }, F2_db = { set = 0, tag = "derived", rule = "ↀ͡r's bands (h̪͆'s)" }, F3_db = { set = 40, tag = "derived", rule = "ↀ͡r's bands" }, F4_db = { set = 60, tag = "derived", rule = "ↀ͡r's bands" }, F5_db = { set = 40, tag = "derived", rule = "ↀ͡r's bands" }, F6_db = { set = 0, tag = "derived", rule = "ↀ͡r's bands" }, flat_db = { set = 0, tag = "derived", rule = "ↀ͡r's bands" } }
+
+[sound."B:U+2180".transform.consonant]
+voicing = { voiced = { set = 0, tag = "derived", rule = "the larynx not in it (as ↀ͡r, D80)" } }
+breath = { whisper_db = { set = 0, tag = "derived", rule = "no breath from the glottis either" } }
+noise = { level_db = { set = 55, tag = "estimated", note = "the cheeks' air through the teeth: ↀ͡r's friction" }, F2_db = { set = 0, tag = "derived", rule = "ↀ͡r's bands (h̪͆'s)" }, F3_db = { set = 40, tag = "derived", rule = "ↀ͡r's bands" }, F4_db = { set = 60, tag = "derived", rule = "ↀ͡r's bands" }, F5_db = { set = 40, tag = "derived", rule = "ↀ͡r's bands" }, F6_db = { set = 0, tag = "derived", rule = "ↀ͡r's bands" }, flat_db = { set = 0, tag = "derived", rule = "ↀ͡r's bands" } }
+
+[sound."B:U+2180".realization.openevv]
+label = "ↀ"
+
+[sound."B:U+2180".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+shift = [{ measure = "voiced_mid", sign = -1 }, { measure = "noise_mid", sign = 1 }]
+contrast = [{ with = "B:U+0057", base = "U+0061", measure = "noise_mid", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+2180.json"
+
+[sound."B:U+0152"]
+ipa = "Œ"
+codepoints = ["U+0152"]
+name = "oesophageal speech"
+section = "tierb"
+tier = "B"
+chart = "VoQS / airstream types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the oesophagus's vibration made as a voice a little irregular and breathy; its sizes from one group of speakers of both sexes, not opened again here; its weakness and short breaths are not made"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0152".transform.vowel]
+phonation = { diplophonia_pct = { set = 12, tag = "estimated", note = "oesophageal speakers' jitter 3.9 per cent against tracheo-oesophageal 2.9 (allegra2019, in the read-ahead, not re-opened): the order kept, the size set so that this test resolves it (D83)" }, breathy_pct = { set = 45, tag = "estimated", note = "noise to harmonics 0.43 (allegra2019, in the read-ahead): taken as so much breathiness" } }
+pitch = { offset_st = { set = 0.1, tag = "estimated", note = "133 Hz oesophageal against 119 Hz tracheo-oesophageal (allegra2019, mixed speakers), 1.9 semitones above Ю's" } }
+
+[sound."B:U+0152".transform.consonant]
+phonation = { diplophonia_pct = { set = 12, tag = "estimated", note = "oesophageal speakers' jitter 3.9 per cent against tracheo-oesophageal 2.9 (allegra2019, in the read-ahead, not re-opened): the order kept, the size set so that this test resolves it (D83)" }, breathy_pct = { set = 45, tag = "estimated", note = "noise to harmonics 0.43 (allegra2019, in the read-ahead): taken as so much breathiness" } }
+pitch = { offset_st = { set = 0.1, tag = "estimated", note = "133 Hz oesophageal against 119 Hz tracheo-oesophageal (allegra2019, mixed speakers), 1.9 semitones above Ю's" } }
+
+[sound."B:U+0152".realization.openevv]
+label = "Œ"
+
+[sound."B:U+0152".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+proof = "ipa/proofs/B_U+0152.json"
+
+[sound."B:U+042E"]
+ipa = "Ю"
+codepoints = ["U+042E"]
+name = "tracheo-oesophageal speech"
+section = "tierb"
+tier = "B"
+chart = "VoQS / airstream types"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "as oesophageal speech's, a little less irregular and breathy and lower; sizes from the read-ahead, not opened again here"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+042E".transform.vowel]
+phonation = { diplophonia_pct = { set = 8, tag = "estimated", note = "tracheo-oesophageal jitter 2.9 per cent, below oesophageal 3.9 (allegra2019, in the read-ahead, not re-opened): set below Œ's 12 (D83)" }, breathy_pct = { set = 30, tag = "estimated", note = "noise to harmonics 0.31 (allegra2019): taken as so much breathiness" } }
+pitch = { offset_st = { set = -1.8, tag = "estimated", note = "106 Hz, tracheo-oesophageal men (schindler2005, in the read-ahead), against men's modal 117.5 Hz (chen_etal_1997)" } }
+
+[sound."B:U+042E".transform.consonant]
+phonation = { diplophonia_pct = { set = 8, tag = "estimated", note = "tracheo-oesophageal jitter 2.9 per cent, below oesophageal 3.9 (allegra2019, in the read-ahead, not re-opened): set below Œ's 12 (D83)" }, breathy_pct = { set = 30, tag = "estimated", note = "noise to harmonics 0.31 (allegra2019): taken as so much breathiness" } }
+pitch = { offset_st = { set = -1.8, tag = "estimated", note = "106 Hz, tracheo-oesophageal men (schindler2005, in the read-ahead), against men's modal 117.5 Hz (chen_etal_1997)" } }
+
+[sound."B:U+042E".realization.openevv]
+label = "Ю"
+
+[sound."B:U+042E".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "pulse_jitter_pct", sign = 1 }]
+contrast = [{ with = "B:U+0152", base = "U+0061", measure = "f0_50_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+042E.json"
+
+[sound."B:U+004C+U+031D"]
+ipa = "L̝"
+codepoints = ["U+004C", "U+031D"]
+name = "raised larynx voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / larynx height"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "a shorter tract made as every formant 6 per cent higher, and the pitch raised; both sizes estimated"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+004C+U+031D".transform.vowel]
+formants = { F1 = { scale = 1.06, tag = "estimated", note = "a raised larynx shortens the pharynx (sundberg and nordström 1976, in the read-ahead, abstract only): every formant up" }, F2 = { scale = 1.06, tag = "estimated", note = "as F1" }, F3 = { scale = 1.06, tag = "estimated", note = "as F1" }, F4 = { scale = 1.06, tag = "estimated", note = "as F1" } }
+pitch = { offset_st = { set = 3, tag = "estimated", note = "a raised larynx goes with a higher pitch" } }
+
+[sound."B:U+004C+U+031D".transform.consonant]
+formants = { F1 = { scale = 1.06, tag = "estimated", note = "a raised larynx shortens the pharynx (sundberg and nordström 1976, in the read-ahead, abstract only): every formant up" }, F2 = { scale = 1.06, tag = "estimated", note = "as F1" }, F3 = { scale = 1.06, tag = "estimated", note = "as F1" }, F4 = { scale = 1.06, tag = "estimated", note = "as F1" } }
+pitch = { offset_st = { set = 3, tag = "estimated", note = "a raised larynx goes with a higher pitch" } }
+
+[sound."B:U+004C+U+031D".realization.openevv]
+label = "L̝"
+
+[sound."B:U+004C+U+031D".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }, { measure = "f0_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+004C+U+031D.json"
+
+[sound."B:U+004C+U+031E"]
+ipa = "L̞"
+codepoints = ["U+004C", "U+031E"]
+name = "lowered larynx voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / larynx height"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "a longer tract made as every formant 6 per cent lower, and the pitch lowered; both sizes estimated"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+004C+U+031E".transform.vowel]
+formants = { F1 = { scale = 0.94, tag = "estimated", note = "a lowered larynx lengthens the pharynx: every formant down" }, F2 = { scale = 0.94, tag = "estimated", note = "as F1" }, F3 = { scale = 0.94, tag = "estimated", note = "as F1" }, F4 = { scale = 0.94, tag = "estimated", note = "as F1" } }
+pitch = { offset_st = { set = -3, tag = "estimated", note = "a lowered larynx goes with a lower pitch" } }
+
+[sound."B:U+004C+U+031E".transform.consonant]
+formants = { F1 = { scale = 0.94, tag = "estimated", note = "a lowered larynx lengthens the pharynx: every formant down" }, F2 = { scale = 0.94, tag = "estimated", note = "as F1" }, F3 = { scale = 0.94, tag = "estimated", note = "as F1" }, F4 = { scale = 0.94, tag = "estimated", note = "as F1" } }
+pitch = { offset_st = { set = -3, tag = "estimated", note = "a lowered larynx goes with a lower pitch" } }
+
+[sound."B:U+004C+U+031E".realization.openevv]
+label = "L̞"
+
+[sound."B:U+004C+U+031E".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }, { measure = "f0_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+004C+U+031E.json"
+
+[sound."B:U+004A+U+031E"]
+ipa = "J̞"
+codepoints = ["U+004A", "U+031E"]
+name = "open jaw voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: jaw and tongue"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the jaw's opening made as F1 raised by the lowered mark's ratio"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+004A+U+031E".transform.vowel]
+formants = { F1 = { scale = 1.1, tag = "derived", rule = "the lowered mark (U+031E) on a consonant, f1 x 1.10: the jaw open, F1 up" } }
+
+[sound."B:U+004A+U+031E".transform.consonant]
+formants = { F1 = { scale = 1.1, tag = "derived", rule = "the lowered mark (U+031E) on a consonant, f1 x 1.10: the jaw open, F1 up" } }
+
+[sound."B:U+004A+U+031E".realization.openevv]
+label = "J̞"
+
+[sound."B:U+004A+U+031E".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+004A+U+031E.json"
+
+[sound."B:U+004A+U+031D"]
+ipa = "J̝"
+codepoints = ["U+004A", "U+031D"]
+name = "close jaw voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: jaw and tongue"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the jaw's closing made as F1 lowered by the raised mark's ratio"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+004A+U+031D".transform.vowel]
+formants = { F1 = { scale = 0.9, tag = "derived", rule = "the raised mark (U+031D), f1 x 0.90: the jaw closer, F1 down" } }
+
+[sound."B:U+004A+U+031D".transform.consonant]
+formants = { F1 = { scale = 0.9, tag = "derived", rule = "the raised mark (U+031D), f1 x 0.90: the jaw closer, F1 down" } }
+
+[sound."B:U+004A+U+031D".realization.openevv]
+label = "J̝"
+
+[sound."B:U+004A+U+031D".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+004A+U+031D.json"
+
+[sound."B:U+004A+U+031F"]
+ipa = "J̟"
+codepoints = ["U+004A", "U+031F"]
+name = "protruded jaw voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: jaw and tongue"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the jaw forward made as the advanced mark's F2"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+004A+U+031F".transform.vowel]
+formants = { F2 = { scale = 1.06, tag = "derived", rule = "the advanced mark (U+031F) on a consonant, f2 x 1.06: the jaw forward, F2 up" } }
+
+[sound."B:U+004A+U+031F".transform.consonant]
+formants = { F2 = { scale = 1.06, tag = "derived", rule = "the advanced mark (U+031F) on a consonant, f2 x 1.06: the jaw forward, F2 up" } }
+
+[sound."B:U+004A+U+031F".realization.openevv]
+label = "J̟"
+
+[sound."B:U+004A+U+031F".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+004A+U+031F.json"
+
+[sound."B:U+004A+U+0354"]
+ipa = "J͔"
+codepoints = ["U+004A", "U+0354"]
+name = "right offset jaw voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: jaw and tongue"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "which side the jaw is moved to cannot be heard in one channel of sound and nothing measured tells it: the right is set apart from the left by a convention (its F3 lower)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+004A+U+0354".transform.vowel]
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "the jaw off its line: the mouth a little less open" }, F3 = { scale = 0.97, tag = "estimated", note = "a convention, F3 a little lower to the right and higher to the left, so that the two sides are not one sound (the human's rule); nothing measured tells them apart" } }
+
+[sound."B:U+004A+U+0354".transform.consonant]
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "the jaw off its line: the mouth a little less open" }, F3 = { scale = 0.97, tag = "estimated", note = "a convention, F3 a little lower to the right and higher to the left, so that the two sides are not one sound (the human's rule); nothing measured tells them apart" } }
+
+[sound."B:U+004A+U+0354".realization.openevv]
+label = "J͔"
+
+[sound."B:U+004A+U+0354".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = -1 }]
+contrast = [{ with = "B:U+004A+U+0355", base = "U+0061", measure = "F3_50_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+004A+U+0354.json"
+
+[sound."B:U+004A+U+0355"]
+ipa = "J͕"
+codepoints = ["U+004A", "U+0355"]
+name = "left offset jaw voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: jaw and tongue"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "as the right offset jaw: told apart by a convention (its F3 higher)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+004A+U+0355".transform.vowel]
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "as the right offset" }, F3 = { scale = 1.03, tag = "estimated", note = "the convention: the left offset's F3 a little higher (see J͔)" } }
+
+[sound."B:U+004A+U+0355".transform.consonant]
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "as the right offset" }, F3 = { scale = 1.03, tag = "estimated", note = "the convention: the left offset's F3 a little higher (see J͔)" } }
+
+[sound."B:U+004A+U+0355".realization.openevv]
+label = "J͕"
+
+[sound."B:U+004A+U+0355".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+004A+U+0355.json"
+
+[sound."B:U+0398"]
+ipa = "Θ"
+codepoints = ["U+0398"]
+name = "protruded tongue voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: jaw and tongue"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "nothing measured for it was found: F2 up and F3 down, estimated (Θ is the tongue protruded, not the jaw: wikipedia_voqs)"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0398".transform.vowel]
+formants = { F2 = { scale = 1.1, tag = "estimated", note = "the tongue forward out of the mouth: the front cavity shorter, F2 up" }, F3 = { scale = 0.94, tag = "estimated", note = "and F3 down as for a dental place" } }
+
+[sound."B:U+0398".transform.consonant]
+formants = { F2 = { scale = 1.1, tag = "estimated", note = "the tongue forward out of the mouth: the front cavity shorter, F2 up" }, F3 = { scale = 0.94, tag = "estimated", note = "and F3 down as for a dental place" } }
+
+[sound."B:U+0398".realization.openevv]
+label = "Θ"
+
+[sound."B:U+0398".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+contrast = [{ with = "B:U+004A+U+031F", base = "U+0061", measure = "F3_50_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0398.json"
+
+[sound."B:U+02B7#label"]
+ipa = "ʷ"
+codepoints = ["U+02B7"]
+name = "close rounding over a stretch (VoQS's Vʷ)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: labial"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "on a vowel the consonant's ratio, F3 estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+02B7#label".transform.vowel]
+formants = { F2 = { scale = 0.85, tag = "derived", rule = "the labialization mark (U+02B7) on a consonant: f2 x 0.85" }, F3 = { scale = 0.95, tag = "estimated", note = "rounding lowers F3 a little too" } }
+
+[sound."B:U+02B7#label".transform.consonant]
+formants = { F2 = { scale = 0.85, tag = "derived", rule = "the labialization mark (U+02B7)" } }
+
+[sound."B:U+02B7#label".realization.openevv]
+label = "ʷ"
+
+[sound."B:U+02B7#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }]
+label = "Vʷ"
+proof = "ipa/proofs/B_U+02B7#label.json"
+
+[sound."B:U+0056+U+02B7"]
+ipa = "Vʷ"
+codepoints = ["U+0056", "U+02B7"]
+name = "labialized voice (close rounding)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: labial"
+kind = "label"
+parts = ["B:U+0056", "B:U+02B7#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+02B7".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+0056+U+02B7.json"
+
+[sound."B:U+A7F9#label"]
+ipa = "ꟹ"
+codepoints = ["U+A7F9"]
+name = "open rounding over a stretch (VoQS's Vꟹ = ʷ̜)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: labial"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "ʷ and ̜ as the inventory equates them; F3 in part estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+A7F9#label".transform.vowel]
+formants = { F2 = { scale = 0.91, tag = "derived", rule = "ʷ̜, as the inventory equates it: ʷ (f2 x 0.85) less rounded by ̜ (f2 x 1.07)" }, F3 = { scale = 0.99, tag = "derived", rule = "ʷ's 0.95 (estimated) with ̜'s 1.04" } }
+
+[sound."B:U+A7F9#label".transform.consonant]
+formants = { F2 = { scale = 0.91, tag = "derived", rule = "as on a vowel" } }
+
+[sound."B:U+A7F9#label".realization.openevv]
+label = "ꟹ"
+
+[sound."B:U+A7F9#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }]
+label = "Vꟹ"
+proof = "ipa/proofs/B_U+A7F9#label.json"
+
+[sound."B:U+0056+U+A7F9"]
+ipa = "Vꟹ"
+codepoints = ["U+0056", "U+A7F9"]
+name = "labialized voice (open rounding)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: labial"
+kind = "label"
+parts = ["B:U+0056", "B:U+A7F9#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+A7F9".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }]
+contrast = [{ with = "B:U+0056+U+02B7", base = "U+0061", measure = "F2_50_hz", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+A7F9.json"
+
+[sound."B:U+034D#label"]
+ipa = "͍"
+codepoints = ["U+034D"]
+name = "spread lips over a stretch (VoQS's V͍)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: labial"
+kind = "label"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+034D#label".transform.vowel]
+formants = { F2 = { scale = 1.14, tag = "derived", rule = "extIPA's spread-lip mark (B:U+034D) on a vowel: f2 x 1.14" } }
+
+[sound."B:U+034D#label".transform.consonant]
+formants = { F2 = { scale = 1.14, tag = "derived", rule = "extIPA's spread-lip mark (B:U+034D)" } }
+
+[sound."B:U+034D#label".realization.openevv]
+label = "͍"
+
+[sound."B:U+034D#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+label = "V͍"
+proof = "ipa/proofs/B_U+034D#label.json"
+
+[sound."B:U+0056+U+034D"]
+ipa = "V͍"
+codepoints = ["U+0056", "U+034D"]
+name = "spread-lip voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: labial"
+kind = "label"
+parts = ["B:U+0056", "B:U+034D#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+034D".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+0056+U+034D.json"
+
+[sound."B:U+1DB9#label"]
+ipa = "ᶹ"
+codepoints = ["U+1DB9"]
+name = "labio-dentalization over a stretch (VoQS's Vᶹ)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: labial"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "nothing measured: its sizes estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+1DB9#label".transform.vowel]
+formants = { F2 = { scale = 0.95, tag = "estimated", note = "the lower lip to the upper teeth: a little lower F2, less than rounding" }, F3 = { scale = 0.92, tag = "estimated", note = "and F3 lower" } }
+
+[sound."B:U+1DB9#label".transform.consonant]
+formants = { F2 = { scale = 0.95, tag = "estimated", note = "as on a vowel" }, F3 = { scale = 0.92, tag = "estimated", note = "as on a vowel" } }
+
+[sound."B:U+1DB9#label".realization.openevv]
+label = "ᶹ"
+
+[sound."B:U+1DB9#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F3_50_hz", sign = -1 }]
+label = "Vᶹ"
+proof = "ipa/proofs/B_U+1DB9#label.json"
+
+[sound."B:U+0056+U+1DB9"]
+ipa = "Vᶹ"
+codepoints = ["U+0056", "U+1DB9"]
+name = "labio-dentalized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: labial"
+kind = "label"
+parts = ["B:U+0056", "B:U+1DB9#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its sizes estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+1DB9".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F3_50_hz", sign = -1 }]
+contrast = [{ with = "B:U+0056+U+A7F9", base = "U+0061", measure = "F3_50_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+1DB9.json"
+
+[sound."B:U+033A#label"]
+ipa = "̺"
+codepoints = ["U+033A"]
+name = "an apical tongue over a stretch (VoQS's V̺)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "on a vowel the consonant's ratio"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+033A#label".transform.vowel]
+formants = { F3 = { scale = 0.95, tag = "derived", rule = "the apical mark (U+033A) on a consonant: f3 x 0.95" } }
+
+[sound."B:U+033A#label".transform.consonant]
+formants = { F3 = { scale = 0.95, tag = "derived", rule = "the apical mark (U+033A)" } }
+
+[sound."B:U+033A#label".realization.openevv]
+label = "̺"
+
+[sound."B:U+033A#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F3_50_hz", sign = -1 }]
+label = "V̺"
+proof = "ipa/proofs/B_U+033A#label.json"
+
+[sound."B:U+0056+U+033A"]
+ipa = "V̺"
+codepoints = ["U+0056", "U+033A"]
+name = "linguo-apicalized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+033A#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+033A".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F3_50_hz", sign = -1 }]
+contrast = [{ with = "B:U+0056+U+033B", base = "U+0061", measure = "F3_50_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+033A.json"
+
+[sound."B:U+033B#label"]
+ipa = "̻"
+codepoints = ["U+033B"]
+name = "a laminal tongue over a stretch (VoQS's V̻)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "on a vowel the consonant's ratio"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+033B#label".transform.vowel]
+formants = { F2 = { scale = 1.08, tag = "derived", rule = "the laminal mark (U+033B) on a consonant: f2 x 1.08" } }
+
+[sound."B:U+033B#label".transform.consonant]
+formants = { F2 = { scale = 1.08, tag = "derived", rule = "the laminal mark (U+033B)" } }
+
+[sound."B:U+033B#label".realization.openevv]
+label = "̻"
+
+[sound."B:U+033B#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+label = "V̻"
+proof = "ipa/proofs/B_U+033B#label.json"
+
+[sound."B:U+0056+U+033B"]
+ipa = "V̻"
+codepoints = ["U+0056", "U+033B"]
+name = "linguo-laminalized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+033B#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+033B".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+0056+U+033B.json"
+
+[sound."B:U+02DE#label"]
+ipa = "˞"
+codepoints = ["U+02DE"]
+name = "a retroflex tongue over a stretch (VoQS's V˞)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "rhoticity's F3, not a retroflex setting's own"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+02DE#label".transform.vowel]
+formants = { F3 = { toward = 1679, part = 70, tag = "derived", rule = "the rhoticity mark (U+02DE) on a vowel: F3 70 per cent of the way to 1679 Hz" } }
+
+[sound."B:U+02DE#label".transform.consonant]
+formants = { F3 = { scale = 0.9, tag = "estimated", note = "a retroflex consonant's lower F3" } }
+
+[sound."B:U+02DE#label".realization.openevv]
+label = "˞"
+
+[sound."B:U+02DE#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F3_50_hz", sign = -1 }]
+label = "V˞"
+proof = "ipa/proofs/B_U+02DE#label.json"
+
+[sound."B:U+0056+U+02DE"]
+ipa = "V˞"
+codepoints = ["U+0056", "U+02DE"]
+name = "retroflex voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+02DE#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "the Tier A mark is rhoticity, close to a retroflex setting but not it (the inventory's note)"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+02DE".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F3_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+0056+U+02DE.json"
+
+[sound."B:U+032A#label"]
+ipa = "̪"
+codepoints = ["U+032A"]
+name = "a dental tongue over a stretch (VoQS's V̪)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "on a vowel the consonant's ratio"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+032A#label".transform.vowel]
+formants = { F2 = { scale = 0.93, tag = "derived", rule = "the dental mark (U+032A) on a consonant: f2 x 0.93" } }
+
+[sound."B:U+032A#label".transform.consonant]
+formants = { F2 = { scale = 0.93, tag = "derived", rule = "the dental mark (U+032A)" } }
+
+[sound."B:U+032A#label".realization.openevv]
+label = "̪"
+
+[sound."B:U+032A#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }]
+label = "V̪"
+proof = "ipa/proofs/B_U+032A#label.json"
+
+[sound."B:U+0056+U+032A"]
+ipa = "V̪"
+codepoints = ["U+0056", "U+032A"]
+name = "dentalized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+032A#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+032A".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+0056+U+032A.json"
+
+[sound."B:U+0347#label"]
+ipa = "͇"
+codepoints = ["U+0347"]
+name = "an alveolar tongue over a stretch (VoQS's V͇)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratio estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0347#label".transform.vowel]
+formants = { F2 = { scale = 1.04, tag = "estimated", note = "half of extIPA's alveolar mark's consonant ratio (B:U+0347, f2 x 1.08) on a vowel, so that it differs from the laminal setting" } }
+
+[sound."B:U+0347#label".transform.consonant]
+formants = { F2 = { scale = 1.08, tag = "derived", rule = "extIPA's alveolar mark (B:U+0347)" } }
+
+[sound."B:U+0347#label".realization.openevv]
+label = "͇"
+
+[sound."B:U+0347#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+label = "V͇"
+proof = "ipa/proofs/B_U+0347#label.json"
+
+[sound."B:U+0056+U+0347"]
+ipa = "V͇"
+codepoints = ["U+0056", "U+0347"]
+name = "alveolarized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+0347#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratio estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0347".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+033B", base = "U+0061", measure = "F2_50_hz", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0347.json"
+
+[sound."B:U+02B2#label"]
+ipa = "ʲ"
+codepoints = ["U+02B2"]
+name = "a palatalized tongue over a stretch (VoQS's Vʲ)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratio estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+02B2#label".transform.vowel]
+formants = { F2 = { scale = 1.12, tag = "estimated", note = "the tongue body raised forward: a vowel's F2 up, less than a consonant's (U+02B2: x 1.43); 1.15 made the palatoalveolarized voice's [ɛ] clip (D83)" } }
+
+[sound."B:U+02B2#label".transform.consonant]
+formants = { F2 = { scale = 1.43, tag = "derived", rule = "the palatalization mark (U+02B2)" } }
+
+[sound."B:U+02B2#label".realization.openevv]
+label = "ʲ"
+
+[sound."B:U+02B2#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+label = "Vʲ"
+proof = "ipa/proofs/B_U+02B2#label.json"
+
+[sound."B:U+0056+U+02B2"]
+ipa = "Vʲ"
+codepoints = ["U+0056", "U+02B2"]
+name = "palatalized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+02B2#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratio estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+02B2".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0347", base = "U+0061", measure = "F2_50_hz", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+02B2.json"
+
+[sound."B:U+0056+U+0347+U+02B2"]
+ipa = "V͇ʲ"
+codepoints = ["U+0056", "U+0347", "U+02B2"]
+name = "palatoalveolarized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+0347#label", "B:U+02B2#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratios estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0347+U+02B2".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+0347", base = "U+0061", measure = "F2_50_hz", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0347+U+02B2.json"
+
+[sound."B:U+02E0#label"]
+ipa = "ˠ"
+codepoints = ["U+02E0"]
+name = "a velarized tongue over a stretch (VoQS's Vˠ)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratio estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+02E0#label".transform.vowel]
+formants = { F2 = { scale = 0.85, tag = "estimated", note = "the tongue body raised back: a vowel's F2 down, less than a consonant's (U+02E0: x 0.60)" } }
+
+[sound."B:U+02E0#label".transform.consonant]
+formants = { F2 = { scale = 0.6, tag = "derived", rule = "the velarization mark (U+02E0)" } }
+
+[sound."B:U+02E0#label".realization.openevv]
+label = "ˠ"
+
+[sound."B:U+02E0#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }]
+label = "Vˠ"
+proof = "ipa/proofs/B_U+02E0#label.json"
+
+[sound."B:U+0056+U+02E0"]
+ipa = "Vˠ"
+codepoints = ["U+0056", "U+02E0"]
+name = "velarized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+02E0#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratio estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+02E0".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+0056+U+02E0.json"
+
+[sound."B:U+02B6#label"]
+ipa = "ʶ"
+codepoints = ["U+02B6"]
+name = "a uvularized tongue over a stretch (VoQS's Vʶ)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "nothing measured: its sizes estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+02B6#label".transform.vowel]
+formants = { F2 = { scale = 0.9, tag = "estimated", note = "the tongue back towards the uvula: F2 down, less than velarized" }, F1 = { scale = 1.06, tag = "estimated", note = "and F1 up" } }
+
+[sound."B:U+02B6#label".transform.consonant]
+formants = { F2 = { scale = 0.8, tag = "estimated", note = "as on a vowel, more" }, F1 = { scale = 1.06, tag = "estimated", note = "as on a vowel" } }
+
+[sound."B:U+02B6#label".realization.openevv]
+label = "ʶ"
+
+[sound."B:U+02B6#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = 1 }]
+label = "Vʶ"
+proof = "ipa/proofs/B_U+02B6#label.json"
+
+[sound."B:U+0056+U+02B6"]
+ipa = "Vʶ"
+codepoints = ["U+0056", "U+02B6"]
+name = "uvularized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+02B6#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its sizes estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+02B6".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = 1 }]
+contrast = [{ with = "B:U+0056+U+02E0", base = "U+0061", measure = "F1_50_hz", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+02B6.json"
+
+[sound."B:U+02E4#label"]
+ipa = "ˤ"
+codepoints = ["U+02E4"]
+name = "a pharyngealized tongue over a stretch (VoQS's Vˤ)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratios estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+02E4#label".transform.vowel]
+formants = { F2 = { scale = 0.9, tag = "estimated", note = "emphasis lowers a vowel's F2 by about 130 Hz at its middle (abudalbuh2011, in the read-ahead, not re-opened): 0.90 on an [a] of 1300 Hz" }, F1 = { scale = 1.07, tag = "estimated", note = "and raises F1 by 42 to 66 Hz (the same): 1.07 on 700 Hz" } }
+
+[sound."B:U+02E4#label".transform.consonant]
+formants = { F2 = { scale = 0.68, tag = "derived", rule = "the pharyngealization mark (U+02E4)" }, F1 = { scale = 1.1, tag = "derived", rule = "the same" } }
+
+[sound."B:U+02E4#label".realization.openevv]
+label = "ˤ"
+
+[sound."B:U+02E4#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }, { measure = "F1_50_hz", sign = 1 }]
+label = "Vˤ"
+proof = "ipa/proofs/B_U+02E4#label.json"
+
+[sound."B:U+0056+U+02E4"]
+ipa = "Vˤ"
+codepoints = ["U+0056", "U+02E4"]
+name = "pharyngealized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+02E4#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "its vowel ratios estimated, after one study of emphasis in Arabic"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+02E4".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F2_50_hz", sign = -1 }, { measure = "F1_50_hz", sign = 1 }]
+proof = "ipa/proofs/B_U+0056+U+02E4.json"
+
+[sound."B:U+0056+U+0319+U+02E4"]
+ipa = "V̙ˤ"
+codepoints = ["U+0056", "U+0319", "U+02E4"]
+name = "laryngo-pharyngealized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "every size estimated; the meaning is a setting of the larynx and pharynx, not RTR with pharyngealization"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0056+U+0319+U+02E4".transform.vowel]
+formants = { F1 = { scale = 1.12, tag = "estimated", note = "the larynx and pharynx narrowed: F1 up more than pharyngealized" }, F2 = { scale = 0.85, tag = "estimated", note = "F2 down more" } }
+phonation = { open_quotient_pct = { set = 45, tag = "estimated", note = "the larynx constricted" } }
+
+[sound."B:U+0056+U+0319+U+02E4".transform.consonant]
+formants = { F1 = { scale = 1.12, tag = "estimated", note = "the larynx and pharynx narrowed: F1 up more than pharyngealized" }, F2 = { scale = 0.85, tag = "estimated", note = "F2 down more" } }
+phonation = { open_quotient_pct = { set = 45, tag = "estimated", note = "the larynx constricted" } }
+
+[sound."B:U+0056+U+0319+U+02E4".realization.openevv]
+label = "V̙ˤ"
+
+[sound."B:U+0056+U+0319+U+02E4".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = 1 }, { measure = "h1h2_db", sign = -1 }]
+contrast = [{ with = "B:U+0056+U+02E4", base = "U+0061", measure = "h1h2_db", sign = -1, distinct = true }]
+proof = "ipa/proofs/B_U+0056+U+0319+U+02E4.json"
+
+[sound."B:U+A7F8#label"]
+ipa = "ꟸ"
+codepoints = ["U+A7F8"]
+name = "a faucalized voice over a stretch (VoQS's Vꟸ)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "nothing measured: its sizes estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+A7F8#label".transform.vowel]
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "the faucal pillars drawn together: F1 a little lower" }, F3 = { scale = 0.95, tag = "estimated", note = "and F3" } }
+bandwidths = { B1 = { scale = 1.3, tag = "estimated", note = "and more damped" } }
+
+[sound."B:U+A7F8#label".transform.consonant]
+formants = { F1 = { scale = 0.95, tag = "estimated", note = "as on a vowel" } }
+
+[sound."B:U+A7F8#label".realization.openevv]
+label = "ꟸ"
+
+[sound."B:U+A7F8#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = -1 }]
+label = "Vꟸ"
+proof = "ipa/proofs/B_U+A7F8#label.json"
+
+[sound."B:U+0056+U+A7F8"]
+ipa = "Vꟸ"
+codepoints = ["U+0056", "U+A7F8"]
+name = "faucalized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: lingual"
+kind = "label"
+parts = ["B:U+0056", "B:U+A7F8#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "nothing measured: its sizes estimated"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+A7F8".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "F1_50_hz", sign = -1 }]
+proof = "ipa/proofs/B_U+0056+U+A7F8.json"
+
+[sound."B:U+0303#label"]
+ipa = "̃"
+codepoints = ["U+0303"]
+name = "nasalization over a stretch (VoQS's Ṽ)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: velum"
+kind = "label"
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0303#label".transform.vowel]
+nasal = { open_pct = { set = 70, tag = "derived", rule = "the nasalization mark (U+0303)" } }
+
+[sound."B:U+0303#label".transform.consonant]
+nasal = { open_pct = { set = 70, tag = "derived", rule = "the nasalization mark (U+0303)" } }
+
+[sound."B:U+0303#label".realization.openevv]
+label = "̃"
+
+[sound."B:U+0303#label".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "a1_p0_db", sign = -1 }]
+label = "Ṽ"
+proof = "ipa/proofs/B_U+0303#label.json"
+
+[sound."B:U+0056+U+0303"]
+ipa = "Ṽ"
+codepoints = ["U+0056", "U+0303"]
+name = "nasalized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: velum"
+kind = "label"
+parts = ["B:U+0056", "B:U+0303#label"]
+state = "composed"
+level = 2
+approximate = false
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+0303".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0065", "U+025B"]
+long = true
+shift = [{ measure = "a1_p0_db", sign = -1 }]
+proof = "ipa/proofs/B_U+0056+U+0303.json"
+
+[sound."B:U+034A#label"]
+ipa = "͊"
+codepoints = ["U+034A"]
+name = "denasalization over a stretch (VoQS's V͊)"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: velum"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "on every consonant, not only on the nasals"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+034A#label".transform.vowel]
+nasal = { open_pct = { set = 0, tag = "derived", rule = "a vowel denasalized: the nose shut" } }
+
+[sound."B:U+034A#label".transform.consonant]
+voice = { level_db = { add = -11, tag = "derived", rule = "extIPA's denasal mark (B:U+034A) on a consonant" } }
+phonation = { tilt_db = { set = 18, tag = "derived", rule = "extIPA's denasal mark (B:U+034A)" } }
+
+[sound."B:U+034A#label".realization.openevv]
+label = "͊"
+
+[sound."B:U+034A#label".tests]
+checks = ["T-shift"]
+bases = ["U+006D", "U+006E"]
+long = true
+shift = [{ measure = "intensity_db", sign = -1 }]
+label = "V͊"
+proof = "ipa/proofs/B_U+034A#label.json"
+
+[sound."B:U+0056+U+034A"]
+ipa = "V͊"
+codepoints = ["U+0056", "U+034A"]
+name = "denasalized voice"
+section = "tierb"
+tier = "B"
+chart = "VoQS / supralaryngeal settings: velum"
+kind = "label"
+parts = ["B:U+0056", "B:U+034A#label"]
+state = "composed"
+level = 2
+approximate = true
+deviation = "extIPA's denasal mark on every consonant, not only on the nasals; a vowel's nose shut"
+plan = { decision = "composition", end_state = "composed", uses = ["C4"], builds = [] }
+
+[sound."B:U+0056+U+034A".tests]
+checks = ["T-shift"]
+bases = ["U+006D", "U+006E"]
+long = true
+shift = [{ measure = "intensity_db", sign = -1 }]
+
+# ---- extIPA's silent articulation and extraneous noise: the behaviour D81 gives them ----
+proof = "ipa/proofs/B_U+0056+U+034A.json"
+
+[sound."B:U+0028+U+0029"]
+ipa = "()"
+codepoints = ["U+0028", "U+0029"]
+name = "silent articulation (mouthing): the sound in parentheses made and not heard, (ʃ), (m)"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "said as a silence as long as the sounds it holds would last (D81): every source of the sounds turned off, their timing kept; the articulation itself, unheard, has nothing to say"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+0028+U+0029".spec]
+silent = { v = 1, tag = "derived", rule = "the chart's definition: articulated without sound (wp_extipa: (ʃːː) a silent shhh); its length the sounds' own (D81)" }
+
+[sound."B:U+0028+U+0029".transform.vowel]
+silence = { mute = { set = 1, tag = "derived", rule = "the spec: voice, breath and friction off over the whole of each sound, its way in and out too (the layer's mute 1)" } }
+
+[sound."B:U+0028+U+0029".transform.consonant]
+silence = { mute = { set = 1, tag = "derived", rule = "as on a vowel: a burst too" } }
+
+[sound."B:U+0028+U+0029".realization.openevv]
+label = "()"
+
+[sound."B:U+0028+U+0029".tests]
+checks = ["T-shift"]
+bases = ["U+0061", "U+0069", "U+0075", "U+006D"]
+wrap = "({})"
+shift = [{ measure = "intensity_db", sign = -1, max = -30 }]
+steady = ["duration_ms"]
+proof = "ipa/proofs/B_U+0028+U+0029.json"
+
+[sound."B:U+2E28+U+2E29"]
+ipa = "⸨⸩"
+codepoints = ["U+2E28", "U+2E29"]
+name = "extraneous noise: speech obscured by noise, ⸨2σ⸩, ⸨cough⸩"
+section = "tierb"
+tier = "B"
+chart = "extIPA / connected speech, uncertainty (2021: rhythm, uncertainty etc.)"
+kind = "label"
+state = "composed"
+level = 2
+approximate = true
+deviation = "the sounds in the brackets said as a broad noise for as long as they would last (D81): their voice and breath off, a flat noise in their place, which carries nothing of what was said; a count of syllables (2σ) or a word for a noise (cough) is not said, only letters the map lists are"
+plan = { decision = "new mechanism", end_state = "composed", uses = ["C4"], builds = ["labels over a stretch (D83)"] }
+
+[sound."B:U+2E28+U+2E29".spec]
+noise = { v = 1, tag = "derived", rule = "the chart's definition: the speech obscured by noise (wp_extipa); said as a noise in its place, of its length (D81)" }
+
+[sound."B:U+2E28+U+2E29".transform.vowel]
+silence = { mute = { set = 2, tag = "derived", rule = "the speech's voice and breath off over the whole of each sound, its friction kept (the layer's mute 2)" } }
+noise = { level_db = { set = 50, tag = "estimated", note = "a noise in its place, as loud as this template's weaker fricatives (x 55, f 58)" }, flat_db = { set = 60, tag = "estimated", note = "on the flat path only, shaped by no resonance of the mouth" }, F2_db = { set = 0, tag = "derived", rule = "no band of the mouth" }, F3_db = { set = 0, tag = "derived", rule = "no band of the mouth" }, F4_db = { set = 0, tag = "derived", rule = "no band of the mouth" }, F5_db = { set = 0, tag = "derived", rule = "no band of the mouth" }, F6_db = { set = 0, tag = "derived", rule = "no band of the mouth" } }
+
+[sound."B:U+2E28+U+2E29".transform.consonant]
+silence = { mute = { set = 2, tag = "derived", rule = "as on a vowel" } }
+noise = { level_db = { set = 50, tag = "estimated", note = "as on a vowel" }, flat_db = { set = 60, tag = "estimated", note = "as on a vowel" }, F2_db = { set = 0, tag = "derived", rule = "as on a vowel" }, F3_db = { set = 0, tag = "derived", rule = "as on a vowel" }, F4_db = { set = 0, tag = "derived", rule = "as on a vowel" }, F5_db = { set = 0, tag = "derived", rule = "as on a vowel" }, F6_db = { set = 0, tag = "derived", rule = "as on a vowel" } }
+
+[sound."B:U+2E28+U+2E29".realization.openevv]
+label = "⸨⸩"
+
+[sound."B:U+2E28+U+2E29".tests]
+checks = ["T-shift", "T-contrast"]
+bases = ["U+0061", "U+0069", "U+0075", "U+006D"]
+wrap = "⸨{}⸩"
+shift = [{ measure = "voiced_mid", sign = -1 }, { measure = "noise_mid", sign = 1 }]
+steady = ["duration_ms"]
+contrast = [{ with = "B:U+0028+U+0029", base = "U+0061", measure = "intensity_db", sign = 1, distinct = true }]
+proof = "ipa/proofs/B_U+2E28+U+2E29.json"

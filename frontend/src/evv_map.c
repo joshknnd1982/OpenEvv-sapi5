@@ -668,6 +668,44 @@ int evv_map_load(EvvMap *map, const char *path, char *err, size_t errlen)
 				copy_checked(map->reiterate[c[0] == 'v'], w, sizeof(map->reiterate[0]), "reiteration");
 			continue;
 		}
+		if (strcmp(key, "label") == 0) {
+			/* the label of a stretch in braces and its marks (extIPA, VoQS: D83) */
+			char *sp = next_word(&rest), *k = next_word(&rest), *w;
+			if (!sp || !k || (k[0] != 'd' && k[0] != 'm' && k[0] != 'r' && k[0] != '-') ||
+			    map->n_labels >= (int)(sizeof(map->labels) / sizeof(map->labels[0]))) {
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "a label line needs a spelling and d, m, r or - (and at most "
+				         "%d are read)", (int)(sizeof(map->labels) / sizeof(map->labels[0])));
+				continue;
+			}
+			int at = map->n_labels;
+			copy_checked(map->labels[at].spelling, sp, sizeof(map->labels[0].spelling), "label");
+			map->labels[at].kind = k[0];
+			map->labels[at].n = 0;
+			map->labels[at].group[0] = 0;
+			while ((w = next_word(&rest)) != NULL) {
+				if (strncmp(w, "g=", 2) == 0)
+					copy_checked(map->labels[at].group, w + 2, sizeof(map->labels[0].group), "group");
+				else if (map->labels[at].n < 8)
+					copy_checked(map->labels[at].marks[map->labels[at].n++], w, sizeof(map->labels[0].marks[0]), "mark");
+			}
+			if (((k[0] == 'd' || k[0] == 'm') && map->labels[at].n != 3) || (k[0] == 'r' && map->labels[at].n < 2)) {
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "label %s: d and m need three marks, r two or more", sp);
+				continue;
+			}
+			map->n_labels++;
+			continue;
+		}
+		if (strcmp(key, "pause") == 0) {
+			/* a pause typed in IPA and its length (extIPA: D83) */
+			char *sp = next_word(&rest), *ms = next_word(&rest);
+			if (!sp || !ms || map->n_pauses >= (int)(sizeof(map->pauses) / sizeof(map->pauses[0]))) {
+				evv_diag(EVV_DIAG_LOSS, "map-ignored", "a pause line needs a spelling and ms (at most 8 are read)");
+				continue;
+			}
+			copy_checked(map->pauses[map->n_pauses].spelling, sp, sizeof(map->pauses[0].spelling), "pause");
+			map->pauses[map->n_pauses++].ms = atoi(ms);
+			continue;
+		}
 		if (strcmp(key, "syllabic") == 0) {
 			/* version 2 (C7): the sound the schwa is said with when it only carries
 			   the syllable of a consonant marked syllabic */
@@ -1139,6 +1177,22 @@ static const EvvMod *find_mod(const EvvMap *map, const char *mark, size_t len, c
 	return find_mod_of(map, mark, len, cls, 0);
 }
 
+int evv_map_label(const EvvMap *map, const char *p, size_t len)
+{
+	for (int i = 0; i < map->n_labels; i++)
+		if (strlen(map->labels[i].spelling) == len && memcmp(map->labels[i].spelling, p, len) == 0)
+			return i;
+	return -1;
+}
+
+int evv_map_pause(const EvvMap *map, const char *p, size_t len)
+{
+	for (int i = 0; i < map->n_pauses; i++)
+		if (strlen(map->pauses[i].spelling) == len && memcmp(map->pauses[i].spelling, p, len) == 0)
+			return map->pauses[i].ms;
+	return -1;
+}
+
 int evv_map_has_mod(const EvvMap *map, const char *mark, size_t len, char cls)
 {
 	return find_mod_of(map, mark, len, cls, 0) != NULL;
@@ -1517,6 +1571,29 @@ int evv_map_lookup_ex(const EvvMap *map, const char *table, const char *mnemonic
 				memcpy(bare + l1, tie, 2);
 				memcpy(bare + l1 + 2, tie + 2, (size_t)l2);
 				has_bare = find(map, bare, (size_t)(l1 + 2 + l2)) != NULL;
+			}
+			if (has_bare && evv_map_letter(map, bare, (size_t)(l1 + 2 + l2)) && strlen(ipa) < 64) {
+				/* a tied pair the map lists as a letter of its own (an affricate made as the
+				   stop released into the fricative's friction, extIPA's t̼͡θ̼: D84): the marks
+				   of each side composed on the pair's line, the left side's first, a mark
+				   written on both sides counted once */
+				char moved[64];
+				size_t at = (size_t)(l1 + 2 + l2), lm = (size_t)(tie - ipa) - (size_t)l1;
+				memcpy(moved, bare, at);
+				memcpy(moved + at, ipa + l1, lm);
+				at += lm;
+				for (const char *q = tie + 2 + l2; *q; q += utf8_len((unsigned char)*q)) {
+					int ql = utf8_len((unsigned char)*q), dup = 0;
+					for (const char *r = ipa + l1; r < tie; r += utf8_len((unsigned char)*r))
+						dup |= utf8_len((unsigned char)*r) == ql && memcmp(r, q, (size_t)ql) == 0;
+					if (!dup && at + (size_t)ql < sizeof(moved)) {
+						memcpy(moved + at, q, (size_t)ql);
+						at += (size_t)ql;
+					}
+				}
+				moved[at] = 0;
+				if (strcmp(moved, ipa) != 0)
+					return evv_map_lookup_ex(map, NULL, NULL, moved, out, max_out, matched);
 			}
 			if (has_bare || !evv_map_letter(map, ipa, (size_t)l1) || !evv_map_letter(map, tie + 2, (size_t)l2))
 				goto apart;
