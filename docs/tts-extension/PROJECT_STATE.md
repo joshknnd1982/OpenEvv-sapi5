@@ -41,7 +41,7 @@ Every Tier A entry is done **on the development stage, not yet on the final one*
 | 4i full sweep on the final stage | not yet |
 | CREATED_SOUNDS register | 75 created (`register.py`; D85 added 𝼆) |
 | estimated values in OPEN_QUESTIONS | **436** by the validator (D83's labels: most VoQS sizes, the dynamics' levels); Q15's list regenerated after D84 |
-| R15 review | of each session's diff, the seventeenth's (D83, D84) included: ten findings, each acted on (D83's last bullet), one noted |
+| R15 review | of each session's diff, the seventeenth's (D83, D84) included: ten findings, each acted on (D83's last bullet), one noted; **D85's diff (the locus-equation correction in `sweep.py`, 𝼆's trim) is not yet reviewed: include it in the next R15** |
 
 ### For the next Phase 4 session (read first)
 
