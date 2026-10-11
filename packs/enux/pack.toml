@@ -1,0 +1,107 @@
+# OpenEVV pack: enux. Written by engine/packs/import_packs.py from languages/enux/ (stage M1,
+# docs/tts-extension/DESIGN.md 11.3); engine/packs/packlib.py says what each part means.
+# realization = "legacy": the sound lines below are the ones the generator wrote; edit freely, then
+# `python engine/packs/build_packs.py check` says whether the folder in languages/ still agrees.
+
+[pack]
+tag = "enux"
+name = "Module: international, from US English"
+kind = "language"
+format = 1
+
+[meta]
+licence = "per NOTICE.md"
+note = "a template module: lends its sounds to the languages eSpeak NG reads; not a language itself"
+
+[engine]
+reader = "module"
+realization = "module"
+
+[files]
+eol = "crlf"
+
+[ini._top]
+_c1 = "; OpenEVV language pack: Module: international, from US English."
+_c2 = "; Drop a folder like this one into %ProgramData%\\OpenEVV\\languages (or the"
+_c3 = "; languages folder of the installation) and its voices appear in every SAPI5"
+_c4 = "; program; delete the folder and they are gone. docs/LANGUAGES.md has the format."
+_b5 = ""
+
+[ini.Language]
+Tag = "enux"
+Name = "Module: international, from US English"
+Id = "0x00010000"
+LCID = "409"
+Locale = "en-US"
+Codepage = "65001"
+Module32 = "openevv-enux-x86.dll"
+Module64 = "openevv-enux-x64.dll"
+Order = "915"
+Experimental = "0"
+_c11 = "; lends its modules to the languages eSpeak NG reads, and is not a language itself"
+Hidden = "1"
+_b13 = ""
+
+[ini.Voice1]
+Name = "Adult Male 1"
+Gender = "Male"
+Age = "Adult"
+_c4 = "; gender, head size, pitch, inflection, roughness, breathiness, speed, volume"
+Params = "0,50,65,30,0,0,50,92"
+_b6 = ""
+
+[ini.Voice2]
+Name = "Adult Female 1"
+Gender = "Female"
+Age = "Adult"
+_c4 = "; gender, head size, pitch, inflection, roughness, breathiness, speed, volume"
+Params = "1,50,81,30,0,50,50,100"
+_b6 = ""
+
+[ini.Voice3]
+Name = "Child 1"
+Gender = "Female"
+Age = "Child"
+_c4 = "; gender, head size, pitch, inflection, roughness, breathiness, speed, volume"
+Params = "1,22,93,35,0,0,50,90"
+_b6 = ""
+
+[ini.Voice4]
+Name = "Adult Male 2"
+Gender = "Male"
+Age = "Adult"
+_c4 = "; gender, head size, pitch, inflection, roughness, breathiness, speed, volume"
+Params = "0,89,52,43,0,0,50,93"
+_b6 = ""
+
+[ini.Voice5]
+Name = "Adult Male 3"
+Gender = "Male"
+Age = "Adult"
+_c4 = "; gender, head size, pitch, inflection, roughness, breathiness, speed, volume"
+Params = "0,50,69,34,0,0,70,92"
+_b6 = ""
+
+[ini.Voice6]
+Name = "Adult Female 2"
+Gender = "Female"
+Age = "Adult"
+_c4 = "; gender, head size, pitch, inflection, roughness, breathiness, speed, volume"
+Params = "1,56,89,35,0,40,70,95"
+_b6 = ""
+
+[ini.Voice7]
+Name = "Elderly Female 1"
+Gender = "Female"
+Age = "Senior"
+_c4 = "; gender, head size, pitch, inflection, roughness, breathiness, speed, volume"
+Params = "1,45,68,30,3,40,50,90"
+_b6 = ""
+
+[ini.Voice8]
+Name = "Elderly Male 1"
+Gender = "Male"
+Age = "Senior"
+_c4 = "; gender, head size, pitch, inflection, roughness, breathiness, speed, volume"
+Params = "0,30,61,44,18,20,50,90"
+_b6 = ""
