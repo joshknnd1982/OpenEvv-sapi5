@@ -4,7 +4,7 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 10 (Release): COMPLETE (2026-10-11, twenty-fourth session)** on branch `tts-ext/phase-10`, Opus 5.5. Decision D95; `LICENCE_AUDIT.md`; release **1.3.0** built (`output\OpenEVV-SAPI5-Setup-1.3.0.exe`, not installed, not published). **Next: Phase 11 (Cleanup)**, in a new session, after the human has tested the installer. `main` holds Phase 10 (the human said yes to the merge). R20 ends with this phase: Phase 11 may clean, item by item, each after the human's yes.
+**Phase 10 (Release): COMPLETE (2026-10-11, twenty-fourth session)** on branch `tts-ext/phase-10`, Opus 5.5. Decision D95; `LICENCE_AUDIT.md`; release **1.3.0** built (`output\OpenEVV-SAPI5-Setup-1.3.0.exe`, not installed, not published). **Next: Phase 11 (the IPA generator and a pilot)**, in a new session: the human added Phases 11 to 13 after this phase's pause (switch every language read by eSpeak NG to the IPA sounds, then release 1.4.0 on GitHub; `HUMAN_ANSWERS.md`, "after Phase 10"), and cleanup is Phase 14. R20 now holds until Phase 13 is complete. `main` holds Phase 10 (the human said yes to the merge).
 
 **Phase 9 (Completion review): COMPLETE (2026-10-11, twenty-third session)** on branch `tts-ext/phase-9`, Fable 5.1. Decisions D93 (the reference lookup, Q46) and D94; the report `COMPLETION_REVIEW_PHASE9.md`; the trials `trials/`; `LANGUAGE_STATUS.md` regenerated on the staged golden.
 
@@ -31,7 +31,10 @@ Phase 8's summary follows for the record; "The whole project so far" below is up
 | 8 Skills | six skills, the reviewer agent, the doctor, `ADDING_A_LANGUAGE.md` with three worked examples, the 25 dialect packs documented, CS-0076 ɓ̥ | complete 2026-10-11 |
 | 9 Completion review | Fable 5.1: the full doctor (0 FAILED), the chart re-researched (0 differences), a fresh sweep of every symbol (proofs identical), two trials by fresh helpers (fi-x-evvtrial, nl-be; 22 doc gaps fixed), ASR re-run and the status regenerated on the staged golden, the reference lookup ruled (D93), the R18 report (nothing replaced, nothing retired) | complete 2026-10-11 |
 | 10 Release | 1.3.0: the staged template modules shipped (the human's say-so after the golden difference was shown), Belgian Dutch shipped (Q50), version bump and changelog, two full builds with every test, the licence audit (`check_licences.py`, 0 unclassified) and SPDX headers, README and guides (step 2b, `check_readme.py`), the worked examples re-run, golden of what ships against `golden-staged`, the fresh-clone check | complete 2026-10-11 |
-| 11 Cleanup | free the disk, item by item with the human's yes (R20 ends with Phase 10) | **next** |
+| 11 IPA generator | build the master path of the pack compiler (`to_master.py`) and pilot it on six packs (the human's order, 2026-10-11) | **next** |
+| 12 Switch all | every language read by eSpeak NG, its dialects and accents, to the IPA table's sounds; measure all; the ten native languages untouched | to do |
+| 13 Release 1.4.0 | installer, README, commit, push, merge, GitHub release | to do |
+| 14 Cleanup | free the disk, item by item with the human's yes (R20 holds until Phase 13 is complete) | to do |
 
 **The numbers now** (each from a command run in Phase 9; raw output in `COMPLETION_REVIEW_PHASE9.md`)
 
@@ -92,9 +95,14 @@ Raw outputs of this phase (logs in `%USERPROFILE%\OpenEvvBuild-ttsext\`: `build_
 
 ### For Phase 11 (read first)
 
-- **Ask before deleting anything** (R20 ends with this phase, but every deletion still waits for the human's yes). Candidates: the build trees outside the repository (`%USERPROFILE%\OpenEvvBuild-ttsextuild*`, `stage-dev-*` copies, the logs), `%TEMP%\OpenEvvTests`, the Whisper model (3.09 GB), the venv, `pre-release-1.2.4` (1.2.4's files, also in git), `packs-proposed/fi-x-evvtrial` (a TEST copy), the untracked `results/diag-compare.json` and `diag-golden.json` (overwritten in Phase 10 by this phase's own runs of the same tools), and the old sessions.
+- **Phase 11 is now the IPA generator** (playbook, PHASE 11): the human's order and the guard answer are in `HUMAN_ANSWERS.md` ("after Phase 10"). `realization = "master"` is in the pack format (`engine/packs/packlib.py`) but nothing compiles it; `engine/ipa/adapter.py` realises one table entry on one template; `ipa/realized/dedx.map` is the only realised map so far. The ten native languages stay as they are.
+
+### For Phase 14, cleanup (read first)
+
+- **Ask before deleting anything** (R20 holds until Phase 13 is complete; every deletion waits for the human's yes). Candidates: the build trees outside the repository (`%USERPROFILE%\OpenEvvBuild-ttsextuild*`, `stage-dev-*` copies, the logs), `%TEMP%\OpenEvvTests`, the Whisper model (3.09 GB), the venv, `pre-release-1.2.4` (1.2.4's files, also in git), `packs-proposed/fi-x-evvtrial` (a TEST copy), the untracked `results/diag-compare.json` and `diag-golden.json` (overwritten in Phase 10 by this phase's own runs of the same tools), and the old sessions.
 - **The installer to keep**: `output\OpenEVV-SAPI5-Setup-1.3.0.exe`, SHA-256 above; `output/` is git-ignored.
 - `main` holds everything of Phases 0 to 10 (merged at the human's yes); Phase 11 works on `tts-ext/phase-11` cut from it.
+- The installers to keep will then include 1.4.0's (Phase 13).
 
 ## Phase 9 at its end
 
