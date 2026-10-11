@@ -4,7 +4,7 @@ Every language OpenEVV speaks is a folder. The SAPI 5 voice list is built from t
 
 ## Where they live
 
-- `C:\Program Files\OpenEVV SAPI5\languages\` holds the languages the installer put there: of the 155 it offers (openevv's own ten and 145 read by eSpeak NG) the ones you chose, and the modules, of the seven that speak the 145, that the ones you chose need. Run the installer again to add or remove some of them.
+- `C:\Program Files\OpenEVV SAPI5\languages\` holds the languages the installer put there: of the 156 it offers (openevv's own ten and 146 read by eSpeak NG) the ones you chose, and the modules, of the seven that speak the 146, that the ones you chose need. Run the installer again to add or remove some of them.
 - `%ProgramData%\OpenEVV\languages\` (usually `C:\ProgramData\OpenEVV\languages\`) is yours. Anyone can write there without being an administrator, and a pack there wins over a shipped pack with the same tag, so it is also how to replace one.
 
 OpenEVV Configuration's Languages page does all of this with buttons: **Add a language pack** takes a downloaded `.zip` as it is (or `language.ini` inside an extracted pack) and installs every language in it into your folder, **Remove the selected language** sends a pack to the Recycle Bin (asking for administrator rights only for a shipped pack), and **Open the languages folder** opens yours. `OpenEvvConfig.exe --add-pack <zip or folder>` does the same from a command line.
@@ -53,7 +53,7 @@ The ECI language numbers IBM assigned: 0x10000 US English, 0x10001 British Engli
 
 ## A language read by eSpeak NG
 
-145 of the languages have no engine module of their own. eSpeak NG reads their text -- its spelling rules, its dictionary, its numbers, its letter names and the names of its punctuation marks, its word stress and its tones -- and one of openevv's modules, the pack's *template*, speaks what it read, with the sounds, the melody and the tones of the language itself. Such a pack is a folder too:
+146 of the languages have no engine module of their own. eSpeak NG reads their text -- its spelling rules, its dictionary, its numbers, its letter names and the names of its punctuation marks, its word stress and its tones -- and one of openevv's modules, the pack's *template*, speaks what it read, with the sounds, the melody and the tones of the language itself. Such a pack is a folder too:
 
     languages\sw        language.ini
         sounds.map               eSpeak NG's phonemes as the template's phones, and how
