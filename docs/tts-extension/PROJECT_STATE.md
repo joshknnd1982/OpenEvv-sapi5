@@ -4,6 +4,29 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
+**Phase 7 (Authenticity and native-validation pipeline): COMPLETE (2026-10-11, twenty-first session)** on branch `tts-ext/phase-7`, Opus 5.5. Decision D90; `AUTHENTICITY.md` (the pipeline, one command a step); `FINDING_NATIVE_REVIEWERS.md`; `REFERENCES.md` "Phase 7"; Q40 to Q42. **Next: Phase 8 (Skills and automation)**, new session.
+
+The one real example is **Scottish English** (`en-gb-scotland`), measured from CMU ARCTIC speaker awb (one Scottish man, 1,138 read sentences, licence "free for use for any purpose"; in the tree at `third_party/cmu_arctic/` at the human's request). Southern American English (the Phase 2 first choice) needs VCTK's 11.7 GB zip and an aligner; the human chose Scottish (`HUMAN_ANSWERS.md`).
+
+| Exit criterion (playbook Phase 7) | State |
+|---|---|
+| pipeline demonstrated end-to-end on ONE real example (an English variety) | **met**: discovery (`REFERENCES.md`) → extraction from aligned licensed recordings (`extract_targets.py en-gb-scotland third_party/cmu_arctic --write`: 10 vowel classes, 71 to 836 tokens each, formants and lengths, all below the five-speaker minimum and flagged) → normalization (`normalize.py`, size awb x0.9527 and rate x1.5576 to engx; self-test 3 of 3) → 10 proposed overrides in `packs/en-gb-scotland/pack.toml` (8 with formants, 7 with lengths) tagged `measured` with recording ids → validator accepts the pack → measured effect (`show_effect.py`: median distance from the formant targets 12.6 % before, 0.6 % after, 16 words; every length moves the way asked; preset 2 scales both versions alike, largest difference 0.002) → packet (`review_packets/en-gb-scotland/index.html`, 86 items, A/B blind) → ingest (the blank form refused; the self-test records complete forms on copies) |
+| validator rejects incomplete packs | **met**: `validate_packs.py --selftest` 16 of 16 (15 planted faults rejected, the complete pack accepted); on the tree 26 dialect packs, 1 accepted, 25 rejected (Q41) |
+| packet generator works | **met**: 86 items, every item with embedded audio, a spectrogram with a description in words and a details table (checked by parser: 86 audio, 86 img, 86 tables, nothing linked outside the file); the A/B blind (the key outside the packet, `review/keys/en-gb-scotland.json`) |
+| PROJECT_STATE updated | this |
+| R15 review | done: twelve findings, ten fixed, two stated; the one re-review: four more, fixed (D90, "R15 review") |
+
+Not changed: the engine, the modules, the front-end, `languages/`, `dist/` (`build_packs.py check`: every file identical to `languages/`; loader tests 20 of 20). The human chose to keep the overrides **proposed** (not in `languages/`; asked when there were 8, the 2 length-only ones added after the review are proposed too). No language's level changed; nothing is called authentic.
+
+### For Phase 8 (read first)
+
+- **The commands** (venv Python, `PYTHONUTF8=1`, `EVV_STAGE=%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev` for anything that renders): `engine/authenticity/extract_targets.py <tag> <corpus> [--write]`, `engine/authenticity/normalize.py --selftest`, `engine/authenticity/show_effect.py <tag>`, `engine/packs/validate_packs.py [tags] | --selftest`, `engine/packs/build_packs.py build <out> --proposed <tag>`, `engine/review/make_packet.py <tag>` (about 2 minutes for 86 items), `engine/review/ingest_feedback.py <form> | --selftest`. A skill for "add a dialect" chains them; the doctor can run the three self-tests and `validate_packs.py` (expect 25 rejected until Q41 is worked through).
+- **A pack folder may now hold** `measure.toml`, `measured/<source>.json`, `review.toml` beside `pack.toml`, and `pack.toml` may hold `[[override]]` blocks and the new `[meta]` keys `recordings`, `date`.
+- **Learned**: a vowel's length needs its own token set (a formant filter drops short tokens); `dur` is a per cent, so its effect in ms follows the module's own length in context; CMU ARCTIC's packed tarballs hold trimmed audio that its labels do not fit (the extractor refuses such recordings now); the harness's `stop_timing` is wrong on natural speech (Q40); within one speaker a vowel's F1 or F2 varies 4 to 14 per cent.
+- **The human, this session**: wanted YouTube audio used "ignoring all licenses": declined and recorded (R4); suggested Creative Commons audio, audiobooks (LibriVox, public domain), the Internet Archive and the Wayback Machine: recorded in `REFERENCES.md` as candidates with what each lacks.
+
+## Phase 6, as it ended
+
 **Phase 6 (Packs, migration, triage): COMPLETE (2026-10-11, twentieth session)** on branch `tts-ext/phase-6`, Sonnet 5.5. Decision D89; `packs/README.md`; `TRIAGE_PHASE6.md`. **Next: Phase 7 (Authenticity and native-validation pipeline)**, new session.
 
 | Exit criterion (playbook Phase 6) | State |

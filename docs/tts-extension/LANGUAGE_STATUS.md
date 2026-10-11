@@ -369,3 +369,7 @@ Written by `harness/triage.py` from the measurements named in its header; the ru
 | yue | Chinese (Cantonese) | dedx | 2 | 1.29 | 0.85 | G2P (then stress-or-tone) | eSpeak NG's own voice fails these sentences too (CER 0.85 against 1.29 here); this engine is further 0.44 behind it |
 | yue-latn-jyutping | Chinese (Cantonese, latin as Jyutping) | dedx | 2 |  |  | not measured | Whisper writes another script; references not converted yet |
 <!-- TRIAGE END -->
+
+## Phase 7 (2026-10-11): the authenticity pipeline, shown on Scottish English
+
+No language's level changed. `en-gb-scotland` stays at level 2 (check B fails against references for other varieties; ASR CER 0.13). What it gained: authenticity metadata that passes the validator (variety, region, speaker group, sources `scobbie1999` and `cmu_arctic`, recordings `cmu_arctic/awb`, date, status); 10 measured vowel overrides (formants and lengths) from one Scottish speaker, **proposed, not applied** (the human's choice), which bring the engine's vowels to within 0.6 per cent (median) of the measured formant targets; and a native review packet, `review_packets/en-gb-scotland/index.html` (86 items, the A/B blind), waiting for a reviewer. Nothing is called authentic: level 5 needs a named native reviewer's sign-off, recorded by `engine/review/ingest_feedback.py` in the "Native-speaker sign-offs" section. 25 dialect packs fail the validator for missing metadata (`OPEN_QUESTIONS.md` Q41).
