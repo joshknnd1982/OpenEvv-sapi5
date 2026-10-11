@@ -67,3 +67,9 @@ No question was put to the human during the audit: the open points it raised (Q3
 | Instruction (the human's words) | What was done |
 |---|---|
 | "I have moved the file IPA_Kiel.pdf ... into the repository root" and, when told the chart is CC BY-SA and the repository MIT, "put the pdf in git anyway, despite licensing. when this whole project is done, all phases, I want the user who does a git clone to get everything if possible. make a note of that in one of the markdown files so claude remembers." | `IPA_Kiel.pdf` is committed in the repository root; its licence (CC BY-SA 4.0, copyright 2026 IPA) is recorded in `NOTICE.md`; the standing wish is in `CLAUDE.md` (read every session) and in `PROJECT_STATE.md`. |
+
+## 2026-10-11, Phase 6 preflight
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| The session runs on Opus 5.5; the playbook names Sonnet 5.5 (medium) for Phase 6. Run Phase 6 here on Opus? | Continue on Opus (recommended) · Stop; I'll switch to Sonnet | **Stop; I'll switch to Sonnet.** Nothing of Phase 6 was started; the human starts a new session on Sonnet 5.5, effort medium. |
