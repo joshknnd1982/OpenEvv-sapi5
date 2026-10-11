@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Try sentences of your own through the ASR round trip, for a diagnosis: nothing is written in the tree.
 
     python docs/tts-extension/harness/asr_try.py <tag> "<sentence>" ["<sentence>" ...] [--like TAG] [--cpu]

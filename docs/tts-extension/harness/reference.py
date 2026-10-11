@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The reference-range store (Phase 1, step 3) and check B: does a realised value fall in range?
 
 reference/ranges.json holds cited values keyed by IPA, variety (a BCP 47 tag such as en-US),

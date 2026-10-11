@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Phase 5 audit, step 3: provenance honesty over every tagged value of the master table. MIT licence.
 
     python docs/tts-extension/audit5/provenance.py

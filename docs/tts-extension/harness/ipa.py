@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """IPA in, the engine's own phoneme names out. Never a silent substitution.
 
 For a pack read by eSpeak NG, IPA becomes eSpeak NG phoneme names from the pack's own phoneme

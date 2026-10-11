@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Renders cases through the real engine and reads back what it did (Phase 1, step 1).
 
 Every case is spoken by `evv_render.exe` (src/tools/evv_render.cpp) in a host of its own, after

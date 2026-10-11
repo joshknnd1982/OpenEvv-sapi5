@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """ASR round trip on eSpeak NG's own voice (Phase 6, triage): the same sentences, the same recogniser,
 the same scoring as asr.py, but spoken by eSpeak NG itself with the voice a pack names.
 

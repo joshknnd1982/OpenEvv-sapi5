@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Proves the harness before anything is measured with it (Phase 1 exit: harness self-tests).
 
 Part 1, the analyser on synthetic signals whose answers are known (synth.py): formants, F0,

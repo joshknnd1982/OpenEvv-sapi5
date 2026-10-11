@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Stage rebuilt template modules in a data folder (DESIGN.md 11.2), never in languages/.
 
     python docs/tts-extension/harness/stage.py <built modules> <stage folder> [tags...]

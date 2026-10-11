@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Q36 calibration: the accent layer's `jit' (tenths of a per cent, the most a frame's pitch is moved)
 against the local jitter the harness measures (pulse_jitter_pct), on the long vowels the labels'
 tests use ([a e ɛ] between p, as VoQS's tests say them). Prints, per jit, each vowel's measure, their

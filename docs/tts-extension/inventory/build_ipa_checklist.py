@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Builds the IPA checklist (Phase 0, step 6b; playbook R19a) from the research files.
 
     research/<section>.json   what each chart section prints, with sources (one helper a section)

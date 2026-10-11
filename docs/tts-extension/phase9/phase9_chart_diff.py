@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 # Phase 9, step 2: Claude's own transcription of the seven official sub-chart PNGs
 # (IPA_Kiel_*_0600.png, fetched 2026-10-11 from the IPA's site, "(c) 2026 IPA, revised to 2015/2005"),
 # read as images in this session, compared with the committed checklist.

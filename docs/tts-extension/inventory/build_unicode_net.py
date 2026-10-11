@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Builds the Unicode net (DESIGN.md 1, the secondary coverage metric): every assigned code point of
 ten Unicode blocks put in exactly one class, written to ipa/unicode_net.toml for
 engine/ipa/coverage.py. MIT licence.

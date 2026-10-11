@@ -15412,6 +15412,123 @@
   "failure_layer": "unknown"
  },
  {
+  "tag": "nl-be",
+  "name": "Dutch (Southern Standard, Flanders)",
+  "kind": "espeak",
+  "module": "dedx",
+  "locale": "nl-BE",
+  "tones": false,
+  "cases": 154,
+  "a": {
+   "passed": true,
+   "substituted": 0,
+   "a1_phones": 580,
+   "a1_silent": 0,
+   "a2_checks": 890,
+   "a2_ok": 889,
+   "a2_rate": 0.999,
+   "problems": [
+    "v|A~: O F1 measured 317.44, frames 554.0"
+   ]
+  },
+  "no_own_phone": [
+   "f|h",
+   "s|?"
+  ],
+  "not_covered": [],
+  "b": {
+   "passed": null,
+   "checks": 5,
+   "in_range": 4,
+   "rate": 0.8,
+   "rows": [
+    {
+     "verdict": "in range",
+     "value": 233.9,
+     "lo": 200,
+     "hi": 300,
+     "how": "min .. max",
+     "source": "becker2007",
+     "variety": "cross-language",
+     "where": "Section 2 (literature review)",
+     "provenance": "literature",
+     "case": "n|N",
+     "ipa": "ŋ",
+     "measure": "murmur_F1_hz"
+    },
+    {
+     "verdict": "out of range",
+     "value": 1432.2,
+     "lo": 750,
+     "hi": 1250,
+     "how": "min .. max",
+     "source": "becker2007",
+     "variety": "cross-language",
+     "where": "Section 2 (literature review), citing Fujimura (1962:1871)",
+     "provenance": "literature",
+     "case": "n|m",
+     "ipa": "m",
+     "measure": "antiformant_hz"
+    },
+    {
+     "verdict": "in range",
+     "value": 232.9,
+     "lo": 200,
+     "hi": 300,
+     "how": "min .. max",
+     "source": "becker2007",
+     "variety": "cross-language",
+     "where": "Section 2 (literature review)",
+     "provenance": "literature",
+     "case": "n|m",
+     "ipa": "m",
+     "measure": "murmur_F1_hz"
+    },
+    {
+     "verdict": "in range",
+     "value": 1931.9,
+     "lo": 1450,
+     "hi": 2200,
+     "how": "min .. max",
+     "source": "becker2007",
+     "variety": "cross-language",
+     "where": "Section 2 (literature review), citing Fujimura (1962:1871)",
+     "provenance": "literature",
+     "case": "n|n",
+     "ipa": "n",
+     "measure": "antiformant_hz"
+    },
+    {
+     "verdict": "in range",
+     "value": 219.3,
+     "lo": 200,
+     "hi": 300,
+     "how": "min .. max",
+     "source": "becker2007",
+     "variety": "cross-language",
+     "where": "Section 2 (literature review)",
+     "provenance": "literature",
+     "case": "n|n",
+     "ipa": "n",
+     "measure": "murmur_F1_hz"
+    }
+   ],
+   "why": "references for 0 vowels; 3 needed"
+  },
+  "asr": {
+   "status": "scored",
+   "reason": null,
+   "whisper": "nl",
+   "cer": 0.2933,
+   "wer": 0.5965,
+   "n": 8,
+   "source": "common_voice",
+   "note": "Southern Standard Dutch (Flanders), shipped in 1.3.0; Whisper nl."
+  },
+  "level": 2,
+  "failure_layer": "unknown"
+ },
+ {
   "tag": "nog",
   "name": "Nogai",
   "kind": "espeak",

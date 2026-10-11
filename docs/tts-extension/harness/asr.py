@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """ASR round trip (Phase 1, step 4): synthesize test sentences per language, transcribe them with a
 multilingual recogniser, and score character and word error rates (CER, WER).
 

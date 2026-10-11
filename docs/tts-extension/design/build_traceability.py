@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The symbol-to-capability traceability table of DESIGN.md, section 4.
 
 One decision for every entry of inventory/IPA_CHECKLIST.json: how it will be realised (as it is,

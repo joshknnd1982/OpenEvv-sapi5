@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The template comparison (DESIGN.md 13.2, step (e) of Phase 3A). MIT licence.
 
 A handful of languages that Whisper knows well, each built with the present generator

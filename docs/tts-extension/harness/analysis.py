@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Measures speech signals (Phase 1, step 2). numpy and scipy only (both BSD).
 
 Every measure takes a mono signal `x` (any numeric array) and its rate, and times in ms. They are

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Phase 5 audit, steps 4 and 8: a sample of compositions said by the real engine and measured.
 
 Every Tier A mark with a shift test is composed on bases its own proof did NOT use (three new

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Status of every language from the harness's results (Phase 1, steps 6 and 7).
 
 Reads golden/<tag>.json.gz (every phoneme rendered and measured), results/asr.json and the reference

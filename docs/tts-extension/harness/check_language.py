@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """One language's status, the way report.py judges it, printed and written nowhere in the tree.
 
     python docs/tts-extension/harness/check_language.py <tag> [--golden DIR] [--asr] [--asr-like TAG] [--json FILE]

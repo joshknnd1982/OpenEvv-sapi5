@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """C1 "never silent" (DESIGN.md 4.3): what the front-end loses on the way, counted.
 
 The front-end reports, as `diag` lines on stderr, everything it drops, cuts short, skips or says

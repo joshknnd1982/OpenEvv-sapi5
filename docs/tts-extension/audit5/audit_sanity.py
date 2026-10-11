@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Phase 5 audit, step 7: can a wrong sound pass the harness?
 
 Each case plants a fault in the realised map the sweep says an entry with (a key changed on the

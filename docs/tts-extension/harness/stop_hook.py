@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """A Claude Code Stop hook (Phase 1, step 8): a turn may not end while the smoke check fails,
 but only when the engine or its language data has changed.
 

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Golden regression (Phase 1, step 5): every phoneme every existing language uses, rendered and
 measured, stored as metrics, and compared on every later run. Fails loudly on drift.
 

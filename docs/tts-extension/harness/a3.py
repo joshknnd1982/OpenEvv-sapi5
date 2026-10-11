@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Check A3 (DESIGN.md 10.1): did what was meant to be voiceless or silent stay so?
 
 Each context case of a pack (golden.py, the `x|...` cases: every consonant before a voiceless

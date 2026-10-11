@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Phase 5 audit, step 8: the IPA chart re-derived by the auditor and diffed against the Phase 0
 checklist. MIT licence.
 

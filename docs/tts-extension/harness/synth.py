@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Synthetic test signals whose answers are known, for proving the analyser (selftest.py).
 
 Independent of the engine: a glottal pulse train through second-order resonators in cascade

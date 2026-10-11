@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Smoke check (Phase 1, step 8): the harness's quick self-tests and a slice of the golden
 regression, in under a minute. Exit 0 when both pass.
 

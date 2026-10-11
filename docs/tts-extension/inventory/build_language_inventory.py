@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """First-pass inventory of every language pack and the phonemes it uses (Phase 0, step 6).
 
 Reads languages/<tag>/language.ini, and for each pack:

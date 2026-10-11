@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Phase 5 audit, step 1 (MIT licence; python docs/tts-extension/audit5/audit_consistency.py): consistency of the master table (spec and measured).
 
 Prints: vowel formant ordering by height / backness / rounding (spec and the proofs' measured

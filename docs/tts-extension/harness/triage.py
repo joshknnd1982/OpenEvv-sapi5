@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Failure-layer triage of every language (Phase 6, part 2).
 
 For each language, from measurements the harness already holds, name the layer where its fault

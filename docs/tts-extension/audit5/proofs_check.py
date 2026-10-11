@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Phase 5 audit, steps 6 and 8: every checklist symbol's proof file, read directly. MIT licence.
 
     python docs/tts-extension/audit5/proofs_check.py
