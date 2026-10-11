@@ -13,13 +13,21 @@ Playbook Part 3, workflow D. Opus 5.5 at high (set above). If two rounds of fixe
 measurements, stop with the playbook's MODEL SWITCH NEEDED pause (Fable 5.1 high).
 
 Read first: `CLAUDE.md`, `docs/tts-extension/PROJECT_STATE.md`, the language's rows in
-`docs/tts-extension/LANGUAGE_STATUS.md` and `docs/tts-extension/TRIAGE_PHASE6.md` (its failure layer
-and evidence), `ADDING_A_LANGUAGE.md` ("Improving"). You cannot hear: measure (R2, R5, R16).
+`docs/tts-extension/LANGUAGE_STATUS.md` (the status table, and the Phase 6 triage table further down:
+where their failure layers differ, the triage's compares with eSpeak NG's own voice and is the
+better evidence), `OPEN_QUESTIONS.md` for findings about the language (a `/diagnose-language` run
+records its diagnosis there), `ADDING_A_LANGUAGE.md` section 9. The numbers in `LANGUAGE_STATUS.md`
+and `results/asr.json` may be older than the stage: measure again before comparing. You cannot hear:
+measure (R2, R5, R16).
 
 ## Setup (PowerShell, repository root)
 
+The PowerShell tool keeps no state between calls: start **every** call with these lines.
+
     $env:PYTHONUTF8='1'; $py="$env:USERPROFILE\OpenEvvBuild-ttsext\venv\Scripts\python.exe"
     $env:EVV_STAGE="$env:USERPROFILE\OpenEvvBuild-ttsext\stage-dev"
+    $env:EVV_PACKS_EXTRA="$PWD\packs-proposed;$PWD\docs\tts-extension\examples\packs"
+    # beside another session: $env:EVV_HARNESS_WORK="$env:TEMP\OpenEvvTests\harness-improve-<tag>"
     & $py engine\doctor.py --quick          # must end "0 FAILED" before you start
 
 ## Steps
@@ -27,35 +35,52 @@ and evidence), `ADDING_A_LANGUAGE.md` ("Improving"). You cannot hear: measure (R
 1. **Baseline**: re-measure before changing anything, and keep the output:
 
        & $py docs\tts-extension\harness\check_language.py <tag> --asr
-       & $py docs\tts-extension\harness\diag.py <tag>        # what the front-end loses on the way
-       & $py docs\tts-extension\harness\a3.py <tag>          # voiceless sounds stay voiceless (back up results/a3-staged.json first: it is overwritten)
+       & $py docs\tts-extension\harness\diag.py <tag>        # always name the tag: without one it rewrites results/diag.json
 
-2. **Fix at the identified layer only** (phoneme values, G2P, stress or tone, duration, voice
-   scaling, engine): a shared cause is fixed once (the master table `ipa/table/`, the engine under
-   `openevv/` with `openevv/CLAUDE.md`'s rules), not per language. A pack's change:
-   - a sound's target with evidence: an `[[override]]` in `packs/<tag>/pack.toml` with its
-     provenance (`state = "proposed"` until the human says to apply it: proposed overrides do not
-     change the shipped files, and `build_packs.py check` stays identical);
-   - better references for check B: cited ranges in `harness/reference/ranges.json` (with a
-     spread, from a source registered and opened);
-   - G2P: eSpeak NG's own rules are GPL and live upstream; record what is wrong and propose, do not
+   For a voicing or silence question also `a3.py <tag>` (it overwrites `results/a3-staged.json` with
+   only that tag: copy the file aside first and merge back). To try sentences of your own through
+   the recogniser: `harness/asr_try.py <tag> "<sentence>" ...` (writes nothing).
+2. **Change one thing, at the right place**: the failing layer (phoneme values, G2P, stress or tone,
+   duration, voice scaling, engine) or the evidence itself. A shared cause is fixed once (the master
+   table `ipa/table/`, the engine under `openevv/` with `openevv/CLAUDE.md`'s rules), not per
+   language. Kinds of change:
+   - *a sound's target with evidence*: an `[[override]]` in `packs/<tag>/pack.toml` with its
+     provenance, `state = "proposed"` until the human says to apply it (proposed overrides do not
+     change the shipped files: `build_packs.py check` stays identical). Normalize published values
+     (`engine\authenticity\normalize.py`, as `/add-dialect` step 3) and write only what moves more
+     than 6 per cent;
+   - *better evidence for check B*: cited ranges in `harness/reference/ranges.json` (the store's own
+     format: the source in its `sources` list as well as in `ipa/sources.toml`; mean and SD, the
+     range is mean +- 2 SD; `variety`, `speaker_group`, `n`, `provenance`, `where_in_source`). **The
+     lookup lends a variety's ranges to every variety of the same language** (`reference.lookup()`,
+     `OPEN_QUESTIONS.md` Q46): say which other packs a new entry reaches. Check B compares raw Hz with
+     the references' speaker group, unnormalized;
+   - *G2P*: eSpeak NG's rules are GPL and live upstream; record what is wrong and propose, do not
      edit `dist/espeak-ng-data` (rebuilding it needs the human's say-so).
 3. **Re-measure** the language after each change (step 1's commands; for a proposed override,
    `build_packs.py build <scratch stage>\languages <tag> --proposed` in a copy of the stage, as in
-   `/add-dialect`, and `engine\authenticity\show_effect.py <tag>`), then **the full regression**
-   (`golden.py`, every language, 0 FAILED). Never trade one language's fix for another's
-   regression (R8). An intended change to the golden: `golden.py --record <tags>` and a line in
-   `docs/tts-extension/DECISIONS.md`.
-4. **Record**: provenance on every new value; before and after numbers in `LANGUAGE_STATUS.md`
-   (`harness/report.py` rewrites it for every language: run it when the change is real); the
-   packet again (`engine\review\make_packet.py <tag>`).
+   `/add-dialect`, and `engine\authenticity\show_effect.py <tag>`). Then the regression that can see
+   the change:
+   - synthesis or pack data the product reads (a pack's sounds, the master table, the engine, the
+     front-end): the full golden, `& $py docs\tts-extension\harness\golden.py` (every language,
+     0 FAILED; 25 to 40 minutes), `doctor.py --quick`;
+   - reference ranges: the golden cannot see them; run `check_language.py` on every pack the new
+     entries reach (step 2) and report each before and after;
+   never trade one language's fix for another's regression (R8). An intended change to the golden:
+   `golden.py --record <tags>` and a line in `docs/tts-extension/DECISIONS.md`.
+4. **Record**: provenance on every new value; for a real change, `asr.py <tag>` (refreshes that tag in
+   `results/asr.json`) and then `report.py` (rewrites `LANGUAGE_STATUS.md` for every language: read
+   its diff, and say every row that moved); a new packet (`make_packet.py <tag>`) only if what the
+   language says changed.
 5. **Report** in plain English: what moved, by how much, at which layer; the level now. Applying
    proposed overrides or rebuilding `languages/` waits for the human's say-so (R18, D34).
-6. **Review**: launch the `tts-reviewer` agent with the "Done when" list and the changed paths.
+6. **Review**: launch the `tts-reviewer` agent with the "Done when" list and the changed paths. If
+   you cannot launch agents, say that the review is still owed.
 
 ## Done when
 
 - the baseline and the after measurements are both shown, raw
-- the change is at the failing layer; provenance on every value
-- the full golden: 0 FAILED (or each difference recorded in DECISIONS.md); `doctor --quick` passes
+- the change is at the failing layer (or is better evidence), with provenance on every value
+- the regression that can see the change was run and shown (the full golden 0 FAILED for anything the
+  product reads; every reached pack's check B for references); `doctor --quick` passes
 - LANGUAGE_STATUS (for a real change) and the report state the true level
