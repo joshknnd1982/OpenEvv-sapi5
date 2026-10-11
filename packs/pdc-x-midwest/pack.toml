@@ -10,8 +10,14 @@ extends = "pdc"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice gmw/pdc-x-midwest"]
-note = "imported from languages/pdc-x-midwest"
+variety = "Midwestern Pennsylvania German as spoken in Old Order Amish and related plain communities"
+region = "Holmes County, Ohio; Kalona, Iowa; Elkhart-LaGrange, Indiana; Arthur, Illinois"
+speaker_group = "members of Amish and other plain Anabaptist communities of the Midwest who speak the language at home; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice gmw/pdc-x-midwest", "keiser2000"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "imported from languages/pdc-x-midwest; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the source confirms the voice's ei rule and the loss in schtarick; the voice merges communities the source shows to differ (Ohio more advanced than Iowa)"
 
 [engine]
 reader = "espeak:gmw/pdc-x-midwest"

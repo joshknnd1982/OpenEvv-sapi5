@@ -10,9 +10,15 @@ kind = "dialect"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice gmw/en-US-nyc"]
+variety = "New York City English, the traditional regional accent of New York City"
+region = "New York City and Hudson County NJ, with an inner ring including Nassau County"
+speaker_group = "people raised in New York City and its inner suburbs who speak the local accent, which is weakening among younger speakers; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice gmw/en-US-nyc", "shapp2019"]
+recordings = []
+date = "2026-10-11"
+status = { level = 4, validated_by = "", date = "" }
 licence = "per NOTICE.md"
-note = "imported from languages/en-us-nyc"
+note = "imported from languages/en-us-nyc; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the voice's short-a rule is close to the traditional split but does not exclude function words or word-initial cases; whether it is r-less was not checked"
 
 [engine]
 reader = "espeak:gmw/en-US-nyc"

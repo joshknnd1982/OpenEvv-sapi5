@@ -10,9 +10,15 @@ kind = "dialect"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice roa/fr-BE"]
+variety = "Belgian French, the French of Wallonia and Brussels"
+region = "Wallonia and the Brussels-Capital Region, Belgium"
+speaker_group = "French-speaking Belgians; the source stresses differences by region (Liège, Tournai, Brussels), age and education; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice roa/fr-BE", "bardiaux2016"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
 licence = "per NOTICE.md"
-note = "imported from languages/fr-be"
+note = "imported from languages/fr-be; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the voice uses the plain French phoneme table; its own rules change the numerals (septante, nonante) and its tunes; the vowel length, [w] for [ɥ] and devoicing the source describes are probably not made"
 
 [engine]
 reader = "espeak:roa/fr-BE"

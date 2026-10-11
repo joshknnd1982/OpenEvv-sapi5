@@ -10,8 +10,14 @@ extends = "pt"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice roa/pt-BR"]
-note = "imported from languages/pt-br"
+variety = "Brazilian Portuguese, the Portuguese of Brazil"
+region = "Brazil"
+speaker_group = "native speakers of Portuguese in Brazil; the source describes one speaker of urban São Paulo State speech; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice roa/pt-BR", "barbosa2004"]
+recordings = []
+date = "2026-10-11"
+status = { level = 4, validated_by = "", date = "" }
+note = "imported from languages/pt-br; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the voice names no region; whether its coda r and the affrication of t d before i follow the São Paulo pattern was not checked"
 
 [engine]
 reader = "espeak:roa/pt-BR"

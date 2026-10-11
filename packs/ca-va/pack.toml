@@ -10,8 +10,14 @@ extends = "ca"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice roa/ca-va"]
-note = "imported from languages/ca-va"
+variety = "Valencian, the Catalan of the Valencian Community (a Western Catalan variety)"
+region = "the Valencian Community, Spain"
+speaker_group = "Valencian speakers, many bilingual with Spanish, in and around the city of Valencia in the source; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice roa/ca-va", "jimenez2019"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "imported from languages/ca-va; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the source's Table 1 holds published mean formants that could check the voice's vowels (check B)"
 
 [engine]
 reader = "espeak:roa/ca-va"

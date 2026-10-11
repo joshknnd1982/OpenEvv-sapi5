@@ -10,8 +10,14 @@ extends = "ca"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice roa/ca-ba"]
-note = "imported from languages/ca-ba"
+variety = "Balearic Catalan, the Catalan of Mallorca, Menorca and Ibiza (Eivissa), a subgroup of Eastern Catalan"
+region = "the Balearic Islands, Spain"
+speaker_group = "people of the islands who speak Catalan natively, most of them bilingual with Spanish; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice roa/ca-ba", "hamann2023"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "imported from languages/ca-ba; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the source's defining feature, a stressed schwa contrasting with /e ɛ/, is not known to be made by the voice (to test); the voice models a generic, roughly Majorcan Balearic, not Ibizan or Minorcan"
 
 [engine]
 reader = "espeak:roa/ca-ba"

@@ -10,8 +10,14 @@ extends = "ps"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice ira/ps-x-northwest"]
-note = "imported from languages/ps-x-northwest"
+variety = "Northwestern (central Ghilzai, Wardak) Pashto, one of the four classic dialect groups"
+region = "central and eastern Afghanistan: around Kabul, Wardak, Ghazni and the central Ghilzai area"
+speaker_group = "Pashto speakers of the central Ghilzai and Wardak areas and the edges of Kabul; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice ira/ps-x-northwest", "appen2016", "dinakhel2020"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "imported from languages/ps-x-northwest; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the voice keeps ژ as [ʒ], as MacKenzie has it, where appen2016 gives /z/; the voice's own comment cites only Wikipedia"
 
 [engine]
 reader = "espeak:ira/ps-x-northwest"

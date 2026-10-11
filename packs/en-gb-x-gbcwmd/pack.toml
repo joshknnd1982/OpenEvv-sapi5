@@ -10,9 +10,15 @@ kind = "dialect"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice gmw/en-GB-x-gbcwmd"]
+variety = "West Midlands English, the regional accent of Birmingham and the Black Country"
+region = "the West Midlands conurbation of England (Birmingham; Dudley, Walsall, Wolverhampton, Sandwell)"
+speaker_group = "people from Birmingham and the Black Country who speak the local accent; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice gmw/en-GB-x-gbcwmd", "merry2016"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
 licence = "per NOTICE.md"
-note = "imported from languages/en-gb-x-gbcwmd"
+note = "imported from languages/en-gb-x-gbcwmd; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the source is an undergraduate working paper with second-hand tables (Wells 1982); the voice drops /h/ always and does not separate Birmingham from the Black Country"
 
 [engine]
 reader = "espeak:gmw/en-GB-x-gbcwmd"

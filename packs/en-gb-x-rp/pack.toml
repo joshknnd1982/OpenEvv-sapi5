@@ -10,9 +10,15 @@ kind = "dialect"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice gmw/en-GB-x-rp"]
+variety = "Received Pronunciation, the non-regional standard accent of England used as the reference for British English"
+region = "England, mainly the south-east"
+speaker_group = "a minority of English speakers, mostly middle- or upper-class and privately educated, familiar from BBC announcers; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice gmw/en-GB-x-rp", "roach2004"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
 licence = "per NOTICE.md"
-note = "imported from languages/en-gb-x-rp"
+note = "imported from languages/en-gb-x-rp; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the voice merges FORCE into NORTH, makes final unstressed /ɪ/ tense and opens final schwa: closer to a modern southern standard than to Roach's conservative RP (which keeps /ʊə/)"
 
 [engine]
 reader = "espeak:gmw/en-GB-x-rp"

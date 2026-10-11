@@ -10,8 +10,14 @@ extends = "ru"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice zle/ru-cl"]
-note = "imported from languages/ru-cl"
+variety = "eSpeak NG's 'Russian (classic)': Standard Russian with a few spelling-to-sound rules changed (l and n before soft vowels, stress of не́ был and a few words); no documented norm stands behind the name"
+region = "Russia and the former USSR, as standard Russian"
+speaker_group = "speakers of Standard Russian; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice zle/ru-cl", "yanushevskaya2015"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "imported from languages/ru-cl; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: 'classic' is not shown to be the old Moscow norm: the variant came with eSpeak NG pull request 1459 (2022) with no description; the source describes the standard and the older norms, not this variant"
 
 [engine]
 reader = "espeak:zle/ru-cl"

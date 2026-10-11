@@ -10,8 +10,14 @@ extends = "ru"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice zle/ru-LV"]
-note = "imported from languages/ru-lv"
+variety = "Russian as spoken in Latvia, modelled with features of Latvian influence"
+region = "Latvia"
+speaker_group = "Russian speakers in Latvia, first-language Russian speakers and Latvians speaking Russian; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice zle/ru-LV", "balsaityte2002"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "imported from languages/ru-lv; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: WEAK SOURCE: a perception study of Latvian listeners, not a description of Latvian Russian speech; it fits the voice's rules (м hard before soft vowels, щ a hard long [ʃː], л as Latvian ļ) only indirectly"
 
 [engine]
 reader = "espeak:zle/ru-LV"

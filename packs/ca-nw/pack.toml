@@ -10,8 +10,14 @@ extends = "ca"
 format = 1
 
 [meta]
-sources = ["eSpeak NG voice roa/ca-nw"]
-note = "imported from languages/ca-nw"
+variety = "North-western Catalan, the western Catalan of Lleida and its area"
+region = "western Catalonia (Lleida), Andorra and the Catalan-speaking strip of eastern Aragon (the Franja)"
+speaker_group = "Catalan speakers of western Catalonia, Andorra and the Franja; nothing in this pack was measured from speakers: its sounds are eSpeak NG's reading"
+sources = ["eSpeak NG voice roa/ca-nw", "valls2018"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "imported from languages/ca-nw; [meta] filled in Phase 8 (Q41, D91) from the sources named, opened 2026-10-11. Doubts: the voice's rules are eSpeak NG's general western ones (ca-va shares them), so it is generic Western Catalan rather than Lleida speech; whether it says final unstressed -a as [ɛ] was not checked"
 
 [engine]
 reader = "espeak:roa/ca-nw"
