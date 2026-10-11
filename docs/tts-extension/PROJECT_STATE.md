@@ -4,7 +4,7 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 10 (Release): COMPLETE (2026-10-11, twenty-fourth session)** on branch `tts-ext/phase-10`, Opus 5.5. Decision D95; `LICENCE_AUDIT.md`; release **1.3.0** built (`output\OpenEVV-SAPI5-Setup-1.3.0.exe`, not installed, not published). **Next: Phase 11 (Cleanup)**, in a new session, after the human has tested the installer and answered the merge question (`HUMAN_ANSWERS.md`, Phase 10). R20 ends with this phase: Phase 11 may clean, item by item, each after the human's yes.
+**Phase 10 (Release): COMPLETE (2026-10-11, twenty-fourth session)** on branch `tts-ext/phase-10`, Opus 5.5. Decision D95; `LICENCE_AUDIT.md`; release **1.3.0** built (`output\OpenEVV-SAPI5-Setup-1.3.0.exe`, not installed, not published). **Next: Phase 11 (Cleanup)**, in a new session, after the human has tested the installer. `main` holds Phase 10 (the human said yes to the merge). R20 ends with this phase: Phase 11 may clean, item by item, each after the human's yes.
 
 **Phase 9 (Completion review): COMPLETE (2026-10-11, twenty-third session)** on branch `tts-ext/phase-9`, Fable 5.1. Decisions D93 (the reference lookup, Q46) and D94; the report `COMPLETION_REVIEW_PHASE9.md`; the trials `trials/`; `LANGUAGE_STATUS.md` regenerated on the staged golden.
 
@@ -57,7 +57,7 @@ Phase 8's summary follows for the record; "The whole project so far" below is up
 | 2 licences | **done**: `engine/check_licences.py`, `LICENCE_AUDIT.md`, 134 SPDX headers, NOTICE.md and CREDITS.md in line; the GPL source offer holds (`git ls-remote`: `refs/tags/openevv-1.2.0^{}` at `1eadf12`) |
 | 2b README and guides | **done**: README "What is new in 1.3.0", packs, engine, what did not change, native speakers; `engine/check_readme.py` (in the doctor); the guides' stale counts and two broken commands fixed; the three worked examples re-run after the final build (every printed figure as the guide has it) |
 | 3 commits, push, fresh clone | **done**: seven commits by path, nothing staged of 50 MB or model-like, no blob over 30 MB; pushed (every `tts-ext/*` branch equal to `origin`); the fresh clone (outside OneDrive) holds the playbook, every handoff file, `IPA_Kiel.pdf`, the table, 394 proofs, the harness, no model, 1,031,204,340 bytes, and `cmake` configures it (D95) |
-| 3.5 merge into `main` | asked at the pause (`HUMAN_ANSWERS.md`) |
+| 3.5 merge into `main` | **done**: the human said yes (`HUMAN_ANSWERS.md`); `main` fast-forwarded from `10542ae` to the phase branch and pushed (not forced) |
 | R15 | the `tts-reviewer` agent: seven findings (README's licence bullet claimed MIT for everything outside three folders; "every one a consonant" against 1,133 + 3; stale 145/162 counts and `LANGUAGE-REPORT.md`; outputs not yet shown; `check_readme --commands` missed scripts named in command lines; REFERENCES and LANGUAGE_STATUS notes stale; CC0 sentences in MIT files): each fixed or answered (D95), the installer rebuilt after; not re-reviewed |
 
 Raw outputs of this phase (logs in `%USERPROFILE%\OpenEvvBuild-ttsext\`: `build_all_p10_release.log`, `golden_p10_shipped.log`, `diag_p10_compare.log`, `coverage_p10.log`, `doctor_p10_final_quick.log`):
@@ -94,7 +94,7 @@ Raw outputs of this phase (logs in `%USERPROFILE%\OpenEvvBuild-ttsext\`: `build_
 
 - **Ask before deleting anything** (R20 ends with this phase, but every deletion still waits for the human's yes). Candidates: the build trees outside the repository (`%USERPROFILE%\OpenEvvBuild-ttsextuild*`, `stage-dev-*` copies, the logs), `%TEMP%\OpenEvvTests`, the Whisper model (3.09 GB), the venv, `pre-release-1.2.4` (1.2.4's files, also in git), `packs-proposed/fi-x-evvtrial` (a TEST copy), the untracked `results/diag-compare.json` and `diag-golden.json` (overwritten in Phase 10 by this phase's own runs of the same tools), and the old sessions.
 - **The installer to keep**: `output\OpenEVV-SAPI5-Setup-1.3.0.exe`, SHA-256 above; `output/` is git-ignored.
-- The merge of `tts-ext/phase-10` into `main` is the human's answer at the Phase 10 pause.
+- `main` holds everything of Phases 0 to 10 (merged at the human's yes); Phase 11 works on `tts-ext/phase-11` cut from it.
 
 ## Phase 9 at its end
 
