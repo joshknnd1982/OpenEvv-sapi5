@@ -1,0 +1,41 @@
+test_a_pack_found_only_there_extends_a_shipped_one (__main__.ExtraFolder) ... ok
+test_packs_of_packs_wins (__main__.ExtraFolder) ... ok
+test_a_remove_of_a_key_the_parent_lacks_stops_the_build (__main__.Inheritance) ... ok
+test_cycle_missing_parent_and_unknown_things_stop_the_build (__main__.Inheritance) ... ok
+test_disagreeing_files_stop_the_build (__main__.Inheritance) ... ok
+test_lines_replace_in_place_insert_after_and_remove (__main__.Inheritance) ... ok
+test_remove_dotted_key (__main__.Inheritance) ... ok
+test_reset_drops_everything_inherited (__main__.Inheritance) ... ok
+test_tables_merge_key_by_key_and_plain_values_replace (__main__.Inheritance) ... ok
+test_the_parent_is_not_changed_by_its_child (__main__.Inheritance) ... ok
+test_two_lines_of_one_key_stop_the_build (__main__.Inheritance) ... ok
+test_a_fault_keeps_its_legacy_line_marked (__main__.Master) ... ok
+test_a_legacy_pack_is_not_touched_and_native_and_template_packs_are_refused (__main__.Master) ... ok
+test_a_master_pack_built_twice_is_identical (__main__.Master) ... ok
+test_an_override_still_applies_on_top (__main__.Master) ... ok
+test_every_phoneme_is_said_by_the_table_and_none_is_silent (__main__.Master) ... ok
+test_the_check_passes_a_good_pack_and_fails_a_silent_phoneme (__main__.Master) ... ok
+test_two_phonemes_the_table_says_alike_are_kept_apart (__main__.Master) ... ok
+test_a_child_changes_only_the_fields_it_names (__main__.Overrides) ... ok
+test_a_ratio_out_of_range_stops_the_build (__main__.Overrides) ... ok
+test_a_value_without_provenance_or_recordings_stops_the_build (__main__.Overrides) ... ok
+test_applied_overrides_are_built (__main__.Overrides) ... ok
+test_proposed_overrides_reach_only_a_scratch_build (__main__.Overrides) ... ok
+test_a_line_that_will_not_round_trip_is_kept_as_it_is (__main__.RoundTrip) ... ok
+test_each_line_kind_survives_in_both_map_formats (__main__.RoundTrip) ... ok
+test_ini_round_trip_with_crlf (__main__.RoundTrip) ... ok
+test_every_pack_builds_to_the_folder_it_came_from (__main__.Shipped) ... ok
+test_a_changed_value_in_a_copy_is_seen (__main__.Teeth) ... ok
+test_a_child_that_inherits_is_the_parent_built_over (__main__.Teeth) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 21.429s
+
+OK
+packs checked: 1; files compared: 4 (37113 bytes); by realization: legacy 1
+check: every file identical to languages/
+master check: 1 packs at realization "master"; every one builds, no phoneme silent
+FAIL mp: @mp:x (a test fault) is said as nothing
+master check: 1 packs at realization "master"; 1 FAILED
+packs checked: 163; files compared: 601 (5700048 bytes); by realization: legacy 146, module 17
+check: every file identical to languages/

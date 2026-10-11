@@ -1,0 +1,49 @@
+ab: 117 cases, 0 with frames identical to the legacy golden; 24 cases whose sound moved
+    voicing between vowels before: p +28 / b -79 ms; t +26 / d -95 ms
+    voicing between vowels after: p +20 / b -84 ms; t +20 / d -90 ms
+    F1         6 moved, median +15.6 %, largest +50.5
+    F2         8 moved, median +25.0 %, largest +62.1
+    VOT        4 moved, median +70.0 ms, largest +130.0
+    centroid  11 moved, median +14.9 %, largest +66.0
+| Pack | Template | Check A before | Check A after | Check B before / after | CER before | CER after | Cases | Sounds moved (cases) | Largest moves |
+|---|---|---|---|---|---|---|---|---|---|
+| ab | dedx | pass (A0 0, A1 0 silent, A2 643/650) | pass (A0 0, A1 0 silent, A2 622/625) | too few 2/4 / too few 1/4 | ASR unavailable | ASR unavailable | 117 (0 frames identical) | 24 | s|dzw d VOT -120 -> 10; s|J d VOT -80 -> 10; s|dw d VOT -140 -> -90 |
+hi: 189 cases, 0 with frames identical to the legacy golden; 66 cases whose sound moved
+    voicing between vowels before: p +8 / b -80 ms; t +20 / d -95 ms; k +12 / g +0 ms MERGED
+    voicing between vowels after: p +18 / b +18 ms MERGED; t +18 / d +8 ms MERGED; k +28 / g -100 ms
+    F1        25 moved, median +21.6 %, largest +376.4
+    F2        36 moved, median +19.0 %, largest +64.5
+    VOT        8 moved, median +93.0 ms, largest +103.0
+    centroid  18 moved, median +23.2 %, largest +120.8
+bn: 192 cases, 0 with frames identical to the legacy golden; 45 cases whose sound moved
+    F1        21 moved, median -10.9 %, largest +124.5
+    F2        26 moved, median -21.6 %, largest -42.6
+    centroid  12 moved, median +11.3 %, largest +35.7
+sw: 134 cases, 0 with frames identical to the legacy golden; 24 cases whose sound moved
+    voicing between vowels before: t +14 / d -68 ms
+    F1         6 moved, median +23.5 %, largest +38.9
+    F2         9 moved, median +10.4 %, largest +41.0
+    centroid  14 moved, median +31.2 %, largest +225.5
+nl-be: 154 cases, 0 with frames identical to the legacy golden; 43 cases whose sound moved
+    voicing between vowels before: p +34 / b -79 ms; t +22 / d -95 ms; k +28 / g +28 ms MERGED
+    voicing between vowels after: p +18 / b +18 ms MERGED; t +18 / d -14 ms; k +28 / g -100 ms
+    F1        12 moved, median +18.5 %, largest +327.8
+    F2        14 moved, median +13.9 %, largest +62.3
+    VOT        6 moved, median +85.5 ms, largest -128.0
+    centroid  20 moved, median +23.4 %, largest +200.9
+| Pack | Template | Check A before | Check A after | Check B before / after | CER before | CER after | Cases | Sounds moved (cases) | Largest moves |
+|---|---|---|---|---|---|---|---|---|---|
+| hi | dedx | pass (A0 0, A1 0 silent, A2 871/882) | pass (A0 0, A1 0 silent, A2 1012/1023) | too few 4/5 / too few 3/5 | 0.307 | 0.562 | 189 (0 frames identical) | 66 | n|n. n F1 208 -> 990; s|d d VOT -95 -> 8; s|d. d VOT -95 -> 8 |
+| bn | itix | pass (A0 0, A1 0 silent, A2 1204/1210) | pass (A0 0, A1 0 silent, A2 1204/1206) | too few 2/4 / too few 4/5 | 0.401 | 0.512 | 192 (0 frames identical) | 45 | n|n. n F1 252 -> 566; v|E~ E F1 275 -> 410; v|u: u F2 1133 -> 650 |
+| sw | esex | pass (A0 0, A1 0 silent, A2 843/843) | pass (A0 0, A1 0 silent, A2 758/837) | too few 3/5 / too few 3/5 | 0.198 | 0.429 | 134 (0 frames identical) | 24 | f|f f centroid 810 -> 2636; f|T T centroid 1074 -> 2534; f|z z centroid 1899 -> 3153 |
+| nl-be | dedx | pass (A0 0, A1 0 silent, A2 889/890) | pass (A0 0, A1 0 silent, A2 877/889) | too few 4/5 / too few 1/5 | 0.293 | 0.651 | 154 (0 frames identical) | 43 | n|n. n F1 216 -> 925; s|g g VOT 28 -> -100; s|d[ d VOT -95 -> 6 |
+cmn: 375 cases, 0 with frames identical to the legacy golden; 112 cases whose sound moved
+    voicing between vowels before: t +12 / d -140 ms; k +20 / g -86 ms
+    voicing between vowels after: p +14 / b -94 ms; t +6 / d -80 ms; k +22 / g -90 ms
+    F1        45 moved, median -13.9 %, largest +230.6
+    F2        53 moved, median +16.7 %, largest +60.5
+    VOT        9 moved, median +60.0 ms, largest +90.0
+    centroid  35 moved, median +14.4 %, largest +41.5
+| Pack | Template | Check A before | Check A after | Check B before / after | CER before | CER after | Cases | Sounds moved (cases) | Largest moves |
+|---|---|---|---|---|---|---|---|---|---|
+| cmn | dedx | FAIL (A0 0, A1 0 silent, A2 1983/2367) | pass (A0 0, A1 0 silent, A2 2088/2131) | too few 0/10 / too few 2/10 | 0.656 | 0.718 | 375 (0 frames identical) | 112 | n|n. n F1 169 -> 558; n|n.|en n F1 169 -> 558; s|dZ; d VOT -90 -> 0 |

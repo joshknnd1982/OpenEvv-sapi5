@@ -1,0 +1,82 @@
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py ab --golden C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot\before_ab.json --asr
+ab       ASR unavailable: Whisper large-v3 has no language for this tag
+ab (Abkhaz): 117 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 471, silent 0; formant and F0 checks 643 of 650
+    s|C: a F1 measured 1479.92, frames 568.0
+    s|C: a F2 measured 2463.04, frames 1490.0
+    s|C: a F0 measured None, frames 110.88
+    s|E: a F0 measured None, frames 111.5
+    s|c: a F0 measured None, frames 110.88333333333333
+    s|cw: a F1 measured 720.61, frames 621.0
+    s|cw: a F0 measured None, frames 110.73333333333332
+check B: too few references (2/4 in range); references for 0 vowels; 3 needed
+ASR: ASR unavailable (Whisper large-v3 has no language for this tag)
+phonemes with no phone of their own: 2 f|h f|hw
+level: 2 engine-verified; failure layer: none
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py hi --golden C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot\before_hi.json --asr
+hi       CER 0.307  WER 0.700  (8 sentences, cuda/float16, 11 s)
+hi (Hindi): 189 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 680, silent 0; formant and F0 checks 871 of 882
+    s|?: a F0 measured 134.04, frames 123.4857142857143
+    s|J#: a F0 measured 125.53, frames 118.4625
+    s|b#: a F0 measured 125.08, frames 118.575
+    s|c#: a F0 measured None, frames 112.92
+    s|d#: a F0 measured 126.3, frames 118.4625
+    s|d.#: a F0 measured 126.32, frames 118.4625
+    s|g#: a F0 measured 124.42, frames 118.3875
+    s|p#: a F0 measured None, frames 113.21666666666667
+    s|t#: a F0 measured None, frames 113.5
+    v|a~: a F1 measured 1156.95, frames 641.0
+check B: too few references (4/5 in range); references for 0 vowels; 3 needed
+ASR: CER 0.31 WER 0.70
+phonemes with no phone of their own: 3 f|H f|h s|?
+level: 2 engine-verified; failure layer: unknown
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py bn --golden C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot\before_bn.json --asr
+bn       CER 0.401  WER 0.879  (8 sentences, cuda/float16, 15 s)
+bn (Bengali): 192 golden cases; module itix
+check A: pass; substituted 0; phones meant to sound 691, silent 0; formant and F0 checks 1204 of 1210
+    s|J#: a F0 measured 120.29, frames 114.4625
+    s|b#: a F0 measured 121.18, frames 114.2875
+    s|d#: a F0 measured 120.32, frames 114.4625
+    s|d.#: a F0 measured 120.31, frames 114.4625
+    s|g#: a F0 measured 121.41, frames 114.05
+    v|O~: c F1 measured 513.1, frames 600.0
+check B: too few references (2/4 in range); references for 0 vowels; 3 needed
+ASR: CER 0.40 WER 0.88
+phonemes with no phone of their own: 3 f|H f|h s|?
+level: 2 engine-verified; failure layer: unknown
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py cmn --golden C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot\before_cmn.json --asr
+cmn      CER 0.656  WER   -    (8 sentences, cuda/float16, 11 s)
+cmn (Chinese (Mandarin, latin as English)): 375 golden cases; module dedx
+check A: FAIL; substituted 0; phones meant to sound 1376, silent 0; formant and F0 checks 1983 of 2367
+    s|?: a F2 measured 2586.95, frames 1136.0
+    s|?|en: a F2 measured 2586.95, frames 1136.0
+    s|c: a F2 measured 3118.36, frames 1136.0
+    s|c|en: a F2 measured 3118.36, frames 1136.0
+    s|p: a F2 measured 1457.82, frames 1136.0
+    s|ph: a F2 measured 3022.43, frames 1136.0
+    s|ph: a F0 measured 79.34, frames 158.4625
+    s|p|en: a F2 measured 1457.82, frames 1136.0
+    s|t: a F2 measured 1557.66, frames 1136.0
+    s|t#|en: a F2 measured 1557.66, frames 1136.0
+check B: too few references (0/10 in range); references for 0 vowels; 3 needed
+ASR: CER 0.66
+phonemes with no phone of their own: 4 f|h f|h|en s|? s|?|en
+level: 1 draft; failure layer: phoneme values
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py sw --golden C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot\before_sw.json --asr
+sw       CER 0.198  WER 0.750  (8 sentences, cuda/float16, 6 s)
+sw (Swahili): 134 golden cases; module esex
+check A: pass; substituted 0; phones meant to sound 536, silent 0; formant and F0 checks 843 of 843
+check B: too few references (3/5 in range); references for 0 vowels; 3 needed
+ASR: CER 0.20 WER 0.75
+phonemes with no phone of their own: 2 f|h s|?
+level: 2 engine-verified; failure layer: unknown
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py nl-be --golden C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot\before_nl-be.json --asr
+nl-be    CER 0.293  WER 0.597  (8 sentences, cuda/float16, 7 s)
+nl-be (Dutch (Southern Standard, Flanders)): 154 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 580, silent 0; formant and F0 checks 889 of 890
+    v|A~: O F1 measured 317.44, frames 554.0
+check B: too few references (4/5 in range); references for 0 vowels; 3 needed
+ASR: CER 0.29 WER 0.60
+phonemes with no phone of their own: 2 f|h s|?
+level: 2 engine-verified; failure layer: unknown

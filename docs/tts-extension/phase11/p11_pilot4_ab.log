@@ -1,0 +1,22 @@
+==== round 1: ab
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\packs\to_master.py ab --out C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\packs --faults C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\faults.json --report C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\to_master_round1.json
+ab (dedx): table 82, composed 93, created 81, fallback 0, kept apart 0, said as nothing 3; 168 sound lines (0 legacy lines kept)
+    changed against the legacy lines: 255 of 259 (carrier changed 86); largest formant move +149%: @ab:n F1 245 -> 610 Hz on n (n)
+    lines with a deviation the adapter could not realise: 25; readings: 12; problems: 0
+to_master: 1 packs: table 82, composed 93, created 81, fallback 0, kept apart 0, said as nothing 3; problems 0; refused 0
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\packs\build_packs.py build C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\stage\languages --root C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\packs ab
+ab                     language.ini b8367ec214, sounds.map 62f75d1d13, phonemes.map 531cf855f5, sample.txt 97124b7fc5
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden.py --record --golden C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\golden ab
+modules: staged in C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\stage, else shipped; golden: ..\..\..\..\..\..\..\OpenEvvBuild-ttsext\p11-pilot4\golden
+ab       117 cases  0 errors  0 not covered   20.8 s
+recorded 1 packs in 22 s; 0 not recorded
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py ab --golden C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot4\after_ab.json
+ab (Abkhaz): 117 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 441, silent 0; formant and F0 checks 622 of 625
+    s|k: A F0 measured None, frames 107.32000000000001
+    s|kj: A F0 measured None, frames 107.32000000000001
+    s|kw: A F0 measured None, frames 107.32000000000001
+check B: too few references (1/4 in range); references for 0 vowels; 3 needed
+ASR: ASR unavailable (Whisper large-v3 has no language for this tag)
+phonemes with no phone of their own: 2 f|h f|hw
+level: 2 engine-verified; failure layer: none

@@ -17,6 +17,7 @@ generator wrote, kept as data; M4 of DESIGN.md 11.3 turns them into master-table
     [sounds] / [phonemes]   line = [...] the records of sounds.map / phonemes.map (engine/packs/packfmt.py)
     [sample]    text
     [[override]]  a sound's target moved, every value with its provenance (engine/packs/overrides.py)
+    [master]    for realization = "master": ipa, kind, reading, fallback, note (engine/packs/master.py)
     remove      a list of dotted keys to delete from what the parent gave
     remove_overrides  a list of sounds whose inherited override is dropped
 
@@ -43,7 +44,11 @@ FORMAT = 1
 KINDS = ("language", "dialect", "accent")
 REALIZATIONS = ("legacy", "master", "module")
 TOP = {"pack", "meta", "engine", "files", "ini", "sounds", "phonemes", "sample", "remove", "override",
-       "remove_overrides"}
+       "remove_overrides", "master"}
+# realization = "master" (engine/packs/master.py, written by engine/packs/to_master.py): each eSpeak NG
+# phoneme's IPA as its table states it, v or c where its table says vowel or not, the reading used where
+# eSpeak NG's own phoneme file says more than its IPA, and the phonemes kept on their legacy lines (a fault)
+MASTER_KEYS = {"ipa", "kind", "reading", "fallback", "note"}
 PACK_KEYS = {"tag", "name", "kind", "extends", "format"}
 META_KEYS = {"variety", "region", "speaker_group", "sources", "recordings", "date", "licence", "status", "note"}
 ENGINE_KEYS = {"reader", "template", "realization"}
@@ -166,6 +171,12 @@ def read_pack(tag, root=None):
     sounds = [o["sound"] for o in ovs]
     if len(set(sounds)) != len(sounds):
         raise PackError("%s: two overrides of one sound" % where)
+    m = d.get("master", {})
+    if set(m) - MASTER_KEYS:
+        raise PackError("%s: unknown [master] keys %s" % (where, sorted(set(m) - MASTER_KEYS)))
+    for k in MASTER_KEYS - {"note"}:
+        if not all(isinstance(v, str) for v in (m.get(k) or {}).values()):
+            raise PackError("%s: [master.%s] maps a phoneme to a string" % (where, k))
     if set(d.get("sample", {})) - {"text"}:
         raise PackError("%s: [sample] holds only text" % where)
     for sec, t in d.get("ini", {}).items():
@@ -260,7 +271,7 @@ def resolve(tag, root=None):
     for d in chain_of(tag, root):
         t = d["pack"]["tag"]
         where = "pack %r" % t
-        for sec in ("pack", "meta", "engine", "files", "ini", "sample"):
+        for sec in ("pack", "meta", "engine", "files", "ini", "sample", "master"):
             if sec in d:
                 _merge_table(flat.setdefault(sec, {}), d[sec], [sec], origin, t)
         for sec in ("sounds", "phonemes"):
@@ -319,6 +330,12 @@ def compile_pack(flat, include_proposed=False):
     """-> {file name: bytes}. Overrides with state "applied" are realised into sounds.map; with
     include_proposed, the "proposed" ones too (a scratch build to measure them, never languages/)."""
     check_flat(flat)
+    if flat.get("engine", {}).get("realization") == "master":
+        import master as M
+        try:
+            flat, _ = M.realize(flat)
+        except M.MasterError as x:
+            raise PackError(str(x))
     if flat.get("override"):
         flat = copy.deepcopy(flat)
         try:

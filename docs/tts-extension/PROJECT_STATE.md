@@ -4,6 +4,8 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
+**Phase 11 (The IPA generator and a pilot): COMPLETE (2026-10-11, twenty-fifth session)** on branch `tts-ext/phase-11`, Opus 5.5. Decision D96; the master path `engine/packs/master.py`, the tool `engine/packs/to_master.py`; the pilot `docs/tts-extension/phase11/` (pilot.py, compare.py, raw outputs); Q52 to Q55 put to the human in chat and answered (`HUMAN_ANSWERS.md`). Nothing in `packs/`, `languages/` or `dist/` changed. **Next: Phase 12 (switch every language read by eSpeak NG)**, in a new session, starting with the three table fixes the human chose for its start: Q55 (voiced stops), Q53 (per-template carriers), Q52 (ʱ).
+
 **Phase 10 (Release): COMPLETE (2026-10-11, twenty-fourth session)** on branch `tts-ext/phase-10`, Opus 5.5. Decision D95; `LICENCE_AUDIT.md`; release **1.3.0** built (`output\OpenEVV-SAPI5-Setup-1.3.0.exe`, not installed, not published). **Next: Phase 11 (the IPA generator and a pilot)**, in a new session: the human added Phases 11 to 13 after this phase's pause (switch every language read by eSpeak NG to the IPA sounds, then release 1.4.0 on GitHub; `HUMAN_ANSWERS.md`, "after Phase 10"), and cleanup is Phase 14. R20 now holds until Phase 13 is complete. `main` holds Phase 10 (the human said yes to the merge).
 
 **Phase 9 (Completion review): COMPLETE (2026-10-11, twenty-third session)** on branch `tts-ext/phase-9`, Fable 5.1. Decisions D93 (the reference lookup, Q46) and D94; the report `COMPLETION_REVIEW_PHASE9.md`; the trials `trials/`; `LANGUAGE_STATUS.md` regenerated on the staged golden.
@@ -31,8 +33,8 @@ Phase 8's summary follows for the record; "The whole project so far" below is up
 | 8 Skills | six skills, the reviewer agent, the doctor, `ADDING_A_LANGUAGE.md` with three worked examples, the 25 dialect packs documented, CS-0076 ɓ̥ | complete 2026-10-11 |
 | 9 Completion review | Fable 5.1: the full doctor (0 FAILED), the chart re-researched (0 differences), a fresh sweep of every symbol (proofs identical), two trials by fresh helpers (fi-x-evvtrial, nl-be; 22 doc gaps fixed), ASR re-run and the status regenerated on the staged golden, the reference lookup ruled (D93), the R18 report (nothing replaced, nothing retired) | complete 2026-10-11 |
 | 10 Release | 1.3.0: the staged template modules shipped (the human's say-so after the golden difference was shown), Belgian Dutch shipped (Q50), version bump and changelog, two full builds with every test, the licence audit (`check_licences.py`, 0 unclassified) and SPDX headers, README and guides (step 2b, `check_readme.py`), the worked examples re-run, golden of what ships against `golden-staged`, the fresh-clone check | complete 2026-10-11 |
-| 11 IPA generator | build the master path of the pack compiler (`to_master.py`) and pilot it on six packs (the human's order, 2026-10-11) | **next** |
-| 12 Switch all | every language read by eSpeak NG, its dialects and accents, to the IPA table's sounds; measure all; the ten native languages untouched | to do |
+| 11 IPA generator | the master path of the pack compiler (`master.py`, `to_master.py`), piloted on six packs: check A passes on all six with no fallback, recognition worse in all five scored (D96); Q52 to Q55 answered | complete 2026-10-11 |
+| 12 Switch all | first the table fixes Q55, Q53, Q52; then every language read by eSpeak NG, its dialects and accents, to the IPA table's sounds; measure all; the ten native languages untouched | **next** |
 | 13 Release 1.4.0 | installer, README, commit, push, merge, GitHub release | to do |
 | 14 Cleanup | free the disk, item by item with the human's yes (R20 holds until Phase 13 is complete) | to do |
 
@@ -47,6 +49,44 @@ Phase 8's summary follows for the record; "The whole project so far" below is up
 **How work is done from now on**: `ADDING_A_LANGUAGE.md` and the slash commands `/add-language`, `/add-dialect`, `/add-accent`, `/improve-language`, `/diagnose-language`, `/create-missing-sound` (each names its model and effort and ends with the `tts-reviewer` agent; a session started after Phase 8 has that agent type loaded, this one did not). Start every session with `engine\doctor.py --quick`. New packs wait in `packs-proposed/`; tests and worked examples live in `docs/tts-extension/examples/` (TEST, never shipped).
 
 **Open for Phase 9 and after** (`OPEN_QUESTIONS.md`): Q46 (check B's lookup lends one dialect's references to its siblings: rule on it, then regenerate `LANGUAGE_STATUS.md`); Q45 (Swahili's vowel-to-vowel junctions, a proposed fix); Q40 (VOT on natural speech); Q41 answered (D91); Q42 (Scottish next steps); Q15 (439 estimated values to verify); Q38, Q39 (for the expert review); the Phase 6 "Needs escalation" list (tonal languages to Fable; heavy allophony to Opus). Native speakers come after Phase 9 (D82).
+
+## Phase 11 at its end
+
+| Playbook Phase 11 step | State |
+|---|---|
+| 1 read first | **done**: DESIGN.md 3.3, 11.3, 12; adapter, reader, compose, packlib, sounds.py, mapwriter, espeak_phonemes, docs/SOUNDS.md; eSpeak NG's own phoneme sources (`phsource`) for the "two readings" |
+| 2 the master path of the pack compiler | **done**: `engine/packs/master.py`; `[master]` in the pack format (ipa, kind, reading, fallback, note); `compile_pack` runs it before the overrides; the rules (kept from the old generator, readings, composition, contrasts) in D96 |
+| 3 fallback only on fault | **done**: `legacy-fallback` with the reason in the map line and the report; A0/A1 faults from check A fed back by `--faults`; A2 misses and hypotheses are not faults |
+| 4 the tool | **done**: `engine/packs/to_master.py <tag ...> \| --all [--dry-run] [--out DIR] [--faults FILE] [--report FILE]`, `--check [--root DIR]`; refuses native and template packs; per-pack report with the R21f counts, fallbacks with reasons, deviations, sounds changed and the largest move; `build_packs.py build <out> --root DIR` builds scratch copies |
+| 5 tests, doctor | **done**: `test_packs.py` class `Master`, 7 tests (built twice identical; legacy pack untouched; native and template refused; override on top; fault kept on its legacy line; contrast kept apart; nothing silent; the check fails a silent phoneme); doctor step `master` (`to_master.py --check`) |
+| 6 pilot of six | **done**: ab, hi, bn, cmn, sw, nl-be (templates dedx, itix, esex); check A passes on all six with no fallback (cmn passes where its legacy lines failed, Q48); CER worse in all five Whisper scores (hi 0.31 -> 0.56, bn 0.40 -> 0.51, cmn 0.66 -> 0.72, sw 0.20 -> 0.43, nl-be 0.29 -> 0.65); the table in D96 |
+| 7 D96, state, R15, commit, push | D96 written; R15 by the `tts-reviewer` agent (no blocking finding; two to fix and four minor, all fixed, D96); committed by path and pushed at the pause |
+| (found on the way) | the harness rendered a shipped pack's phoneme cases from `languages/` even with a staged pack (`engine.py`): fixed; the first pilot run is void (D96) |
+
+Raw outputs of this phase (copies in `docs/tts-extension/phase11/`; originals and the scratch folders in `%USERPROFILE%\OpenEvvBuild-ttsext\`: `p11-pilot` (void), `p11-pilot2` (stopped), `p11-pilot3`, `p11-pilot4`, logs `p11_*.log`, `doctor_p11_*.log`):
+
+    to_master.py ab hi bn cmn sw nl-be --out ... (p11_pilot3_master.log):
+        to_master: 6 packs: table 669, composed 635, created 521, fallback 0, kept apart 0, said as nothing 38; problems 0; refused 0
+    to_master.py cmn ab hi bn sw nl-be --dry-run (the final code, after R15):
+        to_master: 6 packs (dry run, nothing written): table 666, composed 638, created 520, fallback 0, kept apart 1, said as nothing 38; problems 0; refused 0
+    to_master.py --all --dry-run (p11_all_dry_final.log):
+        to_master: 146 packs (dry run, nothing written): table 17171, composed 14608, created 12264, fallback 8, kept apart 19, said as nothing 980; problems 0; refused 0
+    doctor --quick (p11_doctor_quick.log, the final code): doctor: 20 checks, 20 passed, 0 warnings, 0 FAILED (none), 78 s
+    test_packs.py (p11_test_packs.log): Ran 29 tests, OK
+    to_master.py --check --root p11-pilot3\packs:  master check: 6 packs at realization "master"; every one builds, no phoneme silent
+    check_language.py (p11_pilot_legacy.log, p11_pilot3_master.log, p11_pilot4_ab.log, p11_pilot5_cmn.log): check A before / after
+        ab pass 643/650 / pass 622/625; hi pass 871/882 / pass 1012/1023; bn pass 1204/1210 / pass 1204/1206;
+        cmn FAIL 1983/2367 / pass 2088/2131; sw pass 843/843 / pass 758/837; nl-be pass 889/890 / pass 877/889
+    compare.py (p11_compare.log): voicing between vowels after, hi: p +18 / b +18 ms MERGED; t +18 / d +8 ms MERGED;
+        nl-be: p +18 / b +18 ms MERGED (Q55)
+
+### For Phase 12 (read first)
+
+- **Start with the three table fixes the human chose** (HUMAN_ANSWERS.md, during Phase 11): Q55 the voiced stops (b d between vowels measure like p t in hi and nl-be; voicing through the closure with a lead, proved by the sound measured on every template); Q53 per-template carriers for the entries chosen for dedx (r ɾ on esex and itix, and the entries naming X x E where a template has no measurement); Q52 a ʱ entry (breathy release). Each in the table (R21b, c), proved, then the dry run again.
+- **Then the switch**: `to_master.py --all` writes `realization = "master"` into packs/ (the human's order; no per-language say-so needed, every difference shown). Before it, `to_master.py --all --dry-run` gives the counts to compare with D96's. The 8 fallbacks of the dry run (`ʰcFʀ` in fr and ht; Portuguese `I` with an empty IPA) and the 19 kept apart (D96) each need a reading, a table entry or Q53's fix, or stay recorded. The doctor's `master` step checks 0 packs until packs are switched.
+- **Measure**: `pilot.py <scratch> <tags>` builds into a scratch stage, records, checks A and runs ASR; `compare.py` gives before and after and the voicing line. The harness now describes a staged eSpeak NG pack by its staged files (engine.py); any scratch stage of a shipped pack is measured as built.
+- **Packs not to touch**: the ten native and the seven template packs (to_master refuses them).
+- **Uncommitted, not mine**: `harness/results/diag-compare.json`, `diag-golden.json` (left alone, as before).
 
 ## Phase 10 at its end
 

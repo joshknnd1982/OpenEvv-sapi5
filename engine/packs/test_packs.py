@@ -251,6 +251,127 @@ class Overrides(unittest.TestCase):
         self.assertRaises(L.PackError, L.compile_pack, flat)
 
 
+MASTER_LINES = '''  { kind = "map", name = "@mp:a", to = "a=s1", note = "a" },
+  { kind = "map", name = "@mp:a2", to = "a=s2", note = "a" },
+  { kind = "map", name = "@mp:k", to = "k", note = "k" },
+  { kind = "map", name = "@mp:x", to = "x=s2", note = "x" },
+  { kind = "map", name = "@mp:ts", to = "T", note = "ts" },
+  { kind = "map", name = "ː", to = "-" },
+  { kind = "map", name = "a", to = "a=s1" },'''
+
+MASTER_BLOCK = '''
+[master.ipa]
+"@mp:a" = "a"
+"@mp:a2" = "a̪"
+"@mp:k" = "kʼ"
+"@mp:x" = "x"
+"@mp:ts" = "tsʰ"
+[master.kind]
+"@mp:a" = "v"
+"@mp:a2" = "v"
+"@mp:k" = "c"
+"@mp:x" = "c"
+"@mp:ts" = "c"
+[master.fallback]
+"@mp:x" = "a test fault"
+'''
+
+MASTER = PARENT.replace('tag = "pa"', 'tag = "mp"').replace('Tag = "pa"', 'Tag = "mp"').replace(
+    'reader = "espeak:xx/pa"', 'reader = "espeak:xx/mp"').replace('Voice = "xx/pa"', 'Voice = "xx/mp"').replace(
+    'realization = "legacy"', 'realization = "master"').replace(
+    '  { kind = "map", name = "a", to = "a=s1" },\n  { kind = "map", name = "b", to = "b=s2" },',
+    MASTER_LINES) + MASTER_BLOCK
+
+
+class Master(unittest.TestCase):
+    """realization = "master" (master.py, to_master.py): the IPA master table's sounds, by rule."""
+
+    def setUp(self):
+        self.root = tempfile.mkdtemp()
+        write(self.root, "mp", MASTER)
+
+    def tearDown(self):
+        shutil.rmtree(self.root)
+
+    def build(self):
+        import master as M
+        M._memo.clear()
+        flat, _ = L.resolve("mp", self.root)
+        return L.compile_pack(flat)["sounds.map"].decode()
+
+    def lines(self, text):
+        return {w[0]: w[1] for w in (x.split(None, 1) for x in text.splitlines()) if len(w) == 2}
+
+    def sound(self, text, sid):
+        return [x for x in text.splitlines() if x.startswith("sound %s " % sid)][0]
+
+    def test_a_master_pack_built_twice_is_identical(self):
+        self.assertEqual(self.build(), self.build())
+
+    def test_every_phoneme_is_said_by_the_table_and_none_is_silent(self):
+        text = self.build()
+        got = self.lines(text)
+        for k in ("@mp:a", "@mp:k", "@mp:ts", "a"):
+            to = got[k].split("#")[0].split()
+            self.assertTrue(to and to != ["-"], k)
+            self.assertTrue(all(not w.endswith("=s1") and not w.endswith("=s2") for w in to), (k, to))
+        # the ejective, and the aspirated affricate on the template's own affricate, from the table's marks
+        self.assertRegex(text, r"(?m)^sound m\d+ .*ej=\d+.*# kʼ: U\+006B\+U\+02BC; values ")
+        self.assertRegex(got["@mp:ts"], r"^T=m\d+")
+        self.assertRegex(self.sound(text, got["@mp:ts"].split("=")[1].split()[0]), r"vot=\d+")
+        # a mark alone is said as nothing, as before
+        self.assertEqual(got["ː"].strip(), "-")
+        # every sound line names its table entries and its values' provenance
+        for x in text.splitlines():
+            if x.startswith("sound m"):
+                self.assertRegex(x, r"# .*: U\+[0-9A-F]{4}.*; values (literature|derived|measured|estimated|created|approximate) \d")
+
+    def test_a_fault_keeps_its_legacy_line_marked(self):
+        text = self.build()
+        got = self.lines(text)
+        self.assertTrue(got["@mp:x"].startswith("x=s2"))
+        self.assertIn("[legacy-fallback: a test fault]", got["@mp:x"])
+        self.assertIn("sound s2 dur=40", text)   # the legacy sound it names is kept
+
+    def test_two_phonemes_the_table_says_alike_are_kept_apart(self):
+        got = self.lines(self.build())
+        # a̪: the dental mark means nothing on a vowel, so the table says it as a; its legacy line differs
+        self.assertTrue(got["@mp:a2"].startswith("a=s2"), got["@mp:a2"])
+        self.assertIn("[kept-apart: kept apart from @mp:a", got["@mp:a2"])
+
+    def test_an_override_still_applies_on_top(self):
+        write(self.root, "mp", MASTER + (OVERRIDE % ("applied", "700.0")).replace('phonemes = ["a"]', 'phonemes = ["@mp:a"]'))
+        text = self.build()
+        got = self.lines(text)
+        phone, sid = got["@mp:a"].split()[0].split("=")
+        own = O.chassis("dedx")[phone]["f"]
+        line = self.sound(text, sid)
+        self.assertIn("f1=%d" % round(70000.0 / own[0]), line)
+        self.assertIn("(override, applied)", line)
+
+    def test_the_check_passes_a_good_pack_and_fails_a_silent_phoneme(self):
+        import to_master as TM
+        self.assertEqual(TM.check(self.root), 0)
+        write(self.root, "mp", MASTER.replace('name = "@mp:x", to = "x=s2"', 'name = "@mp:x", to = "-"'))
+        self.assertEqual(TM.check(self.root), 1)
+
+    def test_a_legacy_pack_is_not_touched_and_native_and_template_packs_are_refused(self):
+        import to_master as TM
+        with open(L.pack_path("af"), "rb") as f:
+            before = f.read()
+        tables = TM.dump_tables()
+        # a real write, into a scratch copy: packs/af is left as it was, the copy is switched
+        rep = TM.convert("af", tables, {}, {}, "2026-01-01", out=self.root)
+        self.assertGreater(rep["counts"].get("table", 0) + rep["counts"].get("composed", 0), 50)
+        with open(L.pack_path("af"), "rb") as f:
+            self.assertEqual(f.read(), before)
+        self.assertEqual(L.resolve("af", self.root)[0]["engine"]["realization"], "master")
+        import build_packs
+        self.assertEqual(build_packs.check(["af"]), 0)
+        for tag, what in (("enus", "native"), ("dedx", "template")):
+            with self.assertRaisesRegex(L.PackError, what):
+                TM.convert(tag, tables, {}, {}, "2026-01-01", dry=True)
+
 class RoundTrip(unittest.TestCase):
     def test_each_line_kind_survives_in_both_map_formats(self):
         sounds = ("# a comment\n\ntemplate dedx\naccent f0=own range=90\nwhwords first wie wat\nsays C t S\n"

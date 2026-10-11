@@ -25,7 +25,7 @@ Inheritance: overrides are keyed by `sound`; a child's override of a sound the p
 overrides changes only what it names (formant by formant); `remove_overrides = ["<sound>"]` at the
 top of a pack drops an inherited one whole.
 
-Realization ("legacy" packs): the override's hertz become a sound line of ratios against the module
+Realization ("legacy" packs, and "master" packs on top of the master path's lines): the override's hertz become a sound line of ratios against the module
 phone each listed phoneme is said with (engine/accent/chassis/<template>.json, the module's own
 phones as measured), on top of the keys of the sound line that phoneme had, under a new sound id;
 a duration becomes `dur`, the per cent of the phone's stretch that makes the vowel sound that long
@@ -129,8 +129,8 @@ def realize(flat, include_proposed=False):
     if not todo:
         return []
     tag = flat["pack"]["tag"]
-    if flat.get("engine", {}).get("realization") != "legacy":
-        raise OverrideError("pack %r: overrides are realised only for realization = \"legacy\" so far" % tag)
+    if flat.get("engine", {}).get("realization") not in ("legacy", "master"):
+        raise OverrideError("pack %r: overrides are realised only for realization = \"legacy\" or \"master\"" % tag)
     lines = flat.get("sounds", {}).get("line", [])
     template = flat["ini"]["Language"]["Template"]
     phones = chassis(template)

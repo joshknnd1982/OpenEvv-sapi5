@@ -446,7 +446,8 @@ scratch golden folder.
 |---|---|
 | Health of everything | `& $py engine\doctor.py [--quick]` |
 | Start a language pack | `& $py engine\packs\new_language.py <voice> <tag> --out packs-proposed --name "<Name>"` |
-| Move a pack to the IPA master path (R21; built in Phase 11, options in its `--help`) | `& $py engine\packs\to_master.py <tag> [--dry-run]` |
+| Move a pack to the IPA master path (R21; Phase 11). `--dry-run` writes nothing; `--out <dir>` writes a scratch copy (then `build_packs.py build <S>\languages --root <dir> <tag>`); the report gives the table / composed / created / fallback counts (R21f) | `& $py engine\packs\to_master.py <tag> [--dry-run] [--out <dir>] [--report <file.json>]` |
+| Every master pack builds, no phoneme silent (the doctor runs it) | `& $py engine\packs\to_master.py --check [--root <dir>]` |
 | Validate a pack (authenticity rules) | `& $py engine\packs\validate_packs.py <tag>` |
 | Build a pack into a stage | `& $py engine\packs\build_packs.py build <S>\languages <tag> [--proposed]` |
 | Which pack gave a value | `& $py engine\packs\build_packs.py explain <tag> <dotted key>` |

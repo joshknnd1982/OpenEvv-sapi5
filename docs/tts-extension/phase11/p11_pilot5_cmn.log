@@ -1,0 +1,48 @@
+==== round 1: cmn
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\packs\to_master.py cmn --out C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\packs --faults C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\faults.json --report C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\to_master_round1.json
+cmn (dedx): table 170, composed 168, created 110, fallback 0, kept apart 1, said as nothing 9; 162 sound lines (1 legacy lines kept)
+    changed against the legacy lines: 443 of 458 (carrier changed 150); largest formant move +149%: @cmn:n- F1 245 -> 610 Hz on n (n̩)
+    lines with a deviation the adapter could not realise: 33; readings: 16; problems: 0
+    kept-apart @cmn:i[: kept apart from @cmn:i. (ɨ): eSpeak NG writes i̪ and ɨ, which come out alike on dedx
+to_master: 1 packs: table 170, composed 168, created 110, fallback 0, kept apart 1, said as nothing 9; problems 0; refused 0
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\packs\build_packs.py build C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\stage\languages --root C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\packs cmn
+cmn                    language.ini 6d9a194aba, sounds.map bc4ca5bab9, phonemes.map ae1121c04e, sample.txt 41c68ed37d
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden.py --record --golden C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\golden cmn
+modules: staged in C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\stage, else shipped; golden: ..\..\..\..\..\..\..\OpenEvvBuild-ttsext\p11-pilot5\golden
+cmn      375 cases  0 errors  0 not covered   63.9 s
+recorded 1 packs in 65 s; 0 not recorded
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py cmn --golden C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\after_cmn.json
+cmn (Chinese (Mandarin, latin as English)): 375 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 1355, silent 0; formant and F0 checks 2088 of 2131
+    f|ts.h: A F0 measured 165.64, frames 157.13333333333333
+    n|m: A F0 measured 79.28, frames 158.4625
+    n|m|en: A F0 measured 79.28, frames 158.4625
+    n|n: A F0 measured None, frames 158.175
+    n|n|en: A F0 measured None, frames 158.175
+    s|?: A F0 measured 75.8, frames 161.7625
+    s|?|en: A F0 measured 75.8, frames 161.7625
+    s|tS;h: A F0 measured 167.67, frames 157.13333333333333
+    v|0#|en: A F0 measured 79.3, frames 158.4
+    v|02|en: A F0 measured 79.3, frames 158.4
+check B: too few references (2/10 in range); references for 0 vowels; 3 needed
+ASR: CER 0.85
+phonemes with no phone of their own: 4 f|h f|h|en s|? s|?|en
+level: 2 engine-verified; failure layer: stress-or-tone
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py cmn --golden C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p11-pilot5\after_cmn.json --asr
+cmn      CER 0.718  WER   -    (8 sentences, cuda/float16, 16 s)
+cmn (Chinese (Mandarin, latin as English)): 375 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 1355, silent 0; formant and F0 checks 2088 of 2131
+    f|ts.h: A F0 measured 165.64, frames 157.13333333333333
+    n|m: A F0 measured 79.28, frames 158.4625
+    n|m|en: A F0 measured 79.28, frames 158.4625
+    n|n: A F0 measured None, frames 158.175
+    n|n|en: A F0 measured None, frames 158.175
+    s|?: A F0 measured 75.8, frames 161.7625
+    s|?|en: A F0 measured 75.8, frames 161.7625
+    s|tS;h: A F0 measured 167.67, frames 157.13333333333333
+    v|0#|en: A F0 measured 79.3, frames 158.4
+    v|02|en: A F0 measured 79.3, frames 158.4
+check B: too few references (2/10 in range); references for 0 vowels; 3 needed
+ASR: CER 0.72
+phonemes with no phone of their own: 4 f|h f|h|en s|? s|?|en
+level: 2 engine-verified; failure layer: stress-or-tone

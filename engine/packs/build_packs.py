@@ -5,6 +5,8 @@
     python engine/packs/build_packs.py check [tag ...]     build every pack into a scratch folder; every file
                                                             must equal the one in languages/ (exit 1 if not)
     python engine/packs/build_packs.py build <out> [tag ...]  write the folders languages/<tag>/ would hold
+    python engine/packs/build_packs.py build <out> --root <dir> [tag ...]   the packs of a scratch pack root
+                                                            (engine/packs/to_master.py --out <dir>), never into languages/
     python engine/packs/build_packs.py build <out> --proposed <tag>   the same with the pack's proposed
                                                             overrides realised too (to measure them; never into languages/)
     python engine/packs/build_packs.py explain <tag> <dotted key>   which pack of the chain gave a value,
@@ -73,10 +75,17 @@ def check(tags):
 def build(out, tags):
     proposed = "--proposed" in tags
     tags = [t for t in tags if t != "--proposed"]
+    root = None
+    if "--root" in tags:
+        i = tags.index("--root")
+        root = tags[i + 1]
+        del tags[i:i + 2]
     if proposed and os.path.normcase(os.path.realpath(out)).startswith(os.path.normcase(os.path.realpath(LANGS))):
         raise L.PackError("--proposed builds a scratch folder, never languages/")
-    for tag in tags or L.list_tags():
-        files = L.build(tag, out, include_proposed=proposed)
+    if root and os.path.normcase(os.path.realpath(out)).startswith(os.path.normcase(os.path.realpath(LANGS))):
+        raise L.PackError("--root builds scratch packs into a scratch folder, never languages/")
+    for tag in tags or L.list_tags(root):
+        files = L.build(tag, out, root=root, include_proposed=proposed)
         print("%-22s %s" % (tag, ", ".join("%s %s" % (n, hashlib.sha256(d).hexdigest()[:10]) for n, d in files.items())))
     return 0
 

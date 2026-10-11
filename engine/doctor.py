@@ -192,6 +192,9 @@ def main():
     step("packs", [os.path.join(ROOT, "engine", "packs", "test_packs.py")], 900, r"^OK$", show=r"^Ran \d+ tests")
     step("packs", [os.path.join(ROOT, "engine", "packs", "build_packs.py"), "check"], 900,
          r"check: every file identical to languages/")
+    step("master", [os.path.join(ROOT, "engine", "packs", "to_master.py"), "--check"], 1800,
+         r"master check: \d+ packs at realization \"master\"; every one builds, no phoneme silent",
+         env={"EVV_PACKS_EXTRA": os.pathsep.join((PROPOSED, EXAMPLES))})
     step("validate", [os.path.join(ROOT, "engine", "packs", "validate_packs.py")], 600, r"validate: \d+ packs, \d+ accepted, 0 rejected")
     for folder in (PROPOSED, EXAMPLES):
         tags = sorted(t for t in os.listdir(folder) if os.path.isfile(os.path.join(folder, t, "pack.toml")))             if os.path.isdir(folder) else []

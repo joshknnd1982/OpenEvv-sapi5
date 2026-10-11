@@ -56,8 +56,8 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
 
        & $py engine\packs\new_language.py <voice> <tag> --out packs-proposed --name "<Name>"
 
-   **Then move it to the master path (R21):** `& $py engine\packs\to_master.py <tag>` (`--help`
-   for the options Phase 11 gave it; `--dry-run` first). Show its report: sounds realised from the
+   **Then move it to the master path (R21):** `& $py engine\packs\to_master.py <tag>` (`--dry-run`
+   first; `--out <dir>` for a scratch copy, `--report <file.json>` for every line before and after). Show its report: sounds realised from the
    table, composed, fallen back (each with its reason, `legacy-fallback`), deviations it could not
    realise. A fallback is allowed only for a sound the engine cannot be made to say (check A), never
    for a hypothesis.

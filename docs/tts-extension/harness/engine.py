@@ -185,18 +185,24 @@ def packs():
                 ini.read_file(f)
             _packs[tag] = Pack(tag, ini, os.path.join(LANGUAGES, tag))
         # packs that exist only in the stage (the template comparison's, DESIGN.md 13.2): the
-        # product reads them there; a staged folder of a shipped pack is its staged modules, and
-        # the shipped pack stays the one described
+        # product reads them there; a staged folder of a shipped template pack is its staged
+        # modules, and the shipped pack stays the one described. A staged folder of a shipped pack
+        # read by eSpeak NG (Voice=, a rebuilt sounds.map: Phase 11's master pilot) is what the
+        # product reads instead, so it is the one described: every render, a phoneme's (which names
+        # its map) as well as a text's, is then of the staged pack
         staged = os.path.join(STAGE, 'languages') if STAGE else ''
         for tag in sorted(os.listdir(staged)) if staged and os.path.isdir(staged) else []:
             ini_path = os.path.join(staged, tag, 'language.ini')
-            if tag in _packs or not os.path.exists(ini_path):
+            if not os.path.exists(ini_path):
                 continue
             ini = configparser.ConfigParser(strict=False, interpolation=None)
             ini.optionxform = str
             with open(ini_path, encoding='utf-8-sig') as f:
                 ini.read_file(f)
-            _packs[tag] = Pack(tag, ini, os.path.join(staged, tag))
+            p = Pack(tag, ini, os.path.join(staged, tag))
+            if tag in _packs and p.kind != 'espeak':
+                continue
+            _packs[tag] = p
     return _packs
 
 
