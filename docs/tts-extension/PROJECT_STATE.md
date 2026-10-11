@@ -4,6 +4,31 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
+**Phase 6 (Packs, migration, triage): COMPLETE (2026-10-11, twentieth session)** on branch `tts-ext/phase-6`, Sonnet 5.5. Decision D89; `packs/README.md`; `TRIAGE_PHASE6.md`. **Next: Phase 7 (Authenticity and native-validation pipeline)**, new session.
+
+| Exit criterion (playbook Phase 6) | State |
+|---|---|
+| all languages load from packs | **met for stage M1**: `build_packs.py check`: `packs checked: 162; files compared: 597 (5662611 bytes); by realization: legacy 145, module 17` / `check: every file identical to languages/`; 17 packs `extends` a parent; loader tests 15 of 15 (`engine/packs/test_packs.py`); the engine renders identically from a built map (`render_equal.py`) |
+| regression passes or differences documented | **met**: staged and shipped golden each `29237 cases, 0 FAILED, 0 changed within tolerance` (nothing it guards was changed) |
+| failure layer and evidence for every non-passing language | **met**: `TRIAGE_PHASE6.md` and `LANGUAGE_STATUS.md`: phoneme values 21, G2P 44, stress-or-tone 6, unknown 29, not measured 41, passes ASR 14 (155) |
+| prioritized fix list, "Needs escalation" list | **met**: below and in `TRIAGE_PHASE6.md` |
+| PROJECT_STATE updated | this |
+
+### Needs escalation (Phase 6 triage; reasons in `TRIAGE_PHASE6.md`)
+
+- Tonal, Fable 5.1 high: chr cmn cmn-latn-pinyin hak jajp my pa shn vi vi-vn-x-central vi-vn-x-south yue yue-latn-jyutping. cy, yue, vi, mr, az, cmn, sl have the widest gaps to eSpeak NG's own voice (yue +0.43, cy +0.38, vi-vn-x-central +0.34, mr +0.34).
+- Heavy allophony or unwritten vowels, Opus 5.5 high: ar he fa and the Indic languages (hi ur bn as gu kn ml mr ne or pa si ta te sd kok bpy). No click languages in the 155.
+- Priority of fixes: (1) qu's check A; (2) 65 phone-unsounded events in 17 packs (en-us-nyc 9, ga 8, en-shaw 8, English dialects 4 each, cy 4, gd 4); (3) check B on dede, engb, eses, esus and English dialects (sound values against cited ranges); (4) 44 G2P-layer languages (eSpeak NG's rules or a pack's own reader; needs a native reader); (5) 35 languages where eSpeak NG's own voice is understood better (28 on dedx; build the durations-and-stress measure first); (6) 41 languages no recogniser can judge (Phase 7's packets).
+
+### For Phase 7 (read first)
+
+- Packs are in `packs/`; to change a language edit its `pack.toml` (or a parent), then `python engine\packsuild_packs.py check` says whether `languages/` still agrees. Writing into `languages/` from packs is not done yet (`build_packs.py build <out>` writes a scratch folder); doing it, and the `master` realization (M3, M4), need the human's say-so and before/after (R18).
+- Tools need Python with `tomli` (the harness venv has it). `harness/asr_espeak.py`, `harness/triage.py` re-run the triage; results in `harness/results/` (`asr_espeak.json`, `triage.json`, `a3-staged.json` re-run on the final stage).
+- `a3.py` with tags overwrites `a3-staged.json` with only those tags: back it up first (this session merged it by hand).
+- Native speakers still come after Phase 9 (D82). Phase 5's notes below (Q39, the sweep, the planted-fault test) still hold.
+
+## Phase 5, as it ended
+
 **Phase 5 (Independent audit): COMPLETE (2026-10-10, nineteenth session)** on branch `tts-ext/phase-5`. Session: Fable 5.1 (the playbook's model for the audit). The audit's report is `AUDIT_PHASE5.md`; its scripts, logs and results are in `audit5/`; the decision is D88. **Next: Phase 6 (Packs, migration, triage)**, in a new session; read "For Phase 6" below first.
 
 ### Phase 5 at its end

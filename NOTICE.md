@@ -25,6 +25,8 @@ The files below were adapted from the BestSpeech SAPI 5 wrapper by Gozaltech (<h
 
 The eSpeak NG it is built from is [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng) at the tag `frontend/CMakeLists.txt` names, which is eSpeak NG with the changes made for OpenEVV (number reading for more languages among them); its complete source is there. eSpeak NG is Copyright (C) 2005 to 2013 Jonathan Duddington, and from 2013 Reece H. Dunn and the eSpeak NG contributors.
 
+`packs/` holds the same language packs as data (one `pack.toml` each; `packs/README.md`), from which the files of `languages/<tag>/` are built identically. The loader that reads them (`engine/packs/`) is this project's own work, under the MIT licence. The `[sounds]` and `[phonemes]` lines in the packs of the 145 eSpeak NG languages are the data of their `sounds.map` and `phonemes.map` files and carry the licence of those files given above (GPL-3.0-or-later); the `[ini]` of a pack is its `language.ini`.
+
 ## The openevv engine: MIT
 
 `openevv/` is a snapshot of the openevv engine, and every language module in `languages/` is compiled from it. Its authors' own work (the engine in `openevv/src`, its front ends, tools, tests and documents) is under the MIT licence in `openevv/LICENSE`. Copyright (c) 2026 Stanislaw Przedzinkowski.

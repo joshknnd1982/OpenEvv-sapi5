@@ -195,3 +195,177 @@ Measured 2026-10-05 by `harness/report.py`. Preset 1 (adult male), 64-bit, 11025
 | yue-latn-jyutping | Chinese (Cantonese, latin as Jyutping) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (1/5 in range) | ASR unavailable (Whisper writes another script; references not converted yet) |  |
 
 <!-- STATUS END -->
+
+## Phase 6 (2026-10-11): failure-layer triage of every language
+
+<!-- TRIAGE BEGIN (written by harness/triage.py) -->
+Written by `harness/triage.py` from the measurements named in its header; the rules that give a layer are there too. Levels are those of the Phase 1 baseline: this phase measured no language afresh against references, so none changed. A3 on the final stage (`stage-dev`): 145 packs, 0 failures (20 packs failed it on the Phase 3 stage).
+
+| Failure layer | Languages |
+|---|---|
+| phoneme values | 21 |
+| G2P | 44 |
+| stress-or-tone | 6 |
+| unknown | 29 |
+| not measured | 41 |
+| passes ASR | 14 |
+| all | 155 |
+
+| Tag | Language | Template | Level | ASR CER | eSpeak NG own voice | Layer | Evidence |
+|---|---|---|---|---|---|---|---|
+| ab | Abkhaz | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| af | Afrikaans | dedx | 2 | 0.32 | 0.21 | unknown | eSpeak NG's own voice reads the sentences (CER 0.21), this engine does not (0.32): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| am | Amharic | dedx | 2 | 1.43 | 1.34 | G2P | eSpeak NG's own voice fails these sentences too (CER 1.34 against 1.43) |
+| an | Aragonese | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| ar | Arabic | dedx | 2 | 0.65 | 0.57 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.57 against 0.65) |
+| as | Assamese | dedx | 2 | 0.98 | 0.99 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.99 against 0.98) |
+| az | Azerbaijani | dedx | 2 | 0.49 | 0.22 | unknown | eSpeak NG's own voice reads the sentences (CER 0.22), this engine does not (0.49): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| ba | Bashkir | dedx | 2 | 0.92 | 0.95 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.95 against 0.92) |
+| be | Belarusian | dedx | 2 | 0.28 | 0.37 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.37 against 0.28) |
+| bg | Bulgarian | dedx | 2 | 0.23 | 0.22 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.22 against 0.23) |
+| bn | Bengali | itix | 2 | 0.45 | 0.42 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.42 against 0.45) |
+| bpy | Bishnupriya Manipuri | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| bs | Bosnian | itix | 2 | 0.26 | 0.18 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.18 against 0.26) |
+| ca | Catalan | esex | 2 | 0.12 | 0.15 |  | ASR passes |
+| ca-ba | Catalan (Balearic) | esex | 2 | 0.19 | 0.27 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.27 against 0.19) |
+| ca-nw | Catalan (North-western) | esex | 2 | 0.13 | 0.27 |  | ASR passes |
+| ca-va | Catalan (Valencian) | esex | 2 | 0.12 | 0.17 |  | ASR passes |
+| chr | Cherokee | enux | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| cmn | Chinese (Mandarin, latin as English) | dedx | 2 | 0.66 | 0.39 | stress-or-tone | the language has tones; eSpeak NG's own voice reads the sentences (CER 0.39) where this engine does not (0.66) |
+| cmn-latn-pinyin | Chinese (Mandarin, latin as Pinyin) | dedx | 2 |  |  | not measured | Whisper writes another script; references not converted yet |
+| crh | Crimean Tatar | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| cs | Czech | dedx | 2 | 0.21 | 0.05 | unknown | eSpeak NG's own voice reads the sentences (CER 0.05), this engine does not (0.21): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| cv | Chuvash | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| cy | Welsh | engx | 2 | 0.66 | 0.29 | phoneme values (then unknown) | 4 phone(s) the engine meant had no sound (phone-unsounded) |
+| da | Danish | dedx | 2 | 0.38 | 0.43 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.43 against 0.38) |
+| dede | German | dede | 2 | 0.03 |  | phoneme values | check B fails: 16 of 25 values in range |
+| el | Greek | esex | 2 | 0.47 | 0.31 | unknown | eSpeak NG's own voice reads the sentences (CER 0.31), this engine does not (0.47): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| en-029 | English (Caribbean) | engx | 2 | 0.07 | 0.07 | phoneme values | check B fails: 25 of 44 values in range; 4 phone(s) the engine meant had no sound (phone-unsounded) |
+| en-gb-scotland | English (Scotland) | engx | 2 | 0.13 | 0.00 | phoneme values | check B fails: 41 of 56 values in range; 4 phone(s) the engine meant had no sound (phone-unsounded) |
+| en-gb-x-gbclan | English (Lancaster) | engx | 2 | 0.04 | 0.00 | phoneme values | check B fails: 21 of 44 values in range; 4 phone(s) the engine meant had no sound (phone-unsounded) |
+| en-gb-x-gbcwmd | English (West Midlands) | engx | 2 | 0.04 | 0.02 | phoneme values | check B fails: 22 of 44 values in range; 4 phone(s) the engine meant had no sound (phone-unsounded) |
+| en-gb-x-rp | English (Received Pronunciation) | engx | 2 | 0.03 | 0.01 | phoneme values | check B fails: 23 of 47 values in range; 4 phone(s) the engine meant had no sound (phone-unsounded) |
+| en-shaw | English (Shavian alphabet) | engx | 2 |  |  | phoneme values | check B fails: 47 of 76 values in range; 8 phone(s) the engine meant had no sound (phone-unsounded) |
+| en-us-nyc | English (America, New York City) | enux | 4 | 0.05 | 0.09 | phoneme values | 9 phone(s) the engine meant had no sound (phone-unsounded) |
+| engb | British English | engb | 2 | 0.00 |  | phoneme values | check B fails: 25 of 35 values in range |
+| enus | US English | enus | 4 | 0.01 |  |  | ASR passes |
+| eo | Esperanto | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| eses | Castilian Spanish | eses | 2 | 0.04 |  | phoneme values | check B fails: 6 of 14 values in range |
+| esus | Latin American Spanish | esus | 2 | 0.03 |  | phoneme values | check B fails: 6 of 14 values in range |
+| et | Estonian | dedx | 2 | 0.23 | 0.20 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.20 against 0.23) |
+| eu | Basque | esex | 2 | 0.15 | 0.15 | unknown | eSpeak NG's own voice reads the sentences (CER 0.15), this engine does not (0.15): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| fa | Persian | dedx | 2 | 0.53 | 0.31 | unknown | eSpeak NG's own voice reads the sentences (CER 0.31), this engine does not (0.53): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| fa-latn | Persian (Pinglish) | dedx | 2 |  |  | not measured | no CC0 / CC BY sentence set has this language |
+| fi | Finnish | dedx | 2 | 0.31 | 0.17 | unknown | eSpeak NG's own voice reads the sentences (CER 0.17), this engine does not (0.31): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| fo | Faroese | dedx | 2 | 0.54 | 0.53 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.53 against 0.54) |
+| fr-be | French (Belgium) | frfx | 2 | 0.40 | 0.23 | unknown | eSpeak NG's own voice reads the sentences (CER 0.23), this engine does not (0.40): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| fr-ch | French (Switzerland) | frfx | 2 | 0.40 | 0.23 | unknown | eSpeak NG's own voice reads the sentences (CER 0.23), this engine does not (0.40): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| frca | Canadian French | frca | 2 | 0.14 |  |  | ASR passes |
+| frfr | French | frfr | 2 | 0.12 |  |  | ASR passes |
+| ga | Gaelic (Irish) | engx | 2 |  |  | phoneme values | 8 phone(s) the engine meant had no sound (phone-unsounded) |
+| gd | Gaelic (Scottish) | engx | 2 |  |  | phoneme values | 4 phone(s) the engine meant had no sound (phone-unsounded) |
+| gn | Guarani | esux | 2 |  |  | phoneme values | 1 phone(s) the engine meant had no sound (phone-unsounded) |
+| grc | Greek (Ancient) | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| gu | Gujarati | dedx | 2 | 0.44 | 0.48 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.48 against 0.44) |
+| hak | Hakka Chinese | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| haw | Hawaiian | esex | 2 | 0.42 | 0.30 | unknown | eSpeak NG's own voice reads the sentences (CER 0.30), this engine does not (0.42): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| he | Hebrew | esex | 2 | 0.65 | 0.63 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.63 against 0.65) |
+| hi | Hindi | dedx | 2 | 0.37 | 0.31 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.31 against 0.37) |
+| hr | Croatian | itix | 2 | 0.08 | 0.08 |  | ASR passes |
+| ht | Haitian Creole | frfx | 2 | 0.25 | 0.23 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.23 against 0.25) |
+| hu | Hungarian | dedx | 2 | 0.24 | 0.10 | unknown | eSpeak NG's own voice reads the sentences (CER 0.10), this engine does not (0.24): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| hy | Armenian (East Armenia) | dedx | 2 | 0.18 | 0.16 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.16 against 0.18) |
+| hyw | Armenian (West Armenia) | dedx | 2 | 0.32 | 0.33 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.33 against 0.32) |
+| ia | Interlingua | itix | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| id | Indonesian | itix | 2 | 0.10 | 0.08 |  | ASR passes |
+| io | Ido | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| is | Icelandic | dedx | 2 | 0.58 | 0.42 | unknown | eSpeak NG's own voice reads the sentences (CER 0.42), this engine does not (0.58): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| itit | Italian | itit | 2 | 0.01 |  |  | ASR passes |
+| jajp | Japanese | jajp | 2 | 0.15 |  | unknown | ASR fails; eSpeak NG own-voice score missing |
+| jbo | Lojban | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| ka | Georgian | dedx | 2 | 0.36 | 0.22 | unknown | eSpeak NG's own voice reads the sentences (CER 0.22), this engine does not (0.36): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| kaa | Karakalpak | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| kk | Kazakh | dedx | 2 | 0.39 | 0.30 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.30 against 0.39) |
+| kl | Greenlandic | itix | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| kn | Kannada | dedx | 2 | 0.35 | 0.36 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.36 against 0.35) |
+| ko | Korean | itix | 2 | 0.56 | 0.42 | unknown | eSpeak NG's own voice reads the sentences (CER 0.42), this engine does not (0.56): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| kok | Konkani | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| ku | Kurdish | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| ky | Kyrgyz | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| la | Latin | itix | 2 | 0.11 | 0.05 |  | ASR passes |
+| lb | Luxembourgish | dedx | 2 | 0.57 | 0.55 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.55 against 0.57) |
+| lfn | Lingua Franca Nova | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| lij | Ligurian | itix | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| lt | Lithuanian | dedx | 2 | 0.42 | 0.22 | unknown | eSpeak NG's own voice reads the sentences (CER 0.22), this engine does not (0.42): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| ltg | Latgalian | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| lv | Latvian | dedx | 2 | 0.36 | 0.43 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.43 against 0.36) |
+| mi | Māori | esex | 2 | 0.33 | 0.28 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.28 against 0.33) |
+| mk | Macedonian | itix | 2 | 0.20 | 0.19 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.19 against 0.20) |
+| ml | Malayalam | dedx | 2 | 0.94 | 0.96 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.96 against 0.94) |
+| mn | Mongolian | dedx | 2 | 0.42 | 0.46 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.46 against 0.42) |
+| mn-f | Ankhmaa | dedx | 2 | 0.42 | 0.43 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.43 against 0.42) |
+| mr | Marathi | dedx | 2 | 0.73 | 0.39 | unknown | eSpeak NG's own voice reads the sentences (CER 0.39), this engine does not (0.73): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| ms | Malay | itix | 2 | 0.15 | 0.08 |  | ASR passes |
+| mt | Maltese | dedx | 2 | 0.51 | 0.44 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.44 against 0.51) |
+| mto | Totontepec Mixe | esux | 2 |  |  | phoneme values | 2 phone(s) the engine meant had no sound (phone-unsounded) |
+| my | Myanmar (Burmese) | dedx | 2 | 1.13 | 0.99 | stress-or-tone | the language has tones; eSpeak NG's own voice reads the sentences (CER 0.99) where this engine does not (1.13) |
+| nb | Norwegian Bokmål | dedx | 2 | 0.31 | 0.15 | unknown | eSpeak NG's own voice reads the sentences (CER 0.15), this engine does not (0.31): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| nci | Nahuatl (Classical) | esux | 2 |  |  | phoneme values | 2 phone(s) the engine meant had no sound (phone-unsounded) |
+| ne | Nepali | dedx | 2 | 0.42 | 0.28 | unknown | eSpeak NG's own voice reads the sentences (CER 0.28), this engine does not (0.42): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| nl | Dutch | dedx | 2 | 0.27 | 0.09 | unknown | eSpeak NG's own voice reads the sentences (CER 0.09), this engine does not (0.27): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| nog | Nogai | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| om | Oromo | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| or | Oriya | itix | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| pa | Punjabi | dedx | 2 | 0.66 | 0.55 | stress-or-tone | the language has tones; eSpeak NG's own voice reads the sentences (CER 0.55) where this engine does not (0.66) |
+| pap | Papiamento | esux | 2 |  |  | phoneme values | 2 phone(s) the engine meant had no sound (phone-unsounded) |
+| pdc | Pennsylvania Dutch (Lancaster) | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| pdc-x-lehigh | Pennsylvania Dutch (Lehigh) | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| pdc-x-midwest | Pennsylvania Dutch (Midwest) | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| piqd | Klingon | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| plpl | Polish (experimental) | plpl | 2 | 0.09 |  |  | ASR passes |
+| ps | Pashto | dedx | 2 | 0.61 | 0.67 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.67 against 0.61) |
+| ps-x-northwest | Pashto (Northwestern) | dedx | 2 | 0.59 | 0.68 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.68 against 0.59) |
+| ps-x-southeast | Pashto (Southeastern) | dedx | 2 | 0.62 | 0.67 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.67 against 0.62) |
+| ps-x-yusufzai | Pashto (Yusufzai) | dedx | 2 | 0.62 | 0.68 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.68 against 0.62) |
+| pt | Portuguese (Portugal) | esex | 4 | 0.06 | 0.05 |  | ASR passes |
+| pt-br | Portuguese (Brazil) | esux | 4 | 0.06 | 0.05 | phoneme values | 2 phone(s) the engine meant had no sound (phone-unsounded) |
+| py | Pyash | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| qdb | Lang Belta | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| qu | Quechua | esux | 1 |  |  | phoneme values | check A fails: s/?: a F0 measured 132.45, frames 126.0125; 1 phone(s) the engine meant had no sound (phone-unsounded) |
+| quc | K'iche' | esux | 2 |  |  | phoneme values | 2 phone(s) the engine meant had no sound (phone-unsounded) |
+| qya | Quenya | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| ro | Romanian | itix | 2 | 0.13 | 0.13 |  | ASR passes |
+| ru | Russian | dedx | 2 | 0.22 | 0.25 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.25 against 0.22) |
+| ru-cl | Russian (Classic) | dedx | 2 | 0.22 | 0.27 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.27 against 0.22) |
+| ru-lv | Russian (Latvia) | dedx | 2 | 0.27 | 0.15 | unknown | eSpeak NG's own voice reads the sentences (CER 0.15), this engine does not (0.27): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| rup | Aromanian | itix | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| sd | Sindhi | dedx | 2 | 1.05 | 1.12 | G2P | eSpeak NG's own voice fails these sentences too (CER 1.12 against 1.05) |
+| shn | Shan (Tai Yai) | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| si | Sinhala | dedx | 2 | 1.03 | 1.15 | G2P | eSpeak NG's own voice fails these sentences too (CER 1.15 against 1.03) |
+| sjn | Sindarin | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| sk | Slovak | dedx | 2 | 0.25 | 0.14 | unknown | eSpeak NG's own voice reads the sentences (CER 0.14), this engine does not (0.25): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| sl | Slovenian | dedx | 2 | 0.35 | 0.08 | unknown | eSpeak NG's own voice reads the sentences (CER 0.08), this engine does not (0.35): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| smj | Lule Saami | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| sq | Albanian | itix | 2 | 0.20 | 0.23 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.23 against 0.20) |
+| sr | Serbian | itix | 2 | 0.17 | 0.19 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.19 against 0.17) |
+| sv | Swedish | dedx | 2 | 0.27 | 0.12 | unknown | eSpeak NG's own voice reads the sentences (CER 0.12), this engine does not (0.27): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| sw | Swahili | esex | 2 | 0.20 | 0.21 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.21 against 0.20) |
+| ta | Tamil | dedx | 2 | 0.48 | 0.34 | unknown | eSpeak NG's own voice reads the sentences (CER 0.34), this engine does not (0.48): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| te | Telugu | dedx | 2 | 0.47 | 0.31 | unknown | eSpeak NG's own voice reads the sentences (CER 0.31), this engine does not (0.47): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| th | Thai | esex | 2 | 1.22 | 1.31 | G2P | eSpeak NG's own voice fails these sentences too (CER 1.31 against 1.22) |
+| ti | Tigrinya | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| tk | Turkmen | dedx | 2 | 0.57 | 0.45 | unknown | eSpeak NG's own voice reads the sentences (CER 0.45), this engine does not (0.57): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| tn | Setswana | esex | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| tr | Turkish | dedx | 2 | 0.28 | 0.07 | unknown | eSpeak NG's own voice reads the sentences (CER 0.07), this engine does not (0.28): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| tt | Tatar | dedx | 2 | 0.59 | 0.37 | unknown | eSpeak NG's own voice reads the sentences (CER 0.37), this engine does not (0.59): the fault is in what this engine does with the phonemes; stress, duration, coarticulation and the sound values cannot yet be told apart |
+| ug | Uyghur | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| uk | Ukrainian | dedx | 2 | 0.24 | 0.16 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.16 against 0.24) |
+| ur | Urdu | dedx | 2 | 0.65 | 0.57 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.57 against 0.65) |
+| uz | Uzbek | dedx | 2 | 0.46 | 0.54 | G2P | eSpeak NG's own voice fails these sentences too (CER 0.54 against 0.46) |
+| vi | Vietnamese (Northern) | dedx | 2 | 1.27 | 0.98 | stress-or-tone | the language has tones; eSpeak NG's own voice reads the sentences (CER 0.98) where this engine does not (1.27) |
+| vi-vn-x-central | Vietnamese (Central) | dedx | 2 | 1.63 | 1.28 | stress-or-tone | the language has tones; eSpeak NG's own voice reads the sentences (CER 1.28) where this engine does not (1.63) |
+| vi-vn-x-south | Vietnamese (Southern) | dedx | 2 | 1.49 | 1.42 | G2P | eSpeak NG's own voice fails these sentences too (CER 1.42 against 1.49) |
+| xex | xextan-test | dedx | 2 |  |  | not measured | Whisper large-v3 has no language for this tag |
+| yue | Chinese (Cantonese) | dedx | 2 | 1.29 | 0.85 | stress-or-tone | the language has tones; eSpeak NG's own voice reads the sentences (CER 0.85) where this engine does not (1.29) |
+| yue-latn-jyutping | Chinese (Cantonese, latin as Jyutping) | dedx | 2 |  |  | not measured | Whisper writes another script; references not converted yet |
+<!-- TRIAGE END -->
