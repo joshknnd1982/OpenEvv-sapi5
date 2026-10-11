@@ -12,7 +12,7 @@ Every outside source this project has used: title, URL, access date, licence, wh
 | URL | <https://www.internationalphoneticassociation.org/content/ipa-chart> (PDF: `.../IPAcharts/common_files/pdfs/pdfs_IPA_charts_E/IPA_Kiel.pdf`) |
 | Accessed | 2026-10-05 |
 | Licence | Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0), © International Phonetic Association |
-| Local copy | `IPA_Kiel.pdf` in the human's Downloads folder, 603,341 bytes, SHA-256 `C8203013C676B243959072234526D60B874851D0509A00FD7528F4E56C706787`. Not in the repository (ShareAlike). Its text layer is in a legacy 8-bit font and cannot be read as text; the rendered page was read by eye. |
+| Local copy | `IPA_Kiel.pdf` in the human's Downloads folder, 603,341 bytes, SHA-256 `C8203013C676B243959072234526D60B874851D0509A00FD7528F4E56C706787`. Not in the repository at first (ShareAlike); since 2026-10-10 it is, at the human's request, in the repository root as `IPA_Kiel.pdf`, its licence recorded in `NOTICE.md`. Its text layer is in a legacy 8-bit font and cannot be read as text; the rendered page was read by eye. |
 | Used for | Which symbols exist, in which section, with which label: the contents and the count of `inventory/IPA_CHECKLIST.md`. |
 
 Cross-checks: the IPA's own number chart, symbol list and interactive-chart data (same site); the Unicode Character Database 18.0.0 (`UnicodeData.txt`, `NamesList.txt`, <https://www.unicode.org/>, Unicode licence) for every codepoint and character name, and Python 3.10's `unicodedata` (Unicode 13) again when the checklist is built; Wikipedia, "International Phonetic Alphabet" and "IPA number" (CC BY-SA 4.0), for IPA numbers and for the sentence "107 letters ... 31 diacritics ... 17 additional signs" used to reconcile the count.

@@ -4,7 +4,9 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 9 (Completion review): COMPLETE (2026-10-11, twenty-third session)** on branch `tts-ext/phase-9`, Fable 5.1. Decisions D93 (the reference lookup, Q46) and D94; the report `COMPLETION_REVIEW_PHASE9.md`; the trials `trials/`; `LANGUAGE_STATUS.md` regenerated on the staged golden. **Phases 0 to 9 are complete (Phase 9's trial (a) is a test copy of Finnish, the only form it could take; put to the human as Q51); the project is complete once Phases 10 and 11 are done. Next: Phase 10 (Release)**, in a new session.
+**Phase 10 (Release): COMPLETE (2026-10-11, twenty-fourth session)** on branch `tts-ext/phase-10`, Opus 5.5. Decision D95; `LICENCE_AUDIT.md`; release **1.3.0** built (`output\OpenEVV-SAPI5-Setup-1.3.0.exe`, not installed, not published). **Next: Phase 11 (Cleanup)**, in a new session, after the human has tested the installer and answered the merge question (`HUMAN_ANSWERS.md`, Phase 10). R20 ends with this phase: Phase 11 may clean, item by item, each after the human's yes.
+
+**Phase 9 (Completion review): COMPLETE (2026-10-11, twenty-third session)** on branch `tts-ext/phase-9`, Fable 5.1. Decisions D93 (the reference lookup, Q46) and D94; the report `COMPLETION_REVIEW_PHASE9.md`; the trials `trials/`; `LANGUAGE_STATUS.md` regenerated on the staged golden.
 
 Phase 8's summary follows for the record; "The whole project so far" below is updated to Phase 9's numbers.
 
@@ -28,20 +30,71 @@ Phase 8's summary follows for the record; "The whole project so far" below is up
 | 7 Authenticity | the pipeline (extract, normalize, validate, packet, ingest), one real example (Scottish English, CMU ARCTIC awb), 10 proposed overrides | complete 2026-10-11 |
 | 8 Skills | six skills, the reviewer agent, the doctor, `ADDING_A_LANGUAGE.md` with three worked examples, the 25 dialect packs documented, CS-0076 ɓ̥ | complete 2026-10-11 |
 | 9 Completion review | Fable 5.1: the full doctor (0 FAILED), the chart re-researched (0 differences), a fresh sweep of every symbol (proofs identical), two trials by fresh helpers (fi-x-evvtrial, nl-be; 22 doc gaps fixed), ASR re-run and the status regenerated on the staged golden, the reference lookup ruled (D93), the R18 report (nothing replaced, nothing retired) | complete 2026-10-11 |
-| 10 Release | installer, the staged modules and front-end shipped (with the human's say-so), licence audit, README (step 2b, added to the playbook by another session) | **next** |
-| 11 Cleanup | free the disk, item by item with the human's yes (R20: nothing deleted before Phase 10 is complete) | to do |
+| 10 Release | 1.3.0: the staged template modules shipped (the human's say-so after the golden difference was shown), Belgian Dutch shipped (Q50), version bump and changelog, two full builds with every test, the licence audit (`check_licences.py`, 0 unclassified) and SPDX headers, README and guides (step 2b, `check_readme.py`), the worked examples re-run, golden of what ships against `golden-staged`, the fresh-clone check | complete 2026-10-11 |
+| 11 Cleanup | free the disk, item by item with the human's yes (R20 ends with Phase 10) | **next** |
 
 **The numbers now** (each from a command run in Phase 9; raw output in `COMPLETION_REVIEW_PHASE9.md`)
 
 - **IPA coverage**: 175 of 175 checklist entries done (mapped 67, composed 53, created 55), MISSING 0, BLOCKED 0, every proof passing and made on the map as it stands; master table 393 entries (one more than Phase 7: CS-0076 ɓ̥, Tier C); Tier B 186 done, 17 notation only; 76 created sounds registered (`CREATED_SOUNDS.md`); 439 estimated values, all queued (`OPEN_QUESTIONS.md` Q15).
-- **Languages**: 155 (10 native modules, 145 read by eSpeak NG on 7 template modules), 162 packs with the templates; 21 dialect packs, every one documented and accepted by the authenticity validator (D91); 5 former "dialects" are spellings or a voice, now `kind = "language"`. Levels (`results/status.json`, regenerated in Phase 9 on the staged golden with a fresh ASR run and the D93 lookup): 1 draft 3 (cmn, cmn-latn-pinyin, qu: Q48), 2 engine-verified 148, 4 intelligibility-verified 4 (enus, en-us-nyc, pt, pt-br); none at 3 or 5; nothing is called authentic. Check B: pass 4, fail 3 (dede, eses, ca-va), too few references 144, none 4. ASR on the stage against the shipped record: median CER 0.325 -> 0.307, 37 better and 20 worse by more than 0.02; the Catalan packs now above 0.15, Slovenian and Armenian under it.
-- **Proposed, not shipped**: `packs-proposed/nl-be/` (a real Belgian Dutch dialect, 11 sourced overrides, level 2) and `packs-proposed/fi-x-evvtrial/` (a TEST copy of Finnish), both from Phase 9's trials (Q50).
-- **The product**: unchanged since release 1.2.4. `languages/` and `dist/` hold the shipped modules and front-end; every change to sound lives in the stage (`%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`: the seven templates rebuilt from the fixed source, front-end `p28`) until Phase 10 ships it with the human's say-so (D34). The golden regression of the staged modules: 155 packs, 29,237 cases, 0 FAILED.
+- **Languages** (since 1.3.0, Phase 10): 156 (10 native modules, 146 read by eSpeak NG on 7 template modules), 163 packs with the templates; 22 dialect packs, every one accepted by the authenticity validator, 18 packs `extends` a parent. Belgian Dutch (`nl-be`) shipped in 1.3.0 (Q50): 11 applied vowel overrides (adank2004), CER 0.293 against nl's 0.199, level 2. Levels (`LANGUAGE_STATUS.md`, `report.py` re-run in Phase 10 for nl-be): 1 draft 3 (cmn, cmn-latn-pinyin, qu: Q48), 2 engine-verified 149, 4 intelligibility-verified 4 (enus, en-us-nyc, pt, pt-br); none at 3 or 5; nothing is called authentic. Check B: pass 4, fail 3, too few references 145, none 4.
+- **Proposed, not shipped**: `packs-proposed/fi-x-evvtrial/` (a TEST copy of Finnish, Phase 9's trial (a); left for Phase 11 to move or delete with the human's yes).
+- **The product: release 1.3.0** (built in Phase 10, not published). `languages/` holds the seven template modules of `stage-dev` (byte-identical) and the ten native modules of 1.2.4 (unchanged); `golden/` equals `golden-staged/`; the front-end in `dist/` is built from `frontend/` (the staged `p28` source) at eSpeak NG `openevv-1.2.0`. 1.2.4's `languages/` and `dist/` are in git (tag `tts-ext-pre-release`, local) and copied to `%USERPROFILE%\OpenEvvBuild-ttsext\pre-release-1.2.4`. The stage stays the place to try an engine change.
 - **Authenticity**: one real measured example (Scottish English, one speaker, below the five-speaker minimum; overrides proposed, not applied, the human's choice); review packets for it and the worked examples; no native reviewer yet (they come after Phase 9, D82).
 
 **How work is done from now on**: `ADDING_A_LANGUAGE.md` and the slash commands `/add-language`, `/add-dialect`, `/add-accent`, `/improve-language`, `/diagnose-language`, `/create-missing-sound` (each names its model and effort and ends with the `tts-reviewer` agent; a session started after Phase 8 has that agent type loaded, this one did not). Start every session with `engine\doctor.py --quick`. New packs wait in `packs-proposed/`; tests and worked examples live in `docs/tts-extension/examples/` (TEST, never shipped).
 
 **Open for Phase 9 and after** (`OPEN_QUESTIONS.md`): Q46 (check B's lookup lends one dialect's references to its siblings: rule on it, then regenerate `LANGUAGE_STATUS.md`); Q45 (Swahili's vowel-to-vowel junctions, a proposed fix); Q40 (VOT on natural speech); Q41 answered (D91); Q42 (Scottish next steps); Q15 (439 estimated values to verify); Q38, Q39 (for the expert review); the Phase 6 "Needs escalation" list (tonal languages to Fable; heavy allophony to Opus). Native speakers come after Phase 9 (D82).
+
+## Phase 10 at its end
+
+| Playbook Phase 10 step | State |
+|---|---|
+| 1.1 what ships, the say-so (D34) | **done**: the golden difference shown first (1,136 of 29,237 cases in 143 packs, the D40/D87 kinds); the human chose "1.3.0 and ship them"; tag `tts-ext-pre-release` (3d58332, local), old `languages/` and `dist/` copied aside; the 14 template DLLs replaced by the stage's; `golden-staged/` copied to `golden/`; `SOUNDS_STAGED.md` merged into `docs/SOUNDS.md`; Belgian Dutch shipped (Q50) |
+| 1.2 version | **done**: 1.3.0 in the three files, `EVV_ENGINE_COMMIT "7148737+tts-ext"`, CHANGELOG 1.3.0 (CRLF kept) |
+| 1.3 build | **done**: `build_all.bat` by absolute path through a wrapper pinning `ESPEAK_NG_SOURCE_DIR`, three times (the first; after the SPDX headers; after the review's README and CHANGELOG fixes, the release); `git diff --ignore-cr-at-eol --stat -- dist/espeak-ng-data` empty each time |
+| 1.4 raw outputs | **done**, below |
+| 1.5 the installer | `output\OpenEVV-SAPI5-Setup-1.3.0.exe`, 34,177,557 bytes, SHA-256 `2654758848ee0549bef79b23a3e1cf5fcb9bfd6a4e539cb6aa74ef19d0196fb9`; 156 languages, 1,248 voices (1.2.4: 155, 1,240); new: Dutch (Southern Standard, Flanders), `nl-be`. Not installed on the human's computer |
+| 2 licences | **done**: `engine/check_licences.py`, `LICENCE_AUDIT.md`, 134 SPDX headers, NOTICE.md and CREDITS.md in line; the GPL source offer holds (`git ls-remote`: `refs/tags/openevv-1.2.0^{}` at `1eadf12`) |
+| 2b README and guides | **done**: README "What is new in 1.3.0", packs, engine, what did not change, native speakers; `engine/check_readme.py` (in the doctor); the guides' stale counts and two broken commands fixed; the three worked examples re-run after the final build (every printed figure as the guide has it) |
+| 3 commits, push, fresh clone | **done**: see the commit log of `tts-ext/phase-10`; the size check and the fresh-clone check are recorded in D95 |
+| 3.5 merge into `main` | asked at the pause (`HUMAN_ANSWERS.md`) |
+| R15 | the `tts-reviewer` agent: seven findings (README's licence bullet claimed MIT for everything outside three folders; "every one a consonant" against 1,133 + 3; stale 145/162 counts and `LANGUAGE-REPORT.md`; outputs not yet shown; `check_readme --commands` missed scripts named in command lines; REFERENCES and LANGUAGE_STATUS notes stale; CC0 sentences in MIT files): each fixed or answered (D95), the installer rebuilt after; not re-reviewed |
+
+Raw outputs of this phase (logs in `%USERPROFILE%\OpenEvvBuild-ttsext\`: `build_all_p10_release.log`, `golden_p10_shipped.log`, `diag_p10_compare.log`, `coverage_p10.log`, `doctor_p10_final_quick.log`):
+
+    build_all (release): 146 packs checked, 0 failed; sapi_test x64 72 passed, 0 failed; CET 72 passed, 0 failed; x86 72 passed, 0 failed
+        every voice speaks through SAPI: 1248 of 1248; every preset of every language pack is a voice: 1248 voices from 156 languages
+        a11y_check PASS: 5 pages, 0 problems; staged layout 13 passed, 0 failed (x86, x64)
+        installer_a11y PASS: 6 pages, 52 enabled tab stops, 0 problems; test_language_choice PASS: 22 checks
+    golden.py --golden golden-staged (what ships: languages/ and dist's front-end, no stage):
+        golden: 156 packs, 29391 cases, 0 FAILED, 0 changed within tolerance, 2234 s
+    diag.py --compare <1.2.4's front-end>: diag: 146 packs; 5 with a loss; 0 whose output differs from the old front-end's or failed
+    coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0; rendered and measured 175 (proof passed 175); approximate 6
+        tier B: 186 done and proved (mapped 5, composed 162, created 19), 0 MISSING, 17 notation only
+    doctor --quick: 19 checks, 19 passed, 0 warnings, 0 FAILED (none), 107 s
+    check_licences.py --headers (every file of the phase tracked):
+        licences: 5985 tracked files
+          mit-here      1398  MIT, written by this project (LICENSE)
+          mit-openevv    465  MIT, upstream openevv's own work (openevv/LICENSE)
+          ibm            713  IBM's language data and the modules built from it: not licensed here (NOTICE.md, openevv/NOTICE)
+          gpl            985  GPL-3.0-or-later: eSpeak NG, the front-end, its data and what is written from its phoneme tables; Praat through Parselmouth
+          bestspeech      13  adapted from the BestSpeech SAPI 5 wrapper: its author's terms (NOTICE.md)
+          mixed-binary     2  a binary built from MIT files and BestSpeech-derived files: both sets of terms
+          rendered       108  speech rendered by the engine (IBM's language data at work), with test text: not MIT-licensed here
+          sentences        3  test sentences: Common Voice (CC0 1.0) and Tatoeba (CC BY 2.0 FR), each sentence's source recorded
+          cc0              8  the community pronunciation dictionary: CC0 1.0
+          cc-by-sa         8  the IPA chart: CC BY-SA 4.0, International Phonetic Association
+          unicode          3  Unicode Character Database files: Unicode License v3
+          cmu           2279  CMU ARCTIC speaker awb: CMU's own notice (free for any purpose, notice kept)
+          unclassified     0
+        first-party code files without an SPDX line: 0
+        check: pass (unclassified 0, stale rules 0, MIT claimed over another's file 0, missing headers 0)
+
+### For Phase 11 (read first)
+
+- **Ask before deleting anything** (R20 ends with this phase, but every deletion still waits for the human's yes). Candidates: the build trees outside the repository (`%USERPROFILE%\OpenEvvBuild-ttsextuild*`, `stage-dev-*` copies, the logs), `%TEMP%\OpenEvvTests`, the Whisper model (3.09 GB), the venv, `pre-release-1.2.4` (1.2.4's files, also in git), `packs-proposed/fi-x-evvtrial` (a TEST copy), the untracked `results/diag-compare.json` and `diag-golden.json` (overwritten in Phase 10 by this phase's own runs of the same tools), and the old sessions.
+- **The installer to keep**: `output\OpenEVV-SAPI5-Setup-1.3.0.exe`, SHA-256 above; `output/` is git-ignored.
+- The merge of `tts-ext/phase-10` into `main` is the human's answer at the Phase 10 pause.
 
 ## Phase 9 at its end
 

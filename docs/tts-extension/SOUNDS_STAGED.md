@@ -1,5 +1,7 @@
 # sounds.map: what the staged engine adds (draft for docs/SOUNDS.md)
 
+**Merged into `docs/SOUNDS.md` in 1.3.0 (Phase 10, 2026-10-11), when the staged modules replaced the shipped ones; kept here for the record. `docs/SOUNDS.md` is the page to read and keep current.**
+
 `docs/SOUNDS.md` describes the shipped product. The rebuilt template modules and the front-end of the TTS extension (Phases 3 and 4) are staged only (`%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`); nothing in `languages\` or `dist\` reads what is below yet. When the rebuilt modules replace the shipped ones (with the human's say-so, `DECISIONS.md` D34), this page is merged into `docs/SOUNDS.md`: the key table goes under "A sound", the lines after it under "sounds.map". Every key is nought, or the value given, unless a line names it, so a pack that names none of them is spoken as before.
 
 ## Keys of a sound

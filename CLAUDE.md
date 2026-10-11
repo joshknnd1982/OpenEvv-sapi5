@@ -39,6 +39,8 @@ Tests:
 
     .\build_x64\bin\Release\sapi_test.exe --out $env:TEMP\OpenEvvTests\x64
     $env:PYTHONUTF8='1'; python engine\check_espeak_packs.py dist\x64\OpenEvvFrontend.exe dist\espeak-ng-data
+    python engine\check_licences.py --headers     # every tracked file in one licence class (docs/tts-extension/LICENCE_AUDIT.md)
+    python engine\check_readme.py                 # README links, paths, version, MIT wording
 
 Inventories:
 

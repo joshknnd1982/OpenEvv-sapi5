@@ -41,7 +41,9 @@ Windows, PowerShell, from the repository root. The tools need the project's Pyth
 venv under your user folder with numpy, scipy, soundfile, jiwer, tomli and faster-whisper; the
 harness README, `docs/tts-extension/harness/README.md`, says how to make it), the built tools and a
 **stage**: a folder holding the rebuilt template modules and the newest front-end, which the
-harness uses instead of the shipped ones (`EVV_STAGE`).
+harness uses instead of the shipped ones (`EVV_STAGE`). Since release 1.3.0 the shipped modules and
+front-end are the stage's (`DECISIONS.md` D95); the stage stays the place to try an engine change
+before it ships.
 
     cmake -G "Visual Studio 17 2022" -A x64 -S . -B build_x64
     cmake --build build_x64 --config Release
@@ -53,31 +55,43 @@ Every session begins with the **doctor**, which checks everything at once and mu
 
     & $py engine\doctor.py --quick       # about a minute; the full form (no --quick) runs the whole golden regression, 25 to 40 minutes
 
-What it printed on 2026-10-11, the session that wrote this guide:
+What it printed on 2026-10-11 after the 1.3.0 build (Phase 10; the stage and the shipped modules are
+the same since then):
 
     PASS  env        Python 3.10.11 at C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe; stage C:\Users\joshk\OpenEvvBuild-ttsext\stage-dev
-    PASS  harness    == 76 checks, 76 passed, 0 failed  (docs\tts-extension\harness\selftest.py --quick, 2 s)
-    PASS  packs      Ran 22 tests in 13.391s  (engine\packs\test_packs.py, 14 s)
-    PASS  packs      check: every file identical to languages/  (engine\packs\build_packs.py check, 14 s)
-    PASS  validate   validate: 21 packs, 21 accepted, 0 rejected  (engine\packs\validate_packs.py, 12 s)
-    ...
-    PASS  coverage   coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0; ...
-    PASS  estimated  437 estimated values in the table, 437 queued in Q15 (written 2026-10-10)
-    PASS  golden     golden: 6 packs, 28 cases, 0 FAILED, 0 changed within tolerance, 2 s
-    doctor: 16 checks, 16 passed, 0 warnings, 0 FAILED (none), 61 s
+    PASS  harness    == 76 checks, 76 passed, 0 failed  (docs\tts-extension\harness\selftest.py --quick, 10 s)
+    PASS  packs      Ran 22 tests in 17.853s  (engine\packs\test_packs.py, 18 s)
+    PASS  packs      check: every file identical to languages/  (engine\packs\build_packs.py check, 18 s)
+    PASS  validate   validate: 22 packs, 22 accepted, 0 rejected  (engine\packs\validate_packs.py, 17 s)
+    PASS  validate   validate: 1 packs, 1 accepted, 0 rejected  (engine\packs\validate_packs.py fi-x-evvtrial, 0 s)
+    PASS  validate   validate: 6 packs, 6 accepted, 0 rejected  (engine\packs\validate_packs.py ca-va-x-evvdemo, 1 s)
+    PASS  validate   validate selftest: 16 of 16 pass  (engine\packs\validate_packs.py --selftest, 1 s)
+    PASS  validate   normalize selftest: 3 of 3 pass  (engine\authenticity\normalize.py --selftest, 0 s)
+    PASS  validate   ingest selftest: pass  (engine\review\ingest_feedback.py --selftest, 1 s)
+    PASS  table      table: 393 entries (composed 245, created 76, mapped 72); 0 problems; 439 estimated values queued for verification  (engine\ipa\table.py, 0 s)
+    PASS  table      validator: the table accepted; 30 planted faults, 30 refused  (engine\ipa\table.py --selftest, 2 s)
+    PASS  coverage   coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0; rendered and measured 175 (proof passed 175); approximate 6  (engine\ipa\coverage.py --quiet, 22 s)
+    PASS  coverage   state against proof: every entry that is not MISSING has a passing proof
+    PASS  coverage   proof against map: every proof of a done entry was made on the map as it stands
+    PASS  estimated  439 estimated values in the table, 439 queued in Q15 (written 2026-10-11)
+    PASS  docs       check: pass (0 problems)  (engine\check_readme.py, 1 s)
+    PASS  docs       check: pass (unclassified 0, stale rules 0, MIT claimed over another's file 0, missing headers 0)  (engine\check_licences.py --headers, 1 s)
+    PASS  golden     golden: 6 packs, 28 cases, 0 FAILED, 0 changed within tolerance, 10 s  (docs\tts-extension\harness\golden.py --smoke, 12 s)
+    doctor: 19 checks, 19 passed, 0 warnings, 0 FAILED (none), 107 s
 
 What each line means: `env` the tools and the stage are there; `harness` the measuring code
 measures known test signals correctly; `packs` every pack builds to exactly the files the product
 ships; `validate` every dialect and accent pack documents who it describes and cites its sources;
 `table` and `coverage` the master table of IPA sounds is consistent and every one of the 175 IPA
 chart symbols is made and proved; `estimated` every guessed value is queued to be checked;
-`golden` nothing the engine says has changed by accident.
+`golden` nothing the engine says has changed by accident; `docs` the README's links, paths and
+version hold, and every tracked file is in one licence class (`docs/tts-extension/LICENCE_AUDIT.md`).
 
 ## 2. Where packs live
 
 | Folder | What | Shipped? |
 |---|---|---|
-| `packs/<tag>/` | the 162 packs the product has; `build_packs.py check` proves each builds to `languages/<tag>/` | yes, through `languages/` |
+| `packs/<tag>/` | the 163 packs the product has (156 languages and 7 templates); `build_packs.py check` proves each builds to `languages/<tag>/` | yes, through `languages/` |
 | `packs-proposed/<tag>/` | a real new language, dialect or accent, measured and waiting for the human's say-so (`new_language.py` creates the folder; a dialect written by hand needs `New-Item -ItemType Directory`) | not until moved (section 8) |
 | `docs/tts-extension/examples/packs/<tag>/` | the worked examples of this guide; TEST, private-use tags (`-x-evvdemo`) | never |
 | `languages/<tag>/` | what the product reads: built from `packs/`, never edited by hand | yes |
@@ -187,7 +201,7 @@ pack check:
     ca-va    158 cases  0 errors  0 not covered   34.2 s
     en-us-nyc 390 cases  0 errors  0 not covered   73.2 s
     golden: 4 packs, 840 cases, 0 FAILED, 0 changed within tolerance, 74 s
-    packs checked: 162; files compared: 597 (5662611 bytes); by realization: legacy 145, module 17
+    packs checked: 163; files compared: 601 (5700048 bytes); by realization: legacy 146, module 17
     check: every file identical to languages/
 
 A real new language runs the whole golden (every language, 25 to 40 minutes; `doctor.py` without
@@ -325,8 +339,8 @@ voice kept the size.
 
 **Its own checks, and the parent untouched:**
 
-    & $py docs	ts-extension\harness\golden.py ca-va-x-evvdemo --record --golden "$env:TEMP\OpenEvvTests\demo-golden"
-    & $py docs	ts-extension\harness\check_language.py ca-va-x-evvdemo --golden "$env:TEMP\OpenEvvTests\demo-golden" --asr --asr-like ca-va
+    & $py docs\tts-extension\harness\golden.py ca-va-x-evvdemo --record --golden "$env:TEMP\OpenEvvTests\demo-golden"
+    & $py docs\tts-extension\harness\check_language.py ca-va-x-evvdemo --golden "$env:TEMP\OpenEvvTests\demo-golden" --asr --asr-like ca-va
 
     ca-va-x-evvdemo 158 cases  0 errors  0 not covered   20.9 s
     ca-va-x-evvdemo CER 0.158  WER 0.329  (8 sentences, cuda/float16, 6 s)
@@ -452,8 +466,10 @@ Only level 5 may be called **authentic**. A level is never raised without its ev
 Moving a pack into the product changes what users hear, so it waits for the human's say-so
 (playbook R18). Then: move `packs-proposed/<tag>` to `packs/<tag>`; for an override, set
 `state = "applied"`; build `languages/<tag>/` (`build_packs.py build languages <tag>`); `build_packs.py
-check` must then say every file is identical; record the new pack's golden (`golden.py <tag>
---record-new`, and under the stage); run the doctor; record the decision in
+check` must then say every file is identical; record the new pack's golden (`golden.py --record
+<tag>`, once as it is and once with `EVV_STAGE` set: `--record-new` only adds cases to a golden that
+exists); if a dialect, give it the test sentences of its language in `harness/asr/sentences.json` and
+`whisper_codes.json`, then `asr.py <tag>` and `report.py`; run `installer\make_components.py`; run the doctor; record the decision in
 `docs/tts-extension/DECISIONS.md`. The installer picks up `languages/` at the next release.
 
 ## 9. Improving, diagnosing, creating a missing sound

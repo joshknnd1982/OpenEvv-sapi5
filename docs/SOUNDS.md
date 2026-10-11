@@ -88,6 +88,38 @@ How the sound differs from the module's phone. Every number is a difference or a
 | `whisper` | said without voice, with breath at this level | dB |
 | `ms` `hush` | for a sound the engine makes: how long it lasts, and that it is silence (a glottal stop) | ms |
 
+Since 1.3.0, `vot` and `brth` switch the voice on after a stop only where the module itself voices what follows: before a pause or a voiceless sound the burst and the breath stay voiceless, and the next consonant's noise is not faded out (defect X-1 of the TTS extension, `docs/tts-extension/DESIGN.md` 4.4). Every key is nought, or the value given, unless a line names it, so a pack that names none of the keys below is spoken as before.
+
+The keys added in 1.3.0 for the sounds of the IPA chart (the Q and D numbers are those of `docs/tts-extension/OPEN_QUESTIONS.md` and `DECISIONS.md`):
+
+| Key | What it says | Unit |
+|---|---|---|
+| `trate` `tdepth` | a trill at its own rate, whatever the sound's length; how far the level drops at each closure | closures a second; dB |
+| `breathy` | breathy voice through the whole sound, added to the voice's own setting | per cent |
+| `burstms` | how long the burst lasts before an ejective's silence | ms |
+| `rel2` `rel2ms` `rel2af` `rel2g` | a second, weaker release so long after the first, for so long (a click's back closure); its noise; louder by so much than the synthesiser's parallel gains reach | ms; ms; dB; dB |
+| `bgain` | the burst louder by so many dB than the parallel gains reach | dB |
+| `ant` | the sound before this one ends at this one's formants over so many ms: its place shows on the way in | ms |
+| `l1` to `l4`, `lk` | a place's formant (its locus) in per mille of the voice's own fifth formant, and how much of the vowel's own formant the place keeps (a locus equation's slope) | per mille; per cent |
+| `vfrom` `vto` | the part of the sound, in per cent of it, that `voi`, `whisper` and `creak` are said over (extIPA's partial voicing) | per cent |
+| `vmark` | the voice `voi` gives is a mark's: it is heard over the whisper of a letter that has one, and the whisper keeps the rest of the sound outside `vfrom`, `vto` (Q33). Without it a whisper takes out any voice, as ɦ's breathy voice (`voi` and `whisper` together) needs | 1 |
+| `pst` | the sound at a pitch of its own, so far from the voice's line (extIPA's ingressive airflow) | tenths of a semitone |
+| `frel` `frelaf` `frelav` | a stop released into friction for so long (extIPA's fricated releases), on the noise keys `a2` to `ab`; its level; the voice under it, louder or softer | ms; dB; dB |
+| `frelf2` `frelf3` | the friction's own second and third formants, the fricative it names | per mille of the voice's fifth formant |
+| `lmur` | the sound's formant ratios are its nasal murmur, said over its own stretch only | 1 |
+| `fgain` | friction louder by so many dB than the parallel gains reach, over a voice (velopharyngeal friction; with `rfric`, a raised approximant's) | dB |
+| `rfric` | friction at this level over the voice of a sound with none of its own (an approximant raised to a fricative, ̝ on ɹ or l, Q23), on the sound's own third to fifth formants; never on a stop | dB |
+| `hit` `hitms` `hitaf` `hitg` | a strike (extIPA's percussives): so many ms after a stop's closure begins, or after any other sound's start, a noise this long on the noise keys, at this level, louder by so much than the parallel gains reach | ms; ms; dB; dB |
+| `di` | every second period of the voice later and weaker (the synthesiser's diplophonia): ventricular voice, harshness | per cent, 0 to 95 |
+| `jit` | each frame's pitch moved at random by up to so much, so that each period differs from the last (a harsh, oesophageal or tracheo-oesophageal voice's jitter, Q36); the same every time the same is said. About 2.5 times the jitter measured is asked for (calibrated on dedx, D87) | tenths of a per cent |
+| `mono` | the pitch drawn so far towards the voice's middle: 100 a monotone (an electrolarynx) | per cent |
+| `mute` | the sound not heard: 1 no voice, breath or friction (extIPA's silent articulation); 2 its friction kept (extraneous noise) | |
+
+What the layer does by itself since 1.3.0:
+- A whispered sound's voice ends where the sound ends: a sound after it with no voice of its own does not begin with the module's voice (Q28).
+- A stop the layer voices is found released under its voice bar, so that the voice it asks for after the release is given (Q30).
+- A phone the markup asked for that is never said is reported in the trace, as `phone-unplaced`, when its phrase is over or the text is stopped (Q14).
+
 ### The melody and the rhythm
 
     accent f0=own shape=1 accent=24 accent2=10 unstressed=-2 decl=8 declmax=30 fs=-18 fw=-12 fc=14 fe=-12 fq=38 qreg=8 span=2 stressed=88 weak=112
@@ -128,7 +160,7 @@ The words a question is asked with. A clause that ends in a question mark and ha
     weaktones 11 22 33 44
     tonename 2 35
 
-A tone is named as eSpeak NG names it (`tonename` gives another name where that is wanted) and is a line of points: at so many per cent of the syllable's rhyme the voice is to be at such a level, in tenths of Chao's five levels, 10 the bottom of the voice and 50 the top. The voice does not jump from point to point; it follows them as a larynx does, a little late and without corners. `dur` lengthens the syllable, `creak`, `cfrom` and `cto` make part of it creaky, `brth` breathy, `stop` ends it in a glottal closure of so many milliseconds, `weak` lets a tone give way towards the middle of the voice.
+A tone is named as eSpeak NG names it (`tonename` gives another name where that is wanted) and is a line of points: at so many per cent of the syllable's rhyme the voice is to be at such a level, in tenths of Chao's five levels, 10 the bottom of the voice and 50 the top. The voice does not jump from point to point; it follows them as a larynx does, a little late and without corners. `dur` lengthens the syllable, `creak`, `cfrom` and `cto` make part of it creaky, `brth` breathy, `stop` ends it in a glottal closure of so many milliseconds, `weak` lets a tone give way towards the middle of the voice. `av` raises or lowers the voice's level over the tone, in dB (since 1.3.0: before, it was read and never applied, defect X-2).
 
 `words apart` makes every syllable a word of its own, which a language of one-syllable words wants; `onset` says how many phones may begin a syllable there, and `cluster` names pairs that may where `onset` is 1. A syllable whose tone is listed under `weaktones` is light, and every other syllable has the weight of a stressed one.
 
@@ -139,6 +171,29 @@ Tone sandhi is eSpeak NG's: the third tone of Mandarin arrives as a second tone 
     says C t S
 
 The module says the phone `C` as `t` and then `S`: every module takes an affricate apart. The layer has to be told, or it would look for a `C` that never comes.
+
+### The lines for IPA (a map of version 2)
+
+Since 1.3.0 the front-end reads IPA marks, tone letters and extIPA's braces and composes them on the sounds they belong to; the IPA master table (`ipa/table/`) is realised into these lines by `engine/ipa` (`ipa/realized/dedx.map`). No language shipped in 1.3.0 uses them yet: text is still read by eSpeak NG into each language's own sounds, and the realised map is read by the tools, `engine/ipa/say_ipa.py` (any IPA, said and measured) and the proofs of `ipa/proofs/`. Speaking IPA through SAPI is a later addition.
+
+| Line | What it says |
+|---|---|
+| `version 2` | the map is written for the front-end that composes marks (C4) |
+| `letter <ipa> <c or v> <features>` | a letter of the chart and its features: what a letter with no line of its own is said as, by the nearest one (the fallback). A letter may be spelt with two characters (a letter and a mark, or two letters: ǃ¡), three or four (a letter and its own marks: h̪͆, tʰ̪͆), or as a tied letter (ↀ͡r). Its features include `release`, `place_mark`, `aspiration`, `fricated_release` and `tongue_part` |
+| `weights <feature>=<n> ...` | how far apart two letters are, feature by feature, for that fallback |
+| `mod <mark> <c or v> <keys>` | a mark on a consonant or a vowel: keys set (`voi=1`), added (`vot+64`) or multiplied (`hold*131`, per cent), composed on the letter's own line; a line holds 12 keys at most |
+| `premod <mark> <c or v> <keys>` | a mark written before its letter (extIPA's ʰp, ˬz) |
+| `after <mark> <first marks>` | the second character of a mark of two characters (◌̥᪽'s ᪽), said only after the first ones |
+| `reiterate <c or v> <ipa>` | what is said at extIPA's `\` (reiteration) after a consonant or a vowel |
+| `notation extipa`, `extipa <line>` | the map reads extIPA's own meaning of a character the IPA reads otherwise; an `extipa` line counts only under it |
+| `label <label> <d, m, r or -> <marks...>` | a VoQS or extIPA label in braces (`{V! ... V!}`): each degree or step is a mark of its own (a private-use character) with its own `mod` lines, composed on every letter of its class in the stretch (D83) |
+| `pause <spelling> <ms>` | extIPA's pauses: `(.)`, `(..)`, `(...)` and timed ones |
+| `tonemark` `register` `slope` | tone letters and diacritics, downstep and upstep, global rise and fall typed in IPA |
+| `syllabic <sound>` | the schwa that carries a consonant marked syllabic |
+
+Two more things the front-end does with these lines:
+- A tied pair the template has no phone for (t͡θ, d͡ð) is a sound of its own: the stop released into the fricative, its friction as long as the template's own affricates' (D84, D87).
+- The link `‿`, given a `mod` line, is a mark of the consonant before it: a linking consonant is said shorter (Q19).
 
 ## Where the numbers come from
 

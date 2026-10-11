@@ -1,6 +1,6 @@
 # The languages, one by one
 
-For each of the 145 languages read by eSpeak NG: what the literature says the language sounds like, what eSpeak NG reads otherwise, and what OpenEVV says. The first two are summaries of the language's profile in `engine\profiles`, which names its sources and marks every number with how sure it is; the third is read off the language's pack. `docs\SOUNDS.md` says what the numbers in a sound mean.
+For each of the 145 languages read by eSpeak NG in release 1.2 (Belgian Dutch, `nl-be`, added in 1.3.0, is Dutch below with eleven vowels moved to published Flemish values: `packs/nl-be/pack.toml` says which, and `docs/tts-extension/LANGUAGE_STATUS.md` gives its level): what the literature says the language sounds like, what eSpeak NG reads otherwise, and what OpenEVV says. The first two are summaries of the language's profile in `engine\profiles`, which names its sources and marks every number with how sure it is; the third is read off the language's pack. `docs\SOUNDS.md` says what the numbers in a sound mean.
 
 This page is written by `engine\accent\report.py`.
 

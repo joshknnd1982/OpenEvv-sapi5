@@ -16,7 +16,7 @@ The pipeline, one command a step (Python: the harness venv, `PYTHONUTF8=1`, repo
 | 5. Hear the effect (measure it) | `python engine/packs/build_packs.py build <scratch> --proposed <tag>` and the harness | a scratch folder, never `languages/` |
 | 6. Make the review packet | `python engine/review/make_packet.py <tag>` | `docs/tts-extension/review_packets/<tag>/` |
 | 7. Record a reviewer's answers | `python engine/review/ingest_feedback.py <feedback.toml>` (`--selftest`) | `LANGUAGE_STATUS.md` (sign-offs), `review/signoffs.json`, the pack's status |
-| 8. Apply the overrides (human's say-so, R18) | set `state = "applied"` in `pack.toml`, `build_packs.py check` shows the difference, then the shipped files are rebuilt | `languages/<tag>/sounds.map` |
+| 8. Apply the overrides (human's say-so, R18) | set `state = "applied"` in `pack.toml`, `build_packs.py check` shows the difference, then the shipped files are rebuilt (`build_packs.py build languages <tag>`; done first for `nl-be` in 1.3.0, `DECISIONS.md` D95) | `languages/<tag>/sounds.map` |
 
 ## 1. Reference data
 
