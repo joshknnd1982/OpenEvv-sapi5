@@ -1,6 +1,6 @@
-# OpenEVV pack: nl-be (PROPOSED, waits for the human's say-so; R18). Southern Standard Dutch as spoken
+# OpenEVV pack: nl-be (shipped in 1.3.0 by the human's choice, Q50, 2026-10-11; R18). Southern Standard Dutch as spoken
 # in Flanders. It extends nl (Dutch, read by eSpeak NG's gmw/nl voice) and holds only what differs:
-# its name and eleven vowels, as proposed overrides with their provenance (adank2004, Table I, the
+# its name and eleven vowels, as applied overrides with their provenance (adank2004, Table I, the
 # Southern Standard Dutch men). NOT made: see [meta] note.
 
 [pack]
@@ -23,6 +23,8 @@ note = "Eleven stressed vowels at the Southern Standard Dutch men's steady-state
 [ini.Language]
 Tag = "nl-be"
 Name = "Dutch (Southern Standard, Flanders)"
+LCID = "813"
+Locale = "nl-BE"
 Order = "1100"
 
 # /ɑ/: Table I of adank2004, Southern Standard Dutch men, F1 555 / F2 1066 Hz (the vowel's middle, /sVs/).
@@ -30,7 +32,7 @@ Order = "1100"
 [[override]]
 sound = "ɑ"
 phonemes = ["@nl:A"]
-state = "proposed"
+state = "applied"
 note = "/ɑ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -54,7 +56,7 @@ norm = "1066 Hz x0.9704, as F1"
 [[override]]
 sound = "aː"
 phonemes = ["@nl:a:"]
-state = "proposed"
+state = "applied"
 note = "/a/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -78,7 +80,7 @@ norm = "1429 Hz x0.9704, as F1"
 [[override]]
 sound = "ɛ"
 phonemes = ["@nl:E", "@nl:E2"]
-state = "proposed"
+state = "applied"
 note = "/ɛ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -102,7 +104,7 @@ norm = "1616 Hz x0.9704, as F1"
 [[override]]
 sound = "eː"
 phonemes = ["@nl:e:"]
-state = "proposed"
+state = "applied"
 note = "/e/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -126,7 +128,7 @@ norm = "1993 Hz x0.9704, as F1"
 [[override]]
 sound = "øː"
 phonemes = ["@nl:Y:"]
-state = "proposed"
+state = "applied"
 note = "/ø/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -150,7 +152,7 @@ norm = "1539 Hz x0.9704, as F1"
 [[override]]
 sound = "ɪ"
 phonemes = ["@nl:I"]
-state = "proposed"
+state = "applied"
 note = "/ɪ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -174,7 +176,7 @@ norm = "1745 Hz x0.9704, as F1"
 [[override]]
 sound = "ɔ"
 phonemes = ["@nl:O"]
-state = "proposed"
+state = "applied"
 note = "/ɔ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -198,7 +200,7 @@ norm = "850 Hz x0.9704, as F1"
 [[override]]
 sound = "u"
 phonemes = ["@nl:u", "u"]
-state = "proposed"
+state = "applied"
 note = "/u/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -222,7 +224,7 @@ norm = "978 Hz x0.9704, as F1"
 [[override]]
 sound = "oː"
 phonemes = ["@nl:o:"]
-state = "proposed"
+state = "applied"
 note = "/o/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -246,7 +248,7 @@ norm = "862 Hz x0.9704, as F1"
 [[override]]
 sound = "ʏ"
 phonemes = ["@nl:8"]
-state = "proposed"
+state = "applied"
 note = "/ʏ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]
@@ -270,7 +272,7 @@ norm = "1492 Hz x0.9704, as F1"
 [[override]]
 sound = "y"
 phonemes = ["@nl:y", "y"]
-state = "proposed"
+state = "applied"
 note = "/y/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
 
 [override.formants.f1]

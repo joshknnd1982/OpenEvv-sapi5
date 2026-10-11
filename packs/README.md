@@ -4,10 +4,10 @@ One folder a language, one `pack.toml` in it. A build step (`engine/packs/`) tur
 files `languages/<tag>/` holds (`language.ini`, `sounds.map`, `phonemes.map`, `sample.txt`), in the
 formats the product reads today, so the product is not changed and needs no TOML reader.
 
-Stage M1 of `docs/tts-extension/DESIGN.md` 11.3: all 162 folders of `languages/` are packs
-(145 read by eSpeak NG, `realization = "legacy"`; the 10 native languages and the 7 template modules,
+Stage M1 of `docs/tts-extension/DESIGN.md` 11.3: all 163 folders of `languages/` are packs
+(146 read by eSpeak NG, `realization = "legacy"`, Belgian Dutch `nl-be` added in 1.3.0; the 10 native languages and the 7 template modules,
 `realization = "module"`, which make only their `language.ini`: the DLLs stay where they are).
-Every pack builds to files identical to the ones in `languages/`; 17 dialect packs `extends` a parent
+Every pack builds to files identical to the ones in `languages/`; 18 packs `extends` a parent
 and hold only what differs.
 
 ## Commands (PowerShell, repository root; Python 3.10 needs `tomli`, the harness venv has it)
