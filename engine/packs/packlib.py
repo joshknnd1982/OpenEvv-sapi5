@@ -67,8 +67,22 @@ def packs_dir():
     return os.path.join(os.path.dirname(os.path.dirname(HERE)), "packs")
 
 
+def extra_dirs():
+    """EVV_PACKS_EXTRA: folders (separated by os.pathsep) searched after packs/ for a tag packs/ lacks.
+    For worked examples and test packs (docs/tts-extension/examples/packs/): they may extend a pack of
+    packs/, never replace one, and `list_tags` (so `build_packs.py check`) never sees them."""
+    return [d for d in os.environ.get("EVV_PACKS_EXTRA", "").split(os.pathsep) if d]
+
+
 def pack_path(tag, root=None):
-    return os.path.join(root or packs_dir(), tag, "pack.toml")
+    if root:
+        return os.path.join(root, tag, "pack.toml")
+    path = os.path.join(packs_dir(), tag, "pack.toml")
+    if not os.path.isfile(path):
+        for d in extra_dirs():
+            if os.path.isfile(os.path.join(d, tag, "pack.toml")):
+                return os.path.join(d, tag, "pack.toml")
+    return path
 
 
 def list_tags(root=None):

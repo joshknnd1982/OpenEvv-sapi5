@@ -101,21 +101,24 @@ def score(refs, hyps, tag=None):
     return round(cer, 4), round(wer, 4)
 
 
-def run(tags, cpu=False, limit=8, preset=1):
+def run(tags, cpu=False, limit=8, preset=1, like=None):
+    """`like` = {tag: another tag}: the sentences and Whisper's language of that one (a test copy of
+    a language, check_language.py --asr-like)."""
     sentences = load_json('sentences.json')['languages']
     codes = load_json('whisper_codes.json')
     model, device = None, None
     out = {}
     for tag in tags:
-        code = (codes.get(tag) or {}).get('whisper')
-        sents = [s['text'] for s in ((sentences.get(tag) or {}).get('sentences') or [])][:limit]
-        rec = dict(tag=tag, whisper=code, note=(codes.get(tag) or {}).get('whisper_note', ''),
-                   source=(sentences.get(tag) or {}).get('source'), n=len(sents))
+        src = (like or {}).get(tag, tag)
+        code = (codes.get(src) or {}).get('whisper')
+        sents = [s['text'] for s in ((sentences.get(src) or {}).get('sentences') or [])][:limit]
+        rec = dict(tag=tag, whisper=code, note=(codes.get(src) or {}).get('whisper_note', ''),
+                   source=(sentences.get(src) or {}).get('source'), n=len(sents))
         if not code:
             rec.update(status='ASR unavailable', reason='Whisper large-v3 has no language for this tag')
         elif not sents:
             rec.update(status='ASR unavailable', reason='no CC0 / CC BY sentence set has this language')
-        elif tag in OTHER_SCRIPT:
+        elif src in OTHER_SCRIPT:
             rec.update(status='ASR unavailable', reason='Whisper writes another script; references not converted yet')
         if 'status' in rec:
             out[tag] = rec
@@ -140,9 +143,9 @@ def run(tags, cpu=False, limit=8, preset=1):
                                        vad_filter=False, temperature=(0.0, 0.2, 0.4, 0.6, 0.8, 1.0),
                                        compression_ratio_threshold=2.4)
             hyps.append(' '.join(s.text.strip() for s in segs))
-        cer, wer = score(sents, hyps, tag)
+        cer, wer = score(sents, hyps, src)
         rec.update(status='scored', device=device, preset=preset, cer=cer,
-                   wer=None if tag in NO_SPACES else wer, seconds=round(time.time() - t0, 1),
+                   wer=None if src in NO_SPACES else wer, seconds=round(time.time() - t0, 1),
                    pairs=[dict(ref=a, hyp=b) for a, b in zip(sents, hyps)])
         out[tag] = rec
         print('%-8s CER %.3f  WER %s  (%d sentences, %s, %.0f s)' % (

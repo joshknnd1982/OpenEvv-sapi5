@@ -307,5 +307,37 @@ class Teeth(unittest.TestCase):
             self.assertNotEqual(c["ini"]["Language"]["Tag"], p["ini"]["Language"]["Tag"])
 
 
+class ExtraFolder(unittest.TestCase):
+    """EVV_PACKS_EXTRA: a test pack outside packs/ may extend a shipped pack, never replaces one, and
+    is not listed (so `build_packs.py check` does not see it)."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.old = os.environ.get("EVV_PACKS_EXTRA")
+        os.environ["EVV_PACKS_EXTRA"] = self.tmp
+
+    def tearDown(self):
+        if self.old is None:
+            os.environ.pop("EVV_PACKS_EXTRA", None)
+        else:
+            os.environ["EVV_PACKS_EXTRA"] = self.old
+        shutil.rmtree(self.tmp)
+
+    def test_a_pack_found_only_there_extends_a_shipped_one(self):
+        shutil.copytree(os.path.join(ROOT, "packs", "mn-f"), os.path.join(self.tmp, "mn-x-t"))
+        path = os.path.join(self.tmp, "mn-x-t", "pack.toml")
+        text = open(path, encoding="utf-8").read().replace('tag = "mn-f"', 'tag = "mn-x-t"')
+        open(path, "w", encoding="utf-8", newline="\n").write(text)
+        self.assertEqual(L.pack_path("mn-x-t"), path)
+        self.assertEqual([d["pack"]["tag"] for d in L.chain_of("mn-x-t")], ["mn", "mn-x-t"])
+        self.assertNotIn("mn-x-t", L.list_tags())
+
+    def test_packs_of_packs_wins(self):
+        os.makedirs(os.path.join(self.tmp, "af"))
+        open(os.path.join(self.tmp, "af", "pack.toml"), "w").write("broken")
+        self.assertEqual(L.pack_path("af"), os.path.join(L.packs_dir(), "af", "pack.toml"))
+        L.read_pack("af")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -110,7 +110,7 @@ def base_letter(ipa, flags):
 
 
 def review_spec(tag):
-    path = os.path.join(L.packs_dir(), tag, "review.toml")
+    path = os.path.join(os.path.dirname(L.pack_path(tag)), "review.toml")
     return tomlio.load(path) if os.path.isfile(path) else {}
 
 
