@@ -37,7 +37,15 @@ is missing, say so and review what you can.
    ShareAlike pasted into an MIT file (R4); a source used has its licence in `REFERENCES.md`.
 6. **Regression** (R8): if synthesis or data changed, the golden regression ran after the change and
    its summary line is shown; an intended difference is recorded in `DECISIONS.md`.
-7. **Commands that are claimed to run**: where the change documents a command, run it yourself if it
+7. **R21, the IPA master path** (playbook 1.3): any new or changed language, dialect, accent,
+   improvement or sound is built on the master table and `realization = "master"`. Flag: a new pack
+   at `legacy` or with hand-written `sound` lines the table could give; a sound made inside one pack
+   instead of the table (R21b); a fix to a shared sound made per pack (R21c); a `legacy-fallback`
+   with no fault shown (a hypothesis is not a fault); a native pack touched without the human's
+   logged answer (R21e); a report missing the table, composed, created and fallback counts (R21f).
+   A silent drop back to the old generator is a gap; so is work that ignored a missing master tool
+   instead of recording it in `OPEN_QUESTIONS.md` and asking (R21g).
+8. **Commands that are claimed to run**: where the change documents a command, run it yourself if it
    is read-only and quick (under about two minutes), and compare what it prints with the claim.
 
 ## Read-only

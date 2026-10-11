@@ -18,6 +18,15 @@ skill run end to end, every command with its output), `docs/tts-extension/PROJEC
 `DESIGN.md` 6 (packs) and 8 (G2P) as needed. You cannot hear: every claim about sound is a
 measurement shown with its raw output (R2, R5, R16).
 
+**R21 (playbook 1.3, the human's order of 2026-10-11): a new language is built on the IPA master
+table and the master path, not on the old sound generator.** Its phonemes are IPA, resolved through
+`ipa/table/`; the pack says `realization = "master"` (the master path of the pack compiler,
+`engine/packs/to_master.py`, built in Phase 11); a sound the table lacks goes into the table
+(`/create-missing-sound`), never into this one pack. Check `Test-Path engine\packs\to_master.py`
+first: if the tool is missing, or cannot realise this pack, **stop**, say so, record it in
+`OPEN_QUESTIONS.md` and ask the human (R21g). Never write legacy `sound` lines instead, and never
+choose `realization = "legacy"` to save effort.
+
 ## Setup (PowerShell, repository root)
 
 The PowerShell tool keeps no state between calls: start **every** call with these lines (and
@@ -47,6 +56,11 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
 
        & $py engine\packs\new_language.py <voice> <tag> --out packs-proposed --name "<Name>"
 
+   **Then move it to the master path (R21):** `& $py engine\packs\to_master.py <tag>` (`--help`
+   for the options Phase 11 gave it; `--dry-run` first). Show its report: sounds realised from the
+   table, composed, fallen back (each with its reason, `legacy-fallback`), deviations it could not
+   realise. A fallback is allowed only for a sound the engine cannot be made to say (check A), never
+   for a hypothesis.
 3. **Write the pack** (`packs-proposed/<tag>/pack.toml`; `engine/packs/packlib.py` has the format):
    `[meta]` sources, licence, a `note` and `status = { level = 1, validated_by = "", date = "" }`
    (the generator writes no status; 1 is draft until step 8); a test copy keeps its original's
@@ -93,8 +107,9 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
    or under 0.15; level 2 is the usual result while check B has no references for the language;
    never 5 without a named reviewer) in the pack's `[meta] status = { level = N, validated_by = "", date = "" }` and, for a real language,
    `docs/tts-extension/LANGUAGE_STATUS.md` with its failure layer. A test pack records nothing there.
-9. **Report** in plain English: what was done, the level, which sounds are created, approximate or
-   estimated, what a native reviewer should check first (the packet's flagged items). Shipping it
+9. **Report** in plain English: what was done, the level, how many sounds came from the table, were
+   composed, created or fell back and why (R21f, from `to_master.py`'s own output), which sounds are
+   created, approximate or estimated, what a native reviewer should check first (the packet's flagged items). Shipping it
    (moving the pack into `packs/` and building `languages/<tag>/`, `ADDING_A_LANGUAGE.md` section 8)
    waits for the human's say-so (R18, D34).
 10. **Review**: launch the `tts-reviewer` agent with the "Done when" list below and the changed
@@ -103,6 +118,7 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
 
 ## Done when
 
+- the pack is `realization = "master"` (R21), `to_master.py`'s report shown, each `legacy-fallback` listed with its reason
 - the pack builds; every phoneme has a sound, none silent; the ones with no phone of their own explained
 - check A, check B and ASR (or "unavailable" with the reason) shown with raw output
 - the golden regression of every existing language: 0 FAILED, output shown

@@ -17,6 +17,16 @@ template modules speaks it, and how each of the language's sounds differs from t
 nearest sound. A build step turns the pack into the four files the product reads
 (`languages/<tag>/language.ini`, `sounds.map`, `phonemes.map`, `sample.txt`).
 
+**The rule for everything added from now on (playbook R21, the human's order of 2026-10-11).** A
+new language, dialect, accent, improvement or sound is built on the IPA master table
+(`engine/ipa/`) and the master path of the pack compiler (`realization = "master"`,
+`engine/packs/to_master.py`, built in Phase 11), not on the old sound generator. A sound the table
+lacks is made once, in the table (section 9), never inside one pack. `realization = "legacy"` stays
+only as a per-pack switch and as the fallback for a sound the engine cannot be made to say. The three
+worked examples below were run **before** this switch, on legacy packs; their numbers are what they
+printed then. If `engine\packs\to_master.py` does not exist yet, stop and ask (R21g): do not write
+legacy `sound` lines instead.
+
 The same steps as slash commands (Claude Code, this repository): `/add-language`, `/add-dialect`,
 `/add-accent`, `/improve-language`, `/diagnose-language`, `/create-missing-sound`
 (`.claude/skills/`). Each ends with an independent review by the `tts-reviewer` agent.
@@ -389,8 +399,9 @@ the length difference), so no override is written for them. The two groups are o
 so the accent is carried by the **ratio** (F1 x0.7442, F2 x1.1521), applied to the pack's own KIT
 (386 / 1785 Hz): 287.2 / 2056.6 Hz, tagged `derived`.
 
-**The target.** Overrides need a pack whose sounds are written out (`realization = "legacy"`); the
-native US English module (`enus`) cannot take them. The only American English pack that can is New
+**The target.** Overrides need a pack whose sounds are written out (when this example was run,
+`realization = "legacy"`; since the switch of Phases 11 and 12, `"master"`, which takes overrides on
+top the same way, R21); the native US English module (`enus`) cannot take them. The only American English pack that can is New
 York City's (`en-us-nyc`), so the example extends it and says so in its notes: the rest of the
 accent's target is NYC English, which the source's speakers did not speak.
 
@@ -435,6 +446,7 @@ scratch golden folder.
 |---|---|
 | Health of everything | `& $py engine\doctor.py [--quick]` |
 | Start a language pack | `& $py engine\packs\new_language.py <voice> <tag> --out packs-proposed --name "<Name>"` |
+| Move a pack to the IPA master path (R21; built in Phase 11, options in its `--help`) | `& $py engine\packs\to_master.py <tag> [--dry-run]` |
 | Validate a pack (authenticity rules) | `& $py engine\packs\validate_packs.py <tag>` |
 | Build a pack into a stage | `& $py engine\packs\build_packs.py build <S>\languages <tag> [--proposed]` |
 | Which pack gave a value | `& $py engine\packs\build_packs.py explain <tag> <dotted key>` |
@@ -476,7 +488,8 @@ exists); if a dialect, give it the test sentences of its language in `harness/as
 
 - **Improve** a language (`/improve-language <tag>`): start from its failure layer in
   `LANGUAGE_STATUS.md`, re-measure first, change only that layer, re-measure, and run the whole
-  golden regression: one language's fix must never break another.
+  golden regression: one language's fix must never break another. A shared cause is fixed once in
+  the master table or the generator (R21c); a pack still at `legacy` is first moved to `master`.
 - **Diagnose** (`/diagnose-language <tag> <symptom>`): turn a listener's words into hypotheses (wrong
   sound values, wrong reading of the spelling, stress or tone, timing, voice, an engine fault) and
   measurements that tell them apart; it proposes a fix and changes nothing.
@@ -484,6 +497,7 @@ exists); if a dialect, give it the test sentences of its language in `harness/as
   playbook (1.6): try composing it from a base and marks, then a near neighbour, then a new
   engine capability; design it with sourced values, render and measure it in several vowel
   contexts, register it in `docs/tts-extension/CREATED_SOUNDS.md` with a number that never changes.
+  It goes into the master table, so every language reaches it through the master path (R21b).
 
 **Each skill was tested in Phase 8** on a small real task by a helper that knew only the skill's own
 text (`docs/tts-extension/DECISIONS.md` D92 has the details, the skills were corrected from what the
@@ -506,8 +520,8 @@ helpers found):
   Swapping one phoneme for another, devoicing, inserting a vowel, mergers, rhythm: no sourced pack
   mechanism yet (`DESIGN.md` 8.3, L2 and L4). List such features in the pack's note as not made.
 - **Overrides on the native modules** (US and British English, German, Spanish, French, Italian,
-  Japanese, Polish and the rest): they have no written-out sound lines, so no override; use a legacy
-  pack of the language as the parent.
+  Japanese, Polish and the rest): they have no written-out sound lines, so no override; use a
+  pack of the language read by eSpeak NG (on the master path, R21) as the parent.
 - **A test of a language without recogniser support**: Whisper lacks some languages; their packs stop
   at level 3 until a native reviewer listens.
 - **Length as a phoneme** (Finnish, Estonian, Japanese moras, Hungarian): a long vowel is the short
@@ -529,6 +543,9 @@ helpers found):
 - **Tagging a dialect's value `estimated`**: refused by the validator. Find a source or measure.
 - **Hand-editing `[sounds]` lines in a dialect**: the validator cannot see it, and it hides a claim
   without provenance. Use an `[[override]]`, or list the feature as not made.
+- **Writing legacy `sound` lines, or a sound inside one pack, for new work**: R21 says the IPA master
+  table and the master path (`realization = "master"`); a missing sound goes into the table. If the
+  master tool is missing, stop and ask; never fall back to the old generator in silence.
 - **Calling a language "authentic"** below level 5, or raising a level without its measurement.
 - **`asr.py <tag>` for a test pack**: it writes the tracked `results/asr.json`. Use
   `check_language.py --asr`, which writes nothing.

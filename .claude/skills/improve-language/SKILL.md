@@ -21,6 +21,16 @@ records its diagnosis there), `ADDING_A_LANGUAGE.md` section 9. The numbers in `
 and `results/asr.json` may be older than the stage: measure again before comparing. You cannot hear:
 measure (R2, R5, R16).
 
+**R21 (playbook 1.3, the human's order of 2026-10-11): an improvement uses the IPA master table and
+the master path.** Step 1 also records the pack's `realization`
+(`Select-String -Path packs\<tag>\pack.toml -Pattern 'realization'`). A pack still at `"legacy"`
+is first moved to `"master"` with `engine\packs\to_master.py <tag>` (its report shown, before and
+after measured), unless the human says otherwise; a missing tool or a sound the master path cannot
+say is not for you to work around: record it in `OPEN_QUESTIONS.md` and ask (R21g). A sound that the
+table or the generator supplies is fixed there once (R21c), then every language is re-measured;
+an `[[override]]` in the pack is only for a measured difference of the language's speakers, with
+provenance. The ten native languages stay untouched unless the human orders otherwise (R21e).
+
 ## Setup (PowerShell, repository root)
 
 The PowerShell tool keeps no state between calls: start **every** call with these lines.
@@ -73,7 +83,8 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
    `results/asr.json`) and then `report.py` (rewrites `LANGUAGE_STATUS.md` for every language: read
    its diff, and say every row that moved); a new packet (`make_packet.py <tag>`) only if what the
    language says changed.
-5. **Report** in plain English: what moved, by how much, at which layer; the level now. Applying
+5. **Report** in plain English: what moved, by how much, at which layer; the level now; the pack's
+   realization and the R21f counts (from the table, composed, created, fallen back and why). Applying
    proposed overrides or rebuilding `languages/` waits for the human's say-so (R18, D34).
 6. **Review**: launch the `tts-reviewer` agent with the "Done when" list and the changed paths. If
    you cannot launch agents, say that the review is still owed.
@@ -81,7 +92,7 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
 ## Done when
 
 - the baseline and the after measurements are both shown, raw
-- the change is at the failing layer (or is better evidence), with provenance on every value
+- the change is at the failing layer (or is better evidence), with provenance on every value, made in the table or generator when the cause is shared and the pack is on the master path (R21)
 - the regression that can see the change was run and shown (the full golden 0 FAILED for anything the
   product reads; every reached pack's check B for references); `doctor --quick` passes
 - LANGUAGE_STATUS (for a real change) and the report state the true level

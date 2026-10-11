@@ -17,6 +17,15 @@ every command with its output), `docs/tts-extension/AUTHENTICITY.md` (rules M1-M
 5, anti-caricature). An accent describes real speakers; it is never a performance. You cannot hear:
 measure (R2, R5, R16).
 
+**R21 (playbook 1.3, the human's order of 2026-10-11): an accent is built on the IPA master table
+and the master path.** The pack `extends` a target whose sounds come from the table (`realization =
+"master"`; after Phase 12 every eSpeak NG pack is). The accent's sounds are other IPA sounds of the
+table named for the phoneme, or an `[[override]]` for a measured group difference with provenance; a
+sound the table lacks (a sound of the speakers' first language) goes into the table
+(`/create-missing-sound`), never into this pack alone. A missing `engine\packs\to_master.py`, or a
+target still at `legacy`, is not for you to work around: say so, record it in `OPEN_QUESTIONS.md` and
+ask the human (R21g). The ten native languages stay untouched (R21e).
+
 ## Setup (PowerShell, repository root)
 
 The PowerShell tool keeps no state between calls: start **every** call with these lines (and
@@ -37,8 +46,10 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
    devoicing, epenthesis, stress or rhythm, intonation) with who does it and how often, from the
    sources. Prefer features measured in groups of speakers. A sound outside the target language:
    look it up in the master table (`ipa/table/*.toml`); a gap is `/create-missing-sound`.
-3. **What the engine can carry today**: the target must be a legacy pack (`[engine] realization =
-   "legacy"`; the native modules enus, engb, dede and the rest cannot take overrides). A vowel's
+3. **What the engine can carry today**: the target must be a pack whose sounds are written out and
+   come from the master path (`[engine] realization = "master"`, R21; a pack still at `"legacy"`
+   also carries overrides, but is not a target for new work: see above); the native modules enus,
+   engb, dede and the rest cannot take overrides. A vowel's
    quality and length are `[[override]]` blocks (formants in Hz, duration in ms; `measured`,
    `literature`, `derived` or `approximate` with `ref`, never `estimated`). Substituting one phoneme
    for another, devoicing, epenthesis and rhythm have no sourced pack mechanism yet (DESIGN.md L4):
@@ -85,8 +96,9 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
    `docs/tts-extension/review/keys/<tag>.json`; a matplotlib `RuntimeWarning` on stderr is harmless.
    A native reviewer of the speaker group judges it; "this sounds like a parody" takes the feature
    back to its evidence.
-9. **Report** in plain English; flag anything weakly sourced or that could read as a stereotype, for
-   removal. Status: the pack's `[meta] status` level is what `check_language.py` printed for the pack
+9. **Report** in plain English, with the R21f counts (sounds from the table, composed, created,
+   fallen back and why; the target's realization); flag anything weakly sourced or that could read
+   as a stereotype, for removal. Status: the pack's `[meta] status` level is what `check_language.py` printed for the pack
    as built in step 6 (without proposed overrides); never 5 without a named reviewer. Shipping waits
    for the human's say-so.
 10. **Review**: launch the `tts-reviewer` agent with the "Done when" list and the changed paths. If
@@ -94,6 +106,6 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
 
 ## Done when
 
-- `validate_packs.py <tag>` accepts it; every feature sourced; features not made listed as such
+- `validate_packs.py <tag>` accepts it; every feature sourced; features not made listed as such; the target is on the master path (R21)
 - every override moves its vowel by more than 6 per cent; its effect measured (`show_effect.py`) and shown; check A passes with the overrides
 - the target's golden: 0 FAILED; packet made; level stated and equal to the measurement; nothing called authentic

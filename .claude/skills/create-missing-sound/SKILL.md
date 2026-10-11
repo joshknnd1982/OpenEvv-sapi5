@@ -20,6 +20,15 @@ long runs); `openevv/CLAUDE.md` before touching anything under `openevv/`. The w
 CS-0076 ɓ̥ (`ipa/table/non_pulmonic.toml`, `DECISIONS.md` D92). You cannot hear: every value has a
 provenance tag, every claim a measurement (R2, R5, R16).
 
+**R21 (playbook 1.3): this skill is where new sounds enter the project.** Every missing sound is made
+once, in the master table (and the engine where it needs a capability), registered with a stable
+`CS-` number, so that every language, dialect and accent reaches it through the master path
+(`realization = "master"`, `engine/packs/to_master.py`). Never make a sound as a `sound` line or an
+override inside one pack. After the sound is registered, name the packs that need it and check that
+the master path realises it for one of them (a language's phoneme that the reader gives as this
+IPA): show `to_master.py --dry-run <tag>` counting it as realised from the table or composed, not
+fallen back.
+
 ## Setup (PowerShell, repository root)
 
 The PowerShell tool keeps no state between calls: start **every** call with these lines. Pass IPA
@@ -92,4 +101,5 @@ as literal characters (PowerShell 5.1 has no `` `u{} `` escape).
   silently substituted); contrasts with its neighbours pass
 - every value tagged; estimated ones queued in Q15 (`doctor` has no WARN for them); created ones
   registered with a stable id
+- the sound is in the master table, not in one pack (R21b); where a pack needs it, the master path realises it (shown)
 - coverage: MISSING 0, BLOCKED 0; the golden 0 FAILED (or each change in DECISIONS.md); `doctor --quick` 0 FAILED

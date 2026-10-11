@@ -20,6 +20,13 @@ triage decided); `DESIGN.md` 8 (G2P), 9 (prosody and timing) and 10 (what each c
 `docs/tts-extension/harness/README.md` (every measure and its limits). You cannot
 hear: the listener's words are the symptom, your measurements the evidence.
 
+**R21 (playbook 1.3):** every language is meant to speak with the IPA master table's sounds
+(`realization = "master"`). Record in the diagnosis which realization the pack has
+(`Select-String -Path packs\<tag>\pack.toml -Pattern 'realization'`) and whether any of its sound
+lines is a `legacy-fallback`. A fault that sits in a legacy line, or in a sound the table gives for
+every language, is proposed as a fix **in the table or by moving the pack to the master path**
+(`/improve-language`), not as a patch to one pack's line (R21c, R21d).
+
 ## Setup (PowerShell, repository root)
 
 The PowerShell tool keeps no state between calls: start **every** call with these lines.
@@ -76,4 +83,4 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
 
 - every hypothesis has a measurement for or against it, shown raw
 - the cause is named with confidence and evidence; nothing in the tree was changed but the finding
-- the proposed fix names its layer and its measure of success
+- the proposed fix names its layer and its measure of success, and the diagnosis states the pack's realization (R21)

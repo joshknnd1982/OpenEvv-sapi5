@@ -17,6 +17,17 @@ every command with its output), `docs/tts-extension/AUTHENTICITY.md` (the valida
 and A1-A4, the anti-caricature rules), `DESIGN.md` 6.3 (inheritance). You cannot hear: measure (R2,
 R5, R16).
 
+**R21 (playbook 1.3, the human's order of 2026-10-11): a dialect is built on the IPA master table
+and the master path.** The pack `extends` a parent whose sounds come from the table (`realization =
+"master"`; after Phase 12 every eSpeak NG pack is). A difference is another IPA sound of the table
+named for the phoneme, or an `[[override]]` for a measured speaker difference, with provenance; a
+sound the table lacks goes into the table (`/create-missing-sound`), never into this pack alone.
+Check the parent: `Select-String -Path packs\<parent>\pack.toml -Pattern 'realization'`. A parent
+still at `legacy`, or a missing `engine\packs\to_master.py`, is not for you to work around: say so,
+record it in `OPEN_QUESTIONS.md` and ask the human (R21g). The ten native languages cannot be
+extended (no sound lines) and stay untouched (R21e). The "map lines" in step 3 are the parent's
+`sound` lines as the master path writes them: each carries a comment naming its table entry.
+
 ## Setup (PowerShell, repository root)
 
 The PowerShell tool keeps no state between calls: start **every** call with these lines (and
@@ -111,13 +122,15 @@ The PowerShell tool keeps no state between calls: start **every** call with thes
    the pack as built in step 5 (without proposed overrides); level 2 is the usual result while check
    B has no references for the language; never 5 without a named reviewer. For a real dialect,
    `LANGUAGE_STATUS.md` too. Report in plain English which claims are measured, which from
-   literature, which differences are not made. Shipping waits for the human's say-so.
+   literature, which differences are not made, and (R21f) how many of the dialect's sounds come from
+   the table, are composed, created or fall back, and the parent's realization. Shipping waits for
+   the human's say-so.
 9. **Review**: launch the `tts-reviewer` agent with the "Done when" list and the changed paths. If
    you cannot launch agents, say that the review is still owed.
 
 ## Done when
 
-- `validate_packs.py <tag>` accepts the pack; it holds only differences from its parent
+- `validate_packs.py <tag>` accepts the pack; it holds only differences from its parent, which is on the master path (R21)
 - every override moves its vowel by more than 6 per cent, has a source, and its effect is measured and shown
 - the parent's golden: 0 FAILED; `build_packs.py check` unchanged
 - packet made; level stated and equal to the measurement; nothing called authentic
