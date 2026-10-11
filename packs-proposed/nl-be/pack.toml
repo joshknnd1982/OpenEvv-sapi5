@@ -1,0 +1,290 @@
+# OpenEVV pack: nl-be (PROPOSED, waits for the human's say-so; R18). Southern Standard Dutch as spoken
+# in Flanders. It extends nl (Dutch, read by eSpeak NG's gmw/nl voice) and holds only what differs:
+# its name and eleven vowels, as proposed overrides with their provenance (adank2004, Table I, the
+# Southern Standard Dutch men). NOT made: see [meta] note.
+
+[pack]
+tag = "nl-be"
+name = "Dutch (Southern Standard, Flanders)"
+kind = "dialect"
+extends = "nl"
+format = 1
+
+[meta]
+variety = "Southern Standard Dutch (Belgian Standard Dutch): the vowels of adult male Flemish teachers of Dutch from the central region (Flanders-Brabant: the provinces of Antwerpen and Vlaams-Brabant), read-aloud /sVs/ words, as one published table gives them"
+region = "Flanders, Belgium (central region: Antwerpen and Vlaams-Brabant provinces)"
+speaker_group = "Adank, van Hout and Smits (2004): Southern Standard Dutch talkers, teachers of Dutch recorded in Flanders-Brabant, stratified for age and gender, 20 talkers; the men's means are used (their table gives N per cell 20, which for two tokens a vowel is read here as 10 men)"
+sources = ["eSpeak NG voice gmw/nl", "adank2004"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "Eleven stressed vowels at the Southern Standard Dutch men's steady-state values (the vowel's middle, /sVs/ words) of adank2004 Table I, put at the size of the dedx module's voice. NOT made: the Southern and Northern long mid vowels /e o ø/ differ most in how they move (the paper's Table II, not used: an override sets one steady state); Southern consonants (the paper is about vowels: the softer Southern g and h, the Southern r, devoicing of fricatives); stress, rhythm, intonation; a Flemish lexicon or any tussentaal. Against the same table's Northern men (raw Hz, same paper), seven of the eleven differ by more than 6 per cent in F1 or F2 (/ɑ/ F2 -9.0, /a/ F1 +7.0, /ɛ/ F2 -7.1, /ɪ/ F2 -9.1, /u/ F2 +21.5, /o/ F1 -10.4 and F2 -7.2, /ʏ/ F2 -6.5); the other four (/e ø ɔ y/) are overridden only because the parent's vowel is already off the Southern value and is off the Northern one by a similar amount. Level 2 is check A on the scratch stage."
+
+[ini.Language]
+Tag = "nl-be"
+Name = "Dutch (Southern Standard, Flanders)"
+Order = "1100"
+
+# /ɑ/: Table I of adank2004, Southern Standard Dutch men, F1 555 / F2 1066 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "ɑ"
+phonemes = ["@nl:A"]
+state = "proposed"
+note = "/ɑ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 538.6
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "555 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1034.5
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "1066 Hz x0.9704, as F1"
+
+# /a/: Table I of adank2004, Southern Standard Dutch men, F1 717 / F2 1429 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "aː"
+phonemes = ["@nl:a:"]
+state = "proposed"
+note = "/a/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 695.8
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "717 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1386.7
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "1429 Hz x0.9704, as F1"
+
+# /ɛ/: Table I of adank2004, Southern Standard Dutch men, F1 475 / F2 1616 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "ɛ"
+phonemes = ["@nl:E", "@nl:E2"]
+state = "proposed"
+note = "/ɛ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 461.0
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "475 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1568.2
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "1616 Hz x0.9704, as F1"
+
+# /e/: Table I of adank2004, Southern Standard Dutch men, F1 384 / F2 1993 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "eː"
+phonemes = ["@nl:e:"]
+state = "proposed"
+note = "/e/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 372.6
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "384 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1934.0
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "1993 Hz x0.9704, as F1"
+
+# /ø/: Table I of adank2004, Southern Standard Dutch men, F1 374 / F2 1539 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "øː"
+phonemes = ["@nl:Y:"]
+state = "proposed"
+note = "/ø/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 362.9
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "374 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1493.5
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "1539 Hz x0.9704, as F1"
+
+# /ɪ/: Table I of adank2004, Southern Standard Dutch men, F1 364 / F2 1745 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "ɪ"
+phonemes = ["@nl:I"]
+state = "proposed"
+note = "/ɪ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 353.2
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "364 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1693.4
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "1745 Hz x0.9704, as F1"
+
+# /ɔ/: Table I of adank2004, Southern Standard Dutch men, F1 398 / F2 850 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "ɔ"
+phonemes = ["@nl:O"]
+state = "proposed"
+note = "/ɔ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 386.2
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "398 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 824.9
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "850 Hz x0.9704, as F1"
+
+# /u/: Table I of adank2004, Southern Standard Dutch men, F1 266 / F2 978 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "u"
+phonemes = ["@nl:u", "u"]
+state = "proposed"
+note = "/u/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 258.1
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "266 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 949.1
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "978 Hz x0.9704, as F1"
+
+# /o/: Table I of adank2004, Southern Standard Dutch men, F1 369 / F2 862 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "oː"
+phonemes = ["@nl:o:"]
+state = "proposed"
+note = "/o/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 358.1
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "369 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 836.5
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "862 Hz x0.9704, as F1"
+
+# /ʏ/: Table I of adank2004, Southern Standard Dutch men, F1 353 / F2 1492 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "ʏ"
+phonemes = ["@nl:8"]
+state = "proposed"
+note = "/ʏ/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 342.6
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "353 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1447.9
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "1492 Hz x0.9704, as F1"
+
+# /y/: Table I of adank2004, Southern Standard Dutch men, F1 265 / F2 1825 Hz (the vowel's middle, /sVs/).
+# Put at the module's size with engine/authenticity/normalize.py (factor x0.9704, see the first override).
+[[override]]
+sound = "y"
+phonemes = ["@nl:y", "y"]
+state = "proposed"
+note = "/y/ of adank2004 Table I (Southern Standard Dutch men), normalized to module dedx"
+
+[override.formants.f1]
+v = 257.2
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "265 Hz x0.9704: Nearey shared log-mean over a: e: i o: u y (F1, F2) of Table I against module dedx's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1771.0
+tag = "derived"
+ref = "adank2004"
+n = 20
+speakers = 10
+norm = "1825 Hz x0.9704, as F1"

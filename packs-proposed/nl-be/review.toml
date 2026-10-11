@@ -1,0 +1,66 @@
+# What engine/review/make_packet.py and engine/authenticity/show_effect.py read for nl-be.
+# MIT licence (this file only). Words: common Dutch words with the stressed vowels the pack changes.
+# Sentences: the Dutch test sentences of harness/asr/sentences.json (Common Voice nl, CC0 1.0), the tag
+# having none of its own.
+
+[words]
+list = ["pak", "maan", "pet", "zee", "neus", "pit", "pot", "boek", "boom", "put", "fuut", "bal", "kaas", "huis"]
+
+[sentences]
+source = "Common Voice nl (CC0 1.0), harness/asr/sentences.json entry nl"
+list = ["Aan al deze aspecten hechten wij belang.", "Aan al deze dingen moet iets worden gedaan.", "Aan al deze praktijken moet een einde komen.", "Aan alle technische criteria is voldaan."]
+[[check]]
+sound = "ɑ"
+words = ["pak", "bal"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "aː"
+words = ["maan", "kaas"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ɛ"
+words = ["pet", "bed"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "eː"
+words = ["zee", "beek"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "øː"
+words = ["neus", "deuk"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ɪ"
+words = ["pit", "bit"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ɔ"
+words = ["pot", "bos"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "u"
+words = ["boek", "doek"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "oː"
+words = ["boom", "door"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ʏ"
+words = ["put", "bus"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "y"
+words = ["fuut", "muur"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+

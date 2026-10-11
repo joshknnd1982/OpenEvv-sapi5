@@ -4,9 +4,13 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
-**Phase 8 (Skills and automation): COMPLETE (2026-10-11, twenty-second session)** on branch `tts-ext/phase-8`, Opus 5.5. Decisions D91 and D92; `ADDING_A_LANGUAGE.md`; `.claude/skills/` (six), `.claude/agents/tts-reviewer.md`; `engine/doctor.py`. **Next: Phase 9 (Completion review)**, in a new session on **Fable 5.1, effort high** (the playbook: STOP if not on Fable).
+**Phase 9 (Completion review): COMPLETE (2026-10-11, twenty-third session)** on branch `tts-ext/phase-9`, Fable 5.1. Decisions D93 (the reference lookup, Q46) and D94; the report `COMPLETION_REVIEW_PHASE9.md`; the trials `trials/`; `LANGUAGE_STATUS.md` regenerated on the staged golden. **Phases 0 to 9 are complete (Phase 9's trial (a) is a test copy of Finnish, the only form it could take; put to the human as Q51); the project is complete once Phases 10 and 11 are done. Next: Phase 10 (Release)**, in a new session.
 
-## The whole project so far (2026-10-11, after Phase 8)
+Phase 8's summary follows for the record; "The whole project so far" below is updated to Phase 9's numbers.
+
+**Phase 8 (Skills and automation): COMPLETE (2026-10-11, twenty-second session)** on branch `tts-ext/phase-8`, Opus 5.5. Decisions D91 and D92; `ADDING_A_LANGUAGE.md`; `.claude/skills/` (six), `.claude/agents/tts-reviewer.md`; `engine/doctor.py`.
+
+## The whole project so far (2026-10-11, after Phase 9)
 
 **The aim** (playbook Part 1.1): every symbol of the official IPA chart mapped to an engine-neutral acoustic specification and a measured realization in this engine, so that adding a language, dialect or accent is a data-only change verified automatically. The human speaks only American English; nothing is judged by ear.
 
@@ -23,20 +27,44 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 | 6 Packs | all 162 folders of `languages/` are packs (`packs/`), building byte-identical; triage of every language | complete 2026-10-11 |
 | 7 Authenticity | the pipeline (extract, normalize, validate, packet, ingest), one real example (Scottish English, CMU ARCTIC awb), 10 proposed overrides | complete 2026-10-11 |
 | 8 Skills | six skills, the reviewer agent, the doctor, `ADDING_A_LANGUAGE.md` with three worked examples, the 25 dialect packs documented, CS-0076 ɓ̥ | complete 2026-10-11 |
-| 9 Completion review | Fable 5.1: doctor, regression, coverage on a freshly re-researched checklist, two fresh trial additions | **next** |
-| 10 Release | installer, the staged modules and front-end shipped (with the human's say-so), licence audit, README (step 2b, added to the playbook by another session) | to do |
+| 9 Completion review | Fable 5.1: the full doctor (0 FAILED), the chart re-researched (0 differences), a fresh sweep of every symbol (proofs identical), two trials by fresh helpers (fi-x-evvtrial, nl-be; 22 doc gaps fixed), ASR re-run and the status regenerated on the staged golden, the reference lookup ruled (D93), the R18 report (nothing replaced, nothing retired) | complete 2026-10-11 |
+| 10 Release | installer, the staged modules and front-end shipped (with the human's say-so), licence audit, README (step 2b, added to the playbook by another session) | **next** |
 | 11 Cleanup | free the disk, item by item with the human's yes (R20: nothing deleted before Phase 10 is complete) | to do |
 
-**The numbers now** (each from a command run this session; raw output in D92 and "Phase 8 at its end" below)
+**The numbers now** (each from a command run in Phase 9; raw output in `COMPLETION_REVIEW_PHASE9.md`)
 
 - **IPA coverage**: 175 of 175 checklist entries done (mapped 67, composed 53, created 55), MISSING 0, BLOCKED 0, every proof passing and made on the map as it stands; master table 393 entries (one more than Phase 7: CS-0076 ɓ̥, Tier C); Tier B 186 done, 17 notation only; 76 created sounds registered (`CREATED_SOUNDS.md`); 439 estimated values, all queued (`OPEN_QUESTIONS.md` Q15).
-- **Languages**: 155 (10 native modules, 145 read by eSpeak NG on 7 template modules), 162 packs with the templates; 21 dialect packs, every one documented and accepted by the authenticity validator (D91); 5 former "dialects" are spellings or a voice, now `kind = "language"`. Levels (`results/status.json`, Phase 6's report): 1 draft 1 (qu), 2 engine-verified 150, 4 intelligibility-verified 4 (enus, en-us-nyc, pt, pt-br); none at 3 or 5; nothing is called authentic. `LANGUAGE_STATUS.md` was not regenerated in Phase 8 (Q46 first).
+- **Languages**: 155 (10 native modules, 145 read by eSpeak NG on 7 template modules), 162 packs with the templates; 21 dialect packs, every one documented and accepted by the authenticity validator (D91); 5 former "dialects" are spellings or a voice, now `kind = "language"`. Levels (`results/status.json`, regenerated in Phase 9 on the staged golden with a fresh ASR run and the D93 lookup): 1 draft 3 (cmn, cmn-latn-pinyin, qu: Q48), 2 engine-verified 148, 4 intelligibility-verified 4 (enus, en-us-nyc, pt, pt-br); none at 3 or 5; nothing is called authentic. Check B: pass 4, fail 3 (dede, eses, ca-va), too few references 144, none 4. ASR on the stage against the shipped record: median CER 0.325 -> 0.307, 37 better and 20 worse by more than 0.02; the Catalan packs now above 0.15, Slovenian and Armenian under it.
+- **Proposed, not shipped**: `packs-proposed/nl-be/` (a real Belgian Dutch dialect, 11 sourced overrides, level 2) and `packs-proposed/fi-x-evvtrial/` (a TEST copy of Finnish), both from Phase 9's trials (Q50).
 - **The product**: unchanged since release 1.2.4. `languages/` and `dist/` hold the shipped modules and front-end; every change to sound lives in the stage (`%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`: the seven templates rebuilt from the fixed source, front-end `p28`) until Phase 10 ships it with the human's say-so (D34). The golden regression of the staged modules: 155 packs, 29,237 cases, 0 FAILED.
 - **Authenticity**: one real measured example (Scottish English, one speaker, below the five-speaker minimum; overrides proposed, not applied, the human's choice); review packets for it and the worked examples; no native reviewer yet (they come after Phase 9, D82).
 
 **How work is done from now on**: `ADDING_A_LANGUAGE.md` and the slash commands `/add-language`, `/add-dialect`, `/add-accent`, `/improve-language`, `/diagnose-language`, `/create-missing-sound` (each names its model and effort and ends with the `tts-reviewer` agent; a session started after Phase 8 has that agent type loaded, this one did not). Start every session with `engine\doctor.py --quick`. New packs wait in `packs-proposed/`; tests and worked examples live in `docs/tts-extension/examples/` (TEST, never shipped).
 
 **Open for Phase 9 and after** (`OPEN_QUESTIONS.md`): Q46 (check B's lookup lends one dialect's references to its siblings: rule on it, then regenerate `LANGUAGE_STATUS.md`); Q45 (Swahili's vowel-to-vowel junctions, a proposed fix); Q40 (VOT on natural speech); Q41 answered (D91); Q42 (Scottish next steps); Q15 (439 estimated values to verify); Q38, Q39 (for the expert review); the Phase 6 "Needs escalation" list (tonal languages to Fable; heavy allophony to Opus). Native speakers come after Phase 9 (D82).
+
+## Phase 9 at its end
+
+| Playbook Phase 9 step | State |
+|---|---|
+| 1 doctor, golden, coverage, harness: raw results | **done**: the full doctor, 16 checks, 0 FAILED; golden 155 packs, 29,237 cases, 0 FAILED (2118 s); `COMPLETION_REVIEW_PHASE9.md` section 1 |
+| 2 IPA coverage re-researched | **done**: the chart page re-fetched (2026 issue, revised to 2015/2005, CC BY-SA 4.0), the seven official sub-chart images read and transcribed by this session, 175 symbols, 0 differences from `IPA_CHECKLIST.json`; the checklist rebuilt byte-identical; coverage 175 of 175, MISSING 0, BLOCKED 0; a fresh sweep of 176 entries, every proof identical to the record (the three clicks need the normal design rounds, as their approximate deviation says); Tier B's 19 notation-only records listed; 76 created sounds all level 2, 21 approximate; 6 approximate chart entries; 439 estimated values queued |
+| 3 two fresh trials on the guide and the skills alone | **(b) done; (a) done as a test copy, which is not the letter of "a brand-new language not in the repo": put to the human (Q51)**: `/add-language Finnish` (fi-x-evvtrial: no brand-new language is readable without a newer eSpeak NG build) and `/add-dialect Belgian Dutch of nl` (nl-be, real, proposed), by Sonnet helpers; both level 2; 22 documentation gaps fixed in `ADDING_A_LANGUAGE.md` and the two skills; the helper's "under one per cent" claim about the anchor measured and corrected; logs in `trials/` |
+| 4 honest status table | **done**: `LANGUAGE_STATUS.md` regenerated on the staged golden with a fresh `asr.py` (1291 s) and the D93 lookup; levels 1: 3, 2: 148, 4: 4, 5: 0; nothing below 5 is confirmed authentic, said plainly; the ten items for native review listed (section 4 of the report) |
+| 5 rewrite/legacy report (R18) | **done**: no component replaced; the two defect fixes and the burst source added alongside, inert without markup; the legacy generator is the production path (0 packs at `master`); recommendation: retire nothing (Q49 at the pause) |
+| 5b residual risks and next improvements | **done**: section 5b of the report |
+| 6 final PROJECT_STATE | this; every exit criterion of Phases 0 to 8 verified true (section 6 of the report): Phases 0 to 9 complete; the project is complete once Phases 10 and 11 are done |
+| R15 review | done: the `tts-reviewer` agent, seven findings, each fixed or put to the human (D94; the report's last section); not re-reviewed |
+
+### For Phase 10 (read first)
+
+- **Uncommitted work of other sessions in the tree**: `README.md` and `TTS_EXTENSION_PLAYBOOK.md` (a Phase 10 step 2b, left alone, not committed by Phase 9), `harness/results/diag-compare.json` and `diag-golden.json` (untracked, left alone).
+- **Commit `docs/tts-extension/QUESTIONS_FROM_THE_HUMAN.md`** in Phase 10: the human asked for that file (2026-10-11) and for it to be committed in Phase 10; it was written in Phase 9 and left uncommitted on purpose.
+- **Ask the human** (the Phase 9 pause's questions, `HUMAN_ANSWERS.md` Q49, Q50, Q51): retire nothing (recommended); `nl-be` stays proposed and `fi-x-evvtrial` moves to the examples folder (recommended); the Finnish test copy stands as trial (a) (recommended; else trial (a) is run again after the eSpeak NG data is rebuilt). Nothing is deleted before Phase 11 (R20).
+- **Phase 9's evidence is in the tree**: `docs/tts-extension/phase9/` (the doctor, sweep and ASR logs, the chart-diff script) and `inventory/ipa_chart_images/` (the seven official sub-chart images, CC BY-SA 4.0, NOTICE.md); the report is `COMPLETION_REVIEW_PHASE9.md`.
+- **What ships**: the staged modules (`%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`: the seven templates rebuilt from the fixed source, front-end p28) and the goldens of `golden-staged/`; before and after shown to the human (D34). Release notes should say: Mandarin level 1 on shipped and staged alike (Q48); the Catalan packs' CER rises on the stage (ca 0.12 -> 0.26), Slovenian's falls; nothing is native-validated.
+- **Results are on the stage now**: `results/asr.json` (2026-10-11), `results/status.json` and `LANGUAGE_STATUS.md` (staged golden, D93 lookup). A status report on the shipped modules would need `report.py` without `EVV_STAGE` and the old `asr.json` (in git history).
+- **The reference lookup changed** (D93): any check B figure quoted from before 2026-10-11 may differ from today's for the dialect packs and pt.
 
 ## Phase 8 at its end
 

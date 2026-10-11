@@ -78,7 +78,7 @@ chart symbols is made and proved; `estimated` every guessed value is queued to b
 | Folder | What | Shipped? |
 |---|---|---|
 | `packs/<tag>/` | the 162 packs the product has; `build_packs.py check` proves each builds to `languages/<tag>/` | yes, through `languages/` |
-| `packs-proposed/<tag>/` | a real new language, dialect or accent, measured and waiting for the human's say-so | not until moved (section 8) |
+| `packs-proposed/<tag>/` | a real new language, dialect or accent, measured and waiting for the human's say-so (`new_language.py` creates the folder; a dialect written by hand needs `New-Item -ItemType Directory`) | not until moved (section 8) |
 | `docs/tts-extension/examples/packs/<tag>/` | the worked examples of this guide; TEST, private-use tags (`-x-evvdemo`) | never |
 | `languages/<tag>/` | what the product reads: built from `packs/`, never edited by hand | yes |
 | a scratch stage, `%TEMP%\OpenEvvTests\stage-<tag>` | a copy of the stage where a new pack is built and measured | never |
@@ -109,10 +109,19 @@ proves the pack builds back to exactly what the generator wrote:
 (Its sounds came out line for line the same as the shipped Swahili pack's, `packs/sw`: only the tag,
 the name and the list order differ.) A real language goes to `--out packs-proposed`.
 
+To find the voice for a language code: `Get-ChildItem dist\espeak-ng-data\lang -Recurse -File -Filter fi`
+prints the file; the voice is `<its folder>/<code>`, here `urj/fi` (Phase 9's trial was given `fiu/fi`,
+which does not exist). If the voice you were told does not exist but one reads the language, use it
+and say so. A test copy keeps its original's `Order`, `Id` and `LCID` in `[ini.Language]`: harmless
+in a test pack (they only place a voice in the list), but a pack that will ship sets `Order` to a
+number no other pack uses (the dialect example uses 990) before it is proposed.
+
 **Step 3: look at the result.** Open `pack.toml`: `[engine]` names the reader (`espeak:bnt/sw`) and
 the template (`esex`, the Castilian Spanish module); each `sound` line says how a sound differs from
 the template's; each `map` line says which sound an eSpeak NG phoneme becomes. Add `review.toml`
-(words and sentences for the native reviewer's packet).
+(words and sentences for the native reviewer's packet). The generator writes no `status`: add
+`status = { level = 1, validated_by = "", date = "" }` under `[meta]` now (1 is draft) and set the true
+level at step 8; the packet's README copies this key, so write the level before making the packet.
 
 **Step 4: build it into a scratch stage and listen with instruments.**
 
@@ -153,7 +162,14 @@ new language adds its sentences (CC0 or CC BY, source recorded) to
 `docs/tts-extension/harness/asr/sentences.json` and its Whisper code to `asr/whisper_codes.json`.
 The two phonemes with "no phone of their own" (/h/ and the glottal stop) have no phone of the
 Spanish module to stand for them: /h/ is heard only as breath on the vowel, the glottal stop as a
-hush (`report.py`'s own description). A native reviewer should check both.
+hush (`report.py`'s own description). A native reviewer should check both. The labels are golden case
+ids: the phoneme's kind by its first letter (v vowel, s stop, f fricative, n nasal, l liquid, x a
+phoneme borrowed from another eSpeak NG table), a bar, then the eSpeak NG phoneme name: `f|h` is the
+fricative h, `s|?` the glottal stop. When check A passes, check B has no references and the CER is
+above 0.15, the level stays 2 and the failure layer is "unknown" (the harness cannot yet tell
+spelling-to-sound, duration and coarticulation apart): the next step is `/diagnose-language <tag>
+<symptom>`, not more measuring here. (Phase 9's trial, Finnish as `fi-x-evvtrial`, ended exactly so:
+check A 816 of 816, no references, CER 0.49, level 2.)
 
 **Step 6: nothing else moved.** The other languages' golden regression, under the shared stage:
 
@@ -175,10 +191,16 @@ pack check:
     check: every file identical to languages/
 
 A real new language runs the whole golden (every language, 25 to 40 minutes; `doctor.py` without
-`--quick` does it too).
+`--quick` does it too). A run without tags also rewrites the tracked
+`docs/tts-extension/harness/results/diag-golden-staged.json`, so do not run it while another session
+runs the doctor or the golden; running it under your scratch stage `$S` instead of `stage-dev` is
+fine (the stage is a copy, and your pack is in it) and is what a session beside another should do.
 
 **Step 7: the review packet** for a native speaker (a web page with every word's audio, a
-spectrogram described in words, and a form):
+spectrogram described in words, and a form). Make it after the pack's `[meta] status` holds the true
+level (step 8), because the packet's README copies that key; made earlier it says "level ?".
+PowerShell shows matplotlib's `RuntimeWarning` on stderr as a red `NativeCommandError`: it is
+harmless, and the line that counts is the one starting `packet <tag>:`.
 
     & $py engine\review\make_packet.py sw-x-evvdemo --out docs\tts-extension\examples\packets\sw-x-evvdemo
 
@@ -209,7 +231,13 @@ the *pattern* of a dialect's vowels, and the voice adds the size (`docs/tts-exte
 section 3). The normalizer puts the table at the size of the engine's Spanish module (Nearey's shared
 log-mean over the vowels both have as plain phones, `--anchor`) and compares each vowel with what the
 pack says now. Each value is keyed by the eSpeak NG phoneme the reader writes (`@ca-va:E` is
-Valencian /ɛ/; `espeak-ng --path=dist -v roa/ca-va -q -x "terra"` shows the names):
+Valencian /ɛ/; `espeak-ng --path=dist -v roa/ca-va -q -x "terra"` shows the names; the key is the
+pack's full map name, `@nl:A` and not `A`, except for the reader's plain `a e i o u y`). The anchor is
+the set of vowels the size factor is taken over: if unsure, the plain `i e a o u` the module has as
+phones of its own, leaving out any the dialect moves. The choice matters: on the Dutch table of
+adank2004 (men) the factor is 0.970 over six vowels and 0.953 to 0.997 when one of them is left out
+(Phase 9, measured with `normalize.py nl ... --anchor`), so name the anchor in each override's
+`norm` and use the same one for every value of one source.
 
     & $py engine\authenticity\normalize.py ca-va i=360,2123 e=504,1847 a=713,1308 o=494,963 u=393,874 @ca-va:E=652,1689 @ca-va:O=643,1038 --anchor i,e,a,o,u
 
@@ -466,6 +494,12 @@ helpers found):
   pack of the language as the parent.
 - **A test of a language without recogniser support**: Whisper lacks some languages; their packs stop
   at level 3 until a native reviewer listens.
+- **Length as a phoneme** (Finnish, Estonian, Japanese moras, Hungarian): a long vowel is the short
+  vowel's phone with a `dur` key (Finnish `uː` is `u` at `dur=117`), nothing else. Measured in Phase 9
+  on the stage, *tuli*, *tuuli* and *tulli* last 775, 825 and 852 ms: the long vowel adds about 50 ms,
+  where the literature puts Finnish long vowels at roughly twice the short. The contrast is made, but
+  weakly; measure it (`engine.py <tag> text tuli ...`) before claiming it, and treat it as an
+  `/improve-language` item (`OPEN_QUESTIONS.md` Q47).
 
 ## 11. Common mistakes
 

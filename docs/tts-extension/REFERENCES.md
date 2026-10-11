@@ -518,3 +518,15 @@ Searched for and not found: any published amplitude curve, closure length, burst
 | `jewell2022` | J. S. Jewell (2022), Cross-dialectal perception of Vietnamese tones: Exploring the nuances of the hỏi-ngã merger (BA thesis, Yale University) | https://ling.yale.edu/media/227/download | no licence statement seen; facts cited; an undergraduate thesis that relies on Vũ 1982 (Pacific Linguistics A-62, not reached: HTTP 503) and Alves 2007 | vi-vn-x-central vi-vn-x-south | section 2.1.1 (pp. 4-5): Northern, Central and Southern dialects (Hà Nội, Huế, Hồ Chí Minh City), Central the most distinct and least studied; Southern merges hỏi and ngã into five tones and has a low-falling-rising nặng, relying more on pitch than on creak; Table 2 (after Vũ 1982): Central hỏi and ngã both creaky; Table 3 (after Alves 2007): Central and Southern [ʈ ʂ ɻ] for tr s r and [j] for d gi |
 
 Not opened, named by the helpers as better sources to read later: Vũ Thanh Phương 1982 (Pacific Linguistics A-62, ANU repository returned HTTP 503 three times), Oswald 1949 and Reed 1949 (Lehigh Pennsylvania German), Oļševska 2023 (Latvian Russian, University of Latvia, copy on request only), Slówik & Volín 2020 (Hanoi and Saigon tones, not open access), Wells 1982 (Accents of English).
+
+## Finnish trial (fi-x-evvtrial, 2026-10-11)
+
+| Title | URL | Accessed | Licence | Used for |
+|---|---|---|---|---|
+| Wikipedia, "Finnish phonology" (`wikipedia_finnish_phonology` in `ipa/sources.toml`) | <https://en.wikipedia.org/wiki/Finnish_phonology> | 2026-10-11 | CC BY-SA 4.0; facts cited | the vowel and consonant inventory, length by doubling, initial stress, near-phonemic spelling. Also seen as search results only, not opened: Linguistica Uralica 2012 no. 3 pp. 200-208; Jochim and Kleber, Interspeech 2017; Anttila's Stanford stress handout. No Finnish reference recordings or published formant tables were found or opened; check B therefore has none. |
+
+## Southern Standard Dutch trial (nl-be, 2026-10-11)
+
+| Title | URL | Accessed | Licence | Used for |
+|---|---|---|---|---|
+| P. Adank, R. van Hout, R. Smits (2004), "An acoustic description of the vowels of Northern and Southern Standard Dutch", J. Acoust. Soc. Am. 116(3), 1729-1738, doi:10.1121/1.1779271 (`adank2004` in `ipa/sources.toml`) | <https://pure.mpg.de/rest/items/item_57759_3/component/file_57760/content> (MPI record <https://www.mpi.nl/publications/item_57759>) | 2026-10-11 | (c) 2004 Acoustical Society of America; full text publicly hosted by the MPI for Psycholinguistics with no open licence stated; facts cited, nothing copied | Table I: the Southern Standard Dutch men's mean F1 and F2 (Flanders-Brabant teachers, /sVs/, 15 vowels) for the nl-be pack's vowel overrides; the Northern men's row for comparison. The author order differs in some citation lists (Cambridge lists Adank, van Hout, van de Velde); MPI, UvA and the paper itself give Adank, van Hout, Smits |
