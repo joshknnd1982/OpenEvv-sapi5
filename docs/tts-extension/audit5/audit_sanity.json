@@ -1,0 +1,1718 @@
+[
+ {
+  "case": "s said with voice (voi=1)",
+  "id": "U+0073",
+  "passed": false,
+  "failed": [
+   "B3"
+  ],
+  "b3_misses": {
+   "voicing (T-voicing)": {
+    "target": "<= 0.5",
+    "measured": 1.0,
+    "feature": "voiceless",
+    "within": false
+   }
+  },
+  "contrasts": {},
+  "summary": {
+   "peak_hz": 4510.2,
+   "centroid_hz": 4593.7,
+   "centroid1k_hz": 4307.7,
+   "intensity_db": -21.9,
+   "hf_db": -11.1,
+   "noise_sd_hz": 480.9,
+   "noise_bw_hz": 1503.4,
+   "req_F1_hz": 300.0,
+   "req_F2_hz": 1732.0,
+   "req_F3_hz": 2886.0,
+   "duration_ms": 165,
+   "edge_F1": 348.7,
+   "edge_F2": 1550.7,
+   "edge_F3": 2762.9,
+   "mod_dips": 0,
+   "mod_closed_ms": 0.0,
+   "schwa_ms": 0,
+   "voiced_head": 1.0,
+   "voiced_mid": 1.0,
+   "voiced_tail": 1.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.0,
+   "noise_mid": 1.0,
+   "voice_in_ms": 165.0,
+   "voice_out_ms": 165.0,
+   "voice_gap_ms": 5.0,
+   "voice_after_ms": 0.0,
+   "mid_db": -7.98,
+   "strike_found": 0,
+   "f0_range_st": 2.87,
+   "gap_ms": 0.0,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     300.0,
+     889.0,
+     "a_a"
+    ],
+    [
+     300.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     300.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     1705.0,
+     1450.0,
+     "a_a"
+    ],
+    [
+     2407.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     1222.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     2886.0,
+     2750.0,
+     "a_a"
+    ],
+    [
+     2886.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2886.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "voiced_frac": 1.0
+  },
+  "line": "sound u0073 a2=0 a3=0 a4=50 a5=30 a6=0 f3=111 f4=135 hold=132 l2=453 lk=53 voi=1",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "z said without voice (voi=0) [control]",
+  "id": "U+007A",
+  "passed": false,
+  "failed": [
+   "B3",
+   "B2 voiced_frac vs s"
+  ],
+  "b3_misses": {
+   "voicing (T-voicing)": {
+    "target": ">= 0.6",
+    "measured": 0.0,
+    "feature": "voiced",
+    "within": false
+   }
+  },
+  "contrasts": {
+   "voiced_frac vs s": {
+    "mine": 0.0,
+    "theirs": 0.273,
+    "diff": -0.27,
+    "ok": false
+   },
+   "duration_ms vs s": {
+    "mine": 120,
+    "theirs": 165,
+    "diff": -45,
+    "ok": true
+   }
+  },
+  "summary": {
+   "peak_hz": 3858.8,
+   "centroid_hz": 4068.9,
+   "centroid1k_hz": 4069.0,
+   "intensity_db": -33.1,
+   "hf_db": 28.0,
+   "noise_sd_hz": 396.0,
+   "noise_bw_hz": 1403.2,
+   "req_F1_hz": 300.0,
+   "req_F2_hz": 1679.0,
+   "req_F3_hz": 2600.0,
+   "duration_ms": 120,
+   "edge_F1": 261.5,
+   "edge_F2": 1541.6,
+   "edge_F3": 2620.9,
+   "mod_dips": 1,
+   "mod_closed_ms": 41.9,
+   "schwa_ms": 0,
+   "voiced_head": 0.0,
+   "voiced_mid": 0.0,
+   "voiced_tail": 0.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.25,
+   "noise_mid": 1.0,
+   "voice_in_ms": 0.0,
+   "voice_out_ms": 0.0,
+   "voice_gap_ms": 120.0,
+   "voice_after_ms": 155.0,
+   "mid_db": -11.12,
+   "noise_db": -9.83,
+   "strike_found": 0,
+   "f0_range_st": 10.09,
+   "gap_ms": 0.0,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     340.0,
+     883.0,
+     "a_a"
+    ],
+    [
+     296.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     295.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     1656.0,
+     1454.0,
+     "a_a"
+    ],
+    [
+     2357.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     1194.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     2590.0,
+     2743.0,
+     "a_a"
+    ],
+    [
+     2636.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2580.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "voiced_frac": 0.0
+  },
+  "line": "sound u007a ant=50 hold=98 l2=453 lk=53 voi=0",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "a whispered (voi=0 whisper=44)",
+  "id": "U+0061",
+  "passed": false,
+  "failed": [
+   "B3"
+  ],
+  "b3_misses": {
+   "voicing (T-voicing)": {
+    "target": ">= 0.6",
+    "measured": 0.0,
+    "feature": "voiced",
+    "within": false
+   }
+  },
+  "contrasts": {
+   "F1_50_hz vs æ": {
+    "mine": 953.4,
+    "theirs": 634.5,
+    "diff": 318.9,
+    "ok": true
+   },
+   "F2_50_hz vs ɶ": {
+    "mine": 1579.9,
+    "theirs": 1335.7,
+    "diff": 244.2,
+    "ok": true
+   },
+   "F2_50_hz vs ɑ": {
+    "mine": 1579.9,
+    "theirs": 1019.5,
+    "diff": 560.4,
+    "ok": true
+   }
+  },
+  "summary": {
+   "F1_50_hz": 953.4,
+   "F2_50_hz": 1579.9,
+   "F3_50_hz": 2692.2,
+   "F3_min_hz": 2447.1,
+   "intensity_db": -34.3,
+   "f0_50_hz": 552.8,
+   "req_F1_hz": 912.5,
+   "req_F2_hz": 1535.0,
+   "req_F3_hz": 2750.0,
+   "f0_hz": 552.8,
+   "duration_ms": 107.5,
+   "edge_F1": 700.9,
+   "edge_F2": 1516.8,
+   "edge_F3": 2485.2,
+   "mod_dips": 0.5,
+   "mod_closed_ms": 7.98,
+   "h1h2_db": -13.32,
+   "a1_p0_db": 13.32,
+   "schwa_ms": 0.0,
+   "voiced_head": 0.0,
+   "voiced_mid": 0.0,
+   "voiced_tail": 0.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 1.0,
+   "noise_mid": 0.0,
+   "voice_in_ms": 0.0,
+   "voice_out_ms": 0.0,
+   "voice_gap_ms": 160.0,
+   "voice_after_ms": 0.0,
+   "strike_found": 0.0,
+   "jitter_pct": 22.8,
+   "hnr_db": -4.79,
+   "f0_sd_st": 0.02,
+   "f0_range_st": 5.2,
+   "gap_ms": 89.8,
+   "pulse_hz": 172.59,
+   "pulse_jitter_pct": 56.96,
+   "pulse_drift_pct": 23.62,
+   "ah_mid": 38.0,
+   "slap_found": 0.0,
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -125.9,
+   "voiced_frac": 0.0
+  },
+  "line": "sound u0061 ah=-6 av=-6 f1=127 f2=125 f3=110 voi=0 whisper=44",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "a 30 dB down (av=-30 ah=-30)",
+  "id": "U+0061",
+  "passed": true,
+  "failed": [],
+  "b3_misses": {},
+  "contrasts": {
+   "F1_50_hz vs æ": {
+    "mine": 904.3,
+    "theirs": 634.5,
+    "diff": 269.8,
+    "ok": true
+   },
+   "F2_50_hz vs ɶ": {
+    "mine": 1535.8,
+    "theirs": 1335.7,
+    "diff": 200.1,
+    "ok": true
+   },
+   "F2_50_hz vs ɑ": {
+    "mine": 1535.8,
+    "theirs": 1019.5,
+    "diff": 516.3,
+    "ok": true
+   }
+  },
+  "summary": {
+   "F1_50_hz": 904.3,
+   "F2_50_hz": 1535.8,
+   "F3_50_hz": 2744.6,
+   "F3_min_hz": 2498.7,
+   "intensity_db": -34.0,
+   "f0_50_hz": 110.1,
+   "req_F1_hz": 912.5,
+   "req_F2_hz": 1535.0,
+   "req_F3_hz": 2750.0,
+   "f0_hz": 110.1,
+   "duration_ms": 107.5,
+   "edge_F1": 685.1,
+   "edge_F2": 1304.1,
+   "edge_F3": 2502.3,
+   "mod_dips": 0.0,
+   "mod_closed_ms": 0.0,
+   "h1h2_db": 0.37,
+   "a1_p0_db": 8.13,
+   "schwa_ms": 0.0,
+   "voiced_head": 0.79,
+   "voiced_mid": 1.0,
+   "voiced_tail": 1.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.39,
+   "noise_mid": 0.0,
+   "voice_in_ms": 50.0,
+   "voice_out_ms": 97.5,
+   "voice_gap_ms": 32.5,
+   "voice_after_ms": 40.0,
+   "strike_found": 0.0,
+   "jitter_pct": 3.52,
+   "hnr_db": -5.45,
+   "f0_sd_st": 0.28,
+   "f0_range_st": 26.43,
+   "gap_ms": 84.81,
+   "f0_low_hz": 117.16,
+   "pulse_hz": 110.03,
+   "pulse_jitter_pct": 3.99,
+   "pulse_drift_pct": 2.04,
+   "f0_span_st": 0.64,
+   "ah_mid": 2.0,
+   "slap_found": 0.0,
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -81.8,
+   "voiced_frac": 0.932
+  },
+  "line": "sound u0061 ah=-30 av=-30 f1=127 f2=125 f3=110",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": 1.0,
+   "problems": []
+  }
+ },
+ {
+  "case": "l said on j (no lateral) with l keys",
+  "id": "U+006C",
+  "passed": false,
+  "failed": [
+   "B3"
+  ],
+  "b3_misses": {
+   "F1": {
+    "target": 369,
+    "measured": 265.7,
+    "within": "False"
+   },
+   "F2": {
+    "target": 1698,
+    "measured": 2156.6,
+    "within": false
+   }
+  },
+  "contrasts": {},
+  "summary": {
+   "F1_50_hz": 265.7,
+   "F2_50_hz": 2156.6,
+   "F3_50_hz": 2516.7,
+   "F4_50_hz": 3629.0,
+   "F3_min_hz": 2222.2,
+   "intensity_db": -18.7,
+   "f0_50_hz": 122.3,
+   "hnr_hi_db": -5.3,
+   "req_F1_hz": 273.0,
+   "req_F2_hz": 2267.0,
+   "req_F3_hz": 2467.0,
+   "f0_hz": 122.3,
+   "duration_ms": 50,
+   "edge_F1": 279.8,
+   "edge_F2": 2587.1,
+   "edge_F3": 2791.0,
+   "mod_dips": 0,
+   "mod_closed_ms": 0.0,
+   "h1h2_db": -4.55,
+   "a1_p0_db": 0.0,
+   "schwa_ms": 0,
+   "voiced_head": 1.0,
+   "voiced_mid": 1.0,
+   "voiced_tail": 1.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 1.0,
+   "noise_mid": 0.0,
+   "voice_in_ms": 50.0,
+   "voice_out_ms": 50.0,
+   "voice_gap_ms": 0.0,
+   "voice_after_ms": 160.0,
+   "mid_db": 2.73,
+   "strike_found": 0,
+   "jitter_pct": 0.58,
+   "hnr_db": 0.1,
+   "f0_sd_st": 5.58,
+   "f0_range_st": 2.62,
+   "gap_ms": 0.0,
+   "f0_low_hz": 30.63,
+   "pulse_hz": 123.18,
+   "pulse_jitter_pct": 1.86,
+   "pulse_drift_pct": 0.53,
+   "f0_span_st": 12.04,
+   "ah_mid": 31.0,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     276.0,
+     889.0,
+     "a_a"
+    ],
+    [
+     276.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     276.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     2898.0,
+     1450.0,
+     "a_a"
+    ],
+    [
+     2898.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     2622.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     3098.0,
+     2750.0,
+     "a_a"
+    ],
+    [
+     3098.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2822.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -702.6,
+   "voiced_frac": 1.0
+  },
+  "line": "sound u006c ah=-3 ant=50 av=-3 f1=92 f2=138 f3=88 hold=50",
+  "letter": "l            j=u006c",
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "m said on b (no nasal) with m keys",
+  "id": "U+006D",
+  "passed": false,
+  "failed": [
+   "B3",
+   "B2 F2_50_hz vs n"
+  ],
+  "b3_misses": {
+   "F1": {
+    "target": 331,
+    "measured": 241.1,
+    "within": false
+   },
+   "F2": {
+    "target": 1347,
+    "measured": 2168.3,
+    "within": false
+   },
+   "F3": {
+    "target": 2365,
+    "measured": 3865.2,
+    "within": false
+   }
+  },
+  "contrasts": {
+   "F2_50_hz vs n": {
+    "mine": 2168.3,
+    "theirs": 1457.8,
+    "diff": 710.5,
+    "ok": false
+   }
+  },
+  "summary": {
+   "F1_50_hz": 241.1,
+   "F2_50_hz": 2168.3,
+   "F3_50_hz": 3865.2,
+   "F4_50_hz": 3631.5,
+   "vot_ms": -44.5,
+   "closure_ms": 61.0,
+   "intensity_db": -22.1,
+   "hf_db": -39.3,
+   "band_db": -23.3,
+   "hnr_hi_db": 0.8,
+   "req_F1_hz": 220.0,
+   "req_F2_hz": 1427.0,
+   "req_F3_hz": 2375.0,
+   "duration_ms": 125,
+   "edge_F1": 838.0,
+   "edge_F2": 1721.7,
+   "edge_F3": 2484.0,
+   "vot_long_ms": 16.0,
+   "mod_dips": 0,
+   "mod_closed_ms": 0.0,
+   "burst_found": 1,
+   "schwa_ms": 0,
+   "voicing_slope": 0.03,
+   "gap_breath_frac": 0.0,
+   "voiced_head": 1.0,
+   "voiced_mid": 1.0,
+   "voiced_tail": 0.5,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.0,
+   "noise_mid": 0.0,
+   "preasp_ms": 0.0,
+   "voice_in_ms": 105.0,
+   "voice_out_ms": 0.0,
+   "voice_gap_ms": 20.0,
+   "voice_after_ms": 155.0,
+   "mid_db": -24.06,
+   "rel_af_ms": 20.0,
+   "rel_hnr_db": -5.35,
+   "rel_centroid1k_hz": 2043.74,
+   "rel_hf_db": -14.25,
+   "rel_mid_db": -1.99,
+   "strike_found": 0,
+   "f0_range_st": 2.91,
+   "gap_ms": 0.0,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     366.0,
+     885.0,
+     "a_a"
+    ],
+    [
+     231.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     234.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     1706.0,
+     1448.0,
+     "a_a"
+    ],
+    [
+     2631.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     1050.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     2375.0,
+     2739.0,
+     "a_a"
+    ],
+    [
+     2831.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2350.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 3,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 3,
+   "n_rel_centroid1k_hz": 3,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -714.3,
+   "voiced_frac": 0.84
+  },
+  "line": "sound u006d ant=50 f1=110 f2=164 f3=95 f4=97 hold=130",
+  "letter": "m            b=u006d",
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": "nothing check A measures in the sound under test (a stop, a made sound)",
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "p aspirated (vot=80) [control]",
+  "id": "U+0070",
+  "passed": false,
+  "failed": [
+   "B3"
+  ],
+  "b3_misses": {
+   "vot_ms": {
+    "target": 20,
+    "measured": 0.0,
+    "within": false
+   }
+  },
+  "contrasts": {
+   "edge_F2 vs t": {
+    "mine": 1426.5,
+    "theirs": 1637.4,
+    "diff": -210.9,
+    "ok": true
+   }
+  },
+  "summary": {
+   "vot_ms": 0.0,
+   "closure_ms": 67.0,
+   "intensity_db": -24.0,
+   "req_F1_hz": 300.0,
+   "req_F2_hz": 811.0,
+   "req_F3_hz": 2500.0,
+   "duration_ms": 115,
+   "edge_F1": 287.7,
+   "edge_F2": 1426.5,
+   "edge_F3": 2723.3,
+   "vot_long_ms": 84.0,
+   "mod_dips": 1,
+   "mod_closed_ms": 45.9,
+   "burst_found": 1,
+   "schwa_ms": 0,
+   "voicing_slope": -54.0,
+   "burst_db": -12.11,
+   "burst_len_ms": 80.54,
+   "burst_centroid_hz": 3330.86,
+   "gap_breath_frac": 0.8,
+   "voiced_head": 0.71,
+   "voiced_mid": 0.0,
+   "voiced_tail": 0.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.0,
+   "noise_mid": 0.0,
+   "preasp_ms": 0.0,
+   "voice_in_ms": 30.0,
+   "voice_out_ms": 0.0,
+   "voice_gap_ms": 155.0,
+   "voice_after_ms": 0.0,
+   "mid_db": -40.44,
+   "rel_af_ms": 25.0,
+   "rel_hnr_db": -5.0,
+   "rel_noise_db": -20.78,
+   "rel_peak_hz": 1252.84,
+   "rel_centroid_hz": 1615.36,
+   "rel_centroid1k_hz": 2675.63,
+   "rel_hf_db": -8.97,
+   "rel_mid_db": -8.99,
+   "strike_found": 0,
+   "f0_range_st": 30.31,
+   "gap_ms": 59.86,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     363.0,
+     889.0,
+     "a_a"
+    ],
+    [
+     296.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     294.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     1289.0,
+     1438.0,
+     "a_a"
+    ],
+    [
+     2291.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     644.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     2500.0,
+     2750.0,
+     "a_a"
+    ],
+    [
+     2548.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2488.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 3,
+   "n_burst_db": 3,
+   "n_burst_len_ms": 3,
+   "n_burst_centroid_hz": 3,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 3,
+   "n_rel_centroid1k_hz": 3,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "voiced_frac": 0.231
+  },
+  "line": "sound u0070 ant=50 l2=216 lk=75 vot=80",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": "nothing check A measures in the sound under test (a stop, a made sound)",
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "r with no trill (trate tapms tdepth dropped) [control]",
+  "id": "U+0072",
+  "passed": false,
+  "failed": [
+   "B3",
+   "B2 mod_dips vs ɾ",
+   "B2 duration_ms vs ɾ"
+  ],
+  "b3_misses": {
+   "trill_rate_hz": {
+    "target": 27.8,
+    "measured": null,
+    "within": false
+   },
+   "trill_closed_ms": {
+    "target": 20,
+    "measured": 0.0,
+    "within": false
+   }
+  },
+  "contrasts": {
+   "mod_dips vs ɾ": {
+    "mine": 0,
+    "theirs": 1,
+    "diff": -1,
+    "ok": false
+   },
+   "duration_ms vs ɾ": {
+    "mine": 95,
+    "theirs": 90,
+    "diff": 5,
+    "ok": false
+   }
+  },
+  "summary": {
+   "F1_50_hz": 574.1,
+   "F2_50_hz": 1299.4,
+   "F3_50_hz": 2290.4,
+   "F4_50_hz": 3464.8,
+   "F3_min_hz": 2132.5,
+   "centroid1k_hz": 1316.0,
+   "intensity_db": -17.6,
+   "f0_50_hz": 123.7,
+   "hf_db": -26.8,
+   "req_F1_hz": 572.0,
+   "req_F2_hz": 1300.0,
+   "req_F3_hz": 2291.0,
+   "f0_hz": 123.7,
+   "duration_ms": 95,
+   "edge_F1": 424.4,
+   "edge_F2": 1283.2,
+   "edge_F3": 2358.0,
+   "mod_dips": 0,
+   "mod_closed_ms": 0.0,
+   "h1h2_db": -0.81,
+   "a1_p0_db": 1.51,
+   "schwa_ms": 0,
+   "voiced_head": 1.0,
+   "voiced_mid": 1.0,
+   "voiced_tail": 1.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 1.0,
+   "noise_mid": 0.0,
+   "voice_in_ms": 95.0,
+   "voice_out_ms": 95.0,
+   "voice_gap_ms": 0.0,
+   "voice_after_ms": 160.0,
+   "mid_db": 4.83,
+   "strike_found": 0,
+   "jitter_pct": 1.79,
+   "hnr_db": 9.05,
+   "f0_sd_st": 0.26,
+   "f0_range_st": 2.78,
+   "gap_ms": 0.0,
+   "f0_low_hz": 123.17,
+   "pulse_hz": 124.11,
+   "pulse_jitter_pct": 2.7,
+   "pulse_drift_pct": 0.57,
+   "f0_span_st": 0.71,
+   "ah_mid": 34.0,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     572.0,
+     889.0,
+     "a_a"
+    ],
+    [
+     429.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     572.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     1230.0,
+     1450.0,
+     "a_a"
+    ],
+    [
+     1550.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     1300.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     2291.0,
+     2750.0,
+     "a_a"
+    ],
+    [
+     2291.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2291.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -154.6,
+   "voiced_frac": 1.0
+  },
+  "line": "sound u0072 ant=50 f1=143 f2=100 f3=79 hold=104",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "ʃ with s noise (a4=50 a5=30 f3=111 f4=135) [control]",
+  "id": "U+0283",
+  "passed": false,
+  "failed": [
+   "B3",
+   "B2 peak_hz vs s",
+   "B2 edge_F3 vs s"
+  ],
+  "b3_misses": {
+   "peak_hz": {
+    "target": 3820,
+    "measured": 5061.5,
+    "within": false
+   },
+   "locus F3 (frames)": {
+    "target": 2234,
+    "measured": 2664.0,
+    "within": false
+   }
+  },
+  "contrasts": {
+   "peak_hz vs s": {
+    "mine": 5061.5,
+    "theirs": 4660.6,
+    "diff": 400.9,
+    "ok": false
+   },
+   "edge_F3 vs s": {
+    "mine": 2732.6,
+    "theirs": 2785.9,
+    "diff": -53.3,
+    "ok": false
+   }
+  },
+  "summary": {
+   "peak_hz": 5061.5,
+   "centroid_hz": 4907.9,
+   "centroid1k_hz": 4885.4,
+   "intensity_db": -21.8,
+   "hf_db": 9.0,
+   "noise_sd_hz": 362.3,
+   "noise_bw_hz": 1303.0,
+   "req_F1_hz": 300.0,
+   "req_F2_hz": 1911.0,
+   "req_F3_hz": 2664.0,
+   "duration_ms": 180,
+   "edge_F1": 299.6,
+   "edge_F2": 1591.2,
+   "edge_F3": 2732.6,
+   "mod_dips": 0,
+   "mod_closed_ms": 0.0,
+   "schwa_ms": 0,
+   "voiced_head": 0.67,
+   "voiced_mid": 0.0,
+   "voiced_tail": 0.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.0,
+   "noise_mid": 1.0,
+   "voice_in_ms": 40.0,
+   "voice_out_ms": 0.0,
+   "voice_gap_ms": 145.0,
+   "voice_after_ms": 0.0,
+   "mid_db": -13.29,
+   "noise_db": -13.45,
+   "strike_found": 0,
+   "f0_range_st": 2.58,
+   "gap_ms": 0.0,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     300.0,
+     889.0,
+     "a_a"
+    ],
+    [
+     300.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     300.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     1715.0,
+     1450.0,
+     "a_a"
+    ],
+    [
+     2456.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     1226.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     2664.0,
+     2750.0,
+     "a_a"
+    ],
+    [
+     2886.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2442.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "voiced_frac": 0.222
+  },
+  "line": "sound u0283 a2=0 a3=0 a4=50 a5=30 a6=0 f3=111 f4=135 hold=115 l2=513 lk=56",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "n said on d (no nasal) with n keys",
+  "id": "U+006E",
+  "passed": false,
+  "failed": [
+   "B3"
+  ],
+  "b3_misses": {
+   "F1": {
+    "target": 361,
+    "measured": 464.1,
+    "within": false
+   },
+   "F3": {
+    "target": 2369,
+    "measured": 3210.1,
+    "within": false
+   },
+   "duration_ms": {
+    "target": 114,
+    "measured": 155,
+    "within": false
+   }
+  },
+  "contrasts": {},
+  "summary": {
+   "F1_50_hz": 464.1,
+   "F2_50_hz": 1460.8,
+   "F3_50_hz": 3210.1,
+   "F4_50_hz": 4512.4,
+   "vot_ms": -125.0,
+   "closure_ms": 86.0,
+   "intensity_db": -15.7,
+   "hf_db": -18.8,
+   "band_db": -9.3,
+   "hnr_hi_db": -3.0,
+   "req_F1_hz": 498.0,
+   "req_F2_hz": 1440.0,
+   "req_F3_hz": 2470.0,
+   "duration_ms": 155,
+   "edge_F1": 516.0,
+   "edge_F2": 1485.4,
+   "edge_F3": 2561.5,
+   "vot_long_ms": -125.0,
+   "mod_dips": 0,
+   "mod_closed_ms": 0.0,
+   "burst_found": 1,
+   "schwa_ms": 0,
+   "voicing_slope": -0.01,
+   "gap_breath_frac": 0.0,
+   "voiced_head": 1.0,
+   "voiced_mid": 1.0,
+   "voiced_tail": 0.9,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.0,
+   "noise_mid": 0.0,
+   "preasp_ms": 0.0,
+   "voice_in_ms": 150.0,
+   "voice_out_ms": 0.0,
+   "voice_gap_ms": 10.0,
+   "voice_after_ms": 0.0,
+   "mid_db": -21.83,
+   "rel_af_ms": 0.0,
+   "rel_hnr_db": -0.81,
+   "rel_centroid1k_hz": 1735.15,
+   "rel_hf_db": -13.6,
+   "rel_mid_db": -8.25,
+   "strike_found": 0,
+   "f0_range_st": 2.8,
+   "gap_ms": 19.95,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     498.0,
+     889.0,
+     "a_a"
+    ],
+    [
+     498.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     498.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     1440.0,
+     1625.0,
+     "a_a"
+    ],
+    [
+     1620.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     1080.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     2470.0,
+     2750.0,
+     "a_a"
+    ],
+    [
+     2565.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2470.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 3,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 3,
+   "n_rel_centroid1k_hz": 3,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -6.8,
+   "voiced_frac": 0.968
+  },
+  "line": "sound u006e ant=50 f1=249 f2=90 f3=95 f4=104 hold=163",
+  "letter": "n            d=u006e",
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": "nothing check A measures in the sound under test (a stop, a made sound)",
+   "a2_rate": null,
+   "problems": []
+  }
+ },
+ {
+  "case": "i said with u keys",
+  "id": "U+0069",
+  "passed": false,
+  "failed": [
+   "B3",
+   "B2 F2_50_hz vs y",
+   "B2 F2_50_hz vs ɨ"
+  ],
+  "b3_misses": {
+   "F1": {
+    "target": 217,
+    "measured": 323.5,
+    "within": "False"
+   },
+   "F2": {
+    "target": 2775,
+    "measured": 1655.3,
+    "within": false
+   },
+   "F3": {
+    "target": 3645,
+    "measured": 2984.6,
+    "within": false
+   }
+  },
+  "contrasts": {
+   "F2_50_hz vs y": {
+    "mine": 1655.3,
+    "theirs": 2250.6,
+    "diff": -595.3,
+    "ok": false
+   },
+   "F1_50_hz vs ɪ": {
+    "mine": 323.5,
+    "theirs": 339.3,
+    "diff": -15.8,
+    "ok": true
+   },
+   "F2_50_hz vs ɨ": {
+    "mine": 1655.3,
+    "theirs": 1933.1,
+    "diff": -277.8,
+    "ok": false
+   }
+  },
+  "summary": {
+   "F1_50_hz": 323.5,
+   "F2_50_hz": 1655.3,
+   "F3_50_hz": 2984.6,
+   "F3_min_hz": 2804.3,
+   "intensity_db": -23.0,
+   "f0_50_hz": 106.7,
+   "req_F1_hz": 326.0,
+   "req_F2_hz": 1656.0,
+   "req_F3_hz": 2987.0,
+   "f0_hz": 106.7,
+   "duration_ms": 197.5,
+   "edge_F1": 282.9,
+   "edge_F2": 1927.6,
+   "edge_F3": 2729.4,
+   "mod_dips": 0.0,
+   "mod_closed_ms": 0.0,
+   "h1h2_db": -2.1,
+   "a1_p0_db": -2.66,
+   "schwa_ms": 0.0,
+   "voiced_head": 0.88,
+   "voiced_mid": 1.0,
+   "voiced_tail": 1.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.93,
+   "noise_mid": 0.0,
+   "voice_in_ms": 97.5,
+   "voice_out_ms": 190.0,
+   "voice_gap_ms": 45.0,
+   "voice_after_ms": 25.0,
+   "strike_found": 0.0,
+   "jitter_pct": 0.79,
+   "hnr_db": 13.86,
+   "f0_sd_st": 0.28,
+   "f0_range_st": 18.62,
+   "gap_ms": 84.81,
+   "f0_low_hz": 107.05,
+   "pulse_hz": 109.03,
+   "pulse_jitter_pct": 1.44,
+   "pulse_drift_pct": 1.87,
+   "f0_span_st": 0.72,
+   "ah_mid": 30.0,
+   "slap_found": 0.0,
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -201.3,
+   "voiced_frac": 0.963
+  },
+  "line": "sound u0069 ah=-4 av=-4 f1=123 f2=77 f3=103",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": 1.0,
+   "problems": []
+  }
+ },
+ {
+  "case": "t with no burst (said on n) [control]",
+  "id": "U+0074",
+  "passed": false,
+  "failed": [
+   "A1",
+   "B3"
+  ],
+  "b3_misses": {
+   "vot_ms": {
+    "target": 15,
+    "measured": null,
+    "within": false
+   },
+   "voicing (T-voicing)": {
+    "target": "<= 0.5",
+    "measured": 1.0,
+    "feature": "voiceless",
+    "within": false
+   }
+  },
+  "contrasts": {},
+  "summary": {
+   "F1_50_hz": 190.8,
+   "F2_50_hz": 1533.9,
+   "F3_50_hz": 2503.6,
+   "F3_min_hz": 2470.5,
+   "murmur_F1_hz": 190.8,
+   "antiformant_hz": 1798.6,
+   "intensity_db": -22.0,
+   "f0_50_hz": 120.5,
+   "req_F1_hz": 209.0,
+   "req_F2_hz": 1559.0,
+   "req_F3_hz": 2500.0,
+   "f0_hz": 120.5,
+   "duration_ms": 70,
+   "edge_F1": 257.4,
+   "edge_F2": 1489.7,
+   "edge_F3": 2592.2,
+   "mod_dips": 0,
+   "mod_closed_ms": 0.0,
+   "h1h2_db": 5.99,
+   "a1_p0_db": 0.0,
+   "schwa_ms": 0,
+   "voiced_head": 1.0,
+   "voiced_mid": 1.0,
+   "voiced_tail": 1.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 1.0,
+   "noise_mid": 0.0,
+   "voice_in_ms": 70.0,
+   "voice_out_ms": 70.0,
+   "voice_gap_ms": 0.0,
+   "voice_after_ms": 160.0,
+   "mid_db": 1.97,
+   "strike_found": 0,
+   "jitter_pct": 0.61,
+   "hnr_db": 15.34,
+   "f0_sd_st": 0.3,
+   "f0_range_st": 3.02,
+   "gap_ms": 0.0,
+   "f0_low_hz": 120.9,
+   "pulse_hz": 121.82,
+   "pulse_jitter_pct": 20.26,
+   "pulse_drift_pct": 10.42,
+   "f0_span_st": 0.74,
+   "ah_mid": 34.0,
+   "slap_found": 0,
+   "next_req_F1_pairs": [
+    [
+     200.0,
+     889.0,
+     "a_a"
+    ],
+    [
+     200.0,
+     217.0,
+     "i_i"
+    ],
+    [
+     200.0,
+     308.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F2_pairs": [
+    [
+     1492.0,
+     1450.0,
+     "a_a"
+    ],
+    [
+     2405.0,
+     2774.0,
+     "i_i"
+    ],
+    [
+     890.0,
+     578.0,
+     "u_u"
+    ]
+   ],
+   "next_req_F3_pairs": [
+    [
+     2500.0,
+     2750.0,
+     "a_a"
+    ],
+    [
+     2800.0,
+     3654.0,
+     "i_i"
+    ],
+    [
+     2500.0,
+     2472.0,
+     "u_u"
+    ]
+   ],
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -79.9,
+   "voiced_frac": 1.0
+  },
+  "line": "sound u0074 ant=50 l2=417 lk=69 vot=6",
+  "letter": "t            n=u0074",
+  "A1": {
+   "passed": false,
+   "problems": [
+    "a_a: no closure or burst found",
+    "i_i: no closure or burst found",
+    "u_u: no closure or burst found"
+   ]
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": null,
+   "problems": []
+  }
+ }
+]

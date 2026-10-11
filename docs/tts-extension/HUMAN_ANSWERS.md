@@ -59,3 +59,11 @@ Asked after the research the human chose in batch 2 and batch 4 (findings in `RE
 |---|---|---|
 | **Q29.** One same-speaker study (North German, Fischer-Jørgensen 1976): an affricate's friction about 2.3 times a stop's release (138 ms against 60), its closure shorter. Here extIPA's fricated releases have 75 ms of friction, the template's own t͡s about as much, and t͡θ is said exactly like tᶿ | Shorter releases (recommended) · Keep 75 ms, split t͡θ only · Leave as is | **Shorter releases:** about 45 ms of friction for a fricated release (the study's ratio over this template's own affricate); t͡θ and d͡ð keep the affricate length; a test proves tᶿ and t͡θ differ; still approximate, for an expert after Phase 9. |
 | **Q19.** A French liaison consonant about 16 % shorter than the same consonant word-initially (84 against 101 ms, 6 speakers, VOT unchanged); inside a word a syllable break moves a consonant by only a few ms | Use the linking cue (recommended) · Record only | **Use the linking cue:** a consonant linked by ‿ said 16 % shorter than at a word's start, with a test that measures it; `.` keeps its structural proof, the few-ms finding its reason. |
+
+## 2026-10-10, Phase 5 (the independent audit)
+
+No question was put to the human during the audit: the open points it raised (Q37 to Q39) carry their recommended defaults (D60: assume yes). Two instructions came from the human mid-session:
+
+| Instruction (the human's words) | What was done |
+|---|---|
+| "I have moved the file IPA_Kiel.pdf ... into the repository root" and, when told the chart is CC BY-SA and the repository MIT, "put the pdf in git anyway, despite licensing. when this whole project is done, all phases, I want the user who does a git clone to get everything if possible. make a note of that in one of the markdown files so claude remembers." | `IPA_Kiel.pdf` is committed in the repository root; its licence (CC BY-SA 4.0, copyright 2026 IPA) is recorded in `NOTICE.md`; the standing wish is in `CLAUDE.md` (read every session) and in `PROJECT_STATE.md`. |

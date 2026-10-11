@@ -1,0 +1,113 @@
+[
+ {
+  "case": "a 30 dB down (av=-30 ah=-30)",
+  "id": "U+0061",
+  "passed": false,
+  "failed": [
+   "B3"
+  ],
+  "b3_misses": {
+   "level against the neighbours (T-level)": {
+    "target": ">= -10.0 dB",
+    "measured": -16.06,
+    "within": false
+   }
+  },
+  "contrasts": {
+   "F1_50_hz vs æ": {
+    "mine": 904.3,
+    "theirs": 634.5,
+    "diff": 269.8,
+    "ok": true
+   },
+   "F2_50_hz vs ɶ": {
+    "mine": 1535.8,
+    "theirs": 1335.7,
+    "diff": 200.1,
+    "ok": true
+   },
+   "F2_50_hz vs ɑ": {
+    "mine": 1535.8,
+    "theirs": 1019.5,
+    "diff": 516.3,
+    "ok": true
+   }
+  },
+  "summary": {
+   "F1_50_hz": 904.3,
+   "F2_50_hz": 1535.8,
+   "F3_50_hz": 2744.6,
+   "F3_min_hz": 2498.7,
+   "intensity_db": -34.0,
+   "f0_50_hz": 110.1,
+   "req_F1_hz": 912.5,
+   "req_F2_hz": 1535.0,
+   "req_F3_hz": 2750.0,
+   "f0_hz": 110.1,
+   "duration_ms": 107.5,
+   "edge_F1": 685.1,
+   "edge_F2": 1304.1,
+   "edge_F3": 2502.3,
+   "mod_dips": 0.0,
+   "mod_closed_ms": 0.0,
+   "h1h2_db": 0.37,
+   "a1_p0_db": 8.13,
+   "schwa_ms": 0.0,
+   "voiced_head": 0.79,
+   "voiced_mid": 1.0,
+   "voiced_tail": 1.0,
+   "creak_head": 0.0,
+   "creak_mid": 0.0,
+   "creak_tail": 0.0,
+   "breath_mid": 0.39,
+   "noise_mid": 0.0,
+   "voice_in_ms": 50.0,
+   "voice_out_ms": 97.5,
+   "voice_gap_ms": 32.5,
+   "voice_after_ms": 40.0,
+   "strike_found": 0.0,
+   "jitter_pct": 3.52,
+   "hnr_db": -5.45,
+   "f0_sd_st": 0.28,
+   "f0_range_st": 26.43,
+   "gap_ms": 84.81,
+   "f0_low_hz": 117.16,
+   "pulse_hz": 110.03,
+   "pulse_jitter_pct": 3.99,
+   "pulse_drift_pct": 2.04,
+   "f0_span_st": 0.64,
+   "ah_mid": 2.0,
+   "slap_found": 0.0,
+   "n_voicing_slope": 0,
+   "n_burst_db": 0,
+   "n_burst_len_ms": 0,
+   "n_burst_centroid_hz": 0,
+   "n_strike_db": 0,
+   "n_strike_centroid_hz": 0,
+   "n_strike_ms": 0,
+   "n_strike_len_ms": 0,
+   "n_slap_ms": 0,
+   "n_slap_db": 0,
+   "n_slap_len_ms": 0,
+   "n_rel_af_ms": 0,
+   "n_rel_centroid1k_hz": 0,
+   "n_voiced_mid": 3,
+   "n_breath_mid": 3,
+   "n_noise_mid": 3,
+   "F2_toward_centre": -81.8,
+   "voiced_frac": 0.932
+  },
+  "line": "sound u0061 ah=-30 av=-30 f1=127 f2=125 f3=110",
+  "letter": null,
+  "A1": {
+   "passed": true,
+   "problems": []
+  },
+  "A2": {
+   "passed": true,
+   "note": null,
+   "a2_rate": 1.0,
+   "problems": []
+  }
+ }
+]

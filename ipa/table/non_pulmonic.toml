@@ -164,7 +164,7 @@ plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], 
 [sound."U+0253".spec]
 locus = { F2 = { v = 837, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (b, 837 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 locus_slope = { F2 = { v = 0.82, tag = "estimated", note = "Set equal to the plain voiced stop's (b, 0.82, derived from stoakes2013), as the locus is." } }
-closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "derived", ref = "mori2023_shimaore", rule = "read off a figure (Phase 5 audit, L2): (55.3 - 46.4) dB over the 75 ms before the release = 1.2 dB per 10 ms, mori2023_shimaore figure 8", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+0253".tests]
 checks = ["T-airstream", "T-contrast"]
@@ -191,7 +191,7 @@ plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], 
 [sound."U+0257".spec]
 locus = { F2 = { v = 1671, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (d, 1671 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 locus_slope = { F2 = { v = 0.795, tag = "estimated", note = "Set equal to the plain voiced stop's (d, 0.795, derived from stoakes2013), as the locus is." } }
-closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "derived", ref = "mori2023_shimaore", rule = "read off a figure (Phase 5 audit, L2): (55.3 - 46.4) dB over the 75 ms before the release = 1.2 dB per 10 ms, mori2023_shimaore figure 8", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+0257".tests]
 checks = ["T-airstream", "T-contrast"]
@@ -218,7 +218,7 @@ plan = { decision = "composition", end_state = "composed", uses = ["X1", "X2", "
 [sound."U+0284".spec]
 locus = { F2 = { v = 1898, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɟ, 1898 Hz, derived from stoakes2013): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 locus_slope = { F2 = { v = 0.59, tag = "estimated", note = "Set equal to the plain voiced stop's (ɟ, 0.59, derived from stoakes2013), as the locus is: the oral closure is at the same place." } }
-closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "derived", ref = "mori2023_shimaore", rule = "read off a figure (Phase 5 audit, L2): (55.3 - 46.4) dB over the 75 ms before the release = 1.2 dB per 10 ms, mori2023_shimaore figure 8", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+0284".tests]
 checks = ["T-airstream", "T-contrast"]
@@ -246,7 +246,7 @@ plan = { decision = "composition", end_state = "composed", uses = ["X1", "X4"], 
 [sound."U+0260".spec]
 locus = { F2 = { v = 984, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɡ, 984 Hz, stoakes2013 HK): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 locus_slope = { F2 = { v = 0.88, tag = "estimated", note = "Set equal to the plain voiced stop's (ɡ, 0.88, stoakes2013 HK), as the locus is." } }
-closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "derived", ref = "mori2023_shimaore", rule = "read off a figure (Phase 5 audit, L2): (55.3 - 46.4) dB over the 75 ms before the release = 1.2 dB per 10 ms, mori2023_shimaore figure 8", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+0260".tests]
 checks = ["T-airstream", "T-contrast"]
@@ -274,7 +274,7 @@ plan = { decision = "composition", end_state = "composed", uses = ["X1", "X2", "
 [sound."U+029B".spec]
 locus = { F2 = { v = 586, tag = "estimated", note = "No locus for an implosive was found. Set equal to the plain voiced stop at the same place (ɢ, itself set equal to q's 586 Hz): the oral closure is at the same place; larynx lowering may lower the formants slightly, which is not measured." } }
 locus_slope = { F2 = { v = 0.778, tag = "estimated", note = "Set equal to the plain voiced stop's (ɢ, 0.778), as the locus is." } }
-closure = { voicing_slope_db10 = { v = 1.2, tag = "literature", ref = "mori2023_shimaore", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
+closure = { voicing_slope_db10 = { v = 1.2, tag = "derived", ref = "mori2023_shimaore", rule = "read off a figure (Phase 5 audit, L2): (55.3 - 46.4) dB over the 75 ms before the release = 1.2 dB per 10 ms, mori2023_shimaore figure 8", note = "mori2023_shimaore figure 8 (SSANOVA of RMS amplitude, 28 speakers of Shimaore, 7 M, 21 F), read from the figure: about 46.4 dB 75 ms before the release to 55.3 dB at it, 8.9 dB in 75 ms; the plain b stays near 48 to 51 dB" } }
 
 [sound."U+029B".tests]
 checks = ["T-airstream", "T-contrast"]

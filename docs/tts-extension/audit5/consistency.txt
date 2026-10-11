@@ -1,0 +1,358 @@
+
+== VOWELS: spec and measured (F1 F2 F3 at the middle, median over contexts)
+  i   close      front      unrounded  spec  217 2775 3645  meas  227.3 2770.2 3643.3  literature
+  y   close      front      rounded    spec  249 2255 2663  meas  242.8 2250.6 2665.4  literature
+  ɨ   close      central    unrounded  spec  309 1936 2594  meas  303.3 1933.1 2602.3  literature
+  ʉ   close      central    rounded    spec  306 1004 2399  meas  304.9 1037.4 2400.8  literature
+  ɯ   close      back       unrounded  spec  369  808 2525  meas  380.8  815.6 2520.4  literature
+  u   close      back       rounded    spec  308  577 2467  meas  312.8  582.5 2470.9  literature
+  ɪ   near-close near-front unrounded  spec  343 1803 2483  meas  339.3 1797.6 2491.2  literature
+  ʏ   near-close near-front rounded    spec  374 1431 2284  meas  374.1 1442.3 2299.9  literature
+  ʊ   near-close near-back  rounded    spec  382 1058 2363  meas  379.1 1092.9 2360.6  literature
+  e   close-mid  front      unrounded  spec  417 2538 2944  meas  422.7 2534.6 2946.9  literature
+  ø   close-mid  front      rounded    spec  422 1968 2479  meas  425.8 1941.8 2485.6  literature
+  ɘ   close-mid  central    unrounded  spec 446.0 1692.0 2720.5  meas  443.0 1655.5 2708.9  estimated
+  ɵ   close-mid  central    rounded    spec  411 1223 2493  meas  414.1 1214.3 2499.9  literature
+  ɤ   close-mid  back       unrounded  spec  475  846 2497  meas  468.2  849.7 2502.9  literature
+  o   close-mid  back       rounded    spec  427  686 2583  meas  426.0  687.1 2591.7  literature
+  ə   mid        central    unspecified spec 467.0 1453.5 2426.0  meas  458.2 1433.8 2423.5  derived
+  ɛ   open-mid   front      unrounded  spec  559 2151 2743  meas  553.5 2157.8 2761.0  literature
+  œ   open-mid   front      rounded    spec  511 1769 2466  meas  500.0 1770.5 2471.4  literature
+  ɜ   open-mid   central    unrounded  spec  564 1386 2484  meas  556.5 1363.6 2478.3  literature
+  ɞ   open-mid   central    rounded    spec 523.0 1287.0 2563.0  meas  506.3 1273.6 2570.4  estimated
+  ʌ   open-mid   back       unrounded  spec  591  911 2794  meas  584.2  923.9 2797.5  literature
+  ɔ   open-mid   back       rounded    spec  535  805 2660  meas  528.1  815.1 2647.8  literature
+  æ   near-open  front      unrounded  spec  630 1710 2490  meas  634.5 1706.2 2502.6  literature
+  ɐ   near-open  central    unspecified spec  743 1386 2581  meas  713.1 1378.8 2568.2  literature
+  a   open       front      unrounded  spec  921 1560 2741  meas  909.7 1529.1 2746.9  literature
+  ɶ   open       front      rounded    spec  676 1375 2616  meas  628.7 1335.7 2623.2  literature
+  ɑ   open       back       unrounded  spec  740  995 2982  meas  721.2 1019.5 2965.5  literature
+  ɒ   open       back       rounded    spec  680  931 3007  meas  668.3  941.3 2987.7  literature
+
+-- height ~ F1: within one backness column and rounding, F1 must rise with openness
+-- backness ~ F2: within one height row and rounding, F2 must fall from front to back
+-- rounding lowers F2 and F3: rounded against unrounded at the same height and backness
+  ɯ/u: dF2 spec -231 meas -233; dF3 spec -58 meas -50
+  ɨ/ʉ: dF2 spec -932 meas -896; dF3 spec -195 meas -202
+  i/y: dF2 spec -520 meas -520; dF3 spec -982 meas -978
+  [consistency] F3 spec: rounded o 2583 >= unrounded ɤ 2497 (close-mid back)
+  [consistency] F3 measured: rounded o 2591.7 >= unrounded ɤ 2502.9 (close-mid back)
+  ɤ/o: dF2 spec -160 meas -163; dF3 spec 86 meas 89
+  ɘ/ɵ: dF2 spec -469.0 meas -441; dF3 spec -227.5 meas -209
+  e/ø: dF2 spec -570 meas -593; dF3 spec -465 meas -461
+  ɪ/ʏ: dF2 spec -372 meas -355; dF3 spec -199 meas -191
+  [consistency] F3 spec: rounded ɒ 3007 >= unrounded ɑ 2982 (open back)
+  [consistency] F3 measured: rounded ɒ 2987.7 >= unrounded ɑ 2965.5 (open back)
+  ɑ/ɒ: dF2 spec -64 meas -78; dF3 spec 25 meas 22
+  a/ɶ: dF2 spec -185 meas -193; dF3 spec -125 meas -124
+  ʌ/ɔ: dF2 spec -106 meas -109; dF3 spec -134 meas -150
+  [consistency] F3 spec: rounded ɞ 2563.0 >= unrounded ɜ 2484 (open-mid central)
+  [consistency] F3 measured: rounded ɞ 2570.4 >= unrounded ɜ 2478.3 (open-mid central)
+  ɜ/ɞ: dF2 spec -99.0 meas -90; dF3 spec 79.0 meas 92
+  ɛ/œ: dF2 spec -382 meas -387; dF3 spec -277 meas -290
+-- spacing: F1 < F2 < F3, F2 - F1 >= 150, F3 - F2 >= 200 (spec); measured within 8 % of spec
+
+== CONSONANTS: realisation on dedx (carrier + keys) and spec summary
+  b   bilabial      closure       voiced         | F  | locus F2=837 | noise  | vot None dur None | b ant=50 l2=215 lk=82
+  c   palatal       closure       voiceless      | F  | locus F2=1828 | noise  | vot 34 dur None | k ant=50 l2=469 lk=34 vot=34
+  d   alveolar      closure       voiced         | F  | locus F2=1671 | noise  | vot None dur None | d ant=50 l2=428 lk=80
+  f   labiodental   friction      voiceless      | F  | locus F2=1300 | noise  | vot None dur 166 | f ant=50 hold=138 l2=333 lk=77
+  h   glottal       friction      voiceless      | F  | locus  | noise  | vot None dur 102.5 | <h ms=102 whisper=44
+  j   palatal       approximation voiced         | F F1=317 F2=2142 F3=2827 F4=3661 | locus  | noise  | vot None dur 74 | j ah=-2 ant=50 av=-2 f1=65 f2=135 f3=110 f4=102 hold=78
+  k   velar         closure       voiceless      | F  | locus F2=1026 | noise  | vot 23 dur None | k ant=50 l2=263 lk=86 vot=28
+  l   alveolar      approximation voiced    l    | F F1=369 F2=1698 F3=2556 | locus  | noise  | vot None dur 50 | l ah=-3 ant=50 av=-3 f1=92 f2=138 f3=88 hold=50
+  m   bilabial      closure       voiced    n    | F F1=331 F2=1347 F3=2365 F4=3501 | locus  | noise  | vot None dur 117 | m ant=50 f1=110 f2=164 f3=95 f4=97 hold=130
+  n   alveolar      closure       voiced    n    | F F1=361 F2=1410 F3=2369 F4=3504 | locus  | noise  | vot None dur 114 | n ant=50 f1=249 f2=90 f3=95 f4=104 hold=163
+  p   bilabial      closure       voiceless      | F  | locus F2=843 | noise  | vot 20 dur None | p ant=50 l2=216 lk=75 vot=22
+  q   uvular        closure       voiceless      | F  | locus F1=372 F2=586 | noise  | vot 23 dur None | k ant=50 f1=124 l2=150 lk=78 vot=23
+  r   alveolar      trill         voiced         | F F1=493 F2=1235 F3=2294 | locus  | noise  | vot None dur 80 | l ant=50 f1=143 f2=100 f3=79 hold=104 tapms=15 tdepth=20 trate=28
+  s   alveolar      friction      voiceless s    | F  | locus F2=1767 F3=2893 | noise peak_hz=4591 | vot None dur 178 | s a2=0 a3=0 a4=50 a5=30 a6=0 f3=111 f4=135 hold=132 l2=453 lk=53
+  t   alveolar      closure       voiceless      | F  | locus F2=1628 | noise  | vot 15 dur None | t ant=50 l2=417 lk=69 vot=6
+  v   labiodental   friction      voiced         | F  | locus F2=1300 | noise  | vot None dur 80 | v ant=50 hold=84 l2=333 lk=77
+  w   bilabial      approximation voiced         | F F1=381 F2=848 F3=2320 F4=3525 | locus  | noise  | vot None dur None | w ant=50 f1=98 f2=84 f3=100 f4=98
+  x   velar         friction      voiceless      | F  | locus  | noise peak_hz=2200 | vot None dur 125 | x a2=50 a3=70 a4=50 a5=0 a6=0 f3=88 hold=100
+  z   alveolar      friction      voiced    s    | F  | locus F2=1767 | noise  | vot None dur 118 | z ant=50 hold=98 l2=453 lk=53
+  ç   palatal       friction      voiceless      | F  | locus  | noise peak_hz=4000 | vot None dur 121 | X a2=36 a3=36 a4=56 a5=50 a6=0 f4=114 hold=101
+  ð   dental        friction      voiced         | F  | locus F2=1739 | noise  | vot None dur 88 | v ant=50 hold=93 l2=446 lk=53
+  ħ   pharyngeal    friction      voiceless      | F  | locus F2=1598 F3=2474 | noise  | vot None dur 105 | <h f2=134 ms=105 whisper=48
+  ŋ   velar         closure       voiced    n    | F F1=361 F2=1294 F3=2388 F4=3603 | locus  | noise  | vot None dur 117 | G ant=50 f1=158 f2=72 f3=103 f4=106 hold=117
+  ǀ   dental        closure       unspecified      | F  | locus  | noise  | vot 26 dur None | t a2=20 a3=50 a4=60 a5=30 a6=10 bgain=13 burstms=22 ej=2 hold=130 vot=2
+  ǁ   alveolar      closure       unspecified l    | F  | locus  | noise  | vot 25.9 dur None | t a2=50 a3=60 a4=30 a5=0 a6=0 bgain=15 burst=10 burstms=16 ej=2 vot=17
+  ǂ   palatal       closure       unspecified      | F  | locus  | noise  | vot 13 dur None | t a2=50 a3=55 a4=0 a5=0 a6=0 bgain=15 burst=10 burstms=5 ej=2 vot=0
+  ǃ   postalveolar  closure       unspecified      | F  | locus  | noise  | vot 13.1 dur None | t a2=80 a3=0 a4=0 a5=0 a6=0 bgain=28 burst=10 burstms=5 ej=1 f2=55 vot=2
+  ɓ   bilabial      closure       voiced         | F  | locus F2=837 | noise  | vot None dur None | b ant=50 hold=75 impl=12 l2=215 lk=82
+  ɕ   alveolo-palatal friction      voiceless s    | F  | locus  | noise peak_hz=3392 | vot None dur None | S a2=42 a3=42 a4=62 a5=0 a6=0 f4=94
+  ɖ   retroflex     closure       voiced         | F  | locus F2=1434 F3=1800 | noise  | vot None dur None | d ant=50 f3=69 l2=368 lk=80
+  ɗ   alveolar      closure       voiced         | F  | locus F2=1671 | noise  | vot None dur None | d ant=50 hold=90 impl=9 l2=428 lk=80
+  ɟ   palatal       closure       voiced         | F  | locus F2=1898 | noise  | vot None dur None | g ant=50 l2=487 lk=59
+  ɠ   velar         closure       voiced         | F  | locus F2=984 | noise  | vot None dur None | g ant=50 hold=90 impl=7 l2=252 lk=88
+  ɡ   velar         closure       voiced         | F  | locus F2=984 | noise  | vot None dur None | g ant=50 l2=252 lk=88
+  ɢ   uvular        closure       voiced         | F  | locus F1=372 F2=586 | noise  | vot None dur None | g ant=50 f1=122 l2=150 lk=78
+  ɣ   velar         friction      voiced         | F  | locus  | noise  | vot None dur 85 | x hold=68 voi=1
+  ɥ   bilabial      approximation voiced         | F F1=300 F2=1850 F3=2300 | locus  | noise  | vot None dur None | w ant=50 f1=60 f2=184 f3=99
+  ɦ   glottal       friction      voiced         | F  | locus  | noise  | vot None dur 102.5 | <h ms=102 voi=1 whisper=38
+  ɧ   postalveolar  friction      voiceless      | F  | locus  | noise peak_hz=2000 | vot None dur None | S a2=62 a3=42 a4=42 a5=0 a6=0 f2=111
+  ɬ   alveolar      friction      voiceless l    | F  | locus F2=1437 F3=2699 | noise peak_hz=2655 | vot None dur 177.5 | s a2=0 a3=50 a4=0 a5=30 a6=0 f2=96 f3=102 hold=131
+  ɭ   retroflex     approximation voiced    l    | F F1=436 F2=1309 F3=2356 | locus  | noise  | vot None dur 41 | l ah=-3 ant=50 av=-3 f1=109 f2=106 f3=81 hold=41
+  ɮ   alveolar      friction      voiced    l    | F  | locus  | noise peak_hz=2655 | vot None dur None | z a2=0 a3=50 a4=30 a5=30 a6=0 f3=102
+  ɰ   velar         approximation voiced         | F F1=350 F2=1300 F3=2400 | locus  | noise  | vot None dur None | j ant=50 f1=92 f2=77 f3=94
+  ɱ   labiodental   closure       voiced    n    | F F1=367 F2=1488 F3=2477 F4=3634 | locus  | noise  | vot None dur 127 | m ant=50 f1=158 f2=181 f3=99 f4=101 hold=141
+  ɲ   palatal       closure       voiced    n    | F F1=338 F2=1502 F3=2481 F4=3493 | locus  | noise  | vot None dur 127 | n ant=50 f1=181 f2=95 f3=99 f4=104 hold=181
+  ɳ   retroflex     closure       voiced    n    | F F1=394 F2=1213 F3=2314 F4=3356 | locus  | noise  | vot None dur 50 | n ant=50 f1=217 f2=77 f3=93 f4=100 hold=71
+  ɴ   uvular        closure       voiced    n    | F F1=450 F2=1150 F3=2400 | locus  | noise  | vot None dur None | G ant=50 f1=171 f2=63 f3=103
+  ɸ   bilabial      friction      voiceless      | F  | locus F2=843 | noise  | vot None dur None | f ant=50 l2=216 lk=75
+  ɹ   alveolar      approximation voiced         | F F1=419 F2=1285 F3=1779 F4=3350 | locus  | noise  | vot None dur None | r ant=50 f1=105 f2=97 f3=85 f4=93
+  ɺ   alveolar      tap           voiced    l    | F  | locus  | noise  | vot None dur None | l tap=1 tapms=25
+  ɻ   retroflex     approximation voiced         | F F1=450 F2=1500 F3=1850 F4=3025 | locus  | noise  | vot None dur None | r ah=-4 ant=50 av=-4 f1=112 f2=114 f3=88 f4=84
+  ɽ   retroflex     tap           voiced         | F  | locus F3=1800 | noise  | vot None dur None | l ant=50 f3=62 tap=1 tapms=25
+  ɾ   alveolar      tap           voiced         | F F1=380 F2=1750 F3=2492 | locus  | noise  | vot None dur None | l ant=50 f1=95 f2=142 f3=86 tap=1 tapms=31
+  ʀ   uvular        trill         voiced         | F  | locus  | noise  | vot None dur None | r hold=169 tdepth=20 trate=19
+  ʁ   uvular        friction      voiced         | F  | locus  | noise peak_hz=1300 | vot None dur None | r a2=60 a3=0 a4=0 a5=0 a6=0 f2=98
+  ʂ   retroflex     friction      voiceless s    | F  | locus  | noise peak_hz=2812 | vot None dur None | S a2=42 a3=62 a4=42 a5=0 a6=0 f3=117
+  ʃ   postalveolar  friction      voiceless s    | F  | locus F2=2002 F3=2234 | noise peak_hz=3820 | vot None dur 178 | S a2=42 a3=42 a4=62 a5=0 a6=0 f3=93 f4=106 hold=115 l2=513 lk=56
+  ʄ   palatal       closure       voiced         | F  | locus F2=1898 | noise  | vot None dur None | g ant=50 hold=75 impl=6 l2=487 lk=59
+  ʈ   retroflex     closure       voiceless      | F  | locus F2=1482 F3=1800 | noise  | vot 17 dur None | t ant=50 f3=72 l2=380 lk=72 vot=10
+  ʋ   labiodental   approximation voiced         | F F2=1381 | locus  | noise  | vot None dur 55 | w ah=-5 ant=50 av=-5 f2=137 hold=48
+  ʍ   bilabial      friction      voiceless      | F  | locus F2=848 | noise  | vot None dur None | w ant=50 f2=90 voi=0 whisper=44
+  ʎ   palatal       approximation voiced    l    | F F1=351 F2=1981 F3=2878 | locus  | noise  | vot None dur 85 | l ah=-8 ant=50 av=-8 f1=88 f2=161 f3=99 hold=85
+  ʐ   retroflex     friction      voiced    s    | F  | locus  | noise peak_hz=2812 | vot None dur None | Z a2=0 a3=62 a4=42 a5=0 a6=0 f3=122
+  ʑ   alveolo-palatal friction      voiced    s    | F  | locus  | noise peak_hz=3392 | vot None dur None | Z a2=0 a3=42 a4=62 a5=0 a6=0 f4=94
+  ʒ   postalveolar  friction      voiced    s    | F  | locus F2=2002 | noise peak_hz=3820 | vot None dur 123 | Z a2=0 a3=42 a4=62 a5=0 a6=0 f4=106 hold=95 l2=513 lk=56
+  ʔ   glottal       closure       voiceless      | F  | locus  | noise  | vot None dur 45 | <q hush=1 ms=45
+  ʕ   pharyngeal    friction      voiced         | F  | locus F2=1706 F3=2540 | noise  | vot None dur 105 | <h f2=142 ms=105 voi=1 whisper=30
+  ʘ   bilabial      closure       unspecified      | F  | locus  | noise  | vot 26 dur None | p a2=70 a3=30 a4=0 a5=0 a6=0 ab=0 bgain=24 burstms=23 ej=2 vot=32
+  ʙ   bilabial      trill         voiced         | F  | locus  | noise  | vot None dur None | w tdepth=20 trate=19
+  ʛ   uvular        closure       voiced         | F  | locus F2=586 | noise  | vot None dur None | g ant=50 hold=85 impl=9 l2=150 lk=78
+  ʜ   epiglottal    friction      voiceless      | F  | locus  | noise  | vot None dur 234 | x hold=187 tapms=8 tdepth=20 trate=40
+  ʝ   palatal       friction      voiced         | F  | locus  | noise  | vot None dur 88 | X hold=73 voi=1
+  ʟ   velar         approximation voiced    l    | F F1=440 F2=1350 F3=2500 | locus  | noise  | vot None dur None | l ah=-4 ant=50 av=-4 f1=110 f2=110 f3=86
+  ʡ   epiglottal    closure       unspecified      | F  | locus F2=1145 | noise  | vot None dur None | g ant=50 f2=72
+  ʢ   epiglottal    friction      voiced         | F  | locus  | noise  | vot None dur None | r hold=130 tapms=4 tdepth=20 trate=53
+  β   bilabial      friction      voiced         | F  | locus F2=843 | noise  | vot None dur None | v ant=50 l2=216 lk=75
+  θ   dental        friction      voiceless      | F  | locus F2=1739 | noise  | vot None dur 163 | f ant=50 hold=136 l2=446 lk=53
+  χ   uvular        friction      voiceless      | F  | locus  | noise peak_hz=1300 | vot None dur None | x a2=70 a3=0 a4=50 a5=0 a6=0 f2=102
+  ⱱ   labiodental   tap           voiced         | F  | locus  | noise  | vot None dur None | w tap=1 tapms=18
+
+-- voiced / voiceless pairs: place values should agree; voiced shorter; voiced VOT smaller
+  t/d: meas duration_ms 110/95
+  s/z: locus.F3 only in s; noise.peak_hz only in s; meas peak_hz 4661/4109; meas centroid1k_hz 4528/3505; meas duration_ms 165/120
+  [pair] s/z: locus.F3 only in s
+  [pair] s/z: noise.peak_hz only in s
+  ɬ/ɮ: locus.F3 only in ɬ; locus.F2 only in ɬ; meas peak_hz 2606/2606; meas centroid1k_hz 2487/2057; meas duration_ms 165/120
+  [pair] ɬ/ɮ: locus.F3 only in ɬ
+  [pair] ɬ/ɮ: locus.F2 only in ɬ
+  ɕ/ʑ: meas peak_hz 3358/3408; meas centroid1k_hz 3377/3025; meas duration_ms 155/130
+  p/b: meas duration_ms 115/95
+  ɸ/β: meas peak_hz 902/902; meas centroid1k_hz 1880/1821; meas duration_ms 120/95
+  θ/ð: meas peak_hz 1303/1353; meas centroid1k_hz 3105/1640; meas duration_ms 165/90
+  ʜ/ʢ: meas peak_hz 1303/1353; meas centroid1k_hz 2886/1651; meas duration_ms 235/125
+  h/ɦ: duration voiced 102.5 >= voiceless 102.5; meas peak_hz 902/902; meas centroid1k_hz 2846/1371; meas duration_ms 105/115
+  [pair] h/ɦ: duration voiced 102.5 >= voiceless 102.5
+  f/v: meas peak_hz 1102/1002; meas centroid1k_hz 3200/1974; meas duration_ms 165/80
+  c/ɟ: meas duration_ms 100/85
+  ç/ʝ: noise.peak_hz only in ç; meas peak_hz 4260/3007; meas centroid1k_hz 3790/2875; meas duration_ms 120/90
+  [pair] ç/ʝ: noise.peak_hz only in ç
+  ħ/ʕ: duration voiced 105 >= voiceless 105; meas peak_hz 1554/1052; meas centroid1k_hz 2237/1611; meas duration_ms 105/115
+  [pair] ħ/ʕ: duration voiced 105 >= voiceless 105
+  ʃ/ʒ: locus.F3 only in ʃ; meas peak_hz 3859/3758; meas centroid1k_hz 3828/3353; meas duration_ms 180/125
+  [pair] ʃ/ʒ: locus.F3 only in ʃ
+  ʈ/ɖ: meas duration_ms 110/95
+  ʂ/ʐ: meas peak_hz 2806/2806; meas centroid1k_hz 2843/2728; meas duration_ms 155/130
+  q/ɢ: meas duration_ms 100/85
+  χ/ʁ: meas peak_hz 1253/1403; meas centroid1k_hz 2581/1557; meas duration_ms 125/95
+  k/ɡ: meas duration_ms 100/85
+  x/ɣ: noise.peak_hz only in x; meas peak_hz 2205/1303; meas centroid1k_hz 2595/3135; meas duration_ms 125/85
+  [pair] x/ɣ: noise.peak_hz only in x
+
+-- place ordering per manner (spec locus F2, noise peak, F2/F3), front to back
+  approximation voiced:
+     ʋ[labio] locus2=None pk=None F2=1381 F3=None | meas pk=None F2=1432 F3=2364
+     ɹ[alveo] locus2=None pk=None F2=1285 F3=1779 | meas pk=601 F2=1300 F3=1751
+     ɻ[retro] locus2=None pk=None F2=1500 F3=1850 | meas pk=1503 F2=1483 F3=1858
+     j[palat] locus2=None pk=None F2=2142 F3=2827 | meas pk=None F2=2278 F3=3044
+     ɰ[velar] locus2=None pk=None F2=1300 F3=2400 | meas pk=None F2=1318 F3=2568
+  approximation-lateral voiced:
+     l[alveo] locus2=None pk=None F2=1698 F3=2556 | meas pk=None F2=1704 F3=2481
+     ɭ[retro] locus2=None pk=None F2=1309 F3=2356 | meas pk=None F2=1346 F3=2315
+     ʎ[palat] locus2=None pk=None F2=1981 F3=2878 | meas pk=None F2=2029 F3=2811
+     ʟ[velar] locus2=None pk=None F2=1350 F3=2500 | meas pk=None F2=1423 F3=2481
+  closure unspecified:
+     ʡ[epigl] locus2=1145 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+  closure voiced:
+     b[bilab] locus2=837 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     d[alveo] locus2=1671 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     ɖ[retro] locus2=1434 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     ɟ[palat] locus2=1898 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     ɡ[velar] locus2=984 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     ɢ[uvula] locus2=586 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+  closure voiceless:
+     p[bilab] locus2=843 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     t[alveo] locus2=1628 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     ʈ[retro] locus2=1482 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     c[palat] locus2=1828 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     k[velar] locus2=1026 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     q[uvula] locus2=586 pk=None F2=None F3=None | meas pk=None F2=None F3=None
+     ʔ[glott] locus2=None pk=None F2=None F3=None | meas pk=1153 F2=None F3=None
+  closure-nasal voiced:
+     m[bilab] locus2=None pk=None F2=1347 F3=2365 | meas pk=None F2=1330 F3=2368
+     ɱ[labio] locus2=None pk=None F2=1488 F3=2477 | meas pk=None F2=1484 F3=2491
+     n[alveo] locus2=None pk=None F2=1410 F3=2369 | meas pk=None F2=1458 F3=2371
+     ɳ[retro] locus2=None pk=None F2=1213 F3=2314 | meas pk=None F2=1223 F3=2362
+     ɲ[palat] locus2=None pk=None F2=1502 F3=2481 | meas pk=None F2=1519 F3=2482
+     ŋ[velar] locus2=None pk=None F2=1294 F3=2388 | meas pk=None F2=1246 F3=2268
+     ɴ[uvula] locus2=None pk=None F2=1150 F3=2400 | meas pk=None F2=1096 F3=2272
+  friction voiced:
+     β[bilab] locus2=843 pk=None F2=None F3=None | meas pk=902 F2=None F3=None
+     v[labio] locus2=1300 pk=None F2=None F3=None | meas pk=1002 F2=None F3=None
+     ð[denta] locus2=1739 pk=None F2=None F3=None | meas pk=1353 F2=None F3=None
+     z[alveo] locus2=1767 pk=None F2=None F3=None | meas pk=4109 F2=None F3=None
+     ʒ[posta] locus2=2002 pk=3820 F2=None F3=None | meas pk=3758 F2=None F3=None
+     ʐ[retro] locus2=None pk=2812 F2=None F3=None | meas pk=2806 F2=None F3=None
+     ʑ[alveo] locus2=None pk=3392 F2=None F3=None | meas pk=3408 F2=None F3=None
+     ʝ[palat] locus2=None pk=None F2=None F3=None | meas pk=3007 F2=None F3=None
+     ɣ[velar] locus2=None pk=None F2=None F3=None | meas pk=1303 F2=None F3=None
+     ʁ[uvula] locus2=None pk=1300 F2=None F3=None | meas pk=1403 F2=None F3=None
+     ʕ[phary] locus2=1706 pk=None F2=None F3=None | meas pk=1052 F2=None F3=None
+     ʢ[epigl] locus2=None pk=None F2=None F3=None | meas pk=1353 F2=None F3=None
+     ɦ[glott] locus2=None pk=None F2=None F3=None | meas pk=902 F2=None F3=None
+  friction voiceless:
+     ɸ[bilab] locus2=843 pk=None F2=None F3=None | meas pk=902 F2=None F3=None
+     f[labio] locus2=1300 pk=None F2=None F3=None | meas pk=1102 F2=None F3=None
+     θ[denta] locus2=1739 pk=None F2=None F3=None | meas pk=1303 F2=None F3=None
+     s[alveo] locus2=1767 pk=4591 F2=None F3=None | meas pk=4661 F2=None F3=None
+     ʃ[posta] locus2=2002 pk=3820 F2=None F3=None | meas pk=3859 F2=None F3=None
+     ʂ[retro] locus2=None pk=2812 F2=None F3=None | meas pk=2806 F2=None F3=None
+     ɕ[alveo] locus2=None pk=3392 F2=None F3=None | meas pk=3358 F2=None F3=None
+     ç[palat] locus2=None pk=4000 F2=None F3=None | meas pk=4260 F2=None F3=None
+     x[velar] locus2=None pk=2200 F2=None F3=None | meas pk=2205 F2=None F3=None
+     χ[uvula] locus2=None pk=1300 F2=None F3=None | meas pk=1253 F2=None F3=None
+     ħ[phary] locus2=1598 pk=None F2=None F3=None | meas pk=1554 F2=None F3=None
+     ʜ[epigl] locus2=None pk=None F2=None F3=None | meas pk=1303 F2=None F3=None
+     h[glott] locus2=None pk=None F2=None F3=None | meas pk=902 F2=None F3=None
+  friction-lateral voiced:
+     ɮ[alveo] locus2=None pk=2655 F2=None F3=None | meas pk=2606 F2=None F3=None
+  friction-lateral voiceless:
+     ɬ[alveo] locus2=1437 pk=2655 F2=None F3=None | meas pk=2606 F2=None F3=None
+  tap voiced:
+     ⱱ[labio] locus2=None pk=None F2=None F3=None | meas pk=None F2=1034 F3=2453
+     ɾ[alveo] locus2=None pk=None F2=1750 F3=2492 | meas pk=None F2=1839 F3=2474
+     ɽ[retro] locus2=None pk=None F2=None F3=None | meas pk=None F2=1273 F3=1772
+  tap-lateral voiced:
+     ɺ[alveo] locus2=None pk=None F2=None F3=None | meas pk=None F2=1276 F3=2933
+  trill voiced:
+     ʙ[bilab] locus2=None pk=None F2=None F3=None | meas pk=None F2=1001 F3=2314
+     r[alveo] locus2=None pk=None F2=1235 F3=2294 | meas pk=None F2=1281 F3=2286
+     ʀ[uvula] locus2=None pk=None F2=None F3=None | meas pk=601 F2=1328 F3=2070
+
+-- exact duplicates of realisation (same carrier and keys) under different ids
+-- unmoved carriers (distance > 0 and no keys): a silent substitution
+
+-- exact duplicates of transforms among marks (different ids, not equivalent)
+  [duplicate-equivalent] marks with one transform: ̥(U+0325) ̊(U+030A)
+
+-- nasals, laterals, rhotics: spec, realised keys and measured signature
+  l   lateral          keys ah=-3 ant=50 av=-3 f1=92 f2=138 f3=88 hold=50           spec F1=369 F2=1698 F3=2556 | meas F2 1704 F3 2481 hnr_hi -0.8 band None
+  m   nasal            keys ant=50 f1=110 f2=164 f3=95 f4=97 hold=130               spec F1=331 F2=1347 F3=2365 F4=3501 | meas F2 1330 F3 2368 hnr_hi 2.3 band -16.8
+  n   nasal            keys ant=50 f1=249 f2=90 f3=95 f4=104 hold=163               spec F1=361 F2=1410 F3=2369 F4=3504 | meas F2 1458 F3 2371 hnr_hi -0.7 band -10.9
+  r   rhotic/retroflex keys ant=50 f1=143 f2=100 f3=79 hold=104 tapms=15 tdepth=20 trate=28 spec F1=493 F2=1235 F3=2294 | meas F2 1281 F3 2286 hnr_hi None band None
+  ŋ   nasal            keys ant=50 f1=158 f2=72 f3=103 f4=106 hold=117              spec F1=361 F2=1294 F3=2388 F4=3603 | meas F2 1246 F3 2268 hnr_hi -0.4 band -17.5
+  ǁ   lateral          keys a2=50 a3=60 a4=30 a5=0 a6=0 bgain=15 burst=10 burstms=16 ej=2 vot=17 spec  | meas F2 None F3 None hnr_hi None band None
+  ɖ   rhotic/retroflex keys ant=50 f3=69 l2=368 lk=80                               spec  | meas F2 None F3 None hnr_hi None band None
+  ɬ   lateral          keys a2=0 a3=50 a4=0 a5=30 a6=0 f2=96 f3=102 hold=131        spec  | meas F2 None F3 None hnr_hi None band None
+  ɭ   lateral          keys ah=-3 ant=50 av=-3 f1=109 f2=106 f3=81 hold=41          spec F1=436 F2=1309 F3=2356 | meas F2 1346 F3 2315 hnr_hi None band None
+  ɮ   lateral          keys a2=0 a3=50 a4=30 a5=30 a6=0 f3=102                      spec  | meas F2 None F3 None hnr_hi None band None
+  ɱ   nasal            keys ant=50 f1=158 f2=181 f3=99 f4=101 hold=141              spec F1=367 F2=1488 F3=2477 F4=3634 | meas F2 1484 F3 2491 hnr_hi 1.1 band -6.6
+  ɲ   nasal            keys ant=50 f1=181 f2=95 f3=99 f4=104 hold=181               spec F1=338 F2=1502 F3=2481 F4=3493 | meas F2 1519 F3 2482 hnr_hi -1.6 band -16.1
+  ɳ   nasal            keys ant=50 f1=217 f2=77 f3=93 f4=100 hold=71                spec F1=394 F2=1213 F3=2314 F4=3356 | meas F2 1223 F3 2362 hnr_hi 0.4 band -14.1
+  ɴ   nasal            keys ant=50 f1=171 f2=63 f3=103                              spec F1=450 F2=1150 F3=2400 | meas F2 1096 F3 2272 hnr_hi -1.9 band -16.1
+  ɹ   rhotic/retroflex keys ant=50 f1=105 f2=97 f3=85 f4=93                         spec F1=419 F2=1285 F3=1779 F4=3350 | meas F2 1300 F3 1751 hnr_hi 0.7 band None
+  ɺ   lateral          keys tap=1 tapms=25                                          spec  | meas F2 1276 F3 2933 hnr_hi None band None
+  ɻ   rhotic/retroflex keys ah=-4 ant=50 av=-4 f1=112 f2=114 f3=88 f4=84            spec F1=450 F2=1500 F3=1850 F4=3025 | meas F2 1483 F3 1858 hnr_hi -0.9 band None
+  ɽ   rhotic/retroflex keys ant=50 f3=62 tap=1 tapms=25                             spec  | meas F2 1273 F3 1772 hnr_hi None band None
+  ʂ   rhotic/retroflex keys a2=42 a3=62 a4=42 a5=0 a6=0 f3=117                      spec  | meas F2 None F3 None hnr_hi None band None
+  ʈ   rhotic/retroflex keys ant=50 f3=72 l2=380 lk=72 vot=10                        spec  | meas F2 None F3 None hnr_hi None band None
+  ʎ   lateral          keys ah=-8 ant=50 av=-8 f1=88 f2=161 f3=99 hold=85           spec F1=351 F2=1981 F3=2878 | meas F2 2029 F3 2811 hnr_hi -4.7 band None
+  ʐ   rhotic/retroflex keys a2=0 a3=62 a4=42 a5=0 a6=0 f3=122                       spec  | meas F2 None F3 None hnr_hi None band None
+  ʟ   lateral          keys ah=-4 ant=50 av=-4 f1=110 f2=110 f3=86                  spec F1=440 F2=1350 F3=2500 | meas F2 1423 F3 2481 hnr_hi 0.6 band None
+
+== MARKS (Tier A): every transform operation, for a direction check
+  ʰ   aspirated: a period of voicelessness (op consonant:vot_ms add 63.5 [derived]
+  ʲ   palatalized: secondary raising of the to consonant:locus.F2 scale 1.43 [estimated]
+  ʷ   labialized: secondary lip rounding (ofte consonant:formants.F2 scale 0.85 [estimated]
+  ʼ   ejective: the consonant it follows is ma consonant:vot_ms add 89.7 [derived]; consonant:release.burst_ms set 10 [derived]; consonant:release.burst_gain_db set 10 [estimated]; consonant:release.ejective_silence_ms set 100 [estimated]
+  ː   The preceding segment (vowel or consonan vowel:duration.inherent_ms scale 2.3 [derived]; consonant:duration.inherent_ms scale 2.0 [derived]
+  ˑ   The preceding segment is somewhat longer vowel:duration.inherent_ms scale 1.5 [estimated]; consonant:duration.inherent_ms scale 1.4 [estimated]
+  ˞   rhoticity: r-colouring of a vowel (tongu vowel:formants.F3 toward 1679 [literature]
+  ˠ   velarized: secondary raising of the back consonant:locus.F2 scale 0.6 [derived]
+  ˡ   lateral release: the stop is released by consonant:release.unreleased set 1 [derived]
+  ˤ   pharyngealized: secondary constriction o consonant:locus.F2 scale 0.68 [derived]; consonant:locus.F1 scale 1.1 [estimated]
+  ̃   nasalized: the velum is lowered so air r vowel:nasal.open_pct set 70 [estimated]; consonant:nasal.open_pct set 70 [estimated]
+  ̆   The segment under the mark (usually a vo vowel:duration.inherent_ms scale 0.55 [estimated]; consonant:duration.inherent_ms scale 0.6 [estimated]
+  ̈   centralized: tongue position moved towar vowel:formants.F2 toward 1454 [estimated]
+  ̊   voiceless (alternative placement above a consonant:voicing.voiced set 0 [derived]; consonant:breath.whisper_db set 44 [estimated]; consonant:duration.inherent_ms scale 1.31 [derived]; vowel:voicing.voiced set 0 [derived]; vowel:breath.whisper_db set 44 [estimated]
+  ̘   advanced tongue root (ATR): tongue root  vowel:formants.F1 scale 0.88 [estimated]; consonant:formants.F1 scale 0.95 [estimated]
+  ̙   retracted tongue root (RTR): tongue root vowel:formants.F1 toward 921 [estimated]; vowel:formants.F2 scale 0.96 [estimated]; consonant:formants.F1 scale 1.05 [estimated]
+  ̚   no audible release: the stop closure is  consonant:release.unreleased set 1 [derived]
+  ̜   less rounded: less lip rounding than the vowel:formants.F2 scale 1.07 [estimated]; vowel:formants.F3 scale 1.04 [estimated]
+  ̝   raised: articulated with a closer constr vowel:formants.F1 scale 0.9 [estimated]; consonant:formants.F1 scale 0.9 [estimated]; consonant:noise.raised_db set 55 [estimated]; consonant:noise.over_voice_db set 15 [estimated]
+  ̞   lowered: articulated with a more open co vowel:formants.F1 toward 921 [estimated]; consonant:formants.F1 scale 1.1 [estimated]
+  ̟   advanced: articulated further forward th vowel:formants.F2 scale 1.08 [estimated]; consonant:locus.F2 scale 1.06 [estimated]
+  ̠   retracted: articulated further back than vowel:formants.F2 scale 0.92 [estimated]; consonant:locus.F2 scale 0.94 [estimated]
+  ̤   breathy voiced: vocal folds vibrate with vowel:phonation.breathy_pct set 80 [estimated]; consonant:phonation.breathy_pct set 80 [estimated]
+  ̥   voiceless: the sound is produced without consonant:voicing.voiced set 0 [derived]; consonant:breath.whisper_db set 44 [estimated]; consonant:duration.inherent_ms scale 1.31 [derived]; vowel:voicing.voiced set 0 [derived]; vowel:breath.whisper_db set 44 [estimated]
+  ̩   syllabic: the consonant forms the nucleu consonant:duration.inherent_ms scale 1.5 [estimated]
+  ̪   dental: tongue tip or blade against the  consonant:locus.F2 scale 0.93 [estimated]
+  ̬   voiced: vocal-fold vibration during a se consonant:voicing.voiced set 1 [derived]; consonant:voicing.over_whisper set 1 [derived]; consonant:vot_ms set 0 [derived]
+  ̯   non-syllabic: the vowel is not the sylla vowel:duration.inherent_ms scale 0.5 [estimated]
+  ̰   creaky voiced: constricted glottis with  vowel:phonation.creaky_pct set 60 [estimated]; consonant:phonation.creaky_pct set 60 [estimated]
+  ̴   velarized or pharyngealized: a cover mar consonant:locus.F2 scale 0.64 [derived]
+  ̹   more rounded: greater lip rounding than  vowel:formants.F2 scale 0.93 [estimated]; vowel:formants.F3 scale 0.96 [estimated]
+  ̺   apical: articulated with the tongue tip  consonant:locus.F3 scale 0.95 [estimated]
+  ̻   laminal: articulated with the tongue bla consonant:locus.F2 scale 1.08 [estimated]
+  ̼   linguolabial: tongue tip or blade agains consonant:locus.F2 scale 0.75 [estimated]
+  ̽   mid-centralized: moved toward the mid-ce vowel:formants.F1 toward 467 [estimated]; vowel:formants.F2 toward 1454 [estimated]
+  ⁿ   nasal release: the oral closure of a sto consonant:release.unreleased set 1 [derived]
+
+== TONES: levels
+  ˥     levels [5]          extra high level tone written as a Chao tone letter (IPA list name: EX
+  ˥˩    levels [5, 1]       falling contour tone written as a Chao tone-letter sequence (IPA list 
+  ˦     levels [4]          high level tone written as a Chao tone letter (IPA list name: HIGH LEV
+  ˧     levels [3]          mid level tone written as a Chao tone letter (IPA list name: MID LEVEL
+  ˧˥    levels [3, 5]       high rising contour tone written as a Chao tone-letter sequence (IPA l
+  ˧˦˨   levels [3, 4, 2]    rising-falling contour tone written as a Chao tone-letter sequence (IP
+  ˨     levels [2]          low level tone written as a Chao tone letter (IPA list name: LOW LEVEL
+  ˩     levels [1]          extra low level tone written as a Chao tone letter (IPA list name: EXT
+  ˩˥    levels [1, 5]       rising contour tone written as a Chao tone-letter sequence (IPA list n
+  ˩˧    levels [1, 3]       low rising contour tone written as a Chao tone-letter sequence (IPA li
+  ̀     levels [2]          low tone (IPA list name: LOW LEVEL TONE (ACCENT MARK)): pitch, i.e. th
+  ́     levels [4]          high tone (IPA list name: HIGH LEVEL TONE (ACCENT MARK)): pitch, i.e. 
+  ̂     levels [5, 1]       falling contour tone written as a diacritic over the nucleus (IPA list
+  ̄     levels [3]          mid tone (IPA list name: MID LEVEL TONE (ACCENT MARK)): pitch, i.e. th
+  ̋     levels [5]          extra high tone (IPA list name: EXTRA HIGH LEVEL TONE (ACCENT MARK)): 
+  ̌     levels [1, 5]       rising contour tone written as a diacritic over the nucleus (IPA list 
+  ̏     levels [1]          extra low tone (IPA list name: EXTRA LOW LEVEL TONE (ACCENT MARK)): pi
+  ᷄     levels [3, 5]       high rising contour tone written as a diacritic over the nucleus (IPA 
+  ᷅     levels [1, 3]       low rising contour tone written as a diacritic over the nucleus (IPA l
+  ᷈     levels [3, 4, 2]    rising-falling contour tone written as a diacritic over the nucleus (I
+  ↗     levels None         global rise: intonation, not lexical tone; the whole prosodic unit (wh
+  ↘     levels None         global fall: intonation, not lexical tone; the whole prosodic unit (wh
+  ꜛ     levels None         upstep: the following tone is realised on a higher pitch register than
+  ꜜ     levels None         downstep: the following tone (typically a high tone) is realised on a 
+
+== FINDINGS: 16
+  [consistency] F3 spec: rounded o 2583 >= unrounded ɤ 2497 (close-mid back)
+  [consistency] F3 measured: rounded o 2591.7 >= unrounded ɤ 2502.9 (close-mid back)
+  [consistency] F3 spec: rounded ɒ 3007 >= unrounded ɑ 2982 (open back)
+  [consistency] F3 measured: rounded ɒ 2987.7 >= unrounded ɑ 2965.5 (open back)
+  [consistency] F3 spec: rounded ɞ 2563.0 >= unrounded ɜ 2484 (open-mid central)
+  [consistency] F3 measured: rounded ɞ 2570.4 >= unrounded ɜ 2478.3 (open-mid central)
+  [pair] s/z: locus.F3 only in s
+  [pair] s/z: noise.peak_hz only in s
+  [pair] ɬ/ɮ: locus.F3 only in ɬ
+  [pair] ɬ/ɮ: locus.F2 only in ɬ
+  [pair] h/ɦ: duration voiced 102.5 >= voiceless 102.5
+  [pair] ç/ʝ: noise.peak_hz only in ç
+  [pair] ħ/ʕ: duration voiced 105 >= voiceless 105
+  [pair] ʃ/ʒ: locus.F3 only in ʃ
+  [pair] x/ɣ: noise.peak_hz only in x
+  [duplicate-equivalent] marks with one transform: ̥(U+0325) ̊(U+030A)

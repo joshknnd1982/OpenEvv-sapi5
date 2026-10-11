@@ -15,6 +15,7 @@ Full rules, pause protocol and phase prompts: `TTS_EXTENSION_PLAYBOOK.md` Part 1
 - Research the whole IPA chart and map every checklist symbol, extending the engine where needed (R19). No symbol may be skipped, silent, or silently substituted.
 - Look things up (web) and cite them in `docs/tts-extension/REFERENCES.md`; record the licence before importing anything. The IPA chart is CC BY-SA and eSpeak NG is GPL: cite, do not paste into MIT files.
 - The language data under `openevv/lang/` and every module DLL in `languages/` is IBM's and is not licensed here (`NOTICE.md`). Do not put a licence header on it.
+- The human wants a `git clone` of the finished project (all phases) to hold everything it rests on, third-party reference files included (the IPA chart `IPA_Kiel.pdf` is in the tree with its CC BY-SA licence recorded in `NOTICE.md`, 2026-10-10). Keep such files in the tree with their licence recorded; do not move reference material out to scratch folders.
 - Several Claude sessions may share this working tree. Check `git log -3` and `git status -sb` before committing; commit by naming paths, never `git add -A`; never amend, reset or revert work you did not make.
 
 ## Commands (Windows, PowerShell, from the repository root)

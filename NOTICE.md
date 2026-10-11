@@ -56,6 +56,10 @@ The seven modules that speak the languages read by eSpeak NG (`dedx`, `itix`, `e
 
 The profiles in `engine/profiles/` are summaries, written for this project, of what the published literature says of each language, with the sources named; they are part of the wrapper and under its licence. The measurements and descriptions they cite are their authors'.
 
+## The IPA chart: CC BY-SA 4.0
+
+`IPA_Kiel.pdf` is the International Phonetic Association's chart, 2026 issue ("IPA Chart revised to 2015/2005"), copyright 2026 International Phonetic Association, https://www.internationalphoneticassociation.org/content/ipa-chart, licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). It is kept in the tree unchanged, at the human's request (2026-10-10, HUMAN_ANSWERS.md), so that a `git clone` holds everything the TTS extension project rests on; it is the Association's work, not this project's, and nothing of it is copied into the MIT-licensed files, which cite it (docs/tts-extension/inventory/IPA_CHECKLIST.md, REFERENCES.md).
+
 ## Names
 
 IBM, ViaVoice and Embedded ViaVoice are trademarks of International Business Machines Corporation. Eloquence is a trademark of its respective owner. Microsoft, Windows and SAPI are trademarks of Microsoft Corporation. This project is not affiliated with, endorsed by or supported by IBM, Cerence, Nuance, Microsoft or Apple.

@@ -1,0 +1,12 @@
+﻿s said with voice (voi=1)                               PASSES (hole)  failed: []  B3 misses: {}  line: sound u0073 a2=0 a3=0 a4=50 a5=30 a6=0 f3=111 f4=135 hold=132 l2=453 lk=53 voi=1 
+z said without voice (voi=0) [control]                  caught  failed: ['B2 voiced_frac vs s']  B3 misses: {}  line: sound u007a ant=50 hold=98 l2=453 lk=53 voi=0 
+a whispered (voi=0 whisper=44)                          PASSES (hole)  failed: []  B3 misses: {}  line: sound u0061 ah=-6 av=-6 f1=127 f2=125 f3=110 voi=0 whisper=44 
+a 30 dB down (av=-30 ah=-30)                            PASSES (hole)  failed: []  B3 misses: {}  line: sound u0061 ah=-30 av=-30 f1=127 f2=125 f3=110 
+l said on j (no lateral) with l keys                    caught  failed: ['B3']  B3 misses: {'F1': (369, 265.7), 'F2': (1698, 2156.6)}  line: sound u006c ah=-3 ant=50 av=-3 f1=92 f2=138 f3=88 hold=50 l            j=u006c
+m said on b (no nasal) with m keys                      caught  failed: ['B3', 'B2 F2_50_hz vs n']  B3 misses: {'F1': (331, 241.1), 'F2': (1347, 2168.3), 'F3': (2365, 3865.2)}  line: sound u006d ant=50 f1=110 f2=164 f3=95 f4=97 hold=130 m            b=u006d
+p aspirated (vot=80) [control]                          caught  failed: ['B3']  B3 misses: {'vot_ms': (20, 0.0)}  line: sound u0070 ant=50 l2=216 lk=75 vot=80 
+r with no trill (trate tapms tdepth dropped) [control]  caught  failed: ['B3', 'B2 mod_dips vs ɾ', 'B2 duration_ms vs ɾ']  B3 misses: {'trill_rate_hz': (27.8, None), 'trill_closed_ms': (20, 0.0)}  line: sound u0072 ant=50 f1=143 f2=100 f3=79 hold=104 
+ʃ with s noise (a4=50 a5=30 f3=111 f4=135) [control]    caught  failed: ['B3', 'B2 peak_hz vs s', 'B2 edge_F3 vs s']  B3 misses: {'peak_hz': (3820, 5061.5), 'locus F3 (frames)': (2234, 2664.0)}  line: sound u0283 a2=0 a3=0 a4=50 a5=30 a6=0 f3=111 f4=135 hold=115 l2=513 lk=56 
+n said on d (no nasal) with n keys                      caught  failed: ['B3']  B3 misses: {'F1': (361, 464.1), 'F3': (2369, 3210.1), 'duration_ms': (114, 155)}  line: sound u006e ant=50 f1=249 f2=90 f3=95 f4=104 hold=163 n            d=u006e
+i said with u keys                                      caught  failed: ['B3', 'B2 F2_50_hz vs y', 'B2 F2_50_hz vs ɨ']  B3 misses: {'F1': (217, 323.5), 'F2': (2775, 1655.3), 'F3': (3645, 2984.6)}  line: sound u0069 ah=-4 av=-4 f1=123 f2=77 f3=103 
+t with no burst (said on n) [control]                   caught  failed: ['A1', 'B3']  B3 misses: {'vot_ms': (15, None)}  line: sound u0074 ant=50 l2=417 lk=69 vot=6 t            n=u0074

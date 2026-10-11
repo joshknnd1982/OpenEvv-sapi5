@@ -4,6 +4,52 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
+**Phase 5 (Independent audit): COMPLETE (2026-10-10, nineteenth session)** on branch `tts-ext/phase-5`. Session: Fable 5.1 (the playbook's model for the audit). The audit's report is `AUDIT_PHASE5.md`; its scripts, logs and results are in `audit5/`; the decision is D88. **Next: Phase 6 (Packs, migration, triage)**, in a new session; read "For Phase 6" below first.
+
+### Phase 5 at its end
+
+| Exit criterion (playbook Phase 5) | State |
+|---|---|
+| `AUDIT_PHASE5.md` with the checklist independently re-derived and diffed | **met**: section 8, the seven official 2026 sub-chart images read by the auditor, 175 symbols, 0 differences (`audit5/checklist_rederived.py`) |
+| every high-severity finding fixed, with measurements before and after | **met**: three harness holes (a letter said with the wrong voicing, a vowel made nearly silent, passed), closed by T-voicing and T-level in `sweep.judge`; section 10 gives the before and after readings (`audit5/sanity_before.log`, `sanity_after_*.log`) |
+| regression passes | **met**: the whole sweep with `--apply` on the fixed table and the new checks, `sweep: 392 entries, 392 rendered, 392 passed every check, 0 not yet; proofs in ipa/proofs/`; and the staged golden run again at the phase's end: `golden: 155 packs, 29237 cases, 0 FAILED, 0 changed within tolerance, 2196 s` (`golden_p5.log`): nothing of this phase reaches it (no engine, pack or front-end change; the realised map is read only by `engine/ipa`), and the run shows it |
+| statuses updated honestly | **met**: `LANGUAGE_STATUS.md` (no language changed), `CREATED_SOUNDS.md` (register re-run, `register: 75 created sounds, 75 lines`), `OPEN_QUESTIONS.md` Q15 (437 values), Q37 to Q39 |
+| PROJECT_STATE updated | this |
+
+Coverage at the end (`coverage_p5.log`):
+
+    section             mapped  composed   created   MISSING   BLOCKED  no entry    all
+    pulmonic                30         0        29         0         0         0     59
+    non_pulmonic             0         6         5         0         0         0     11
+    other_symbols            2         2         8         0         0         0     12
+    vowels                  19         0         9         0         0         0     28
+    diacritics               0        32         0         0         0         0     32
+    suprasegmentals          6         3         0         0         0         0      9
+    tones                   10        10         4         0         0         0     24
+    all                     67        53        55         0         0         0    175
+    coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0; rendered and measured 175 (proof passed 175); approximate 6
+    provenance of every value in the table: derived 193, estimated 171, literature 205, measured 39
+    0 without an entry; 0 entries not on the checklist
+    state against proof: every entry that is not MISSING has a passing proof
+    proof against map: every proof of a done entry was made on the map as it stands
+    Unicode net: 891 of 891 classified; A 123, B 48, C 575, alias 73, not-phonetic 72
+    all                                                                5       162        19         0        17   203
+    tier B: 186 done and proved (mapped 5, composed 162, created 19), 0 MISSING, 17 notation only (acknowledged by the human as unsupported-with-justification, D81: nothing to say); approximate 117
+
+The medium findings fixed: z, ʝ, ɣ carry their voiceless partners' noise targets (z peak 4660.6 Hz (s 4660.6), noise centre above 1 kHz 4387.4 (s 4527.8); ʝ peak 3608.2 (ç 4259.7), centre 3595.2 (ç 3789.9); ɣ peak 2405.5 (x 2205.0), centre 2614.7 (x 2594.6); keys z a2=0 a3=0 a4=50 a5=30 a6=0 f4=124 hold=98 l2=453 lk=53, ʝ a2=36 a3=36 a4=56 a5=0 a6=0 f4=121 hold=73 voi=1, ɣ a2=50 a3=70 a4=50 a5=0 a6=0 f3=99 hold=68 voi=1); ɞ's F3 is derived below ɜ's (ɞ F3 measured 2302.8 Hz against the target 2300 (ɜ 2478.3), F1 505.5, F2 1272.3; passed True, 1 design round(s)). Not fixed, tracked in Q39: the layer's `noburst` leaves an aspirated stop's breath (̚ ˡ ⁿ are `approximate` on k until Phase 6's rebuild), and `vot_long` misreads the ejective on k and c before [a].
+
+### For Phase 6 (read first)
+
+- **Read** `AUDIT_PHASE5.md` sections 9 and 10, D88, and Q39: two things wait for Phase 6's first template rebuild and harness work (the `noburst` breath residue; the `vot_long` reading and a per-context record in the sweep's summaries).
+- **The sweep's judge has two more parts of B3** (T-voicing, T-level) since this phase; every proof carries them. A pack's or a template's change that leaves a letter voiced the wrong way, or nearly silent, now fails its proof.
+- **The planted-fault test** `docs/tts-extension/audit5/audit_sanity.py` (twelve cases, about 12 minutes) is the harness's regression test for those holes: run it after any change to `sweep.py` or `analysis.py` (`python docs/tts-extension/audit5/audit_sanity.py`, under `EVV_STAGE`), and `audit5/audit_compose.py <ids>` says marks on new bases.
+- **The human's standing wish** (D88, `CLAUDE.md`): a `git clone` of the finished project holds everything it rests on; reference files stay in the tree with their licence in `NOTICE.md` (`IPA_Kiel.pdf` is the first).
+- **Nothing in `languages/` or `dist/` has changed** since D87; the final stage is still `stage-dev` (`build4x`, front-end `p28`). Phase 6 starts from D34's rule: replacing the shipped modules and front-end is shown to the human and done only with their say-so.
+- **Two small debts of the tools** (AUDIT_PHASE5.md L10, L11): `register.py` counts a created sound's revision as 1 plus its trims, so a specification change alone (ɞ's F3, D88) does not move it; and s, ʃ, ɬ carry F3 loci their voiced partners lack (Q39 (3)).
+- Everything the Phase 4 notes below say about running the tools still holds (EVV_STAGE, the sweep, the chains, the two-hour limit on background jobs, never `git stash`).
+
+### Phase 4, for the record
+
 **Phase 4 (Master IPA → acoustic table): COMPLETE (2026-10-10, eighteenth session)** on branch `tts-ext/phase-4`. Sessions of 2026-10-06 to 2026-10-10: Opus 5.5. The eighteenth session's work is D87 (the engine change before the rebuild, the two research steps, the review's fixes). **Next: Phase 5 (Independent audit)**, in a new session; read "For Phase 5" below first.
 
 ### Phase 4 at its end (coverage.py on the final stage, 2026-10-10)

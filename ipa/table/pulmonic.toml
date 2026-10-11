@@ -810,6 +810,7 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1"], builds = [] }
 
 [sound."U+007A".spec]
+noise = { peak_hz = { v = 4591, tag = "derived", rule = "equal to s's peak (4591 Hz, chong2022): voicing does not move the place resonance, the rule ʒ, ʐ, ʑ and ɮ already follow (jongman2000 pools ʃ and ʒ)", note = "Phase 5 audit, M1 (AUDIT_PHASE5.md): z was the module's own z with s's locus only, so s and z differed in their noise shaping as well as in voicing (measured noise centres above 1 kHz: s 4528, z 3505 Hz)" } }
 locus = { F2 = { v = 1767, tag = "derived", rule = "as s (the source pools voicing): jongman2000 Table III, males, 825 / (1 - 0.533) = 1767 Hz", note = "Q21; was 1697 Hz, the mean onset (Table IV)" } }
 locus_slope = { F2 = { v = 0.533, tag = "literature", ref = "jongman2000", note = "Table III p. 1259, /s,z/, males (voicing pooled)" } }
 duration = { inherent_ms = { v = 118, tag = "literature", ref = "jongman2000", note = "jongman2000 Table VI: frication duration, 20 speakers (10 F, 10 M) pooled, CVC words in a carrier phrase." } }
@@ -950,6 +951,7 @@ approximate = false
 plan = { decision = "as-is", end_state = "mapped", uses = ["X1", "X3", "X4"], builds = [] }
 
 [sound."U+029D".spec]
+noise = { peak_hz = { v = 4000, tag = "estimated", note = "Phase 5 audit, M1: equal to the ç estimate (4000 Hz), as z takes s's and ʒ takes ʃ's: voicing does not move the place resonance; no ʝ peak was found. Before, ʝ was the module's ç voiced without ç's noise keys, so ç and ʝ differed in their noise as well as in voicing" } }
 duration = { inherent_ms = { v = 88, tag = "literature", ref = "nirgianaki_icgl", note = "nirgianaki_icgl section 3 text: duration of word-initial stressed CV fricatives, Athenian Greek, 2 F + 2 M pooled (the male-only means are given only per place, voicing pooled); the paper's author order and year are uncertain in the extraction; voiced palatal 87.92 ms." } }
 
 [sound."U+029D".tests]
@@ -961,6 +963,7 @@ proof = "ipa/proofs/U+029D.json"
 # a voiced palatal fricative: the module's ç voiced
 carrier = "X"
 keys = { voi = { v = 1, tag = "derived", rule = "voiced through" } }
+trim.dedx = [{ key = "f4", v = 105.8, scale = true, tag = "measured", proof = "ipa/proofs/U+029D.json" }]
 
 [sound."U+0078"]
 ipa = "x"
@@ -997,6 +1000,7 @@ approximate = false
 plan = { decision = "as-is", end_state = "created", uses = ["X1", "X2", "X3", "X4"], builds = [] }
 
 [sound."U+0263".spec]
+noise = { peak_hz = { v = 2200, tag = "estimated", note = "Phase 5 audit, M1: equal to the x estimate (2200 Hz), as z takes s's: voicing does not move the place resonance; no ɣ peak was found. Before, ɣ was the module's x voiced without x's noise keys (measured centres above 1 kHz: x 2595, ɣ 3135 Hz)" } }
 duration = { inherent_ms = { v = 85, tag = "literature", ref = "nirgianaki_icgl", note = "nirgianaki_icgl section 3 text: duration of word-initial stressed CV fricatives, Athenian Greek, 2 F + 2 M pooled (the male-only means are given only per place, voicing pooled); the paper's author order and year are uncertain in the extraction; voiced velar 85.48 ms." } }
 
 [sound."U+0263".tests]
@@ -1008,6 +1012,7 @@ proof = "ipa/proofs/U+0263.json"
 # a voiced velar fricative: the module's x voiced
 carrier = "x"
 keys = { voi = { v = 1, tag = "derived", rule = "voiced through" } }
+trim.dedx = [{ key = "f3", v = 112.7, scale = true, tag = "measured", proof = "ipa/proofs/U+0263.json" }]
 
 [sound."U+03C7"]
 ipa = "χ"

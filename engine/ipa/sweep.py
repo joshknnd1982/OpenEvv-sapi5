@@ -12,7 +12,9 @@ the base sounds its entry names. Each case is measured with the harness and the 
       key of the entry's own: a silent substitution, R7)
   A1  the sound sounded: frames with voice or noise over it (a stop: a closure and a burst found)
   A2  the signal carries what the frames asked for (report.check_a over the cases)
-  B3  every target of the entry's specification is met within its tolerance (prove.py's)
+  B3  every target of the entry's specification is met within its tolerance (prove.py's), and a
+      letter's voiced share of frames sits on the side its voicing feature says (T-voicing) and
+      its level in the signal is not that of a sound hardly made (T-level)
   B2  every contrast the entry's tests name holds, in the direction named, by at least the
       smallest difference this harness can tell from its own error
 
@@ -1154,6 +1156,44 @@ def judge(t, sid, cases, diags, said_as):
             # (T-click, T-airstream, T-percussive) the generic checks prove the place, not the sound
             b3['targets']['airstream (T-click, T-airstream)'] = dict(target=air, measured=None, within=False)
             b3['passed'] = False
+        # T-voicing (Phase 5 audit, H1): a letter said with the voice its features deny, or without
+        # the one they ask, passed every check (s with `voi=1` passed as s: nothing but a partner's
+        # contrast looked at voicing). The share of the target's frames the engine voiced must sit
+        # on the feature's side: at most 0.5 for a voiceless letter (a stop's span takes in the
+        # vowel's run-in: the proofs read 0 to 0.36), at least 0.6 for a voiced, breathy or creaky
+        # one (the proofs read 0.84 to 1.0); a click's or ʡ's voicing is unspecified and not judged
+        voi = e['features'].get('voicing', 'voiced' if e['features'].get('class') == 'vowel' else None)
+        vf = s.get('voiced_frac')
+        if voi in ('voiceless', 'voiced', 'breathy', 'creaky'):
+            ok = vf is not None and (vf <= 0.5 if voi == 'voiceless' else vf >= 0.6)
+            b3['targets']['voicing (T-voicing)'] = dict(target='<= 0.5' if voi == 'voiceless' else '>= 0.6',
+                                                        measured=vf, feature=voi, within=ok)
+            b3['passed'] = b3['passed'] and ok
+        # T-level (Phase 5 audit, H3): a vowel 30 dB down passed as itself (its formants were in
+        # place; nothing looked at how loud it was, and a sound made nearly silent is a sound not
+        # made, R19). A render's absolute level says little (that vowel read -34 dB, a normal one
+        # -20 to -26), so the target is read against its neighbours: the median over the contexts
+        # of the target's loudest phone less the louder neighbour, dB; at least -10 for a vowel
+        # (the proofs read -2.4 to +6.7) and -25 for a consonant (the quietest, a voiceless trill
+        # between vowels, read -12.6). The floors come from that range with a margin, not from the
+        # smallest attenuation caught: a vowel about 15 dB down, or a consonant about 12 dB down, still
+        # passes; the planted 30 dB case read -16.1 (AUDIT_PHASE5.md section 10)
+        rel = []
+        for cid, c in cases.items():
+            nb = [i for i in (c.get('before'), c.get('after')) if i is not None]
+            if cid == 'alone' or not nb or not c.get('target'):
+                continue
+            tg = [(c['phones'][i].get('meas') or {}).get('intensity_db') for i in c['target']]
+            nb = [(c['phones'][i].get('meas') or {}).get('intensity_db') for i in nb]
+            tg, nb = [x for x in tg if x is not None], [x for x in nb if x is not None]
+            if tg and nb:
+                rel.append(max(tg) - max(nb))
+        rel.sort()
+        lv = rel[len(rel) // 2] if rel else None
+        floor = -10.0 if e['features'].get('class') == 'vowel' else -25.0
+        ok = lv is None or lv >= floor
+        b3['targets']['level against the neighbours (T-level)'] = dict(target='>= %s dB' % floor, measured=lv, within=ok)
+        b3['passed'] = b3['passed'] and ok
     elif e['kind'] == 'modifier' or (e['kind'] == 'tie' and not PZ.check_of(e)):
         # (a joining mark that is a mark of each side too, extIPA's sliding articulation, is
         # judged as a mark: the pair it joins against the same letters in sequence)

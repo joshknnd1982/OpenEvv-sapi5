@@ -4,6 +4,10 @@ Status level and failure-layer triage for every language, dialect and accent (pl
 
 Levels: 1 `draft` · 2 `engine-verified` (the harness shows the engine realizes the requested parameters) · 3 `reference-verified` (realized values fall within reference ranges) · 4 `intelligibility-verified` (speech-recognition round trip passes, where a recognizer supports the language) · 5 `native-validated` (a named native speaker or expert signed off the review packet). Only level 5 may be called "authentic".
 
+## Phase 5 (2026-10-10): no language's status changed
+
+The independent audit (`AUDIT_PHASE5.md`) touched the master table (z, ʝ, ɣ, ɞ) and the sweep's checks, not the packs or the shipped modules; every table entry stays at level 2 (engine-verified on the reference template dedx), none is called authentic. The 155 languages below stand as Phase 1 measured them, with the Phase 3 defect fixes and Q28's rule in the staged modules only (D87); Phase 6 moves them to packs and triages them.
+
 ## Baseline, 2026-10-05 (end of Phase 1)
 
 Every language was rendered and measured by the harness (`harness/README.md`); nothing was fixed (playbook Phase 1, step 9). The table below is written by `harness/report.py`; do not edit it by hand.
