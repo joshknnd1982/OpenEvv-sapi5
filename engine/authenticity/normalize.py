@@ -21,6 +21,15 @@ Known bias, stated: G is taken over the classes both sides have, and a dialect m
 and `scale()` reports the factor so it can be looked at.
 
     python engine/authenticity/normalize.py --selftest
+    python engine/authenticity/normalize.py <tag> <phoneme>=<F1>,<F2>[,<F3>] ... [--anchor <phoneme>,...]
+
+The second form is for a published table (mean F1, F2, maybe F3 in Hz of a group of speakers, no
+recordings): each value is keyed by the reader's phoneme name in the pack (its `map` line, e.g.
+`@ca-va:E`), the reference is the module phone the pack says it with (as extract_targets.py does), and
+`--anchor` names the classes the factor is taken over (default: all given; leave out a class the
+dialect is known to move). It prints the factor and, per phoneme, the target, what the pack says
+now and the change; "override" where F1 or F2 moves more than 6 per cent (extract_targets.NEAR).
+Values so made are `derived` (the source as `ref`, this rule as `norm`).
 """
 import math
 import sys
@@ -109,7 +118,50 @@ def selftest():
     return ok
 
 
+def table(argv):
+    """The command-line form for a published table (the docstring)."""
+    import os
+    here = os.path.dirname(os.path.abspath(__file__))
+    sys.path[:0] = [here, os.path.join(os.path.dirname(os.path.dirname(here)), "engine", "packs")]
+    import extract_targets as X
+    import overrides as O
+    import packlib as L
+    anchor = None
+    if "--anchor" in argv:
+        i = argv.index("--anchor")
+        anchor = argv[i + 1].split(",")
+        argv = argv[:i] + argv[i + 2:]
+    tag, pairs = argv[0], argv[1:]
+    speaker = {}
+    for p in pairs:
+        name, _, vals = p.rpartition("=")
+        v = [float(x) for x in vals.split(",")]
+        speaker[name] = dict(zip(FORMANTS, v))
+    flat, _ = L.resolve(tag)
+    template = flat["ini"]["Language"]["Template"]
+    phones = O.chassis(template)
+    now, ref = {}, {}
+    for name in speaker:
+        phone, now[name] = X.pack_now(flat, [name])
+        ref[name] = {"f%d" % k: phones[phone]["f"][k - 1] for k in (1, 2, 3)}
+        now[name]["phone"] = phone
+    formants = tuple(k for k in FORMANTS if all(k in v for v in speaker.values()))
+    fac, shared = scale(speaker, ref, classes=anchor, formants=formants)
+    out = apply(speaker, fac, formants)
+    print("%s: module %s; factor x%.4f over %s (%s)" % (tag, template, fac, " ".join(shared), " ".join(formants)))
+    for name in speaker:
+        t, n = out[name], now[name]
+        ch = {k: 100.0 * (t[k] / n[k] - 1) for k in formants}
+        moved = abs(ch["f1"]) > X.NEAR or abs(ch["f2"]) > X.NEAR
+        print("  %-12s phone %-3s target %s   now %s   change %s   %s" % (
+            name, n["phone"], " / ".join("%.1f" % t[k] for k in formants), " / ".join("%.1f" % n[k] for k in formants),
+            " ".join("%s %+.1f%%" % (k.upper(), ch[k]) for k in formants), "override" if moved else "within %d%%" % X.NEAR))
+    return 0
+
+
 if __name__ == "__main__":
     if sys.argv[1:] == ["--selftest"]:
         sys.exit(0 if selftest() else 1)
+    if len(sys.argv) > 2:
+        sys.exit(table(sys.argv[1:]))
     print(__doc__)

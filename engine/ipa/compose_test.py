@@ -55,6 +55,7 @@ def test_map(pack, template, work):
     with open(os.path.join(ROOT, 'ipa', 'realized', template + '.map'), encoding='utf-8') as f:
         lines += [l.rstrip('\n') for l in f]
     path = os.path.join(work, 'c4-%s.map' % template)
+    os.makedirs(work, exist_ok=True)   # coverage.py comes here first in a fresh EVV_HARNESS_WORK
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(lines) + '\n')
     return p, path

@@ -39,4 +39,4 @@ know whether it sounds like **TEST ONLY (the worked dialect example of ADDING_A_
 11. Overall, would you accept this voice as **recognisably TEST ONLY (the worked dialect example of ADDING_A_LANGUAGE.md): Valencian Catalan with the stressed open vowels /ɛ ɔ/ of the men of Albalat de la Ribera as one published table gives them**? yes, with changes, or no.
 12. Anything else, in your own words.
 
-Items in this packet: 18 (words 6, compare 8, sounds 4).
+Items in this packet: 14 (words 6, compare 4, sounds 4).

@@ -157,7 +157,10 @@ def draw(r, png, title):
     fig, ax = plt.subplots(figsize=(6.4, 2.6), dpi=72)
     ax.specgram(x.astype(float) + 1e-3, NFFT=256, Fs=rate, noverlap=200, cmap="Greys", scale="dB", vmin=-20)
     tr = A.formant_track(x, rate, 0, r["case_ms"])
-    loud = [(tt, f) for tt, f in tr if A.intensity_db(x, rate, tt - 10, tt + 10) > -45]
+    def loud_at(tt):
+        db = A.intensity_db(x, rate, tt - 10, tt + 10)   # None: the window holds no samples
+        return db is not None and db > -45
+    loud = [(tt, f) for tt, f in tr if loud_at(tt)]
     for k, col in ((1, "#d62728"), (2, "#1f77b4"), (3, "#2ca02c")):
         ax.plot(t / 1000.0, r["frames"][:, E.P["f%d" % k]], color=col, lw=1.0, label="F%d asked" % k)
         ax.plot([tt / 1000.0 for tt, f in loud if len(f) >= k], [f[k - 1][0] for tt, f in loud if len(f) >= k],
@@ -189,6 +192,18 @@ def describe(item, readings):
 
 # ---------------------------------------------------------------- the packet
 
+def left_part_way(out):
+    """True if `out` holds nothing but what a packet run that stopped part way writes."""
+    if not set(os.listdir(out)) <= {"audio", "spectrograms"}:
+        return False
+    for d, ext in (("audio", ".wav"), ("spectrograms", ".png")):
+        p = os.path.join(out, d)
+        if os.path.exists(p) and not (os.path.isdir(p) and all(
+                f.endswith(ext) and os.path.isfile(os.path.join(p, f)) for f in os.listdir(p))):
+            return False
+    return True
+
+
 def make(tag, out, flagged=True):
     flat, _ = L.resolve(tag)
     p = E.pack(tag)
@@ -198,7 +213,8 @@ def make(tag, out, flagged=True):
     meta = flat.get("meta", {})
     if os.path.isdir(out):
         # only a packet made before is replaced; any other folder is left alone
-        if os.listdir(out) and not os.path.isfile(os.path.join(out, "items.json")):
+        # (a run that stopped part way left only its own audio/*.wav and spectrograms/*.png: replaced too)
+        if not os.path.isfile(os.path.join(out, "items.json")) and not left_part_way(out):
             raise SystemExit("%s is not empty and holds no packet (items.json): choose another --out" % out)
         shutil.rmtree(out)
     for d in ("audio", "spectrograms"):
