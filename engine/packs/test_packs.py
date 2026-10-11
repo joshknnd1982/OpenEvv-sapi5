@@ -209,5 +209,34 @@ class Shipped(unittest.TestCase):
         self.assertEqual(build_packs.check([]), 0)
 
 
+class Teeth(unittest.TestCase):
+    """The check must see a change: break a copy of a shipped pack on purpose and it must differ."""
+
+    def test_a_changed_value_in_a_copy_is_seen(self):
+        tmp = tempfile.mkdtemp()
+        try:
+            shutil.copytree(os.path.join(ROOT, "packs", "af"), os.path.join(tmp, "af"))
+            path = os.path.join(tmp, "af", "pack.toml")
+            text = open(path, encoding="utf-8").read()
+            self.assertIn('Order = "201"', text)
+            open(path, "w", encoding="utf-8", newline="\n").write(text.replace('Order = "201"', 'Order = "999"'))
+            flat, _ = L.resolve("af", tmp)
+            made = L.compile_pack(flat)["language.ini"]
+            had = open(os.path.join(ROOT, "languages", "af", "language.ini"), "rb").read()
+            self.assertNotEqual(made, had)
+            self.assertEqual(made.replace(b"999", b"201").replace(b"\r\n", b"\n"), had.replace(b"\r\n", b"\n"))
+        finally:
+            shutil.rmtree(tmp)
+
+    def test_a_child_that_inherits_is_the_parent_built_over(self):
+        for child, parent in (("ru-cl", "ru"), ("ps-x-yusufzai", "ps"), ("mn-f", "mn")):
+            c, origin = L.resolve(child)
+            p, _ = L.resolve(parent)
+            self.assertEqual(c["pack"]["extends"], parent)
+            same = sum(1 for k, v in origin.items() if v == parent)
+            self.assertGreater(same, 100, child)  # most of it is the parent's own
+            self.assertNotEqual(c["ini"]["Language"]["Tag"], p["ini"]["Language"]["Tag"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

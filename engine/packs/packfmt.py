@@ -136,14 +136,17 @@ def parse_map(text, fmt="sounds"):
             r = dict(r)
             r["key"] = {"blank": "b", "comment": "c", "whwords": "w", "raw": "r"}[k] + str(counts[k])
         out.append(r)
-    keys = [line_key(r) for r in out]
-    if len(set(keys)) != len(keys):  # two lines of one key: the later ones are kept as they are
-        seen = {}
-        for r in out:
-            kk = line_key(r)
-            seen[kk] = seen.get(kk, 0) + 1
-            if seen[kk] > 1:
-                r["key"] = "%s#%d" % (kk, seen[kk])
+    used = set(line_key(r) for r in out)
+    seen = set()
+    for r in out:  # two lines of one key: the later ones get a key of their own, `<key>#<n>`, and are kept as they are
+        kk = line_key(r)
+        if kk in seen:
+            n = 2
+            while "%s#%d" % (kk, n) in used:
+                n += 1
+            r["key"] = "%s#%d" % (kk, n)
+            used.add(r["key"])
+        seen.add(kk)
     return out, eol
 
 
