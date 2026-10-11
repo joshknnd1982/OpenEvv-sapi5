@@ -175,6 +175,47 @@ proof = "ipa/proofs/U+0253.json"
 # the plain voiced stop at the same place, its voice swelling through a shorter closure (the accent layer's impl)
 keys = { impl = { v = 12, tag = "estimated", rule = "dB the voice rises through the closure; chosen so that the swell measures within its target" }, hold = { v = 75, tag = "estimated", rule = "the closure shorter than the plain stop's, as both sources measured (mori2023_shimaore: voiced closure 57.9 against 105.6 ms; nihalani1991_sindhi: implosive voicing 70 to 72 per cent of the plosive's); 75 per cent is where the swell measures within its target" } }
 
+# Tier C (beyond the chart and beyond the Tier B inventory; DESIGN.md 3.1 "the table may hold nothing the
+# checklist lacks unless it is tier B or C"): the voiceless bilabial implosive, which the official chart does
+# not print (its implosives are voiced only) but the literature attests (Seereer-Siin, Owere Igbo; the letter
+# ƥ was withdrawn in 1993). A letter of its own, spelt with a letter and a mark (as the Tier B ɹ̈ is, D74),
+# because ɓ with ̥ composed does not carry it (the skill test of 2026-10-11, create-missing-sound): the
+# composition is b with its voice off, b's release and ̥'s breath (inert in a closure), and no prevoicing;
+# its `impl` is inert, since the layer's swell acts on voiced frames only.
+[sound."U+0253+U+0325"]
+ipa = "ɓ̥"
+codepoints = ["U+0253", "U+0325"]
+name = "voiceless bilabial implosive (not on the official chart; attested: Seereer-Siin, Owere Igbo)"
+section = "non_pulmonic"
+tier = "C"
+kind = "base"
+features = { class = "consonant", airstream = "implosive", place = "bilabial", stricture = "closure", voicing = "voiceless", voicing_part = "initial" }
+state = "created"
+level = 2
+approximate = false
+plan = { decision = "as-is", end_state = "created", uses = ["X1", "X4", "C4"], builds = [] }
+
+[sound."U+0253+U+0325".spec]
+locus = { F2 = { v = 837, tag = "derived", rule = "equal to the voiced bilabial implosive's (U+0253, itself set equal to b's 837 Hz, estimated and queued there): the same closure at the same place; larynx lowering may lower the formants slightly, which is not measured" } }
+locus_slope = { F2 = { v = 0.82, tag = "derived", rule = "equal to the voiced bilabial implosive's (U+0253, b's 0.82), as the locus is" } }
+closure = { silence_before_voice_ms = { v = 35, tag = "literature", ref = "mclaughlin2005_seereer", note = "the abstract: voiceless implosives show a short period of silence of approximately 20 to 50 ms before the onset of prevoicing prior to the release; the midpoint taken. Not a target the sweep checks (no measure is mapped to it): the silent gap is proved by the contrasts on voice_gap_ms against ɓ (none) and p (the whole closure)" }, voicing_slope_db10 = { v = 9.3, tag = "estimated", note = "the voice's rise through the closure as this harness reads it (T-airstream: the level below 400 Hz from 15 ms after the closure begins to the release): here a rise from the silent first part of the closure to the prevoicing before the release, not a swell within a voice bar as ɓ's 1.2 is. mclaughlin2005_seereer gives the silence and the prevoicing, no amplitude curve, so the slope is estimated from what a 40 ms silence followed by a voice bar reads on this measure (8.8 and 9.9 dB per 10 ms in a_a and i_i at the design's keys); the swell within the prevoicing itself is ɓ's (impl), too short a stretch to measure on its own. Queued for verification against a recording" } }
+
+[sound."U+0253+U+0325".tests]
+checks = ["T-airstream", "T-contrast"]
+# two symbols that should sound different must measurably differ (the human's rule, 2026-10-08): against the
+# voiced implosive by the silent first part of the closure, against the plain voiceless stop by the
+# prevoicing, the swell and the shorter closure; every contrast required whatever the specifications say
+contrast = [{ with = "U+0253", measure = "voiced_frac", sign = -1, distinct = true }, { with = "U+0253", measure = "voice_gap_ms", sign = 1, distinct = true }, { with = "U+0253", measure = "voiced_mid", sign = -1, distinct = true }, { with = "U+0070", measure = "voiced_frac", sign = 1, distinct = true }, { with = "U+0070", measure = "voiced_tail", sign = 1, distinct = true }, { with = "U+0070", measure = "voicing_slope", sign = 1, distinct = true }, { with = "U+0070", measure = "voice_gap_ms", sign = -1, distinct = true }, { with = "U+0070", measure = "duration_ms", sign = -1, distinct = true }]
+proof = "ipa/proofs/U+0253+U+0325.json"
+
+[sound."U+0253+U+0325".realization.openevv]
+# the voiced implosive's own carrier (b, with ɓ's swell) with the voice off over the first part of the sound
+# (the layer's voi=0 to vto, D70): a silent closure, then the voice bar swelling to b's release. No breath
+# (no `whisper`): a glottalic closure has no pulmonic airflow (mclaughlin2005_seereer, after Clements & Osu
+# 2002: no positive oral pressure).
+carrier = "b"
+keys = { voi = { v = 0, tag = "derived", rule = "the voiceless mark's own operation (U+0325: voicing off), bounded by vto" }, vto = { v = 70, tag = "derived", rule = "mclaughlin2005_seereer's 20 to 50 ms silence (35 taken) over this module's b closure of about 55 ms at hold 100 is about 65 per cent of the closure; the sound's own stretch begins in the vowel's run-in (the harness reads voiced_head 0.7 to 0.8 even for p), so 70 per cent of the stretch, which measured a 40 ms voice gap in all three contexts (vto 60: 20 ms; 65: 35 ms; 75: 45 ms, with voiced_frac then under 0.45)" }, impl = { v = 12, tag = "derived", rule = "the voiced bilabial implosive's (U+0253): the prevoicing is an implosive's voice, swelling to the release" }, hold = { v = 100, tag = "estimated", rule = "b's own closure: no closure length of a voiceless implosive was found (mclaughlin2005_seereer's abstract gives the silence before the prevoicing, not the closure); at ɓ's 75 the silence and the prevoicing do not both fit (the gap measured 10 to 20 ms), at 110 the voice onset fell after the release in two contexts of three" } }
+
 [sound."U+0257"]
 ipa = "ɗ"
 codepoints = ["U+0257"]

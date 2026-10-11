@@ -485,6 +485,17 @@ Access date for every entry: **2026-10-11**. Every row was checked on the web on
 
 Found and opened by four research helpers, each reading the pack's eSpeak NG voice file too (GPL, read only, nothing copied). Registered in `ipa/sources.toml` with `opened = true`; each pack's `[meta] note` names its doubts. Nothing was measured; no value of any pack changed.
 
+### The voiceless bilabial implosive ɓ̥ (the create-missing-sound skill test, 2026-10-11)
+
+Opened for the Unmappable Sound Protocol on ɓ̥ (U+0253 U+0325), a sound the official chart does not print (its implosives are voiced only); both registered in `ipa/sources.toml`.
+
+| Id | Source | Where | Licence | Used for |
+|---|---|---|---|---|
+| `mclaughlin2005_seereer` | F. Mc Laughlin (2005), Voiceless implosives in Seereer-Siin, JIPA 35(2):201-214, doi:10.1017/S0025100305002215 | Cambridge Core, abstract page only (full text behind a login) | (c) Cambridge University Press; facts cited from the abstract | the one acoustic description found: a silence of about 20 to 50 ms, then prevoicing, then the release; no positive oral pressure during the closure (after Clements & Osu 2002). The entry's `closure.silence_before_voice_ms` (35, `literature`) and the design's `vto` |
+| `wikipedia_voiceless_bilabial_implosive` | Wikipedia, Voiceless bilabial implosive | en.wikipedia.org | CC BY-SA 4.0; facts cited, nothing copied | the symbol (ƥ retired in 1993), the languages attesting it (Serer, Owere Igbo, Ngiti, Akatek, Mam, Kaqchikel, Ese Ejja), "rare and evidently unstable"; no acoustics |
+
+Searched for and not found: any published amplitude curve, closure length, burst level or VOT of a voiceless implosive (the Mpiemo and Shimaore studies measure voiced implosives); Ladefoged & Maddieson (1996) was not opened (not online). Lendu's voiceless implosives may be creaky-voiced ones (the Wikipedia article on implosives), so Lendu was not cited.
+
 | Id | Source | URL | Licence | Packs | What was read |
 |---|---|---|---|---|---|
 | `hamann2023` | S. Hamann, F. Torres-Tamarit (2023), Merger in Eivissan Catalan: an acoustic analysis of the vowel systems of young native speakers (Phonetica 80(1-2):43-78, doi:10.1515/phon-2022-0037) | https://pure.uva.nl/ws/files/147556083/Hamann_Torres_Tamarit_2023.pdf | Shared under Article 25fa Dutch Copyright Act (Taverne); no redistribution beyond personal use; facts cited | ca-ba | section 2.1 (pp. 44-47): majority Balearic has eight stressed vowels, a stressed schwa /ə/ beside /e ɛ/ (minimal pairs); unstressed vowels reduce to [i ə u]; Felanitx merges /e ɛ/, Western Eivissan and Eastern Minorcan lack the stressed schwa |

@@ -136,7 +136,7 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 
 ## Added in Phase 4 (2026-10-06)
 
-**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 437 values on 2026-10-10 (regenerated after D87):
+**Q15. The verification queue: every `estimated` value in the master table** (playbook Phase 4: "estimated values in OPEN_QUESTIONS.md"; `DESIGN.md` 3.2). Each is a value no opened source gave; its note in `ipa/table/*.toml` says what it rests on. A measured or published value for any of them replaces it (`DESIGN.md` 5: the tag becomes `literature`, the revision goes up, the proof is run again). Written by `python engine/ipa/table.py`'s validator; 439 values on 2026-10-11 (regenerated after D87; the last two added in Phase 8 for CS-0076 ɓ̥, `engine/doctor.py --print-queue` lists them all):
 
 - `B:U+0021#label` !: `transform.consonant.phonation.diplophonia_pct`
 - `B:U+0021#label` !: `transform.consonant.phonation.jitter_pct`
@@ -575,6 +575,8 @@ The three findings below (Quechua's silent vowel, Western Armenian's /p t/, the 
 - `U+2198` ↘: `spec.st_per_syllable`
 - `U+2C71` ⱱ: `spec.tap.closed_ms`
 - `U+A71B` ꜛ: `spec.step_st`
+- `U+0253+U+0325` ɓ̥: `spec.closure.voicing_slope_db10`
+- `U+0253+U+0325` ɓ̥: `keys.hold`
 
 **Q16. May Claude download Unicode's two data files?** The secondary coverage metric (`DESIGN.md` 1, the "Unicode net") classifies every code point of ten Unicode blocks; Python 3.10 here knows only Unicode 13, so the script reads Unicode's own `UnicodeData.txt` (about 2 MB) and `Blocks.txt` (about 10 kB) from https://www.unicode.org/Public/UCD/latest/ucd/ (Unicode License v3, which permits copying with its notice). Downloading a file needs your say-so. *Recommended default: yes, into `docs/tts-extension/inventory/unicode/` with the licence notice beside them.* **Answered 2026-10-06: yes.** Downloaded (Unicode 18.0.0, with `LICENSE.txt`); the net is in `coverage.py`.
 
