@@ -1,0 +1,57 @@
+# OpenEVV pack: en-us-x-evvskill-es. TEST ONLY: made to exercise the /add-accent skill, never shipped.
+# American English with one measured feature of adult native speakers of Mexican Spanish: the TRAP vowel
+# lower and further back in quality. It extends en-us-nyc only because that is the one American English
+# pack whose sounds can take overrides (a legacy pack; the native US module enus cannot), so the rest of
+# the accent's target is New York City English, which the source's speakers did not speak.
+# Found by the pack tools only through EVV_PACKS_EXTRA (docs/tts-extension/examples/packs).
+
+[pack]
+tag = "en-us-x-evvskill-es"
+name = "English (American, Spanish speakers' TRAP, skill test, TEST)"
+kind = "accent"
+extends = "en-us-nyc"
+format = 1
+
+[meta]
+variety = "TEST ONLY (a run of the /add-accent skill): American English as spoken by adult native speakers of Mexican Spanish, one feature only (TRAP)"
+region = "the source's speakers: from Mexico City, living in the Atlanta area, USA"
+speaker_group = "12 adult native speakers of Mexican Spanish (6 men, 6 women, mean age 32.75, began English at 16.67 on average, accentedness about 4.1-4.3 of 7) as measured by sidaras2009; no recording of ours was measured"
+sources = ["eSpeak NG voice gmw/en-US-nyc", "sidaras2009"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+licence = "per NOTICE.md"
+note = "TEST ONLY, a run of the add-accent skill, not an accent to ship. Made: TRAP's quality (F1 and F2, both differ by more than 6 per cent between the source's two groups). Not made, and not claimed: everything else of a Spanish speaker's English (the other vowels, vowel lengths, consonants, rhythm, intonation, and any replacement of one phoneme by another); the target's own TRAP is NYC English's, which has a short-a split this override does not distinguish"
+
+[ini.Language]
+Tag = "en-us-x-evvskill-es"
+Name = "English (American, Spanish speakers' TRAP, skill test, TEST)"
+Order = "992"
+
+# TRAP: sidaras2009 Table 3 measured both groups alike (monosyllables, vowel midpoint, Praat, sexes
+# pooled in both): English 837.04 / 1852.45 Hz, Spanish speakers 777.84 / 1637.71 Hz. The groups are of
+# similar make-up, so the ratio carries the accent without a size normalization: F1 x0.9293 (-7.1 per
+# cent), F2 x0.8841 (-11.6 per cent), applied to what en-us-nyc says TRAP with today (module enux's A:
+# 750 / 1650 Hz, reached through the map line @en-us-nyc:a -> A=s9, s9 having no f1/f2 key of its own).
+# Both differ by more than 6 per cent, so both are written.
+[[override]]
+sound = "æ"
+phonemes = ["@en-us-nyc:a", "@en-us-nyc:aa"]
+state = "proposed"
+note = "TRAP of native Spanish speakers (sidaras2009 Table 3): the Spanish group's TRAP against the English group's, applied to the pack's own TRAP"
+
+[override.formants.f1]
+v = 697.0
+tag = "derived"
+ref = "sidaras2009"
+n = 12
+speakers = 12
+norm = "750 Hz x (777.84 / 837.04): the Spanish group's TRAP F1 against the English group's, Table 3"
+
+[override.formants.f2]
+v = 1458.7
+tag = "derived"
+ref = "sidaras2009"
+n = 12
+speakers = 12
+norm = "1650 Hz x (1637.71 / 1852.45): the Spanish group's TRAP F2 against the English group's, Table 3"

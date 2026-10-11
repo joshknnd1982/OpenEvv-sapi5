@@ -1,0 +1,56 @@
+# OpenEVV pack: en-us-x-evvdemo-es. TEST ONLY: the accent example of ADDING_A_LANGUAGE.md, never shipped.
+# American English with one measured feature of adult native speakers of Mexican Spanish: the KIT vowel
+# nearer to FLEECE in quality. It extends en-us-nyc only because that is the one American English pack
+# whose sounds can take overrides (a legacy pack; the native US module enus cannot), so the rest of the
+# accent's target is New York City English, which the source's speakers did not speak.
+# Found by the pack tools only through EVV_PACKS_EXTRA (docs/tts-extension/examples/packs).
+
+[pack]
+tag = "en-us-x-evvdemo-es"
+name = "English (American, Spanish speakers' KIT, worked example, TEST)"
+kind = "accent"
+extends = "en-us-nyc"
+format = 1
+
+[meta]
+variety = "TEST ONLY (the worked accent example of ADDING_A_LANGUAGE.md): American English as spoken by adult native speakers of Mexican Spanish, one feature only (KIT)"
+region = "the source's speakers: from Mexico City, living in the Atlanta area, USA"
+speaker_group = "12 adult native speakers of Mexican Spanish (6 men, 6 women, mean age 32.75, began English at 16.67 on average, accentedness about 4.1-4.3 of 7) as measured by sidaras2009; no recording of ours was measured"
+sources = ["eSpeak NG voice gmw/en-US-nyc", "sidaras2009"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+licence = "per NOTICE.md"
+note = "a worked example, not an accent to ship. Made: KIT's quality (the one feature the source measured that differs by more than 6 per cent). Not made, and not claimed: everything else of a Spanish speaker's English (the other vowels, consonants, rhythm, intonation); FLEECE and the vowel lengths the source found like the native group's"
+
+[ini.Language]
+Tag = "en-us-x-evvdemo-es"
+Name = "English (American, Spanish speakers' KIT, worked example, TEST)"
+Order = "991"
+
+# KIT: sidaras2009 Table 3 measured both groups alike (monosyllables, vowel midpoint, Praat, sexes
+# pooled in both): English 526.87 / 2079.26 Hz, Spanish speakers 392.07 / 2395.58 Hz. The groups are of
+# similar make-up, so the ratio carries the accent without a size normalization: F1 x0.7442, F2 x1.1521,
+# applied to what en-us-nyc says KIT with today (module enux's I: 386 / 1785 Hz). FLEECE differs by
+# 2.6 and 5.7 per cent and the vowel lengths alike: under the 6 per cent an override is written for.
+[[override]]
+sound = "ɪ"
+phonemes = ["@en-us-nyc:I"]
+state = "proposed"
+note = "KIT of native Spanish speakers (sidaras2009 Table 3): the Spanish group's KIT against the English group's, applied to the pack's own KIT"
+
+[override.formants.f1]
+v = 287.2
+tag = "derived"
+ref = "sidaras2009"
+n = 12
+speakers = 12
+norm = "386 Hz x (392.07 / 526.87): the Spanish group's KIT F1 against the English group's, Table 3"
+
+[override.formants.f2]
+v = 2056.6
+tag = "derived"
+ref = "sidaras2009"
+n = 12
+speakers = 12
+norm = "1785 Hz x (2395.58 / 2079.26): the Spanish group's KIT F2 against the English group's, Table 3"

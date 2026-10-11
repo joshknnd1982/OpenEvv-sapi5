@@ -45,6 +45,14 @@ Inventories:
     $env:PYTHONUTF8='1'; python docs\tts-extension\inventory\build_language_inventory.py
     $env:PYTHONUTF8='1'; python docs\tts-extension\inventory\build_ipa_checklist.py
 
+The doctor (every health check; run it first in a session, it must end `0 FAILED`; harness venv Python):
+
+    $env:PYTHONUTF8='1'; & "$env:USERPROFILE\OpenEvvBuild-ttsext\venv\Scripts\python.exe" engine\doctor.py --quick   # full form without --quick: 25-40 min
+
+## Skills and the reviewer (Phase 8)
+
+Adding or changing a language is `ADDING_A_LANGUAGE.md` (three worked examples that run) and six slash commands in `.claude/skills/`: `/add-language`, `/add-dialect`, `/add-accent`, `/improve-language`, `/diagnose-language`, `/create-missing-sound` (each names its model and effort). Each ends by launching the `tts-reviewer` agent (`.claude/agents/`), which is also the R15 review before every pause. New packs wait in `packs-proposed/` until the human says to ship; worked examples and test packs live in `docs/tts-extension/examples/packs/` (never shipped); the tools see both through `EVV_PACKS_EXTRA`.
+
 **These overwrite tracked files; do not run them without the human's say-so:** `build_all.bat` (restages `dist\`), `engine\build_modules.cmd` (overwrites the DLLs in `languages\`), `build_all.bat packs` (rewrites all 145 eSpeak NG packs). In this environment run a batch file by absolute path.
 
 ## Handoff files (`docs/tts-extension/`)

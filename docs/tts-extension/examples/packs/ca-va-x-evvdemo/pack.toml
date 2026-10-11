@@ -1,0 +1,76 @@
+# OpenEVV pack: ca-va-x-evvdemo. TEST ONLY: the dialect example of ADDING_A_LANGUAGE.md, never shipped.
+# It extends ca-va (Valencian) and holds only what differs: its name and the stressed open vowels
+# /ɛ ɔ/ of one published group of Valencian speakers, as proposed overrides with their provenance.
+# Found by the pack tools only through EVV_PACKS_EXTRA (docs/tts-extension/examples/packs).
+
+[pack]
+tag = "ca-va-x-evvdemo"
+name = "Catalan (Valencian, worked example, TEST)"
+kind = "dialect"
+extends = "ca-va"
+format = 1
+
+[meta]
+variety = "TEST ONLY (the worked dialect example of ADDING_A_LANGUAGE.md): Valencian Catalan with the stressed open vowels /ɛ ɔ/ of the men of Albalat de la Ribera as one published table gives them"
+region = "Albalat de la Ribera (Ribera Baixa), Valencian Community, Spain"
+speaker_group = "8 men of Albalat de la Ribera recorded by Escrivà (2014), as tabulated by jimenez2019 (Table 1); no recording of ours was measured"
+sources = ["eSpeak NG voice roa/ca-va", "jimenez2019"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+note = "a worked example, not a variety to ship: the overrides show how a dialect's sourced vowel targets are written, validated and measured; level 2 is check A on the scratch stage (ADDING_A_LANGUAGE.md)"
+
+[ini.Language]
+Tag = "ca-va-x-evvdemo"
+Name = "Catalan (Valencian, worked example, TEST)"
+Order = "990"
+
+# Stressed /ɛ/ and /ɔ/: Table 1 of jimenez2019 (p. 85; after Escrivà 2014: 8 men, 24 tokens a vowel,
+# F1 and F2 at the vowel's middle, between coronals, phrase-final) gives /ɛ/ 652 / 1689 Hz and
+# /ɔ/ 643 / 1038 Hz. Put at the size of the module's voice (AUTHENTICITY.md 3): Nearey's shared
+# log-mean over the five vowels both have (i e a o u, F1 and F2) against module esex's own phones,
+# factor x0.9089 (engine/authenticity/normalize.py). Today the pack says both with s26 (the module's
+# e or o, F1 x1.16): /ɛ/ 556.8 / 1800 Hz, /ɔ/ 556.8 / 900 Hz.
+[[override]]
+sound = "ɛ"
+phonemes = ["@ca-va:E"]
+state = "proposed"
+note = "stressed /ɛ/ of jimenez2019 Table 1 (men of Albalat, after Escrivà 2014), normalized to module esex"
+
+[override.formants.f1]
+v = 592.6
+tag = "derived"
+ref = "jimenez2019"
+n = 24
+speakers = 8
+norm = "652 Hz x0.9089: Nearey shared log-mean over i e a o u (F1, F2) of Table 1 against module esex's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1535.1
+tag = "derived"
+ref = "jimenez2019"
+n = 24
+speakers = 8
+norm = "1689 Hz x0.9089, as F1"
+
+[[override]]
+sound = "ɔ"
+phonemes = ["@ca-va:O"]
+state = "proposed"
+note = "stressed /ɔ/ of jimenez2019 Table 1 (men of Albalat, after Escrivà 2014), normalized to module esex"
+
+[override.formants.f1]
+v = 584.4
+tag = "derived"
+ref = "jimenez2019"
+n = 24
+speakers = 8
+norm = "643 Hz x0.9089, as /ɛ/"
+
+[override.formants.f2]
+v = 943.4
+tag = "derived"
+ref = "jimenez2019"
+n = 24
+speakers = 8
+norm = "1038 Hz x0.9089, as /ɛ/"

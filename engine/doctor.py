@@ -14,8 +14,8 @@ The checks, each PASS, WARN or FAIL; the exit code is 1 if any FAILED:
   harness    harness/selftest.py --quick (the analyser on known signals and the engine facts)
   golden     harness/golden.py against golden-staged/ (--quick: golden.py --smoke)
   packs      engine/packs/test_packs.py; build_packs.py check (every pack builds to languages/)
-  validate   validate_packs.py on every dialect and accent pack, then on the examples
-             (docs/tts-extension/examples/packs), and the self-tests of the validator, the
+  validate   validate_packs.py on every dialect and accent pack, then on the packs waiting to ship
+             (packs-proposed/) and the worked examples (docs/tts-extension/examples/packs), and the self-tests of the validator, the
              normalizer and the feedback reader
   table      engine/ipa/table.py and its self-test (the master table's own rules)
   coverage   engine/ipa/coverage.py: every checklist symbol done, MISSING 0, BLOCKED 0, every proof on the map
@@ -35,6 +35,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 HARNESS = os.path.join(ROOT, "docs", "tts-extension", "harness")
 EXAMPLES = os.path.join(ROOT, "docs", "tts-extension", "examples", "packs")
+PROPOSED = os.path.join(ROOT, "packs-proposed")
 OPEN_QUESTIONS = os.path.join(ROOT, "docs", "tts-extension", "OPEN_QUESTIONS.md")
 BUILD = os.path.join(os.environ.get("USERPROFILE", os.path.expanduser("~")), "OpenEvvBuild-ttsext")
 STAGE = os.environ.get("EVV_STAGE") or os.path.join(BUILD, "stage-dev")
@@ -186,10 +187,12 @@ def main():
     step("packs", [os.path.join(ROOT, "engine", "packs", "build_packs.py"), "check"], 900,
          r"check: every file identical to languages/")
     step("validate", [os.path.join(ROOT, "engine", "packs", "validate_packs.py")], 600, r"validate: \d+ packs, \d+ accepted, 0 rejected")
-    if os.path.isdir(EXAMPLES):
-        tags = sorted(t for t in os.listdir(EXAMPLES) if os.path.isfile(os.path.join(EXAMPLES, t, "pack.toml")))
-        step("validate", [os.path.join(ROOT, "engine", "packs", "validate_packs.py")] + tags, 600,
-             r"validate: \d+ packs, \d+ accepted, 0 rejected", env={"EVV_PACKS_EXTRA": EXAMPLES})
+    for folder in (PROPOSED, EXAMPLES):
+        tags = sorted(t for t in os.listdir(folder) if os.path.isfile(os.path.join(folder, t, "pack.toml")))             if os.path.isdir(folder) else []
+        if tags:
+            step("validate", [os.path.join(ROOT, "engine", "packs", "validate_packs.py")] + tags, 600,
+                 r"validate: \d+ packs, \d+ accepted, 0 rejected",
+                 env={"EVV_PACKS_EXTRA": os.pathsep.join((PROPOSED, EXAMPLES))})
     step("validate", [os.path.join(ROOT, "engine", "packs", "validate_packs.py"), "--selftest"], 600,
          r"validate selftest: (\d+) of \1 pass")
     step("validate", [os.path.join(ROOT, "engine", "authenticity", "normalize.py"), "--selftest"], 300,

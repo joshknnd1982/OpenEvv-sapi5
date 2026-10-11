@@ -1,0 +1,80 @@
+# OpenEVV pack: ca-va-x-evvskill. TEST ONLY: made to exercise the /add-dialect skill, never shipped.
+# It extends ca-va (Valencian) and holds only what differs: its name and the stressed open vowels
+# /ɛ ɔ/ of one published group of Valencian speakers (young women of Catarroja), as proposed
+# overrides with their provenance.
+# Found by the pack tools only through EVV_PACKS_EXTRA (docs/tts-extension/examples/packs).
+
+[pack]
+tag = "ca-va-x-evvskill"
+name = "Catalan (Valencian, Catarroja young women, skill test, TEST)"
+kind = "dialect"
+extends = "ca-va"
+format = 1
+
+[meta]
+variety = "TEST ONLY (a run of the /add-dialect skill): Valencian Catalan with the stressed open vowels /ɛ ɔ/ of young women (18-23) of Catarroja (Horta Sud) as one published table gives them"
+region = "Catarroja (Horta Sud), Valencian Community, Spain"
+speaker_group = "6 women aged 18-23 of Catarroja, 18 tokens a vowel, tonic vowels, as tabulated by jimenez2019 (Table 5, p. 93); no recording of ours was measured"
+sources = ["eSpeak NG voice roa/ca-va", "jimenez2019"]
+recordings = []
+date = "2026-10-11"
+status = { level = 2, validated_by = "", date = "" }
+licence = "MIT for this file (the numbers are cited from jimenez2019, CC BY-NC-ND 4.0: facts cited, nothing copied); the parent's data is not licensed here (NOTICE.md)"
+note = "TEST ONLY, a skill test, not a variety to ship. Only /ɛ ɔ/ are overridden. Not made: the other five stressed vowels (i e a o u) differ from the pack by less than the 6 per cent an override is written for (not checked individually, only /ɛ ɔ/ were asked for); the mid-vowel mergers and the unstressed vowels of Table 5's other columns are not covered. The women's values are put at the size of the male module voice by Nearey's shared log-mean (normalize.py), so they hold the women's vowel pattern, not their size."
+
+[ini.Language]
+Tag = "ca-va-x-evvskill"
+Name = "Catalan (Valencian, Catarroja young women, skill test, TEST)"
+Order = "991"
+
+# Stressed /ɛ/ and /ɔ/: Table 5 of jimenez2019 (p. 93: 6 women aged 18-23 of Catarroja, 18 tokens a
+# vowel, mean F1 / F2 of the tonic vowels) gives /ɛ/ 685 / 2015 Hz and /ɔ/ 609 / 1385 Hz. Put at the
+# size of the module's voice (AUTHENTICITY.md 3): Nearey's shared log-mean over the five vowels both
+# have (i e a o u, F1 and F2: 421/2503, 522/2162, 727/1725, 459/1466, 378/1286 Hz) against module
+# esex's own phones (i 280/1920, e 480/1800, a 660/1400, o 480/900, u 300/750), factor x0.7820
+# (engine/authenticity/normalize.py scale()). Today the pack says both with s26 (the module's e or o,
+# F1 x1.16): /ɛ/ 556.8 / 1800 Hz, /ɔ/ 556.8 / 900 Hz. Differences: /ɛ/ F1 -3.8, F2 -12.5 per cent;
+# /ɔ/ F1 -14.5, F2 +20.3 per cent; each override has one formant beyond the 6 per cent.
+[[override]]
+sound = "ɛ"
+phonemes = ["@ca-va:E"]
+state = "proposed"
+note = "stressed /ɛ/ of jimenez2019 Table 5 (young women of Catarroja), normalized to module esex"
+
+[override.formants.f1]
+v = 535.7
+tag = "derived"
+ref = "jimenez2019"
+n = 18
+speakers = 6
+norm = "685 Hz x0.7820: Nearey shared log-mean over i e a o u (F1, F2) of Table 5 against module esex's phones (normalize.py)"
+
+[override.formants.f2]
+v = 1575.7
+tag = "derived"
+ref = "jimenez2019"
+n = 18
+speakers = 6
+norm = "2015 Hz x0.7820, as F1"
+
+[[override]]
+sound = "ɔ"
+phonemes = ["@ca-va:O"]
+state = "proposed"
+note = "stressed /ɔ/ of jimenez2019 Table 5 (young women of Catarroja), normalized to module esex"
+
+[override.formants.f1]
+v = 476.2
+tag = "derived"
+ref = "jimenez2019"
+n = 18
+speakers = 6
+norm = "609 Hz x0.7820, as /ɛ/"
+
+[override.formants.f2]
+v = 1083.1
+tag = "derived"
+ref = "jimenez2019"
+n = 18
+speakers = 6
+norm = "1385 Hz x0.7820, as /ɛ/"
