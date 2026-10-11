@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // How a module renders single characters: every printable ASCII character on
 // its own, upper and lower case letters, and the engine's spelling mode.
 // Finds the characters a screen reader user would hear as silence, and the

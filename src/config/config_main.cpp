@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // OpenEvvConfig.exe: every adjustable OpenEVV parameter, for every voice of
 // every language, saved to %APPDATA%\OpenEVV\settings.ini on each change.
 // Every OpenEVV SAPI voice re-reads that file before it speaks, so a change is

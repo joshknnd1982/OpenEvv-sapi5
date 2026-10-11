@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Measures an OpenEVV language module directly through its ECI exports:
 // what it reports about itself, how fast it answers, and whether the ways the
 // SAPI engine intends to drive it change the audio. No SAPI, no host, no

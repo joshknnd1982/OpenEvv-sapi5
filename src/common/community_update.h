@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // "Check for a newer version and install it" for the community dictionary.
 //
 // The newest commit of the repository's default branch is what "latest"

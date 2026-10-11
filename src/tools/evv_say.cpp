@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Speaks a text in one language pack through the engine hosts, the way the
 // configuration utility's Speak button does, and writes the audio to a WAV.
 // Every kind of pack goes the same way, a module of its own or one read by

@@ -1,4 +1,6 @@
 @echo off
+rem SPDX-License-Identifier: MIT
+rem Copyright (c) 2026 Josh Kennedy
 rem OpenEVV SAPI5 - full build: x86 and x64 binaries, tests, staging, installer.
 rem
 rem   build_all.bat            build, test, stage dist\ and compile the installer

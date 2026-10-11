@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Per-user settings, in %APPDATA%\OpenEVV\settings.ini.
 //
 // The configuration utility writes the file on every change and every SAPI

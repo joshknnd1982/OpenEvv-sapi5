@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // OpenEvvHost.exe: runs one OpenEVV language module for one client.
 //
 // Started by OpenEvvSAPI.dll (or the configuration utility, or a tool) with

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Speaks a list of cases in one language pack, each into a WAV of its own,
 // through the engine host exactly as evv_say does, and then ends the host
 // cleanly. That last step is the point: the host lives in a job that kills it

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Messages between a client (OpenEvvSAPI.dll, OpenEvvConfig.exe, the tools)
 // and OpenEvvHost.exe.
 //

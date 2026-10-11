@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // a11y_check: what a screen reader sees in OpenEvvConfig.exe.
 //
 //   a11y_check PATH\OpenEvvConfig.exe

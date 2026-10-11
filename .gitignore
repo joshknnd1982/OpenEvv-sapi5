@@ -15,3 +15,20 @@ bestspeech-wrapper-original.zip
 __pycache__/
 build_frontend_x86/
 build_frontend_x64/
+
+# never commit downloaded AI models, their weights, or Python environments (Phase 10, step 3): the
+# Whisper model the harness uses lives outside the tree (docs/tts-extension/harness/README.md)
+models/
+*.gguf
+*.safetensors
+*.onnx
+*.ct2
+model.bin
+*.ckpt
+*.pt
+*.pth
+venv/
+.venv/
+# scratch audio and renders (the harness writes to %TEMP%; these are for anything made by hand)
+scratch/
+*.scratch.wav

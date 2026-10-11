@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // SAPI hands text over as UTF-16; a language module reads single bytes in
 // its own code set (the Windows Western set for eight of IBM's nine
 // languages, Shift-JIS for Japanese, UTF-8 for Polish).

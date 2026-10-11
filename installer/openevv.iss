@@ -1,3 +1,5 @@
+; SPDX-License-Identifier: MIT
+; Copyright (c) 2026 Josh Kennedy
 ; OpenEVV SAPI5 - Windows installer (Inno Setup 6.3 or later)
 ;
 ; build_all.bat compiles this after staging dist\. By hand, from the repository root,
@@ -42,7 +44,7 @@
 ; test_language_choice.ps1 installs and upgrades it with different choices of languages.
 
 ; Bump MyAppVersion with src\common\version.h and project() in CMakeLists.txt.
-#define MyAppVersion   "1.2.4"
+#define MyAppVersion   "1.3.0"
 #define AppName        "OpenEVV SAPI5"
 #define AppPublisher   "OpenEVV SAPI5 project"
 #define AppURL         "https://github.com/joshknnd1982/OpenEvv-sapi5"

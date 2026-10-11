@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Speaks every voice of every installed language into memory, through the
 // same engine hosts the SAPI engine uses, in every bitness installed. Used by
 // the Diagnostics page and by the installer (OpenEvvConfig.exe --selftest).

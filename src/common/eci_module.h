@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // An OpenEVV language module, loaded by path and called through the names IBM
 // published for its ECI interface.
 //

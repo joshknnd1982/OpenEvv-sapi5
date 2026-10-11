@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // A small INI reader and writer for UTF-8 files (with or without a BOM), so
 // language.ini and settings.ini can be edited in Notepad. Section and key
 // names are case-insensitive; ';' and '#' start a comment line.

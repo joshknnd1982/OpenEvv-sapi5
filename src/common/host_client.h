@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // The client side of OpenEvvHost.exe: starting hosts, keeping them warm, and
 // streaming an utterance's audio and marks back.
 //

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Shorter pauses at punctuation, as the IBMTTS driver for NVDA has them
 // (github.com/davidacm/NVDA-IBMTTS-Driver, its "Pauses" setting).
 //

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 <#
   The installer's choice of languages, tested by installing the accessibility probe with
   different choices and looking at what lands in {app}\languages.
@@ -244,7 +246,7 @@ try {
         Remove-ItemProperty -Path $Key -Name 'Inno Setup: Selected Components' -ErrorAction SilentlyContinue
         Remove-ItemProperty -Path $Key -Name 'Inno Setup: Setup Type' -ErrorAction SilentlyContinue
         $everything = $allTags.Count + 2
-        Check-True "the walk passes: $everything items checked (every language and both groups), every pack kept" ((Walk @('--upgrade', '--expect-checked', "$everything", '--expect-type', 'All 155 languages', '--expect-packs', "$($allTags.Count + $hiddenTags.Count)")) -eq 0)
+        Check-True "the walk passes: $everything items checked (every language and both groups), every pack kept" ((Walk @('--upgrade', '--expect-checked', "$everything", '--expect-type', "All $($allTags.Count) languages", '--expect-packs', "$($allTags.Count + $hiddenTags.Count)")) -eq 0)
         Reset-Probe
     } else {
         Write-Host ""

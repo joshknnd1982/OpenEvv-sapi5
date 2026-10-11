@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // sapi_test: drives OpenEvvSAPI.dll's ISpTTSEngine through a mock
 // ISpTTSEngineSite, so every behaviour can be checked without installing or
 // registering anything.

@@ -1,4 +1,6 @@
-﻿# Audits an installed OpenEVV through SAPI itself, as a screen reader uses it: every
+﻿# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
+# Audits an installed OpenEVV through SAPI itself, as a screen reader uses it: every
 # OpenEVV voice SAPI lists speaks its language's sample (sample.txt, and digits) into
 # memory, and one TSV row a voice says how long, how loud and how voiced the audio was.
 # Run it once from each PowerShell to audit both bitnesses:

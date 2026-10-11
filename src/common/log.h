@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Diagnostic log for the SAPI engine, the engine host, the configuration
 // utility and the tools.
 //

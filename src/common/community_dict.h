@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // The community pronunciation dictionary.
 //
 // IBMTTSDictionaries (github.com/eigencrow/IBMTTSDictionaries, CC0) is the

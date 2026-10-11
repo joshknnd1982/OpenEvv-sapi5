@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // The eSpeak NG front-end, as the engine host sees it.
 //
 // A language pack made from an eSpeak NG language is spoken by its template's

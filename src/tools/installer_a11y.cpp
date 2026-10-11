@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // installer_a11y: what a screen reader sees in the installer, page by page.
 //
 //   installer_a11y PATH\OpenEVV-SAPI5-AccessibilityProbe.exe [options]

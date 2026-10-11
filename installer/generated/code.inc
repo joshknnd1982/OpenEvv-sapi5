@@ -60,6 +60,7 @@ begin
   AddPack('cs', 'espeak\cs', 'dedx', 'Czech');
   AddPack('da', 'espeak\da', 'dedx', 'Danish');
   AddPack('nl', 'espeak\nl', 'dedx', 'Dutch');
+  AddPack('nl-be', 'espeak\nl_be', 'dedx', 'Dutch (Southern Standard, Flanders)');
   AddPack('en-us-nyc', 'espeak\en_us_nyc', 'enux', 'English (America, New York City)');
   AddPack('en-029', 'espeak\en_029', 'engx', 'English (Caribbean)');
   AddPack('en-gb-x-gbclan', 'espeak\en_gb_x_gbclan', 'engx', 'English (Lancaster)');

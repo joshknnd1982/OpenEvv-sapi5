@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // A reader for the zip files GitHub makes of a branch: stored and deflated
 // entries, no encryption and no zip64 (a dictionary is a few megabytes).
 //

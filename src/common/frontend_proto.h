@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 /*
  * Messages between the engine host (OpenEvvHost.exe) and the eSpeak NG
  * front-end (OpenEvvFrontend.exe), over two anonymous pipes: the front-end's

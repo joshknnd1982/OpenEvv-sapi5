@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // Speaking a voice into memory through the engine hosts, the way the SAPI
 // engine would at SAPI rate, pitch and volume nought -- for the configuration
 // utility's test button, its self-test and the render tool.

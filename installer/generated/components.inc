@@ -11,7 +11,7 @@ Name: "openevv\frca"; Description: "Canadian French"; Types: openevv full; Flags
 Name: "openevv\itit"; Description: "Italian"; Types: openevv full; Flags: disablenouninstallwarning
 Name: "openevv\plpl"; Description: "Polish (experimental)"; Types: openevv full; Flags: disablenouninstallwarning
 Name: "openevv\jajp"; Description: "Japanese"; Types: openevv full; Flags: disablenouninstallwarning
-Name: "espeak"; Description: "The 145 languages read by eSpeak NG and spoken by the engine"; Types: full; Flags: disablenouninstallwarning
+Name: "espeak"; Description: "The 146 languages read by eSpeak NG and spoken by the engine"; Types: full; Flags: disablenouninstallwarning
 Name: "espeak\ab"; Description: "Abkhaz"; Types: full; Flags: disablenouninstallwarning
 Name: "espeak\af"; Description: "Afrikaans"; Types: full; Flags: disablenouninstallwarning
 Name: "espeak\sq"; Description: "Albanian"; Types: full; Flags: disablenouninstallwarning
@@ -46,6 +46,7 @@ Name: "espeak\hr"; Description: "Croatian"; Types: full; Flags: disablenouninsta
 Name: "espeak\cs"; Description: "Czech"; Types: full; Flags: disablenouninstallwarning
 Name: "espeak\da"; Description: "Danish"; Types: full; Flags: disablenouninstallwarning
 Name: "espeak\nl"; Description: "Dutch"; Types: full; Flags: disablenouninstallwarning
+Name: "espeak\nl_be"; Description: "Dutch (Southern Standard, Flanders)"; Types: full; Flags: disablenouninstallwarning
 Name: "espeak\en_us_nyc"; Description: "English (America, New York City)"; Types: full; Flags: disablenouninstallwarning
 Name: "espeak\en_029"; Description: "English (Caribbean)"; Types: full; Flags: disablenouninstallwarning
 Name: "espeak\en_gb_x_gbclan"; Description: "English (Lancaster)"; Types: full; Flags: disablenouninstallwarning

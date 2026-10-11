@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // From SAPI's rate, pitch and volume, and the user's settings, to the engine's
 // own voice parameters.
 #pragma once

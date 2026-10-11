@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // One HTTPS GET, through WinHTTP: the system's proxy settings and certificate
 // store, no library of our own. Only OpenEvvConfig and the tools link it; the
 // SAPI engine and the engine host never touch the network.

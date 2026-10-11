@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Josh Kennedy
 // The language packs on this machine.
 //
 // A pack is a folder holding language.ini and the language's engine modules:
