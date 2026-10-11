@@ -11,6 +11,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import packfmt as F  # noqa: E402
+import overrides as O  # noqa: E402
 import packlib as L  # noqa: E402
 
 PARENT = '''
@@ -178,6 +179,74 @@ class Inheritance(unittest.TestCase):
                                               '{ kind = "map", name = "k", to = "k=s3" },\n  { kind = "map", name = "k", to = "k" },'))
         with self.assertRaisesRegex(L.PackError, "two lines"):
             L.resolve("ch", self.root)
+
+
+OVERRIDE = '''
+[[override]]
+sound = "a"
+phonemes = ["a"]
+state = "%s"
+recordings = ["x/u1"]
+[override.formants.f1]
+v = %s
+tag = "measured"
+ref = "hillenbrand1995"
+n = 12
+speakers = 1
+evidence = "measured/x.json"
+[override.formants.f2]
+v = 1300.0
+tag = "literature"
+ref = "hillenbrand1995"
+'''
+
+
+class Overrides(unittest.TestCase):
+    """[[override]] (overrides.py): inherited field by field, never realised while proposed."""
+
+    def setUp(self):
+        self.root = tempfile.mkdtemp()
+        write(self.root, "pa", PARENT + OVERRIDE % ("proposed", "700.0"))
+        write(self.root, "ch", CHILD + OVERRIDE.split("[override.formants.f2]")[0] % ("proposed", "650.0"))
+
+    def tearDown(self):
+        shutil.rmtree(self.root)
+
+    def test_a_child_changes_only_the_fields_it_names(self):
+        flat, origin = L.resolve("ch", self.root)
+        f = flat["override"]["a"]["formants"]
+        self.assertEqual((f["f1"]["v"], f["f2"]["v"]), (650.0, 1300.0))
+        self.assertEqual(origin["override.a"], "ch")
+        # each value knows its own pack (the validator finds its evidence file there)
+        self.assertEqual((origin["override.a.formants.f1"], origin["override.a.formants.f2"]), ("ch", "pa"))
+
+    def test_proposed_overrides_reach_only_a_scratch_build(self):
+        flat, _ = L.resolve("pa", self.root)
+        plain = L.compile_pack(flat)["sounds.map"].decode()
+        self.assertEqual(plain, L.compile_pack(dict(flat, override={}))["sounds.map"].decode())
+        made = L.compile_pack(flat, include_proposed=True)["sounds.map"].decode()
+        own = O.chassis("dedx")["a"]["f"]
+        line = [x for x in made.splitlines() if x.startswith("sound s3 ")][0]
+        self.assertIn("f1=%d" % round(70000.0 / own[0]), line)
+        self.assertIn("f2=%d" % round(130000.0 / own[1]), line)
+        self.assertIn("a=s3", made)
+        self.assertIn("sound s1 f2=88", made)  # the old sound stays for whatever else uses it
+
+    def test_applied_overrides_are_built(self):
+        write(self.root, "pa", PARENT + OVERRIDE % ("applied", "700.0"))
+        flat, _ = L.resolve("pa", self.root)
+        self.assertIn("a=s3", L.compile_pack(flat)["sounds.map"].decode())
+
+    def test_a_value_without_provenance_or_recordings_stops_the_build(self):
+        write(self.root, "pa", PARENT + (OVERRIDE % ("proposed", "700.0")).replace('tag = "literature"\n', ""))
+        self.assertRaises(L.PackError, L.resolve, "pa", self.root)
+        write(self.root, "pa", PARENT + (OVERRIDE % ("proposed", "700.0")).replace('recordings = ["x/u1"]\n', ""))
+        self.assertRaises(L.PackError, L.resolve, "pa", self.root)
+
+    def test_a_ratio_out_of_range_stops_the_build(self):
+        write(self.root, "pa", PARENT + OVERRIDE % ("applied", "5000.0"))
+        flat, _ = L.resolve("pa", self.root)
+        self.assertRaises(L.PackError, L.compile_pack, flat)
 
 
 class RoundTrip(unittest.TestCase):

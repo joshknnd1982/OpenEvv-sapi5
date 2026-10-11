@@ -7,13 +7,16 @@ What a pack file holds (format 1, realization "legacy": the sound definitions ar
 generator wrote, kept as data; M4 of DESIGN.md 11.3 turns them into master-table references):
 
     [pack]      tag, name, kind (language | dialect | accent), extends, format
-    [meta]      variety, region, speaker_group, sources, licence, status, note   (R14: documented, not asserted)
+    [meta]      variety, region, speaker_group, sources, recordings, date, licence, status, note
+                (R14: documented, not asserted; engine/packs/validate_packs.py says what a dialect or accent must hold)
     [engine]    reader ("espeak:<voice>" | "module"), template, realization ("legacy" | "master" | "module")
     [files]     eol ("crlf" | "lf")
     [ini.<Section>]   the keys of language.ini; a key _cN is a comment line, _bN a blank line
     [sounds] / [phonemes]   line = [...] the records of sounds.map / phonemes.map (engine/packs/packfmt.py)
     [sample]    text
+    [[override]]  a sound's target moved, every value with its provenance (engine/packs/overrides.py)
     remove      a list of dotted keys to delete from what the parent gave
+    remove_overrides  a list of sounds whose inherited override is dropped
 
 Inheritance (DESIGN.md 6.3), as built here:
   * a pack has at most one parent; a chain is allowed; a cycle or a missing parent stops the build;
@@ -30,15 +33,17 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import overrides as O  # noqa: E402
 import packfmt as F  # noqa: E402
 import tomlio  # noqa: E402
 
 FORMAT = 1
 KINDS = ("language", "dialect", "accent")
 REALIZATIONS = ("legacy", "master", "module")
-TOP = {"pack", "meta", "engine", "files", "ini", "sounds", "phonemes", "sample", "remove"}
+TOP = {"pack", "meta", "engine", "files", "ini", "sounds", "phonemes", "sample", "remove", "override",
+       "remove_overrides"}
 PACK_KEYS = {"tag", "name", "kind", "extends", "format"}
-META_KEYS = {"variety", "region", "speaker_group", "sources", "licence", "status", "note"}
+META_KEYS = {"variety", "region", "speaker_group", "sources", "recordings", "date", "licence", "status", "note"}
 ENGINE_KEYS = {"reader", "template", "realization"}
 LINE_TABLE_KEYS = {"line", "remove", "reset"}
 KIND_FIELDS = {
@@ -134,6 +139,17 @@ def read_pack(tag, root=None):
         dup = sorted(k for k in set(keys) if keys.count(k) > 1)
         if dup:
             raise PackError("%s [%s]: two lines with the key %s" % (where, sec, dup[:3]))
+    ovs = d.get("override", [])
+    if not isinstance(ovs, list):
+        raise PackError("%s: override is a list ([[override]])" % where)
+    try:
+        for o in ovs:
+            O.check_override(o, where)
+    except O.OverrideError as x:
+        raise PackError(str(x))
+    sounds = [o["sound"] for o in ovs]
+    if len(set(sounds)) != len(sounds):
+        raise PackError("%s: two overrides of one sound" % where)
     if set(d.get("sample", {})) - {"text"}:
         raise PackError("%s: [sample] holds only text" % where)
     for sec, t in d.get("ini", {}).items():
@@ -235,6 +251,22 @@ def resolve(tag, root=None):
             if sec in d:
                 cur = flat.setdefault(sec, {"line": []})
                 cur["line"] = _merge_lines(cur["line"], d[sec], where, origin, t, sec)
+        if "override" in d or "remove_overrides" in d:
+            try:
+                flat["override"] = O.merge(flat.get("override", {}), d.get("override", []),
+                                           d.get("remove_overrides", []), where)
+            except O.OverrideError as x:
+                raise PackError(str(x))
+            for s in d.get("remove_overrides", []):
+                origin.pop("override.%s" % s, None)
+            for o in d.get("override", []):
+                origin["override.%s" % o["sound"]] = t
+                # each value too: a child that changes one formant leaves the others (and their
+                # evidence files) its parent's
+                for k in o.get("formants", {}):
+                    origin["override.%s.formants.%s" % (o["sound"], k)] = t
+                if "duration" in o:
+                    origin["override.%s.duration" % o["sound"]] = t
         for dotted in d.get("remove", []):
             _remove_dotted(flat, dotted, where, origin)
     flat["pack"]["tag"] = tag
@@ -267,9 +299,16 @@ def check_flat(flat):
             raise PackError("pack %r: language.ini names %s but the pack has no [%s]" % (tag, name, key))
 
 
-def compile_pack(flat):
-    """-> {file name: bytes}."""
+def compile_pack(flat, include_proposed=False):
+    """-> {file name: bytes}. Overrides with state "applied" are realised into sounds.map; with
+    include_proposed, the "proposed" ones too (a scratch build to measure them, never languages/)."""
     check_flat(flat)
+    if flat.get("override"):
+        flat = copy.deepcopy(flat)
+        try:
+            O.realize(flat, include_proposed)
+        except O.OverrideError as x:
+            raise PackError(str(x))
     eol = "\r\n" if flat.get("files", {}).get("eol", "crlf") == "crlf" else "\n"
     out = {"language.ini": F.render_ini(flat["ini"], eol)}
     if "sounds" in flat:
@@ -281,9 +320,9 @@ def compile_pack(flat):
     return {k: v.encode("utf-8") for k, v in out.items()}
 
 
-def build(tag, out_root, root=None):
+def build(tag, out_root, root=None, include_proposed=False):
     flat, origin = resolve(tag, root)
-    files = compile_pack(flat)
+    files = compile_pack(flat, include_proposed)
     dst = os.path.join(out_root, tag)
     os.makedirs(dst, exist_ok=True)
     for name, data in files.items():
