@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The words questions are asked with, language by language.
 
 A question that can be answered yes or no and a question asked with a

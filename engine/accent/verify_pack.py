@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Measures the sounds of a language pack, one by one.
 
 Every phoneme of the language that the map gives a sound of its own is said

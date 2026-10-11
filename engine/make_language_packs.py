@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Assemble languages/<tag>/ from freshly built engine modules.
 
 For each language this copies openevv-<tag>-x86.dll and openevv-<tag>-x64.dll

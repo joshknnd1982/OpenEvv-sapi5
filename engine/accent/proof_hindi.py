@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The first proof: sounds the German module has not, in Hindi.
 
 Hindi tells a t made on the teeth from one made with the tip of the tongue

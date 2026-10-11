@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The C4 test (DESIGN.md 4.3): the front-end's composition equals the adapter's, and each
 fallback warns. MIT licence.
 

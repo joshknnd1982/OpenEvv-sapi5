@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Measures speech: the fundamental frequency and the formants of a wave file.
 
 Nothing here knows how the sound was made. It is the check on everything that

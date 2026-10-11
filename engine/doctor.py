@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The doctor: is this tree healthy enough to add or change a language? (playbook Phase 8, step 3)
 
     python engine/doctor.py            everything, with the full golden regression (about 25 to 40 minutes)
@@ -21,6 +23,8 @@ The checks, each PASS, WARN or FAIL; the exit code is 1 if any FAILED:
   coverage   engine/ipa/coverage.py: every checklist symbol done, MISSING 0, BLOCKED 0, every proof on the map
   estimated  every `estimated` value of the master table is queued in OPEN_QUESTIONS.md Q15; one that is
              not, in an entry first committed more than --stale-days ago (default 14), FAILS (newer: WARN)
+  docs       engine/check_readme.py (README links, paths, version, MIT wording) and engine/check_licences.py
+             --headers (every tracked file in one licence class; Phase 10)
 """
 import argparse
 import datetime
@@ -216,6 +220,8 @@ def main():
         report("coverage", "FAIL", "coverage changed ipa/realized/ (the table and the realized map disagree)",
                after.splitlines()[:5])
     check_estimated(a.stale_days)
+    step("docs", [os.path.join(ROOT, "engine", "check_readme.py")], 120, r"check: pass")
+    step("docs", [os.path.join(ROOT, "engine", "check_licences.py"), "--headers"], 120, r"check: pass")
     if a.quick:
         step("golden", [os.path.join(HARNESS, "golden.py"), "--smoke"], 1200, r"golden: .* 0 FAILED")
     else:

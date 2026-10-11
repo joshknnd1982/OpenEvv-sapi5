@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Render every preset voice of every language module with the engine's own
 command-line driver, straight from the per-language build: no SAPI, no
 registry, no installer (engine/build_modules.sh leaves an evv.exe beside each

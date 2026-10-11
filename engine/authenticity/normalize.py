@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Speaker normalization: measured vowel targets made comparable across speakers (playbook Phase 7, step 3).
 
 The rule (docs/tts-extension/AUTHENTICITY.md, "Speaker normalization"): **the voice, not the pack,

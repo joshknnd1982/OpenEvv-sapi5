@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Package language packs for download.
 
     python engine/zip_language_pack.py <tag> [<tag> ...] [--out DIR]

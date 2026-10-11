@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """eSpeak NG phonemes, said in the phones of an openevv language module.
 
 An OpenEVV language pack made from an eSpeak NG language keeps eSpeak NG's

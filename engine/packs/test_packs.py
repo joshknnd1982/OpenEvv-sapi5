@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Tests of the pack loader: inheritance as DESIGN.md 6.3 says it, the stops it promises, and the
 round trip of today's files. Run:  python engine/packs/test_packs.py   (Python 3.10 needs tomli)
 """

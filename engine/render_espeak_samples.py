@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Render every language read by eSpeak NG, one WAV each, through the engine
 hosts the way SAPI speaks it: the pack's own sample sentence and some numbers
 in the first two presets (Adult Male 1 and Adult Female 1) one after the

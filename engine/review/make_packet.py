@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The native review packet: everything a speaker of a language, dialect or accent needs to judge it,
 in one folder (playbook Phase 7, step 5; docs/tts-extension/AUTHENTICITY.md, "Review packets").
 

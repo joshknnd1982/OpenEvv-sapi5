@@ -1,4 +1,6 @@
 @echo off
+rem SPDX-License-Identifier: MIT
+rem Copyright (c) 2026 Josh Kennedy
 rem Rebuilds the OpenEVV language modules from openevv\ and installs them as
 rem language packs in languages\. The packs are already in the repository, so
 rem this is only needed after changing the engine or a language, or to build a

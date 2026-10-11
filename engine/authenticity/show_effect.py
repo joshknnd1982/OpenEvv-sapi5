@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """What a pack's overrides do, measured (AUTHENTICITY.md, step 5): each override's words rendered with the
 pack as it is and with its proposed overrides realised (a scratch build, never languages/), the vowel's
 F1 and F2 read at its middle, both as the engine asked for them (the frames) and as measured in the sound,

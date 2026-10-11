@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Writes a language pack's sounds.map: its phonemes as a module's phones,
 with the sounds, the tones and the melody the language has of its own.
 

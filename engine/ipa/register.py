@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The register of created sounds (CREATED_SOUNDS.md; playbook 1.6 step 7; DESIGN.md 5). MIT licence.
 
     python engine/ipa/register.py

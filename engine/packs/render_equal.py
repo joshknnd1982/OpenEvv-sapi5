@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The engine, speaking from a map built out of a pack, against the engine speaking from languages/.
 
     python engine/packs/render_equal.py [--per 3] [tag ...]      (the harness venv; EVV_STAGE as for any harness run)

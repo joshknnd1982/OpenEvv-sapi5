@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The engine adapter (DESIGN.md 3.3, capability C3): an entry of the master table, realised for one
 template module of this engine. MIT licence.
 

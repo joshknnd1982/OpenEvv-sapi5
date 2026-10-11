@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Make an OpenEVV language pack for every eSpeak NG language openevv lacks.
 
 Each pack is languages/<tag>/ with language.ini, sounds.map and phonemes.map.

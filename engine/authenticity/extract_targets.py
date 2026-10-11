@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Target extraction: measured vowel targets (and consonant, duration and F0 facts) from licensed,
 aligned recordings of known speakers, into a pack's overrides (playbook Phase 7, step 2;
 docs/tts-extension/AUTHENTICITY.md, "Target extraction").

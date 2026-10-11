@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Writes the first master table (ipa/table/*.toml) from the IPA checklist and the traceability
 table, once (DESIGN.md 3, capability C3). MIT licence.
 

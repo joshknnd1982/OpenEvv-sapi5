@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The master table of sounds (DESIGN.md 3), read, and checked. MIT licence.
 
     python engine/ipa/table.py             validate ipa/: exit 1 on any refusal

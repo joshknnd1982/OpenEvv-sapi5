@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 # Builds one OpenEVV engine module per language, 32-bit and 64-bit, from the
 # openevv sources in ../openevv, with MSYS2's mingw-w64 GCC and upstream's own
 # Makefile. Run it through engine/build_modules.cmd, which finds MSYS2 and then

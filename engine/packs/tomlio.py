@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Read TOML (tomllib, or tomli on Python 3.10) and write the small part of it a pack uses.
 
 The writer writes what packlib builds: nested tables of strings, integers, booleans and lists, and

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The authenticity validator: a dialect or accent pack documents what it claims (playbook Phase 7,
 steps 4 and 7; R14). docs/tts-extension/AUTHENTICITY.md explains each rule.
 

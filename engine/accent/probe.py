@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Drives an openevv probe and reads what it said.
 
 The probe is upstream openevv's test driver (openevv/cli/probe.c), built for

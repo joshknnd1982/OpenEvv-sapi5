@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Rewrite a pack so that it holds only what differs from its parent (`extends`), and prove it.
 
     python engine/packs/make_child.py <child tag> <parent tag> [--keep-over 0.6] [--dry-run]

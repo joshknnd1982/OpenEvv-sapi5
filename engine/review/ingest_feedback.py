@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Record a reviewer's completed feedback (playbook Phase 7, step 5; AUTHENTICITY.md, "Ingesting feedback").
 
     python engine/review/ingest_feedback.py <filled feedback.toml> [--dry-run]

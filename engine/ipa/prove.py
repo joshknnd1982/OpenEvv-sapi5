@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Realise, render, measure (DESIGN.md 3.3 and the USP, capability C3). MIT licence.
 
     python engine/ipa/prove.py <id> [--template dedx] [--pack hi]

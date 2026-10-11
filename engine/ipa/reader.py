@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The IPA reader (DESIGN.md 2, capability C2). MIT licence.
 
 IPA text in; out, in order, what it says: segments (a base letter with its marks and the feature

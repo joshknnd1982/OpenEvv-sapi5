@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Coverage of the IPA chart by the master table (DESIGN.md 1 and 3.1; playbook Phase 4). MIT licence.
 
     python engine/ipa/coverage.py [--template dedx] [--quiet]

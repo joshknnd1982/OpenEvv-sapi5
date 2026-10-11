@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Writes docs/LANGUAGE-REPORT.md: for every language read by eSpeak NG, what
 the literature says the language sounds like, what eSpeak NG reads, and what
 OpenEVV says.

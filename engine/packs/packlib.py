@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The pack loader: packs/<tag>/pack.toml -> the files languages/<tag>/ holds today.
 
 DESIGN.md 6: a pack is TOML; `extends` names one parent; the product only ever sees the complete,

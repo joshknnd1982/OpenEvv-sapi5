@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Sounds a module lacks, made out of the phones it has.
 
 An openevv module has the phones of one language. A language eSpeak NG reads

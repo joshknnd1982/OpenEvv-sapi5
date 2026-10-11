@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The symbol-by-symbol sweep (playbook Phase 4i, R19f; DESIGN.md 3.4 and 10). MIT licence.
 
     python engine/ipa/sweep.py [ids or sections ...] [--template dedx] [--pack hi] [--apply]

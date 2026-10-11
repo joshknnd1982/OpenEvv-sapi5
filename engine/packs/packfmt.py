@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Read and write the files of a pack as data: language.ini, sounds.map, phonemes.map, sample.txt.
 
 A pack's files are text in formats the product already reads (docs/LANGUAGES.md). This module takes

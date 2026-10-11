@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Say any IPA the way the sweep says it, and measure it the way the sweep does: nothing is written.
 
     python engine/ipa/say_ipa.py "<IPA>" ["<IPA>" ...] [--vowel] [--template dedx] [--pack hi]   (needs EVV_STAGE)

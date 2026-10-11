@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Write packs/<tag>/pack.toml for each folder of languages/ (DESIGN.md 11.3, stage M1).
 
 The pack holds, as data, exactly what the folder holds: `realization = "legacy"` (the sound

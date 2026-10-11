@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The melody and the rhythm of each language, and its tones.
 
 What a language's sentences sound like is said to the engine in one line of

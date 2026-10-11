@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """A pack's overrides: a sound's target moved, with provenance on every value (DESIGN.md 6.2, 6.3).
 
     [[override]]

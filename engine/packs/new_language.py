@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Start a new language pack from an eSpeak NG voice (ADDING_A_LANGUAGE.md, step 2).
 
     python engine/packs/new_language.py <voice> <tag> --out <pack folder> [--name "..."]

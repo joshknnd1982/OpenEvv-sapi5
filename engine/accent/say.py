@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Says a text the way an installed language pack would, and keeps what the
 engine did: for measuring a language without anybody listening.
 

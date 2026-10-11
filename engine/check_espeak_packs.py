@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Hold every eSpeak NG language pack to what its template's engine accepts.
 
 For each pack this reads a text in the language -- its sample sentence, some

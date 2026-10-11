@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The second proof: tone. Mandarin's four tones and its neutral tone, and
 what the third tone becomes before another third tone.
 

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """The sweep's checks for what is not one segment (playbook Phase 4e, 4g; DESIGN.md 10.2). MIT licence.
 
 T-tone      a tone letter or tone mark on a syllable: its F0 at the start and the end of the vowel against

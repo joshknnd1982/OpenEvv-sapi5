@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Measurements that say whether a sound is the sound it was meant to be.
 
 Two things are measured and they are kept apart. What the engine asked the

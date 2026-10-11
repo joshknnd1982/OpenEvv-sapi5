@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Measures a language module: what each of its phones sounds like.
 
 An eSpeak NG language is spoken by an openevv module, and a sound the module

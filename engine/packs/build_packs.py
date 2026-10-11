@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
 """Build the files of the packs in packs/ and compare them with languages/ (DESIGN.md 11.3, M1).
 
     python engine/packs/build_packs.py check [tag ...]     build every pack into a scratch folder; every file
