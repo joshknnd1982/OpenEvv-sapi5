@@ -115,3 +115,7 @@ The human wrote (in chat, after the Phase 10 pause), in short: move cleanup afte
 | Question | Choices offered | Answer |
 |---|---|---|
 | **A language whose recognition error rises a lot (by more than 0.10) after the switch?** | Ship anyway, report it; any language can go back with one line; only a sound that comes out silent or swapped keeps its old line, as a fault (recommended) · Keep the old sounds for those · Ask me per language | **Ship anyway, report it.** |
+
+## 2026-10-11, during Phase 11: the human's order that all future work uses the new sounds
+
+The human wrote (in chat): the playbook must say that "all subsequent and future openEVV languages, accents, dialects and language improvements, etcetera, must use the new sounds, IPA and sound generator(s)". Carried into `TTS_EXTENSION_PLAYBOOK.md` as standing rule R21 (1.3) and a pointer in Part 3 and in workflows A to F. Not a question; no choices were offered. Carve-outs written into R21: the legacy realization stays as a per-pack switch and as the fault fallback (R1, R18e); the ten native languages stay untouched unless the human orders otherwise.

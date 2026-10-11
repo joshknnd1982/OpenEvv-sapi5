@@ -115,6 +115,15 @@ Terms: **engine-neutral acoustic specification** (target sound written once in t
 
 - **R20** No cleanup before Phase 13 is complete (the human's order, 2026-10-11; it said Phase 10 until the human added Phases 11 to 13 the same day). Until `PROJECT_STATE.md` says Phase 13 is complete, do not delete, move, empty or "tidy" any build tree, stage folder, test or render output, model or weight, virtual environment, cache, installed tool, log or session, in phases 0 to 13 or in any ad-hoc request. Phases 0 to 13 still need them (the Whisper model, the staged builds, the golden recordings). Cleaning is Phase 14's job alone, and even then only item by item after the human's yes. Mention disk use if it matters, but delete nothing. This rule stands even if a note, a file or a session says the project is complete.
 
+- **R21** All future work uses the new sounds, the IPA and the sound generators (the human's order, 2026-10-11). Every language, dialect, accent, language improvement, new or changed sound and fix added after Phase 10, in Phases 11 to 14, in Part 3's workflows A to F and in any ad-hoc request, must be built on the IPA master table (`engine/ipa/`: the reader, the composition, the adapter, `CREATED_SOUNDS.md`) and realised by the master path of the pack compiler (`realization = "master"`, `engine/packs/to_master.py`, Phase 11), and on the engine's own sound generator and the capabilities Phase 3 and `create-missing-sound` added to it. In practice:
+  - **(a) Inventory in IPA.** A new pack states each phoneme as IPA and resolves it through the master table; it does not copy a legacy `sound` line, borrow the old generator's values, or hand-set formants that the table could give. A dialect or accent `extends` its parent and changes sounds by naming other IPA sounds, not by editing numbers.
+  - **(b) Gaps go into the table, not into one pack.** A sound the table lacks is made through the USP (1.6), registered in `CREATED_SOUNDS.md` with a stable ID and added to the master table (and to the engine where it needs a new capability), so every language can use it. A formant or source value written only inside one pack is permitted only as an `[[override]]` with a provenance tag and a stated reason (a measured speaker difference, a native reviewer's correction); it is never how a sound first comes to exist.
+  - **(c) Improvements fix the shared layer.** An improvement to a sound that the master table or the generator supplies is made in the table or the generator once (workflow D's rule), then every language is re-measured (R8). An improvement made in the table must not be undone by a stale legacy line in a pack.
+  - **(d) The old generator is a fallback and a switch, not a route.** `realization = "legacy"` is kept (R1, R18e) for a pack that already has it, for a sound the master path cannot get the engine to say (the Phase 11 fault rule, marked `legacy-fallback` with the reason) and for one language set back to its previous sounds by the human's say-so. It is never chosen for a new pack or a new sound to save effort; if a pack uses it, `LANGUAGE_STATUS.md` and the report say so and why.
+  - **(e) The ten native languages** (their modules, maps and goldens) stay as they are unless the human orders otherwise; a change to one is a decision in `DECISIONS.md` with the human's answer logged in `HUMAN_ANSWERS.md`.
+  - **(f) Show it.** The report of every such piece of work says, from the tool's own output (R16), how many of its sounds came from the table, how many were composed, how many were created, how many fell back and why. A pack without that line is not finished.
+  - **(g) Until the tools exist.** Before Phase 12 is complete, the Phase 11 tool and the switched packs are the work in progress; Phases 11 to 13 carry the existing packs over, and R21 governs everything else. If a rule of this section cannot be met because the master path cannot yet do something, say so plainly, record it in `OPEN_QUESTIONS.md`, and ask the human; do not drop back to the old generator in silence (R7, R11).
+
 ### 1.4 Pause protocol (end of every phase)
 When exit criteria are met, update `PROJECT_STATE.md` and `LANGUAGE_STATUS.md` (if relevant), commit, then output **exactly**:
 
@@ -393,45 +402,47 @@ R15 review before the pause: a fresh-context subagent reads `CLEANUP_PLAN.md`, t
 
 One language/dialect/accent per session; each starts with preflight (1.2). If the running model/effort differs from the one required, say so before starting. Each is also a slash command after Phase 8 (`/add-language Swahili`). Parallel work: one session per language with worktree on; pack-only changes merge cleanly; master table/engine changes (workflow E) one session at a time.
 
+**R21 governs every workflow below (A to F):** work is done in IPA through the master table and the master path (`realization = "master"`), new sounds go into the table and the generator, and the report states the table, composed, created and fallback counts from the tool's output. A pack made in the old way (legacy `sound` lines, hand-set values) is not finished.
+
 **Short model-switch pause:**
 > ⏸ **MODEL SWITCH NEEDED.** Step: {name}. **Switch model to:** {model} (`/model {alias}`). **Set thinking effort to:** `{level}` (`/effort {level}`). Pending step recorded in `PROJECT_STATE.md`. Start a new session and paste: `Read CLAUDE.md and docs/tts-extension/PROJECT_STATE.md, then continue the pending step.`
 
 **A. Add a language** (Sonnet 5.5 medium; Opus high for hard phonology; Fable high for tonal/click/heavy-sandhi). Starter: `Add the language <NAME> (<ISO>). Follow ADDING_A_LANGUAGE.md and the add-language skill.`
 1. Research: inventory, phonotactics, stress/tone, orthography-to-sound rules, reference recordings and licenses; cite; say what you couldn't find.
 2. Map every phoneme to the master table; for gaps run USP; if a new capability is needed or 5 rounds fail, MODEL SWITCH NEEDED to Fable high.
-3. Write the pack (inventory, G2P, stress/tone, durations, intonation, authenticity metadata); tag provenance on every value.
+3. Write the pack (inventory as IPA, G2P, stress/tone, durations, intonation, authenticity metadata) with `realization = "master"` (R21a); tag provenance on every value.
 4. Run harness: A, B, ASR (or note unavailable), regression for all existing languages.
 5. Generate the review packet; update LANGUAGE_STATUS with the TRUE level and failure-layer notes.
-6. Plain-English report: what was done, level, which sounds are created/approximate/estimated, what a native reviewer should check first.
+6. Plain-English report: what was done, level, which sounds are created/approximate/estimated, how many came from the table, were composed, created or fell back (R21f), what a native reviewer should check first.
 
 **B. Add an authentic dialect** (Sonnet medium; Opus high for large vowel shifts/many allophone rules). Starter: `Add the dialect <NAME> of <PARENT LANGUAGE>. Follow the add-dialect skill.` The pack `extends` the parent and contains ONLY differences.
 1. Define the variety precisely (region, speaker group, era); find descriptive sources and licensed recordings (R3, R4, R14); if none, say so and mark everything `estimated`.
 2. List differences (mergers/shifts, consonant realizations, allophone rules, stress/rhythm, intonation, lexical sets), each with a source or measurement; no caricature.
 3. If recordings exist, run the Phase 7 extraction for `measured` overrides.
-4. Write, validate, run harness plus the parent's regression (parent unaffected).
+4. Write, validate, run harness plus the parent's regression (parent unaffected). Differences are other IPA sounds from the master table, not edited numbers (R21a); a missing sound goes into the table (R21b).
 5. Generate review packet; update LANGUAGE_STATUS.
-6. Report in plain English which claims are measured vs estimated.
+6. Report in plain English which claims are measured vs estimated, with the R21f counts.
 
 **C. Add an authentic accent** (Sonnet medium; Opus high for accents transferring a whole phonological system). Starter: `Add the <ACCENT> accent of <TARGET LANGUAGE>. Follow the add-accent skill.` An `extends` pack on the target with substitutions and rule changes (substituted phonemes, devoicing, epenthesis, stress/rhythm, intonation).
 1. Define the accent (speaker group, first language, proficiency if relevant); find descriptive sources and licensed recordings; cite.
-2. Build the substitution map and rules, each sourced or measured; map sounds outside the target language via the master table (USP if a gap).
+2. Build the substitution map and rules, each sourced or measured; map sounds outside the target language via the master table (USP if a gap, and the new sound goes into the table: R21b).
 3. Write, validate, run harness and parent regression; generate packet; update LANGUAGE_STATUS.
-4. Plain-English report; flag anything stereotyped or weakly sourced for removal.
+4. Plain-English report with the R21f counts; flag anything stereotyped or weakly sourced for removal.
 
 **D. Improve an existing language** (Opus 5.5 high). Starter: `Improve the language <NAME>. Follow the improve-language skill.`
 1. Start from LANGUAGE_STATUS failure layer and evidence; rerun the harness to confirm the baseline.
-2. Fix at the identified layer only; if the cause is shared, fix once in the master table/engine, not per language.
+2. Fix at the identified layer only; if the cause is shared, fix once in the master table/engine, not per language (R21c). A language still at `realization = "legacy"` is first moved to `"master"` (to_master.py), unless the human says otherwise.
 3. After each change re-measure the language, then run the full regression; never trade one language's fix for another's regression (R8).
 4. Update provenance and status; regenerate the packet; record before/after numbers in LANGUAGE_STATUS.
 5. If two fix rounds don't move measurements, MODEL SWITCH NEEDED to Fable high.
 
-**E. Create a missing sound** (Fable 5.1 high; xhigh for a new synthesis mechanism). Starter: `Create the missing sound <IPA symbol or description>. Follow the create-missing-sound skill.` Run the USP (1.6) in full: normalize → composition → feature substitution → capability check → design → implement/render/measure/iterate (≤5 rounds) → register in CREATED_SOUNDS.md with stable ID → full regression. Cite sources, tag provenance, state plainly if `approximate` and how, add a packet entry for native listeners, report in plain English.
+**E. Create a missing sound** (Fable 5.1 high; xhigh for a new synthesis mechanism). Starter: `Create the missing sound <IPA symbol or description>. Follow the create-missing-sound skill.` Run the USP (1.6) in full: normalize → composition → feature substitution → capability check → design → implement/render/measure/iterate (≤5 rounds) → register in CREATED_SOUNDS.md with stable ID → full regression. The sound is added to the master table (and the engine, if it needs a capability) so every language can use it (R21b). Cite sources, tag provenance, state plainly if `approximate` and how, add a packet entry for native listeners, report in plain English.
 
 **F. Diagnose a language that sounds wrong** (Opus 5.5 high). Starter: `Diagnose why <NAME> sounds wrong. Follow the diagnose-language skill. Symptom: <reviewer's words>.`
 1. Turn the symptom into hypotheses by layer: phoneme values, G2P, stress/tone, duration/coarticulation, voice/speaker scaling, engine bug.
 2. Design and run measurements that distinguish them; report numbers.
 3. Name the most likely cause with evidence and confidence; propose a fix but don't apply it until data supports the diagnosis (then follow D).
-4. Plain-English report: what's wrong, confidence, what fixing would touch.
+4. Plain-English report: what's wrong, confidence, what fixing would touch. Say which realization the language uses; a fault caused by a legacy line is fixed by moving the sound to the master path (R21d), not by patching the line.
 
 ---
 
