@@ -1,0 +1,95 @@
+# What engine/review/make_packet.py puts in this pack's native review packet (AUTHENTICITY.md, section 6).
+# MIT licence (this file only). Sentences: none given here, so the packet uses the language's ASR
+# sentences (docs/tts-extension/harness/asr/sentences.json, Common Voice, CC0).
+
+[words]
+# The keywords of the lexical sets (J. C. Wells, Accents of English, 1982; the book was not opened here,
+# only its well-known keywords are used): one word a vowel, so a reviewer can say which vowel is wrong.
+list = ["fleece", "kit", "face", "dress", "trap", "lot", "thought", "goat", "foot", "goose", "strut",
+        "nurse", "price", "mouth", "choice"]
+
+# The A/B items: each word said by the pack as it is and with the measured override of its vowel.
+[[check]]
+sound = "iː"
+words = ["fleece", "see"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ɪ"
+words = ["kit", "bid"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "eː"
+words = ["face", "day"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ɛ"
+words = ["dress", "bed"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "a"
+words = ["trap", "bad"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ɔː"
+words = ["thought", "caught"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "oː"
+words = ["goat", "boat"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ʉ"
+words = ["foot", "good"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ʉː"
+words = ["goose", "food"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+[[check]]
+sound = "ʌ"
+words = ["strut", "bud"]
+question = "Which of the two is nearer to how you say this word: A, B, both the same, or neither?"
+
+# Pairs: scobbie1999 gives Scottish Standard English one /u/, one /a/ and one /ɔ/ where southern
+# English has two vowels each; eSpeak NG's Scottish voice (the reader) keeps cot and caught, Sam and
+# psalm apart and pull and pool apart by length. The reviewer says what is right.
+[[pair]]
+id = "pull-pool"
+a = "pull"
+b = "pool"
+contrast = "FOOT against GOOSE: one vowel /u/ in scobbie1999's basic Scottish system"
+ref = "scobbie1999"
+question = "In your speech, do these two words have the same vowel or different vowels? And as the voice says them?"
+
+[[pair]]
+id = "cot-caught"
+a = "cot"
+b = "caught"
+contrast = "LOT against THOUGHT: one vowel /ɔ/ in scobbie1999's basic Scottish system"
+ref = "scobbie1999"
+question = "In your speech, do these two words have the same vowel or different vowels? And as the voice says them?"
+
+[[pair]]
+id = "sam-psalm"
+a = "Sam"
+b = "psalm"
+contrast = "TRAP against PALM: one vowel /a/ in scobbie1999's basic Scottish system"
+ref = "scobbie1999"
+question = "In your speech, do these two words have the same vowel or different vowels? And as the voice says them?"
+
+[[pair]]
+id = "beat-bit"
+a = "beat"
+b = "bit"
+contrast = "FLEECE against KIT: different in every variety of English (a control pair)"
+ref = "scobbie1999"
+question = "In your speech, do these two words have the same vowel or different vowels? And as the voice says them?"

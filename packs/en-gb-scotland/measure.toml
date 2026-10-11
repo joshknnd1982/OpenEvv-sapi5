@@ -1,0 +1,76 @@
+# What engine/authenticity/extract_targets.py measures for this pack, and what each class is for.
+# docs/tts-extension/AUTHENTICITY.md, "Target extraction". MIT licence (this file only).
+#
+# The alignment's labels are ARPAbet as Festvox writes them (CMU ARCTIC's label files). They come from
+# an American lexicon, so they name lexical sets (Wells 1982), not this speaker's vowels: that is what
+# is wanted. Left out: aa (CMUdict puts LOT and PALM words under it, two different Scottish vowels),
+# er and every vowel before r (rhotic), the diphthongs ay aw oy, and ax (reduced). The Wells keywords
+# are the lexical sets' names only (the book was not opened).
+#
+# Run: python engine/authenticity/extract_targets.py en-gb-scotland third_party/cmu_arctic [--write]
+
+[measure]
+source = "cmu_arctic"
+speakers = ["awb"]
+folders = { awb = "cmu_us_awb_arctic" }   # third_party/cmu_arctic/ holds the corpus as festvox.org's unpacked tree names it
+alignment = "festvox-lab"
+
+[[class]]
+label = "iy"
+set = "FLEECE"
+sound = "iː"
+phonemes = ["@en-sc:i:"]
+
+[[class]]
+label = "ih"
+set = "KIT"
+sound = "ɪ"
+phonemes = ["@en-sc:I"]
+
+[[class]]
+label = "ey"
+set = "FACE"
+sound = "eː"
+phonemes = ["@en-sc:eI"]
+
+[[class]]
+label = "eh"
+set = "DRESS"
+sound = "ɛ"
+phonemes = ["@en-sc:E"]
+
+[[class]]
+label = "ae"
+set = "TRAP"
+sound = "a"
+phonemes = ["@en-sc:a"]
+
+[[class]]
+label = "ao"
+set = "THOUGHT"
+sound = "ɔː"
+phonemes = ["@en-sc:O:"]
+
+[[class]]
+label = "ow"
+set = "GOAT"
+sound = "oː"
+phonemes = ["@en-sc:oU"]
+
+[[class]]
+label = "uh"
+set = "FOOT"
+sound = "ʉ"
+phonemes = ["@en-sc:U"]
+
+[[class]]
+label = "uw"
+set = "GOOSE"
+sound = "ʉː"
+phonemes = ["@en-sc:u:"]
+
+[[class]]
+label = "ah"
+set = "STRUT"
+sound = "ʌ"
+phonemes = ["@en-sc:V"]
