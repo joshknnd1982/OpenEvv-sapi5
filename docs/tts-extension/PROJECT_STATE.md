@@ -10,15 +10,15 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 |---|---|
 | all languages load from packs | **met for stage M1**: `build_packs.py check`: `packs checked: 162; files compared: 597 (5662611 bytes); by realization: legacy 145, module 17` / `check: every file identical to languages/`; 17 packs `extends` a parent; loader tests 15 of 15 (`engine/packs/test_packs.py`); the engine renders identically from a built map (`render_equal.py`) |
 | regression passes or differences documented | **met**: staged and shipped golden each `29237 cases, 0 FAILED, 0 changed within tolerance` (nothing it guards was changed) |
-| failure layer and evidence for every non-passing language | **met**: `TRIAGE_PHASE6.md` and `LANGUAGE_STATUS.md`: phoneme values 21, G2P 44, stress-or-tone 6, unknown 29, not measured 41, passes ASR 14 (155) |
+| failure layer and evidence for every non-passing language | **met**: `TRIAGE_PHASE6.md` and `LANGUAGE_STATUS.md`: phoneme values 21, G2P 68, stress-or-tone 0, unknown 11, not measured 41, passes ASR 14 (155); where eSpeak NG's own voice also fails but is more than 0.10 better than this engine, G2P is the first layer and unknown or stress-or-tone the second |
 | prioritized fix list, "Needs escalation" list | **met**: below and in `TRIAGE_PHASE6.md` |
 | PROJECT_STATE updated | this |
 
 ### Needs escalation (Phase 6 triage; reasons in `TRIAGE_PHASE6.md`)
 
-- Tonal, Fable 5.1 high: chr cmn cmn-latn-pinyin hak jajp my pa shn vi vi-vn-x-central vi-vn-x-south yue yue-latn-jyutping. cy, yue, vi, mr, az, cmn, sl have the widest gaps to eSpeak NG's own voice (yue +0.43, cy +0.38, vi-vn-x-central +0.34, mr +0.34).
+- Tonal, Fable 5.1 high: chr cmn cmn-latn-pinyin hak jajp my pa shn vi vi-vn-x-central vi-vn-x-south yue yue-latn-jyutping. The widest gaps to eSpeak NG's own voice are yue +0.43, vi-vn-x-central +0.34, mr +0.34, vi +0.29, az, cmn, sl (of these, yue, vi*, cmn are tonal; mr, az, sl are not).
 - Heavy allophony or unwritten vowels, Opus 5.5 high: ar he fa and the Indic languages (hi ur bn as gu kn ml mr ne or pa si ta te sd kok bpy). No click languages in the 155.
-- Priority of fixes: (1) qu's check A; (2) 65 phone-unsounded events in 17 packs (en-us-nyc 9, ga 8, en-shaw 8, English dialects 4 each, cy 4, gd 4); (3) check B on dede, engb, eses, esus and English dialects (sound values against cited ranges); (4) 44 G2P-layer languages (eSpeak NG's rules or a pack's own reader; needs a native reader); (5) 35 languages where eSpeak NG's own voice is understood better (28 on dedx; build the durations-and-stress measure first); (6) 41 languages no recogniser can judge (Phase 7's packets).
+- Priority of fixes: (1) qu's check A; (2) 65 phone-unsounded events in 17 packs (en-us-nyc 9, ga 8, en-shaw 8, English dialects 4 each, cy 4, gd 4); (3) check B on dede, engb, eses, esus and English dialects (sound values against cited ranges); (4) 68 G2P-layer languages (eSpeak NG's rules or a pack's own reader; needs a native reader); (5) 34 languages where eSpeak NG's own voice is understood better (28 on dedx; build the durations-and-stress measure first); (6) 41 languages no recogniser can judge (Phase 7's packets).
 
 ### For Phase 7 (read first)
 

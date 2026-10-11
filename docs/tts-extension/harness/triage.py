@@ -13,11 +13,11 @@ Evidence read (all under results/):
 
 The layers, in the order they are tested, and what shows each:
 
-    phoneme values    a measured fault in the sounds themselves: check A fails, check B fails (3 or more cited
-                      vowels), check A3 fails (a voice where there should be none), or the engine meant a phone and
+    phoneme values    a measured fault in the sounds themselves: check A fails, check B fails (where the cited ranges are enough; status.json decides), check A3 fails (a voice where there should be none), or the engine meant a phone and
                       the map gave it no sound (diagnostic phone-unsounded)
     G2P               ASR error above 0.15 and eSpeak NG's own voice, reading the same sentences by the same rules,
-                      is no better than 0.10 under this engine's. The fault is upstream of this engine (eSpeak NG's
+                      also above 0.15 (if this engine is more than 0.10 worse than it, a second layer, unknown or
+                      stress-or-tone, names the excess). The fault is upstream of this engine (eSpeak NG's
                       rules for the language or its spelling) or in the recogniser or the reference sentences; these
                       cannot be told apart without a native reader.
     stress-or-tone    ASR error above 0.15 where eSpeak NG's own voice is at or under 0.15, in a language that has tones
@@ -43,7 +43,6 @@ RES = os.path.join(HERE, 'results')
 
 PASS_CER = 0.15      # D16: the ASR pass mark
 G2P_GAP = 0.10       # eSpeak NG's own voice within this of ours (or worse): the fault is not this engine's sounds
-B_MIN_VOWELS = 3
 
 BEGIN, END = '<!-- TRIAGE BEGIN (written by harness/triage.py) -->', '<!-- TRIAGE END -->'
 
@@ -112,8 +111,10 @@ def triage():
             layer, why = '', 'ASR passes'
         elif ecer is None:
             layer, why = 'unknown', 'ASR fails; eSpeak NG own-voice score missing'
-        elif ecer > PASS_CER and cer - ecer <= G2P_GAP:
-            layer, why = 'G2P', "eSpeak NG's own voice fails these sentences too (CER %.2f against %.2f)" % (ecer, cer)
+        elif ecer > PASS_CER:
+            layer, why = 'G2P', "eSpeak NG's own voice fails these sentences too (CER %.2f against %.2f here)" % (ecer, cer)
+            if cer - ecer > G2P_GAP:
+                why += '; this engine is further %.2f behind it' % (cer - ecer)
         elif st['tones']:
             layer, why = 'stress-or-tone', "the language has tones; eSpeak NG's own voice reads the sentences (CER %.2f) where this engine does not (%.2f)" % (ecer, cer)
         else:
@@ -121,12 +122,14 @@ def triage():
         # a second layer when ASR also fails and the first was a measured fault
         second = ''
         if defects and cer is not None and cer > PASS_CER:
-            if ecer is not None and ecer > PASS_CER and cer - ecer <= G2P_GAP:
+            if ecer is not None and ecer > PASS_CER:
                 second = 'G2P'
             elif st['tones'] and ecer is not None:
                 second = 'stress-or-tone'
             elif ecer is not None:
                 second = 'unknown'
+        if layer == 'G2P' and cer - ecer > G2P_GAP:
+            second = 'stress-or-tone' if st['tones'] else 'unknown'
         out[tag] = dict(tag=tag, name=st['name'], kind=st['kind'], template=template_of(tag) or st.get('module'),
                         level=st['level'], tones=st['tones'], cer=cer, espeak_cer=ecer,
                         gap=None if cer is None or ecer is None else round(cer - ecer, 3),
