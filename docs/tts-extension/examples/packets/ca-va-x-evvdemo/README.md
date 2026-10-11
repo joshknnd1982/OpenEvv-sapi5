@@ -10,7 +10,7 @@ make the packet again to have the loose files).
 version is which, and what each pair tests, is kept outside it (`docs/tts-extension/review/keys/`).
 
 - Speaking module: `esex`, preset 1 (adult male). Reader: eSpeak NG voice `roa/ca-va`.
-- Variety: TEST ONLY (the worked dialect example of ADDING_A_LANGUAGE.md): Valencian Catalan with the stressed open vowels /ɛ ɔ/ of the men of Albalat de la Ribera as one published table gives them. Region: Albalat de la Ribera (Ribera Baixa), Valencian Community, Spain. Speaker group the pack aims at: 8 men of Albalat de la Ribera recorded by Escrivà (2014), as tabulated by jimenez2019 (Table 1); no recording of ours was measured.
+- Variety: TEST ONLY (the worked dialect example of ADDING_A_LANGUAGE.md): Valencian Catalan with the stressed open vowel /ɛ/ of the men of Albalat de la Ribera as one published table gives them. Region: Albalat de la Ribera (Ribera Baixa), Valencian Community, Spain. Speaker group the pack aims at: 8 men of Albalat de la Ribera recorded by Escrivà (2014), as tabulated by jimenez2019 (Table 1); no recording of ours was measured.
 - Status when made: level 2 (engine-verified). Only a named native reviewer's sign-off makes it level 5
   (native-validated); until then nothing here is called authentic.
 

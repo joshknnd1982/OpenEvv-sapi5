@@ -248,7 +248,7 @@ writes /ɛ/ alone to stay small; a real Valencian pack from this table would als
     Order = "990"                     # its place in the voice list: any number no other pack uses
     [[override]]
     sound = "ɛ"
-    phonemes = ["@ca-va:E"]
+    phonemes = ["@ca-va:E", "@ca-va:E2", "ɛ"]   # every phoneme the pack says /ɛ/ with
     state = "proposed"
     [override.formants.f1]
     v = 592.6
@@ -297,28 +297,37 @@ voice kept the size.
 
 **Its own checks, and the parent untouched:**
 
-    & $py docs\tts-extension\harness\golden.py ca-va-x-evvdemo --record --golden "$env:TEMP\OpenEvvTests\demo-golden"
-    & $py docs\tts-extension\harness\check_language.py ca-va-x-evvdemo --golden "$env:TEMP\OpenEvvTests\demo-golden" --asr --asr-like ca-va
+    & $py docs	ts-extension\harness\golden.py ca-va-x-evvdemo --record --golden "$env:TEMP\OpenEvvTests\demo-golden"
+    & $py docs	ts-extension\harness\check_language.py ca-va-x-evvdemo --golden "$env:TEMP\OpenEvvTests\demo-golden" --asr --asr-like ca-va
 
     ca-va-x-evvdemo 158 cases  0 errors  0 not covered   20.9 s
     ca-va-x-evvdemo CER 0.158  WER 0.329  (8 sentences, cuda/float16, 6 s)
     check A: pass; substituted 0; phones meant to sound 601, silent 0; formant and F0 checks 973 of 974
         s|?: a F0 measured None, frames 127.15
-    check B: too few references (3/5 in range); references for 0 vowels; 3 needed
+    check B: FAIL 21/29
     ASR: CER 0.16 WER 0.33
-    level: 2 engine-verified; failure layer: unknown
+    level: 2 engine-verified; failure layer: phoneme values
 
-Built again with `--proposed` (the override in) and recorded into another folder, the same checks
-print the same lines: check A 973 of 974, CER 0.158. The one reading missed: in the glottal-stop case
-`s|?`, the pitch tracker found no pitch on the vowel `a` where the frames asked for 127 Hz; the parent
-`ca-va` has the same case. Without the override the example is Valencian itself, and measures so:
-`check_language.py ca-va --asr` on the same stage printed the same CER 0.158 and WER 0.329. And
-Valencian itself is untouched: `golden.py ca ca-va` in section 3, 0 FAILED.
+Check B can judge Valencian because the same paper's Table 1 is in the reference store (added by
+the `/improve-language` skill test, section 9). It fails: 8 of 29 values are out of range, among them
+the F1 of /ɛ/ and /ɔ/ (534.8 and 520.2 Hz against the men's ranges from 575.2 and 572.2 Hz). Built
+again with `--proposed` (the override in) and recorded into another folder, both /ɛ/ cases of the
+golden (`v|E`, `v|E2`) move to 569.7 Hz: nearer, still 5.5 Hz short, check B still FAIL 21/29, check A
+973 of 974, CER 0.158 unchanged. That is expected and is stated, not chased: the target is at the
+engine voice's size (x0.9089), while check B compares raw Hz with the men's own range
+(`OPEN_QUESTIONS.md` Q46 notes both this and that the lookup also lends these ranges to the other
+Catalan varieties). The override names every phoneme the pack says /ɛ/ with (`@ca-va:E`,
+`@ca-va:E2`, and the inherited `ɛ`); with the first alone, the second golden case did not move.
+The one check-A reading missed: in the glottal-stop case `s|?`, the pitch tracker found no pitch on
+the vowel `a` where the frames asked for 127 Hz; the parent `ca-va` has the same case. Without the
+override the example is Valencian itself, and measures so: `check_language.py ca-va --asr` on the
+same stage printed the same CER 0.158 and WER 0.329. And Valencian itself is untouched:
+`golden.py ca ca-va` in section 3, 0 FAILED.
 
 **Packet**: `make_packet.py ca-va-x-evvdemo --out docs\tts-extension\examples\packets\ca-va-x-evvdemo`.
 Its A/B items are blind: each word said with and without the override, the listener not told which.
 
-    packet ca-va-x-evvdemo: 14 items (words 6, compare 4, sounds 4); docs\tts-extension\examples\packets\ca-va-x-evvdemo; index.html 486177 bytes; folder 862389 bytes
+    packet ca-va-x-evvdemo: 14 items (words 6, compare 4, sounds 4); docs\tts-extension\examples\packets\ca-va-x-evvdemo; index.html 486173 bytes; folder 862365 bytes
 
 The 4 "compare" items are the A/B pairs (two words, each said twice); the key that says which is
 which is kept outside the packet, in `docs/tts-extension/review/keys/ca-va-x-evvdemo.json`.
@@ -345,7 +354,8 @@ accent's target is NYC English, which the source's speakers did not speak.
 
 **The pack**: `kind = "accent"`, `extends = "en-us-nyc"`, `[meta]` naming the speaker group as the
 source describes it, and in its note **what it does not make**: every other feature of a Spanish
-speaker's English. One override, `sound = "ɪ"`, `phonemes = ["@en-us-nyc:I"]`, F1 287.2 and F2 2056.6
+speaker's English. One override, `sound = "ɪ"`, on every phoneme the pack says KIT with (`@en-us-nyc:I`, `@en-us-nyc:I2`,
+`@en-us-nyc:I2#`, `@ml:I`, `ɪ`: all said with the sound line `I=s41`), F1 287.2 and F2 2056.6
 (`docs/tts-extension/examples/packs/en-us-x-evvdemo-es/pack.toml`).
 
     & $py engine\packs\validate_packs.py en-us-x-evvdemo-es
@@ -355,20 +365,20 @@ speaker's English. One override, `sound = "ɪ"`, `phonemes = ["@en-us-nyc:I"]`, 
     & $py engine\packs\build_packs.py build "$env:EVV_STAGE\languages" en-us-x-evvdemo-es
     & $py engine\authenticity\show_effect.py en-us-x-evvdemo-es
       IPA  word     target F1/F2    before: asked (meas)            after: asked (meas)             after vs target (asked)
-      ɪ    bit        287 /  2056     398 ( 401) /  1754 (1751)       295 ( 281) /  2017 (2004)     F1  +2.7%  F2  -1.9%
-      ɪ    sit        287 /  2056     402 ( 404) /  1744 (1742)       297 ( 287) /  2006 (1997)     F1  +3.4%  F2  -2.5%
-    largest distance from the target (F1 or F2, asked): before median 39.2%, after median 3.0% (2 words)
+      ɪ    bit        287 /  2057     398 ( 401) /  1754 (1751)       295 ( 281) /  2017 (2004)     F1  +2.7%  F2  -1.9%
+      ɪ    sit        287 /  2057     402 ( 404) /  1744 (1742)       297 ( 287) /  2006 (1997)     F1  +3.4%  F2  -2.5%
+    largest distance from the target (F1 or F2, asked): before median 39.3%, after median 3.1% (2 words)
     largest difference between the two versions' preset-2 ratios: 0.002
 
 Its checks, without and then with the override:
 
     check A: pass; substituted 0; phones meant to sound 1452, silent 0; formant and F0 checks 2300 of 2306
-    check B: pass 82/94                    (with the override: pass 81/94)
+    check B: pass 82/94                    (with the override: pass 79/94)
     ASR: CER 0.01 WER 0.04                 (with the override: CER 0.00 WER 0.02)
     level: 4 intelligibility-verified; failure layer: none
 
 Check B compares with **native** American English ranges, so an accent is expected to move one value
-out of them (KIT): 82 became 81 of 94, and that is the accent working, not a fault. The recogniser
+out of them: 82 became 79 of 94 (the F1 of the KIT cases, now below the native range), and that is the accent working, not a fault. The recogniser
 still understands every sentence. (The six check-A readings that miss are New York City's nasalized
 vowels, the same in the parent `en-us-nyc`.) Packet: 36 items, 4 of them the blind A/B pairs of
 *bit* and *sit*. The level of a real accent pack would still need a native reviewer from the speaker

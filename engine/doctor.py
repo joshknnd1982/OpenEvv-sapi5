@@ -20,7 +20,7 @@ The checks, each PASS, WARN or FAIL; the exit code is 1 if any FAILED:
   table      engine/ipa/table.py and its self-test (the master table's own rules)
   coverage   engine/ipa/coverage.py: every checklist symbol done, MISSING 0, BLOCKED 0, every proof on the map
   estimated  every `estimated` value of the master table is queued in OPEN_QUESTIONS.md Q15; one that is
-             not and whose table file was last committed more than --stale-days ago (default 14) FAILS
+             not, in an entry first committed more than --stale-days ago (default 14), FAILS (newer: WARN)
 """
 import argparse
 import datetime
@@ -126,8 +126,8 @@ def check_estimated(stale_days):
     unqueued = sorted(now - listed)
     stale, fresh = [], []
     for sid, path in unqueued:
-        days = age_days(os.path.join("ipa", "table", t.where[sid]))
-        (fresh if days <= stale_days else stale).append("%s %s (%s, last committed %d days ago)" % (
+        days = age_days(os.path.join("ipa", "table", t.where[sid]), '[sound."%s"]' % sid)
+        (fresh if days <= stale_days else stale).append("%s %s (%s, entry first committed %d days ago)" % (
             sid, path, t.where[sid], days))
     gone = sorted(listed - now)
     line = "%d estimated values in the table, %d queued in Q15 (written %s)" % (len(now), len(now & listed), when)
@@ -143,13 +143,15 @@ def check_estimated(stale_days):
                "regenerate Q15 with --print-queue" % len(gone), ["%s %s" % g for g in gone[:5]])
 
 
-def age_days(path):
-    """Days since the last commit of a file (0 if it has none yet)."""
-    p = subprocess.run(["git", "log", "-1", "--format=%cs", "--", path], cwd=ROOT, capture_output=True, text=True)
-    s = p.stdout.strip()
+def age_days(path, text):
+    """Days since the first commit that added `text` (an entry's header) to the file: a later edit of
+    the file does not reset it. 0 if no commit has it yet."""
+    p = subprocess.run(["git", "log", "--reverse", "--format=%cs", "-S", text, "--", path], cwd=ROOT,
+                       capture_output=True, text=True, encoding="utf-8")
+    s = p.stdout.split()
     if not s:
         return 0
-    return (datetime.date.today() - datetime.date.fromisoformat(s)).days
+    return (datetime.date.today() - datetime.date.fromisoformat(s[0])).days
 
 
 def print_queue():

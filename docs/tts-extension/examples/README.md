@@ -12,9 +12,9 @@ The pack tools find these packs only when `EVV_PACKS_EXTRA` names `docs\tts-exte
 | Folder | What | Made by |
 |---|---|---|
 | `packs/sw-x-evvdemo/` | a language: Swahili made again from its eSpeak NG voice | `ADDING_A_LANGUAGE.md` section 3 |
-| `packs/ca-va-x-evvdemo/` | a dialect that inherits from Valencian, two vowel overrides from jimenez2019 | section 4 |
+| `packs/ca-va-x-evvdemo/` | a dialect that inherits from Valencian, one vowel override (/ɛ/) from jimenez2019 | section 4 |
 | `packs/en-us-x-evvdemo-es/` | an accent: one measured vowel of Mexican Spanish speakers of English (sidaras2009) | section 5 |
-| `packs/*-x-evvskill*/` | the skill exercises of Phase 8 (`DECISIONS.md` D92) | the skills, run by test helpers |
+| `packs/*-x-evvskill*/` | the skill exercises of Phase 8 (`DECISIONS.md` D92), kept as the tests made them: `ca-va-x-evvskill` and `en-us-x-evvskill-es` override only the reader's main phoneme names for their vowels (the skills, corrected afterwards, say to cover every phoneme the pack says the vowel with, as the worked examples now do) | the skills, run by test helpers |
 | `packets/<tag>/` | their review packets (the loose audio and pictures are git-ignored; `index.html` embeds them) | `engine/review/make_packet.py --out` |
 
 Their review keys (which A/B version carries an override) are in `docs/tts-extension/review/keys/<tag>.json`

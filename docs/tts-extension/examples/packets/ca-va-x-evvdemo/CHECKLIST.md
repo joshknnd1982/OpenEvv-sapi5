@@ -4,7 +4,7 @@ Thank you for listening. You do not need to know anything about phonetics. Answe
 "I don't know" is a good answer. Write your answers in `feedback.toml` (any text editor will do).
 
 The voice is a synthetic adult man's voice. It will never sound exactly like a person: we want to
-know whether it sounds like **TEST ONLY (the worked dialect example of ADDING_A_LANGUAGE.md): Valencian Catalan with the stressed open vowels /ɛ ɔ/ of the men of Albalat de la Ribera as one published table gives them** and where it does not.
+know whether it sounds like **TEST ONLY (the worked dialect example of ADDING_A_LANGUAGE.md): Valencian Catalan with the stressed open vowel /ɛ/ of the men of Albalat de la Ribera as one published table gives them** and where it does not.
 
 ## About you (needed: a review is only recorded with a name and a date)
 
@@ -36,7 +36,7 @@ know whether it sounds like **TEST ONLY (the worked dialect example of ADDING_A_
 ## At the end
 
 10. Which **three sentences sound least natural**?
-11. Overall, would you accept this voice as **recognisably TEST ONLY (the worked dialect example of ADDING_A_LANGUAGE.md): Valencian Catalan with the stressed open vowels /ɛ ɔ/ of the men of Albalat de la Ribera as one published table gives them**? yes, with changes, or no.
+11. Overall, would you accept this voice as **recognisably TEST ONLY (the worked dialect example of ADDING_A_LANGUAGE.md): Valencian Catalan with the stressed open vowel /ɛ/ of the men of Albalat de la Ribera as one published table gives them**? yes, with changes, or no.
 12. Anything else, in your own words.
 
 Items in this packet: 14 (words 6, compare 4, sounds 4).

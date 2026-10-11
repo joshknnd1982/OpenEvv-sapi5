@@ -16,7 +16,8 @@ Read first: `CLAUDE.md`; the language's rows in `docs/tts-extension/LANGUAGE_STA
 table at the top, written by `report.py`, and the Phase 6 triage table further down, which compares
 with eSpeak NG's own voice: where their failure layers differ, the triage's is the later and better
 evidenced, but measure rather than trust either); `docs/tts-extension/TRIAGE_PHASE6.md` (how the
-triage decided); `docs/tts-extension/harness/README.md` (every measure and its limits). You cannot
+triage decided); `DESIGN.md` 8 (G2P), 9 (prosody and timing) and 10 (what each check measures);
+`docs/tts-extension/harness/README.md` (every measure and its limits). You cannot
 hear: the listener's words are the symptom, your measurements the evidence.
 
 ## Setup (PowerShell, repository root)

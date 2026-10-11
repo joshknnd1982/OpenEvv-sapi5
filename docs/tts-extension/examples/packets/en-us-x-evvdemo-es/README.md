@@ -11,7 +11,7 @@ version is which, and what each pair tests, is kept outside it (`docs/tts-extens
 
 - Speaking module: `enux`, preset 1 (adult male). Reader: eSpeak NG voice `gmw/en-US-nyc`.
 - Variety: TEST ONLY (the worked accent example of ADDING_A_LANGUAGE.md): American English as spoken by adult native speakers of Mexican Spanish, one feature only (KIT). Region: the source's speakers: from Mexico City, living in the Atlanta area, USA. Speaker group the pack aims at: 12 adult native speakers of Mexican Spanish (6 men, 6 women, mean age 32.75, began English at 16.67 on average, accentedness about 4.1-4.3 of 7) as measured by sidaras2009; no recording of ours was measured.
-- Status when made: level 2 (engine-verified). Only a named native reviewer's sign-off makes it level 5
+- Status when made: level 4 (intelligibility-verified). Only a named native reviewer's sign-off makes it level 5
   (native-validated); until then nothing here is called authentic.
 
 **For the reviewer:** read `CHECKLIST.md`, listen, and fill in `feedback.toml`.

@@ -4,6 +4,86 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
+**Phase 8 (Skills and automation): COMPLETE (2026-10-11, twenty-second session)** on branch `tts-ext/phase-8`, Opus 5.5. Decisions D91 and D92; `ADDING_A_LANGUAGE.md`; `.claude/skills/` (six), `.claude/agents/tts-reviewer.md`; `engine/doctor.py`. **Next: Phase 9 (Completion review)**, in a new session on **Fable 5.1, effort high** (the playbook: STOP if not on Fable).
+
+## The whole project so far (2026-10-11, after Phase 8)
+
+**The aim** (playbook Part 1.1): every symbol of the official IPA chart mapped to an engine-neutral acoustic specification and a measured realization in this engine, so that adding a language, dialect or accent is a data-only change verified automatically. The human speaks only American English; nothing is judged by ear.
+
+**Where each phase stands**
+
+| Phase | What it did | State |
+|---|---|---|
+| 0 Orientation | `ARCHITECTURE_MAP.md`; the checklist, 175 entries from the 2026 chart (`inventory/IPA_CHECKLIST.md`); tag `tts-ext-baseline` = `10542ae` | complete 2026-10-05 |
+| 1 Harness | render, measure (Burg LPC, F0, noise, stop timing), reference ranges, ASR round trip (Whisper large-v3), golden regression, `LANGUAGE_STATUS.md` baseline | complete 2026-10-05 |
+| 2 Design | `DESIGN.md` (extend, do not rewrite), approved by the human | complete 2026-10-05 |
+| 3 Capabilities | the two defects fixed (X-1, X-2), the accent layer's keys, the IPA reader, the master table, composition when speaking | complete 2026-10-06 (3B inside Phase 4) |
+| 4 Master table | every checklist symbol mapped 67, composed 53, created 55; MISSING 0, BLOCKED 0; Tier B (extIPA, VoQS) 186 of 203 done, 17 notation only | complete 2026-10-10 |
+| 5 Audit | independent re-derivation of the checklist (0 differences), three harness holes closed | complete 2026-10-10 |
+| 6 Packs | all 162 folders of `languages/` are packs (`packs/`), building byte-identical; triage of every language | complete 2026-10-11 |
+| 7 Authenticity | the pipeline (extract, normalize, validate, packet, ingest), one real example (Scottish English, CMU ARCTIC awb), 10 proposed overrides | complete 2026-10-11 |
+| 8 Skills | six skills, the reviewer agent, the doctor, `ADDING_A_LANGUAGE.md` with three worked examples, the 25 dialect packs documented, CS-0076 ɓ̥ | complete 2026-10-11 |
+| 9 Completion review | Fable 5.1: doctor, regression, coverage on a freshly re-researched checklist, two fresh trial additions | **next** |
+| 10 Release | installer, the staged modules and front-end shipped (with the human's say-so), licence audit, README (step 2b, added to the playbook by another session) | to do |
+| 11 Cleanup | free the disk, item by item with the human's yes (R20: nothing deleted before Phase 10 is complete) | to do |
+
+**The numbers now** (each from a command run this session; raw output in D92 and "Phase 8 at its end" below)
+
+- **IPA coverage**: 175 of 175 checklist entries done (mapped 67, composed 53, created 55), MISSING 0, BLOCKED 0, every proof passing and made on the map as it stands; master table 393 entries (one more than Phase 7: CS-0076 ɓ̥, Tier C); Tier B 186 done, 17 notation only; 76 created sounds registered (`CREATED_SOUNDS.md`); 439 estimated values, all queued (`OPEN_QUESTIONS.md` Q15).
+- **Languages**: 155 (10 native modules, 145 read by eSpeak NG on 7 template modules), 162 packs with the templates; 21 dialect packs, every one documented and accepted by the authenticity validator (D91); 5 former "dialects" are spellings or a voice, now `kind = "language"`. Levels (`results/status.json`, Phase 6's report): 1 draft 1 (qu), 2 engine-verified 150, 4 intelligibility-verified 4 (enus, en-us-nyc, pt, pt-br); none at 3 or 5; nothing is called authentic. `LANGUAGE_STATUS.md` was not regenerated in Phase 8 (Q46 first).
+- **The product**: unchanged since release 1.2.4. `languages/` and `dist/` hold the shipped modules and front-end; every change to sound lives in the stage (`%USERPROFILE%\OpenEvvBuild-ttsext\stage-dev`: the seven templates rebuilt from the fixed source, front-end `p28`) until Phase 10 ships it with the human's say-so (D34). The golden regression of the staged modules: 155 packs, 29,237 cases, 0 FAILED.
+- **Authenticity**: one real measured example (Scottish English, one speaker, below the five-speaker minimum; overrides proposed, not applied, the human's choice); review packets for it and the worked examples; no native reviewer yet (they come after Phase 9, D82).
+
+**How work is done from now on**: `ADDING_A_LANGUAGE.md` and the slash commands `/add-language`, `/add-dialect`, `/add-accent`, `/improve-language`, `/diagnose-language`, `/create-missing-sound` (each names its model and effort and ends with the `tts-reviewer` agent; a session started after Phase 8 has that agent type loaded, this one did not). Start every session with `engine\doctor.py --quick`. New packs wait in `packs-proposed/`; tests and worked examples live in `docs/tts-extension/examples/` (TEST, never shipped).
+
+**Open for Phase 9 and after** (`OPEN_QUESTIONS.md`): Q46 (check B's lookup lends one dialect's references to its siblings: rule on it, then regenerate `LANGUAGE_STATUS.md`); Q45 (Swahili's vowel-to-vowel junctions, a proposed fix); Q40 (VOT on natural speech); Q41 answered (D91); Q42 (Scottish next steps); Q15 (439 estimated values to verify); Q38, Q39 (for the expert review); the Phase 6 "Needs escalation" list (tonal languages to Fable; heavy allophony to Opus). Native speakers come after Phase 9 (D82).
+
+## Phase 8 at its end
+
+| Exit criterion (playbook Phase 8) | State |
+|---|---|
+| skills exist (six, frontmatter per the current docs) and were exercised | **met**: `.claude/skills/{add-language,add-dialect,add-accent,improve-language,diagnose-language,create-missing-sound}/SKILL.md`; each run by a helper that knew only its text, on the model it names, on a small real task (D92): eo-x-evvskill, ca-va-x-evvskill (15.6 % to 1.7 % from the target), en-us-x-evvskill-es (8.7 % to 4.4 %), Valencian check B references (too few to FAIL 21/29), the Swahili diagnosis (Q45), CS-0076 ɓ̥; every skill rewritten from what its test found |
+| `.claude/agents/tts-reviewer.md`, every skill's last step calls it | **met** (Read, Grep, Glob, Bash; opus). This session could not launch it by name (agent types load at a session's start): the phase's R15 review ran its instructions on a general-purpose agent on Opus |
+| `ADDING_A_LANGUAGE.md`, one language, one dialect (inheritance), one accent that run | **met**: `sw-x-evvdemo`, `ca-va-x-evvdemo` (extends ca-va, which extends ca), `en-us-x-evvdemo-es` (an accent over en-us-nyc), every command shown with its output; commands for render, measure, regress, packet; the ladder; common mistakes; what cannot be done yet |
+| the doctor passes | **met**: the full form, `& $py engine\doctor.py` (raw summary lines below); after the review's fixes, `--quick` again: `doctor: 16 checks, 16 passed, 0 warnings, 0 FAILED (none), 53 s` |
+| test artifacts marked, nothing of the human's deleted | **met**: everything in `docs/tts-extension/examples/` (README: TEST, never shipped; tags `-x-evvdemo`, `-x-evvskill`); nothing deleted |
+| CLAUDE.md updated | **met**: the doctor command and a "Skills and the reviewer" section |
+| PROJECT_STATE updated | this |
+| R15 review | done: seven findings (D92, last bullet): the dialect example's output was stale and its override missed two of the three phonemes that say /ɛ/ (and the accent example four of five): fixed and re-measured; the doctor's age clock: fixed and proved by a planted value; two skills did not name DESIGN.md: they do; README wording; the doctor and PROJECT_STATE: shown here. Not re-reviewed (R15 allows one; the fixes are each re-measured above) |
+
+The full doctor at the phase's end (2026-10-11, before the review's fixes to two example packs and to the doctor's age clock):
+
+    doctor: %USERPROFILE%\OneDrive\dev\espeakproject\OpenEvv-sapi5, full, stage %USERPROFILE%\OpenEvvBuild-ttsext\stage-dev
+    PASS  env        Python 3.10.11 at %USERPROFILE%\OpenEvvBuild-ttsext\venv\Scripts\python.exe; stage %USERPROFILE%\OpenEvvBuild-ttsext\stage-dev
+    PASS  harness    == 76 checks, 76 passed, 0 failed  (docs\tts-extension\harness\selftest.py --quick, 3 s)
+    PASS  packs      Ran 22 tests in 11.283s  (engine\packs\test_packs.py, 11 s)
+    PASS  packs      check: every file identical to languages/  (engine\packs\build_packs.py check, 11 s)
+    PASS  validate   validate: 21 packs, 21 accepted, 0 rejected  (engine\packs\validate_packs.py, 10 s)
+    PASS  validate   validate: 6 packs, 6 accepted, 0 rejected  (engine\packs\validate_packs.py ca-va-x-evvdemo, 1 s)
+    PASS  validate   validate selftest: 16 of 16 pass  (engine\packs\validate_packs.py --selftest, 0 s)
+    PASS  validate   normalize selftest: 3 of 3 pass  (engine\authenticity\normalize.py --selftest, 0 s)
+    PASS  validate   ingest selftest: pass  (engine\review\ingest_feedback.py --selftest, 0 s)
+    PASS  table      table: 393 entries (composed 245, created 76, mapped 72); 0 problems; 439 estimated values queued for verification  (engine\ipa\table.py, 0 s)
+    PASS  table      validator: the table accepted; 30 planted faults, 30 refused  (engine\ipa\table.py --selftest, 1 s)
+    PASS  coverage   coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0; rendered and measured 175 (proof passed 175); approximate 6  (engine\ipa\coverage.py --quiet, 11 s)
+    PASS  coverage   state against proof: every entry that is not MISSING has a passing proof
+    PASS  coverage   proof against map: every proof of a done entry was made on the map as it stands
+    PASS  estimated  439 estimated values in the table, 439 queued in Q15 (written 2026-10-11)
+    PASS  golden     golden: 155 packs, 29237 cases, 0 FAILED, 0 changed within tolerance, 1728 s  (docs\tts-extension\harness\golden.py, 1729 s)
+    doctor: 16 checks, 16 passed, 0 warnings, 0 FAILED (none), 1779 s
+
+Not changed in Phase 8: the engine, the modules, the front-end, `languages/`, `dist/` (`build_packs.py check`: every file identical to `languages/`).
+
+### For Phase 9 (read first)
+
+- **Start with** `& $py engine\doctor.py` (the full form, 25 to 40 minutes): it is the regression, coverage, pack and queue check in one.
+- **Its two fresh trial additions** can follow `ADDING_A_LANGUAGE.md` and the skills; count the steps. A language eSpeak NG reads already has a pack (all 154 voices but the 9 the native modules cover), so a "new language" is a test copy under a private tag (`new_language.py`), or a language from a newer eSpeak NG (which needs `dist/espeak-ng-data` rebuilt: the human's say-so).
+- **Q46 first**, then `report.py` (it rewrites `LANGUAGE_STATUS.md` for all; `results/asr.json` is of 2026-10-05 and older than the stage: `asr.py` again before it, about 20 minutes on the GPU).
+- **The tools of Phase 8**: `engine/packs/new_language.py`, `harness/check_language.py`, `harness/asr_try.py`, `engine/authenticity/normalize.py <tag> <phoneme>=<F1>,<F2>`, `engine/ipa/say_ipa.py`, `EVV_PACKS_EXTRA`, `EVV_HARNESS_WORK` (each helper its own: renders of one case id collide otherwise). `make_packet.py` writes the A/B key to `review/keys/<tag>.json` even with `--out`.
+- **The tree is shared**: another session edited `README.md` and the playbook (a Phase 10 step 2b) during Phase 8; leave its uncommitted work alone and commit by path.
+
+## Phase 7, as it ended
+
 **Phase 7 (Authenticity and native-validation pipeline): COMPLETE (2026-10-11, twenty-first session)** on branch `tts-ext/phase-7`, Opus 5.5. Decision D90; `AUTHENTICITY.md` (the pipeline, one command a step); `FINDING_NATIVE_REVIEWERS.md`; `REFERENCES.md` "Phase 7"; Q40 to Q42. **Next: Phase 8 (Skills and automation)**, new session.
 
 The one real example is **Scottish English** (`en-gb-scotland`), measured from CMU ARCTIC speaker awb (one Scottish man, 1,138 read sentences, licence "free for use for any purpose"; in the tree at `third_party/cmu_arctic/` at the human's request). Southern American English (the Phase 2 first choice) needs VCTK's 11.7 GB zip and an aligner; the human chose Scottish (`HUMAN_ANSWERS.md`).

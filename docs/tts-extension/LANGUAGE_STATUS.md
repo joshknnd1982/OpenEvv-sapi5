@@ -4,6 +4,13 @@ Status level and failure-layer triage for every language, dialect and accent (pl
 
 Levels: 1 `draft` · 2 `engine-verified` (the harness shows the engine realizes the requested parameters) · 3 `reference-verified` (realized values fall within reference ranges) · 4 `intelligibility-verified` (speech-recognition round trip passes, where a recognizer supports the language) · 5 `native-validated` (a named native speaker or expert signed off the review packet). Only level 5 may be called "authentic".
 
+## Phase 8 (2026-10-11): no language's level changed
+
+- **Every dialect pack is documented** (D91): the 20 dialects carry their variety, region, speaker group and a descriptive source each (`packs/<tag>/pack.toml` `[meta]`, three of the sources weak, said in the pack's note), and their `[meta] status` repeats the level below (2; en-us-nyc and pt-br 4). cmn-latn-pinyin, en-shaw, fa-latn, yue-latn-jyutping (spellings) and mn-f (a voice) are now `kind = "language"`. `validate_packs.py`: 21 packs, 21 accepted. No sound changed.
+- **Valencian (ca-va) has check B references now** (jimenez2019 Table 1, Phase 8's improve-language test): check B, measured on the stage with `check_language.py`, went from "too few references (3/5 in range)" to **FAIL 21/29** (F1 of /ɛ ɔ/ 40-55 Hz under the range, /i u/ just under); level 2 unchanged; failure layer "phoneme values". The reference lookup lends these ranges to **ca, ca-ba and ca-nw** as well (each FAIL 21/29, level 2 unchanged): `OPEN_QUESTIONS.md` Q46, for Phase 9. The tables below were not regenerated (`report.py` waits for Q46 and a fresh `asr.py`); they still say "too few references" for these four.
+- **Swahili (sw)**: diagnosed, not changed (`OPEN_QUESTIONS.md` Q45): its word error (0.75) against its character error (0.20) is mostly the metric on long words; an inserted "ya" at vowel-to-vowel word junctions is the main boundary fault, with a fix proposed.
+- The worked examples and the skill tests (`docs/tts-extension/examples/`, tags `-x-evvdemo`, `-x-evvskill`) are TEST packs, never shipped, and have no row here.
+
 ## Phase 5 (2026-10-10): no language's status changed
 
 The independent audit (`AUDIT_PHASE5.md`) touched the master table (z, ʝ, ɣ, ɞ) and the sweep's checks, not the packs or the shipped modules; every table entry stays at level 2 (engine-verified on the reference template dedx), none is called authentic. The 155 languages below stand as Phase 1 measured them, with the Phase 3 defect fixes and Q28's rule in the staged modules only (D87); Phase 6 moves them to packs and triages them.

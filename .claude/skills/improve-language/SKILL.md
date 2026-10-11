@@ -15,7 +15,8 @@ measurements, stop with the playbook's MODEL SWITCH NEEDED pause (Fable 5.1 high
 Read first: `CLAUDE.md`, `docs/tts-extension/PROJECT_STATE.md`, the language's rows in
 `docs/tts-extension/LANGUAGE_STATUS.md` (the status table, and the Phase 6 triage table further down:
 where their failure layers differ, the triage's compares with eSpeak NG's own voice and is the
-better evidence), `OPEN_QUESTIONS.md` for findings about the language (a `/diagnose-language` run
+better evidence), `DESIGN.md` 6 (packs), 8 (G2P), 9 (prosody) and 10 (the checks and the levels),
+`OPEN_QUESTIONS.md` for findings about the language (a `/diagnose-language` run
 records its diagnosis there), `ADDING_A_LANGUAGE.md` section 9. The numbers in `LANGUAGE_STATUS.md`
 and `results/asr.json` may be older than the stage: measure again before comparing. You cannot hear:
 measure (R2, R5, R16).
