@@ -100,15 +100,15 @@ sound m74 dur=115                        # ɔː: U+0254+U+02D0; values derived 5
 sound m75 dur=120                        # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 120 against 100 without the mark
 sound m76 dur=125                        # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 125 against 100 without the mark
 sound m77 dur=124                        # uː: U+0075+U+02D0; eː: U+0065+U+02D0; values derived 8, literature 6; language: ː, eSpeak NG's own lengths for it, 105 against 85 without the mark
-sound m78 g1=93 g2=58 g3=96 glide=1      # əʊ: U+0259+U+028A; values derived 9, literature 3
-sound m79 g1=108 g2=127 g3=100 glide=1   # oʊ: U+006F+U+028A; values derived 6, literature 6
-sound m80 g1=103 g2=93 g3=104 glide=1    # eɪ: U+0065+U+026A; values derived 6, literature 6
-sound m81 g1=67 g2=222 g3=112 glide=1    # ɔɪ: U+0254+U+026A; values derived 6, literature 6
-sound m82 g1=122 g2=74 g3=93 glide=1     # eə: U+0065+U+0259; values derived 9, literature 3
-sound m83 g1=170 g2=74 g3=86 glide=1     # iə: U+0069+U+0259; values derived 9, literature 3
-sound m84 g1=107 g2=172 g3=104 glide=1   # ʊə: U+028A+U+0259; values derived 9, literature 3
-sound m85 g1=48 g2=161 g3=112 glide=1    # aɪə: U+0061+U+026A; values derived 6, literature 6, measured 1
-sound m86 g1=52 g2=75 g3=96 glide=1      # aʊə: U+0061+U+028A; values derived 6, literature 6, measured 1
+sound m78 g1=52 g2=75 g3=96 glide=1      # aʊ: U+0061+U+028A; aʊə: U+0061+U+028A; values derived 6, literature 6, measured 1
+sound m79 g1=93 g2=58 g3=96 glide=1      # əʊ: U+0259+U+028A; values derived 9, literature 3
+sound m80 g1=108 g2=127 g3=100 glide=1   # oʊ: U+006F+U+028A; values derived 6, literature 6
+sound m81 g1=48 g2=161 g3=112 glide=1    # aɪ: U+0061+U+026A; aɪə: U+0061+U+026A; values derived 6, literature 6, measured 1
+sound m82 g1=103 g2=93 g3=104 glide=1    # eɪ: U+0065+U+026A; values derived 6, literature 6
+sound m83 g1=67 g2=222 g3=112 glide=1    # ɔɪ: U+0254+U+026A; values derived 6, literature 6
+sound m84 g1=122 g2=74 g3=93 glide=1     # eə: U+0065+U+0259; values derived 9, literature 3
+sound m85 g1=170 g2=74 g3=86 glide=1     # iə: U+0069+U+0259; values derived 9, literature 3
+sound m86 g1=107 g2=172 g3=104 glide=1   # ʊə: U+028A+U+0259; values derived 9, literature 3
 sound m87 dur=129                        # oː: U+006F+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 110 against 85 without the mark
 sound m88 dur=345 f1=92 f2=94 f3=101     # ɑː: U+0251+U+02D0; ɑːɹ: U+0251+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 50 ms
 sound m89 dur=144                        # iː: U+0069+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 120 ms
@@ -389,19 +389,19 @@ sound m131 f2=108                        # ä: U+0061+U+0308; values derived 3,
 @en:O@           O=m75                   # ɔː  (not met)
 @en:o@           O=m76                   # ɔː  (not met)
 @en:u:           u=m77                   # uː
-@en:aU           aw                      # aʊ  (not met)
-@en:oU           @=m78                   # əʊ  (not met)
-@en:oU#          o=m79                   # oʊ  (not met)
-@en:aI           aj                      # aɪ  (not met)
-@en:eI           e=m80                   # eɪ  (not met)
-@en:OI           O=m81                   # ɔɪ  (not met)
-@en:e@           e=m82                   # eə  (not met)
-@en:i@           i=m83                   # iə  (not met)
-@en:i@3          i=m83                   # iə  (not met)
-@en:U@           U=m84                   # ʊə  (not met)
-@en:aI@          a=m85 @                 # aɪə
-@en:aI3          aj                      # aɪ  (not met)
-@en:aU@          a=m86 @                 # aʊə  (not met)
+@en:aU           a=m78                   # aʊ  (not met)
+@en:oU           @=m79                   # əʊ  (not met)
+@en:oU#          o=m80                   # oʊ  (not met)
+@en:aI           a=m81                   # aɪ  (not met)
+@en:eI           e=m82                   # eɪ  (not met)
+@en:OI           O=m83                   # ɔɪ  (not met)
+@en:e@           e=m84                   # eə  (not met)
+@en:i@           i=m85                   # iə  (not met)
+@en:i@3          i=m85                   # iə  (not met)
+@en:U@           U=m86                   # ʊə  (not met)
+@en:aI@          a=m81 @                 # aɪə
+@en:aI3          a=m81                   # aɪ  (not met)
+@en:aU@          a=m78 @                 # aʊə  (not met)
 @en:IR           @ r=m64                 # əɹ  (not met)
 @en:VR           A=m71 r=m64             # ʌɹ  (not met)
 @en:o:           o=m87                   # oː  (not met)
