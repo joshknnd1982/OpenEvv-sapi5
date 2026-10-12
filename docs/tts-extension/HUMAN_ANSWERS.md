@@ -180,3 +180,11 @@ The auto-mode check refused to run `build_all.bat` (it rewrites the tracked `dis
 | Question | Choices offered | Answer |
 |---|---|---|
 | **Q65.** A defect in what Phase 12 shipped: in 65 languages, after certain diphthongs, later sounds land on the wrong vowels (Vietnamese: 43 of 199 sounds of the check's text). A one-rule fix in the generator removes it; recognition so far unchanged (12 of 14 within 0.02). What should Phase 13 do? | Fix, re-measure, release (recommended) · Put the 65 on 1.3.0 sounds · Stop Phase 13 here | **Fix, re-measure, release.** |
+
+## 2026-10-12, Phase 13: publishing release 1.4.0 (OPEN_QUESTIONS.md Q66)
+
+Asked with AskUserQuestion after showing in chat the tag (`v1.4.0` on `main` at `3d02974`), the title, the notes (`phase13/release_notes_1.4.0.md`) and the three files with sizes and SHA-256, and saying that Faroese is newly worse by more than 0.10 since Q62 and that eight languages' figures vary from run to run; the recommended choice first.
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| **Q66.** Publish release v1.4.0 on GitHub now, with the installer, the language-pack zip and the samples zip, and the notes shown (including that Faroese is now harder to understand than in 1.3.0)? | Publish now (recommended) · After I test the installer | **Publish now.** |

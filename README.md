@@ -18,7 +18,7 @@ The OpenEVV text-to-speech engine as SAPI 5 voices for Windows, in both 32-bit a
 
 ## What is new in 1.4.0: every language read by eSpeak NG speaks with the IPA sounds
 
-*1.4.0 is the first release published with this work: 1.3.0 (the section after this one) was built but never published on its own. If the [Releases](../../releases) page does not show 1.4.0 yet, the release there (1.2.4) has none of it.*
+*1.4.0, published on the [Releases](../../releases/tag/v1.4.0) page on 12 October 2026, is the first release with this work: 1.3.0 (the section after this one) was built but never published on its own, so 1.4.0 brings both.*
 
 In 1.3.0 every symbol of the IPA chart got a measured sound in the engine, but no language used them: each language read by eSpeak NG still spoke with the sounds an older generator had written for it. **In 1.4.0 all 146 of them, languages, dialects and accents, speak with the IPA master table's sounds**, the same table the chart's proofs use, so a sound fixed once in the table is fixed for every language that has it. The ten languages the engine speaks itself are unchanged, and so are the engine's modules, the eSpeak NG front-end and its data.
 
@@ -31,6 +31,8 @@ In 1.3.0 every symbol of the IPA chart got a measured sound in the engine, but n
 **A fault found and fixed before release.** The installer build's own check of every language pack found that in 65 languages a diphthong said with the module's own two-part phone (as in English *eye*, German *ei*) made the engine lose its place and put later words' sounds on the wrong vowels (in Vietnamese, 43 of the 199 sounds of the check's text). Those diphthongs are now a vowel gliding to the next, as the table writes them; the check passes for all 146 again, and the figures above were measured after the fix (`docs/tts-extension/DECISIONS.md` D99).
 
 **Levels now** ([`docs/tts-extension/LANGUAGE_STATUS.md`](docs/tts-extension/LANGUAGE_STATUS.md)): **1 at level 1** (Quechua), **152 at level 2**, **3 at level 4** (US English, New York English, Portuguese), none at level 3 or 5. **No language is confirmed authentic**: only a named native speaker's signed review can raise a language to level 5.
+
+**Hear it before you install.** The release has three downloads: the installer; `OpenEVV-eSpeak-NG-samples-1.4.0.zip`, one recording per language as 1.4.0 says it (its sample sentence and numbers in two voices, a word spelled, punctuation spelled), with a LISTEN.txt inside on what to listen for; and `OpenEVV-eSpeak-NG-languages-1.4.0.zip`, the 146 languages read by eSpeak NG and the modules that speak them, for adding to an installed copy (see "Adding a new language to your installed copy" below). The release page gives each file's SHA-256.
 
 **Native speakers, please tell us.** See "Native speakers: help make your language right" below: a [language review issue](../../issues/new?template=language-review.yml), a pull request to the language's `pack.toml`, or a review packet's `feedback.toml`.
 
@@ -211,7 +213,7 @@ Sometimes a language has a sound that neither eSpeak NG nor OpenEVV has yet.
 
 New OpenEVV languages are published as language packs: a `.zip` holding one folder with `language.ini` and two engine modules. To add one:
 
-1. Download the pack's `.zip`, for example `OpenEVV-language-xxxx-1.0.0.zip`, from the [Releases](../../releases) page, or from wherever it was announced.
+1. Download the pack's `.zip`, for example `OpenEVV-language-xxxx-1.0.0.zip`, from the [Releases](../../releases) page, or from wherever it was announced. `OpenEVV-eSpeak-NG-languages-1.4.0.zip` on the 1.4.0 release holds all 146 languages read by eSpeak NG at once, each a folder of its own, with the seven modules that speak them: adding it installs or updates every one of them in an installed copy of 1.4.0.
 2. Open **OpenEVV Configuration** (on the desktop and in the Start menu) and go to the **Languages** page.
 3. Press **Add a language pack...**, choose the `.zip` you downloaded, and press Open. You do not have to extract it first.
 
