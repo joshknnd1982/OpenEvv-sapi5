@@ -1,0 +1,306 @@
+ 
+// This file is UTF8 encoded
+// Spelling-to-phoneme words for Lithuanian
+
+
+// names of Lithuanian letters
+// translation rules for Lithuanian
+// This file is UTF-8 encoded
+
+a	a
+ą	a:_no:s;'in;ee
+b	b;ee
+c	ts;ee
+č	tS;ee
+d	d;ee
+e	ea
+ę	ea_no:s;'in;ee
+ė	ee
+f	ef
+g	gee
+h	ha
+i	i
+į	i: // kaip prielinksnis, tad netinka [i:_no:s'ine:]
+_į	i_no:s;'in;ee
+į	i_no:s;'in;ee	$atend
+//y	i:_ilg'o:ji // dažniau matematikoje sutinkama, tad netinka
+j	jot
+k	ka
+l	el
+m	em
+n	en
+o	o:
+p	p;ee
+r	er
+s	es
+š	eS
+t	t;ee
+u	u
+ų	u:_no:s;'in;ee
+ū	u:_ilg'o:ji
+v	v;ee
+z	z;ee
+ž	Z;ee
+
+// diphthong consonants
+dz	dzee
+dž	dZee
+
+// Latin letters - lotyniškos raidės
+q	ku:
+w	d;v;'iguba_vee
+x	iks
+y	i:gr;ek
+_y	i:_ilg'o:ji
+y	i:_ilg'o:ji	$atend
+
+// ẽ and ỹ (tilde of the Lithuanian accentuation) are not in eSpeak's table of accented letters
+_ẽ	,ea||t;'Il;d;ee
+_ỹ	i:_ilg'o:ji||t;'Il;d;ee
+//z	z;et
+
+// numbers - skaičiai
+_0	n'ul;is
+_1	v;'ienas
+_2	du
+_3	tri:s
+_4	k;etur'I
+_5	p;enk'I
+_6	S;eS'I
+_7	s;ept;i:n;'I
+_8	aStuon;'I
+_9	d;evi:n;'I
+_10	d;'eS;imt
+_11	v;ien'uol;ika
+_12	dv;'i:l;ika
+_13	tr;'i:l;ika
+_14	k;etur;'o:l;ika
+_15	p;enk;'o:l;ika
+_16	S;eS;'o:l;ika
+_17	s;ept;i:n;'o:l;ika
+_18	aStuon;'o:l;ika
+_19	dev;i:n;'o:l;ika
+_2X	dv;'Id;eS;imt
+_3X	tr;'Isd;eS;imt
+_4X	k;'eAtur;ez;d;eS;imt
+_5X	p;'EN;k;ez;d;eS;imt
+_6X	S;'eAS;ez;d;eS;imt
+_7X	s;ep;t;'i:nez;d;eS;imt
+_8X	aSt'Uon;ez;d;eS;imt
+_9X	d;ev;'i:n;ez;d;eS;imt
+_0C	S;imtai_
+_1C	S;imtas_
+
+//Lithuanian number name for thousand(t'u:kstantis) ends with
+//rule #1 - is - last number 1(except 11): 21000, 31000, 41000
+//rule #2 u: - last number 0: 20000, 30000, 40000 and for [11000-19000]
+//rule #3 ei - All other cases
+_0M1	t'u:kstantS;ei_ 
+_0MA1	t'u:kstant;is_ 
+_0MB1	t'u:kstantS;u_ 
+_1M1	t'u:kstant;is_ // no '1' before thousand
+
+_0M2	m;il;ij'o:nai_
+_0MA2	m;il;ij'o:nas_
+_0MB2	m;il;ij'o:nu:_
+_1M2	m;il;ij'o:nas_
+_0M3	m;il;ij'a:rdai_
+_0MA3	m;il;ij'a:rdas_
+_0MB3	m;il;ij'a:rdu:_
+_1M3	m;il;ij'a:rdas_
+_0M4	tr;il;ij'o:nai_
+_0MA4	tr;il;ij'o:nas_
+_0MB4	tr;il;ij'o:nu:_
+_1M4	tr;il;ij'o:nas_
+_dpt	_kabl;'el;is // comma
+// _dpt2	 _d;eS;'Imtos;o:s // bet netinka, nes gali būti ir _t'u:kstantos;o:s ar pan...
+
+
+// pronouns - įvardžiai
+aš	AS_
+tu	tU_
+jis	jIs_
+ji	jI_
+
+manęs	$2
+tavęs	$2
+savęs	$2
+
+man	mAan_
+tau	tAau_
+sau	sAau_
+mums	mUms_
+jums	jUms_
+
+mane	man;'E_
+tave	tav;'E_
+save	sav;'E_
+
+manimi	$3
+tavimi	$3
+savimi	$3
+mumis	$2
+jumis	$2
+
+manyje	man;i:j;'E_
+tavyje	tav;i:j;'E_
+savyje	sav;i:j;'E_
+mumyse	mum;i:s;'E_
+jumyse	jum;i:s;'E_
+
+// conjunctions -jungtukai
+ir	$u $pause
+bet	$u $pause
+o	$u $pause
+
+// Abbreviations - sutrumpinimai
+btv	$abbrev // paraidžiui
+el	el;ektron;in;is
+gr	gr'Aiku:
+liet	l;iet'Uv;u:
+lkl	$abbrev
+lot	lot'i:nu:
+lnk	$abbrev
+lrt	$abbrev
+ltv	$abbrev
+nr	n'um;er;is
+raj	raj'Onas
+tūkst	t'u:kstantS;ei_ 
+mln	m;il;ij'o:nai_
+
+// character names
+_!	Saukt'Ukas
+_"	t;'ies;os;os_kab'Utees
+//_#
+_'	apostr'Ofas
+_,	kabl;'el;is
+_-	m'Inus
+_.	t'aSkas
+_:	d;v;'ItaSk;is
+_;	kab;l;'etaSk;is
+//_<
+//_>
+_?	klaust'Ukas
+_@	'Eta
+_^	Sakn'Is_iS
+__	pabrauk;'Imo_bru:k;S;n'i:s
+//_`
+//_|
+_~	t'Ildee
+//_¦
+//_´
+//_¿
+//_‒
+//_‖
+
+// names of marks and symbols when they are spelled or read with punctuation on (as NVDA's Lithuanian
+// symbols; they do not change how a mark is read in text), and the accent marks of Lithuanian accentuation
+_(	kair;'i:s||s;k;l;'Ewstas	// kairys skliaustas
+_)	d;eS;in;'i:s||s;k;l;'Ewstas	// dešinys skliaustas
+_[	kair;'i:s||lauSt;'In;is||s;k;l;'Ewstas	// kairys laužtinis skliaustas
+_]	d;eS;in;'i:s||lauSt;'In;is||s;k;l;'Ewstas	// dešinys laužtinis skliaustas
+_{	kair;'i:s||@-r;ies;t;'In;is||s;k;l;'Ewstas	// kairys riestinis skliaustas
+_}	d;eS;in;'i:s||@-r;ies;t;'In;is||s;k;l;'Ewstas	// dešinys riestinis skliaustas
+_<	maZ'eu	// mažiau
+_>	daug'eu	// daugiau
+_|	st'atus||b@-ru:kS;n;'i:s	// status brūkšnys
+_#	g@-ro:t;'el;ees	// grotelės
+_&	amp;ers;'endas	// ampersendas
+_`	g@-r'av;is	// gravis
+_«	kair;'In;ees||lauSt;'In;ees||kab'ut;ees	// kairinės laužtinės kabutės
+_»	d;eS;in;'In;ees||lauSt;'In;ees||kab'ut;ees	// dešininės laužtinės kabutės
+_„	at;idar'o:mo:s||kab'ut;ees	// atidaromos kabutės
+_“	uZdar'o:mo:s||kab'ut;ees	// uždaromos kabutės
+_”	uZdar'o:mo:s||kab'ut;ees	// uždaromos kabutės
+_‚	apat;'In;ee||v;ieng'ub;ee||kab'ut;ee	// apatinė viengubė kabutė
+_‘	v;irSut;'In;ee||v;ieng'ub;ee||kab'ut;ee	// viršutinė viengubė kabutė
+_’	apo:st@-r'o:fas	// apostrofas
+_‹	kair;'In;ee||lauSt;'In;ee||kab'ut;ee	// kairinė laužtinė kabutė
+_›	d;eS;in;'In;ee||lauSt;'In;ee||kab'ut;ee	// dešininė laužtinė kabutė
+_–	b@-ru:kS;n;'i:s	// brūkšnys
+_—	'Ilgas||b@-ru:kS;n;'i:s	// ilgas brūkšnys
+_…	d'auktaS;k;is	// daugtaškis
+_·	v;idur;'In;is||t'aSkas	// vidurinis taškas
+_•	p'unktas	// punktas
+_§	parag@-r'afas	// paragrafas
+_¶	past@-r'aipo:s||Z'enklas	// pastraipos ženklas
+_©	aut'o:r;u:||t;e'Is;ees	// autorių teisės
+_®	@-r;egist@-r'uota	// registruota
+_™	p@-r;'ek;ees||Z'enklas	// prekės ženklas
+_€	e'uras	// euras
+_£	sv'aras	// svaras
+_¥	j'ena	// jena
+_¢	ts;'entas	// centas
+_№	n'um;er;is	// numeris
+_×	d'aug;in;t;i	// dauginti
+_÷	dal;'In;t;i||'IS	// dalinti iš
+_‰	p@-ro:m;'Il;ee	// promilė
+_µ	m;'Ik@-ro:	// mikro
+_†	k@-r;i:Z'el;is	// kryželis
+_−	m;'Inus	// minus
+_¡	apv;'erstas||Saukt'ukas	// apverstas šauktukas
+_¿	apv;'erstas||klaust'ukas	// apverstas klaustukas
+_ 	n;ep;ert@-rauk;'emas||t'arpas	// nepertraukiamas tarpas U+00A0
+_́	d;eS;in;'In;is||k;'Irt;is	// dešininis kirtis U+0301
+_̀	kair;'In;is||k;'Irt;is	// kairinis kirtis U+0300
+_̃	@-r;ies;t;'In;is||k;'Irt;is	// riestinis kirtis U+0303
+
+
+=	l;'i:gu
+*	ZvaigZd'Utee
+%	pr'Otsentai
++	p;l;'us
+@	'Eta_:
+/	d;eSin;'In;is_bru:k;S;n'i:s
+\	kair;'In;is_bru:k;S;n'i:s
+$	d'o:l;er;is
+€	'Euras
+//&
+//¢
+//£
+//¥
+//₨ r'Upije
+§	s'Ektsija
+¶	paragr'a:fas
+©	autor'Inees||t'eisees
+//®
+°	l'Aaipsnis
+//−	mi:nuss
+±	plus_minus
+//µ	m'IkrO
+¼	k;et;v;irt'adal;is
+½	p'Usee
+¾	tr'i:s||k;et;v;irt'adal;ei
+//×
+//÷
+♯	d'iezas
+♭	bemolis
+
+
+// accent names
+_dot t'aSkas
+_acu	ak'u:tas
+_ac2	dv;'igubas||ak'u:tas
+_grv	gr'av;is
+_cir	ts;irkumfl;'eksas
+_dia	uml;'eUtas
+_tld	t;'Il;d;ee
+_ced	s;ed;'Il;ee
+_hac	paukS;tS;'ukas
+_brv	lank;'el;is
+_mcn	bru:kS;n;'el;is
+_ogo	no:s;'in;ee
+_rng	Z'iedas
+_lig	l;igat'u:ra
+
+// capital letter (didžioji)
+_cap	d;idZ;'o:ji
+
+// English Words
+cancel		_^_EN
+continue	_^_EN
+firefox		_^_EN
+magnifier	_^_EN
+reader		_^_EN
+screen		_^_EN
+windows		_^_EN

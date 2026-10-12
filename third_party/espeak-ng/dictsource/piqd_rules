@@ -1,0 +1,130 @@
+// Replace Klingon letters to Latin
+.replace
+       a
+       b
+       ch
+       D
+       e
+       gh
+       H
+       I
+       j
+       l
+       m
+       n
+       ng
+       o
+       p
+       q
+       qh // should be Q, but eSpeak NG rules don't distinguish capital letters
+       r
+       S
+       t
+       th // should be tlh, but current .replace has limits of total bytes replaced
+       u
+       v
+       w
+       y
+       '
+          1 
+          2
+          3
+          4
+          5
+          6
+          7
+          8
+          9
+          0
+         ,
+         .
+//XIFAN (klingon mapped to latin)
+//     c   ch
+     f   ng
+//     g   gh
+     k   q
+     x   th
+     z   '
+
+.group a
+    a     a
+    aw    au
+    ay    ai
+
+.group b
+    b     b
+
+.group ch
+    ch    tS
+
+.group d
+    d     D
+
+.group e
+    e     E
+    ey    ei
+    ew    Eu
+
+.group g
+    gh    r-
+
+.group h
+    h     x
+
+.group i
+    i     i
+    iy    i:
+    iw    iu
+
+.group j
+    j     dZ
+
+.group l
+    l     l
+
+.group m
+    m     m
+
+.group n
+    n     n
+    ng    N
+
+.group o
+    o     o
+    oy    oi
+
+.group p
+    p     p
+
+.group q
+    q     q
+    qh    qx  // from replaced Klingon Q letter
+
+.group r
+    r     R
+
+.group s
+    s     S
+
+.group t
+    t     t
+    th    dX  // from replaced Klingon letter
+    tlh   dX
+
+.group u
+    u     u
+    uy    ui
+
+.group v
+    v     v
+    vI    vi
+
+.group w
+    w     w
+
+.group y
+    y     j
+
+.group 
+    '     ?
+    z     ?

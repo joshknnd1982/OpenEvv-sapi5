@@ -1,0 +1,2362 @@
+// Emoji and Other Symbol pronunciations for Estonian
+//
+// Entries with `text|emoji` in the comments have text and emoji forms. They
+// can be followed by [FE0E] to select the text style, and [FE0F] to select
+// the emoji style.
+//
+// Entries with 'other' in the comments are not defined as emoji, but are other
+// Unicode characters.
+//
+// NOTE: See `src/ucd-tools/data/espeak-ng/emoji-data.txt` for additional data
+// in interpreting ZWJ emoji sequences.
+
+$textmode
+
+// 0000..007F : C0 Controls and Basic Latin
+
+//+	plus								// [002B] other (no translation)
+
+// 0080..00FF : C1 Controls and Latin-1 Supplement
+
+//¢	cents								// [00A2] other (no translation)
+//£	pound								// [00A3] other (no translation)
+//¤	currency sign							// [00A4] other (no translation)
+//¥	yen								// [00A5] other (no translation)
+//§	section								// [00A7] other (no translation)
+//¨	double dot							// [00A8] other (no translation)
+©	autoriõigus							// [00A9] text|emoji
+//¬	not sign							// [00AC] other (no translation)
+®	registreeritud							// [00AE] text|emoji
+//°	degrees								// [00B0] other (no translation)
+//±	plus or minus							// [00B1] other (no translation)
+//µ	micro								// [00B5] other (no translation)
+//¶	paragraph							// [00B6] other (no translation)
+//¼	a quarter							// [00BC] other (no translation)
+//½	a half								// [00BD] other (no translation)
+//¾	three quarters							// [00BE] other (no translation)
+//×	times								// [00D7] other (no translation)
+//÷	divided by							// [00F7] other (no translation)
+
+// 02B0..02FF : Spacing Modifier Letters
+
+//˙	dot								// [02D9] other (no translation)
+
+// 0900..097F : Devanagari
+
+//।	danda								// [0964] other (no translation)
+
+// 2000..203C : General Punctuation
+
+‼	topelthüüumärk							// [203C] text|emoji
+⁄	murru kaldkriips					// [2044]
+⁉	küsimärgiga hüüumärk						// [2049] text|emoji
+⁻	ülamiinus						// [207B]
+₡	Costa Rica koloon					// [20A1]
+₢	kruseiro						// [20A2]
+₣	Prantsuse frank						// [20A3]
+₤	liir							// [20A4]
+₥	mill							// [20A5]
+₦	Nigeeria naira						// [20A6]
+₧	Hispaania peseeta					// [20A7]
+
+// 20A0..20CF : Currency Symbols
+
+₨	ruupia							// [20A8]
+₪	Iisraeli uus seekel					// [20AA]
+₫	Vietnami dong						// [20AB]
+€	euro							// [20AC]
+₭	Laose kiip						// [20AD]
+₮	Mongoolia tugrik					// [20AE]
+₰	Saksa penn						// [20B0]
+₱	peeso							// [20B1]
+₲	Paraguay guaranii					// [20B2]
+₳	austral							// [20B3]
+₴	Ukraina grivna						// [20B4]
+₵	Ghana sedi						// [20B5]
+₶	Toursi livr						// [20B6]
+₷	spesmilo						// [20B7]
+₸	Kasahstani tenge					// [20B8]
+₹	India ruupia						// [20B9]
+₺	Türgi liir						// [20BA]
+₼	Aserbaidžaani manat					// [20BC]
+₽	rubla							// [20BD]
+₾	Gruusia lari						// [20BE]
+₿	bitcoin							// [20BF]
+
+// 2100..214F : Letterlike Symbols
+
+//№	numero								// [2116] other (no translation)
+℗	helisalvestise autoriõigus				// [2117]
+//℞	prescription							// [211E] other (no translation)
+™	kaubamärk							// [2122] text|emoji
+ℹ	teabeallikas							// [2139] text|emoji
+
+// 2150..218F : Number Forms
+
+//⅓	one third							// [2153] other (no translation)
+//⅔	two thirds							// [2154] other (no translation)
+
+// 2190..21FF : Arrows
+
+←	vasaknool						// [2190]
+↑	ülesnool						// [2191]
+→	paremnool						// [2192]
+↓	allanool						// [2193]
+↔	nool paremale-vasakule						// [2194] text|emoji
+↕	nool üles-alla							// [2195] text|emoji
+↖	nool üles vasakule						// [2196] text|emoji
+↗	nool üles paremale						// [2197] text|emoji
+↘	nool alla paremale						// [2198] text|emoji
+↙	nool alla vasakule						// [2199] text|emoji
+↚	sirge vasaknool						// [219A]
+↛	sirge paremnool						// [219B]
+↜	laineline vasaknool					// [219C]
+↝	laineline paremnool					// [219D]
+↞	kahe peaga vasaknool					// [219E]
+↟	kahe peaga ülesnool					// [219F]
+↠	kahe peaga paremnool					// [21A0]
+↡	kahe peaga allanool					// [21A1]
+↢	sabaga vasaknool					// [21A2]
+↣	sabaga paremnool					// [21A3]
+↤	vasakule nool ribast					// [21A4]
+↥	ülesnool ribast						// [21A5]
+↦	paremale nool ribast					// [21A6]
+↧	allanool ribast						// [21A7]
+↨	ülesnool alusega					// [21A8]
+↩	kaardus nool vasakule						// [21A9] text|emoji
+↪	kaardus nool paremale						// [21AA] text|emoji
+↫	vasakule noolega silmus					// [21AB]
+↬	paremale noolega silmus					// [21AC]
+↭	vasakule-paremale laineline nool			// [21AD]
+↮	sirge vasak-paremnool					// [21AE]
+↯	sakiline allanool					// [21AF]
+↰	üles vasakule pöörav nool				// [21B0]
+↱	üles paremale pöörav nool				// [21B1]
+↲	alla vasakule pöörav nool				// [21B2]
+↳	alla paremale pöörav nool				// [21B3]
+↴	paremale nurgaga alla nool				// [21B4]
+↵	alla nurgaga vasakule nool				// [21B5]
+↶	vastupäeva ülemise poolkaarega nool			// [21B6]
+↷	päripäeva ülemise poolkaarega nool			// [21B7]
+↸	loodesse nool pika ribaga				// [21B8]
+↹	ribaga vasaknool ribaga paremnoole peal			// [21B9]
+↺	vastupäeva avatud ringiga nool				// [21BA]
+↻	päripäeva avatud ringiga nool				// [21BB]
+↼	vasakule harpuun ülemise kiskuga			// [21BC]
+↽	vasakule harpuun alumise kiskuga			// [21BD]
+↾	üles harpuun parema kiskuga				// [21BE]
+↿	üles harpuun vasaku kiskuga				// [21BF]
+⇀	paremale harpuun ülemise kiskuga			// [21C0]
+⇁	paremale harpuun alumise kiskuga			// [21C1]
+⇂	alla harpuun parema kiskuga				// [21C2]
+⇃	alla harpuun vasaku kiskuga				// [21C3]
+⇄	paremnool vasaknoole kohal				// [21C4]
+⇅	ülesnool ja allanool					// [21C5]
+⇆	vasaknool paremnoole kohal				// [21C6]
+⇇	paaris vasaknooled					// [21C7]
+⇈	paaris ülesnooled					// [21C8]
+⇉	paaris paremnooled					// [21C9]
+⇊	paaris allanooled					// [21CA]
+⇋	vasakharpuun paremharpuuni peal				// [21CB]
+⇌	paremharpuun vasakharpuuni peal				// [21CC]
+⇍	läbikriipsutatud topelt-vasaknool			// [21CD]
+⇎	vasak-parem läbikriipsutatud topeltnool			// [21CE]
+⇏	läbikriipsutatud topelt-paremnool			// [21CF]
+⇐	topelt-vasaknool					// [21D0]
+⇑	topelt-ülesnool						// [21D1]
+⇒	topelt-paremnool					// [21D2]
+⇓	topelt-allanool						// [21D3]
+⇔	vasakule-paremale topeltnool				// [21D4]
+⇖	topeltnool loodesse					// [21D6]
+⇗	topeltnool kirdesse					// [21D7]
+⇘	topeltnool kagusse					// [21D8]
+⇙	topeltnool edelasse					// [21D9]
+⇚	kolmiknool vasakule					// [21DA]
+⇛	kolmiknool paremale					// [21DB]
+⇜	väänlev vasaknool					// [21DC]
+⇝	väänlev paremnool					// [21DD]
+⇞	topeltkriipsudega ülesnool				// [21DE]
+⇟	topeltkriipsudega allanool				// [21DF]
+⇠	katkendlik vasaknool					// [21E0]
+⇡	katkendlik ülesnool					// [21E1]
+⇢	katkendlik paremnool					// [21E2]
+⇣	katkendlik allanool					// [21E3]
+⇤	vasaknool ribani					// [21E4]
+⇥	paremnool ribani					// [21E5]
+⇦	seest tühi vasaknool					// [21E6]
+⇧	seest tühi ülesnool					// [21E7]
+⇨	seest tühi paremnool					// [21E8]
+⇩	seest tühi allanool					// [21E9]
+⇪	seest tühi ülesnool tulbast				// [21EA]
+⇵	allanool vasakul ülesnool paremal			// [21F5]
+∀	kõigi jaoks						// [2200]
+
+// 2200..22FF : Mathematical Operators
+
+∂	osatuletis						// [2202]
+∃	on olemas						// [2203]
+∅	tühihulk						// [2205]
+∆	juurdekasv						// [2206]
+∇	nabla							// [2207]
+∈	element							// [2208]
+∉	ei kuulu hulka						// [2209]
+∋	sisaldab liiget						// [220B]
+∎	tõestuse lõpp						// [220E]
+∏	korrutis						// [220F]
+∑	summa							// [2211]
+−	miinusmärk						// [2212]
+∓	miinus või pluss					// [2213]
+∕	jagamise kaldkriips					// [2215]
+∗	tärnimärk						// [2217]
+∘	ringimärk						// [2218]
+∙	täppmärk						// [2219]
+√	ruutjuur						// [221A]
+//∛	cube root							// [221B] other (no translation)
+∝	proportsionaalne					// [221D]
+∞	lõpmatuse märk						// [221E]
+∟	paremnurk						// [221F]
+∠	nurk							// [2220]
+∣	jagatud							// [2223]
+∥	paralleelne						// [2225]
+∧	loogiline ja						// [2227]
+∩	lõikumine						// [2229]
+∪	union							// [222A]
+∫	integraal						// [222B]
+∬	topeltintegraal						// [222C]
+∮	kontuurintegraal					// [222E]
+∴	järelikult						// [2234]
+∵	sest							// [2235]
+∶	suhe							// [2236]
+∷	proportsioon						// [2237]
+∼	tehtemärk tilde						// [223C]
+∽	tagurpidi tilde						// [223D]
+∾	horisontaal- ja pöördasendis s				// [223E]
+≃	asümptootiliselt võrdne					// [2243]
+≅	ligikaudu võrdne					// [2245]
+≈	võrdub ligikaudu					// [2248]
+≌	kõik võrdsed						// [224C]
+≒	pilt ligikaudu võrdne					// [2252]
+≖	ringiga võrdusmärk					// [2256]
+≠	ei võrdu						// [2260]
+≡	identne							// [2261]
+≣	rangelt samaväärne					// [2263]
+≤	väiksem või võrdne					// [2264]
+≥	suurem või võrdne					// [2265]
+≦	väiksem kui või võrdne					// [2266]
+≧	suurem kui või võrdne					// [2267]
+≪	palju väiksem kui					// [226A]
+≫	palju suurem kui					// [226B]
+≬	vahemikus						// [226C]
+≮	mitte väiksem kui					// [226E]
+≯	mitte suurem kui					// [226F]
+≳	suurem kui ekvivalentne					// [2273]
+≺	eelneb							// [227A]
+≻	järgneb							// [227B]
+⊁	ei eelne						// [2281]
+⊂	pärisalamhulk						// [2282]
+⊃	pärisülemhulk						// [2283]
+⊆	alamhulk						// [2286]
+⊇	ülemhulk						// [2287]
+⊕	plussmärk ringis					// [2295]
+⊖	miinusmärk ringis					// [2296]
+⊗	korrutusmärk ringis					// [2297]
+⊘	jagamismärk ringis					// [2298]
+⊙	punkt ringis operaator					// [2299]
+⊚	ring ringis operaator					// [229A]
+⊛	tärn ringis operaator					// [229B]
+⊞	pluss ruudus						// [229E]
+⊟	miinus ruudus						// [229F]
+⊥	falsum							// [22A5]
+⊮	ei sunni						// [22AE]
+⊰	eelneb suhte all					// [22B0]
+⊱	järgneb suhte all					// [22B1]
+⊶	originaal						// [22B6]
+⊹	hermiitiline kaasmaatriks				// [22B9]
+⊿	täisnurkne kolmnurk					// [22BF]
+⋁	loogiline või						// [22C1]
+⋂	hulkade ühisosa						// [22C2]
+⋃	hulkade ühend						// [22C3]
+⋅	täpi operaator						// [22C5]
+⋆	tähe operaator						// [22C6]
+⋈	naturaalne liide					// [22C8]
+⋒	kahekordne lõikepunkt					// [22D2]
+⋘	väga palju väiksem kui					// [22D8]
+⋙	väga palju suurem kui					// [22D9]
+⋭	ei sisalda nagu tavaline alarühma võrdne		// [22ED]
+⋮	vertikaalsed kolm punkti				// [22EE]
+⋯	keskjoone horisontaalsed kolm punkti			// [22EF]
+⋰	paremale üles digonaalsed kolm punkti			// [22F0]
+⋱	paremale alla diagonaalsed kolm punkti			// [22F1]
+
+// 2300..23FF : Miscellaneous Technical
+
+⌚	käekell								// [231A]
+⌛	liivakell							// [231B]
+⌨	klaviatuur							// [2328] text|emoji
+⏏	väljutamisnupp							// [23CF] text|emoji
+⏩	edasikerimisnupp						// [23E9]
+⏪	tagasikerimise nupp						// [23EA]
+⏫	kiirkerimine üles						// [23EB]
+⏬	kiirkerimine alla						// [23EC]
+⏭	järgmise loo nupp						// [23ED] text|emoji
+⏮	eelmise loo nupp						// [23EE] text|emoji
+⏯	esitus- ja pausinupp						// [23EF] text|emoji
+⏰	äratuskell							// [23F0]
+⏱	stopper								// [23F1] text|emoji
+⏲	taimer								// [23F2] text|emoji
+⏳	voolava liivaga kell						// [23F3]
+⏸	pausinupp							// [23F8] text|emoji
+⏹	peatamisnupp							// [23F9] text|emoji
+⏺	salvestusnupp							// [23FA] text|emoji
+
+// 2460..24FF : Enclosed Alphanumerics
+
+Ⓜ	M ringis							// [24C2] text|emoji
+
+// 25A0..25FF : Geometric Shapes
+
+■	täidetud ruut						// [25A0]
+□	seest tühi ruut						// [25A1]
+▢	ümarate nurkadega seest tühi ruut			// [25A2]
+▣	täidetud ruut seest tühja ruudu sees			// [25A3]
+▤	rõhtsate triipudega ruut				// [25A4]
+▥	püstiste triipudega ruut				// [25A5]
+▦	ortogonaalse ristviirutusega ruut			// [25A6]
+▧	ülevalt vasakult alla paremale viirutusega ruut		// [25A7]
+▨	ülevalt paremalt alla vasakule viirutusega ruut		// [25A8]
+▩	diagonaalse ristviirutusega ruut			// [25A9]
+▪	väike must ruut							// [25AA] text|emoji
+▫	väike valge ruut						// [25AB] text|emoji
+▬	täidetud ristkülik					// [25AC]
+▭	seest tühi ristkülik					// [25AD]
+▮	täidetud püstine ristkülik				// [25AE]
+▰	täidetud rööpkülik					// [25B0]
+▲	täidetud üles-kolmnurk					// [25B2]
+△	seest tühi kolmnurk tipuga üleval			// [25B3]
+▴	täidetud väike kolmnurk tipuga üleval			// [25B4]
+▵	seest tühi väike kolmnurk tipuga üleval			// [25B5]
+▶	esitusnupp							// [25B6] text|emoji
+▷	seest tühi kolmnurk tipuga paremal			// [25B7]
+▸	täidetud väike kolmnurk tipuga paremal			// [25B8]
+▹	seest tühi väike kolmnurk tipuga paremal		// [25B9]
+►	täidetud viit paremale					// [25BA]
+▻	seest tühi viit paremale				// [25BB]
+▼	täidetud alla-kolmnurk					// [25BC]
+▽	seest tühi kolmnurk tipuga all				// [25BD]
+▾	täidetud väike kolmnurk tipuga all			// [25BE]
+▿	seest tühi väike kolmnurk tipuga all			// [25BF]
+◀	tagurpidi esitamise nupp					// [25C0] text|emoji
+◁	seest tühi kolmnurk tipuga vasakul			// [25C1]
+◂	täidetud väike kolmnurk tipuga vasakul			// [25C2]
+◃	seest tühi väike kolmnurk tipuga vasakul		// [25C3]
+◄	täidetud viit vasakule					// [25C4]
+◅	seest tühi viit vasakule				// [25C5]
+◆	täidetud teemant					// [25C6]
+◇	seest tühi teemant					// [25C7]
+◈	seest tühjas teemantis on täidetud teemant		// [25C8]
+◉	seest tühjas ringis on täidetud ring			// [25C9]
+◊	romb							// [25CA]
+○	tühi ring						// [25CB]
+◌	katkendlik ring						// [25CC]
+◍	püstiste triipudega ring				// [25CD]
+◎	kontsentrilised ringid					// [25CE]
+●	täidetud ring						// [25CF]
+◐	täidetud vasaku poolega ring				// [25D0]
+◑	täidetud parema poolega ring				// [25D1]
+◒	täidetud alumise poolega ring				// [25D2]
+◓	täidetud ülemise poolega ring				// [25D3]
+◔	täidetud ülemise parema veerandiga ring			// [25D4]
+◕	täidetud ring tühja ülemise vasaku veerandiga		// [25D5]
+◖	täidetud vasak poolring					// [25D6]
+◗	täidetud parem poolring					// [25D7]
+◘	pöördtäpp						// [25D8]
+◙	täidetud ruudus on seest tühi ring			// [25D9]
+◜	ringikujulise kaare ülemine vasak veerand		// [25DC]
+◝	ringikujulise kaare ülemine parem veerand		// [25DD]
+◞	ringikujulise kaare alumine parem veerand		// [25DE]
+◟	ringikujulise kaare alumine vasak veerand		// [25DF]
+◠	ülemine poolring					// [25E0]
+◡	alumine poolring					// [25E1]
+◢	täidetud kolmnurk all paremal				// [25E2]
+◣	täidetud kolmnurk all vasakul				// [25E3]
+◤	täidetud kolmnurk üleval vasakul			// [25E4]
+◥	täidetud kolmnurk üleval paremal			// [25E5]
+◦	seest tühi täpp						// [25E6]
+◯	suur tühi ring						// [25EF]
+◳	tühja ruudu sees on ruut üleval paremal			// [25F3]
+◷	tühja ringi sees on ruut üleval paremal			// [25F7]
+◻	keskmine valge ruut						// [25FB] text|emoji
+◼	keskmine must ruut						// [25FC] text|emoji
+◽	väiksem valge ruut						// [25FD]
+◾	väiksem must ruut						// [25FE]
+◿	kolmnurk all paremal					// [25FF]
+
+// 2600..26FF : Miscellaneous Symbols
+
+☀	päike								// [2600] text|emoji
+☁	pilv								// [2601] text|emoji
+☂	vihmavari							// [2602] text|emoji
+☃	lumememm							// [2603] text|emoji
+☄	komeet								// [2604] text|emoji
+☎	telefon								// [260E] text|emoji
+☑	märgitud ruut							// [2611] text|emoji
+☔	piiskadega vihmavari						// [2614]
+☕	kuum jook							// [2615]
+☘	ristik								// [2618] text|emoji
+☝	üles osutav sõrm						// [261D] text|emoji
+☠	kolp ja sääreluud						// [2620] text|emoji
+☢	radioaktiivne							// [2622] text|emoji
+☣	bioloogiline oht						// [2623] text|emoji
+☦	õigeusu rist							// [2626] text|emoji
+☪	täht ja kuusirp							// [262A] text|emoji
+☮	rahu sümbol							// [262E] text|emoji
+☯	yin-yang							// [262F] text|emoji
+☸	dharma ratas							// [2638] text|emoji
+☹	kulmu kortsutav nägu						// [2639] text|emoji
+☺	naerunägu							// [263A] text|emoji
+♀	naisesümbol							// [2640] text|emoji
+♂	mehesümbol							// [2642] text|emoji
+♈	Jäär								// [2648]
+♉	Sõnn								// [2649]
+♊	Kaksikud							// [264A]
+♋	Vähk								// [264B]
+♌	Lõvi								// [264C]
+♍	Neitsi								// [264D]
+♎	Kaalud								// [264E]
+♏	Skorpion							// [264F]
+♐	Ambur								// [2650]
+♑	Kaljukits							// [2651]
+♒	Veevalaja							// [2652]
+♓	Kalad								// [2653]
+♟	ettur								// [265F] text|emoji
+♠	poti								// [2660] text|emoji
+♣	risti								// [2663] text|emoji
+♥	ärtu								// [2665] text|emoji
+♦	ruutu								// [2666] text|emoji
+♨	kuumaveeallikad							// [2668] text|emoji
+♪	kaheksandiknoot						// [266A]
+♭	bemoll							// [266D]
+♯	diees							// [266F]
+♻	taaskasutuse sümbol						// [267B] text|emoji
+♾	lõpmatus							// [267E] text|emoji
+♿	ratastool							// [267F]
+⚒	haamer ja kirka							// [2692] text|emoji
+⚓	ankur								// [2693]
+⚔	ristatud mõõgad							// [2694] text|emoji
+⚕	meditsiinisümbol						// [2695] text|emoji
+⚖	kaalukausid							// [2696] text|emoji
+⚗	destilleerimisnõu						// [2697] text|emoji
+⚙	hammasratas							// [2699] text|emoji
+⚛	aatomi sümbol							// [269B] text|emoji
+⚜	prantsuse liilia						// [269C] text|emoji
+⚠	hoiatus								// [26A0] text|emoji
+⚡	kõrgepinge							// [26A1]
+⚧	transsoolisuse sümbol					// [26A7]
+⚪	valge ring							// [26AA]
+⚫	must ring							// [26AB]
+⚰	kirst								// [26B0] text|emoji
+⚱	tuhaurn								// [26B1] text|emoji
+⚽	jalgpall							// [26BD]
+⚾	pesapall							// [26BE]
+⛄	lumeta lumememm							// [26C4]
+⛅	päike pilve taga						// [26C5]
+⛈	äikese- ja vihmapilv						// [26C8] text|emoji
+⛎	Maokandja							// [26CE]
+⛏	kirka								// [26CF] text|emoji
+⛑	valge ristiga kiiver						// [26D1] text|emoji
+⛓	ahelad								// [26D3] text|emoji
+⛔	sisenemine keelatud						// [26D4]
+⛩	shinto tempel							// [26E9] text|emoji
+⛪	kirik								// [26EA]
+⛰	mägi								// [26F0] text|emoji
+⛱	vihmavari maas							// [26F1] text|emoji
+⛲	purskkaev							// [26F2]
+⛳	golfilipp							// [26F3]
+⛴	praam								// [26F4] text|emoji
+⛵	purjepaat							// [26F5]
+⛷	suusataja							// [26F7] text|emoji
+⛸	uisk								// [26F8] text|emoji
+⛹	inimene palliga							// [26F9] text|emoji
+⛺	telk								// [26FA]
+⛽	kütusepump							// [26FD]
+
+// 2700..27BF : Dingbats
+
+✂	käärid								// [2702] text|emoji
+✅	suur valge märge						// [2705]
+✈	lennuk								// [2708] text|emoji
+✉	ümbrik								// [2709] text|emoji
+✊	ülestõstetud rusikas						// [270A]
+✋	ülestõstetud käsi						// [270B]
+✌	võit								// [270C] text|emoji
+✍	kirjutav käsi							// [270D] text|emoji
+✏	pliiats								// [270F] text|emoji
+✒	must sulepea							// [2712] text|emoji
+✔	suur märge							// [2714] text|emoji
+✖	suur korrutusmärk						// [2716] text|emoji
+✝	ladina rist							// [271D] text|emoji
+✡	Taaveti täht							// [2721] text|emoji
+✨	sädemed								// [2728]
+✳	kaheksa tipuga tärn						// [2733] text|emoji
+✴	kaheksa tipuga täht						// [2734] text|emoji
+❄	lumehelves							// [2744] text|emoji
+❇	sädelus								// [2747] text|emoji
+❌	korrutusmärk							// [274C]
+❎	korrutusmärgiga nupp						// [274E]
+❓	küsimärk							// [2753]
+❔	valge küsimärk							// [2754]
+❕	valge hüüumärk							// [2755]
+❗	hüüumärk							// [2757]
+❣	südamega hüüumärk						// [2763] text|emoji
+❤	punane süda							// [2764] text|emoji
+➕	suur plussmärk							// [2795]
+➖	suur miinusmärk							// [2796]
+➗	suur jagamismärk						// [2797]
+➡	nool paremale							// [27A1] text|emoji
+➰	silmus								// [27B0]
+➿	topeltsilmus							// [27BF]
+
+// 2900..297F : Supplemental Arrows-B
+
+⤴	kaardus nool üles						// [2934] text|emoji
+⤵	kaardus nool alla						// [2935] text|emoji
+⨧	pluss alaindeks kaks					// [2A27]
+⨯	ristkorrutis						// [2A2F]
+⨼	sisekorrutis						// [2A3C]
+⩣	loogiline või kahekordne allkriips			// [2A63]
+⩽	vähem kui kaldus võrdne					// [2A7D]
+⪍	vähem kui sarnane võrdne kohal				// [2A8D]
+⪚	kahejooneline võrdusmärk suurem kui			// [2A9A]
+⪺	järgneb pole peaaegu võrdne kohal			// [2ABA]
+
+// 2B00..2BFF : Miscellaneous Symbols and Arrows
+
+⬅	nool vasakule							// [2B05] text|emoji
+⬆	nool üles							// [2B06] text|emoji
+⬇	nool alla							// [2B07] text|emoji
+⬛	suur must ruut							// [2B1B]
+⬜	suur valge ruut							// [2B1C]
+⭐	keskmine täht							// [2B50]
+⭕	suur ringjoon							// [2B55]
+
+// 3000..303F : CJK Symbols and Punctuation
+
+〰	laineline kriips						// [3030] text|emoji
+〽	osa vaheldumise märk						// [303D] text|emoji
+
+// 3200..32FF : Enclosed CJK Letters and Months
+
+㊗	jaapani nupp õnnitlused						// [3297] text|emoji
+㊙	jaapani nupp saladus						// [3299] text|emoji
+﷼	riaal							// [FDFC]
+
+// 1F100..1F1FF : Enclosed Alphanumeric Supplement
+
+🅰	nupp A (veregrupp)						// [1F170] text|emoji
+🅱	nupp B (veregrupp)						// [1F171] text|emoji
+🅾	nupp 0 (veregrupp)						// [1F17E] text|emoji
+🅿	nupp P								// [1F17F] text|emoji
+🆎	nupp AB (veregrupp)						// [1F18E]
+🆑	nupp CL								// [1F191]
+🆒	nupp COOL							// [1F192]
+🆓	nupp FREE							// [1F193]
+🆔	nupp ID								// [1F194]
+🆕	nupp NEW							// [1F195]
+🆖	nupp NG								// [1F196]
+🆗	nupp OK								// [1F197]
+🆘	nupp SOS							// [1F198]
+🆙	nupp UP!							// [1F199]
+🆚	nupp VS								// [1F19A]
+🇨🇶	Sark							// [1F1E8 1F1F6]
+
+// 1F200..1F2FF : Enclosed Ideographic Supplement
+
+🈁	jaapani nupp siin						// [1F201]
+🈂	jaapani nupp teenustasu						// [1F202] text|emoji
+🈚	jaapani nupp tasuta						// [1F21A]
+🈯	jaapani nupp reserveeritud					// [1F22F]
+🈲	jaapani nupp keelatud						// [1F232]
+🈳	jaapani nupp vaba						// [1F233]
+🈴	jaapani nupp sooritatud						// [1F234]
+🈵	jaapani nupp pole vaba						// [1F235]
+🈶	jaapani nupp pole tasuta					// [1F236]
+🈷	jaapani nupp kuutasu						// [1F237] text|emoji
+🈸	jaapani nupp rakendus						// [1F238]
+🈹	jaapani nupp allahindlus					// [1F239]
+🈺	jaapani nupp avatud						// [1F23A]
+🉐	jaapani nupp soodne						// [1F250]
+🉑	jaapani nupp vastuvõetav					// [1F251]
+
+// 1F000..1F02F : Mahjong Tiles
+
+🀄	mahjongi punane draakon						// [1F004]
+
+// 1F0A0..1F0FF : Playing Cards
+
+🃏	jokker								// [1F0CF]
+
+// 1F300..1F5FF : Miscellaneous Symbols and Pictographs
+
+🌀	tsüklon								// [1F300]
+🌁	udune								// [1F301]
+🌂	suletud vihmavari						// [1F302]
+🌃	öine tähistaevas						// [1F303]
+🌄	päikesetõus mägedes						// [1F304]
+🌅	päikesetõus							// [1F305]
+🌆	linna siluett videvikus						// [1F306]
+🌇	päikeseloojang							// [1F307]
+🌈	vikerkaar							// [1F308]
+🌉	sild öösel							// [1F309]
+🌊	veelaine							// [1F30A]
+🌋	vulkaan								// [1F30B]
+🌌	Linnutee							// [1F30C]
+🌍	Euroopa ja Aafrika gloobusel					// [1F30D]
+🌎	Ameerika mandrid gloobusel					// [1F30E]
+🌏	Aasia ja Austraalia gloobusel					// [1F30F]
+🌐	meridiaanidega gloobus						// [1F310]
+🌑	noorkuu								// [1F311]
+🌒	kasvav kuusirp							// [1F312]
+🌓	kasvav poolkuu							// [1F313]
+🌔	kasvav kuu							// [1F314]
+🌕	täiskuu								// [1F315]
+🌖	kahanev kuu							// [1F316]
+🌗	kahanev poolkuu							// [1F317]
+🌘	kahanev kuusirp							// [1F318]
+🌙	kuusirp								// [1F319]
+🌚	näoga noorkuu							// [1F31A]
+🌛	näoga kasvav kuu						// [1F31B]
+🌜	näoga kahanev kuu						// [1F31C]
+🌝	näoga täiskuu							// [1F31D]
+🌞	näoga päike							// [1F31E]
+🌟	helendav täht							// [1F31F]
+🌠	langev täht							// [1F320]
+🌡	kraadiklaas							// [1F321] text|emoji
+🌤	päike väikese pilve taga					// [1F324] text|emoji
+🌥	päike suure pilve taga						// [1F325] text|emoji
+🌦	päike vihmapilve taga						// [1F326] text|emoji
+🌧	vihmapilv							// [1F327] text|emoji
+🌨	lumepilv							// [1F328] text|emoji
+🌩	äikesepilv							// [1F329] text|emoji
+🌪	keeristorm							// [1F32A] text|emoji
+🌫	udu								// [1F32B] text|emoji
+🌬	näoga kuu							// [1F32C] text|emoji
+🌭	hot dog								// [1F32D]
+🌮	tako								// [1F32E]
+🌯	burrito								// [1F32F]
+🌰	kastan								// [1F330]
+🌱	võrse								// [1F331]
+🌲	igihaljas puu							// [1F332]
+🌳	lehtpuu								// [1F333]
+🌴	palmipuu							// [1F334]
+🌵	kaktus								// [1F335]
+🌶	tuline pipar							// [1F336] text|emoji
+🌷	tulp								// [1F337]
+🌸	kirsiõis							// [1F338]
+🌹	roos								// [1F339]
+🌺	hibisk								// [1F33A]
+🌻	päevalill							// [1F33B]
+🌼	õis								// [1F33C]
+🌽	maisitõlvik							// [1F33D]
+🌾	riisitaim							// [1F33E]
+🌿	maitsetaim							// [1F33F]
+🍀	nelja lehega ristik						// [1F340]
+🍁	vahtraleht							// [1F341]
+🍂	langenud leht							// [1F342]
+🍃	tuules lendlev leht						// [1F343]
+🍄	seen								// [1F344]
+🍅	tomat								// [1F345]
+🍆	baklažaan							// [1F346]
+🍇	viinamarjad							// [1F347]
+🍈	melon								// [1F348]
+🍉	arbuus								// [1F349]
+🍊	mandariin							// [1F34A]
+🍋	sidrun								// [1F34B]
+🍌	banaan								// [1F34C]
+🍍	ananass								// [1F34D]
+🍎	punane õun							// [1F34E]
+🍏	roheline õun							// [1F34F]
+🍐	pirn								// [1F350]
+🍑	virsik								// [1F351]
+🍒	kirsid								// [1F352]
+🍓	maasikas							// [1F353]
+🍔	hamburger							// [1F354]
+🍕	pitsa								// [1F355]
+🍖	kondiga liha							// [1F356]
+🍗	kanakoib							// [1F357]
+🍘	riisiküpsis							// [1F358]
+🍙	riisipall							// [1F359]
+🍚	keedetud riis							// [1F35A]
+🍛	karriga riis							// [1F35B]
+🍜	aurav kauss							// [1F35C]
+🍝	spagetid							// [1F35D]
+🍞	leib								// [1F35E]
+🍟	friikartulid							// [1F35F]
+🍠	röstitud bataat							// [1F360]
+🍡	dango								// [1F361]
+🍢	oden								// [1F362]
+🍣	suši								// [1F363]
+🍤	praetud krevett							// [1F364]
+🍥	keerdudega kalakotlet						// [1F365]
+🍦	pehme jäätis							// [1F366]
+🍧	mahlajää							// [1F367]
+🍨	jäätis								// [1F368]
+🍩	sõõrik								// [1F369]
+🍪	küpsis								// [1F36A]
+🍫	šokolaaditahvel							// [1F36B]
+🍬	komm								// [1F36C]
+🍭	pulgakomm							// [1F36D]
+🍮	vanillipuding							// [1F36E]
+🍯	meepott								// [1F36F]
+🍰	liivataignakook							// [1F370]
+🍱	bento einekarp							// [1F371]
+🍲	potitäis toitu							// [1F372]
+🍳	toiduvalmistamine						// [1F373]
+🍴	kahvel ja nuga							// [1F374]
+🍵	kõrvata teetass							// [1F375]
+🍶	riisiviin							// [1F376]
+🍷	veiniklaas							// [1F377]
+🍸	kokteiliklaas							// [1F378]
+🍹	troopiline jook							// [1F379]
+🍺	õllekann							// [1F37A]
+🍻	kõlisevad õllekannud						// [1F37B]
+🍼	lutipudel							// [1F37C]
+🍽	kahvel, nuga ja taldrik						// [1F37D] text|emoji
+🍾	pudeli avamine							// [1F37E]
+🍿	popkorn								// [1F37F]
+🎀	lint								// [1F380]
+🎁	kingipakk							// [1F381]
+🎂	sünnipäevatort							// [1F382]
+🎃	kõrvitsalatern							// [1F383]
+🎄	jõulupuu							// [1F384]
+🎅	jõuluvana							// [1F385]
+🎆	ilutulestik							// [1F386]
+🎇	säraküünal							// [1F387]
+🎈	õhupall								// [1F388]
+🎉	pidupäev							// [1F389]
+🎊	konfetid							// [1F38A]
+🎋	tanabata soovipuu						// [1F38B]
+🎌	ristatud lipud							// [1F38C]
+🎍	väravamänd							// [1F38D]
+🎎	Jaapani nukud							// [1F38E]
+🎏	kalakujuline vimpel						// [1F38F]
+🎐	tuulekell							// [1F390]
+🎑	kuutseremoonia							// [1F391]
+🎒	ranits								// [1F392]
+🎓	koolilõpumüts							// [1F393]
+🎖	sõjamedal							// [1F396] text|emoji
+🎗	kollane lint							// [1F397] text|emoji
+🎙	stuudiomikrofon							// [1F399] text|emoji
+🎚	liugur								// [1F39A] text|emoji
+🎛	juhtnupud							// [1F39B] text|emoji
+🎞	filmikaadrid							// [1F39E] text|emoji
+🎟	piletid								// [1F39F] text|emoji
+🎠	karussellihobune						// [1F3A0]
+🎡	vaateratas							// [1F3A1]
+🎢	Ameerika mäed							// [1F3A2]
+🎣	õng								// [1F3A3]
+🎤	mikrofon							// [1F3A4]
+🎥	filmikaamera							// [1F3A5]
+🎦	kino								// [1F3A6]
+🎧	kõrvaklapid							// [1F3A7]
+🎨	kunstniku palett						// [1F3A8]
+🎩	torukübar							// [1F3A9]
+🎪	tsirkusetelk							// [1F3AA]
+🎫	pilet								// [1F3AB]
+🎬	klapptahvel							// [1F3AC]
+🎭	lavakunst							// [1F3AD]
+🎮	videomäng							// [1F3AE]
+🎯	täistabamus							// [1F3AF]
+🎰	mänguautomaat							// [1F3B0]
+🎱	piljardikuul							// [1F3B1]
+🎲	täring								// [1F3B2]
+🎳	keegel								// [1F3B3]
+🎴	mängukaardid							// [1F3B4]
+🎵	noot								// [1F3B5]
+🎶	noodid								// [1F3B6]
+🎷	saksofon							// [1F3B7]
+🎸	kitarr								// [1F3B8]
+🎹	klahvpill							// [1F3B9]
+🎺	trompet								// [1F3BA]
+🎻	viiul								// [1F3BB]
+🎼	noodijoonestik							// [1F3BC]
+🎽	jooksusärk							// [1F3BD]
+🎾	tennisepall							// [1F3BE]
+🎿	suusad								// [1F3BF]
+🏀	korvpall							// [1F3C0]
+🏁	ruudulipp							// [1F3C1]
+🏂	lumelaudur							// [1F3C2]
+🏃	jooksja								// [1F3C3]
+🏄	surfar								// [1F3C4]
+🏅	medal								// [1F3C5]
+🏆	karikas								// [1F3C6]
+🏇	hobuste võiduajamine						// [1F3C7]
+🏈	Ameerika jalgpall						// [1F3C8]
+🏉	ragbipall							// [1F3C9]
+🏊	ujuja								// [1F3CA]
+🏋	jõutõstja							// [1F3CB] text|emoji
+🏌	golfimängija							// [1F3CC] text|emoji
+🏍	mootorratas							// [1F3CD] text|emoji
+🏎	võidusõiduauto							// [1F3CE] text|emoji
+🏏	kriket								// [1F3CF]
+🏐	võrkpall							// [1F3D0]
+🏑	maahoki								// [1F3D1]
+🏒	jäähokikepp ja litter						// [1F3D2]
+🏓	pingpong							// [1F3D3]
+🏔	lumine mägi							// [1F3D4] text|emoji
+🏕	telkimine							// [1F3D5] text|emoji
+🏖	päikesevari rannas						// [1F3D6] text|emoji
+🏗	ehitus								// [1F3D7] text|emoji
+🏘	majad								// [1F3D8] text|emoji
+🏙	linna siluett							// [1F3D9] text|emoji
+🏚	mahajäetud maja							// [1F3DA] text|emoji
+🏛	klassikaline hoone						// [1F3DB] text|emoji
+🏜	kõrb								// [1F3DC] text|emoji
+🏝	asustamata saar							// [1F3DD] text|emoji
+🏞	rahvuspark							// [1F3DE] text|emoji
+🏟	staadion							// [1F3DF] text|emoji
+🏠	maja								// [1F3E0]
+🏡	aiaga maja							// [1F3E1]
+🏢	kontorihoone							// [1F3E2]
+🏣	Jaapani postkontor						// [1F3E3]
+🏤	postkontor							// [1F3E4]
+🏥	haigla								// [1F3E5]
+🏦	pank								// [1F3E6]
+🏧	pangaautomaat							// [1F3E7]
+🏨	hotell								// [1F3E8]
+🏩	armuhotell							// [1F3E9]
+🏪	kauplus								// [1F3EA]
+🏫	kool								// [1F3EB]
+🏬	kaubamaja							// [1F3EC]
+🏭	tehas								// [1F3ED]
+🏮	punane paberlatern						// [1F3EE]
+🏯	Jaapani loss							// [1F3EF]
+🏰	loss								// [1F3F0]
+🏳	valge lipp							// [1F3F3] text|emoji
+🏴	must lipp							// [1F3F4]
+🏵	rosett								// [1F3F5] text|emoji
+🏷	silt								// [1F3F7] text|emoji
+🏸	sulgpall							// [1F3F8]
+🏹	vibu ja nool							// [1F3F9]
+🏺	amfora								// [1F3FA]
+🏻	hele nahatoon							// [1F3FB]
+🏼	keskmiselt hele nahatoon					// [1F3FC]
+🏽	keskmine nahatoon						// [1F3FD]
+🏾	keskmiselt tume nahatoon					// [1F3FE]
+🏿	tume nahatoon							// [1F3FF]
+🐀	rott								// [1F400]
+🐁	hiir								// [1F401]
+🐂	härg								// [1F402]
+🐃	vesipühvel							// [1F403]
+🐄	lehm								// [1F404]
+🐅	tiiger								// [1F405]
+🐆	leopard								// [1F406]
+🐇	jänes								// [1F407]
+🐈	kass								// [1F408]
+🐉	draakon								// [1F409]
+🐊	krokodill							// [1F40A]
+🐋	vaal								// [1F40B]
+🐌	tigu								// [1F40C]
+🐍	madu								// [1F40D]
+🐎	hobune								// [1F40E]
+🐏	oinas								// [1F40F]
+🐐	kits								// [1F410]
+🐑	lammas								// [1F411]
+🐒	ahv								// [1F412]
+🐓	kukk								// [1F413]
+🐔	kana								// [1F414]
+🐕	koer								// [1F415]
+🐖	siga								// [1F416]
+🐗	metssiga							// [1F417]
+🐘	elevant								// [1F418]
+🐙	kaheksajalg							// [1F419]
+🐚	spiraalne teokarp						// [1F41A]
+🐛	röövik								// [1F41B]
+🐜	sipelgas							// [1F41C]
+🐝	mesilane							// [1F41D]
+🐞	lepatriinu							// [1F41E]
+🐟	kala								// [1F41F]
+🐠	troopiline kala							// [1F420]
+🐡	siilkala							// [1F421]
+🐢	kilpkonn							// [1F422]
+🐣	kooruv tibu							// [1F423]
+🐤	väike tibu							// [1F424]
+🐥	väike tibu eestvaates						// [1F425]
+🐦	lind								// [1F426]
+🐧	pingviin							// [1F427]
+🐨	koaala								// [1F428]
+🐩	puudel								// [1F429]
+🐪	kaamel								// [1F42A]
+🐫	kahe küüruga kaamel						// [1F42B]
+🐬	delfiin								// [1F42C]
+🐭	hiire nägu							// [1F42D]
+🐮	lehma nägu							// [1F42E]
+🐯	tiigri nägu							// [1F42F]
+🐰	jänese nägu							// [1F430]
+🐱	kassi nägu							// [1F431]
+🐲	draakoni nägu							// [1F432]
+🐳	vett pritsiv vaal						// [1F433]
+🐴	hobuse nägu							// [1F434]
+🐵	ahvi nägu							// [1F435]
+🐶	koera nägu							// [1F436]
+🐷	sea nägu							// [1F437]
+🐸	konna nägu							// [1F438]
+🐹	hamstri nägu							// [1F439]
+🐺	hundi nägu							// [1F43A]
+🐻	karu nägu							// [1F43B]
+🐼	panda nägu							// [1F43C]
+🐽	sea kärss							// [1F43D]
+🐾	käpajäljed							// [1F43E]
+🐿	vöötorav							// [1F43F] text|emoji
+👀	silmad								// [1F440]
+👁	silm								// [1F441] text|emoji
+👂	kõrv								// [1F442]
+👃	nina								// [1F443]
+👄	suu								// [1F444]
+👅	keel								// [1F445]
+👆	üles osutav sõrm tagantvaates					// [1F446]
+👇	alla osutav sõrm						// [1F447]
+👈	vasakule osutav sõrm						// [1F448]
+👉	paremale osutav sõrm						// [1F449]
+👊	rusikalöök							// [1F44A]
+👋	lehvitav käsi							// [1F44B]
+👌	OK-käemärk							// [1F44C]
+👍	meeldib								// [1F44D]
+👎	ei meeldi							// [1F44E]
+👏	plaksutavad käed						// [1F44F]
+👐	avatud käed							// [1F450]
+👑	kroon								// [1F451]
+👒	naistekübar							// [1F452]
+👓	prillid								// [1F453]
+👔	lips								// [1F454]
+👕	T-särk								// [1F455]
+👖	teksad								// [1F456]
+👗	kleit								// [1F457]
+👘	kimono								// [1F458]
+👙	bikiinid							// [1F459]
+👚	naisteriided							// [1F45A]
+👛	ridikül								// [1F45B]
+👜	käekott								// [1F45C]
+👝	kott								// [1F45D]
+👞	meesteking							// [1F45E]
+👟	jooksuking							// [1F45F]
+👠	kõrge kontsaga king						// [1F460]
+👡	naistesandaal							// [1F461]
+👢	naistesaabas							// [1F462]
+👣	jalajäljed							// [1F463]
+👤	büsti siluett							// [1F464]
+👥	büstide siluetid						// [1F465]
+👦	poiss								// [1F466]
+👧	tüdruk								// [1F467]
+👨	mees								// [1F468]
+👩	naine								// [1F469]
+👪	perekond							// [1F46A]
+👫	mees ja naine hoiavad käest kinni				// [1F46B]
+👬	kaks meest hoiavad käest kinni					// [1F46C]
+👭	kaks naist hoiavad käest kinni					// [1F46D]
+👮	politseinik							// [1F46E]
+👯	pidutsevad jänesekõrvadega inimesed				// [1F46F]
+👰	loori kandev pruut						// [1F470]
+👱	blondide juustega inimene					// [1F471]
+👲	Hiina mütsiga mees						// [1F472]
+👳	turbaniga inimene						// [1F473]
+👴	eakas mees							// [1F474]
+👵	eakas naine							// [1F475]
+👶	beebi								// [1F476]
+👷	ehitaja								// [1F477]
+👸	printsess							// [1F478]
+👹	sookoll								// [1F479]
+👺	mäekoll								// [1F47A]
+👻	kummitus							// [1F47B]
+👼	inglibeebi							// [1F47C]
+👽	tulnukas							// [1F47D]
+👾	tulnukkoletis							// [1F47E]
+👿	deemon								// [1F47F]
+💀	kolp								// [1F480]
+💁	infoleti töötaja						// [1F481]
+💂	valvur								// [1F482]
+💃	tantsiv naine							// [1F483]
+💄	huulepulk							// [1F484]
+💅	küünelakk							// [1F485]
+💆	näomassaaž							// [1F486]
+💇	juukselõikus							// [1F487]
+💈	habemeajaja silt						// [1F488]
+💉	süstal								// [1F489]
+💊	tablett								// [1F48A]
+💋	suudluse jälg							// [1F48B]
+💌	armastuskiri							// [1F48C]
+💍	sõrmus								// [1F48D]
+💎	kalliskivi							// [1F48E]
+💏	musi								// [1F48F]
+💐	kimp								// [1F490]
+💑	paarike südamega						// [1F491]
+💒	pulmad								// [1F492]
+💓	tukslev süda							// [1F493]
+💔	murtud süda							// [1F494]
+💕	kaks südant							// [1F495]
+💖	sädelev süda							// [1F496]
+💗	kasvav süda							// [1F497]
+💘	noolega süda							// [1F498]
+💙	sinine süda							// [1F499]
+💚	roheline süda							// [1F49A]
+💛	kollane süda							// [1F49B]
+💜	lilla süda							// [1F49C]
+💝	lindiga süda							// [1F49D]
+💞	pöörlevad südamed						// [1F49E]
+💟	südamekujuline kaunistus					// [1F49F]
+💠	punktiga romb							// [1F4A0]
+💡	lamp								// [1F4A1]
+💢	viha sümbol							// [1F4A2]
+💣	pomm								// [1F4A3]
+💤	zzz								// [1F4A4]
+💥	piraki								// [1F4A5]
+💦	higipiisad							// [1F4A6]
+💧	piisk								// [1F4A7]
+💨	kiirustamine							// [1F4A8]
+💩	kakahunnik							// [1F4A9]
+💪	pingutatud biitseps						// [1F4AA]
+💫	peadpööritav							// [1F4AB]
+💬	jutumull							// [1F4AC]
+💭	mõttemull							// [1F4AD]
+💮	valge lill							// [1F4AE]
+💯	sada punkti							// [1F4AF]
+💰	rahapaun							// [1F4B0]
+💱	valuutavahetus							// [1F4B1]
+💲	suur dollarimärk						// [1F4B2]
+💳	krediitkaart							// [1F4B3]
+💴	jeen								// [1F4B4]
+💵	dollar								// [1F4B5]
+💶	euro								// [1F4B6]
+💷	naelsterling							// [1F4B7]
+💸	tiibadega raha							// [1F4B8]
+💹	tõusev graafik jeenisümboliga					// [1F4B9]
+💺	iste								// [1F4BA]
+💻	sülearvuti							// [1F4BB]
+💼	portfell							// [1F4BC]
+💽	arvutiketas							// [1F4BD]
+💾	diskett								// [1F4BE]
+💿	optiline ketas							// [1F4BF]
+📀	DVD								// [1F4C0]
+📁	kaust								// [1F4C1]
+📂	avatud kaust							// [1F4C2]
+📃	kaardunud paberileht						// [1F4C3]
+📄	paberilehe eestvaade						// [1F4C4]
+📅	kalender							// [1F4C5]
+📆	rebitav kalender						// [1F4C6]
+📇	kataloog							// [1F4C7]
+📈	tõusev graafik							// [1F4C8]
+📉	langev graafik							// [1F4C9]
+📊	tulpdiagramm							// [1F4CA]
+📋	kirjutamisalus							// [1F4CB]
+📌	nööpnõel							// [1F4CC]
+📍	ümara peaga nööpnõel						// [1F4CD]
+📎	kirjaklamber							// [1F4CE]
+📏	sirge joonlaud							// [1F4CF]
+📐	kolmnurkne joonlaud						// [1F4D0]
+📑	järjehoidjad							// [1F4D1]
+📒	arveraamat							// [1F4D2]
+📓	päevik								// [1F4D3]
+📔	dekoratiivse kaanega märkmik					// [1F4D4]
+📕	suletud raamat							// [1F4D5]
+📖	avatud raamat							// [1F4D6]
+📗	roheline raamat							// [1F4D7]
+📘	sinine raamat							// [1F4D8]
+📙	oranž raamat							// [1F4D9]
+📚	raamatud							// [1F4DA]
+📛	nimesilt							// [1F4DB]
+📜	käsikiri							// [1F4DC]
+📝	memo								// [1F4DD]
+📞	telefonitoru							// [1F4DE]
+📟	piipar								// [1F4DF]
+📠	faksimasin							// [1F4E0]
+📡	satelliitantenn							// [1F4E1]
+📢	valjuhääldi							// [1F4E2]
+📣	megafon								// [1F4E3]
+📤	väljaminev post							// [1F4E4]
+📥	sissetulev post							// [1F4E5]
+📦	pakk								// [1F4E6]
+📧	meilisõnum							// [1F4E7]
+📨	sissetulev ümbrik						// [1F4E8]
+📩	noolega ümbrik							// [1F4E9]
+📪	suletud postkast langetatud lipuga				// [1F4EA]
+📫	suletud postkast tõstetud lipuga				// [1F4EB]
+📬	avatud postkast tõstetud lipuga					// [1F4EC]
+📭	avatud postkast langetatud lipuga				// [1F4ED]
+📮	postkast							// [1F4EE]
+📯	postisarv							// [1F4EF]
+📰	ajaleht								// [1F4F0]
+📱	mobiiltelefon							// [1F4F1]
+📲	noolega mobiiltelefon						// [1F4F2]
+📳	värinarežiim							// [1F4F3]
+📴	väljalülitatud mobiiltelefon					// [1F4F4]
+📵	telefonid on keelatud						// [1F4F5]
+📶	levi								// [1F4F6]
+📷	kaamera								// [1F4F7]
+📸	välguga kaamera							// [1F4F8]
+📹	videokaamera							// [1F4F9]
+📺	teler								// [1F4FA]
+📻	raadio								// [1F4FB]
+📼	videokassett							// [1F4FC]
+📽	filmiprojektor							// [1F4FD] text|emoji
+📿	palvehelmed							// [1F4FF]
+🔀	juhusliku järjekorra nupp					// [1F500]
+🔁	kordamisnupp							// [1F501]
+🔂	ühe korduse nupp						// [1F502]
+🔃	vertikaalsed nooled päripäeva					// [1F503]
+🔄	nooled vastupäeva						// [1F504]
+🔅	tuhmistamisnupp							// [1F505]
+🔆	ereduse nupp							// [1F506]
+🔇	vaigistatud kõlar						// [1F507]
+🔈	vaikse heliga kõlar						// [1F508]
+🔉	poolvalju heliga kõlar						// [1F509]
+🔊	valju heliga kõlar						// [1F50A]
+🔋	aku								// [1F50B]
+🔌	elektripistik							// [1F50C]
+🔍	vasakule kallutatud luup					// [1F50D]
+🔎	paremale kallutatud luup					// [1F50E]
+🔏	lukk ja pastakas						// [1F50F]
+🔐	suletud lukk võtmega						// [1F510]
+🔑	võti								// [1F511]
+🔒	lukk								// [1F512]
+🔓	avatud lukk							// [1F513]
+🔔	kelluke								// [1F514]
+🔕	vaigistatud kelluke						// [1F515]
+🔖	järjehoidja							// [1F516]
+🔗	lüli								// [1F517]
+🔘	raadionupp							// [1F518]
+🔙	nool BACK							// [1F519]
+🔚	nool END							// [1F51A]
+🔛	nool ON!							// [1F51B]
+🔜	nool SOON							// [1F51C]
+🔝	nool TOP							// [1F51D]
+🔞	alla 18-aastastele keelatud					// [1F51E]
+🔟	klahv: 10							// [1F51F]
+🔠	ladina suurtähed						// [1F520]
+🔡	ladina väiketähed						// [1F521]
+🔢	numbrid								// [1F522]
+🔣	sümbolid							// [1F523]
+🔤	ladina tähed							// [1F524]
+🔥	tuli								// [1F525]
+🔦	taskulamp							// [1F526]
+🔧	mutrivõti							// [1F527]
+🔨	haamer								// [1F528]
+🔩	polt ja mutter							// [1F529]
+🔪	kööginuga							// [1F52A]
+🔫	püstol								// [1F52B]
+🔬	mikroskoop							// [1F52C]
+🔭	teleskoop							// [1F52D]
+🔮	kristallkuul							// [1F52E]
+🔯	punktiga kuusnurkne täht					// [1F52F]
+🔰	algaja sümbol							// [1F530]
+🔱	kolmhargi sümbol						// [1F531]
+🔲	must ruudukujuline nupp						// [1F532]
+🔳	valge ruudukujuline nupp					// [1F533]
+🔴	punane ring							// [1F534]
+🔵	sinine ring							// [1F535]
+🔶	suur oranž romb							// [1F536]
+🔷	suur sinine romb						// [1F537]
+🔸	väike oranž romb						// [1F538]
+🔹	väike sinine romb						// [1F539]
+🔺	punane kolmnurk							// [1F53A]
+🔻	punane tagurpidi kolmnurk					// [1F53B]
+🔼	ülesnupp							// [1F53C]
+🔽	allanupp							// [1F53D]
+🕉	hinduism							// [1F549] text|emoji
+🕊	tuvi								// [1F54A] text|emoji
+🕋	kaaba								// [1F54B]
+🕌	mošee								// [1F54C]
+🕍	sünagoog							// [1F54D]
+🕎	menoraa								// [1F54E]
+🕐	kell üks							// [1F550]
+🕑	kell kaks							// [1F551]
+🕒	kell kolm							// [1F552]
+🕓	kell neli							// [1F553]
+🕔	kell viis							// [1F554]
+🕕	kell kuus							// [1F555]
+🕖	kell seitse							// [1F556]
+🕗	kell kaheksa							// [1F557]
+🕘	kell üheksa							// [1F558]
+🕙	kell kümme							// [1F559]
+🕚	kell üksteist							// [1F55A]
+🕛	kell kaksteist							// [1F55B]
+🕜	kell pool kaks							// [1F55C]
+🕝	kell pool kolm							// [1F55D]
+🕞	kell pool neli							// [1F55E]
+🕟	kell pool viis							// [1F55F]
+🕠	kell pool kuus							// [1F560]
+🕡	kell pool seitse						// [1F561]
+🕢	kell pool kaheksa						// [1F562]
+🕣	kell pool üheksa						// [1F563]
+🕤	kell pool kümme							// [1F564]
+🕥	kell pool üksteist						// [1F565]
+🕦	kell pool kaksteist						// [1F566]
+🕧	kell pool üks							// [1F567]
+🕯	küünal								// [1F56F] text|emoji
+🕰	kaminakell							// [1F570] text|emoji
+🕳	auk								// [1F573] text|emoji
+🕴	hõljuv ülikonnaga mees						// [1F574] text|emoji
+🕵	detektiiv							// [1F575] text|emoji
+🕶	päikeseprillid							// [1F576] text|emoji
+🕷	ämblik								// [1F577] text|emoji
+🕸	ämblikuvõrk							// [1F578] text|emoji
+🕹	juhtpult							// [1F579] text|emoji
+🕺	tantsiv mees							// [1F57A]
+🖇	ühendatud kirjaklambrid						// [1F587] text|emoji
+🖊	pastapliiats							// [1F58A] text|emoji
+🖋	sulepea								// [1F58B] text|emoji
+🖌	pintsel								// [1F58C] text|emoji
+🖍	kriit								// [1F58D] text|emoji
+🖐	harali sõrmedega käsi						// [1F590] text|emoji
+🖕	keskmine sõrm							// [1F595]
+🖖	vulcanite tervitus						// [1F596]
+🖤	must süda							// [1F5A4]
+🖥	lauaarvuti							// [1F5A5] text|emoji
+🖨	printer								// [1F5A8] text|emoji
+🖱	arvutihiir							// [1F5B1] text|emoji
+🖲	juhtkuul							// [1F5B2] text|emoji
+🖼	raamitud pilt							// [1F5BC] text|emoji
+🗂	register							// [1F5C2] text|emoji
+🗃	dokumendikast							// [1F5C3] text|emoji
+🗄	dokumendikapp							// [1F5C4] text|emoji
+🗑	prügikorv							// [1F5D1] text|emoji
+🗒	spiraalmärkmik							// [1F5D2] text|emoji
+🗓	spiraalkalender							// [1F5D3] text|emoji
+🗜	kruustangid							// [1F5DC] text|emoji
+🗝	vana võti							// [1F5DD] text|emoji
+🗞	rullikeeratud ajaleht						// [1F5DE] text|emoji
+🗡	pistoda								// [1F5E1] text|emoji
+🗣	kõnelev pea							// [1F5E3] text|emoji
+🗨	jutumull suunaga vasakule					// [1F5E8] text|emoji
+🗯	vihamull suunaga paremale					// [1F5EF] text|emoji
+🗳	hääletuskast							// [1F5F3] text|emoji
+🗺	maailmakaart							// [1F5FA] text|emoji
+🗻	Fuji mägi							// [1F5FB]
+🗼	Tokyo torn							// [1F5FC]
+🗽	Vabadussammas							// [1F5FD]
+🗾	Jaapani kaart							// [1F5FE]
+🗿	moai								// [1F5FF]
+
+// 1F600..1F64F : Emoticons
+
+😀	laia naeratusega nägu						// [1F600]
+😁	naerul silmade ja laia naeratusega nägu				// [1F601]
+😂	rõõmupisaratega nägu						// [1F602]
+😃	avatud suuga naerunägu						// [1F603]
+😄	avatud suu ja naeratavate silmadega naerunägu			// [1F604]
+😅	külma higiga kaetud ja avatud suuga naerunägu			// [1F605]
+😆	avatud suu ja suletud silmadega naerunägu			// [1F606]
+😇	aupaistega naerunägu						// [1F607]
+😈	sarviline naerunägu						// [1F608]
+😉	silma pilgutav nägu						// [1F609]
+😊	naeratavate silmadega naerunägu					// [1F60A]
+😋	maitsvat toitu nautija nägu					// [1F60B]
+😌	kergendust tundev nägu						// [1F60C]
+😍	südamekujuliste silmadega naerunägu				// [1F60D]
+😎	päikeseprillidega naerunägu					// [1F60E]
+😏	muigav nägu							// [1F60F]
+😐	erapooletu nägu							// [1F610]
+😑	ilmetu nägu							// [1F611]
+😒	põlglik nägu							// [1F612]
+😓	külma higiga kaetud nägu					// [1F613]
+😔	mõtlik nägu							// [1F614]
+😕	segaduses nägu							// [1F615]
+😖	kimbatuses nägu							// [1F616]
+😗	suudlev nägu							// [1F617]
+😘	suudlust saatev nägu						// [1F618]
+😙	naeratavate silmadega suudlev nägu				// [1F619]
+😚	suletud silmadega suudlev nägu					// [1F61A]
+😛	suust väljas keelega nägu					// [1F61B]
+😜	suust väljas keelega ja silma pilgutav nägu			// [1F61C]
+😝	suust väljas keelega ja suletud silmadega nägu			// [1F61D]
+😞	pettunud nägu							// [1F61E]
+😟	murelik nägu							// [1F61F]
+😠	tige nägu							// [1F620]
+😡	mossitav nägu							// [1F621]
+😢	nuttev nägu							// [1F622]
+😣	sihikindel nägu							// [1F623]
+😤	ninast auru ajav nägu						// [1F624]
+😥	pettunud, kuid kergendust tundev nägu				// [1F625]
+😦	avatud suuga mossitav nägu					// [1F626]
+😧	ahastuses nägu							// [1F627]
+😨	hirmunud nägu							// [1F628]
+😩	rammestunud nägu						// [1F629]
+😪	unine nägu							// [1F62A]
+😫	väsinud nägu							// [1F62B]
+😬	grimassitav nägu						// [1F62C]
+😭	valjusti nuttev nägu						// [1F62D]
+😮	avatud suuga nägu						// [1F62E]
+😯	vaigistatud nägu						// [1F62F]
+😰	külma higiga kaetud ja avatud suuga nägu			// [1F630]
+😱	hirmunult karjuv nägu						// [1F631]
+😲	hämmastunud nägu						// [1F632]
+😳	punastav nägu							// [1F633]
+😴	magav nägu							// [1F634]
+😵	oimetu nägu							// [1F635]
+😶	ilma suuta nägu							// [1F636]
+😷	kirurgimaskiga kaetud nägu					// [1F637]
+😸	lõbusate silmadega irvitav kass					// [1F638]
+😹	rõõmupisarais kass						// [1F639]
+😺	avatud suuga naeratav kass					// [1F63A]
+😻	südamekujuliste silmadega naeratav kass				// [1F63B]
+😼	virilalt naeratav kass						// [1F63C]
+😽	suletud silmadega suudlev kass					// [1F63D]
+😾	mossitav kass							// [1F63E]
+😿	nuttev kass							// [1F63F]
+🙀	üllatunud kass							// [1F640]
+🙁	veidi kulmu kortsutav nägu					// [1F641]
+🙂	naeratusega nägu						// [1F642]
+🙃	tagurpidi nägu							// [1F643]
+🙄	pööritavate silmadega nägu					// [1F644]
+🙅	eitav žest							// [1F645]
+🙆	nõustuv žest							// [1F646]
+🙇	kummardav inimene						// [1F647]
+🙈	kaetud silmadega ahv						// [1F648]
+🙉	kaetud kõrvadega ahv						// [1F649]
+🙊	kaetud suuga ahv						// [1F64A]
+🙋	kätt tõstev rõõmus inimene					// [1F64B]
+🙌	ülestõstetud käed						// [1F64C]
+🙍	kulmu kortsutav inimene						// [1F64D]
+🙎	mossitav inimene						// [1F64E]
+🙏	palveasendis käed						// [1F64F]
+
+// 1F680..1F6FF : Transport and Map Symbols
+
+🚀	rakett								// [1F680]
+🚁	helikopter							// [1F681]
+🚂	vedur								// [1F682]
+🚃	rongivagun							// [1F683]
+🚄	kiirrong							// [1F684]
+🚅	terava ninaga kiirrong						// [1F685]
+🚆	rong								// [1F686]
+🚇	metroo								// [1F687]
+🚈	kergraudtee							// [1F688]
+🚉	jaam								// [1F689]
+🚊	tramm								// [1F68A]
+🚋	trammivagun							// [1F68B]
+🚌	buss								// [1F68C]
+🚍	buss eestvaates							// [1F68D]
+🚎	trollibuss							// [1F68E]
+🚏	bussipeatus							// [1F68F]
+🚐	väikebuss							// [1F690]
+🚑	kiirabiauto							// [1F691]
+🚒	tuletõrjeauto							// [1F692]
+🚓	politseiauto							// [1F693]
+🚔	politseiauto eestvaates						// [1F694]
+🚕	takso								// [1F695]
+🚖	takso eestvaates						// [1F696]
+🚗	auto								// [1F697]
+🚘	auto eestvaates							// [1F698]
+🚙	mahtuniversaal							// [1F699]
+🚚	kulleriauto							// [1F69A]
+🚛	veok								// [1F69B]
+🚜	traktor								// [1F69C]
+🚝	üherööpmeline raudtee						// [1F69D]
+🚞	mägiraudtee							// [1F69E]
+🚟	rippraudtee							// [1F69F]
+🚠	köistee mägedes							// [1F6A0]
+🚡	köisraudtee							// [1F6A1]
+🚢	laev								// [1F6A2]
+🚣	aerupaadiga inimene						// [1F6A3]
+🚤	kiirkaater							// [1F6A4]
+🚥	horisontaalne foor						// [1F6A5]
+🚦	vertikaalne foor						// [1F6A6]
+🚧	ehitustööd							// [1F6A7]
+🚨	politseiauto vilkur						// [1F6A8]
+🚩	kolmnurkne lipp							// [1F6A9]
+🚪	uks								// [1F6AA]
+🚫	keelatud							// [1F6AB]
+🚬	sigaret								// [1F6AC]
+🚭	suitsetamine keelatud						// [1F6AD]
+🚮	prügikasti silt							// [1F6AE]
+🚯	risustamine keelatud						// [1F6AF]
+🚰	joogivesi							// [1F6B0]
+🚱	joomiseks kõlbmatu vesi						// [1F6B1]
+🚲	jalgratas							// [1F6B2]
+🚳	jalgrattad keelatud						// [1F6B3]
+🚴	jalgrattur							// [1F6B4]
+🚵	mägirattur							// [1F6B5]
+🚶	jalakäija							// [1F6B6]
+🚷	jalakäijad keelatud						// [1F6B7]
+🚸	lapsed teel							// [1F6B8]
+🚹	meeste-WC							// [1F6B9]
+🚺	naiste-WC							// [1F6BA]
+🚻	tualett								// [1F6BB]
+🚼	beebi sümbol							// [1F6BC]
+🚽	WC-pott								// [1F6BD]
+🚾	WC								// [1F6BE]
+🚿	dušš								// [1F6BF]
+🛀	inimene vannis							// [1F6C0]
+🛁	vann								// [1F6C1]
+🛂	passikontroll							// [1F6C2]
+🛃	toll								// [1F6C3]
+🛄	pagasi kättesaamine						// [1F6C4]
+🛅	hoiukapid							// [1F6C5]
+🛋	diivan ja lamp							// [1F6CB] text|emoji
+🛌	inimene voodis							// [1F6CC]
+🛍	ostukotid							// [1F6CD] text|emoji
+🛎	kell								// [1F6CE] text|emoji
+🛏	voodi								// [1F6CF] text|emoji
+🛐	pühakoda							// [1F6D0]
+🛑	stoppmärk							// [1F6D1]
+🛒	ostukäru							// [1F6D2]
+🛕	hinduistlik tempel					// [1F6D5]
+🛖	hütt							// [1F6D6]
+🛗	lift							// [1F6D7]
+🛜	juhtmevaba						// [1F6DC]
+🛝	liumägi							// [1F6DD]
+🛞	ratas							// [1F6DE]
+🛟	päästerõngas						// [1F6DF]
+🛠	haamer ja mutrivõti						// [1F6E0] text|emoji
+🛡	kilp								// [1F6E1] text|emoji
+🛢	õlitünn								// [1F6E2] text|emoji
+🛣	kiirtee								// [1F6E3] text|emoji
+🛤	raudteerööpad							// [1F6E4] text|emoji
+🛥	mootorpaat							// [1F6E5] text|emoji
+🛩	väikelennuk							// [1F6E9] text|emoji
+🛫	õhkutõusev lennuk						// [1F6EB]
+🛬	maanduv lennuk							// [1F6EC]
+🛰	satelliit							// [1F6F0] text|emoji
+🛳	reisilaev							// [1F6F3] text|emoji
+🛴	tõukeratas							// [1F6F4]
+🛵	motoroller							// [1F6F5]
+🛶	kanuu								// [1F6F6]
+🛷	kelk								// [1F6F7]
+🛸	lendav taldrik							// [1F6F8]
+🛹	rula								// [1F6F9]
+🛺	autorikša						// [1F6FA]
+🛻	pikap							// [1F6FB]
+🛼	rulluisk						// [1F6FC]
+
+// 1F780..1F7FF : Geometric Shapes Extended
+🟠	oranž ring						// [1F7E0]
+🟡	kollane ring						// [1F7E1]
+🟢	roheline ring						// [1F7E2]
+🟣	lilla ring						// [1F7E3]
+🟤	pruun ring						// [1F7E4]
+🟥	punane ruut						// [1F7E5]
+🟦	sinine ruut						// [1F7E6]
+🟧	oranž ruut						// [1F7E7]
+🟨	kollane ruut						// [1F7E8]
+🟩	roheline ruut						// [1F7E9]
+🟪	lilla ruut						// [1F7EA]
+🟫	pruun ruut						// [1F7EB]
+🟰	tugev võrdusmärk					// [1F7F0]
+🤌	kokkusurutud sõrmed					// [1F90C]
+🤍	valge süda						// [1F90D]
+🤎	pruun süda						// [1F90E]
+🤏	näpistav käsi						// [1F90F]
+
+// 1F900..1F9FF : Supplemental Symbols and Pictographs
+
+🤐	tõmblukusuuga nägu						// [1F910]
+🤑	nägu, millel on raha suus					// [1F911]
+🤒	kraadiklaasiga nägu						// [1F912]
+🤓	nohiku nägu							// [1F913]
+🤔	mõtlev nägu							// [1F914]
+🤕	kinniseotud peaga nägu						// [1F915]
+🤖	roboti nägu							// [1F916]
+🤗	kallistav nägu							// [1F917]
+🤘	sarvede märk							// [1F918]
+🤙	helista mulle							// [1F919]
+🤚	tõstetud käsi							// [1F91A]
+🤛	vasakule suunatud rusikas					// [1F91B]
+🤜	paremale suunatud rusikas					// [1F91C]
+🤝	käepigistus							// [1F91D]
+🤞	sõrmed risti							// [1F91E]
+🤟	armastust väljendav žest					// [1F91F]
+🤠	kauboimütsiga nägu						// [1F920]
+🤡	klouninägu							// [1F921]
+🤢	iiveldust tundev nägu						// [1F922]
+🤣	naerust kõveras							// [1F923]
+🤤	ilastav nägu							// [1F924]
+🤥	valetav nägu							// [1F925]
+🤦	meeleheide							// [1F926]
+🤧	aevastav nägu							// [1F927]
+🤨	kergitatud kulmudega nägu					// [1F928]
+🤩	staariga silmitsi						// [1F929]
+🤪	pöörase ilmega nägu						// [1F92A]
+🤫	sõrme suul hoidev nägu						// [1F92B]
+🤬	suul olevate sümbolitega nägu					// [1F92C]
+🤭	kätt suul hoidev nägu						// [1F92D]
+🤮	oksendav nägu							// [1F92E]
+🤯	plahvatav pea							// [1F92F]
+🤰	rase naine							// [1F930]
+🤱	rinnaga toitmine						// [1F931]
+🤲	peopesad üleval koos						// [1F932]
+🤳	selfi								// [1F933]
+🤴	prints								// [1F934]
+🤵	mees smokingus							// [1F935]
+🤶	jõuluvana abikaasa						// [1F936]
+🤷	õlakehitus							// [1F937]
+🤸	hundiratast viskav inimene					// [1F938]
+🤹	žonglöör							// [1F939]
+🤺	vehkleja							// [1F93A]
+🤼	maadlejad							// [1F93C]
+🤽	veepalli mängiv inimene						// [1F93D]
+🤾	käsipalli mängiv inimene					// [1F93E]
+🤿	sukeldumismask						// [1F93F]
+🥀	närbunud lill							// [1F940]
+🥁	trumm								// [1F941]
+🥂	kõlisevad klaasid						// [1F942]
+🥃	joogiklaas							// [1F943]
+🥄	lusikas								// [1F944]
+🥅	väravavõrk							// [1F945]
+🥇	kuldmedal							// [1F947]
+🥈	hõbemedal							// [1F948]
+🥉	pronksmedal							// [1F949]
+🥊	poksikinnas							// [1F94A]
+🥋	võitluskunstide riietus						// [1F94B]
+🥌	jääkeegli kivi							// [1F94C]
+🥍	kahvpall						// [1F94D]
+🥎	pehmepall							// [1F94E]
+🥏	visketaldrik							// [1F94F]
+🥐	sarvesai							// [1F950]
+🥑	avokaado							// [1F951]
+🥒	kurk								// [1F952]
+🥓	peekon								// [1F953]
+🥔	kartul								// [1F954]
+🥕	porgand								// [1F955]
+🥖	baguette							// [1F956]
+🥗	roheline salat							// [1F957]
+🥘	panniroog							// [1F958]
+🥙	täidetud pita							// [1F959]
+🥚	muna								// [1F95A]
+🥛	klaas piima							// [1F95B]
+🥜	maapähklid							// [1F95C]
+🥝	kiivi								// [1F95D]
+🥞	pannkoogid							// [1F95E]
+🥟	pelmeen								// [1F95F]
+🥠	õnneküpsis							// [1F960]
+🥡	kaasamüügikarp							// [1F961]
+🥢	söögipulgad							// [1F962]
+🥣	lusikaga kauss							// [1F963]
+🥤	kõrrega tops							// [1F964]
+🥥	kookospähkel							// [1F965]
+🥦	brokoli								// [1F966]
+🥧	pirukas								// [1F967]
+🥨	soolakringel							// [1F968]
+🥩	lihalõik							// [1F969]
+🥪	võileib								// [1F96A]
+🥫	toidukonserv							// [1F96B]
+🥬	lehtköögivili							// [1F96C]
+🥭	mango								// [1F96D]
+🥮	kuukook								// [1F96E]
+🥯	rõngassai							// [1F96F]
+🥰	naeratav kolme südamega nägu					// [1F970]
+🥱	haigutav nägu						// [1F971]
+🥲	naeratav pisaraga nägu					// [1F972]
+🥳	pidutsev nägu							// [1F973]
+🥴	uimane nägu							// [1F974]
+🥵	higistav nägu							// [1F975]
+🥶	külmunud nägu							// [1F976]
+🥷	ninja							// [1F977]
+🥸	maskeeritud nägu					// [1F978]
+🥹	pisaraid tagasi hoidev nägu				// [1F979]
+🥺	anuv nägu							// [1F97A]
+🥻	sari							// [1F97B]
+🥼	laborikittel							// [1F97C]
+🥽	kaitseprillid							// [1F97D]
+🥾	matkasaabas							// [1F97E]
+🥿	madal king							// [1F97F]
+🦀	krabi								// [1F980]
+🦁	lõvi nägu							// [1F981]
+🦂	suur skorpion							// [1F982]
+🦃	kalkun								// [1F983]
+🦄	ükssarviku nägu							// [1F984]
+🦅	kotkas								// [1F985]
+🦆	part								// [1F986]
+🦇	nahkhiir							// [1F987]
+🦈	hai								// [1F988]
+🦉	öökull								// [1F989]
+🦊	rebase nägu							// [1F98A]
+🦋	liblikas							// [1F98B]
+🦌	hirv								// [1F98C]
+🦍	gorilla								// [1F98D]
+🦎	sisalik								// [1F98E]
+🦏	ninasarvik							// [1F98F]
+🦐	krevett								// [1F990]
+🦑	kalmaar								// [1F991]
+🦒	kaelkirjak							// [1F992]
+🦓	sebra								// [1F993]
+🦔	siil								// [1F994]
+🦕	sauropod							// [1F995]
+🦖	türannosaurus							// [1F996]
+🦗	kilk								// [1F997]
+🦘	känguru								// [1F998]
+🦙	laama								// [1F999]
+🦚	paabulind							// [1F99A]
+🦛	jõehobu								// [1F99B]
+🦜	papagoi								// [1F99C]
+🦝	pesukaru							// [1F99D]
+🦞	homaar								// [1F99E]
+🦟	sääsk								// [1F99F]
+🦠	mikroob								// [1F9A0]
+🦡	mäger								// [1F9A1]
+🦢	luik								// [1F9A2]
+🦣	mammut							// [1F9A3]
+🦤	dodo							// [1F9A4]
+🦥	laiskloom						// [1F9A5]
+🦦	saarmas							// [1F9A6]
+🦧	orangutan						// [1F9A7]
+🦨	skunk							// [1F9A8]
+🦩	flamingo						// [1F9A9]
+🦪	auster							// [1F9AA]
+🦫	kobras							// [1F9AB]
+🦬	piison							// [1F9AC]
+🦭	hüljes							// [1F9AD]
+🦮	juhtkoer						// [1F9AE]
+🦯	valge kepp						// [1F9AF]
+🦰	punased juuksed							// [1F9B0]
+🦱	lokkis juuksed							// [1F9B1]
+🦲	kiilaspea							// [1F9B2]
+🦳	heledad juuksed							// [1F9B3]
+🦴	kont								// [1F9B4]
+🦵	jalg								// [1F9B5]
+🦶	jalalaba							// [1F9B6]
+🦷	hammas								// [1F9B7]
+🦸	superkangelane							// [1F9B8]
+🦹	superkurikael							// [1F9B9]
+🦺	ohutusvest						// [1F9BA]
+🦻	kuuldeaparaadiga kõrv					// [1F9BB]
+🦼	elektriratastool					// [1F9BC]
+🦽	manuaalratastool					// [1F9BD]
+🦾	mehaaniline käsi					// [1F9BE]
+🦿	mehaaniline jalg					// [1F9BF]
+🧀	juustutükk							// [1F9C0]
+🧁	muffin								// [1F9C1]
+🧂	sool								// [1F9C2]
+🧃	joogipakk						// [1F9C3]
+🧄	küüslauk						// [1F9C4]
+🧅	sibul							// [1F9C5]
+🧆	falafel							// [1F9C6]
+🧇	vahvel							// [1F9C7]
+🧈	või							// [1F9C8]
+🧉	mate							// [1F9C9]
+🧊	jääkuubik						// [1F9CA]
+🧋	pärlitee						// [1F9CB]
+🧌	troll							// [1F9CC]
+🧍	seisev inimene						// [1F9CD]
+🧎	põlvitav inimene					// [1F9CE]
+🧏	kurt inimene						// [1F9CF]
+🧐	monokliga nägu							// [1F9D0]
+🧑	täiskasvanu							// [1F9D1]
+🧒	laps								// [1F9D2]
+🧓	eakas								// [1F9D3]
+🧔	habemega isik							// [1F9D4]
+🧕	pearätiga naine							// [1F9D5]
+🧖	leiliruumis olev inimene					// [1F9D6]
+🧗	mäkke roniv inimene						// [1F9D7]
+🧘	lootosasendis inimene						// [1F9D8]
+🧙	maag								// [1F9D9]
+🧚	haldjas								// [1F9DA]
+🧛	vampiir								// [1F9DB]
+🧜	näkk								// [1F9DC]
+🧝	päkapikk							// [1F9DD]
+🧞	džinn								// [1F9DE]
+🧟	zombi								// [1F9DF]
+🧠	aju								// [1F9E0]
+🧡	oranž süda							// [1F9E1]
+🧢	nokkmüts							// [1F9E2]
+🧣	sall								// [1F9E3]
+🧤	kindad								// [1F9E4]
+🧥	mantel								// [1F9E5]
+🧦	sokid								// [1F9E6]
+🧧	punane ümbrik							// [1F9E7]
+🧨	Ilutulestikurakett						// [1F9E8]
+🧩	pusletükk							// [1F9E9]
+🧪	katseklaas							// [1F9EA]
+🧫	Petri tass							// [1F9EB]
+🧬	DNA								// [1F9EC]
+🧭	kompass								// [1F9ED]
+🧮	arvelaud							// [1F9EE]
+🧯	tulekustuti						// [1F9EF]
+🧰	tööriistakast							// [1F9F0]
+🧱	telliskivi							// [1F9F1]
+🧲	magnet								// [1F9F2]
+🧳	kohver								// [1F9F3]
+🧴	emulsioonipudel							// [1F9F4]
+🧵	niit								// [1F9F5]
+🧶	lõng								// [1F9F6]
+🧷	haaknõel							// [1F9F7]
+🧸	mängukaru							// [1F9F8]
+🧹	luud								// [1F9F9]
+🧺	korv								// [1F9FA]
+🧻	paberirull							// [1F9FB]
+🧼	seep								// [1F9FC]
+🧽	pesukäsn							// [1F9FD]
+🧾	kviitung							// [1F9FE]
+🧿	Nazari amulett							// [1F9FF]
+
+// Country Flags (Regional Indicator Symbols) -- ISO 3166-1 Country Codes
+
+🇦🇨	lipp: Ascensioni saar						// [1F1E6 1F1E8] AC
+🇦🇩	lipp: Andorra							// [1F1E6 1F1E9] AD
+🇦🇪	lipp: Araabia Ühendemiraadid					// [1F1E6 1F1EA] AE
+🇦🇫	lipp: Afganistan						// [1F1E6 1F1EB] AF
+🇦🇬	lipp: Antigua ja Barbuda					// [1F1E6 1F1EC] AG
+🇦🇮	lipp: Anguilla							// [1F1E6 1F1EE] AI
+🇦🇱	lipp: Albaania							// [1F1E6 1F1F1] AL
+🇦🇲	lipp: Armeenia							// [1F1E6 1F1F2] AM
+🇦🇴	lipp: Angola							// [1F1E6 1F1F4] AO
+🇦🇶	lipp: Antarktika						// [1F1E6 1F1F6] AQ
+🇦🇷	lipp: Argentina							// [1F1E6 1F1F7] AR
+🇦🇸	lipp: Ameerika Samoa						// [1F1E6 1F1F8] AS
+🇦🇹	lipp: Austria							// [1F1E6 1F1F9] AT
+🇦🇺	lipp: Austraalia						// [1F1E6 1F1FA] AU
+🇦🇼	lipp: Aruba							// [1F1E6 1F1FC] AW
+🇦🇽	lipp: Ahvenamaa							// [1F1E6 1F1FD] AX
+🇦🇿	lipp: Aserbaidžaan						// [1F1E6 1F1FF] AZ
+🇧🇦	lipp: Bosnia ja Hertsegoviina					// [1F1E7 1F1E6] BA
+🇧🇧	lipp: Barbados							// [1F1E7 1F1E7] BB
+🇧🇩	lipp: Bangladesh						// [1F1E7 1F1E9] BD
+🇧🇪	lipp: Belgia							// [1F1E7 1F1EA] BE
+🇧🇫	lipp: Burkina Faso						// [1F1E7 1F1EB] BF
+🇧🇬	lipp: Bulgaaria							// [1F1E7 1F1EC] BG
+🇧🇭	lipp: Bahrein							// [1F1E7 1F1ED] BH
+🇧🇮	lipp: Burundi							// [1F1E7 1F1EE] BI
+🇧🇯	lipp: Benin							// [1F1E7 1F1EF] BJ
+🇧🇱	lipp: Saint-Barthélemy						// [1F1E7 1F1F1] BL
+🇧🇲	lipp: Bermuda							// [1F1E7 1F1F2] BM
+🇧🇳	lipp: Brunei							// [1F1E7 1F1F3] BN
+🇧🇴	lipp: Boliivia							// [1F1E7 1F1F4] BO
+🇧🇶	lipp: Hollandi Kariibi mere saared				// [1F1E7 1F1F6] BQ
+🇧🇷	lipp: Brasiilia							// [1F1E7 1F1F7] BR
+🇧🇸	lipp: Bahama							// [1F1E7 1F1F8] BS
+🇧🇹	lipp: Bhutan							// [1F1E7 1F1F9] BT
+🇧🇻	lipp: Bouvet’ saar						// [1F1E7 1F1FB] BV
+🇧🇼	lipp: Botswana							// [1F1E7 1F1FC] BW
+🇧🇾	lipp: Valgevene							// [1F1E7 1F1FE] BY
+🇧🇿	lipp: Belize							// [1F1E7 1F1FF] BZ
+🇨🇦	lipp: Kanada							// [1F1E8 1F1E6] CA
+🇨🇨	lipp: Kookossaared						// [1F1E8 1F1E8] CC
+🇨🇩	lipp: Kongo DV							// [1F1E8 1F1E9] CD
+🇨🇫	lipp: Kesk-Aafrika Vabariik					// [1F1E8 1F1EB] CF
+🇨🇬	lipp: Kongo Vabariik						// [1F1E8 1F1EC] CG
+🇨🇭	lipp: Šveits							// [1F1E8 1F1ED] CH
+🇨🇮	lipp: Côte d’Ivoire						// [1F1E8 1F1EE] CI
+🇨🇰	lipp: Cooki saared						// [1F1E8 1F1F0] CK
+🇨🇱	lipp: Tšiili							// [1F1E8 1F1F1] CL
+🇨🇲	lipp: Kamerun							// [1F1E8 1F1F2] CM
+🇨🇳	lipp: Hiina							// [1F1E8 1F1F3] CN
+🇨🇴	lipp: Colombia							// [1F1E8 1F1F4] CO
+🇨🇵	lipp: Clippertoni saar						// [1F1E8 1F1F5] CP
+🇨🇷	lipp: Costa Rica						// [1F1E8 1F1F7] CR
+🇨🇺	lipp: Kuuba							// [1F1E8 1F1FA] CU
+🇨🇻	lipp: Roheneemesaared						// [1F1E8 1F1FB] CV
+🇨🇼	lipp: Curaçao							// [1F1E8 1F1FC] CW
+🇨🇽	lipp: Jõulusaar							// [1F1E8 1F1FD] CX
+🇨🇾	lipp: Küpros							// [1F1E8 1F1FE] CY
+🇨🇿	lipp: Tšehhi							// [1F1E8 1F1FF] CZ
+🇩🇪	lipp: Saksamaa							// [1F1E9 1F1EA] DE
+🇩🇬	lipp: Diego Garcia						// [1F1E9 1F1EC] DG
+🇩🇯	lipp: Djibouti							// [1F1E9 1F1EF] DJ
+🇩🇰	lipp: Taani							// [1F1E9 1F1F0] DK
+🇩🇲	lipp: Dominica							// [1F1E9 1F1F2] DM
+🇩🇴	lipp: Dominikaani Vabariik					// [1F1E9 1F1F4] DO
+🇩🇿	lipp: Alžeeria							// [1F1E9 1F1FF] DZ
+🇪🇦	lipp: Ceuta ja Melilla						// [1F1EA 1F1E6] EA
+🇪🇨	lipp: Ecuador							// [1F1EA 1F1E8] EC
+🇪🇪	lipp: Eesti							// [1F1EA 1F1EA] EE
+🇪🇬	lipp: Egiptus							// [1F1EA 1F1EC] EG
+🇪🇭	lipp: Lääne-Sahara						// [1F1EA 1F1ED] EH
+🇪🇷	lipp: Eritrea							// [1F1EA 1F1F7] ER
+🇪🇸	lipp: Hispaania							// [1F1EA 1F1F8] ES
+🇪🇹	lipp: Etioopia							// [1F1EA 1F1F9] ET
+🇪🇺	lipp: Euroopa Liit						// [1F1EA 1F1FA] EU
+🇫🇮	lipp: Soome							// [1F1EB 1F1EE] FI
+🇫🇯	lipp: Fidži							// [1F1EB 1F1EF] FJ
+🇫🇰	lipp: Falklandi saared						// [1F1EB 1F1F0] FI
+🇫🇲	lipp: Mikroneesia						// [1F1EB 1F1F2] FM
+🇫🇴	lipp: Fääri saared						// [1F1EB 1F1F4] FO
+🇫🇷	lipp: Prantsusmaa						// [1F1EB 1F1F7] FR
+🇬🇦	lipp: Gabon							// [1F1EC 1F1E6] GA
+🇬🇧	lipp: Suurbritannia						// [1F1EC 1F1E7] GB
+🇬🇩	lipp: Grenada							// [1F1EC 1F1E9] GD
+🇬🇪	lipp: Gruusia							// [1F1EC 1F1EA] GE
+🇬🇫	lipp: Prantsuse Guajaana					// [1F1EC 1F1EB] GF
+🇬🇬	lipp: Guernsey							// [1F1EC 1F1EC] GG
+🇬🇭	lipp: Ghana							// [1F1EC 1F1ED] GH
+🇬🇮	lipp: Gibraltar							// [1F1EC 1F1EE] GI
+🇬🇱	lipp: Gröönimaa							// [1F1EC 1F1F1] GL
+🇬🇲	lipp: Gambia							// [1F1EC 1F1F2] GM
+🇬🇳	lipp: Guinea							// [1F1EC 1F1F3] GN
+🇬🇵	lipp: Guadeloupe						// [1F1EC 1F1F5] GP
+🇬🇶	lipp: Ekvatoriaal-Guinea					// [1F1EC 1F1F6] GQ
+🇬🇷	lipp: Kreeka							// [1F1EC 1F1F7] GR
+🇬🇸	lipp: Lõuna-Georgia ja Lõuna-Sandwichi saared			// [1F1EC 1F1F8] GS
+🇬🇹	lipp: Guatemala							// [1F1EC 1F1F9] GT
+🇬🇺	lipp: Guam							// [1F1EC 1F1FA] GU
+🇬🇼	lipp: Guinea-Bissau						// [1F1EC 1F1FC] GW
+🇬🇾	lipp: Guyana							// [1F1EC 1F1FE] GY
+🇭🇰	lipp: Hongkongi erihalduspiirkond				// [1F1ED 1F1F0] HK
+🇭🇲	lipp: Heardi ja McDonaldi saared				// [1F1ED 1F1F2] HM
+🇭🇳	lipp: Honduras							// [1F1ED 1F1F3] HN
+🇭🇷	lipp: Horvaatia							// [1F1ED 1F1F7] HR
+🇭🇹	lipp: Haiti							// [1F1ED 1F1F9] HT
+🇭🇺	lipp: Ungari							// [1F1ED 1F1FA] HU
+🇮🇨	lipp: Kanaari saared						// [1F1EE 1F1E8] IC
+🇮🇩	lipp: Indoneesia						// [1F1EE 1F1E9] ID
+🇮🇪	lipp: Iirimaa							// [1F1EE 1F1EA] IE
+🇮🇱	lipp: Iisrael							// [1F1EE 1F1F1] IL
+🇮🇲	lipp: Mani saar							// [1F1EE 1F1F2] IM
+🇮🇳	lipp: India							// [1F1EE 1F1F3] IN
+🇮🇴	lipp: Briti India ookeani ala					// [1F1EE 1F1F4] IO
+🇮🇶	lipp: Iraak							// [1F1EE 1F1F6] IQ
+🇮🇷	lipp: Iraan							// [1F1EE 1F1F7] IR
+🇮🇸	lipp: Island							// [1F1EE 1F1F8] IS
+🇮🇹	lipp: Itaalia							// [1F1EE 1F1F9] IT
+🇯🇪	lipp: Jersey							// [1F1EF 1F1EA] JE
+🇯🇲	lipp: Jamaica							// [1F1EF 1F1F2] JM
+🇯🇴	lipp: Jordaania							// [1F1EF 1F1F4] JO
+🇯🇵	lipp: Jaapan							// [1F1EF 1F1F5] JP
+🇰🇪	lipp: Keenia							// [1F1F0 1F1EA] KE
+🇰🇬	lipp: Kõrgõzstan						// [1F1F0 1F1EC] KG
+🇰🇭	lipp: Kambodža							// [1F1F0 1F1ED] KH
+🇰🇮	lipp: Kiribati							// [1F1F0 1F1EE] KI
+🇰🇲	lipp: Komoorid							// [1F1F0 1F1F2] KM
+🇰🇳	lipp: Saint Kitts ja Nevis					// [1F1F0 1F1F3] KN
+🇰🇵	lipp: Põhja-Korea						// [1F1F0 1F1F5] KP
+🇰🇷	lipp: Lõuna-Korea						// [1F1F0 1F1F7] KR
+🇰🇼	lipp: Kuveit							// [1F1F0 1F1FC] KW
+🇰🇾	lipp: Kaimanisaared						// [1F1F0 1F1FE] KY
+🇰🇿	lipp: Kasahstan							// [1F1F0 1F1FF] KZ
+🇱🇦	lipp: Laos							// [1F1F1 1F1E6] LA
+🇱🇧	lipp: Liibanon							// [1F1F1 1F1E7] LB
+🇱🇨	lipp: Saint Lucia						// [1F1F1 1F1E8] LC
+🇱🇮	lipp: Liechtenstein						// [1F1F1 1F1EE] LI
+🇱🇰	lipp: Sri Lanka							// [1F1F1 1F1F0] LK
+🇱🇷	lipp: Libeeria							// [1F1F1 1F1F7] LR
+🇱🇸	lipp: Lesotho							// [1F1F1 1F1F8] LS
+🇱🇹	lipp: Leedu							// [1F1F1 1F1F9] LT
+🇱🇺	lipp: Luksemburg						// [1F1F1 1F1FA] LU
+🇱🇻	lipp: Läti							// [1F1F1 1F1FB] LV
+🇱🇾	lipp: Liibüa							// [1F1F1 1F1FE] LY
+🇲🇦	lipp: Maroko							// [1F1F2 1F1E6] MA
+🇲🇨	lipp: Monaco							// [1F1F2 1F1E8] MC
+🇲🇩	lipp: Moldova							// [1F1F2 1F1E9] MD
+🇲🇪	lipp: Montenegro						// [1F1F2 1F1EA] ME
+🇲🇫	lipp: Saint-Martin						// [1F1F2 1F1EB] MF
+🇲🇬	lipp: Madagaskar						// [1F1F2 1F1EC] MG
+🇲🇭	lipp: Marshalli Saared						// [1F1F2 1F1ED] MH
+🇲🇰	lipp: Makedoonia						// [1F1F2 1F1F0] MK
+🇲🇱	lipp: Mali							// [1F1F2 1F1F1] ML
+🇲🇲	lipp: Myanmar (Birma)						// [1F1F2 1F1F2] MM
+🇲🇳	lipp: Mongoolia							// [1F1F2 1F1F3] MN
+🇲🇴	lipp: Macau erihalduspiirkond					// [1F1F2 1F1F4] MO
+🇲🇵	lipp: Põhja-Mariaanid						// [1F1F2 1F1F5] MP
+🇲🇶	lipp: Martinique						// [1F1F2 1F1F6] MQ
+🇲🇷	lipp: Mauritaania						// [1F1F2 1F1F7] MR
+🇲🇸	lipp: Montserrat						// [1F1F2 1F1F8] MS
+🇲🇹	lipp: Malta							// [1F1F2 1F1F9] MT
+🇲🇺	lipp: Mauritius							// [1F1F2 1F1FA] MU
+🇲🇻	lipp: Maldiivid							// [1F1F2 1F1FB] MV
+🇲🇼	lipp: Malawi							// [1F1F2 1F1FC] MW
+🇲🇽	lipp: Mehhiko							// [1F1F2 1F1FD] MX
+🇲🇾	lipp: Malaisia							// [1F1F2 1F1FE] MY
+🇲🇿	lipp: Mosambiik							// [1F1F2 1F1FF] MZ
+🇳🇦	lipp: Namiibia							// [1F1F3 1F1E6] NA
+🇳🇨	lipp: Uus-Kaledoonia						// [1F1F3 1F1E8] NC
+🇳🇪	lipp: Niger							// [1F1F3 1F1EA] NE
+🇳🇫	lipp: Norfolk							// [1F1F3 1F1EB] NF
+🇳🇬	lipp: Nigeeria							// [1F1F3 1F1EC] NG
+🇳🇮	lipp: Nicaragua							// [1F1F3 1F1EE] NI
+🇳🇱	lipp: Holland							// [1F1F3 1F1F1] NL
+🇳🇴	lipp: Norra							// [1F1F3 1F1F4] NO
+🇳🇵	lipp: Nepal							// [1F1F3 1F1F5] NP
+🇳🇷	lipp: Nauru							// [1F1F3 1F1F7] NR
+🇳🇺	lipp: Niue							// [1F1F3 1F1FA] NU
+🇳🇿	lipp: Uus-Meremaa						// [1F1F3 1F1FF] NZ
+🇴🇲	lipp: Omaan							// [1F1F4 1F1F2] OM
+🇵🇦	lipp: Panama							// [1F1F5 1F1E6] PA
+🇵🇪	lipp: Peruu							// [1F1F5 1F1EA] PE
+🇵🇫	lipp: Prantsuse Polüneesia					// [1F1F5 1F1EB] PF
+🇵🇬	lipp: Paapua Uus-Guinea						// [1F1F5 1F1EC] PG
+🇵🇭	lipp: Filipiinid						// [1F1F5 1F1ED] PH
+🇵🇰	lipp: Pakistan							// [1F1F5 1F1F0] PK
+🇵🇱	lipp: Poola							// [1F1F5 1F1F1] PL
+🇵🇲	lipp: Saint-Pierre ja Miquelon					// [1F1F5 1F1F2] PM
+🇵🇳	lipp: Pitcairni saared						// [1F1F5 1F1F3] PN
+🇵🇷	lipp: Puerto Rico						// [1F1F5 1F1F7] PR
+🇵🇸	lipp: Palestiina alad						// [1F1F5 1F1F8] PS
+🇵🇹	lipp: Portugal							// [1F1F5 1F1F9] PT
+🇵🇼	lipp: Belau							// [1F1F5 1F1FC] PW
+🇵🇾	lipp: Paraguay							// [1F1F5 1F1FE] PY
+🇶🇦	lipp: Katar							// [1F1F6 1F1E6] QA
+🇷🇪	lipp: Réunion							// [1F1F7 1F1EA] RE
+🇷🇴	lipp: Rumeenia							// [1F1F7 1F1F4] RO
+🇷🇸	lipp: Serbia							// [1F1F7 1F1F8] RS
+🇷🇺	lipp: Venemaa							// [1F1F7 1F1FA] RU
+🇷🇼	lipp: Rwanda							// [1F1F7 1F1FC] RW
+🇸🇦	lipp: Saudi Araabia						// [1F1F8 1F1E6] SA
+🇸🇧	lipp: Saalomoni Saared						// [1F1F8 1F1E7] SB
+🇸🇨	lipp: Seišellid							// [1F1F8 1F1E8] SC
+🇸🇩	lipp: Sudaan							// [1F1F8 1F1E9] SD
+🇸🇪	lipp: Rootsi							// [1F1F8 1F1EA] SE
+🇸🇬	lipp: Singapur							// [1F1F8 1F1EC] SG
+🇸🇭	lipp: Saint Helena						// [1F1F8 1F1ED] SH
+🇸🇮	lipp: Sloveenia							// [1F1F8 1F1EE] SI
+🇸🇯	lipp: Svalbard ja Jan Mayen					// [1F1F8 1F1EF] SJ
+🇸🇰	lipp: Slovakkia							// [1F1F8 1F1F0] SK
+🇸🇱	lipp: Sierra Leone						// [1F1F8 1F1F1] SL
+🇸🇲	lipp: San Marino						// [1F1F8 1F1F2] SM
+🇸🇳	lipp: Senegal							// [1F1F8 1F1F3] SN
+🇸🇴	lipp: Somaalia							// [1F1F8 1F1F4] SO
+🇸🇷	lipp: Suriname							// [1F1F8 1F1F7] SR
+🇸🇸	lipp: Lõuna-Sudaan						// [1F1F8 1F1F8] SS
+🇸🇹	lipp: São Tomé ja Príncipe					// [1F1F8 1F1F9] ST
+🇸🇻	lipp: El Salvador						// [1F1F8 1F1FB] SV
+🇸🇽	lipp: Sint Maarten						// [1F1F8 1F1FD] SX
+🇸🇾	lipp: Süüria							// [1F1F8 1F1FE] SY
+🇸🇿	lipp: Svaasimaa							// [1F1F8 1F1FF] SZ
+🇹🇦	lipp: Tristan da Cunha						// [1F1F9 1F1E6] TA
+🇹🇨	lipp: Turks ja Caicos						// [1F1F9 1F1E8] TC
+🇹🇩	lipp: Tšaad							// [1F1F9 1F1E9] TD
+🇹🇫	lipp: Prantsuse Lõunaalad					// [1F1F9 1F1EB] TF
+🇹🇬	lipp: Togo							// [1F1F9 1F1EC] TG
+🇹🇭	lipp: Tai							// [1F1F9 1F1ED] TH
+🇹🇯	lipp: Tadžikistan						// [1F1F9 1F1EF] TJ
+🇹🇰	lipp: Tokelau							// [1F1F9 1F1F0] TK
+🇹🇱	lipp: Ida-Timor							// [1F1F9 1F1F1] TL
+🇹🇲	lipp: Türkmenistan						// [1F1F9 1F1F2] TM
+🇹🇳	lipp: Tuneesia							// [1F1F9 1F1F3] TN
+🇹🇴	lipp: Tonga							// [1F1F9 1F1F4] TO
+🇹🇷	lipp: Türgi							// [1F1F9 1F1F7] TR
+🇹🇹	lipp: Trinidad ja Tobago					// [1F1F9 1F1F9] TT
+🇹🇻	lipp: Tuvalu							// [1F1F9 1F1FB] TV
+🇹🇼	lipp: Taiwan							// [1F1F9 1F1FC] TW
+🇹🇿	lipp: Tansaania							// [1F1F9 1F1FF] TZ
+🇺🇦	lipp: Ukraina							// [1F1FA 1F1E6] UA
+🇺🇬	lipp: Uganda							// [1F1FA 1F1EC] UG
+🇺🇲	lipp: Ühendriikide hajasaared					// [1F1FA 1F1F2] UM
+🇺🇳	lipp: Ühendatud Rahvaste Organisatsioon				// [1F1FA 1F1F3] UN
+🇺🇸	lipp: Ameerika Ühendriigid					// [1F1FA 1F1F8] US
+🇺🇾	lipp: Uruguay							// [1F1FA 1F1FE] UY
+🇺🇿	lipp: Usbekistan						// [1F1FA 1F1FF] UZ
+🇻🇦	lipp: Vatikan							// [1F1FB 1F1E6] VA
+🇻🇨	lipp: Saint Vincent ja Grenadiinid				// [1F1FB 1F1E8] VC
+🇻🇪	lipp: Venezuela							// [1F1FB 1F1EA] VE
+🇻🇬	lipp: Briti Neitsisaared					// [1F1FB 1F1EC] VG
+🇻🇮	lipp: USA Neitsisaared						// [1F1FB 1F1EE] VI
+🇻🇳	lipp: Vietnam							// [1F1FB 1F1F3] VN
+🇻🇺	lipp: Vanuatu							// [1F1FB 1F1FA] VU
+🇼🇫	lipp: Wallis ja Futuna						// [1F1FC 1F1EB] WF
+🇼🇸	lipp: Samoa							// [1F1FC 1F1F8] WS
+🇽🇰	lipp: Kosovo							// [1F1FD 1F1F0] XK
+🇾🇪	lipp: Jeemen							// [1F1FE 1F1EA] YE
+🇾🇹	lipp: Mayotte							// [1F1FE 1F1F9] YT
+🇿🇦	lipp: Lõuna-Aafrika Vabariik					// [1F1FF 1F1E6] ZA
+🇿🇲	lipp: Sambia							// [1F1FF 1F1F2] ZM
+🇿🇼	lipp: Zimbabwe							// [1F1FF 1F1FC] ZW
+
+// Subdivision Flags -- ISO 3166-2 Subdivision Codes
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿	lipp: Inglismaa						// [1F3F4 E0067 E0062 E0065 E006E E0067 E007F]
+🏴󠁧󠁢󠁳󠁣󠁴󠁿	lipp: Šotimaa						// [1F3F4 E0067 E0062 E0073 E0063 E0074 E007F]
+🏴󠁧󠁢󠁷󠁬󠁳󠁿	lipp: Wales						// [1F3F4 E0067 E0062 E0077 E006C E0073 E007F]
+
+// Keycaps (NOTE: keycap 10 is a single Unicode codepoint)
+
+#️⃣	klahv: #							// [0023 FE0F 20E3]
+*️⃣	klahv: *							// [002A FE0F 20E3]
+0️⃣	klahv: 0							// [0030 FE0F 20E3]
+1️⃣	klahv: 1							// [0031 FE0F 20E3]
+2️⃣	klahv: 2							// [0032 FE0F 20E3]
+3️⃣	klahv: 3							// [0033 FE0F 20E3]
+4️⃣	klahv: 4							// [0034 FE0F 20E3]
+5️⃣	klahv: 5							// [0035 FE0F 20E3]
+6️⃣	klahv: 6							// [0036 FE0F 20E3]
+7️⃣	klahv: 7							// [0037 FE0F 20E3]
+8️⃣	klahv: 8							// [0038 FE0F 20E3]
+9️⃣	klahv: 9							// [0039 FE0F 20E3]
+
+// 1FA70..1FAFF : Symbols and Pictographs Extended-A
+🩰	balletikingad						// [1FA70]
+🩱	ujumistrikoo						// [1FA71]
+🩲	ujumispüksid						// [1FA72]
+🩳	šortsid							// [1FA73]
+🩴	varbavahesandaalid					// [1FA74]
+🩵	helesinine süda						// [1FA75]
+🩶	hall süda						// [1FA76]
+🩷	roosa süda						// [1FA77]
+🩸	veretilk						// [1FA78]
+🩹	plaaster						// [1FA79]
+🩺	stetoskoop						// [1FA7A]
+🩻	röntgen							// [1FA7B]
+🩼	kark							// [1FA7C]
+🪀	jojo							// [1FA80]
+🪁	tuulelohe						// [1FA81]
+🪂	langevarjur						// [1FA82]
+🪃	bumerang						// [1FA83]
+🪄	võlukepp						// [1FA84]
+🪅	piñata							// [1FA85]
+🪆	matrjoška						// [1FA86]
+🪇	marakas							// [1FA87]
+🪈	flööt							// [1FA88]
+🪉	harf							// [1FA89]
+🪏	labidas							// [1FA8F]
+🪐	rõngastega planeet					// [1FA90]
+🪑	tool							// [1FA91]
+🪒	habemenuga						// [1FA92]
+🪓	kirves							// [1FA93]
+🪔	diya-lamp						// [1FA94]
+🪕	bandžo							// [1FA95]
+🪖	sõdurikiiver						// [1FA96]
+🪗	akordion						// [1FA97]
+🪘	aafrika trumm						// [1FA98]
+🪙	münt							// [1FA99]
+🪚	käsisaag						// [1FA9A]
+🪛	kruvikeeraja						// [1FA9B]
+🪜	redel							// [1FA9C]
+🪝	konks							// [1FA9D]
+🪞	peegel							// [1FA9E]
+🪟	aken							// [1FA9F]
+🪠	valamupump						// [1FAA0]
+🪡	õmblusnõel						// [1FAA1]
+🪢	sõlm							// [1FAA2]
+🪣	ämber							// [1FAA3]
+🪤	hiirelõks						// [1FAA4]
+🪥	hambahari						// [1FAA5]
+🪦	hauakivi						// [1FAA6]
+🪧	plakat							// [1FAA7]
+🪨	kivi							// [1FAA8]
+🪩	diskokera						// [1FAA9]
+🪪	ID-kaart						// [1FAAA]
+🪫	aku tühjeneb						// [1FAAB]
+🪬	hamsa							// [1FAAC]
+🪭	volditav lehvik						// [1FAAD]
+🪮	juuksehark						// [1FAAE]
+🪯	khanda							// [1FAAF]
+🪰	kärbes							// [1FAB0]
+🪱	uss							// [1FAB1]
+🪲	mardikas						// [1FAB2]
+🪳	prussakas						// [1FAB3]
+🪴	potilill						// [1FAB4]
+🪵	puit							// [1FAB5]
+🪶	sulg							// [1FAB6]
+🪷	lootos							// [1FAB7]
+🪸	korall							// [1FAB8]
+🪹	tühi pesa						// [1FAB9]
+🪺	munadega pesa						// [1FABA]
+🪻	hüatsint						// [1FABB]
+🪼	meduus							// [1FABC]
+🪽	tiib							// [1FABD]
+🪾	raagus puu						// [1FABE]
+🪿	hani							// [1FABF]
+🫀	süda							// [1FAC0]
+🫁	kopsud							// [1FAC1]
+🫂	kallistavad inimesed					// [1FAC2]
+🫃	rase mees						// [1FAC3]
+🫄	rase inimene						// [1FAC4]
+🫅	krooniga inimene					// [1FAC5]
+🫆	sõrmejälg						// [1FAC6]
+🫎	põder							// [1FACE]
+🫏	eesel							// [1FACF]
+🫐	mustikad						// [1FAD0]
+🫑	paprika							// [1FAD1]
+🫒	oliiv							// [1FAD2]
+🫓	lameleib						// [1FAD3]
+🫔	tamale							// [1FAD4]
+🫕	fondüü							// [1FAD5]
+🫖	teekann							// [1FAD6]
+🫗	vedeliku kallamine					// [1FAD7]
+🫘	oad							// [1FAD8]
+🫙	purk							// [1FAD9]
+🫚	ingver							// [1FADA]
+🫛	hernekaun						// [1FADB]
+🫜	juurvili						// [1FADC]
+🫟	plärakas						// [1FADF]
+🫠	sulav nägu						// [1FAE0]
+🫡	au andev nägu						// [1FAE1]
+🫢	kätt suul hoidev pärani silmadega nägu			// [1FAE2]
+🫣	käte vahelt piiluva silmaga nägu			// [1FAE3]
+🫤	diagonaalse suuga nägu					// [1FAE4]
+🫥	punktiirjoonega nägu					// [1FAE5]
+🫦	huulde hammustav					// [1FAE6]
+🫧	mullid							// [1FAE7]
+🫨	värisev nägu						// [1FAE8]
+🫩	nägu kottidega silmade all				// [1FAE9]
+🫰	pöialt ja nimetissõrme risti hoidev käsi		// [1FAF0]
+🫱	käsi paremale						// [1FAF1]
+🫲	käsi vasakule						// [1FAF2]
+🫳	käsi peopesaga allapoole				// [1FAF3]
+🫴	käsi peopesaga ülespoole				// [1FAF4]
+🫵	vaataja poole osutav nimetissõrm			// [1FAF5]
+🫶	südant moodustavad käed					// [1FAF6]
+🫷	vasakule lükkav käsi					// [1FAF7]
+🫸	paremale lükkav käsi					// [1FAF8]
+
+// Emoji ZWJ Sequence: Family
+
+⛓‍💥	katkine kett						// [26D3 200D 1F4A5]
+❤‍🔥	leegitsev süda						// [2764 200D 1F525]
+❤‍🩹	tervenev süda						// [2764 200D 1FA79]
+🍄‍🟫	šampinjon						// [1F344 200D 1F7EB]
+🍋‍🟩	laim							// [1F34B 200D 1F7E9]
+🏃‍♀‍➡	jooksev naine suunaga paremale				// [1F3C3 200D 2640 200D 27A1]
+🏃‍♂‍➡	jooksev mees suunaga paremale				// [1F3C3 200D 2642 200D 27A1]
+🏃‍➡	jooksja suunaga paremale				// [1F3C3 200D 27A1]
+🏳‍⚧	transsoolisuse lipp					// [1F3F3 200D 26A7]
+🐈‍⬛	must kass						// [1F408 200D 2B1B]
+🐕‍🦺	teenistuskoer						// [1F415 200D 1F9BA]
+🐦‍⬛	must lind						// [1F426 200D 2B1B]
+🐦‍🔥	fööniks							// [1F426 200D 1F525]
+🐻‍❄	jääkaru							// [1F43B 200D 2744]
+👨‍🍼	beebit toitev mees					// [1F468 200D 1F37C]
+👨‍🦯	valge kepiga mees					// [1F468 200D 1F9AF]
+👨‍🦯‍➡	valge kepiga mees suunaga paremale			// [1F468 200D 1F9AF 200D 27A1]
+👨‍🦰	mees punased juuksed					// [1F468 200D 1F9B0]
+👨‍🦱	mees lokkis juuksed					// [1F468 200D 1F9B1]
+👨‍🦲	mees kiilaspea						// [1F468 200D 1F9B2]
+👨‍🦳	mees heledad juuksed					// [1F468 200D 1F9B3]
+👨‍🦼	elektriratastoolis olev mees				// [1F468 200D 1F9BC]
+👨‍🦼‍➡	elektriratastoolis olev mees suunaga paremale		// [1F468 200D 1F9BC 200D 27A1]
+👨‍🦽	manuaalratastoolis olev mees				// [1F468 200D 1F9BD]
+👨‍🦽‍➡	manuaalratastoolis olev mees suunaga paremale		// [1F468 200D 1F9BD 200D 27A1]
+👩‍❤‍💋‍👨	musi: naine, mees			// [1F469 200D 2764 200D 1F48B 200D 1F468]
+👨‍❤‍💋‍👨	musi: mees, mees			// [1F468 200D 2764 200D 1F48B 200D 1F468]
+👩‍❤‍💋‍👩	musi: naine, naine			// [1F469 200D 2764 200D 1F48B 200D 1F469]
+👩‍❤‍👨	paarike südamega: naine, mees			// [1F469 200D 2764 200D 1F468]
+👨‍❤‍👨	paarike südamega: mees, mees			// [1F468 200D 2764 200D 1F468]
+👩‍❤‍👩	paarike südamega: naine, naine			// [1F469 200D 2764 200D 1F469]
+👨‍👩‍👦	perekond: mees, naine, poiss			// [1F468 200D 1F469 200D 1F466]
+👨‍👩‍👧	perekond: mees, naine, tüdruk			// [1F468 200D 1F469 200D 1F467]
+👨‍👩‍👧‍👦	perekond: mees, naine, tüdruk, poiss	// [1F468 200D 1F469 200D 1F467 200D 1F466]
+👨‍👩‍👦‍👦	perekond: mees, naine, poiss, poiss	// [1F468 200D 1F469 200D 1F466 200D 1F466]
+👨‍👩‍👧‍👧	perekond: mees, naine, tüdruk, tüdruk	// [1F468 200D 1F469 200D 1F467 200D 1F467]
+👨‍👨‍👦	perekond: mees, mees, poiss			// [1F468 200D 1F468 200D 1F466]
+👨‍👨‍👧	perekond: mees, mees, tüdruk			// [1F468 200D 1F468 200D 1F467]
+👨‍👨‍👧‍👦	perekond: mees, mees, tüdruk, poiss	// [1F468 200D 1F468 200D 1F467 200D 1F466]
+👨‍👨‍👦‍👦	perekond: mees, mees, poiss, poiss	// [1F468 200D 1F468 200D 1F466 200D 1F466]
+👨‍👨‍👧‍👧	perekond: mees, mees, tüdruk, tüdruk	// [1F468 200D 1F468 200D 1F467 200D 1F467]
+👩‍🍼	beebit toitev naine					// [1F469 200D 1F37C]
+👩‍👩‍👦	perekond: naine, naine, poiss			// [1F469 200D 1F469 200D 1F466]
+👩‍👩‍👧	perekond: naine, naine, tüdruk			// [1F469 200D 1F469 200D 1F467]
+👩‍👩‍👧‍👦	perekond: naine, naine, tüdruk, poiss	// [1F469 200D 1F469 200D 1F467 200D 1F466]
+👩‍👩‍👦‍👦	perekond: naine, naine, poiss, poiss	// [1F469 200D 1F469 200D 1F466 200D 1F466]
+👩‍👩‍👧‍👧	perekond: naine, naine, tüdruk, tüdruk	// [1F469 200D 1F469 200D 1F467 200D 1F467]
+👨‍👦	perekond: mees, poiss					// [1F468 200D 1F466]
+👨‍👦‍👦	perekond: mees, poiss, poiss			// [1F468 200D 1F466 200D 1F466]
+👨‍👧	perekond: mees, tüdruk					// [1F468 200D 1F467]
+👨‍👧‍👦	perekond: mees, tüdruk, poiss			// [1F468 200D 1F467 200D 1F466]
+👨‍👧‍👧	perekond: mees, tüdruk, tüdruk			// [1F468 200D 1F467 200D 1F467]
+👩‍👦	perekond: naine, poiss					// [1F469 200D 1F466]
+👩‍👦‍👦	perekond: naine, poiss, poiss			// [1F469 200D 1F466 200D 1F466]
+👩‍👧	perekond: naine, tüdruk					// [1F469 200D 1F467]
+👩‍👧‍👦	perekond: naine, tüdruk, poiss			// [1F469 200D 1F467 200D 1F466]
+👩‍👧‍👧	perekond: naine, tüdruk, tüdruk			// [1F469 200D 1F467 200D 1F467]
+
+// Emoji ZWJ Sequence: Gendered Role, with object
+
+👨‍⚕	meesarst						// [1F468 200D 2695]
+👩‍⚕	naisarst						// [1F469 200D 2695]
+👨‍⚖	meeskohtunik						// [1F468 200D 2696]
+👩‍⚖	naiskohtunik						// [1F469 200D 2696]
+👨‍✈	meespiloot						// [1F468 200D 2708]
+👩‍✈	naispiloot						// [1F469 200D 2708]
+👨‍🌾	meesfarmer						// [1F468 200D 1F33E]
+👩‍🌾	naisfarmer						// [1F469 200D 1F33E]
+👨‍🍳	meeskokk						// [1F468 200D 1F373]
+👩‍🍳	naiskokk						// [1F469 200D 1F373]
+👨‍🎓	meesõpilane						// [1F468 200D 1F393]
+👩‍🎓	naisõpilane						// [1F469 200D 1F393]
+👨‍🎤	meeslaulja						// [1F468 200D 1F3A4]
+👩‍🎤	naislaulja						// [1F469 200D 1F3A4]
+👨‍🎨	meeskunstnik						// [1F468 200D 1F3A8]
+👩‍🎨	naiskunstnik						// [1F469 200D 1F3A8]
+👨‍🏫	meesõpetaja						// [1F468 200D 1F3EB]
+👩‍🏫	naisõpetaja						// [1F469 200D 1F3EB]
+👨‍🏭	meessoost tehasetööline					// [1F468 200D 1F3ED]
+👩‍🏭	naissoost tehasetööline					// [1F469 200D 1F3ED]
+👨‍💻	meesprogrammeerija					// [1F468 200D 1F4BB]
+👩‍💻	naisprogrammeerija					// [1F469 200D 1F4BB]
+👨‍💼	meeskontoritöötaja					// [1F468 200D 1F4BC]
+👩‍💼	naiskontoritöötaja					// [1F469 200D 1F4BC]
+👨‍🔧	meesmehaanik						// [1F468 200D 1F527]
+👩‍🔧	naismehaanik						// [1F469 200D 1F527]
+👨‍🔬	meesteadlane						// [1F468 200D 1F52C]
+👩‍🔬	naisteadlane						// [1F469 200D 1F52C]
+👨‍🚀	meesastronaut						// [1F468 200D 1F680]
+👩‍🚀	naisastronaut						// [1F469 200D 1F680]
+👨‍🚒	meestuletõrjuja						// [1F468 200D 1F692]
+👩‍🚒	naistuletõrjuja						// [1F469 200D 1F692]
+👩‍🦯	valge kepiga naine					// [1F469 200D 1F9AF]
+👩‍🦯‍➡	valge kepiga naine suunaga paremale			// [1F469 200D 1F9AF 200D 27A1]
+👩‍🦰	naine punased juuksed					// [1F469 200D 1F9B0]
+👩‍🦱	naine lokkis juuksed					// [1F469 200D 1F9B1]
+👩‍🦲	naine kiilaspea						// [1F469 200D 1F9B2]
+👩‍🦳	naine heledad juuksed					// [1F469 200D 1F9B3]
+👩‍🦼	elektriratastoolis olev naine				// [1F469 200D 1F9BC]
+👩‍🦼‍➡	elektriratastoolis olev naine suunaga paremale		// [1F469 200D 1F9BC 200D 27A1]
+👩‍🦽	manuaalratastoolis olev naine				// [1F469 200D 1F9BD]
+👩‍🦽‍➡	manuaalratastoolis olev naine suunaga paremale		// [1F469 200D 1F9BD 200D 27A1]
+
+// Emoji ZWJ Sequence: Gendered Role
+
+👮‍♀	naispolitseinik						// [1F46E 200D 2640]
+👮‍♂	meespolitseinik						// [1F46E 200D 2642]
+👰‍♀	naine looriga						// [1F470 200D 2640]
+👰‍♂	mees looriga						// [1F470 200D 2642]
+👱‍♀	blond naine						// [1F471 200D 2640]
+👱‍♂	blond mees						// [1F471 200D 2642]
+👳‍♀	naine turbaninga					// [1F473 200D 2640]
+👳‍♂	mees turbaniga						// [1F473 200D 2642]
+👷‍♀	naisehitaja						// [1F477 200D 2640]
+👷‍♂	meesehitaja						// [1F477 200D 2642]
+💂‍♀	naisvalvur						// [1F482 200D 2640]
+💂‍♂	meesvalvur						// [1F482 200D 2642]
+🕵️‍♀	naisdetektiiv						// [1F575 200D 2640]
+🕵️‍♂	meesdetektiiv						// [1F575 200D 2642]
+😮‍💨	väljahingav nägu					// [1F62E 200D 1F4A8]
+😵‍💫	spiraalsilmadega nägu					// [1F635 200D 1F4AB]
+😶‍🌫	nägu pilvedes						// [1F636 200D 1F32B]
+🙂‍↔	pearaputus						// [1F642 200D 2194]
+🙂‍↕	peanoogutus						// [1F642 200D 2195]
+🚶‍♀‍➡	kõndiv naine suunaga paremale				// [1F6B6 200D 2640 200D 27A1]
+🚶‍♂‍➡	kõndiv mees suunaga paremale				// [1F6B6 200D 2642 200D 27A1]
+🚶‍➡	jalakäija suunaga paremale				// [1F6B6 200D 27A1]
+🤵‍♀	naine smokingus						// [1F935 200D 2640]
+🤵‍♂	mees smokingis						// [1F935 200D 2642]
+🦸‍♀	naissuperkangelane					// [1F9B8 200D 2640]
+🦸‍♂	meeskangelane						// [1F9B8 200D 2642]
+🦹‍♀	naissoost superkurikael					// [1F9B9 200D 2640]
+🦹‍♂	meessoost superkurikael					// [1F9B9 200D 2642]
+🧍‍♀	seisev naine						// [1F9CD 200D 2640]
+🧍‍♂	seisev mees						// [1F9CD 200D 2642]
+🧎‍♀	põlvitav naine						// [1F9CE 200D 2640]
+🧎‍♀‍➡	põlvitav naine suunaga paremale				// [1F9CE 200D 2640 200D 27A1]
+🧎‍♂	põlvitav mees						// [1F9CE 200D 2642]
+🧎‍♂‍➡	põlvitav mees suunaga paremale				// [1F9CE 200D 2642 200D 27A1]
+🧎‍➡	põlvitav inimene suunaga paremale			// [1F9CE 200D 27A1]
+🧏‍♀	kurt naine						// [1F9CF 200D 2640]
+🧏‍♂	kurt mees						// [1F9CF 200D 2642]
+🧑‍⚕	tervishoiutöötaja					// [1F9D1 200D 2695]
+🧑‍⚖	kohtunik						// [1F9D1 200D 2696]
+🧑‍✈	piloot							// [1F9D1 200D 2708]
+🧑‍🌾	talunik							// [1F9D1 200D 1F33E]
+🧑‍🍳	kokk							// [1F9D1 200D 1F373]
+🧑‍🍼	beebit toitev inimene					// [1F9D1 200D 1F37C]
+🧑‍🎄	päkats							// [1F9D1 200D 1F384]
+🧑‍🎓	õpilane							// [1F9D1 200D 1F393]
+🧑‍🎤	laulja							// [1F9D1 200D 1F3A4]
+🧑‍🎨	kunstnik						// [1F9D1 200D 1F3A8]
+🧑‍🏫	õpetaja							// [1F9D1 200D 1F3EB]
+🧑‍🏭	tehasetööline						// [1F9D1 200D 1F3ED]
+🧑‍💻	programmeerija						// [1F9D1 200D 1F4BB]
+🧑‍💼	kontoritöötaja						// [1F9D1 200D 1F4BC]
+🧑‍🔧	mehaanik						// [1F9D1 200D 1F527]
+🧑‍🔬	teadlane						// [1F9D1 200D 1F52C]
+🧑‍🚀	astronaut						// [1F9D1 200D 1F680]
+🧑‍🚒	tuletõrjuja						// [1F9D1 200D 1F692]
+🧑‍🤝‍🧑	inimesed hoiavad käest kinni				// [1F9D1 200D 1F91D 200D 1F9D1]
+🧑‍🦯	valge kepiga inimene					// [1F9D1 200D 1F9AF]
+🧑‍🦯‍➡	valge kepiga inimene suunaga paremale			// [1F9D1 200D 1F9AF 200D 27A1]
+🧑‍🦰	täiskasvanu punased juuksed				// [1F9D1 200D 1F9B0]
+🧑‍🦱	täiskasvanu lokkis juuksed				// [1F9D1 200D 1F9B1]
+🧑‍🦲	täiskasvanu kiilaspea					// [1F9D1 200D 1F9B2]
+🧑‍🦳	täiskasvanu heledad juuksed				// [1F9D1 200D 1F9B3]
+🧑‍🦼	elektrilises ratastoolis inimene			// [1F9D1 200D 1F9BC]
+🧑‍🦼‍➡	elektrilises ratastoolis inimene suunaga paremale	// [1F9D1 200D 1F9BC 200D 27A1]
+🧑‍🦽	manuaalses ratastoolis inimene				// [1F9D1 200D 1F9BD]
+🧑‍🦽‍➡	manuaalses ratastoolis inimene suunaga paremale		// [1F9D1 200D 1F9BD 200D 27A1]
+🧑‍🧑‍🧒	perekond täiskasvanu täiskasvanu laps			// [1F9D1 200D 1F9D1 200D 1F9D2]
+🧑‍🧑‍🧒‍🧒	perekond täiskasvanu täiskasvanu laps laps		// [1F9D1 200D 1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🧒	perekond täiskasvanu laps				// [1F9D1 200D 1F9D2]
+🧑‍🧒‍🧒	perekond täiskasvanu laps laps				// [1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🩰	balletitantsija						// [1F9D1 200D 1FA70]
+🧔‍♀	habemega naine						// [1F9D4 200D 2640]
+🧔‍♂	habemega mees						// [1F9D4 200D 2642]
+🧙‍♀	naismaag						// [1F9D9 200D 2640]
+🧙‍♂	meesmaag						// [1F9D9 200D 2642]
+🧚‍♀	naishaldjas						// [1F9DA 200D 2640]
+🧚‍♂	meeshaldjas						// [1F9DA 200D 2642]
+🧛‍♀	naisvampiir						// [1F9DB 200D 2640]
+🧛‍♂	meesvampiir						// [1F9DB 200D 2642]
+🧜‍♀	merineitsi						// [1F9DC 200D 2640]
+🧜‍♂	meesnäkk						// [1F9DC 200D 2642]
+🧝‍♀	naispäkapikk						// [1F9DD 200D 2640]
+🧝‍♂	meespäkapikk						// [1F9DD 200D 2642]
+🧞‍♀	naisdžinn						// [1F9DE 200D 2640]
+🧞‍♂	meesdžinn						// [1F9DE 200D 2642]
+🧟‍♀	naiszombi						// [1F9DF 200D 2640]
+🧟‍♂	meeszombi						// [1F9DF 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Activity
+
+⛹‍♀	naine palliga						// [26F9 200D 2640]
+⛹‍♂	mees palliga						// [26F9 200D 2642]
+🏃‍♀	jooksev naine						// [1F3C3 200D 2640]
+🏃‍♂	jooksev mees						// [1F3C3 200D 2642]
+🏄‍♀	naissurfar						// [1F3C4 200D 2640]
+🏄‍♂	meessurfar						// [1F3C4 200D 2642]
+🏊‍♀	naisujuja						// [1F3CA 200D 2640]
+🏊‍♂	meesujuja						// [1F3CA 200D 2642]
+🏋️‍♀	naisjõutõstja						// [1F3CB 200D 2640]
+🏋️‍♂	meesjõutõstja						// [1F3CB 200D 2642]
+🏌️‍♀	golfi mängiv naine					// [1F3CC 200D 2640]
+🏌️‍♂	golfi mängiv mees					// [1F3CC 200D 2642]
+👯‍♀	pidutsevad jänesekõrvadega naised			// [1F46F 200D 2640]
+👯‍♂	pidutsevad jänesekõrvadega mehed			// [1F46F 200D 2642]
+💆‍♀	näomassaaži saav naine					// [1F486 200D 2640]
+💆‍♂	näomassaaži saav mees					// [1F486 200D 2642]
+💇‍♀	naine juuksuris						// [1F487 200D 2640]
+💇‍♂	mees juuksuris						// [1F487 200D 2642]
+🚣‍♀	aerupaadiga naine					// [1F6A3 200D 2640]
+🚣‍♂	aerupaadiga mees					// [1F6A3 200D 2642]
+🚴‍♀	naisrattur						// [1F6B4 200D 2640]
+🚴‍♂	meesrattur						// [1F6B4 200D 2642]
+🚵‍♀	naismägirattur						// [1F6B5 200D 2640]
+🚵‍♂	meesmägirattur						// [1F6B5 200D 2642]
+🚶‍♀	kõndiv naine						// [1F6B6 200D 2640]
+🚶‍♂	kõndiv mees						// [1F6B6 200D 2642]
+🤸‍♀	hundiratast viskav naine				// [1F938 200D 2640]
+🤸‍♂	hundiratast viskav mees					// [1F938 200D 2642]
+🤹‍♀	naisžonglöör						// [1F939 200D 2640]
+🤹‍♂	meesžonglöör						// [1F939 200D 2642]
+🤼‍♀	maadlevad naised					// [1F93C 200D 2640]
+🤼‍♂	maadlevad mehed						// [1F93C 200D 2642]
+🤽‍♀	veepalli mängiv naine					// [1F93D 200D 2640]
+🤽‍♂	veepalli mängiv mees					// [1F93D 200D 2642]
+🤾‍♀	käsipalli mängiv naine					// [1F93E 200D 2640]
+🤾‍♂	käsipalli mängiv mees					// [1F93E 200D 2642]
+🧖‍♀	leiliruumis olev naine					// [1F9D6 200D 2640]
+🧖‍♂	leiliruumis olev mees					// [1F9D6 200D 2642]
+🧗‍♀	mäkke roniv naine					// [1F9D7 200D 2640]
+🧗‍♂	mäkke roniv mees					// [1F9D7 200D 2642]
+🧘‍♀	lootosasendis naine					// [1F9D8 200D 2640]
+🧘‍♂	lootosasendis mees					// [1F9D8 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Gestures
+
+💁‍♀	infoleti naistöötaja					// [1F481 200D 2640]
+💁‍♂	infoleti meestöötaja					// [1F481 200D 2642]
+🙅‍♀	eitavat žesti näitav naine				// [1F645 200D 2640]
+🙅‍♂	eitavat žesti näitav mees				// [1F645 200D 2642]
+🙆‍♀	nõustuvat žesti näitav naine				// [1F646 200D 2640]
+🙆‍♂	nõustuvat žesti näitav mees				// [1F646 200D 2642]
+🙇‍♀	sügavalt kummarduv naine				// [1F647 200D 2640]
+🙇‍♂	sügavalt kummarduv mees					// [1F647 200D 2642]
+🙋‍♀	kätt tõstev naine					// [1F64B 200D 2640]
+🙋‍♂	kätt tõstev mees					// [1F64B 200D 2642]
+🙍‍♀	kulmu kortsutav naine					// [1F64D 200D 2640]
+🙍‍♂	kulmu kortsutav mees					// [1F64D 200D 2642]
+🙎‍♀	mossitav naine						// [1F64E 200D 2640]
+🙎‍♂	mossitav mees						// [1F64E 200D 2642]
+🤦‍♀	käega vastu pead lööv naine				// [1F926 200D 2640]
+🤦‍♂	käega vastu pead lööv mees				// [1F926 200D 2642]
+🤷‍♀	õlgu kehitav naine					// [1F937 200D 2640]
+🤷‍♂	õlgu kehitav mees					// [1F937 200D 2642]
+
+// Emoji ZWJ Sequence: Other
+
+🏳‍🌈	vikerkaarelipp						// [1F3F3 200D 1F308]
+🏴‍☠	piraadilipp						// [1F3F4 200D 2620]
+👁‍🗨	silm jutumullis						// [1F441 200D 1F5E8]
+
+// References:
+//   [UCD]	Unicode Character Database 11.0.0 [http://www.unicode.org/Public/11.0.0/ucd/]
+//   [Emoji]	Unicode Emoji 11.0 [http://www.unicode.org/Public/emoji/11.0/]
+//   [CLDR]	Unicode Common Locale Data Repository 33.1 [http://cldr.unicode.org/index/downloads/cldr-33.1]
+//
+// Sources:
+//   1.  emoji-test.txt (Emoji)
+//   2.  common/annotations/et.xml (CLDR)
+//   3.  emoji-zwj-sequences.txt (Emoji)

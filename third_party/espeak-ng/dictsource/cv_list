@@ -1,0 +1,166 @@
+// This file is UTF8 encoded
+// Pronunciation exceptions for Chuvash
+
+// Letter names
+// A vowel is named by its own sound, a consonant with ӑ after it (бӑ, вӑ, гӑ ...).
+// The names of the vowels are given with _ so that they are used only in
+// spelling: а, е, и, э are also words.
+_а	'a
+_ӑ	'@
+б	b'@	// бӑ
+в	v'@	// вӑ
+г	g'@	// гӑ
+д	d'@	// дӑ
+_е	j'E
+_ё	j'O
+_ӗ	'8
+ж	Z'@	// жӑ
+з	z'@	// зӑ
+_и	'I
+й	j'@	// йӑ
+к	k'@	// кӑ
+л	l'@	// лӑ
+м	m'@	// мӑ
+н	n'@	// нӑ
+_о	'O
+п	p'@	// пӑ
+р	R'@	// рӑ
+с	s'@	// сӑ
+ҫ	C'@	// ҫӑ
+т	t'@	// тӑ
+_у	'U
+_ӳ	'Y
+ф	f'@	// фӑ
+х	x'@	// хӑ
+ц	ts'@	// цӑ
+ч	tS'@	// чӑ
+ш	S'@	// шӑ
+щ	C:'@	// щӑ
+ъ	x'Vt@l@x||pall'I	// хытӑлӑх палли
+_ы	'V
+ь	CEmC'El8x||pall'I	// ҫемҫелӗх палли
+_э	'E
+_ю	j'U
+_я	j'a
+
+// A capital letter
+_cap	p,Vs@k||	// пысӑк
+
+// The names of the accents, for an accented letter of another language,
+// and the stress mark which is written over a vowel
+_acu	ak'Ut	// акут
+_grv	gR'avIs	// гравис
+_cir	tsIRkUmfl'Eks	// циркумфлекс
+_dia	Uml'aUt	// умлаут
+_tld	t'Ilda	// тильда
+U+301	p'us@m||pall'I	// пусӑм палли
+
+// ӑ ӗ ҫ ӳ are often typed as the Latin letters which look like them
+ă	'@
+ĕ	'8
+ç	C'@
+ÿ	'Y
+
+// Punctuation marks and symbols, with the names the Chuvash Wikipedia gives
+// them (Чарӑну палли, Пунктуаци паллисем). Those with _ are named only when
+// they are read out (--punct) or spelled; those without _ are also said in a
+// text, as they were before (in English).
+_.	p'@ntS@	// пӑнчӑ
+_,	xy*'Ell8||p'@ntS@	// хӳреллӗ пӑнчӑ
+_;	p@ntS@p'a||xy*'Ell8||p'@ntS@	// пӑнчӑпа хӳреллӗ пӑнчӑ
+_:	'ik8||p'@ntS@	// икӗ пӑнчӑ
+_!	k@Sk@*'U||pall'I	// кӑшкӑру палли
+_?	Vjt'U||pall'I	// ыйту палли
+_¡	kut@nl'a||k@Sk@*'U||pall'I	// кутӑнла кӑшкӑру палли
+_¿	kut@nl'a||Vjt'U||pall'I	// кутӑнла ыйту палли
+_…	v'iC8||p'@ntS@	// виҫӗ пӑнчӑ
+_'	apOstR'Of	// апостроф
+_’	apOstR'Of
+_"	tS8RnESk'E	// чӗрнешке
+_«	tS8RnESk'E
+_»	tS8RnESk'E
+_„	tS8RnESk'E
+_“	tS8RnESk'E
+_”	tS8RnESk'E
+_‘	tS8RnESk'E
+_‚	tS8RnESk'E
+_(	x@l@pk'a	// хӑлӑпка
+_)	x@l@pk'a
+_[	x@l@pk'a
+_]	x@l@pk'a
+_{	x@l@pk'a
+_}	x@l@pk'a
+_-	dEf'Is	// дефис
+_‐	dEf'Is
+_–	ti*'E	// тире
+_—	ti*'E
+_°	gR'adUs	// градус
+_€	j'EvRo	// евро
+_₽	t'Enk8	// тенкӗ
+$	d'OllaR	// доллар
+/	tS'al@S||j'8R	// чалӑш йӗр
+*	C'@lt@RtS@k	// ҫӑлтӑрчӑк
++	plj'Us	// плюс
+%	pRots'Ent	// процент
+~	t'Ilda	// тильда
+
+// Numbers
+// The phonemes are those which cv_rules gives for the words in the comments,
+// but with Chuvash stress: on the last syllable with a full vowel (not ӑ, ӗ),
+// or on the first syllable if there is none.
+
+_0	n'Ul;		// нуль
+
+// a number on its own (not followed by a word)
+_1n	p8RR'E		// пӗрре
+_2n	'Ikk8		// иккӗ
+_3n	v'ICC8		// виҫҫӗ
+_4n	t@v'att@	// тӑваттӑ
+_5n	p'Ill8k		// пиллӗк
+_6n	'Ultt@		// улттӑ
+_7n	C'ItStS8	// ҫиччӗ
+_8n	s'akk@R		// саккӑр
+_9n	t'@xx@R		// тӑххӑр
+
+// the attributive forms are used before a word, and in compound numbers:
+// 21 = ҫирӗм пӗр, 2000 = икӗ пин (CLDR has the shorter ик, тӑват, ҫич)
+_1	p'8R		// пӗр
+_2	'ik8		// икӗ
+_3	v'iC8		// виҫӗ
+_4	t@v'at@		// тӑватӑ
+_5	p'il8k		// пилӗк
+_6	'Ult		// улт
+_7	C'itS8		// ҫичӗ
+_8	s'ak@R		// сакӑр
+_9	t'@x@R		// тӑхӑр
+_10	v'Unn@		// вуннӑ
+
+_1X	v'Un||		// вун
+_2X	C'iR8m||	// ҫирӗм
+_3X	v'@t@R||	// вӑтӑр
+_4X	x'8R8x||	// хӗрӗх
+_5X	'all@||		// аллӑ
+_6X	'Utm@l||	// утмӑл
+_7X	C'Itm8l||	// ҫитмӗл
+_8X	s'ak@R||v'Un||	// сакӑр вун
+_9X	t'@x@R||v'Un||	// тӑхӑр вун
+_80	s'ak@R||v'un@	// сакӑр вунӑ (CLDR: сакӑрвуннӑ)
+_90	t'@x@R||v'un@	// тӑхӑр вунӑ (CLDR: тӑхӑрвуннӑ)
+
+_0C	C'8R		// ҫӗр
+_1C	C'8R		// ҫӗр
+_2C	'IkC8R		// икҫӗр
+_3C	v'ICC8R		// виҫҫӗр
+_4C	t@v'atC8R	// тӑватҫӗр
+_5C	p'il8kC8R	// пилӗкҫӗр
+_6C	'UltC8R		// ултҫӗр
+_7C	C'ItSC8R	// ҫичҫӗр
+_8C	s'ak@RC8R	// сакӑрҫӗр
+_9C	t'@x@RC8R	// тӑхӑрҫӗр
+
+_0M1	p'In		// пин
+_0M2	mIlli'On	// миллион
+_0M3	mIlli'aRd	// миллиард
+_0M4	tRIlli'On	// триллион
+
+_dpt	p'8t8m		// пӗтӗм, decimal comma

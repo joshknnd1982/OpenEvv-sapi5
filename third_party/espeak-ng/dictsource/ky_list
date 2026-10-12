@@ -1,0 +1,262 @@
+// ***************************************************************************/ 
+// *   Kyrgyz Language ky ky_list                                            *
+// *   Original Author Joshua Meyer 7-1-2016                                 *
+// *   Contact info: joshua.richard.meyer@gmail.com                          *
+// ***************************************************************************/
+// *   This program is free software; you can redistribute it and/or modify  *
+// *   it under the terms of the GNU General Public License as published by  *
+// *   the Free Software Foundation; either version 3 of the License, or     *
+// *   (at your option) any later version.                                   *
+// *                                                                         *
+// *   This program is distributed in the hope that it will be useful,       *
+// *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+// *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+// *   GNU General Public License for more details.                          *
+// *                                                                         *
+// *   You should have received a copy of the GNU General Public License     *
+// *   along with this program; if not, see:                                 *
+// *               <http://www.gnu.org/licenses/>.                           *
+// ***************************************************************************/
+
+
+// SOME USEFUL SYNTAX
+// ' 	primary stress
+// , 	secondary stress
+// % 	unstressed syllable
+// = 	put the primary stress on the preceding syllable
+// _: 	short pause
+// _ 	a shorter pause
+// || 	indicates a word boundary within a phoneme string
+// | 	can be used to separate two adjacent characters, to prevent 
+//      them from being considered as a multi-character phoneme mnemonic
+
+// Letters 
+// The names with _ are used when a word is spelled. The names without _ are
+// also used for a consonant or a sign which stands alone in a text.
+_а 'a
+_б b'e
+_в v'e
+_г g'e
+_д d'e
+_е 'e
+_ё j'o
+_ж dZ'e
+_з z'e
+_и 'i
+_й 'ij
+_к k'a
+_л 'el
+_м 'em
+_н 'en
+_ң 'IN
+_о 'o
+_ө 'O
+_п p'e
+_р 'er
+_с 'es
+_т t'e
+_у 'u
+_ү 'y
+_ф 'ef
+_х X'a
+_ц ts'e
+_ч tS'e
+_ш S'a
+_щ StS'a
+_ъ adZIrat'u:||belgis'i
+_ы 'I
+_ь itSkert'y:||belgis'i
+_э 'e
+_ю j'u
+_я j'a
+
+б b'e	// бэ
+в v'e	// вэ
+г g'e	// гэ
+д d'e	// дэ
+ж dZ'e	// жэ
+з z'e	// зэ
+й 'ij	// ий
+к k'a	// ка
+л 'el	// эл
+м 'em	// эм
+н 'en	// эн
+ң 'IN	// ың
+п p'e	// пэ
+р 'er	// эр
+с 'es	// эс
+т t'e	// тэ
+ф 'ef	// эф
+х X'a	// ха
+ц ts'e	// цэ
+ч tS'e	// чэ
+ш S'a	// ша
+щ StS'a	// ща
+ъ adZIrat'u:||belgis'i	// ажыратуу белгиси
+ь itSkert'y:||belgis'i	// ичкертүү белгиси
+
+// A capital letter
+_cap tS,oN||	// чоң
+
+// The stress mark which is written over a vowel
+U+301 bas'Im||belgis'i	// басым белгиси
+
+// other characters which are met in place of ң and ө
+ӊ 'IN
+ѳ 'O
+ɵ 'O
+
+// The alphabet is not named before a letter: Cyrillic is the language's own script
+_cyr _|
+
+// Numbers
+_0	n'oL
+_1	b'ir
+_2	ek'i
+_3	'ytS
+_4	t'Ort
+_5	b'eS
+_6  aLt'I
+_7  dZet'i
+_8  seg'iz
+_9  toG'uz
+_10 'on
+_11 onb'ir
+_12	onek'i
+_13	on'ytS
+_14	ont'Ort
+_15	onb'eS
+_16 onaLt'I
+_17 ondZet'i
+_18 onseg'iz
+_19 ontoG'uz
+_2X	dZIjIrm'a
+_3X	ot'uz
+_4X	q'Irq
+_5X	el'y:
+_6X	aLtIm'IS
+_7X	dZetim'iS
+_8X	seks'en
+_9X	toqs'on
+_0C	dZ'yz
+_2C	ekidZ'yz
+_3C	ytSdZ'yz
+_4C	tOrtdZ'yz
+_5C	beSdZ'yz
+_6C aLtIdZ'yz
+_7C dZetidZ'yz
+_8C segizdZ'yz
+_9C toGuzdZ'yz
+_0M1	m'iN
+_0M2	mili'on
+_0M3	mili'ard	// миллиард
+// a decimal fraction as it is read at school: 1,3 is бир бүтүн ондон үч
+_dpt	_byt'yn	// бүтүн
+_0Z1	ond'on	// ондон
+_0Z2	dZyzd'On	// жүздөн
+_0Z3	miNd'en	// миңден
+_0Z4	'on||miNd'en	// он миңден
+_0Z5	dZ'yz||miNd'en	// жүз миңден
+
+// symbols
+@ majmyltS'a
+# tortS'o        $max3
+$ d'oLar
+% pratsent  $max3  //shorter e
+^ qapq'aq	// капкак
+& ampers'and
+* dZILdIztS'a   $max3
++ qoS'u:        $max3
+= barab'ar      $max3
+/ bOrtS'Ok     $max3
+\ t,esker'i||sl'eS      $max3	// тескери слэш
+_- sIzIqtS'a
+__ ,ILdIjq'I||sIz'Iq	// ылдыйкы сызык
+~ t'ilda	// тильда
+№ nom'er
+! il'ep||belgis'i	// илеп белгиси
+_? sur'o:||belgis'i	// суроо белгиси
+_( qaS'a:||atS'u:	// кашаа ачуу
+) qaS'a:||dZab'u:
+| t'ik||sl'eS
+{ atSu:tS'u||figuraL'Iq||qaS'a:
+} dZabu:tS'u||figuraL'Iq||qaS'a:
+[ atSu:tS'u||kvadratt'Iq||qaS'a:
+] dZabu:tS'u||kvadratt'Iq||qaS'a:
+> tS'oN||belg'i	// чоң белги
+< k,itSin'e||belg'i	// кичине белги
+_. tSek'it
+, yt'yr 
+` atSu:tS'u||apostr'of
+" tIrmaqtS'a
+' dZabu:tS'u||apostr'of
+; ,ytyrl'y:||tSek'it	// үтүрлүү чекит
+: q'oS||tSek'it
+× kObOjty:
+// ÷
+// - дефис
+_« atS'Iq||tIrmaqtS'a	// ачык тырмакча
+_» dZab'Iq||tIrmaqtS'a	// жабык тырмакча
+
+// more marks and symbols, with the names of NVDA's Kyrgyz translation
+// (those with _ are named only when they are read out or spelled)
+_„ tIrmaqtS'a
+_“ s'oL||tIrmaqtS'a	// сол тырмакча
+_” 'oN||tIrmaqtS'a	// оң тырмакча
+_‘ s'oL||dZaLG'Iz||tIrmaqtS'a	// сол жалгыз тырмакча
+_’ 'oN||dZaLG'Iz||tIrmaqtS'a	// оң жалгыз тырмакча
+_‚ tIrmaqtS'a
+_‐ s,IzIqtS'a	// сызыкча
+_– s,IzIqtS'a
+_— sIz'Iq	// сызык
+_… k'Op||tSek'it	// көп чекит
+_• belg'i||tS,ekit'i	// белги чекити
+_° gr'adus	// градус
+_§ bOl'yk	// бөлүк
+_÷ bOl'y:	// бөлүү
+_© a,vtord'uq||uq'uq	// автордук укук
+_® qattaLG'an	// катталган
+_™ so:d'a||marqas'I	// соода маркасы
+_£ f'unt	// фунт
+_¥ ij'en	// иен
+_¢ ts'ent	// цент
+_€ j'evro	// евро
+_₽ r'ubl	// рубль
+± qoS'u:||dZ'e||al'u:	// кошуу же алуу
+⃀ s'om	// U+20C0 сом
+
+// Abbreviations
+
+КР ka||er
+км kiL,ometr
+см sant,imetr
+кг kil,ogram
+мм mil,imetr
+мл mil,litr
+
+// personal pronouns
+мен $u+
+сен $u+
+сиз $u+
+силер $u+
+сизгер $u+
+биз $u+
+ал $u+
+алар $u+
+
+
+// possessive pronouns
+
+// conjunctions
+(болсо да) $u
+жана $u
+неге $u
+тескерисинче $u
+эмнеге $u
+эмнеден $u
+
+// prepositions
+
+// postpositions
+
+// Character names

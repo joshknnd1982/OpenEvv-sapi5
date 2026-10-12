@@ -1,0 +1,311 @@
+//စပေါ် zəbɔ
+//soldier sold
+//How zəbɔ
+
+// singe letter words
+//က $nounf
+//က kə3  //$atend
+
+//စ $nounf
+//စ sə3  //$atend
+
+
+// numbers, in the rhymes and tones of the Burmese table (see the letter names below).  The old entries
+// were written in phonemes of another table (tonj'a:, t'i: ...), and numbers were switched off in the C code.
+// ဆယ် ရာ ထောင် take the creaky tone (ဆယ့် ရာ့ ထောင့်) when another numeral follows; after 3 4 5 9 the
+// next word is voiced (သုံးဆယ် [θóʊɴ zɛ̀], လေးထောင် [lé dàʊɴ]).  C code: BREAK_TH, a word for each power of ten.
+_0	th,a451n^'a013	// သုည
+_1	t'a374	// တစ်
+_2	n'a374	// နှစ်
+_3	th'a472	// သုံး
+_4	l'a122	// လေး
+_5	N'a032	// ငါး
+_6	q1'a264	// ခြောက်
+_7	kh,a451n'a374	// ခုနစ်
+_8	q46'a374	// ရှစ်
+_9	k'a242	// ကိုး
+_1a	t@	// တစ် before a multiple of ten: [tə]
+_2a	n@	// နှစ် [n̥ə]
+_7a	kh,a451n@	// ခုနစ် [kʰʊ̀ɴ n̥ə]
+_10	t@hs'a131	// တစ်ဆယ်
+_1X	hs'a143	// ဆယ့် (11 ဆယ့်တစ်)
+_20	n@hs'a131
+_2X	n@hs'a143
+_30	th,a472z'a131
+_3X	th,a472z'a143
+_40	l,a122z'a131
+_4X	l,a122z'a143
+_50	N,a032z'a131
+_5X	N,a032z'a143
+_60	q1,a264hs'a131
+_6X	q1,a264hs'a143
+_70	kh,a451n@hs'a131
+_7X	kh,a451n@hs'a143
+_80	q46,a374hs'a131
+_8X	q46,a374hs'a143
+_90	k,a242z'a131
+_9X	k,a242z'a143
+_0C0	j'a021	// ရာ
+_0C	j'a013	// ရာ့
+_0M1x	ht'a341	// ထောင်
+_0M1	ht'a353	// ထောင့်
+_0M2	th'a362	// သောင်း
+_0M3	th'a442	// သိန်း
+_0M4	th'a212	// သန်း
+_3M1x	th,a472d'a341
+_3M1	th,a472d'a353
+_3M2	th,a472D'a362
+_3M3	th,a472D'a442
+_3M4	th,a472D'a212
+_4M1x	l,a122d'a341
+_4M1	l,a122d'a353
+_4M2	l,a122D'a362
+_4M3	l,a122D'a442
+_4M4	l,a122D'a212
+_5M1x	N,a032d'a341
+_5M1	N,a032d'a353
+_5M2	N,a032D'a362
+_5M3	N,a032D'a442
+_5M4	N,a032D'a212
+_9M1x	k,a242d'a341
+_9M1	k,a242d'a353
+_9M2	k,a242D'a362
+_9M3	k,a242D'a442
+_9M4	k,a242D'a212
+_dpt	d@th@m'a013	// ဒသမ
+
+// Names of individual letters
+// TODO should investigate why they are
+// pronounced as individual letters in words
+// အ    '@:
+// ဢ    a:
+//  ံ    'anusvara
+//  ်    'asat
+// ဪ    au
+// ဗ    b'a:
+//  ့    below
+// ဘ    bh'a:
+// သ    D'a:
+// ဒ    d'a:
+// ဍ    d'a:
+// ဓ    dh'a:
+// ဎ    dh'a:
+// ဧ    e
+// ဨ    e
+//  ဵ    e
+// ဂ    g'a:
+// ဃ    gh'a:
+//  ှ    ha
+// ဟ    h'a:
+// ဤ    i
+// ဩ    i
+// ဣ    i:
+//  ျ    ja
+// ယ    j'a:
+// က    k'a:
+// ခ    kh'a:
+// လ    l'a:
+// ဠ    l'a:
+// မ    m'a:
+// င    N'a:
+// ည    n^'a:
+// ဉ    n^'a:
+// ဏ    n'a:
+// န    n'a:
+// ဩ    o
+// ပ    p'a:
+// ဖ    ph'a:
+//  ြ    ra
+// ရ    r'a:
+//  ြ    r'a:
+// ဿ    sa
+// စ    s'a:
+// တ    t'a:
+// ဋ    t'a:
+// ထ    th'a:
+// ဌ    th'a:
+// ဆ    tS'a:
+// ဦ    u
+// ဥ    u:
+//  ွ    wa
+// ဝ    w'a:
+// ဇ    z'a:
+// ဈ    z'a:
+// 
+
+// letter names: begin
+// Letter names, in the phonemes of the Burmese table: the rhymes a01 to a50 and the tones
+// 1 low, 2 high, 3 creaky, 4 checked.
+// Each letter is there twice: _x is its name when a word is spelled, x its name when it stands
+// alone.  In running text the program cuts a word at the asat and at the tone marks, and the
+// letters and marks then come as words of one letter: $atstart $atend keeps the names out of that.
+
+// consonants: ka gyi, kha gwe, ga nge ...
+_က	k,a013q3'a062	// ကကြီး
+က	k,a013q3'a062	$atstart $atend
+_ခ	kh,a013gw'a122	// ခခွေး
+ခ	kh,a013gw'a122	$atstart $atend
+_ဂ	g,a013N'a131	// ဂငယ်
+ဂ	g,a013N'a131	$atstart $atend
+_ဃ	g,a013q3'a062	// ဃကြီး
+ဃ	g,a013q3'a062	$atstart $atend
+_င	N'a013	// င
+င	N'a013	$atstart $atend
+_စ	s,a013l'a472	// စလုံး
+စ	s,a013l'a472	$atstart $atend
+_ဆ	hs,a013l'a421	// ဆလိမ်
+ဆ	hs,a013l'a421	$atstart $atend
+_ဇ	z,a013gw'a152	// ဇကွဲ
+ဇ	z,a013gw'a152	$atstart $atend
+_ဈ	z,a013mj,a302zw'a152	// ဈမျဉ်းဆွဲ
+ဈ	z,a013mj,a302zw'a152	$atstart $atend
+_ဉ	n^,a013g@l'a122	// ညကလေး
+ဉ	n^,a013g@l'a122	$atstart $atend
+_ည	n^,a013q3'a062	// ညကြီး
+ည	n^,a013q3'a062	$atstart $atend
+_ဋ	t,a013t@l,a302q3'a394	// ဋသန်လျင်းချိတ်
+ဋ	t,a013t@l,a302q3'a394	$atstart $atend
+_ဌ	ht,a013w,a502b'a152	// ဌဝမ်းဘဲ
+ဌ	ht,a013w,a502b'a152	$atstart $atend
+_ဍ	d,a013j,a281g'a264	// ဍရင်ကောက်
+ဍ	d,a013j,a281g'a264	$atstart $atend
+_ဎ	d,a013j,a101m'a404	// ဎရေမှုတ်
+ဎ	d,a013j,a101m'a404	$atstart $atend
+_ဏ	n,a013q3'a062	// ဏကြီး
+ဏ	n,a013q3'a062	$atstart $atend
+_တ	t,a013w,a502b'a081	// တဝမ်းပူ
+တ	t,a013w,a502b'a081	$atstart $atend
+_ထ	ht,a013hs,a281d'a092	// ထဆင်ထူး
+ထ	ht,a013hs,a281d'a092	$atstart $atend
+_ဒ	d,a013dw'a122	// ဒထွေး
+ဒ	d,a013dw'a122	$atstart $atend
+_ဓ	d,a013,a264q1'a274	// ဓအောက်ခြိုက်
+ဓ	d,a013,a264q1'a274	$atstart $atend
+_န	n,a013N'a131	// နငယ်
+န	n,a013N'a131	$atstart $atend
+_ပ	p,a013z'a264	// ပစောက်
+ပ	p,a013z'a264	$atstart $atend
+_ဖ	ph,a013,a404ht'a404	// ဖဦးထုပ်
+ဖ	ph,a013,a404ht'a404	$atstart $atend
+_ဗ	b,a013ht,a254q1'a274	// ဗထက်ခြိုက်
+ဗ	b,a013ht,a254q1'a274	$atstart $atend
+_ဘ	b,a013g'a472	// ဘကုန်း
+ဘ	b,a013g'a472	$atstart $atend
+_မ	m'a013	// မ
+မ	m'a013	$atstart $atend
+_ယ	j,a013p,a254l'a254	// ယပက်လက်
+ယ	j,a013p,a254l'a254	$atstart $atend
+_ရ	j,a013g'a264	// ရကောက်
+ရ	j,a013g'a264	$atstart $atend
+_လ	l'a013	// လ
+လ	l'a013	$atstart $atend
+_ဝ	w'a013	// ဝ
+ဝ	w'a013	$atstart $atend
+_သ	th'a013	// သ
+သ	th'a013	$atstart $atend
+_ဟ	h'a013	// ဟ
+ဟ	h'a013	$atstart $atend
+_ဠ	l,a013q3'a062	// ဠကြီး
+ဠ	l,a013q3'a062	$atstart $atend
+_အ	'a013	// အ
+အ	'a013	$atstart $atend
+_ဿ	th,a013q3'a062	// သကြီး
+ဿ	th,a013q3'a062	$atstart $atend
+
+// vowel letters
+_ဣ	'a043	// ဣ
+ဣ	'a043	$atstart $atend
+_ဤ	'a051	// ဤ
+ဤ	'a051	$atstart $atend
+_ဥ	'a073	// ဥ
+ဥ	'a073	$atstart $atend
+_ဦ	'a081	// ဦ
+ဦ	'a081	$atstart $atend
+_ဧ	'a101	// ဧ
+ဧ	'a101	$atstart $atend
+_ဩ	'a162	// ဩ
+ဩ	'a162	$atstart $atend
+_ဪ	'a181	// ဪ
+ဪ	'a181	$atstart $atend
+
+// medials, vowel signs, tone marks and other signs: ya pin, ya yit, wa hswe, ha hto, yay cha ...
+_ျ	j,a013p'a293	// U+103B ယပင့်
+U+103b	j,a013p'a293	$atstart $atend
+_ြ	j,a013j'a374	// U+103C ရရစ်
+U+103c	j,a013j'a374	$atstart $atend
+_ွ	w,a013hsw'a152	// U+103D ဝဆွဲ
+U+103d	w,a013hsw'a152	$atstart $atend
+_ှ	h,a013ht'a242	// U+103E ဟထိုး
+U+103e	h,a013ht'a242	$atstart $atend
+_ါ	m,a264q1'a013	// U+102B မောက်ချ
+U+102b	m,a264q1'a013	$atstart $atend
+_ာ	j,a122q1'a013	// U+102C ရေးချ
+U+102c	j,a122q1'a013	$atstart $atend
+_ိ	l,a472q3,a062t'a281	// U+102D လုံးကြီးတင်
+U+102d	l,a472q3,a062t'a281	$atstart $atend
+_ီ	l,a472q3,a062t'a281||hs,a191kh'a384	// U+102E လုံးကြီးတင်ဆန်ခတ်
+U+102e	l,a472q3,a062t'a281||hs,a191kh'a384	$atstart $atend
+_ု	t@q1,a362N'a281	// U+102F တစ်ချောင်းငင်
+U+102f	t@q1,a362N'a281	$atstart $atend
+_ူ	n@q1,a362N'a281	// U+1030 နှစ်ချောင်းငင်
+U+1030	n@q1,a362N'a281	$atstart $atend
+_ေ	th@w,a101ht'a242	// U+1031 သဝေထိုး
+U+1031	th@w,a101ht'a242	$atstart $atend
+_ဲ	n,a264q8'a374	// U+1032 နောက်ပစ်
+U+1032	n,a264q8'a374	$atstart $atend
+_ံ	th,a122D,a122t'a281	// U+1036 သေးသေးတင်
+U+1036	th,a122D,a122t'a281	$atstart $atend
+_့	,a264mj'a374	// U+1037 အောက်မြစ်
+U+1037	,a264mj'a374	$atstart $atend
+_း	w,a374s,a013p'a264	// U+1038 ဝစ္စပေါက်
+U+1038	w,a374s,a013p'a264	$atstart $atend
+_်	@th'a384	// U+103A အသတ်
+U+103a	@th'a384	$atstart $atend
+_္	p,a384hs'a293	// U+1039 ပါဌ်ဆင့်
+U+1039	p,a384hs'a293	$atstart $atend
+_၌	n'a274	// နှိုက်
+၌	n'a274	$atstart $atend
+_၍	jw'a113	// ရွေ့
+၍	jw'a113	$atstart $atend
+_၎	l@g'a362	// လည်းကောင်း
+၎	l@g'a362	$atstart $atend
+_၏	'a043	// ၏
+၏	'a043	$atstart $atend
+
+_cap	s,a021l,a472q3'a062	// စာလုံးကြီး
+
+// The program says the name of the alphabet before a letter of another alphabet that is spelled, and
+// it does not know that this alphabet is the language's own: the name is left silent.
+_my	_|
+// letter names: end
+
+// Punctuation marks and symbols: the Burmese marks ၊ ။ and the Burmese names in common use (မျက်တောင်
+// "eyelashes" for quotation marks, ကွင်း for brackets, တုံး for dashes), otherwise the English word as Burmese
+// speakers say it (ကော်မာ, ကော်လံ).  Phonemes as in the letter names above.
+// / @ % & * + = were read in English in ordinary text: they are read in Burmese now.
+_၊	p,a404q7'a384	// ပုဒ်ဖြတ်
+_။	p,a404m'a013	// ပုဒ်မ
+_.	@s'a254	// အစက်
+_,	k,a181m'a021	// ကော်မာ
+_;	hs,a051m,a051k,a181l'a191	// ဆီမီကော်လံ
+_:	k,a181l'a191	// ကော်လံ
+_?	m,a122kh,a502th,a281k,a101t'a013	// မေးခွန်းသင်္ကေတ
+_!	'a021m,a101d'a394	// အာမေဋိတ်
+_"	mj,a254t'a341	// မျက်တောင်
+_(	kw,a302s'a013	// ကွင်းစ
+_)	kw,a302p'a394	// ကွင်းပိတ်
+_-	t,a472t'a221	// တုံးတို
+_–	t,a472t'a221	// တုံးတို
+_—	t,a472q46'a101	// တုံးရှည်
+/	mj,a302z'a362	// မျဉ်းစောင်း
+__	'a264mj'a302	// အောက်မျဉ်း
+@	'a254	// အက်
+_$	d,a181l'a021	// ဒေါ်လာ
+%	j,a021kh,a311n'a472	// ရာခိုင်နှုန်း
+&	n'a293	// နှင့်
+*	q3,a131pw'a293	// ကြယ်ပွင့်
++	@p'a362	// အပေါင်း
+=	n^,a051mj,a013q1'a302	// ညီမျှခြင်း
+_°	d,a051g@j'a051	// ဒီဂရီ
+_×	@mj'a264	// အမြှောက်
+_÷	@s'a032	// အစား

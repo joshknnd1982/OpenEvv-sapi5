@@ -1,0 +1,213 @@
+ 
+// This file is UTF8 encoded 
+// Spelling to phoneme rules for Azerbaijani
+
+
+// Numbers
+_0	s@f'@R
+_1	b'iR
+_2	ic'i
+_3	'ytS
+_4	d'WRd
+_5	b'eS
+_6	alt'@
+_7	jedd'i
+_8	s&Cc'iz
+_9	dogg'uz
+_1X	'on
+_2X	ijiRm'i
+_3X	ot'uz
+_4X	g'@Rx
+_5X	&ll'i
+_6X	altm'@S
+_7X	jetm'iS
+_8X	s&Cs'&n
+_9X	doxs'an
+_0C	j'yz
+_0M1	m'in
+_0M2	milj'on
+_0M3	milj'aRd
+_0M4	tRilj'on
+_dpt	_t,am_|   // 3,14: üç tam yüzdə on dörd (tam, then tenths, hundredths ... and the fraction)
+_0Z1	ond'a		// onda (tenths)
+_0Z2	jyzd'&		// yüzdə (hundredths)
+_0Z3	mind'&		// mində
+_0Z4	'on||mind'&	// on mində
+_0Z5	j'yz||mind'&	// yüz mində
+
+
+// Function words
+  // personal pronouns
+mən	$u+
+sən	$u+
+o	$u+
+biz	$u+
+siz	$u+
+onlar	$u+
+
+  // possessive pronouns
+mənim	$u+
+sənin	$u+
+onun	$u+
+bizim	$u+
+sizin	$u+
+onların	$u+
+
+bu	$u+
+
+
+// conjunctions
+və	$u+
+isə	$u+
+də	$u+
+həm	$u+
+ya	$u+
+da	$u+
+
+// prepositions
+aid	$u+ // about
+ilə	$u+ // with, by, in
+dair	$u+ // about
+
+// postpositions
+ci	$u
+cı	$u
+cü	$u
+de	$u
+dir	$u
+li	$u
+in	$u
+nə	$u
+ya	$u
+yə	$u
+
+// Character names
+b	be
+c	dZe
+ç	tSe
+_ə	&
+d	de
+f	fe
+g	Je
+ğ	Qe
+h	he
+x	xe
+j	Ze
+k	ka
+q	ge
+l	el
+m	em
+n	en
+_o      o
+p	pe
+r	eR
+s	se
+ş	Se
+t	te
+v	ve
+w	dubElv'E
+y	je
+z	ze
+
+// the vowels are named by their own sound (o and ə are given above)
+_a	a
+_e	e
+_ı	@
+_i	i
+_ö	W
+_u	u
+_ü	y
+ä	$accent		// az_rules reads it as ə
+
+_cap	bWj'yC		// böyük (hərf)
+
+// accent names
+_acu	it'i||vuRQ'u	// iti vurğu (the name of the Unicode CLDR for Azerbaijani; was akut)
+_grv	a:'@R||vuRQ'u	// ağır vurğu (CLDR; was qravis)
+_cir	siRkumfl'eks	// sirkumfleks
+_dia	umLa'ut		// umlaut
+_tld	tild'a		// tilda
+_brv	bRev'is		// brevis
+_ced	sed'il		// sedil
+_mcn	makR'on		// makron
+
+*	ulduz $text
+%	faiz $text
+
+// names of marks and symbols (the names are those of the Unicode CLDR for Azerbaijani)
+// these were read in English in ordinary text: now they are read in Azerbaijani there too
+/	sl'eS	$max3			// sleş
+\	Je*'i||sl'eS	$max3		// geri sleş
+@	'&t||iSa*&s'i	$max3		// ət işarəsi
+#	h'eS||iSa*&s'i	$max3		// heş işarəsi
+&	ampeRs'and	$max3
++	topLam'a||iSa*&s'i	$max3	// toplama işarəsi
+=	b&*ab'&R	$max3		// bərabər
+~	tild'a	$max3
+±	topLam'a||tS@xm'a	$max3	// toplama-çıxma
+// these are said when spelling and with --punct only
+_.	nWgt'&			// nöqtə
+_,	veRJ'yl			// vergül
+_;	nWgt&l'i||veRJ'yl	// nöqtəli vergül
+_:	ic'i||nWgt'&		// iki nöqtə
+_!	nid'a||iSa*&s'i		// nida işarəsi
+_?	su'aL||iSa*&s'i		// sual işarəsi
+_'	apostR'of
+_"	d@Rn'ax||iSa*&s'i	// dırnaq işarəsi
+_(	atS@L'an||mWt&*iz'&	// açılan mötərizə
+_)	gapan'an||mWt&*iz'&	// qapanan mötərizə
+_[	atS@L'an||kvadR'at||mWt&*iz'&
+_]	gapan'an||kvadR'at||mWt&*iz'&
+_{	atS@L'an||bu*'ux||mWt&*iz'&	// açılan buruq mötərizə
+_}	gapan'an||bu*'ux||mWt&*iz'&
+_<	citS'iC||iSa*&s'i	// kiçik işarəsi
+_>	bWj'yC||iSa*&s'i	// böyük işarəsi
+_-	def'is
+__	aSa:'@||x'&tt		// aşağı xətt
+_|	Sagul'i||x'&tt		// şaquli xətt
+_$	doll'aR
+_%	fa'iz
+_*	uLd'uz
+_^	siRkumfl'eks
+_`	a:'@R||vuRQ'u		// ağır vurğu
+_«	s'oL||d@Rn'ax||iSa*&s'i	// sol dırnaq işarəsi
+_»	s'a:||d@Rn'ax||iSa*&s'i	// sağ dırnaq işarəsi
+_„	aSa:'@||s'a:||sit'at||iSa*&s'i	// aşağı sağ sitat işarəsi
+_“	s'oL||sit'at||iSa*&s'i	// sol sitat işarəsi
+_”	s'a:||sit'at||iSa*&s'i	// sağ sitat işarəsi
+_‚	aSa:'@||s'a:||apostR'of	// aşağı sağ apostrof
+_‘	s'oL||apostR'of		// sol apostrof
+_’	s'a:||apostR'of		// sağ apostrof
+_–	g@s'a||ti*'e		// qısa tire
+_—	uz'un||ti*'e		// uzun tire
+_…	'ytS||nWgt'&		// üç nöqtə
+_·	oRt'a||nWgt'&		// orta nöqtə
+_•	bWj'yC||nWgt'&		// böyük nöqtə
+_°	d&*&dZ'&		// dərəcə
+_§	pa*agR'af||iSa*&s'i	// paraqraf işarəsi
+_¶	pa*agR'af||niSan'@	// paraqraf nişanı
+_©	my&ll'if||hygug'u	// müəllif hüququ
+_®	gejdijjat'a||aL@nm'@S	// qeydiyyata alınmış
+_™	tidZa*'&t||niSan'@	// ticarət nişanı
+_€	avR'o
+_£	f'unt
+_¥	j'en
+_¢	s'ent
+_₽	R'ubl
+_₼	az&RbajdZ'an||manat'@	// as az_emoji reads them in text
+_₺	tyRc'ij&||li*&s'i
+_₴	uCRajn'a||gRivnas'@
+_₸	gazax@st'an||tenJes'i
+_×	vuRm'a||iSa*&s'i	// vurma işarəsi
+_÷	bWlm'&||iSa*&s'i	// bölmə işarəsi
+_‰	pRom'il
+_¡	t'&Rs||nid'a||iSa*&s'i	// tərs nida işarəsi
+_¿	t'&Rs||su'aL||iSa*&s'i
+// the accents standing alone, named as the accent names above
+_¨	umLa'ut
+_´	it'i||vuRQ'u
+_¸	sed'il
+_¯	makR'on
+
+
+

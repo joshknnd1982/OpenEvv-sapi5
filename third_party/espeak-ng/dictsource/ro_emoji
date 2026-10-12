@@ -1,0 +1,2362 @@
+// Emoji and Other Symbol pronunciations for Romanian
+//
+// Entries with `text|emoji` in the comments have text and emoji forms. They
+// can be followed by [FE0E] to select the text style, and [FE0F] to select
+// the emoji style.
+//
+// Entries with 'other' in the comments are not defined as emoji, but are other
+// Unicode characters.
+//
+// NOTE: See `src/ucd-tools/data/espeak-ng/emoji-data.txt` for additional data
+// in interpreting ZWJ emoji sequences.
+
+$textmode
+
+// 0000..007F : C0 Controls and Basic Latin
+
+//+	plus								// [002B] other (no translation)
+
+// 0080..00FF : C1 Controls and Latin-1 Supplement
+
+//¢	cents								// [00A2] other (no translation)
+//£	pound								// [00A3] other (no translation)
+//¤	currency sign							// [00A4] other (no translation)
+//¥	yen								// [00A5] other (no translation)
+//§	section								// [00A7] other (no translation)
+//¨	double dot							// [00A8] other (no translation)
+©	drepturi de autor						// [00A9] text|emoji
+//¬	not sign							// [00AC] other (no translation)
+®	înregistrat							// [00AE] text|emoji
+//°	degrees								// [00B0] other (no translation)
+//±	plus or minus							// [00B1] other (no translation)
+//µ	micro								// [00B5] other (no translation)
+//¶	paragraph							// [00B6] other (no translation)
+//¼	a quarter							// [00BC] other (no translation)
+//½	a half								// [00BD] other (no translation)
+//¾	three quarters							// [00BE] other (no translation)
+//×	times								// [00D7] other (no translation)
+//÷	divided by							// [00F7] other (no translation)
+
+// 02B0..02FF : Spacing Modifier Letters
+
+//˙	dot								// [02D9] other (no translation)
+
+// 0900..097F : Devanagari
+
+//।	danda								// [0964] other (no translation)
+
+// 2000..203C : General Punctuation
+
+‼	semn dublu de exclamare						// [203C] text|emoji
+⁄	bară oblică de fracție					// [2044]
+⁉	semn de exclamare și întrebare					// [2049] text|emoji
+⁻	exponent minus						// [207B]
+₡	colón costarican					// [20A1]
+₢	cruzeiro						// [20A2]
+₣	franc francez						// [20A3]
+₤	liră sterlină						// [20A4]
+₥	mill							// [20A5]
+₦	naira nigeriană						// [20A6]
+₧	pesetă spaniolă						// [20A7]
+
+// 20A0..20CF : Currency Symbols
+
+₨	rupie							// [20A8]
+₪	shekel israelian nou					// [20AA]
+₫	dong vietnamez						// [20AB]
+€	euro							// [20AC]
+₭	kip laoțian						// [20AD]
+₮	tugrik mongol						// [20AE]
+₰	pfenig german						// [20B0]
+₱	peso							// [20B1]
+₲	guarani							// [20B2]
+₳	austral argentinian					// [20B3]
+₴	grivnă							// [20B4]
+₵	cedi ghanez						// [20B5]
+₶	livră tournois						// [20B6]
+₷	spesmilo						// [20B7]
+₸	tenge kazahă						// [20B8]
+₹	rupie indiană						// [20B9]
+₺	liră turcească						// [20BA]
+₼	manat azer						// [20BC]
+₽	rublă							// [20BD]
+₾	lari georgian						// [20BE]
+₿	bitcoin							// [20BF]
+
+// 2100..214F : Letterlike Symbols
+
+//№	numero								// [2116] other (no translation)
+℗	drepturi de autor pentru înregistrare audio		// [2117]
+//℞	prescription							// [211E] other (no translation)
+™	marcă comercială						// [2122] text|emoji
+ℹ	informații							// [2139] text|emoji
+
+// 2150..218F : Number Forms
+
+//⅓	one third							// [2153] other (no translation)
+//⅔	two thirds							// [2154] other (no translation)
+
+// 2190..21FF : Arrows
+
+←	săgeată spre stânga					// [2190]
+↑	săgeată în sus						// [2191]
+→	săgeată spre dreapta					// [2192]
+↓	săgeată în jos						// [2193]
+↔	săgeată dreapta-stânga						// [2194] text|emoji
+↕	săgeată sus-jos							// [2195] text|emoji
+↖	săgeată orientată în stânga-sus					// [2196] text|emoji
+↗	săgeată orientată în dreapta-sus				// [2197] text|emoji
+↘	săgeată orientată în dreapta-jos				// [2198] text|emoji
+↙	săgeată orientată în stânga jos					// [2199] text|emoji
+↚	săgeată spre stânga cu bară oblică			// [219A]
+↛	săgeată spre dreapta cu bară oblică			// [219B]
+↜	săgeată ondulată spre stânga				// [219C]
+↝	săgeată ondulată spre dreapta				// [219D]
+↞	săgeată cu două vârfuri spre stânga			// [219E]
+↟	săgeată cu două vârfuri în sus				// [219F]
+↠	săgeată cu două vârfuri spre dreapta			// [21A0]
+↡	săgeată cu două vârfuri în jos				// [21A1]
+↢	săgeată spre stânga cu coadă				// [21A2]
+↣	săgeată spre dreapta cu coadă				// [21A3]
+↤	săgeată spre stânga dinspre bară			// [21A4]
+↥	săgeată în sus dinspre bară				// [21A5]
+↦	săgeată spre dreapta dinspre bară			// [21A6]
+↧	săgeată în jos dinspre bară				// [21A7]
+↨	săgeată sus-jos cu bază					// [21A8]
+↩	săgeată dreapta curbată spre stânga				// [21A9] text|emoji
+↪	săgeată stânga curbată spre dreapta				// [21AA] text|emoji
+↫	săgeată spre stânga cu buclă				// [21AB]
+↬	săgeată spre dreapta cu buclă				// [21AC]
+↭	săgeată ondulată bidirecțională				// [21AD]
+↮	săgeată bidirecțională cu bară oblică			// [21AE]
+↯	săgeată în zigzag în jos				// [21AF]
+↰	săgeată în sus cu vârf spre stânga			// [21B0]
+↱	săgeată în sus cu vârf spre dreapta			// [21B1]
+↲	săgeată în jos cu vârf spre stânga			// [21B2]
+↳	săgeată în jos cu vârf spre dreapta			// [21B3]
+↴	săgeată spre dreapta cu colțul în jos			// [21B4]
+↵	săgeată spre stânga cu colțul în jos			// [21B5]
+↶	săgeată în semicerc în sus în sens antiorar		// [21B6]
+↷	săgeată în semicerc în sus în sens orar			// [21B7]
+↸	săgeată spre nord-vest către bară lungă			// [21B8]
+↹	săgeată spre stânga către bară peste săgeată spre dreapta către bară	// [21B9]
+↺	săgeată cerc deschis în sens antiorar			// [21BA]
+↻	săgeată cerc deschis în sens orar			// [21BB]
+↼	harpon spre stânga cu vârful în sus			// [21BC]
+↽	harpon spre stânga cu vârful în jos			// [21BD]
+↾	harpon în sus cu vârful spre dreapta			// [21BE]
+↿	harpon în sus cu vârful spre stânga			// [21BF]
+⇀	harpon spre dreapta cu vârful în sus			// [21C0]
+⇁	harpon spre dreapta cu vârful în jos			// [21C1]
+⇂	harpon în jos cu vârful spre dreapta			// [21C2]
+⇃	harpon în jos cu vârful spre stânga			// [21C3]
+⇄	săgeată spre dreapta peste săgeată spre stânga		// [21C4]
+⇅	săgeată în sus și săgeată în jos			// [21C5]
+⇆	săgeată la stânga pe săgeată la dreapta			// [21C6]
+⇇	două săgeți spre stânga					// [21C7]
+⇈	două săgeți în sus					// [21C8]
+⇉	două săgeți spre dreapta				// [21C9]
+⇊	două săgeți în jos					// [21CA]
+⇋	harpon spre stânga peste harpon spre dreapta		// [21CB]
+⇌	harpon spre dreapta peste harpon spre stânga		// [21CC]
+⇍	săgeată dublă spre stânga barată			// [21CD]
+⇎	săgeată dublă bidirecțională barată			// [21CE]
+⇏	săgeată dublă spre dreapta barată			// [21CF]
+⇐	săgeată dublă spre stânga				// [21D0]
+⇑	săgeată dublă în sus					// [21D1]
+⇒	săgeată dublă spre dreapta				// [21D2]
+⇓	săgeată dublă în jos					// [21D3]
+⇔	săgeată dublă bidirecțională				// [21D4]
+⇖	săgeată dublă spre nord-vest				// [21D6]
+⇗	săgeată dublă spre nord-est				// [21D7]
+⇘	săgeată dublă spre sud-est				// [21D8]
+⇙	săgeată dublă spre sud-vest				// [21D9]
+⇚	săgeată triplă spre stânga				// [21DA]
+⇛	săgeată triplă spre dreapta				// [21DB]
+⇜	săgeată zigzagată spre stânga				// [21DC]
+⇝	săgeată zigzagată spre dreapta				// [21DD]
+⇞	săgeată în sus cu două bare orizontale			// [21DE]
+⇟	săgeată în jos cu două bare orizontale			// [21DF]
+⇠	săgeată cu linie întreruptă spre stânga			// [21E0]
+⇡	săgeată cu linie întreruptă în sus			// [21E1]
+⇢	săgeată cu linie întreruptă spre dreapta		// [21E2]
+⇣	săgeată cu linie întreruptă în jos			// [21E3]
+⇤	săgeată spre stânga către bară				// [21E4]
+⇥	săgeată spre dreapta către bară				// [21E5]
+⇦	săgeată goală spre stânga				// [21E6]
+⇧	săgeată goală în sus					// [21E7]
+⇨	săgeată goală spre dreapta				// [21E8]
+⇩	săgeată goală în jos					// [21E9]
+⇪	săgeată goală în sus dinspre bară			// [21EA]
+⇵	săgeată în jos lângă săgeată în sus			// [21F5]
+∀	cuantificator universal					// [2200]
+
+// 2200..22FF : Mathematical Operators
+
+∂	derivată parțială					// [2202]
+∃	cuantificator existențial				// [2203]
+∅	mulțimea vidă						// [2205]
+∆	creștere						// [2206]
+∇	nabla							// [2207]
+∈	element al						// [2208]
+∉	nu aparține lui						// [2209]
+∋	include ca element					// [220B]
+∎	sfârșitul demonstrației					// [220E]
+∏	produs cartezian					// [220F]
+∑	sumă peste						// [2211]
+−	semnul minus						// [2212]
+∓	minus sau plus						// [2213]
+∕	bară oblică de împărțire				// [2215]
+∗	operator asterisc					// [2217]
+∘	operator inel						// [2218]
+∙	operator punct						// [2219]
+√	rădăcină pătrată					// [221A]
+//∛	cube root							// [221B] other (no translation)
+∝	proporțional						// [221D]
+∞	semnul infinit						// [221E]
+∟	unghi drept						// [221F]
+∠	unghi							// [2220]
+∣	divide							// [2223]
+∥	paralel cu						// [2225]
+∧	și logic						// [2227]
+∩	intersecție						// [2229]
+∪	reuniune						// [222A]
+∫	integrală						// [222B]
+∬	integrală dublă						// [222C]
+∮	integrală pe contur					// [222E]
+∴	prin urmare						// [2234]
+∵	deoarece						// [2235]
+∶	raport							// [2236]
+∷	proporție						// [2237]
+∼	operator tildă						// [223C]
+∽	tildă inversată						// [223D]
+∾	s orizontal inversat					// [223E]
+≃	asimptotic egal cu					// [2243]
+≅	aproximativ egal cu					// [2245]
+≈	aproape egal						// [2248]
+≌	toate egale cu						// [224C]
+≒	aproximativ egal cu imaginea				// [2252]
+≖	inel în egal cu						// [2256]
+≠	nu este egal						// [2260]
+≡	identic cu						// [2261]
+≣	strict echivalent cu					// [2263]
+≤	mai mic sau egal cu					// [2264]
+≥	mai mare sau egal cu					// [2265]
+≦	mai mic decât peste egal cu				// [2266]
+≧	mai mare decât peste egal cu				// [2267]
+≪	mult mai mic decât					// [226A]
+≫	mult mai mare decât					// [226B]
+≬	între							// [226C]
+≮	nu mai mic decât					// [226E]
+≯	nu mai mare decât					// [226F]
+≳	mai mare decât sau echivalent cu			// [2273]
+≺	precedă							// [227A]
+≻	succedă							// [227B]
+⊁	nu succedă						// [2281]
+⊂	submulțime a						// [2282]
+⊃	este o supramulțime pentru				// [2283]
+⊆	este o submulțime pentru sau egală cu			// [2286]
+⊇	este o supramulțime pentru sau egală cu			// [2287]
+⊕	plus încercuit						// [2295]
+⊖	minus încercuit						// [2296]
+⊗	ori încercuit						// [2297]
+⊘	bară împărțire încercuită				// [2298]
+⊙	operator punct încercuit				// [2299]
+⊚	operator inel încercuit					// [229A]
+⊛	operator asterisc încercuit				// [229B]
+⊞	plus în pătrat						// [229E]
+⊟	minus în pătrat						// [229F]
+⊥	e perpendicular pe					// [22A5]
+⊮	nu forțează						// [22AE]
+⊰	precedă sub relație					// [22B0]
+⊱	succedă sub relație					// [22B1]
+⊶	original						// [22B6]
+⊹	matrice hermitic conjugată				// [22B9]
+⊿	triunghi dreptunghic					// [22BF]
+⋁	sau logic n-ar						// [22C1]
+⋂	intersecție n-ară					// [22C2]
+⋃	reuniune n-ară						// [22C3]
+⋅	operator punct de înmulțire				// [22C5]
+⋆	operator stea						// [22C6]
+⋈	joncțiune naturală					// [22C8]
+⋒	intersecție dublă					// [22D2]
+⋘	foarte mult mai mic decât				// [22D8]
+⋙	foarte mult mai mare decât				// [22D9]
+⋭	nu conține ca submulțime normală pe sau este egală cu	// [22ED]
+⋮	puncte de suspensie verticale				// [22EE]
+⋯	puncte de suspensie orizontale pe linia mediană		// [22EF]
+⋰	puncte de suspensie diagonale dreapta sus		// [22F0]
+⋱	puncte de suspensie diagonale dreapta jos		// [22F1]
+
+// 2300..23FF : Miscellaneous Technical
+
+⌚	ceas de mână							// [231A]
+⌛	clepsidră cu nisipul scurs					// [231B]
+⌨	tastatură							// [2328] text|emoji
+⏏	buton de ejectare						// [23CF] text|emoji
+⏩	buton de derulare rapidă înainte				// [23E9]
+⏪	buton de derulare rapidă înapoi					// [23EA]
+⏫	buton pentru repede sus						// [23EB]
+⏬	buton pentru repede jos						// [23EC]
+⏭	buton pentru melodia următoare					// [23ED] text|emoji
+⏮	buton pentru melodia anterioară					// [23EE] text|emoji
+⏯	buton de redare sau suspendare					// [23EF] text|emoji
+⏰	ceas deșteptător						// [23F0]
+⏱	cronometru							// [23F1] text|emoji
+⏲	temporizator							// [23F2] text|emoji
+⏳	clepsidră cu nisip care se scurge				// [23F3]
+⏸	buton de suspendare						// [23F8] text|emoji
+⏹	buton de oprire							// [23F9] text|emoji
+⏺	buton de înregistrare						// [23FA] text|emoji
+
+// 2460..24FF : Enclosed Alphanumerics
+
+Ⓜ	litera M într-un cerc						// [24C2] text|emoji
+
+// 25A0..25FF : Geometric Shapes
+
+■	pătrat umplut						// [25A0]
+□	pătrat gol						// [25A1]
+▢	pătrat gol cu colțuri rotunjite				// [25A2]
+▣	pătrat gol cu un pătrat umplut înăuntru			// [25A3]
+▤	pătrat umplut cu linii orizontale			// [25A4]
+▥	pătrat umplut cu linii verticale			// [25A5]
+▦	pătrat umplut cu hașură dreaptă				// [25A6]
+▧	pătrat umplut cu dungi diagonale din stânga sus în dreapta jos	// [25A7]
+▨	pătrat umplut cu dungi diagonale din dreapta sus în stânga jos	// [25A8]
+▩	pătrat umplut cu hașură oblică				// [25A9]
+▪	pătrat negru mic						// [25AA] text|emoji
+▫	pătrat alb mic							// [25AB] text|emoji
+▬	dreptunghi umplut					// [25AC]
+▭	dreptunghi gol						// [25AD]
+▮	dreptunghi vertical umplut				// [25AE]
+▰	paralelogram umplut					// [25B0]
+▲	triunghi plin cu vârful în sus				// [25B2]
+△	triunghi gol cu vârful în sus				// [25B3]
+▴	triunghi mic umplut cu vârful în sus			// [25B4]
+▵	triunghi mic gol cu vârful în sus			// [25B5]
+▶	buton de redare							// [25B6] text|emoji
+▷	triunghi gol cu vârful în dreapta			// [25B7]
+▸	triunghi mic umplut cu vârful în dreapta		// [25B8]
+▹	triunghi mic gol cu vârful în dreapta			// [25B9]
+►	săgeată umplută cu vârful în dreapta			// [25BA]
+▻	săgeată goală cu vârful în dreapta			// [25BB]
+▼	triunghi plin cu vârful în jos				// [25BC]
+▽	triunghi gol cu vârful în jos				// [25BD]
+▾	triunghi mic umplut cu vârful în jos			// [25BE]
+▿	triunghi mic gol cu vârful în jos			// [25BF]
+◀	buton de inversare						// [25C0] text|emoji
+◁	triunghi gol cu vârful în stânga			// [25C1]
+◂	triunghi mic umplut cu vârful în stânga			// [25C2]
+◃	triunghi mic gol cu vârful în stânga			// [25C3]
+◄	săgeată umplută cu vârful în stânga			// [25C4]
+◅	săgeată goală cu vârful în stânga			// [25C5]
+◆	romb umplut						// [25C6]
+◇	romb gol						// [25C7]
+◈	romb gol cu un romb umplut înăuntru			// [25C8]
+◉	cerc gol cu un cerc umplut înăuntru			// [25C9]
+◊	romb							// [25CA]
+○	cerc gol						// [25CB]
+◌	cerc punctat						// [25CC]
+◍	cerc umplut cu dungi verticale				// [25CD]
+◎	cercuri concentrice					// [25CE]
+●	cerc plin						// [25CF]
+◐	cerc umplut pe jumătatea stângă				// [25D0]
+◑	cerc umplut pe jumătatea dreaptă			// [25D1]
+◒	cerc umplut pe jumătatea inferioară			// [25D2]
+◓	cerc umplut pe jumătatea superioară			// [25D3]
+◔	cerc umplut în sfertul din dreapta sus			// [25D4]
+◕	cerc umplut în toate sferturile mai puțin cel din stânga sus	// [25D5]
+◖	jumătate de cerc umplut în stânga			// [25D6]
+◗	jumătate de cerc umplut în dreapta			// [25D7]
+◘	marcator invers						// [25D8]
+◙	pătrat umplut cu un cerc gol înăuntru			// [25D9]
+◜	arc de cerc în sfertul din stânga sus			// [25DC]
+◝	arc de cerc în sfertul din dreapta sus			// [25DD]
+◞	arc de cerc în sfertul din dreapta jos			// [25DE]
+◟	arc de cerc în sfertul din stânga jos			// [25DF]
+◠	semicerc superior					// [25E0]
+◡	semicerc inferior					// [25E1]
+◢	triunghi umplut cu unghi drept în dreapta jos		// [25E2]
+◣	triunghi umplut cu unghi drept în stânga jos		// [25E3]
+◤	triunghi umplut cu unghi drept în stânga sus		// [25E4]
+◥	triunghi umplut cu unghi drept în dreapta sus		// [25E5]
+◦	marcator gol						// [25E6]
+◯	cerc gol mare						// [25EF]
+◳	pătrat gol cu sfertul din dreapta sus gol		// [25F3]
+◷	cerc gol cu sfertul din dreapta sus gol			// [25F7]
+◻	pătrat alb mediu						// [25FB] text|emoji
+◼	pătrat negru mediu						// [25FC] text|emoji
+◽	pătrat alb mediu spre mic					// [25FD]
+◾	pătrat negru mediu spre mic					// [25FE]
+◿	triunghi cu unghi drept în dreapta jos			// [25FF]
+
+// 2600..26FF : Miscellaneous Symbols
+
+☀	soare								// [2600] text|emoji
+☁	nor								// [2601] text|emoji
+☂	umbrelă								// [2602] text|emoji
+☃	om de zăpadă							// [2603] text|emoji
+☄	cometă								// [2604] text|emoji
+☎	telefon								// [260E] text|emoji
+☑	casetă de votare bifată						// [2611] text|emoji
+☔	umbrelă cu picături de ploaie					// [2614]
+☕	băutură fierbinte						// [2615]
+☘	trifoi								// [2618] text|emoji
+☝	deget arătător îndreptat în sus					// [261D] text|emoji
+☠	craniu cu oase încrucișate					// [2620] text|emoji
+☢	radioactiv							// [2622] text|emoji
+☣	risc biologic							// [2623] text|emoji
+☦	cruce ortodoxă							// [2626] text|emoji
+☪	stea și semilună						// [262A] text|emoji
+☮	semnul păcii							// [262E] text|emoji
+☯	yin yang							// [262F] text|emoji
+☸	roata dharmei							// [2638] text|emoji
+☹	față tristă							// [2639] text|emoji
+☺	față zâmbitoare							// [263A] text|emoji
+♀	semn feminin							// [2640] text|emoji
+♂	semn masculin							// [2642] text|emoji
+♈	zodia Berbec							// [2648]
+♉	zodia Taur							// [2649]
+♊	zodia Gemeni							// [264A]
+♋	zodia Rac							// [264B]
+♌	zodia Leu							// [264C]
+♍	zodia Fecioară							// [264D]
+♎	zodia Balanță							// [264E]
+♏	zodia Scorpion							// [264F]
+♐	zodia Săgetător							// [2650]
+♑	zodia Capricorn							// [2651]
+♒	zodia Vărsător							// [2652]
+♓	zodia Pești							// [2653]
+♟	pion de șah							// [265F] text|emoji
+♠	pică								// [2660] text|emoji
+♣	treflă								// [2663] text|emoji
+♥	cupă								// [2665] text|emoji
+♦	caro								// [2666] text|emoji
+♨	izvoare termale							// [2668] text|emoji
+♪	optime							// [266A]
+♭	bemol							// [266D]
+♯	diez							// [266F]
+♻	simbolul pentru reciclare					// [267B] text|emoji
+♾	infinit								// [267E] text|emoji
+♿	simbol pentru scaun cu rotile					// [267F]
+⚒	ciocan și daltă							// [2692] text|emoji
+⚓	ancoră								// [2693]
+⚔	săbii încrucișate						// [2694] text|emoji
+⚕	simbol medical							// [2695] text|emoji
+⚖	balanță								// [2696] text|emoji
+⚗	alambic								// [2697] text|emoji
+⚙	rotiță zimțată							// [2699] text|emoji
+⚛	simbol pentru atom						// [269B] text|emoji
+⚜	floare de crin stilizată					// [269C] text|emoji
+⚠	avertisment							// [26A0] text|emoji
+⚡	înaltă tensiune							// [26A1]
+⚧	transgender						// [26A7]
+⚪	cerc alb							// [26AA]
+⚫	cerc negru							// [26AB]
+⚰	coșciug								// [26B0] text|emoji
+⚱	urnă funerară							// [26B1] text|emoji
+⚽	minge de fotbal							// [26BD]
+⚾	baseball							// [26BE]
+⛄	om de zăpadă fără zăpadă					// [26C4]
+⛅	soare în nori							// [26C5]
+⛈	nor cu fulger și ploaie						// [26C8] text|emoji
+⛎	zodia Ofiucus							// [26CE]
+⛏	târnăcop							// [26CF] text|emoji
+⛑	cască de pompier salvator					// [26D1] text|emoji
+⛓	lanț								// [26D3] text|emoji
+⛔	acces interzis							// [26D4]
+⛩	altar shinto							// [26E9] text|emoji
+⛪	biserică							// [26EA]
+⛰	munte								// [26F0] text|emoji
+⛱	umbrelă pe sol							// [26F1] text|emoji
+⛲	fântână arteziană						// [26F2]
+⛳	steag în gaură la golf						// [26F3]
+⛴	feribot								// [26F4] text|emoji
+⛵	barcă cu pânze							// [26F5]
+⛷	persoană care schiază						// [26F7] text|emoji
+⛸	patină de gheață						// [26F8] text|emoji
+⛹	persoană care bate mingea					// [26F9] text|emoji
+⛺	cort								// [26FA]
+⛽	pompă de combustibil						// [26FD]
+
+// 2700..27BF : Dingbats
+
+✂	foarfece							// [2702] text|emoji
+✅	bifă albă îngroșată						// [2705]
+✈	avion								// [2708] text|emoji
+✉	plic								// [2709] text|emoji
+✊	pumn ridicat							// [270A]
+✋	mână ridicată							// [270B]
+✌	semnul victoriei						// [270C] text|emoji
+✍	mână scriind							// [270D] text|emoji
+✏	creion								// [270F] text|emoji
+✒	peniță neagră							// [2712] text|emoji
+✔	bifă îngroșată							// [2714] text|emoji
+✖	semnul înmulțirii îngroșat					// [2716] text|emoji
+✝	cruce latină							// [271D] text|emoji
+✡	steaua lui David						// [2721] text|emoji
+✨	steluțe								// [2728]
+✳	asterisc cu opt colțuri						// [2733] text|emoji
+✴	stea cu opt colțuri						// [2734] text|emoji
+❄	fulg de nea							// [2744] text|emoji
+❇	strălucire							// [2747] text|emoji
+❌	semnul x							// [274C]
+❎	buton x								// [274E]
+❓	semnul întrebării						// [2753]
+❔	semnul întrebării alb						// [2754]
+❕	semnul exclamării alb						// [2755]
+❗	semnul exclamării						// [2757]
+❣	semnul exclamării cu inimioară					// [2763] text|emoji
+❤	inimă roșie							// [2764] text|emoji
+➕	semn plus îngroșat						// [2795]
+➖	semn minus îngroșat						// [2796]
+➗	semnul împărțirii îngroșat					// [2797]
+➡	săgeată orientată în dreapta					// [27A1] text|emoji
+➰	buclă ondulată							// [27B0]
+➿	buclă ondulată dublă						// [27BF]
+
+// 2900..297F : Supplemental Arrows-B
+
+⤴	săgeată dreapta curbată în sus					// [2934] text|emoji
+⤵	săgeată dreapta curbată în jos					// [2935] text|emoji
+⨧	plus indice doi						// [2A27]
+⨯	produs vectorial					// [2A2F]
+⨼	produs interior						// [2A3C]
+⩣	disjuncție logică cu bară dublă				// [2A63]
+⩽	mai mic sau egal					// [2A7D]
+⪍	mai mic peste aproximativ egal				// [2A8D]
+⪚	mai mare sau egal cu două linii				// [2A9A]
+⪺	succedă peste nu aproape egal				// [2ABA]
+
+// 2B00..2BFF : Miscellaneous Symbols and Arrows
+
+⬅	săgeată orientată în stânga					// [2B05] text|emoji
+⬆	săgeată orientată în sus					// [2B06] text|emoji
+⬇	săgeată orientată în jos					// [2B07] text|emoji
+⬛	pătrat negru mare						// [2B1B]
+⬜	pătrat alb mare							// [2B1C]
+⭐	stea								// [2B50]
+⭕	cerc mare îngroșat						// [2B55]
+
+// 3000..303F : CJK Symbols and Punctuation
+
+〰	liniuță ondulată						// [3030] text|emoji
+〽	alternare cântăreț						// [303D] text|emoji
+
+// 3200..32FF : Enclosed CJK Letters and Months
+
+㊗	buton cu semnificația felicitări” în japoneză			// [3297] text|emoji
+㊙	buton cu semnificația secret” în japoneză			// [3299] text|emoji
+﷼	rial							// [FDFC]
+
+// 1F100..1F1FF : Enclosed Alphanumeric Supplement
+
+🅰	buton A (grupă sanguină)					// [1F170] text|emoji
+🅱	buton B (grupă sanguină)					// [1F171] text|emoji
+🅾	buton 0 (grupă sanguină)					// [1F17E] text|emoji
+🅿	buton P								// [1F17F] text|emoji
+🆎	buton AB (grupă sanguină)					// [1F18E]
+🆑	buton CL							// [1F191]
+🆒	buton cu textul COOL						// [1F192]
+🆓	buton cu textul FREE						// [1F193]
+🆔	buton ID							// [1F194]
+🆕	buton cu textul NEW						// [1F195]
+🆖	buton NG							// [1F196]
+🆗	buton cu textul OK						// [1F197]
+🆘	buton S.O.S.							// [1F198]
+🆙	buton cu textul UP!						// [1F199]
+🆚	buton cu textul VS						// [1F19A]
+🇨🇶	Sark							// [1F1E8 1F1F6]
+
+// 1F200..1F2FF : Enclosed Ideographic Supplement
+
+🈁	buton cu semnificația aici” în japoneză				// [1F201]
+🈂	buton cu semnificația taxă pentru serviciu” în japoneză		// [1F202] text|emoji
+🈚	buton cu semnificația gratis” în japoneză			// [1F21A]
+🈯	buton cu semnificația rezervat” în japoneză			// [1F22F]
+🈲	buton cu semnificația interzis” în japoneză			// [1F232]
+🈳	buton cu semnificația locuri libere” în japoneză		// [1F233]
+🈴	buton cu semnificația notă de trecere” în japoneză		// [1F234]
+🈵	buton cu semnificația fără locuri libere” în japoneză		// [1F235]
+🈶	buton cu semnificația contra cost” japoneză			// [1F236]
+🈷	buton cu semnificația valoare lunară” în japoneză		// [1F237] text|emoji
+🈸	buton cu semnificația aplicare” în japoneză			// [1F238]
+🈹	buton cu semnificația reducere” în japoneză			// [1F239]
+🈺	buton cu semnificația deschis pentru afaceri” în japoneză	// [1F23A]
+🉐	buton cu semnificația ocazie” în japoneză			// [1F250]
+🉑	buton cu semnificația acceptabil” în japoneză			// [1F251]
+
+// 1F000..1F02F : Mahjong Tiles
+
+🀄	dragon roșu la mahjong						// [1F004]
+
+// 1F0A0..1F0FF : Playing Cards
+
+🃏	joker								// [1F0CF]
+
+// 1F300..1F5FF : Miscellaneous Symbols and Pictographs
+
+🌀	ciclon								// [1F300]
+🌁	încețoșat							// [1F301]
+🌂	umbrelă închisă							// [1F302]
+🌃	noapte înstelată						// [1F303]
+🌄	răsărit după munți						// [1F304]
+🌅	răsărit								// [1F305]
+🌆	peisaj urban la apus						// [1F306]
+🌇	apus								// [1F307]
+🌈	curcubeu							// [1F308]
+🌉	pod luminat noaptea						// [1F309]
+🌊	val								// [1F30A]
+🌋	vulcan								// [1F30B]
+🌌	Calea Lactee							// [1F30C]
+🌍	Europa și Africa pe glob					// [1F30D]
+🌎	Americile pe glob						// [1F30E]
+🌏	Asia și Australia pe glob					// [1F30F]
+🌐	glob cu meridiane						// [1F310]
+🌑	lună nouă							// [1F311]
+🌒	lună concavă în creștere					// [1F312]
+🌓	lună în primul pătrar						// [1F313]
+🌔	lună convexă în creștere					// [1F314]
+🌕	lună plină							// [1F315]
+🌖	lună convexă în descreștere					// [1F316]
+🌗	lună în ultimul pătrar						// [1F317]
+🌘	lună concavă în descreștere					// [1F318]
+🌙	semilună							// [1F319]
+🌚	lună nouă cu față						// [1F31A]
+🌛	lună cu față în primul pătrar					// [1F31B]
+🌜	lună în ultimul pătrar cu față					// [1F31C]
+🌝	lună plină cu față						// [1F31D]
+🌞	soare cu față							// [1F31E]
+🌟	stea strălucitoare						// [1F31F]
+🌠	stea căzătoare							// [1F320]
+🌡	termometru							// [1F321] text|emoji
+🌤	soare după un nor mic						// [1F324] text|emoji
+🌥	soare după un nor mare						// [1F325] text|emoji
+🌦	soare după nor cu ploaie					// [1F326] text|emoji
+🌧	nor cu ploaie							// [1F327] text|emoji
+🌨	nor de ninsoare							// [1F328] text|emoji
+🌩	nor cu fulger							// [1F329] text|emoji
+🌪	tornadă								// [1F32A] text|emoji
+🌫	ceață								// [1F32B] text|emoji
+🌬	față suflând vânt						// [1F32C] text|emoji
+🌭	hot dog								// [1F32D]
+🌮	taco								// [1F32E]
+🌯	burrito								// [1F32F]
+🌰	castană								// [1F330]
+🌱	răsad								// [1F331]
+🌲	arbore conifer							// [1F332]
+🌳	arbore foios							// [1F333]
+🌴	palmier								// [1F334]
+🌵	cactus								// [1F335]
+🌶	ardei iute							// [1F336] text|emoji
+🌷	lalea								// [1F337]
+🌸	floare de cireș							// [1F338]
+🌹	trandafir							// [1F339]
+🌺	hibiscus							// [1F33A]
+🌻	floarea soarelui						// [1F33B]
+🌼	boboc								// [1F33C]
+🌽	știulete de porumb						// [1F33D]
+🌾	snop de orez							// [1F33E]
+🌿	plantă aromatică						// [1F33F]
+🍀	trifoi cu patru foi						// [1F340]
+🍁	frunză de arțar							// [1F341]
+🍂	frunză în cădere						// [1F342]
+🍃	frunză plutind în aer						// [1F343]
+🍄	ciupercă							// [1F344]
+🍅	roșie								// [1F345]
+🍆	vânătă								// [1F346]
+🍇	struguri							// [1F347]
+🍈	pepene galben							// [1F348]
+🍉	pepene verde							// [1F349]
+🍊	mandarină							// [1F34A]
+🍋	lămâie								// [1F34B]
+🍌	banană								// [1F34C]
+🍍	ananas								// [1F34D]
+🍎	măr roșu							// [1F34E]
+🍏	măr verde							// [1F34F]
+🍐	pară								// [1F350]
+🍑	piersică							// [1F351]
+🍒	cireșe								// [1F352]
+🍓	căpșună								// [1F353]
+🍔	hamburger							// [1F354]
+🍕	pizza								// [1F355]
+🍖	os cu carne							// [1F356]
+🍗	pulpă de pasăre							// [1F357]
+🍘	biscuit de orez							// [1F358]
+🍙	chifteluțe de orez						// [1F359]
+🍚	orez gătit							// [1F35A]
+🍛	orez cu curry							// [1F35B]
+🍜	castron aburind							// [1F35C]
+🍝	spaghete							// [1F35D]
+🍞	pâine								// [1F35E]
+🍟	cartofi prăjiți							// [1F35F]
+🍠	cartof dulce copt						// [1F360]
+🍡	găluște japoneze pe băț						// [1F361]
+🍢	frigăruie japoneză						// [1F362]
+🍣	sushi								// [1F363]
+🍤	crevete prăjit							// [1F364]
+🍥	ruladă japoneză cu pește					// [1F365]
+🍦	înghețată cremă							// [1F366]
+🍧	desert din fulgi de gheață					// [1F367]
+🍨	înghețată							// [1F368]
+🍩	gogoașă americană						// [1F369]
+🍪	fursec								// [1F36A]
+🍫	baton de ciocolată						// [1F36B]
+🍬	bomboană							// [1F36C]
+🍭	acadea								// [1F36D]
+🍮	șarlotă								// [1F36E]
+🍯	borcan cu miere							// [1F36F]
+🍰	tartă								// [1F370]
+🍱	mâncare japoneză la pachet					// [1F371]
+🍲	oală cu mâncare							// [1F372]
+🍳	gătit								// [1F373]
+🍴	furculiță și cuțit						// [1F374]
+🍵	ceașcă fără mâner						// [1F375]
+🍶	sake								// [1F376]
+🍷	pahar de vin							// [1F377]
+🍸	pahar de cocktail						// [1F378]
+🍹	băutură tropicală						// [1F379]
+🍺	halbă de bere							// [1F37A]
+🍻	halbe de bere ciocnite						// [1F37B]
+🍼	biberon								// [1F37C]
+🍽	furculiță și cuțit cu farfurie					// [1F37D] text|emoji
+🍾	sticlă căreia îi sare dopul					// [1F37E]
+🍿	floricele de porumb						// [1F37F]
+🎀	fundă								// [1F380]
+🎁	cadou împachetat						// [1F381]
+🎂	tort aniversar							// [1F382]
+🎃	dovleac cu felinar						// [1F383]
+🎄	brad de Crăciun							// [1F384]
+🎅	Moș Crăciun							// [1F385]
+🎆	artificii							// [1F386]
+🎇	foc bengal							// [1F387]
+🎈	balon								// [1F388]
+🎉	tun cu confetti							// [1F389]
+🎊	minge cu confetti						// [1F38A]
+🎋	copac tanabata							// [1F38B]
+🎌	steaguri încrucișate						// [1F38C]
+🎍	decorațiune japoneză de pin					// [1F38D]
+🎎	păpuși japoneze							// [1F38E]
+🎏	crap decorativ în vânt						// [1F38F]
+🎐	clopoței de vânt						// [1F390]
+🎑	ceremonia lunii							// [1F391]
+🎒	rucsac								// [1F392]
+🎓	tichie de absolvent						// [1F393]
+🎖	medalie militară						// [1F396] text|emoji
+🎗	panglică in memoriam”						// [1F397] text|emoji
+🎙	microfon de studio						// [1F399] text|emoji
+🎚	glisor de nivel							// [1F39A] text|emoji
+🎛	butoane de control						// [1F39B] text|emoji
+🎞	peliculă de film						// [1F39E] text|emoji
+🎟	bilete de intrare						// [1F39F] text|emoji
+🎠	căluț de carusel						// [1F3A0]
+🎡	roata mare							// [1F3A1]
+🎢	montagne russe							// [1F3A2]
+🎣	undiță								// [1F3A3]
+🎤	microfon							// [1F3A4]
+🎥	aparat de filmat						// [1F3A5]
+🎦	cinema								// [1F3A6]
+🎧	cască audio							// [1F3A7]
+🎨	paletă de pictor						// [1F3A8]
+🎩	joben								// [1F3A9]
+🎪	cort de circ							// [1F3AA]
+🎫	bilet								// [1F3AB]
+🎬	clachetă							// [1F3AC]
+🎭	arte interpretative						// [1F3AD]
+🎮	joc video							// [1F3AE]
+🎯	fix la țintă							// [1F3AF]
+🎰	jocuri mecanice							// [1F3B0]
+🎱	biliard								// [1F3B1]
+🎲	zar								// [1F3B2]
+🎳	bowling								// [1F3B3]
+🎴	cărți de joc cu flori						// [1F3B4]
+🎵	notă muzicală							// [1F3B5]
+🎶	note muzicale							// [1F3B6]
+🎷	saxofon								// [1F3B7]
+🎸	chitară								// [1F3B8]
+🎹	claviatură muzicală						// [1F3B9]
+🎺	trompetă							// [1F3BA]
+🎻	vioară								// [1F3BB]
+🎼	partitură							// [1F3BC]
+🎽	tricou de alegare						// [1F3BD]
+🎾	tenis								// [1F3BE]
+🎿	schiuri								// [1F3BF]
+🏀	baschet								// [1F3C0]
+🏁	steag cu pătrățele						// [1F3C1]
+🏂	persoană care practică snow-board				// [1F3C2]
+🏃	persoană care aleargă						// [1F3C3]
+🏄	persoană care practică surfing					// [1F3C4]
+🏅	medalie sportivă						// [1F3C5]
+🏆	trofeu								// [1F3C6]
+🏇	curse de cai							// [1F3C7]
+🏈	fotbal american							// [1F3C8]
+🏉	rugby								// [1F3C9]
+🏊	persoană care înoată						// [1F3CA]
+🏋	persoană care ridică greutăți					// [1F3CB] text|emoji
+🏌	persoană care joacă golf					// [1F3CC] text|emoji
+🏍	motocicletă							// [1F3CD] text|emoji
+🏎	mașină de curse							// [1F3CE] text|emoji
+🏏	crichet								// [1F3CF]
+🏐	volei								// [1F3D0]
+🏑	hochei de câmp							// [1F3D1]
+🏒	hochei pe gheață						// [1F3D2]
+🏓	ping pong							// [1F3D3]
+🏔	vârf de munte înzăpezit						// [1F3D4] text|emoji
+🏕	camping								// [1F3D5] text|emoji
+🏖	umbrelă pe plajă						// [1F3D6] text|emoji
+🏗	clădire în construcție						// [1F3D7] text|emoji
+🏘	case								// [1F3D8] text|emoji
+🏙	peisaj urban							// [1F3D9] text|emoji
+🏚	casă părăsită							// [1F3DA] text|emoji
+🏛	clădire clasică							// [1F3DB] text|emoji
+🏜	deșert								// [1F3DC] text|emoji
+🏝	insulă pustie							// [1F3DD] text|emoji
+🏞	parc național							// [1F3DE] text|emoji
+🏟	stadion								// [1F3DF] text|emoji
+🏠	casă								// [1F3E0]
+🏡	casă cu grădină							// [1F3E1]
+🏢	clădire de birouri						// [1F3E2]
+🏣	oficiu poștal japonez						// [1F3E3]
+🏤	oficiu poștal							// [1F3E4]
+🏥	spital								// [1F3E5]
+🏦	bancă								// [1F3E6]
+🏧	simbol pentru bancomat						// [1F3E7]
+🏨	hotel								// [1F3E8]
+🏩	hotel de dragoste						// [1F3E9]
+🏪	magazin non-stop						// [1F3EA]
+🏫	școală								// [1F3EB]
+🏬	magazin universal						// [1F3EC]
+🏭	fabrică								// [1F3ED]
+🏮	felinar din hârtie roșie					// [1F3EE]
+🏯	castel japonez							// [1F3EF]
+🏰	castel								// [1F3F0]
+🏳	steag alb							// [1F3F3] text|emoji
+🏴	steag negru							// [1F3F4]
+🏵	rozetă								// [1F3F5] text|emoji
+🏷	etichetă							// [1F3F7] text|emoji
+🏸	badminton							// [1F3F8]
+🏹	arc și săgeată							// [1F3F9]
+🏺	amforă								// [1F3FA]
+🏻	ton deschis al pielii						// [1F3FB]
+🏼	ton semi‑deschis al pielii					// [1F3FC]
+🏽	ton mediu al pielii						// [1F3FD]
+🏾	ton semi‑închis al pielii					// [1F3FE]
+🏿	ton închis al pielii						// [1F3FF]
+🐀	șobolan								// [1F400]
+🐁	șoarece								// [1F401]
+🐂	bou								// [1F402]
+🐃	bivol								// [1F403]
+🐄	vacă								// [1F404]
+🐅	tigru								// [1F405]
+🐆	leopard								// [1F406]
+🐇	iepure								// [1F407]
+🐈	pisică								// [1F408]
+🐉	dragon								// [1F409]
+🐊	crocodil							// [1F40A]
+🐋	balenă								// [1F40B]
+🐌	melc								// [1F40C]
+🐍	șarpe								// [1F40D]
+🐎	cal								// [1F40E]
+🐏	berbec								// [1F40F]
+🐐	capră								// [1F410]
+🐑	oaie								// [1F411]
+🐒	maimuță								// [1F412]
+🐓	cocoș								// [1F413]
+🐔	găină								// [1F414]
+🐕	câine								// [1F415]
+🐖	porc								// [1F416]
+🐗	mistreț								// [1F417]
+🐘	elefant								// [1F418]
+🐙	caracatiță							// [1F419]
+🐚	cochilie spiralată						// [1F41A]
+🐛	gândac								// [1F41B]
+🐜	furnică								// [1F41C]
+🐝	albină								// [1F41D]
+🐞	buburuză							// [1F41E]
+🐟	pește								// [1F41F]
+🐠	pește tropical							// [1F420]
+🐡	pește balon							// [1F421]
+🐢	broască țestoasă						// [1F422]
+🐣	pui în găoace							// [1F423]
+🐤	pui de găină							// [1F424]
+🐥	pui de găină din față						// [1F425]
+🐦	pasăre								// [1F426]
+🐧	pinguin								// [1F427]
+🐨	koala								// [1F428]
+🐩	pudel								// [1F429]
+🐪	dromader							// [1F42A]
+🐫	cămilă								// [1F42B]
+🐬	delfin								// [1F42C]
+🐭	față de șoarece							// [1F42D]
+🐮	cap de vacă							// [1F42E]
+🐯	față de tigru							// [1F42F]
+🐰	față de iepure							// [1F430]
+🐱	față de pisică							// [1F431]
+🐲	față de dragon							// [1F432]
+🐳	balenă împroșcând apă						// [1F433]
+🐴	față de cal							// [1F434]
+🐵	față de maimuță							// [1F435]
+🐶	față de câine							// [1F436]
+🐷	cap de porc							// [1F437]
+🐸	față de broască							// [1F438]
+🐹	față de hamster							// [1F439]
+🐺	față de lup							// [1F43A]
+🐻	față de urs							// [1F43B]
+🐼	față de panda							// [1F43C]
+🐽	rât								// [1F43D]
+🐾	urme de lăbuțe							// [1F43E]
+🐿	veveriță							// [1F43F] text|emoji
+👀	doi ochi							// [1F440]
+👁	un ochi								// [1F441] text|emoji
+👂	ureche								// [1F442]
+👃	nas								// [1F443]
+👄	gură								// [1F444]
+👅	limbă								// [1F445]
+👆	dos de mână cu arătătorul în sus				// [1F446]
+👇	dos de mână cu arătătorul în jos				// [1F447]
+👈	dos de mână cu arătătorul spre stânga				// [1F448]
+👉	dos de mână cu arătătorul spre dreapta				// [1F449]
+👊	lovitură de pumn						// [1F44A]
+👋	mână fluturată							// [1F44B]
+👌	semnul ok							// [1F44C]
+👍	semn de aprobare						// [1F44D]
+👎	semn de dezaprobare						// [1F44E]
+👏	mâini care aplaudă						// [1F44F]
+👐	palme deschise							// [1F450]
+👑	coroană								// [1F451]
+👒	pălărie de damă							// [1F452]
+👓	ochelari							// [1F453]
+👔	cravată								// [1F454]
+👕	tricou								// [1F455]
+👖	blugi								// [1F456]
+👗	rochie								// [1F457]
+👘	chimono								// [1F458]
+👙	costum de baie							// [1F459]
+👚	haine de damă							// [1F45A]
+👛	poșetă								// [1F45B]
+👜	geantă de mână							// [1F45C]
+👝	gentuță								// [1F45D]
+👞	pantof bărbătesc						// [1F45E]
+👟	pantof sport							// [1F45F]
+👠	pantof cu toc							// [1F460]
+👡	sanda de damă							// [1F461]
+👢	cizmă de damă							// [1F462]
+👣	urme de pași							// [1F463]
+👤	siluetă bust							// [1F464]
+👥	siluete busturi							// [1F465]
+👦	băiat								// [1F466]
+👧	fată								// [1F467]
+👨	bărbat								// [1F468]
+👩	femeie								// [1F469]
+👪	familie								// [1F46A]
+👫	bărbat și femeie ținându-se de mână				// [1F46B]
+👬	doi bărbați ținându-se de mână					// [1F46C]
+👭	două femei ținându-se de mână					// [1F46D]
+👮	polițist							// [1F46E]
+👯	persoane care poartă urechi de iepuraș				// [1F46F]
+👰	mireasă cu voal							// [1F470]
+👱	persoană blondă							// [1F471]
+👲	bărbat cu bonetă chinezească					// [1F472]
+👳	persoană cu turban						// [1F473]
+👴	bătrân								// [1F474]
+👵	bătrână								// [1F475]
+👶	bebeluș								// [1F476]
+👷	constructor							// [1F477]
+👸	prințesă							// [1F478]
+👹	căpcăun								// [1F479]
+👺	spiriduș							// [1F47A]
+👻	fantomă								// [1F47B]
+👼	bebeluș îngeraș							// [1F47C]
+👽	extraterestru							// [1F47D]
+👾	monstru extraterestru						// [1F47E]
+👿	față mânioasă încornorată					// [1F47F]
+💀	craniu								// [1F480]
+💁	persoană care explică						// [1F481]
+💂	gardian								// [1F482]
+💃	dansatoare							// [1F483]
+💄	ruj								// [1F484]
+💅	ojă pe unghii							// [1F485]
+💆	persoană care primește un masaj facial				// [1F486]
+💇	persoană care de tunde						// [1F487]
+💈	stâlp de bărbier						// [1F488]
+💉	seringă								// [1F489]
+💊	pastilă								// [1F48A]
+💋	urme de buze							// [1F48B]
+💌	scrisoare de dragoste						// [1F48C]
+💍	inel								// [1F48D]
+💎	piatră prețioasă						// [1F48E]
+💏	sărut								// [1F48F]
+💐	buchet de flori							// [1F490]
+💑	cuplu cu inimă							// [1F491]
+💒	nuntă								// [1F492]
+💓	inimă palpitând							// [1F493]
+💔	inimă zdrobită							// [1F494]
+💕	două inimioare							// [1F495]
+💖	inimă strălucitoare						// [1F496]
+💗	inimă care crește						// [1F497]
+💘	inimă săgetată							// [1F498]
+💙	inimă albastră							// [1F499]
+💚	inimă verde							// [1F49A]
+💛	inimă galbenă							// [1F49B]
+💜	inimă mov							// [1F49C]
+💝	inimă cu fundiță						// [1F49D]
+💞	inimi învârtindu-se în cerc					// [1F49E]
+💟	decorațiune inimă						// [1F49F]
+💠	romb cu punct în centru						// [1F4A0]
+💡	bec								// [1F4A1]
+💢	simbol mânie							// [1F4A2]
+💣	bombă								// [1F4A3]
+💤	sfor								// [1F4A4]
+💥	coliziune							// [1F4A5]
+💦	picături de transpirație					// [1F4A6]
+💧	picătură							// [1F4A7]
+💨	ștergând-o rapid						// [1F4A8]
+💩	răhățel								// [1F4A9]
+💪	biceps flexat							// [1F4AA]
+💫	amețit								// [1F4AB]
+💬	balon de dialog							// [1F4AC]
+💭	balon de gândire						// [1F4AD]
+💮	floare albă							// [1F4AE]
+💯	o sută de puncte						// [1F4AF]
+💰	sac cu bani							// [1F4B0]
+💱	schimb valutar							// [1F4B1]
+💲	semnul dolar îngroșat						// [1F4B2]
+💳	card de credit							// [1F4B3]
+💴	bancnotă yen							// [1F4B4]
+💵	bancnotă dolar							// [1F4B5]
+💶	bancnotă euro							// [1F4B6]
+💷	bancnotă liră sterlină						// [1F4B7]
+💸	bani înaripați							// [1F4B8]
+💹	grafic ascendent cu yen						// [1F4B9]
+💺	loc în mijloc de transport					// [1F4BA]
+💻	computer laptop							// [1F4BB]
+💼	servietă							// [1F4BC]
+💽	disc de computer						// [1F4BD]
+💾	dischetă							// [1F4BE]
+💿	cd								// [1F4BF]
+📀	dvd								// [1F4C0]
+📁	dosar de arhivare						// [1F4C1]
+📂	dosar de arhivare deschis					// [1F4C2]
+📃	pagină rulată							// [1F4C3]
+📄	pagină cu fața în sus						// [1F4C4]
+📅	calendar							// [1F4C5]
+📆	calendar cu file detașabile					// [1F4C6]
+📇	repertoriu							// [1F4C7]
+📈	grafic ascendent						// [1F4C8]
+📉	grafic descendent						// [1F4C9]
+📊	diagramă cu bare						// [1F4CA]
+📋	planșetă							// [1F4CB]
+📌	piuneză								// [1F4CC]
+📍	ac cu gămălie							// [1F4CD]
+📎	agrafă de hârtie						// [1F4CE]
+📏	riglă								// [1F4CF]
+📐	echer								// [1F4D0]
+📑	marcatoare de pagini						// [1F4D1]
+📒	registru							// [1F4D2]
+📓	carnet								// [1F4D3]
+📔	caiet cu copertă decorativă					// [1F4D4]
+📕	carte închisă							// [1F4D5]
+📖	carte deschisă							// [1F4D6]
+📗	carte verde							// [1F4D7]
+📘	carte albastră							// [1F4D8]
+📙	carte portocalie						// [1F4D9]
+📚	cărți								// [1F4DA]
+📛	ecuson cu nume							// [1F4DB]
+📜	pergament							// [1F4DC]
+📝	notă								// [1F4DD]
+📞	receptor de telefon						// [1F4DE]
+📟	pager								// [1F4DF]
+📠	echipament fax							// [1F4E0]
+📡	antenă satelit							// [1F4E1]
+📢	portavoce							// [1F4E2]
+📣	megafon								// [1F4E3]
+📤	tăviță de ieșire						// [1F4E4]
+📥	tăviță de intrare						// [1F4E5]
+📦	pachet								// [1F4E6]
+📧	e-mail								// [1F4E7]
+📨	sosire plic							// [1F4E8]
+📩	plic cu săgeată							// [1F4E9]
+📪	cutie poștală închisă cu steagul jos				// [1F4EA]
+📫	cutie poștală închisă cu steagul sus				// [1F4EB]
+📬	cutie poștală deschisă cu steagul sus				// [1F4EC]
+📭	cutie poștală deschisă cu steagul jos				// [1F4ED]
+📮	cutie poștală							// [1F4EE]
+📯	corn poștal							// [1F4EF]
+📰	ziar								// [1F4F0]
+📱	telefon mobil							// [1F4F1]
+📲	telefon mobil cu săgeată					// [1F4F2]
+📳	modul vibrare							// [1F4F3]
+📴	închidere telefoane mobile					// [1F4F4]
+📵	telefoanele mobile sunt interzise				// [1F4F5]
+📶	bare de semnal							// [1F4F6]
+📷	cameră foto							// [1F4F7]
+📸	cameră foto cu bliț						// [1F4F8]
+📹	cameră video							// [1F4F9]
+📺	televizor							// [1F4FA]
+📻	radio								// [1F4FB]
+📼	casetă video							// [1F4FC]
+📽	proiector de film						// [1F4FD] text|emoji
+📿	mătănii								// [1F4FF]
+🔀	buton de redare aleatorie					// [1F500]
+🔁	buton de repetare						// [1F501]
+🔂	buton de repetare unică						// [1F502]
+🔃	săgeți verticale în sens orar					// [1F503]
+🔄	buton cu săgeți în sens antiorar				// [1F504]
+🔅	buton de scădere a luminozității				// [1F505]
+🔆	buton de creștere a luminozității				// [1F506]
+🔇	difuzor fără sunet						// [1F507]
+🔈	volum scăzut al difuzorului					// [1F508]
+🔉	volum mediu al difuzorului					// [1F509]
+🔊	volum ridicat al difuzorului					// [1F50A]
+🔋	baterie								// [1F50B]
+🔌	fișă electrică							// [1F50C]
+🔍	lupă înclinată spre stânga					// [1F50D]
+🔎	lupă înclinată spre dreapta					// [1F50E]
+🔏	lacăt cu stilou							// [1F50F]
+🔐	lacăt închis cu cheie						// [1F510]
+🔑	cheie								// [1F511]
+🔒	lacăt închis							// [1F512]
+🔓	lacăt deschis							// [1F513]
+🔔	clopoțel							// [1F514]
+🔕	clopoțel tăiat							// [1F515]
+🔖	semn de carte							// [1F516]
+🔗	za								// [1F517]
+🔘	buton radio							// [1F518]
+🔙	săgeată cu textul BACK						// [1F519]
+🔚	săgeată cu textul END						// [1F51A]
+🔛	săgeată cu textul ON!						// [1F51B]
+🔜	săgeată cu textul SOON						// [1F51C]
+🔝	săgeată cu textul TOP						// [1F51D]
+🔞	interzis sub 18 ani						// [1F51E]
+🔟	tastă: 10							// [1F51F]
+🔠	introducere majuscule latine					// [1F520]
+🔡	introducere minuscule latine					// [1F521]
+🔢	introducere numere						// [1F522]
+🔣	introducere simboluri						// [1F523]
+🔤	introducere litere latine					// [1F524]
+🔥	foc								// [1F525]
+🔦	lanternă							// [1F526]
+🔧	cheie fixă							// [1F527]
+🔨	ciocan								// [1F528]
+🔩	șurub și piuliță						// [1F529]
+🔪	cuțit de bucătărie						// [1F52A]
+🔫	pistol								// [1F52B]
+🔬	microscop							// [1F52C]
+🔭	telescop							// [1F52D]
+🔮	glob de cristal							// [1F52E]
+🔯	stea cu șase colțuri și punct în centru				// [1F52F]
+🔰	simbol japonez pentru începător					// [1F530]
+🔱	emblemă trident							// [1F531]
+🔲	butin pătrat negru						// [1F532]
+🔳	buton pătrat alb						// [1F533]
+🔴	cerc roșu							// [1F534]
+🔵	cerc albastru							// [1F535]
+🔶	romb portocaliu mare						// [1F536]
+🔷	romb albastru mare						// [1F537]
+🔸	romb portocaliu mic						// [1F538]
+🔹	romb albastru mic						// [1F539]
+🔺	triunghi roșu cu vârful în sus					// [1F53A]
+🔻	triunghi roșu cu vârful în jos					// [1F53B]
+🔼	buton pentru sus						// [1F53C]
+🔽	buton pentru jos						// [1F53D]
+🕉	simbol hindus om						// [1F549] text|emoji
+🕊	porumbiță							// [1F54A] text|emoji
+🕋	lăcaș de cult islamic kaaba					// [1F54B]
+🕌	moschee								// [1F54C]
+🕍	sinagogă							// [1F54D]
+🕎	menorah								// [1F54E]
+🕐	ora unu fix							// [1F550]
+🕑	ora două fix							// [1F551]
+🕒	ora trei fix							// [1F552]
+🕓	ora patru fix							// [1F553]
+🕔	ora cinci fix							// [1F554]
+🕕	ora șase fix							// [1F555]
+🕖	ora șapte fix							// [1F556]
+🕗	ora opt fix							// [1F557]
+🕘	ora nouă fix							// [1F558]
+🕙	ora zece fix							// [1F559]
+🕚	ora unsprezece fix						// [1F55A]
+🕛	ora douăsprezece fix						// [1F55B]
+🕜	ora unu și jumătate						// [1F55C]
+🕝	ora două și jumătate						// [1F55D]
+🕞	ora trei și jumătate						// [1F55E]
+🕟	ora patru și jumătate						// [1F55F]
+🕠	ora cinci și jumătate						// [1F560]
+🕡	ora șase și jumătate						// [1F561]
+🕢	ora șapte și jumătate						// [1F562]
+🕣	ora opt și jumătate						// [1F563]
+🕤	ora nouă și jumătate						// [1F564]
+🕥	ora zece și jumătate						// [1F565]
+🕦	ora unsprezece și jumătate					// [1F566]
+🕧	ora douăsprezece și jumătate					// [1F567]
+🕯	lumânare							// [1F56F] text|emoji
+🕰	ceas pentru etajeră						// [1F570] text|emoji
+🕳	gaură								// [1F573] text|emoji
+🕴	bărbat la costum, levitând					// [1F574] text|emoji
+🕵	detectiv							// [1F575] text|emoji
+🕶	ochelari de soare						// [1F576] text|emoji
+🕷	păianjen							// [1F577] text|emoji
+🕸	pânză de păianjen						// [1F578] text|emoji
+🕹	joystick							// [1F579] text|emoji
+🕺	dansator							// [1F57A]
+🖇	agrafe de hârtie înlănțuite					// [1F587] text|emoji
+🖊	pix								// [1F58A] text|emoji
+🖋	stilou								// [1F58B] text|emoji
+🖌	pensulă								// [1F58C] text|emoji
+🖍	creion colorat							// [1F58D] text|emoji
+🖐	mână ridicată cu degetele depărtate				// [1F590] text|emoji
+🖕	degetul mijlociu						// [1F595]
+🖖	salut vulcanian							// [1F596]
+🖤	inimă neagră							// [1F5A4]
+🖥	computer desktop						// [1F5A5] text|emoji
+🖨	imprimantă							// [1F5A8] text|emoji
+🖱	maus								// [1F5B1] text|emoji
+🖲	trackball							// [1F5B2] text|emoji
+🖼	tablou înrămat							// [1F5BC] text|emoji
+🗂	separatoare de dosare						// [1F5C2] text|emoji
+🗃	cutie de îndosariere						// [1F5C3] text|emoji
+🗄	fișet								// [1F5C4] text|emoji
+🗑	coș de gunoi							// [1F5D1] text|emoji
+🗒	blocnotes cu spirală						// [1F5D2] text|emoji
+🗓	calendar cu spirală						// [1F5D3] text|emoji
+🗜	menghină							// [1F5DC] text|emoji
+🗝	cheie veche							// [1F5DD] text|emoji
+🗞	ziar rulat							// [1F5DE] text|emoji
+🗡	pumnal								// [1F5E1] text|emoji
+🗣	cap vorbitor							// [1F5E3] text|emoji
+🗨	balon de dialog la stânga					// [1F5E8] text|emoji
+🗯	balon de dialog furios la dreapta				// [1F5EF] text|emoji
+🗳	urnă de votare cu vot						// [1F5F3] text|emoji
+🗺	harta lumii							// [1F5FA] text|emoji
+🗻	muntele Fuji							// [1F5FB]
+🗼	turnul Tokio							// [1F5FC]
+🗽	Statuia Libertății						// [1F5FD]
+🗾	harta Japoniei							// [1F5FE]
+🗿	statuie moai							// [1F5FF]
+
+// 1F600..1F64F : Emoticons
+
+😀	față încântată							// [1F600]
+😁	față radioasă cu ochi zâmbitori					// [1F601]
+😂	față cu lacrimi de bucurie					// [1F602]
+😃	față încântată cu ochii mari					// [1F603]
+😄	față încântată cu ochi zâmbitori				// [1F604]
+😅	față încântată cu sudoare rece					// [1F605]
+😆	față încântată cu ochii întredeschiși				// [1F606]
+😇	față zâmbitoare cu aură						// [1F607]
+😈	față zâmbitoare încornorată					// [1F608]
+😉	față care face cu ochiul					// [1F609]
+😊	față zâmbitoare cu ochi zâmbitori				// [1F60A]
+😋	față savurând mâncare delicioasă				// [1F60B]
+😌	față ușurată							// [1F60C]
+😍	față zâmbitoare cu inimioare la ochi				// [1F60D]
+😎	față zâmbitoare cu ochelari de soare				// [1F60E]
+😏	față cu zâmbet superior						// [1F60F]
+😐	față neutră							// [1F610]
+😑	față fără expresie						// [1F611]
+😒	față morocănoasă						// [1F612]
+😓	față abătută cu sudoare rece					// [1F613]
+😔	față îngândurată						// [1F614]
+😕	față confuză							// [1F615]
+😖	față derutată							// [1F616]
+😗	față pupăcioasă							// [1F617]
+😘	față care trimite un pupic					// [1F618]
+😙	față pupăcioasă cu ochi zâmbitori				// [1F619]
+😚	față pupăcioasă cu ochi închiși					// [1F61A]
+😛	față cu limba scoasă						// [1F61B]
+😜	față cu limba scoasă, făcând cu ochiul				// [1F61C]
+😝	față cu limba scoasă și ochii întredeschiși			// [1F61D]
+😞	față dezamăgită							// [1F61E]
+😟	față îngrijorată						// [1F61F]
+😠	față furioasă							// [1F620]
+😡	față îmbufnată							// [1F621]
+😢	față plângând							// [1F622]
+😣	față neajutorată						// [1F623]
+😤	față care scoate fum pe nări					// [1F624]
+😥	față dezamăgită, dar ușurată					// [1F625]
+😦	față tristă cu gura deschisă					// [1F626]
+😧	față angoasată							// [1F627]
+😨	față înfricoșată						// [1F628]
+😩	față extenuată							// [1F629]
+😪	față somnoroasă							// [1F62A]
+😫	față obosită							// [1F62B]
+😬	față cu grimasă							// [1F62C]
+😭	față plângând zgomotos						// [1F62D]
+😮	față cu gura deschisă						// [1F62E]
+😯	față amuțită							// [1F62F]
+😰	față neliniștită cu sudoare rece				// [1F630]
+😱	față țipând de frică						// [1F631]
+😲	față uimită							// [1F632]
+😳	față îmbujorată							// [1F633]
+😴	față adormită							// [1F634]
+😵	față amețită							// [1F635]
+😶	față fără gură							// [1F636]
+😷	față cu mască medicală						// [1F637]
+😸	față de pisică încântată cu ochi zâmbitori			// [1F638]
+😹	față de pisică cu lacrimi de bucurie				// [1F639]
+😺	față de pisică încântată					// [1F63A]
+😻	față de pisică zâmbitoare cu inimioare la ochi			// [1F63B]
+😼	față de pisică cu zâmbet ironic					// [1F63C]
+😽	față de pisică pupăcioasă					// [1F63D]
+😾	față de pisică îmbufnată					// [1F63E]
+😿	față de pisică plângând						// [1F63F]
+🙀	față de pisică surprinsă					// [1F640]
+🙁	față ușor tristă						// [1F641]
+🙂	față ușor zâmbitoare						// [1F642]
+🙃	față cu susul în jos						// [1F643]
+🙄	față care dă ochii peste cap					// [1F644]
+🙅	persoană făcând un gest de negație				// [1F645]
+🙆	persoană făcând un gest de OK					// [1F646]
+🙇	persoană care se înclină					// [1F647]
+🙈	nu văd nimic rău						// [1F648]
+🙉	nu aud nimic rău						// [1F649]
+🙊	nu spun nimic rău						// [1F64A]
+🙋	persoană care ridică mâna					// [1F64B]
+🙌	mâini ridicate							// [1F64C]
+🙍	persoană întristată						// [1F64D]
+🙎	persoană bosumflată						// [1F64E]
+🙏	mâini unite							// [1F64F]
+
+// 1F680..1F6FF : Transport and Map Symbols
+
+🚀	rachetă								// [1F680]
+🚁	elicopter							// [1F681]
+🚂	locomotivă							// [1F682]
+🚃	vagon feroviar							// [1F683]
+🚄	tren de mare viteză						// [1F684]
+🚅	tren de mare viteză cu vârf aerodinamic				// [1F685]
+🚆	tren								// [1F686]
+🚇	metrou								// [1F687]
+🚈	tren ușor							// [1F688]
+🚉	gară								// [1F689]
+🚊	tramvai								// [1F68A]
+🚋	vagon de tramvai						// [1F68B]
+🚌	autobuz								// [1F68C]
+🚍	autobuz care se apropie						// [1F68D]
+🚎	troleibuz							// [1F68E]
+🚏	stație de autobuz						// [1F68F]
+🚐	microbuz							// [1F690]
+🚑	ambulanță							// [1F691]
+🚒	mașină de pompieri						// [1F692]
+🚓	mașină de poliție						// [1F693]
+🚔	mașină de poliție care se apropie				// [1F694]
+🚕	taxi								// [1F695]
+🚖	taxi care se apropie						// [1F696]
+🚗	automobil							// [1F697]
+🚘	automobil care se apropie					// [1F698]
+🚙	vehicul recreațional						// [1F699]
+🚚	camion de marfă							// [1F69A]
+🚛	camion articulat						// [1F69B]
+🚜	tractor								// [1F69C]
+🚝	monorai								// [1F69D]
+🚞	cale ferată montană						// [1F69E]
+🚟	cale ferată suspendată						// [1F69F]
+🚠	telecabină montană						// [1F6A0]
+🚡	tramvai aerian							// [1F6A1]
+🚢	vapor								// [1F6A2]
+🚣	persoană care vâslește în barcă					// [1F6A3]
+🚤	barcă de viteză							// [1F6A4]
+🚥	semafor orizontal						// [1F6A5]
+🚦	semafor vertical						// [1F6A6]
+🚧	șantier								// [1F6A7]
+🚨	girofar de poliție						// [1F6A8]
+🚩	steag triunghiular						// [1F6A9]
+🚪	ușă								// [1F6AA]
+🚫	interzis							// [1F6AB]
+🚬	țigară								// [1F6AC]
+🚭	fumatul interzis						// [1F6AD]
+🚮	simbol pentru folosiți coșul de gunoi				// [1F6AE]
+🚯	nu aruncați gunoi pe jos					// [1F6AF]
+🚰	apă potabilă							// [1F6B0]
+🚱	apă nepotabilă							// [1F6B1]
+🚲	bicicletă							// [1F6B2]
+🚳	interzis accesul cu bicicleta					// [1F6B3]
+🚴	persoană pe bicicletă						// [1F6B4]
+🚵	persoană pe bicicletă montană					// [1F6B5]
+🚶	persoană care merge						// [1F6B6]
+🚷	interzis accesul pietonilor					// [1F6B7]
+🚸	trecere copii							// [1F6B8]
+🚹	toaletă bărbați							// [1F6B9]
+🚺	toaletă femei							// [1F6BA]
+🚻	toaletă mixtă							// [1F6BB]
+🚼	simbol bebeluș							// [1F6BC]
+🚽	toaletă								// [1F6BD]
+🚾	wc								// [1F6BE]
+🚿	duș								// [1F6BF]
+🛀	persoană care face baie						// [1F6C0]
+🛁	cadă								// [1F6C1]
+🛂	control pașapoarte						// [1F6C2]
+🛃	vamă								// [1F6C3]
+🛄	recuperare bagaje						// [1F6C4]
+🛅	depozitare bagaje						// [1F6C5]
+🛋	canapea și lampă						// [1F6CB] text|emoji
+🛌	persoană în pat							// [1F6CC]
+🛍	sacoșe de cumpărături						// [1F6CD] text|emoji
+🛎	sonerie de recepție						// [1F6CE] text|emoji
+🛏	pat								// [1F6CF] text|emoji
+🛐	lăcaș de cult							// [1F6D0]
+🛑	semnul stop							// [1F6D1]
+🛒	cărucior de cumpărături						// [1F6D2]
+🛕	templu hindus						// [1F6D5]
+🛖	colibă							// [1F6D6]
+🛗	lift							// [1F6D7]
+🛜	wireless						// [1F6DC]
+🛝	tobogan pentru joacă					// [1F6DD]
+🛞	roată							// [1F6DE]
+🛟	colac de salvare					// [1F6DF]
+🛠	ciocan și cheie fixă						// [1F6E0] text|emoji
+🛡	scut								// [1F6E1] text|emoji
+🛢	butoi de combustibil						// [1F6E2] text|emoji
+🛣	autostradă							// [1F6E3] text|emoji
+🛤	cale ferată							// [1F6E4] text|emoji
+🛥	barcă cu motor							// [1F6E5] text|emoji
+🛩	aeronavă mică							// [1F6E9] text|emoji
+🛫	plecare avion							// [1F6EB]
+🛬	sosire avion							// [1F6EC]
+🛰	satelit								// [1F6F0] text|emoji
+🛳	vas de pasageri							// [1F6F3] text|emoji
+🛴	trotinetă							// [1F6F4]
+🛵	scuter								// [1F6F5]
+🛶	canoe								// [1F6F6]
+🛷	sanie								// [1F6F7]
+🛸	farfurie zburătoare						// [1F6F8]
+🛹	skateboard							// [1F6F9]
+🛺	autoricșă						// [1F6FA]
+🛻	camionetă						// [1F6FB]
+🛼	patină cu rotile					// [1F6FC]
+
+// 1F780..1F7FF : Geometric Shapes Extended
+🟠	cerc portocaliu						// [1F7E0]
+🟡	cerc galben						// [1F7E1]
+🟢	cerc verde						// [1F7E2]
+🟣	cerc violet						// [1F7E3]
+🟤	cerc maro						// [1F7E4]
+🟥	pătrat roșu						// [1F7E5]
+🟦	pătrat albastru						// [1F7E6]
+🟧	pătrat portocaliu					// [1F7E7]
+🟨	pătrat galben						// [1F7E8]
+🟩	pătrat verde						// [1F7E9]
+🟪	pătrat violet						// [1F7EA]
+🟫	pătrat maro						// [1F7EB]
+🟰	semn gros de egal					// [1F7F0]
+🤌	degete strânse						// [1F90C]
+🤍	inimă albă						// [1F90D]
+🤎	inimă maro						// [1F90E]
+🤏	mână cu două degete apropiate				// [1F90F]
+
+// 1F900..1F9FF : Supplemental Symbols and Pictographs
+
+🤐	față cu fermoar la buze						// [1F910]
+🤑	față încântată de bani						// [1F911]
+🤒	față cu termometru						// [1F912]
+🤓	față de tocilar							// [1F913]
+🤔	față gânditoare							// [1F914]
+🤕	față cu capul bandajat						// [1F915]
+🤖	față de robot							// [1F916]
+🤗	față cu gest de îmbrățișare					// [1F917]
+🤘	semnul cu coarne						// [1F918]
+🤙	semnul sună-mă							// [1F919]
+🤚	dosul palmei ridicat						// [1F91A]
+🤛	pumn spre stânga						// [1F91B]
+🤜	pumn spre dreapta						// [1F91C]
+🤝	strângere de mână						// [1F91D]
+🤞	degete încrucișate						// [1F91E]
+🤟	gest cu semnificația te iubesc					// [1F91F]
+🤠	față cu pălărie de cowboy					// [1F920]
+🤡	față de clovn							// [1F921]
+🤢	față îngrețoșată						// [1F922]
+🤣	tăvălindu-se pe jos de râs					// [1F923]
+🤤	față care salivează						// [1F924]
+🤥	fața mincinoasă							// [1F925]
+🤦	persoană care își acoperă fața cu o palmă			// [1F926]
+🤧	față care strănută						// [1F927]
+🤨	față cu sprânceană ridicată					// [1F928]
+🤩	față cu steluțe la ochi						// [1F929]
+🤪	față nebună							// [1F92A]
+🤫	față care șâșâie						// [1F92B]
+🤬	față cu simboluri la gură					// [1F92C]
+🤭	față cu mâna peste gură						// [1F92D]
+🤮	față vomitând							// [1F92E]
+🤯	cap care explodează						// [1F92F]
+🤰	femeie însărcinată						// [1F930]
+🤱	alăptare la sân							// [1F931]
+🤲	palme ridicate împreună						// [1F932]
+🤳	selfie								// [1F933]
+🤴	prinț								// [1F934]
+🤵	bărbat în frac							// [1F935]
+🤶	Doamna Crăciun							// [1F936]
+🤷	persoană care ridică din umeri					// [1F937]
+🤸	persoană care face roata					// [1F938]
+🤹	persoană care jonglează						// [1F939]
+🤺	persoană care practică scrima					// [1F93A]
+🤼	persoane care practică wrestling				// [1F93C]
+🤽	persoană care joacă polo pe apă					// [1F93D]
+🤾	persoană care joacă handbal					// [1F93E]
+🤿	mască de scufundări					// [1F93F]
+🥀	floare ofilită							// [1F940]
+🥁	tobă								// [1F941]
+🥂	pahare ciocnite							// [1F942]
+🥃	pahar de whisky							// [1F943]
+🥄	lingură								// [1F944]
+🥅	plasa porții							// [1F945]
+🥇	medalie locul I							// [1F947]
+🥈	medalie locul II						// [1F948]
+🥉	medalie locul III						// [1F949]
+🥊	mănușă de box							// [1F94A]
+🥋	costum arte marțiale						// [1F94B]
+🥌	piatră de curling						// [1F94C]
+🥍	lacrosse						// [1F94D]
+🥎	softball							// [1F94E]
+🥏	disc zburător							// [1F94F]
+🥐	croasant							// [1F950]
+🥑	avocado								// [1F951]
+🥒	castravete							// [1F952]
+🥓	bacon								// [1F953]
+🥔	cartof								// [1F954]
+🥕	morcov								// [1F955]
+🥖	baghetă de pâine						// [1F956]
+🥗	salată verde							// [1F957]
+🥘	cratiță cu mâncare						// [1F958]
+🥙	lipie umplută							// [1F959]
+🥚	ou								// [1F95A]
+🥛	pahar cu lapte							// [1F95B]
+🥜	arahide								// [1F95C]
+🥝	kiwi								// [1F95D]
+🥞	clătite								// [1F95E]
+🥟	găluște chinezești						// [1F95F]
+🥠	prăjiturele cu răvaș						// [1F960]
+🥡	mâncare la pachet						// [1F961]
+🥢	bețișoare japoneze						// [1F962]
+🥣	castron cu lingură						// [1F963]
+🥤	pahar cu pai							// [1F964]
+🥥	nucă de cocos							// [1F965]
+🥦	broccoli							// [1F966]
+🥧	plăcintă							// [1F967]
+🥨	covrig								// [1F968]
+🥩	bucată de carne							// [1F969]
+🥪	sandvici							// [1F96A]
+🥫	mâncare la conservă						// [1F96B]
+🥬	verdețuri							// [1F96C]
+🥭	mango								// [1F96D]
+🥮	prăjitura lunii							// [1F96E]
+🥯	bagel								// [1F96F]
+🥰	față zâmbitoare cu 3 inimioare					// [1F970]
+🥱	față care cască						// [1F971]
+🥲	față zâmbind cu lacrimă					// [1F972]
+🥳	față de petrecere						// [1F973]
+🥴	față cherchelită						// [1F974]
+🥵	față fierbinte							// [1F975]
+🥶	față înghețată							// [1F976]
+🥷	ninja							// [1F977]
+🥸	față deghizată						// [1F978]
+🥹	față cu lacrimi în ochi					// [1F979]
+🥺	față rugătoare							// [1F97A]
+🥻	sari							// [1F97B]
+🥼	halat de laborator						// [1F97C]
+🥽	ochelari de protecție						// [1F97D]
+🥾	bocanc								// [1F97E]
+🥿	pantof fără toc							// [1F97F]
+🦀	rac								// [1F980]
+🦁	față de leu							// [1F981]
+🦂	scorpion							// [1F982]
+🦃	curcan								// [1F983]
+🦄	cap de unicorn							// [1F984]
+🦅	vultur								// [1F985]
+🦆	rață								// [1F986]
+🦇	liliac								// [1F987]
+🦈	rechin								// [1F988]
+🦉	bufniță								// [1F989]
+🦊	față de vulpe							// [1F98A]
+🦋	fluture								// [1F98B]
+🦌	cerb								// [1F98C]
+🦍	gorilă								// [1F98D]
+🦎	șopârlă								// [1F98E]
+🦏	rinocer								// [1F98F]
+🦐	crevete								// [1F990]
+🦑	calmar								// [1F991]
+🦒	girafă								// [1F992]
+🦓	zebră								// [1F993]
+🦔	arici								// [1F994]
+🦕	sauropod							// [1F995]
+🦖	T-Rex								// [1F996]
+🦗	greier								// [1F997]
+🦘	cangur								// [1F998]
+🦙	lamă								// [1F999]
+🦚	păun								// [1F99A]
+🦛	hipopotam							// [1F99B]
+🦜	papagal mare							// [1F99C]
+🦝	raton								// [1F99D]
+🦞	homar								// [1F99E]
+🦟	țânțar								// [1F99F]
+🦠	microb								// [1F9A0]
+🦡	bursuc								// [1F9A1]
+🦢	lebădă								// [1F9A2]
+🦣	mamut							// [1F9A3]
+🦤	dodo							// [1F9A4]
+🦥	leneș							// [1F9A5]
+🦦	vidră							// [1F9A6]
+🦧	urangutan						// [1F9A7]
+🦨	sconcs							// [1F9A8]
+🦩	flamingo						// [1F9A9]
+🦪	stridie							// [1F9AA]
+🦫	castor							// [1F9AB]
+🦬	bizon							// [1F9AC]
+🦭	focă							// [1F9AD]
+🦮	câine ghid						// [1F9AE]
+🦯	baston pentru nevăzători				// [1F9AF]
+🦰	păr roșcat							// [1F9B0]
+🦱	păr creț							// [1F9B1]
+🦲	chelie								// [1F9B2]
+🦳	păr alb								// [1F9B3]
+🦴	os								// [1F9B4]
+🦵	picior								// [1F9B5]
+🦶	laba piciorului							// [1F9B6]
+🦷	dinte								// [1F9B7]
+🦸	supererou							// [1F9B8]
+🦹	super-ticălos							// [1F9B9]
+🦺	vestă de siguranță					// [1F9BA]
+🦻	ureche cu proteză auditivă				// [1F9BB]
+🦼	scaun cu rotile motorizat				// [1F9BC]
+🦽	scaun cu rotile manual					// [1F9BD]
+🦾	braț mecanic						// [1F9BE]
+🦿	picior mecanic						// [1F9BF]
+🧀	bucată de brânză						// [1F9C0]
+🧁	brioșă								// [1F9C1]
+🧂	sare								// [1F9C2]
+🧃	cutie de băutură					// [1F9C3]
+🧄	usturoi							// [1F9C4]
+🧅	ceapă							// [1F9C5]
+🧆	falafel							// [1F9C6]
+🧇	gofră							// [1F9C7]
+🧈	unt							// [1F9C8]
+🧉	mate							// [1F9C9]
+🧊	cub de gheață						// [1F9CA]
+🧋	ceai cu perle						// [1F9CB]
+🧌	trol							// [1F9CC]
+🧍	persoană în picioare					// [1F9CD]
+🧎	persoană în genunchi					// [1F9CE]
+🧏	persoană surdă						// [1F9CF]
+🧐	față cu monoclu							// [1F9D0]
+🧑	adult								// [1F9D1]
+🧒	copil								// [1F9D2]
+🧓	persoană în vârstă						// [1F9D3]
+🧔	persoană cu barbă						// [1F9D4]
+🧕	femeie cu năframă						// [1F9D5]
+🧖	persoană în saună						// [1F9D6]
+🧗	persoană care se cațără						// [1F9D7]
+🧘	persoană în poziția lotus					// [1F9D8]
+🧙	mag								// [1F9D9]
+🧚	zână								// [1F9DA]
+🧛	vampir								// [1F9DB]
+🧜	persoană sirenă							// [1F9DC]
+🧝	elf								// [1F9DD]
+🧞	duh								// [1F9DE]
+🧟	zombi								// [1F9DF]
+🧠	creier								// [1F9E0]
+🧡	inimă portocalie						// [1F9E1]
+🧢	șapcă								// [1F9E2]
+🧣	eșarfă								// [1F9E3]
+🧤	mănuși								// [1F9E4]
+🧥	palton								// [1F9E5]
+🧦	șosete								// [1F9E6]
+🧧	plic roșu							// [1F9E7]
+🧨	petardă								// [1F9E8]
+🧩	joc de puzzle							// [1F9E9]
+🧪	eprubetă							// [1F9EA]
+🧫	vas Petri							// [1F9EB]
+🧬	ADN								// [1F9EC]
+🧭	busolă								// [1F9ED]
+🧮	abac								// [1F9EE]
+🧯	stingător de incendiu					// [1F9EF]
+🧰	trusă de scule							// [1F9F0]
+🧱	cărămidă							// [1F9F1]
+🧲	magnet								// [1F9F2]
+🧳	bagaj								// [1F9F3]
+🧴	flacon de loțiune						// [1F9F4]
+🧵	ață								// [1F9F5]
+🧶	fir textil							// [1F9F6]
+🧷	ac de siguranță							// [1F9F7]
+🧸	ursuleț de pluș							// [1F9F8]
+🧹	mătură								// [1F9F9]
+🧺	coș								// [1F9FA]
+🧻	sul de hârtie							// [1F9FB]
+🧼	săpun								// [1F9FC]
+🧽	burete								// [1F9FD]
+🧾	chitanță							// [1F9FE]
+🧿	amuletă nazar							// [1F9FF]
+
+// Country Flags (Regional Indicator Symbols) -- ISO 3166-1 Country Codes
+
+🇦🇨	steag: Insula Ascension						// [1F1E6 1F1E8] AC
+🇦🇩	steag: Andorra							// [1F1E6 1F1E9] AD
+🇦🇪	steag: Emiratele Arabe Unite					// [1F1E6 1F1EA] AE
+🇦🇫	steag: Afganistan						// [1F1E6 1F1EB] AF
+🇦🇬	steag: Antigua și Barbuda					// [1F1E6 1F1EC] AG
+🇦🇮	steag: Anguilla							// [1F1E6 1F1EE] AI
+🇦🇱	steag: Albania							// [1F1E6 1F1F1] AL
+🇦🇲	steag: Armenia							// [1F1E6 1F1F2] AM
+🇦🇴	steag: Angola							// [1F1E6 1F1F4] AO
+🇦🇶	steag: Antarctica						// [1F1E6 1F1F6] AQ
+🇦🇷	steag: Argentina						// [1F1E6 1F1F7] AR
+🇦🇸	steag: Samoa Americană						// [1F1E6 1F1F8] AS
+🇦🇹	steag: Austria							// [1F1E6 1F1F9] AT
+🇦🇺	steag: Australia						// [1F1E6 1F1FA] AU
+🇦🇼	steag: Aruba							// [1F1E6 1F1FC] AW
+🇦🇽	steag: Insulele Åland						// [1F1E6 1F1FD] AX
+🇦🇿	steag: Azerbaidjan						// [1F1E6 1F1FF] AZ
+🇧🇦	steag: Bosnia și Herțegovina					// [1F1E7 1F1E6] BA
+🇧🇧	steag: Barbados							// [1F1E7 1F1E7] BB
+🇧🇩	steag: Bangladesh						// [1F1E7 1F1E9] BD
+🇧🇪	steag: Belgia							// [1F1E7 1F1EA] BE
+🇧🇫	steag: Burkina Faso						// [1F1E7 1F1EB] BF
+🇧🇬	steag: Bulgaria							// [1F1E7 1F1EC] BG
+🇧🇭	steag: Bahrain							// [1F1E7 1F1ED] BH
+🇧🇮	steag: Burundi							// [1F1E7 1F1EE] BI
+🇧🇯	steag: Benin							// [1F1E7 1F1EF] BJ
+🇧🇱	steag: Saint-Barthélemy						// [1F1E7 1F1F1] BL
+🇧🇲	steag: Bermuda							// [1F1E7 1F1F2] BM
+🇧🇳	steag: Brunei							// [1F1E7 1F1F3] BN
+🇧🇴	steag: Bolivia							// [1F1E7 1F1F4] BO
+🇧🇶	steag: Insulele Caraibe Olandeze				// [1F1E7 1F1F6] BQ
+🇧🇷	steag: Brazilia							// [1F1E7 1F1F7] BR
+🇧🇸	steag: Bahamas							// [1F1E7 1F1F8] BS
+🇧🇹	steag: Bhutan							// [1F1E7 1F1F9] BT
+🇧🇻	steag: Insula Bouvet						// [1F1E7 1F1FB] BV
+🇧🇼	steag: Botswana							// [1F1E7 1F1FC] BW
+🇧🇾	steag: Belarus							// [1F1E7 1F1FE] BY
+🇧🇿	steag: Belize							// [1F1E7 1F1FF] BZ
+🇨🇦	steag: Canada							// [1F1E8 1F1E6] CA
+🇨🇨	steag: Insulele Cocos (Keeling)					// [1F1E8 1F1E8] CC
+🇨🇩	steag: Congo - Kinshasa						// [1F1E8 1F1E9] CD
+🇨🇫	steag: Republica Centrafricană					// [1F1E8 1F1EB] CF
+🇨🇬	steag: Congo - Brazzaville					// [1F1E8 1F1EC] CG
+🇨🇭	steag: Elveția							// [1F1E8 1F1ED] CH
+🇨🇮	steag: Côte d’Ivoire						// [1F1E8 1F1EE] CI
+🇨🇰	steag: Insulele Cook						// [1F1E8 1F1F0] CK
+🇨🇱	steag: Chile							// [1F1E8 1F1F1] CL
+🇨🇲	steag: Camerun							// [1F1E8 1F1F2] CM
+🇨🇳	steag: China							// [1F1E8 1F1F3] CN
+🇨🇴	steag: Columbia							// [1F1E8 1F1F4] CO
+🇨🇵	steag: Insula Clipperton					// [1F1E8 1F1F5] CP
+🇨🇷	steag: Costa Rica						// [1F1E8 1F1F7] CR
+🇨🇺	steag: Cuba							// [1F1E8 1F1FA] CU
+🇨🇻	steag: Capul Verde						// [1F1E8 1F1FB] CV
+🇨🇼	steag: Curaçao							// [1F1E8 1F1FC] CW
+🇨🇽	steag: Insula Christmas						// [1F1E8 1F1FD] CX
+🇨🇾	steag: Cipru							// [1F1E8 1F1FE] CY
+🇨🇿	steag: Cehia							// [1F1E8 1F1FF] CZ
+🇩🇪	steag: Germania							// [1F1E9 1F1EA] DE
+🇩🇬	steag: Diego Garcia						// [1F1E9 1F1EC] DG
+🇩🇯	steag: Djibouti							// [1F1E9 1F1EF] DJ
+🇩🇰	steag: Danemarca						// [1F1E9 1F1F0] DK
+🇩🇲	steag: Dominica							// [1F1E9 1F1F2] DM
+🇩🇴	steag: Republica Dominicană					// [1F1E9 1F1F4] DO
+🇩🇿	steag: Algeria							// [1F1E9 1F1FF] DZ
+🇪🇦	steag: Ceuta și Melilla						// [1F1EA 1F1E6] EA
+🇪🇨	steag: Ecuador							// [1F1EA 1F1E8] EC
+🇪🇪	steag: Estonia							// [1F1EA 1F1EA] EE
+🇪🇬	steag: Egipt							// [1F1EA 1F1EC] EG
+🇪🇭	steag: Sahara Occidentală					// [1F1EA 1F1ED] EH
+🇪🇷	steag: Eritreea							// [1F1EA 1F1F7] ER
+🇪🇸	steag: Spania							// [1F1EA 1F1F8] ES
+🇪🇹	steag: Etiopia							// [1F1EA 1F1F9] ET
+🇪🇺	steag: Uniunea Europeană					// [1F1EA 1F1FA] EU
+🇫🇮	steag: Finlanda							// [1F1EB 1F1EE] FI
+🇫🇯	steag: Fiji							// [1F1EB 1F1EF] FJ
+🇫🇰	steag: Insulele Falkland					// [1F1EB 1F1F0] FI
+🇫🇲	steag: Micronezia						// [1F1EB 1F1F2] FM
+🇫🇴	steag: Insulele Feroe						// [1F1EB 1F1F4] FO
+🇫🇷	steag: Franța							// [1F1EB 1F1F7] FR
+🇬🇦	steag: Gabon							// [1F1EC 1F1E6] GA
+🇬🇧	steag: Regatul Unit						// [1F1EC 1F1E7] GB
+🇬🇩	steag: Grenada							// [1F1EC 1F1E9] GD
+🇬🇪	steag: Georgia							// [1F1EC 1F1EA] GE
+🇬🇫	steag: Guyana Franceză						// [1F1EC 1F1EB] GF
+🇬🇬	steag: Guernsey							// [1F1EC 1F1EC] GG
+🇬🇭	steag: Ghana							// [1F1EC 1F1ED] GH
+🇬🇮	steag: Gibraltar						// [1F1EC 1F1EE] GI
+🇬🇱	steag: Groenlanda						// [1F1EC 1F1F1] GL
+🇬🇲	steag: Gambia							// [1F1EC 1F1F2] GM
+🇬🇳	steag: Guineea							// [1F1EC 1F1F3] GN
+🇬🇵	steag: Guadelupa						// [1F1EC 1F1F5] GP
+🇬🇶	steag: Guineea Ecuatorială					// [1F1EC 1F1F6] GQ
+🇬🇷	steag: Grecia							// [1F1EC 1F1F7] GR
+🇬🇸	steag: Georgia de Sud și Insulele Sandwich de Sud		// [1F1EC 1F1F8] GS
+🇬🇹	steag: Guatemala						// [1F1EC 1F1F9] GT
+🇬🇺	steag: Guam							// [1F1EC 1F1FA] GU
+🇬🇼	steag: Guineea-Bissau						// [1F1EC 1F1FC] GW
+🇬🇾	steag: Guyana							// [1F1EC 1F1FE] GY
+🇭🇰	steag: R.A.S. Hong Kong a Chinei				// [1F1ED 1F1F0] HK
+🇭🇲	steag: Insula Heard și Insulele McDonald			// [1F1ED 1F1F2] HM
+🇭🇳	steag: Honduras							// [1F1ED 1F1F3] HN
+🇭🇷	steag: Croația							// [1F1ED 1F1F7] HR
+🇭🇹	steag: Haiti							// [1F1ED 1F1F9] HT
+🇭🇺	steag: Ungaria							// [1F1ED 1F1FA] HU
+🇮🇨	steag: Insulele Canare						// [1F1EE 1F1E8] IC
+🇮🇩	steag: Indonezia						// [1F1EE 1F1E9] ID
+🇮🇪	steag: Irlanda							// [1F1EE 1F1EA] IE
+🇮🇱	steag: Israel							// [1F1EE 1F1F1] IL
+🇮🇲	steag: Insula Man						// [1F1EE 1F1F2] IM
+🇮🇳	steag: India							// [1F1EE 1F1F3] IN
+🇮🇴	steag: Teritoriul Britanic din Oceanul Indian			// [1F1EE 1F1F4] IO
+🇮🇶	steag: Irak							// [1F1EE 1F1F6] IQ
+🇮🇷	steag: Iran							// [1F1EE 1F1F7] IR
+🇮🇸	steag: Islanda							// [1F1EE 1F1F8] IS
+🇮🇹	steag: Italia							// [1F1EE 1F1F9] IT
+🇯🇪	steag: Jersey							// [1F1EF 1F1EA] JE
+🇯🇲	steag: Jamaica							// [1F1EF 1F1F2] JM
+🇯🇴	steag: Iordania							// [1F1EF 1F1F4] JO
+🇯🇵	steag: Japonia							// [1F1EF 1F1F5] JP
+🇰🇪	steag: Kenya							// [1F1F0 1F1EA] KE
+🇰🇬	steag: Kârgâzstan						// [1F1F0 1F1EC] KG
+🇰🇭	steag: Cambodgia						// [1F1F0 1F1ED] KH
+🇰🇮	steag: Kiribati							// [1F1F0 1F1EE] KI
+🇰🇲	steag: Comore							// [1F1F0 1F1F2] KM
+🇰🇳	steag: Saint Kitts și Nevis					// [1F1F0 1F1F3] KN
+🇰🇵	steag: Coreea de Nord						// [1F1F0 1F1F5] KP
+🇰🇷	steag: Coreea de Sud						// [1F1F0 1F1F7] KR
+🇰🇼	steag: Kuweit							// [1F1F0 1F1FC] KW
+🇰🇾	steag: Insulele Cayman						// [1F1F0 1F1FE] KY
+🇰🇿	steag: Kazahstan						// [1F1F0 1F1FF] KZ
+🇱🇦	steag: Laos							// [1F1F1 1F1E6] LA
+🇱🇧	steag: Liban							// [1F1F1 1F1E7] LB
+🇱🇨	steag: Sfânta Lucia						// [1F1F1 1F1E8] LC
+🇱🇮	steag: Liechtenstein						// [1F1F1 1F1EE] LI
+🇱🇰	steag: Sri Lanka						// [1F1F1 1F1F0] LK
+🇱🇷	steag: Liberia							// [1F1F1 1F1F7] LR
+🇱🇸	steag: Lesotho							// [1F1F1 1F1F8] LS
+🇱🇹	steag: Lituania							// [1F1F1 1F1F9] LT
+🇱🇺	steag: Luxemburg						// [1F1F1 1F1FA] LU
+🇱🇻	steag: Letonia							// [1F1F1 1F1FB] LV
+🇱🇾	steag: Libia							// [1F1F1 1F1FE] LY
+🇲🇦	steag: Maroc							// [1F1F2 1F1E6] MA
+🇲🇨	steag: Monaco							// [1F1F2 1F1E8] MC
+🇲🇩	steag: Republica Moldova					// [1F1F2 1F1E9] MD
+🇲🇪	steag: Muntenegru						// [1F1F2 1F1EA] ME
+🇲🇫	steag: Sfântul Martin						// [1F1F2 1F1EB] MF
+🇲🇬	steag: Madagascar						// [1F1F2 1F1EC] MG
+🇲🇭	steag: Insulele Marshall					// [1F1F2 1F1ED] MH
+🇲🇰	steag: Republica Macedonia					// [1F1F2 1F1F0] MK
+🇲🇱	steag: Mali							// [1F1F2 1F1F1] ML
+🇲🇲	steag: Myanmar (Birmania)					// [1F1F2 1F1F2] MM
+🇲🇳	steag: Mongolia							// [1F1F2 1F1F3] MN
+🇲🇴	steag: R.A.S. Macao a Chinei					// [1F1F2 1F1F4] MO
+🇲🇵	steag: Insulele Mariane de Nord					// [1F1F2 1F1F5] MP
+🇲🇶	steag: Martinica						// [1F1F2 1F1F6] MQ
+🇲🇷	steag: Mauritania						// [1F1F2 1F1F7] MR
+🇲🇸	steag: Montserrat						// [1F1F2 1F1F8] MS
+🇲🇹	steag: Malta							// [1F1F2 1F1F9] MT
+🇲🇺	steag: Mauritius						// [1F1F2 1F1FA] MU
+🇲🇻	steag: Maldive							// [1F1F2 1F1FB] MV
+🇲🇼	steag: Malawi							// [1F1F2 1F1FC] MW
+🇲🇽	steag: Mexic							// [1F1F2 1F1FD] MX
+🇲🇾	steag: Malaysia							// [1F1F2 1F1FE] MY
+🇲🇿	steag: Mozambic							// [1F1F2 1F1FF] MZ
+🇳🇦	steag: Namibia							// [1F1F3 1F1E6] NA
+🇳🇨	steag: Noua Caledonie						// [1F1F3 1F1E8] NC
+🇳🇪	steag: Niger							// [1F1F3 1F1EA] NE
+🇳🇫	steag: Insula Norfolk						// [1F1F3 1F1EB] NF
+🇳🇬	steag: Nigeria							// [1F1F3 1F1EC] NG
+🇳🇮	steag: Nicaragua						// [1F1F3 1F1EE] NI
+🇳🇱	steag: Țările de Jos						// [1F1F3 1F1F1] NL
+🇳🇴	steag: Norvegia							// [1F1F3 1F1F4] NO
+🇳🇵	steag: Nepal							// [1F1F3 1F1F5] NP
+🇳🇷	steag: Nauru							// [1F1F3 1F1F7] NR
+🇳🇺	steag: Niue							// [1F1F3 1F1FA] NU
+🇳🇿	steag: Noua Zeelandă						// [1F1F3 1F1FF] NZ
+🇴🇲	steag: Oman							// [1F1F4 1F1F2] OM
+🇵🇦	steag: Panama							// [1F1F5 1F1E6] PA
+🇵🇪	steag: Peru							// [1F1F5 1F1EA] PE
+🇵🇫	steag: Polinezia Franceză					// [1F1F5 1F1EB] PF
+🇵🇬	steag: Papua-Noua Guinee					// [1F1F5 1F1EC] PG
+🇵🇭	steag: Filipine							// [1F1F5 1F1ED] PH
+🇵🇰	steag: Pakistan							// [1F1F5 1F1F0] PK
+🇵🇱	steag: Polonia							// [1F1F5 1F1F1] PL
+🇵🇲	steag: Saint-Pierre și Miquelon					// [1F1F5 1F1F2] PM
+🇵🇳	steag: Insulele Pitcairn					// [1F1F5 1F1F3] PN
+🇵🇷	steag: Puerto Rico						// [1F1F5 1F1F7] PR
+🇵🇸	steag: Teritoriile Palestiniene					// [1F1F5 1F1F8] PS
+🇵🇹	steag: Portugalia						// [1F1F5 1F1F9] PT
+🇵🇼	steag: Palau							// [1F1F5 1F1FC] PW
+🇵🇾	steag: Paraguay							// [1F1F5 1F1FE] PY
+🇶🇦	steag: Qatar							// [1F1F6 1F1E6] QA
+🇷🇪	steag: Réunion							// [1F1F7 1F1EA] RE
+🇷🇴	steag: România							// [1F1F7 1F1F4] RO
+🇷🇸	steag: Serbia							// [1F1F7 1F1F8] RS
+🇷🇺	steag: Rusia							// [1F1F7 1F1FA] RU
+🇷🇼	steag: Rwanda							// [1F1F7 1F1FC] RW
+🇸🇦	steag: Arabia Saudită						// [1F1F8 1F1E6] SA
+🇸🇧	steag: Insulele Solomon						// [1F1F8 1F1E7] SB
+🇸🇨	steag: Seychelles						// [1F1F8 1F1E8] SC
+🇸🇩	steag: Sudan							// [1F1F8 1F1E9] SD
+🇸🇪	steag: Suedia							// [1F1F8 1F1EA] SE
+🇸🇬	steag: Singapore						// [1F1F8 1F1EC] SG
+🇸🇭	steag: Sfânta Elena						// [1F1F8 1F1ED] SH
+🇸🇮	steag: Slovenia							// [1F1F8 1F1EE] SI
+🇸🇯	steag: Svalbard și Jan Mayen					// [1F1F8 1F1EF] SJ
+🇸🇰	steag: Slovacia							// [1F1F8 1F1F0] SK
+🇸🇱	steag: Sierra Leone						// [1F1F8 1F1F1] SL
+🇸🇲	steag: San Marino						// [1F1F8 1F1F2] SM
+🇸🇳	steag: Senegal							// [1F1F8 1F1F3] SN
+🇸🇴	steag: Somalia							// [1F1F8 1F1F4] SO
+🇸🇷	steag: Suriname							// [1F1F8 1F1F7] SR
+🇸🇸	steag: Sudanul de Sud						// [1F1F8 1F1F8] SS
+🇸🇹	steag: Sao Tome și Principe					// [1F1F8 1F1F9] ST
+🇸🇻	steag: El Salvador						// [1F1F8 1F1FB] SV
+🇸🇽	steag: Sint-Maarten						// [1F1F8 1F1FD] SX
+🇸🇾	steag: Siria							// [1F1F8 1F1FE] SY
+🇸🇿	steag: Swaziland						// [1F1F8 1F1FF] SZ
+🇹🇦	steag: Tristan da Cunha						// [1F1F9 1F1E6] TA
+🇹🇨	steag: Insulele Turks și Caicos					// [1F1F9 1F1E8] TC
+🇹🇩	steag: Ciad							// [1F1F9 1F1E9] TD
+🇹🇫	steag: Teritoriile Australe și Antarctice Franceze		// [1F1F9 1F1EB] TF
+🇹🇬	steag: Togo							// [1F1F9 1F1EC] TG
+🇹🇭	steag: Thailanda						// [1F1F9 1F1ED] TH
+🇹🇯	steag: Tadjikistan						// [1F1F9 1F1EF] TJ
+🇹🇰	steag: Tokelau							// [1F1F9 1F1F0] TK
+🇹🇱	steag: Timorul de Est						// [1F1F9 1F1F1] TL
+🇹🇲	steag: Turkmenistan						// [1F1F9 1F1F2] TM
+🇹🇳	steag: Tunisia							// [1F1F9 1F1F3] TN
+🇹🇴	steag: Tonga							// [1F1F9 1F1F4] TO
+🇹🇷	steag: Turcia							// [1F1F9 1F1F7] TR
+🇹🇹	steag: Trinidad și Tobago					// [1F1F9 1F1F9] TT
+🇹🇻	steag: Tuvalu							// [1F1F9 1F1FB] TV
+🇹🇼	steag: Taiwan							// [1F1F9 1F1FC] TW
+🇹🇿	steag: Tanzania							// [1F1F9 1F1FF] TZ
+🇺🇦	steag: Ucraina							// [1F1FA 1F1E6] UA
+🇺🇬	steag: Uganda							// [1F1FA 1F1EC] UG
+🇺🇲	steag: Insulele Îndepărtate ale S.U.A.				// [1F1FA 1F1F2] UM
+🇺🇳	steag: Națiunile Unite						// [1F1FA 1F1F3] UN
+🇺🇸	steag: Statele Unite ale Americii				// [1F1FA 1F1F8] US
+🇺🇾	steag: Uruguay							// [1F1FA 1F1FE] UY
+🇺🇿	steag: Uzbekistan						// [1F1FA 1F1FF] UZ
+🇻🇦	steag: Statul Cetății Vaticanului				// [1F1FB 1F1E6] VA
+🇻🇨	steag: Saint Vincent și Grenadinele				// [1F1FB 1F1E8] VC
+🇻🇪	steag: Venezuela						// [1F1FB 1F1EA] VE
+🇻🇬	steag: Insulele Virgine Britanice				// [1F1FB 1F1EC] VG
+🇻🇮	steag: Insulele Virgine Americane				// [1F1FB 1F1EE] VI
+🇻🇳	steag: Vietnam							// [1F1FB 1F1F3] VN
+🇻🇺	steag: Vanuatu							// [1F1FB 1F1FA] VU
+🇼🇫	steag: Wallis și Futuna						// [1F1FC 1F1EB] WF
+🇼🇸	steag: Samoa							// [1F1FC 1F1F8] WS
+🇽🇰	steag: Kosovo							// [1F1FD 1F1F0] XK
+🇾🇪	steag: Yemen							// [1F1FE 1F1EA] YE
+🇾🇹	steag: Mayotte							// [1F1FE 1F1F9] YT
+🇿🇦	steag: Africa de Sud						// [1F1FF 1F1E6] ZA
+🇿🇲	steag: Zambia							// [1F1FF 1F1F2] ZM
+🇿🇼	steag: Zimbabwe							// [1F1FF 1F1FC] ZW
+
+// Subdivision Flags -- ISO 3166-2 Subdivision Codes
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿	steag: Anglia						// [1F3F4 E0067 E0062 E0065 E006E E0067 E007F]
+🏴󠁧󠁢󠁳󠁣󠁴󠁿	steag: Scoția						// [1F3F4 E0067 E0062 E0073 E0063 E0074 E007F]
+🏴󠁧󠁢󠁷󠁬󠁳󠁿	steag: Țara Galilor					// [1F3F4 E0067 E0062 E0077 E006C E0073 E007F]
+
+// Keycaps (NOTE: keycap 10 is a single Unicode codepoint)
+
+#️⃣	tastă: #							// [0023 FE0F 20E3]
+*️⃣	tastă: *							// [002A FE0F 20E3]
+0️⃣	tastă: 0							// [0030 FE0F 20E3]
+1️⃣	tastă: 1							// [0031 FE0F 20E3]
+2️⃣	tastă: 2							// [0032 FE0F 20E3]
+3️⃣	tastă: 3							// [0033 FE0F 20E3]
+4️⃣	tastă: 4							// [0034 FE0F 20E3]
+5️⃣	tastă: 5							// [0035 FE0F 20E3]
+6️⃣	tastă: 6							// [0036 FE0F 20E3]
+7️⃣	tastă: 7							// [0037 FE0F 20E3]
+8️⃣	tastă: 8							// [0038 FE0F 20E3]
+9️⃣	tastă: 9							// [0039 FE0F 20E3]
+
+// 1FA70..1FAFF : Symbols and Pictographs Extended-A
+🩰	pantofi de balet					// [1FA70]
+🩱	costum de înot întreg					// [1FA71]
+🩲	slip							// [1FA72]
+🩳	șort							// [1FA73]
+🩴	șlap							// [1FA74]
+🩵	inimă albastru-deschis					// [1FA75]
+🩶	inimă gri						// [1FA76]
+🩷	inimă roz						// [1FA77]
+🩸	picătură de sânge					// [1FA78]
+🩹	leucoplast						// [1FA79]
+🩺	stetoscop						// [1FA7A]
+🩻	radiografie						// [1FA7B]
+🩼	cârjă							// [1FA7C]
+🪀	yo-yo							// [1FA80]
+🪁	zmeu							// [1FA81]
+🪂	parașută						// [1FA82]
+🪃	bumerang						// [1FA83]
+🪄	baghetă magică						// [1FA84]
+🪅	piñata							// [1FA85]
+🪆	matrioșka						// [1FA86]
+🪇	maracas							// [1FA87]
+🪈	flaut							// [1FA88]
+🪉	harpă							// [1FA89]
+🪏	lopată							// [1FA8F]
+🪐	planetă cu inele					// [1FA90]
+🪑	scaun							// [1FA91]
+🪒	brici							// [1FA92]
+🪓	topor							// [1FA93]
+🪔	lampă diya						// [1FA94]
+🪕	banjo							// [1FA95]
+🪖	cască militară						// [1FA96]
+🪗	acordeon						// [1FA97]
+🪘	tobă înaltă						// [1FA98]
+🪙	monedă							// [1FA99]
+🪚	fierăstrău pentru tămplărie				// [1FA9A]
+🪛	șurubelniță						// [1FA9B]
+🪜	scară							// [1FA9C]
+🪝	cârlig							// [1FA9D]
+🪞	oglindă							// [1FA9E]
+🪟	fereastră						// [1FA9F]
+🪠	pompă de aspirare					// [1FAA0]
+🪡	ac de cusut						// [1FAA1]
+🪢	nod							// [1FAA2]
+🪣	găleată							// [1FAA3]
+🪤	cursă de șoareci					// [1FAA4]
+🪥	periuță de dinți					// [1FAA5]
+🪦	piatră funerară						// [1FAA6]
+🪧	placardă						// [1FAA7]
+🪨	piatră							// [1FAA8]
+🪩	glob cu oglinzi						// [1FAA9]
+🪪	carte de identitate					// [1FAAA]
+🪫	baterie slabă						// [1FAAB]
+🪬	hamsa							// [1FAAC]
+🪭	eventai pliabil						// [1FAAD]
+🪮	pieptene cu dinți lungi					// [1FAAE]
+🪯	khanda							// [1FAAF]
+🪰	muscă							// [1FAB0]
+🪱	vierme							// [1FAB1]
+🪲	cărăbuș							// [1FAB2]
+🪳	gândac de bucătărie					// [1FAB3]
+🪴	plantă în ghiveci					// [1FAB4]
+🪵	lemn							// [1FAB5]
+🪶	pană							// [1FAB6]
+🪷	lotus							// [1FAB7]
+🪸	coral							// [1FAB8]
+🪹	cuib gol						// [1FAB9]
+🪺	cuib cu ouă						// [1FABA]
+🪻	zambilă							// [1FABB]
+🪼	meduză							// [1FABC]
+🪽	aripă							// [1FABD]
+🪾	copac desfrunzit					// [1FABE]
+🪿	gâscă							// [1FABF]
+🫀	inimă							// [1FAC0]
+🫁	plămâni							// [1FAC1]
+🫂	persoane îmbrățișate					// [1FAC2]
+🫃	bărbat însărcinat					// [1FAC3]
+🫄	persoană însărcinată					// [1FAC4]
+🫅	persoană cu coroană					// [1FAC5]
+🫆	amprentă						// [1FAC6]
+🫎	elan							// [1FACE]
+🫏	măgar							// [1FACF]
+🫐	afine							// [1FAD0]
+🫑	ardei gras						// [1FAD1]
+🫒	măslină							// [1FAD2]
+🫓	pită							// [1FAD3]
+🫔	tamale							// [1FAD4]
+🫕	fondue							// [1FAD5]
+🫖	ceainic							// [1FAD6]
+🫗	lichid turnat						// [1FAD7]
+🫘	fasole							// [1FAD8]
+🫙	borcan							// [1FAD9]
+🫚	rădăcină de ghimbir					// [1FADA]
+🫛	păstaie de mazăre					// [1FADB]
+🫜	legumă rădăcinoasă					// [1FADC]
+🫟	împroșcare						// [1FADF]
+🫠	față care se topește					// [1FAE0]
+🫡	față care salută					// [1FAE1]
+🫢	față cu ochii deschiși și palma la gură			// [1FAE2]
+🫣	față care trage cu ochiul				// [1FAE3]
+🫤	față cu gura pe diagonală				// [1FAE4]
+🫥	față cu contur punctat					// [1FAE5]
+🫦	buză mușcată						// [1FAE6]
+🫧	balonașe						// [1FAE7]
+🫨	față zgâlțâită						// [1FAE8]
+🫩	față cu cearcăne					// [1FAE9]
+🫰	mână cu degetul mare și arătătorul încrucișate		// [1FAF0]
+🫱	mână spre dreapta					// [1FAF1]
+🫲	mână spre stânga					// [1FAF2]
+🫳	mână cu palma în jos					// [1FAF3]
+🫴	mână cu palma în sus					// [1FAF4]
+🫵	deget arătător îndreptat spre privitor			// [1FAF5]
+🫶	mâini care formează o inimă				// [1FAF6]
+🫷	mână care împinge spre stânga				// [1FAF7]
+🫸	mână care împinge spre dreapta				// [1FAF8]
+
+// Emoji ZWJ Sequence: Family
+
+⛓‍💥	lanț rupt						// [26D3 200D 1F4A5]
+❤‍🔥	inimă în flăcări					// [2764 200D 1F525]
+❤‍🩹	inimă în convalescență					// [2764 200D 1FA79]
+🍄‍🟫	ciupercă maro						// [1F344 200D 1F7EB]
+🍋‍🟩	limetă							// [1F34B 200D 1F7E9]
+🏃‍♀‍➡	femeie care aleargă orientate spre dreapta		// [1F3C3 200D 2640 200D 27A1]
+🏃‍♂‍➡	bărbat care aleargă orientate spre dreapta		// [1F3C3 200D 2642 200D 27A1]
+🏃‍➡	persoană care aleargă orientate spre dreapta		// [1F3C3 200D 27A1]
+🏳‍⚧	steag transgender					// [1F3F3 200D 26A7]
+🐈‍⬛	pisică neagră						// [1F408 200D 2B1B]
+🐕‍🦺	câine de asistență					// [1F415 200D 1F9BA]
+🐦‍⬛	pasăre neagră						// [1F426 200D 2B1B]
+🐦‍🔥	phoenix							// [1F426 200D 1F525]
+🐻‍❄	urs polar						// [1F43B 200D 2744]
+👨‍🍼	bărbat hrănind un bebeluș				// [1F468 200D 1F37C]
+👨‍🦯	bărbat cu baston pentru nevăzători			// [1F468 200D 1F9AF]
+👨‍🦯‍➡	bărbat cu baston pentru nevăzători orientate spre dreapta	// [1F468 200D 1F9AF 200D 27A1]
+👨‍🦰	bărbat păr roșcat					// [1F468 200D 1F9B0]
+👨‍🦱	bărbat păr creț						// [1F468 200D 1F9B1]
+👨‍🦲	bărbat chelie						// [1F468 200D 1F9B2]
+👨‍🦳	bărbat păr alb						// [1F468 200D 1F9B3]
+👨‍🦼	bărbat în scaun cu rotile motorizat			// [1F468 200D 1F9BC]
+👨‍🦼‍➡	bărbat în scaun cu rotile motorizat orientate spre dreapta	// [1F468 200D 1F9BC 200D 27A1]
+👨‍🦽	bărbat în scaun cu rotile manual			// [1F468 200D 1F9BD]
+👨‍🦽‍➡	bărbat în scaun cu rotile manual orientate spre dreapta	// [1F468 200D 1F9BD 200D 27A1]
+👩‍❤‍💋‍👨	sărut: femeie, bărbat			// [1F469 200D 2764 200D 1F48B 200D 1F468]
+👨‍❤‍💋‍👨	sărut: bărbat, bărbat			// [1F468 200D 2764 200D 1F48B 200D 1F468]
+👩‍❤‍💋‍👩	sărut: femeie, femeie			// [1F469 200D 2764 200D 1F48B 200D 1F469]
+👩‍❤‍👨	cuplu cu inimă: femeie, bărbat			// [1F469 200D 2764 200D 1F468]
+👨‍❤‍👨	cuplu cu inimă: bărbat, bărbat			// [1F468 200D 2764 200D 1F468]
+👩‍❤‍👩	cuplu cu inimă: femeie, femeie			// [1F469 200D 2764 200D 1F469]
+👨‍👩‍👦	familie: bărbat, femeie, băiat			// [1F468 200D 1F469 200D 1F466]
+👨‍👩‍👧	familie: bărbat, femeie, fată			// [1F468 200D 1F469 200D 1F467]
+👨‍👩‍👧‍👦	familie: bărbat, femeie, fată, băiat	// [1F468 200D 1F469 200D 1F467 200D 1F466]
+👨‍👩‍👦‍👦	familie: bărbat, femeie, băiat, băiat	// [1F468 200D 1F469 200D 1F466 200D 1F466]
+👨‍👩‍👧‍👧	familie: bărbat, femeie, fată, fată	// [1F468 200D 1F469 200D 1F467 200D 1F467]
+👨‍👨‍👦	familie: bărbat, bărbat, băiat			// [1F468 200D 1F468 200D 1F466]
+👨‍👨‍👧	familie: bărbat, bărbat, fată			// [1F468 200D 1F468 200D 1F467]
+👨‍👨‍👧‍👦	familie: bărbat, bărbat, fată, băiat	// [1F468 200D 1F468 200D 1F467 200D 1F466]
+👨‍👨‍👦‍👦	familie: bărbat, bărbat, băiat, băiat	// [1F468 200D 1F468 200D 1F466 200D 1F466]
+👨‍👨‍👧‍👧	familie: bărbat, bărbat, fată, fată	// [1F468 200D 1F468 200D 1F467 200D 1F467]
+👩‍🍼	femeie hrănind un bebeluș				// [1F469 200D 1F37C]
+👩‍👩‍👦	familie: femeie, femeie, băiat			// [1F469 200D 1F469 200D 1F466]
+👩‍👩‍👧	familie: femeie, femeie, fată			// [1F469 200D 1F469 200D 1F467]
+👩‍👩‍👧‍👦	familie: femeie, femeie, fată, băiat	// [1F469 200D 1F469 200D 1F467 200D 1F466]
+👩‍👩‍👦‍👦	familie: femeie, femeie, băiat, băiat	// [1F469 200D 1F469 200D 1F466 200D 1F466]
+👩‍👩‍👧‍👧	familie: femeie, femeie, fată, fată	// [1F469 200D 1F469 200D 1F467 200D 1F467]
+👨‍👦	familie: bărbat, băiat					// [1F468 200D 1F466]
+👨‍👦‍👦	familie: bărbat, băiat, băiat			// [1F468 200D 1F466 200D 1F466]
+👨‍👧	familie: bărbat, fată					// [1F468 200D 1F467]
+👨‍👧‍👦	familie: bărbat, fată, băiat			// [1F468 200D 1F467 200D 1F466]
+👨‍👧‍👧	familie: bărbat, fată, fată			// [1F468 200D 1F467 200D 1F467]
+👩‍👦	familie: femeie, băiat					// [1F469 200D 1F466]
+👩‍👦‍👦	familie: femeie, băiat, băiat			// [1F469 200D 1F466 200D 1F466]
+👩‍👧	familie: femeie, fată					// [1F469 200D 1F467]
+👩‍👧‍👦	familie: femeie, fată, băiat			// [1F469 200D 1F467 200D 1F466]
+👩‍👧‍👧	familie: femeie, fată, fată			// [1F469 200D 1F467 200D 1F467]
+
+// Emoji ZWJ Sequence: Gendered Role, with object
+
+👨‍⚕	lucrător în domeniul sănătății				// [1F468 200D 2695]
+👩‍⚕	lucrătoare în domeniul sănătății			// [1F469 200D 2695]
+👨‍⚖	judecător						// [1F468 200D 2696]
+👩‍⚖	judecătoare						// [1F469 200D 2696]
+👨‍✈	pilot							// [1F468 200D 2708]
+👩‍✈	femeie pilot						// [1F469 200D 2708]
+👨‍🌾	fermier							// [1F468 200D 1F33E]
+👩‍🌾	fermieră						// [1F469 200D 1F33E]
+👨‍🍳	bucătar							// [1F468 200D 1F373]
+👩‍🍳	bucătăreasă						// [1F469 200D 1F373]
+👨‍🎓	student							// [1F468 200D 1F393]
+👩‍🎓	studentă						// [1F469 200D 1F393]
+👨‍🎤	cântăreț						// [1F468 200D 1F3A4]
+👩‍🎤	cântăreață						// [1F469 200D 1F3A4]
+👨‍🎨	artist							// [1F468 200D 1F3A8]
+👩‍🎨	artistă							// [1F469 200D 1F3A8]
+👨‍🏫	profesor						// [1F468 200D 1F3EB]
+👩‍🏫	profesoară						// [1F469 200D 1F3EB]
+👨‍🏭	muncitor în fabrică					// [1F468 200D 1F3ED]
+👩‍🏭	muncitoare în fabrică					// [1F469 200D 1F3ED]
+👨‍💻	specialist IT						// [1F468 200D 1F4BB]
+👩‍💻	specialistă IT						// [1F469 200D 1F4BB]
+👨‍💼	funcționar						// [1F468 200D 1F4BC]
+👩‍💼	funcționară						// [1F469 200D 1F4BC]
+👨‍🔧	mecanic							// [1F468 200D 1F527]
+👩‍🔧	femeie mecanic						// [1F469 200D 1F527]
+👨‍🔬	om de știință						// [1F468 200D 1F52C]
+👩‍🔬	femeie om de știință					// [1F469 200D 1F52C]
+👨‍🚀	astronaut						// [1F468 200D 1F680]
+👩‍🚀	astronaută						// [1F469 200D 1F680]
+👨‍🚒	pompier							// [1F468 200D 1F692]
+👩‍🚒	femeie pompier						// [1F469 200D 1F692]
+👩‍🦯	femeie cu baston pentru nevăzători			// [1F469 200D 1F9AF]
+👩‍🦯‍➡	femeie cu baston pentru nevăzători orientate spre dreapta	// [1F469 200D 1F9AF 200D 27A1]
+👩‍🦰	femeie păr roșcat					// [1F469 200D 1F9B0]
+👩‍🦱	femeie păr creț						// [1F469 200D 1F9B1]
+👩‍🦲	femeie chelie						// [1F469 200D 1F9B2]
+👩‍🦳	femeie păr alb						// [1F469 200D 1F9B3]
+👩‍🦼	femeie în scaun cu rotile motorizat			// [1F469 200D 1F9BC]
+👩‍🦼‍➡	femeie în scaun cu rotile motorizat orientate spre dreapta	// [1F469 200D 1F9BC 200D 27A1]
+👩‍🦽	femeie în scaun cu rotile manual			// [1F469 200D 1F9BD]
+👩‍🦽‍➡	femeie în scaun cu rotile manual orientate spre dreapta	// [1F469 200D 1F9BD 200D 27A1]
+
+// Emoji ZWJ Sequence: Gendered Role
+
+👮‍♀	polițistă						// [1F46E 200D 2640]
+👮‍♂	polițist bărbat						// [1F46E 200D 2642]
+👰‍♀	femeie cu voal						// [1F470 200D 2640]
+👰‍♂	bărbat cu voal						// [1F470 200D 2642]
+👱‍♀	femeie blondă						// [1F471 200D 2640]
+👱‍♂	bărbat blond						// [1F471 200D 2642]
+👳‍♀	femeie cu turban					// [1F473 200D 2640]
+👳‍♂	bărbat cu turban					// [1F473 200D 2642]
+👷‍♀	muncitoare în construcții				// [1F477 200D 2640]
+👷‍♂	muncitor în construcții					// [1F477 200D 2642]
+💂‍♀	femeie gardian						// [1F482 200D 2640]
+💂‍♂	bărbat gardian						// [1F482 200D 2642]
+🕵️‍♀	femeie detectiv						// [1F575 200D 2640]
+🕵️‍♂	detectiv bărbat						// [1F575 200D 2642]
+😮‍💨	față care expiră					// [1F62E 200D 1F4A8]
+😵‍💫	față cu ochi în spirală					// [1F635 200D 1F4AB]
+😶‍🌫	față în nori						// [1F636 200D 1F32B]
+🙂‍↔	cap care se clatină pe orizontală			// [1F642 200D 2194]
+🙂‍↕	cap care se clatină pe verticală			// [1F642 200D 2195]
+🚶‍♀‍➡	femeie care merge orientate spre dreapta		// [1F6B6 200D 2640 200D 27A1]
+🚶‍♂‍➡	bărbat care merge orientate spre dreapta		// [1F6B6 200D 2642 200D 27A1]
+🚶‍➡	persoană care merge orientate spre dreapta		// [1F6B6 200D 27A1]
+🤵‍♀	femeie în smoching					// [1F935 200D 2640]
+🤵‍♂	bărbat în smoching					// [1F935 200D 2642]
+🦸‍♀	supererou femeie					// [1F9B8 200D 2640]
+🦸‍♂	supererou bărbat					// [1F9B8 200D 2642]
+🦹‍♀	super-ticălos femeie					// [1F9B9 200D 2640]
+🦹‍♂	super-ticălos bărbat					// [1F9B9 200D 2642]
+🧍‍♀	femeie în picioare					// [1F9CD 200D 2640]
+🧍‍♂	bărbat în picioare					// [1F9CD 200D 2642]
+🧎‍♀	femeie în genunchi					// [1F9CE 200D 2640]
+🧎‍♀‍➡	femeie în genunchi orientate spre dreapta		// [1F9CE 200D 2640 200D 27A1]
+🧎‍♂	bărbat în genunchi					// [1F9CE 200D 2642]
+🧎‍♂‍➡	bărbat în genunchi orientate spre dreapta		// [1F9CE 200D 2642 200D 27A1]
+🧎‍➡	persoană în genunchi orientate spre dreapta		// [1F9CE 200D 27A1]
+🧏‍♀	femeie surdă						// [1F9CF 200D 2640]
+🧏‍♂	bărbat surd						// [1F9CF 200D 2642]
+🧑‍⚕	persoană lucrătoare în domeniul sănătății		// [1F9D1 200D 2695]
+🧑‍⚖	judecător sau judecătoare				// [1F9D1 200D 2696]
+🧑‍✈	pilot							// [1F9D1 200D 2708]
+🧑‍🌾	fermier sau fermieră					// [1F9D1 200D 1F33E]
+🧑‍🍳	bucătar sau bucătăreasă					// [1F9D1 200D 1F373]
+🧑‍🍼	persoană hrănind un bebeluș				// [1F9D1 200D 1F37C]
+🧑‍🎄	Crăciun							// [1F9D1 200D 1F384]
+🧑‍🎓	student sau studentă					// [1F9D1 200D 1F393]
+🧑‍🎤	cântăreț sau cântăreață					// [1F9D1 200D 1F3A4]
+🧑‍🎨	artist sau artistă					// [1F9D1 200D 1F3A8]
+🧑‍🏫	profesor sau profesoară					// [1F9D1 200D 1F3EB]
+🧑‍🏭	muncitor sau muncitoare în fabrică			// [1F9D1 200D 1F3ED]
+🧑‍💻	specialist sau specialistă IT				// [1F9D1 200D 1F4BB]
+🧑‍💼	funcționar sau funcționară				// [1F9D1 200D 1F4BC]
+🧑‍🔧	mecanic							// [1F9D1 200D 1F527]
+🧑‍🔬	om de știință						// [1F9D1 200D 1F52C]
+🧑‍🚀	astronaut sau astronaută				// [1F9D1 200D 1F680]
+🧑‍🚒	pompier							// [1F9D1 200D 1F692]
+🧑‍🤝‍🧑	persoane ținându-se de mână				// [1F9D1 200D 1F91D 200D 1F9D1]
+🧑‍🦯	persoană cu baston pentru nevăzători			// [1F9D1 200D 1F9AF]
+🧑‍🦯‍➡	persoană cu baston pentru nevăzători orientate spre dreapta	// [1F9D1 200D 1F9AF 200D 27A1]
+🧑‍🦰	adult păr roșcat					// [1F9D1 200D 1F9B0]
+🧑‍🦱	adult păr creț						// [1F9D1 200D 1F9B1]
+🧑‍🦲	adult chelie						// [1F9D1 200D 1F9B2]
+🧑‍🦳	adult păr alb						// [1F9D1 200D 1F9B3]
+🧑‍🦼	persoană în scaun cu rotile motorizat			// [1F9D1 200D 1F9BC]
+🧑‍🦼‍➡	persoană în scaun cu rotile motorizat orientate spre dreapta	// [1F9D1 200D 1F9BC 200D 27A1]
+🧑‍🦽	persoană în scaun cu rotile manual			// [1F9D1 200D 1F9BD]
+🧑‍🦽‍➡	persoană în scaun cu rotile manual orientate spre dreapta	// [1F9D1 200D 1F9BD 200D 27A1]
+🧑‍🧑‍🧒	familie adult adult copil				// [1F9D1 200D 1F9D1 200D 1F9D2]
+🧑‍🧑‍🧒‍🧒	familie adult adult copil copil				// [1F9D1 200D 1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🧒	familie adult copil					// [1F9D1 200D 1F9D2]
+🧑‍🧒‍🧒	familie adult copil copil				// [1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🩰	balerin sau balerină					// [1F9D1 200D 1FA70]
+🧔‍♀	femeie barbă						// [1F9D4 200D 2640]
+🧔‍♂	bărbat barbă						// [1F9D4 200D 2642]
+🧙‍♀	femeie mag						// [1F9D9 200D 2640]
+🧙‍♂	bărbat mag						// [1F9D9 200D 2642]
+🧚‍♀	femeie zână						// [1F9DA 200D 2640]
+🧚‍♂	bărbat zână						// [1F9DA 200D 2642]
+🧛‍♀	femeie vampir						// [1F9DB 200D 2640]
+🧛‍♂	bărbat vampir						// [1F9DB 200D 2642]
+🧜‍♀	sirenă							// [1F9DC 200D 2640]
+🧜‍♂	bărbat sirenă						// [1F9DC 200D 2642]
+🧝‍♀	femeie elf						// [1F9DD 200D 2640]
+🧝‍♂	bărbat elf						// [1F9DD 200D 2642]
+🧞‍♀	femeie duh						// [1F9DE 200D 2640]
+🧞‍♂	bărbat duh						// [1F9DE 200D 2642]
+🧟‍♀	femeie zombi						// [1F9DF 200D 2640]
+🧟‍♂	bărbat zombi						// [1F9DF 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Activity
+
+⛹‍♀	femeie care bate mingea					// [26F9 200D 2640]
+⛹‍♂	bărbat care bate mingea					// [26F9 200D 2642]
+🏃‍♀	femeie care aleargă					// [1F3C3 200D 2640]
+🏃‍♂	bărbat care aleargă					// [1F3C3 200D 2642]
+🏄‍♀	femeie care practică surfing				// [1F3C4 200D 2640]
+🏄‍♂	bărbat care practică surfing				// [1F3C4 200D 2642]
+🏊‍♀	femeie care înoată					// [1F3CA 200D 2640]
+🏊‍♂	bărbat care înoată					// [1F3CA 200D 2642]
+🏋️‍♀	femeie care ridică greutăți				// [1F3CB 200D 2640]
+🏋️‍♂	bărbat care ridică greutăți				// [1F3CB 200D 2642]
+🏌️‍♀	femeie care joacă golf					// [1F3CC 200D 2640]
+🏌️‍♂	bărbat care joacă golf					// [1F3CC 200D 2642]
+👯‍♀	femei care poartă urechi de iepuraș			// [1F46F 200D 2640]
+👯‍♂	bărbați care poartă urechi de iepuraș			// [1F46F 200D 2642]
+💆‍♀	femeie care primește un masaj facial			// [1F486 200D 2640]
+💆‍♂	bărbat care primește un masaj facial			// [1F486 200D 2642]
+💇‍♀	femeie care se tunde					// [1F487 200D 2640]
+💇‍♂	bărbat care se tunde					// [1F487 200D 2642]
+🚣‍♀	femeie care vâslește în barcă				// [1F6A3 200D 2640]
+🚣‍♂	bărbat care vâslește în barcă				// [1F6A3 200D 2642]
+🚴‍♀	femeie pe bicicletă					// [1F6B4 200D 2640]
+🚴‍♂	bărbat pe bicicletă					// [1F6B4 200D 2642]
+🚵‍♀	femeie pe bicicletă montană				// [1F6B5 200D 2640]
+🚵‍♂	bărbat pe bicicletă montană				// [1F6B5 200D 2642]
+🚶‍♀	femeie care merge					// [1F6B6 200D 2640]
+🚶‍♂	bărbat care merge					// [1F6B6 200D 2642]
+🤸‍♀	femeie care face roata					// [1F938 200D 2640]
+🤸‍♂	bărbat care face roata					// [1F938 200D 2642]
+🤹‍♀	femeie care jonglează					// [1F939 200D 2640]
+🤹‍♂	bărbat care jongleză					// [1F939 200D 2642]
+🤼‍♀	femeie care practică wrestling				// [1F93C 200D 2640]
+🤼‍♂	bărbat care practică wrestling				// [1F93C 200D 2642]
+🤽‍♀	femeie care joacă polo pe apă				// [1F93D 200D 2640]
+🤽‍♂	bărbat care joacă polo pe apă				// [1F93D 200D 2642]
+🤾‍♀	femeie care joacă handbal				// [1F93E 200D 2640]
+🤾‍♂	bărbat care joacă handbal				// [1F93E 200D 2642]
+🧖‍♀	femeie în saună						// [1F9D6 200D 2640]
+🧖‍♂	bărbat în saună						// [1F9D6 200D 2642]
+🧗‍♀	femeie care se cațără					// [1F9D7 200D 2640]
+🧗‍♂	bărbat care se cațără					// [1F9D7 200D 2642]
+🧘‍♀	femeie în poziția lotus					// [1F9D8 200D 2640]
+🧘‍♂	bărbat în poziția lotus					// [1F9D8 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Gestures
+
+💁‍♀	femeie care explică					// [1F481 200D 2640]
+💁‍♂	bărbat care explică					// [1F481 200D 2642]
+🙅‍♀	femeie făcând un gest de negație			// [1F645 200D 2640]
+🙅‍♂	bărbat făcând un gest de negație			// [1F645 200D 2642]
+🙆‍♀	femeie făcând un gest de OK				// [1F646 200D 2640]
+🙆‍♂	bărbat făcând un gest de OK				// [1F646 200D 2642]
+🙇‍♀	femeie care se înclină					// [1F647 200D 2640]
+🙇‍♂	bărbat care se înclină					// [1F647 200D 2642]
+🙋‍♀	femeie care ridică mâna					// [1F64B 200D 2640]
+🙋‍♂	bărbat care ridică mâna					// [1F64B 200D 2642]
+🙍‍♀	femeie întristată					// [1F64D 200D 2640]
+🙍‍♂	bărbat întristat					// [1F64D 200D 2642]
+🙎‍♀	femeie bosumflată					// [1F64E 200D 2640]
+🙎‍♂	bărbat bosumflat					// [1F64E 200D 2642]
+🤦‍♀	femeie care își acoperă fața cu o palmă			// [1F926 200D 2640]
+🤦‍♂	bărbat care își acoperă fața cu o palmă			// [1F926 200D 2642]
+🤷‍♀	femeie care ridică din umeri				// [1F937 200D 2640]
+🤷‍♂	bărbat care ridică din umeri				// [1F937 200D 2642]
+
+// Emoji ZWJ Sequence: Other
+
+🏳‍🌈	steag curcubeu						// [1F3F3 200D 1F308]
+🏴‍☠	steagul piraților					// [1F3F4 200D 2620]
+👁‍🗨	ochi în balon de dialog					// [1F441 200D 1F5E8]
+
+// References:
+//   [UCD]	Unicode Character Database 11.0.0 [http://www.unicode.org/Public/11.0.0/ucd/]
+//   [Emoji]	Unicode Emoji 11.0 [http://www.unicode.org/Public/emoji/11.0/]
+//   [CLDR]	Unicode Common Locale Data Repository 33.1 [http://cldr.unicode.org/index/downloads/cldr-33.1]
+//
+// Sources:
+//   1.  emoji-test.txt (Emoji)
+//   2.  common/annotations/ro.xml (CLDR)
+//   3.  emoji-zwj-sequences.txt (Emoji)

@@ -1,0 +1,464 @@
+// *   arabic Language ar ar_list
+// *   This file writen by TAHA Zerrouki 2012
+// ***************************************************************************
+// *   This program is free software; you can redistribute it and/or modify  *
+// *   it under the terms of the GNU General Public License as published by  *
+// *   the Free Software Foundation; either version 3 of the License, or     *
+// *   (at your option) any later version.                                   *
+// *                                                                         *
+// *   This program is distributed in the hope that it will be useful,       *
+// *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+// *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+// *   GNU General Public License for more details.                          *
+// *                                                                         *
+// *   You should have received a copy of the GNU General Public License     *
+// *   along with this program; if not, see:                                 *
+// *               <http://www.gnu.org/licenses/>.                           *
+// ***************************************************************************
+//
+// You can use the en_extra file, rather than this one
+// to add your own pronunciation definitions.
+//
+// This file is UTF-8 encoded
+// all words must be LOWER CASE  (although the initial letter will be automatically
+// converted if it's a 7bit ascii character)
+//
+//stress symbols  ' primary  , secondary  % unstressed
+// letter names, as they are spoken as a single character in text
+// precede by _  to distinguish from pronunciation as a language word
+
+// Arabic alphabet
+_آ       ?'alif||mamd'u:da
+_ا       ?'alif
+_ب       b'a:?
+_پ       p'a:?
+_ت       t'a:?
+_ث       T'a:?
+_ج       dZ'i:m
+_ح       H'a:?
+_خ       x'a:?
+_د       d'a:l
+_ذ       D'a:l
+_ر       R'a.:?
+_ز       z'a:j
+_س       s'i:n
+_ش       S'i:n
+_ص       s['a.:d
+_ض       dH'a.:d
+_ط       t['a.:?
+_ظ       Z'a.:?
+_ع       A'ajn
+_غ       Q'ajn
+_ف       f'a:?
+_ق       q'a.:f
+_ك       k'a:f
+_گ       g'a:f
+_ل       l'a:m
+_م       m'i:m
+_ن       n'u:n
+_و       w'a:w
+_ه       h'a:?
+_ي       j'a:?
+_َ       f'atHa
+_ُ       dH'a.m:a
+_ِ       k'asRa.
+_ّ       S'ad:a
+_ْ       suk'u:n
+_ً       fatHat'a:n
+_ٌ       dHa.m:at'a:n
+_ٍ       kasRat'a:n
+_،       f'a:s[i.la
+_؛       f'a:s[i.la||manq'u:t[a.
+_ـ       tat[w'i:l
+_ئ       h'amza||A'ala:||?alj'a:?
+_ؤ       h'amza||A'ala:||?alw'a:w
+_إ       h'amza||t'aHta||?al?'alif
+_أ       h'amza||A'ala:||?al?'alif
+_ء       h'amza
+_ة       t'a:?||maRb'u:t[a.
+_ى       ?'alif||maqs['u.:Ra.
+_ةً       tan
+_
+
+// When letters entered one by one
+آ       ?'alif||mamd'u:da              $only
+ا       ?'alif                         $only
+ب       b'a:?                          $only
+پ       p'a:?                          $only
+ت       t'a:?                          $only
+ث       T'a:?                          $only
+ج       dZ'i:m                         $only
+ح       H'a:?                          $only
+خ       x'a:?                          $only
+د       d'a:l                          $only
+ذ       D'a:l                          $only
+ر       R'a.:?                         $only
+ز       z'a:j                          $only
+س       s'i:n                          $only
+ش       S'i:n                          $only
+ص       s['a.:d                        $only
+ض       dH'a.:d                        $only
+ط       t['a.:?                        $only
+ظ       Z'a.:?                         $only
+ع       A'ajn                          $only
+غ       Q'ajn                          $only
+ف       f'a:?                          $only
+ق       q'a.:f                         $only
+ك       k'a:f                          $only
+گ       g'a:f                          $only
+ل       l'a:m                          $only
+م       m'i:m                          $only
+ن       n'u:n                          $only
+و       w'a:w                        $atend
+ه       h'a:?                          $only
+ي       j'a:?                          $only
+َ       f'atHa                         $only
+ُ       dH'a.m:a                       $only
+ِ       k'asRa.                        $only
+ّ       S'ad:a                         $only
+ْ       suk'u:n                        $only
+ً       fatHat'a:n                     $only
+ٌ       dHa.m:at'a:n                   $only
+ٍ       kasRat'a:n                     $only
+،       f'a:s[i.la                     $only
+؛       f'a:s[i.la||manq'u:t[a.        $only
+ـ       tat[w'i:l                      $only
+ئ       h'amza||A'ala:||?alj'a:?       $only
+ؤ       h'amza||A'ala:||?alw'a:w       $only
+إ       h'amza||t'aHta||?al?'alif      $only
+أ       h'amza||A'ala:||?al?'alif      $only
+ء       h'amza                         $only
+ة       t'a:?||maRb'u:t[a.             $only
+ى       ?'alif||maqs['u.:Ra.           $only
+ةً       tan                           $only
+
+// Letter names that were missing (added for reading character by character).
+// capital letter
+_cap    kab'i:R
+// alif al-wasl, dagger alif, madda, hamza signs, letters of other languages met in Arabic text,
+// lam-alif and the word ligatures: names used when spelling
+_ٱ      ?'alif||?alw'as[l                      // U+0671 alif al-wasl
+_ٰ      ?'alif||XandZaR'ij:a                   // U+0670 alif khanjariyya (dagger alif)
+_ٓ      m'ad:a                                 // U+0653 madda
+_ٔ      h'amza||fawq'ij:a                      // U+0654 hamza above
+_ٕ      h'amza||taHt'ij:a                      // U+0655 hamza below
+_چ      dZ'i:m||muT'al:aTa                     // U+0686 jim muthallatha
+_ژ      z'a:j||muT'al:aTa                      // U+0698 zay muthallatha
+_ڤ      f'a:?||muT'al:aTa                      // U+06A4 fa muthallatha
+_ڥ      f'a:?||muT'al:aTa                      // U+06A5 fa muthallatha (the Maghrebi form)
+_ڨ      q'a.:f||muT'al:aTa                     // U+06A8 qaf muthallatha
+_ک      k'a:f||fa:Ris'ij:a                     // U+06A9 kaf farisiyya
+_ی      j'a:?||fa:Ris'ij:a                     // U+06CC ya farisiyya
+_ﻻ      l'a:m||?'alif                          // U+FEFB lam alif
+_ﻼ      l'a:m||?'alif                          // U+FEFC lam alif
+_ﻵ      l'a:m||?'alif||mamd'u:da               // U+FEF5 lam alif madda
+_ﻶ      l'a:m||?'alif||mamd'u:da               // U+FEF6 lam alif madda
+_ﻷ      l'a:m||?'alif||h'amza                  // U+FEF7 lam alif with hamza above
+_ﻸ      l'a:m||?'alif||h'amza                  // U+FEF8 lam alif with hamza above
+_ﻹ      l'a:m||?'alif||h'amza||taHt'ij:a       // U+FEF9 lam alif with hamza below
+_ﻺ      l'a:m||?'alif||h'amza||taHt'ij:a       // U+FEFA lam alif with hamza below
+_ﷲ      ?al:'a:h                               // U+FDF2 Allah
+_ﷺ      s['a.l:a||l:'a:hu||Aal'ajhi||wa||s'al:am // U+FDFA salla llahu alayhi wa-sallam
+_ﷻ      dZ'al:a||dZal'a:luh                    // U+FDFB jalla jalaluh
+_﷽      bismi||l:'a:hi||R:aHm'a:ni||R:aH'i:m   // U+FDFD bismi llahi r-rahmani r-rahim
+// the same, when the character stands alone
+ٱ       ?'alif||?alw'as[l                      $only
+ٰ       ?'alif||XandZaR'ij:a                   $only
+ٓ       m'ad:a                                 $only
+ٔ       h'amza||fawq'ij:a                      $only
+ٕ       h'amza||taHt'ij:a                      $only
+چ       dZ'i:m||muT'al:aTa                     $only
+ژ       z'a:j||muT'al:aTa                      $only
+ڤ       f'a:?||muT'al:aTa                      $only
+ڥ       f'a:?||muT'al:aTa                      $only
+ڨ       q'a.:f||muT'al:aTa                     $only
+ک       k'a:f||fa:Ris'ij:a                     $only
+ی       j'a:?||fa:Ris'ij:a                     $only
+ﻻ       l'a:m||?'alif                          $only
+ﻼ       l'a:m||?'alif                          $only
+ﻵ       l'a:m||?'alif||mamd'u:da               $only
+ﻶ       l'a:m||?'alif||mamd'u:da               $only
+ﻷ       l'a:m||?'alif||h'amza                  $only
+ﻸ       l'a:m||?'alif||h'amza                  $only
+ﻹ       l'a:m||?'alif||h'amza||taHt'ij:a       $only
+ﻺ       l'a:m||?'alif||h'amza||taHt'ij:a       $only
+ﷲ       ?al:'a:h                               $only
+ﷺ       s['a.l:a||l:'a:hu||Aal'ajhi||wa||s'al:am $only
+ﷻ       dZ'al:a||dZal'a:luh                    $only
+﷽       bismi||l:'a:hi||R:aHm'a:ni||R:aH'i:m   $only
+// signs of the block U+0600 to U+061F and Quranic signs: names used when spelling
+_؀      R'amz||?aR:'aqm                        // U+0600 number sign
+_؁      s'ana                                  // U+0601 sign sanah (year)
+_؂      H'a:Sija                               // U+0602 footnote marker
+_؃      s['a.fHa                               // U+0603 sign safha (page)
+_؉      bil?'alf                               // U+0609 per mille
+_؊      bilA'aSaRat||?a:l'a:f                  // U+060A per ten thousand
+_؋      ?afQ'a:ni:                             // U+060B afghani sign
+_؍      f'a:s[i.l||?at:a:R'i:X                 // U+060D date separator
+_ؐ      s['a.l:a||l:'a:hu||Aal'ajhi||wa||s'al:am // U+0610 sign sallallahu alayhi wa-sallam
+_ؑ      Aal'ajhi||s:al'a:m                     // U+0611 sign alayhi s-salam
+_ؒ      R'aHmatu||l:'a:hi||Aal'ajh             // U+0612 sign rahmatu llahi alayh
+_ؓ      R'adHija||l:'a:hu||A'anh               // U+0613 sign radiya llahu anh
+_۝      nih'a:jat||?al?'a:ja                   // U+06DD end of ayah
+_۞      R'ubA||?alH'izb                        // U+06DE rub el hizb
+_۩      s'adZda                                // U+06E9 place of sajdah
+// dammatan standing alone: the comma entry above has the same 6-bit key and hid it
+ٌ       dHa.m:at'a:n                           $only
+
+// numeric
+_0      s[-'ifR
+_1      w'a:Hid
+_2      ?iTn'a:n
+_3      Tal'a:Ta
+_4      ?'aRbaA-a
+_5      x'amsa
+_6      s'it:a
+_7      s'abA-a
+_8      Tam'a:nija
+_9      t'isA-a
+_10     A-'aSaRa
+_11     ?'aHada||A-'aSaR
+_12     ?iTn'a:||A-'aSaR
+_13     Tal'a:Tata||A-'aSaR
+_14     ?aRb'aA-ata||A-'aSaR
+_15     x'amsata||A-'aSaR
+_16     s'it:ata||A-'aSaR
+_17     s'abA-ata||A-'aSaR
+_18     Tama:n'ijata||A-'aSaR
+_19     t'isA-ata||A-'aSaR
+_2X     AiSR'u:n
+_3X     Tala:T'u:n
+_4X     ?aRbaA-'u:n
+_5X     xams'u:n
+_6X     sit:'u:n
+_7X     sabA-'u:n
+_8X     Tama:n'u:n
+_9X     tisA-'u:n
+
+_0C     m'i?a
+_1C     m'i?a
+_2C     mi?at'a:n
+_3C     Tal'a:Tumi?a
+_4C     ?'aRbaA-umi?a
+_5C     x'amsumi?a
+_6C     s'it:umi?a
+_7C     s'abA-umi?a
+_8C     Tam'a:numi?a
+_9C     t'isA-umi?a
+
+_0M1    ?'alf
+_1M1    ?'alf
+_2M1    ?alf'a:n
+_3M1    Tal'a:Tatu||?a:l'a:f
+_4M1    ?aRb'aA-atu||?a:l'a:f
+_5M1    x'amsatu||?a:l'a:f
+_6M1    s'it:atu||?a:l'a:f
+_7M1    s'abA-atu||?a:l'a:f
+_8M1    Tama:n'ijatu||?a:l'a:f
+_9M1    t'isA-atu||?a:l'a:f
+_10M1   A-'aSaRatu||?a:l'a:f
+
+_0M2    milj'u:n
+_1M2    milj'u:n
+_2M2    milju:n'a:n
+_3M2    Tal'a:Tatu||mala:j'i:n
+_4M2    ?aRb'aA-atu||mala:j'i:n
+_5M2    x'amsatu||mala:j'i:n
+_6M2    s'it:atu||mala:j'i:n
+_7M2    s'abA-atu||mala:j'i:n
+_8M2    Tama:n'ijatu||mala:j'i:n
+_9M2    t'isA-atu||mala:j'i:n
+_10M2   A-'aSaRatu||mala:j'i:n
+
+_0M3    milj'a:R
+_1M3    milj'a:R
+_2M3    milja:R'a:n
+_3M3    Tal'a:Tatu||milja:R'a:t
+_4M3    ?aRb'aA-atu||milja:R'a:t
+_5M3    x'amsatu||milja:R'a:t
+_6M3    s'it:atu||milja:R'a:t
+_7M3    s'abA-atu||milja:R'a:t
+_8M3    Tama:n'ijatu||milja:R'a:t
+_9M3    t'isA-atu||milja:R'a:t
+_10M3   A-'aSaRatu||milja:R'a:t
+
+
+_0and   wa
+_dpt    f'a:s[i.la
+_roman  ruma:ni:
+
+_#st    om
+_#nd    va
+_#rd    om
+_#th    om
+
+
+// character names
+_÷       taqs'i:m
+_×       f'i:
+_؟       Aal'a:mat||?istifh'a:m
+_!       Aal'a:mat||taA'adZ:ub
+_$       du:l'a:R
+_%       bilm'i?a
+_[       q'aws||muR'ab:aA||maft'u:H
+_]       q'aws||muR'ab:aA||m'uQlaq
+_(       q'aws||maft'u:H
+_)       q'aws||m'uQlaq
+_*       n'adZma
+_-       S'aRt[a.
+_.      n'uqt[a.
+_:      nuqt[a.t'a:n
+_<       ?'as[QaR||m'in
+_=       tus'a:wi:
+_>       ?'akbaR||m'in
+_{       q'aws||muz'aXRaf||maft'u:H
+_}       q'aws||muz'aXRaf||m'uQlaq
+_...     Tal'a:T||niq'a:t[
+// names of punctuation marks and symbols that were missing
+_,      f'a:s[i.la                             // fasila
+_;      f'a:s[i.la||manq'u:t[a.                // fasila manquta
+_?      Aal'a:mat||?istifh'a:m                 // alamat istifham
+_'      f'a:s[i.la||A'ulja:                    // fasila ulya
+_"      Aal'a:mat||tans['i.:s[                 // alamat tansis
+_“      f'atH||tans['i.:s[                     // fath tansis
+_”      ?iQl'a:q||tans['i.:s[                  // ighlaq tansis
+_«      f'atH||tans['i.:s[                     // fath tansis
+_»      ?iQl'a:q||tans['i.:s[                  // ighlaq tansis
+_‘      f'atH||tans['i.:s[||m'ufRad            // fath tansis mufrad
+_’      ?iQl'a:q||tans['i.:s[||m'ufRad         // ighlaq tansis mufrad
+_﴾      q'aws||maft'u:H                        // ornate parenthesis
+_﴿      q'aws||m'uQlaq                         // ornate parenthesis
+_–      S'aRt[a.||qas['i.:Ra                   // sharta qasira
+_—      S'aRt[a.||t[a.w'i:la                   // sharta tawila
+_…      Tal'a:T||niq'a:t[                      // thalath niqat
+__      S'aRt[a.||sufl'ij:a                    // sharta sufliyya
+_/      S'aRt[a.||m'a:?ila                     // sharta maila
+_\      S'aRt[a.||m'a:?ila||Aaks'ij:a          // sharta maila aksiyya
+_|      X'at[:||Aam'u:di:                      // khatt amudi
+_@      ?'a:t                                  // at
+_#      R'amz||?aR:'aqm                        // ramz ar-raqm
+_^      ?'us:                                  // uss
+_&      Aal'a:mat||?alA'at[f                   // alamat al-atf
+_+      z'a:?id                                // zaid
+_−      n'a:qis[                               // naqis (minus sign)
+_~      t'ilda                                 // tilda
+_°      d'aRadZa                               // daraja
+_§      q'ism                                  // qism
+_•      n'uqt[a.t||taAd'a:d                    // nuqtat tadad
+_·      n'uqt[a.||w'ust[a.:                    // nuqta wusta
+_©      Huq'u:q||?an:'aSR                      // huquq an-nashr
+_®      Aal'a:ma||mus'adZ:ala                  // alama musajjala
+_™      Aal'a:ma||tidZa:R'ij:a                 // alama tijariyya
+_€      j'u:Ru:                                // yuru
+_£      dZun'ajh                               // junayh
+_¢      s'ant                                  // sant
+_﷼      Rij'a:l                                // riyal
+_¡      Aal'a:mat||taA'adZ:ub||maql'u:ba       // alamat taajjub maqluba
+_¿      Aal'a:mat||?istifh'a:m||maql'u:ba      // alamat istifham maqluba
+_٪      bilm'i?a                               // Arabic percent sign
+_٫      f'a:s[i.la||AaSR'ij:a                  // Arabic decimal separator: fasila ashriyya
+_٬      f'a:s[i.lat||?al?a:l'a:f               // Arabic thousands separator: fasilat al-alaf
+_٭      n'adZma                                // Arabic five pointed star
+_۔      n'uqt[a.                               // Urdu full stop
+_±      z'a:?id||?aw||n'a:qis[                 // zaid aw naqis
+_≠      l'a:||tus'a:wi:                        // la tusawi
+_≤      ?'as[QaR||m'in||?aw||tus'a:wi:         // asghar min aw tusawi
+_≥      ?'akbaR||m'in||?aw||tus'a:wi:          // akbar min aw tusawi
+_∞      l'a:||nih'a:ja                         // la nihaya
+_‰      bil?'alf                               // bil-alf
+_¶      Aal'a:mat||?alf'iqRa                   // alamat al-fiqra
+_←      s'ahm||liljas'a:R                      // sahm lil-yasar
+_→      s'ahm||liljam'i:n                      // sahm lil-yamin
+_↑      s'ahm||li?'aAla:                       // sahm li-ala
+_↓      s'ahm||li?'asfal                       // sahm li-asfal
+// the percent sign after a number
+%       bilm'i?a
+// fractions
+½       n'is[f                                 // nisf
+¼       R'ubA                                  // rub
+¾       Tal'a:Tat||?aRb'a:A                    // thalathat arba
+// symbols said in ordinary text too (before, they were said in English)
++       z'a:?id                                $max3   // zaid
+#       R'aqm                                  $max3   // raqm
+@       ?'a:t                                  $max3   // at
+&       w'a                                    $max3   // wa
+~       t'ilda                                 $max3   // tilda
+\       S'aRt[a.||m'a:?ila||Aaks'ij:a          $max3   // sharta maila aksiyya
+/       S'aRt[a.||m'a:?ila                     $max3   // sharta maila
+±       z'a:?id||?aw||n'a:qis[                 $max3   // zaid aw naqis
+
+
+//characters and numbers and words with English alphabet is translated by English phonemes
+th      _^_en
+
+// MAIN WORD DICTIONARY
+//*********************
+
+//abbreviations
+د       ?ad'duktu:r     $hasdot
+أنا     ?nba?ana:       $hasdot
+اه      ?intaha:        $hasdot
+ثنا     Had'daTana:     $hasdot
+الخ     ?ila||?a:_Xirih $hasdot
+إلخ     ?ila||?a:Xirih  $hasdot
+رحه     raHimahullah    $hasdot
+رضه     radHijallahu||Anhu      $hasdot
+و       wa  $pause
+و       w'a:w                                  $atend $only // the letter, when it stands alone
+إله     ?ila:h
+أولئك   ?ula:?ika
+أولو    ?ulu:
+أولي    ?uli:
+داود    da:wu:d
+ذلك     Da:lika
+التي    ?allati:
+الذي    ?allaDi:
+الذين   ?allaDi:na
+اللذين  ?allaDajn
+اللذان  ?allaDa:ni
+صلعم    s[alla:|?allahu|Alajhi||wa||sallam
+الرحمن  ?arraHma:n
+لكن     la:kin
+الله    ?alla:h
+اللهم   ?allahumma
+هؤلاء    ha:?ula:?i
+هذا     ha:Da:
+هذان    ha:Da:ni
+هذه     ha:Dihi
+//الوحدات
+كغ      kilu:||gHra:m
+كجم     kilu:||gHra:m
+كغم     kilu:||gHra:m
+طن      t[un
+كم      ki:lu:||mitar
+سا      sa:A:
+// Units below conflict with single letter word
+// م    mitar
+// س    su?a:l
+// ج    dZawa:b
+// ص    s[afHah
+د.ج     di:na:r||dZaza:?irij
+$       du:la:r
+€       ?u:rru:
+£       dZunajh
+¥       juwa:n
+ج.م     juwa:n||mis[ri
+ر.س     rija:l||sa:u:di:
+ابن     ?ibn
+بن      ban
+
+//foreign language
+إنجليزية                ?ingli:zijah // probelm
+جوجل            gu:gal
+غوغل            gu:gal
+(بسم الله)      bismilla:h
+
+// exceptional words with flags
+ای      ?aj     $only
+
+// exceptional words,  (out of rules)
+// proper nouns
+طه      t[a:ha:
+عمرو    A:mr
+أنا     'ana
+

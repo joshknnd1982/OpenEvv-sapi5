@@ -1,0 +1,252 @@
+// numbers, in the phonemes and tones of the Shan table that this voice uses (mid 3, low 2, falling 5,
+// high 4, rising 1).  They were written in letters the table does not have (s3un, n5ueng ...).
+// The C code says a word for each power of ten up to a million (break_numbers BREAK_TH): หมื่น 10 000,
+// แสน 100 000, ล้าน 1 000 000; _1y is เอ็ด, the 1 after tens, hundreds and thousands (สิบเอ็ด, ร้อยเอ็ด).
+_0	s'u:n1	// ศูนย์
+_1	n'WN2	// หนึ่ง
+_2	s'O:N1	// สอง
+_3	s'a:m1	// สาม
+_4	s'i:2	// สี่
+_5	h'a:5	// ห้า
+_6	h'ok2	// หก
+_7	tS;'et2	// เจ็ด
+_8	p'E:t2	// แปด
+_9	k'au5	// เก้า
+_1y	'et2	// เอ็ด
+_1X	s'ip2	// สิบ
+_2X	j'i:5s'ip2	// ยี่สิบ
+_3X	s'a:m1s'ip2
+_4X	s'i:2s'ip2
+_5X	h'a:5s'ip2
+_6X	h'ok2s'ip2
+_7X	tS;'et2s'ip2
+_8X	p'E:t2s'ip2
+_9X	k'au5s'ip2
+_0C	R'O:i4	// ร้อย
+_0M1	p_h'an3	// พัน
+_0M2	m'W:n2	// หมื่น
+_0M3	s'E:n1	// แสน
+_0M4	l'a:n4	// ล้าน
+_dpt	tS;'ut2	// จุด
+
+
+// letter names: begin
+// Letter names.  This voice uses the phonemes of Shan; the tones are written with the Shan
+// tone that is nearest: mid 3, low 2, falling 5, high 4, rising 1.
+// Each letter is there twice: _x is its name when a word is spelled, x its name when it stands
+// alone.  In running text the program cuts a word at a tone mark, and the letters and marks of
+// the word then come as words of one letter: $atstart $atend keeps the names out of that.
+
+// consonants, each with its key word: ko kai, kho khai ...
+_ก	k'O:3||k'ai2	// กอ ไก่
+ก	k'O:3||k'ai2	$atstart $atend
+_ข	k_h'O:1||k_h'ai2	// ขอ ไข่
+ข	k_h'O:1||k_h'ai2	$atstart $atend
+_ฃ	k_h'O:1||k_h'uat2	// ขอ ขวด
+ฃ	k_h'O:1||k_h'uat2	$atstart $atend
+_ค	k_h'O:3||k_hw'a:i3	// คอ ควาย
+ค	k_h'O:3||k_hw'a:i3	$atstart $atend
+_ฅ	k_h'O:3||k_h'on3	// คอ คน
+ฅ	k_h'O:3||k_h'on3	$atstart $atend
+_ฆ	k_h'O:3||R,a4k_h'aN3	// คอ ระฆัง
+ฆ	k_h'O:3||R,a4k_h'aN3	$atstart $atend
+_ง	N'O:3||N'u:3	// งอ งู
+ง	N'O:3||N'u:3	$atstart $atend
+_จ	tS;'O:3||tS;'a:n3	// จอ จาน
+จ	tS;'O:3||tS;'a:n3	$atstart $atend
+_ฉ	tS'O:1||tS'iN2	// ฉอ ฉิ่ง
+ฉ	tS'O:1||tS'iN2	$atstart $atend
+_ช	tS'O:3||tS'a:N4	// ชอ ช้าง
+ช	tS'O:3||tS'a:N4	$atstart $atend
+_ซ	s'O:3||s'o:5	// ซอ โซ่
+ซ	s'O:3||s'o:5	$atstart $atend
+_ฌ	tS'O:3||tS'@:3	// ฌอ เฌอ
+ฌ	tS'O:3||tS'@:3	$atstart $atend
+_ญ	j'O:3||j'iN1	// ญอ หญิง
+ญ	j'O:3||j'iN1	$atstart $atend
+_ฎ	d'O:3||tS,a4d'a:3	// ฎอ ชฎา
+ฎ	d'O:3||tS,a4d'a:3	$atstart $atend
+_ฏ	t'O:3||p,a2t'ak2	// ฏอ ปฏัก
+ฏ	t'O:3||p,a2t'ak2	$atstart $atend
+_ฐ	t_h'O:1||t_h'a:n1	// ฐอ ฐาน
+ฐ	t_h'O:1||t_h'a:n1	$atstart $atend
+_ฑ	t_h'O:3||n,a:N3m,on3t_h'o:3	// ฑอ นางมณโฑ
+ฑ	t_h'O:3||n,a:N3m,on3t_h'o:3	$atstart $atend
+_ฒ	t_h'O:3||p_h,u:5t_h'au5	// ฒอ ผู้เฒ่า
+ฒ	t_h'O:3||p_h,u:5t_h'au5	$atstart $atend
+_ณ	n'O:3||n'e:n3	// ณอ เณร
+ณ	n'O:3||n'e:n3	$atstart $atend
+_ด	d'O:3||d'ek2	// ดอ เด็ก
+ด	d'O:3||d'ek2	$atstart $atend
+_ต	t'O:3||t'au2	// ตอ เต่า
+ต	t'O:3||t'au2	$atstart $atend
+_ถ	t_h'O:1||t_h'uN1	// ถอ ถุง
+ถ	t_h'O:1||t_h'uN1	$atstart $atend
+_ท	t_h'O:3||t_h,a4h'a:n1	// ทอ ทหาร
+ท	t_h'O:3||t_h,a4h'a:n1	$atstart $atend
+_ธ	t_h'O:3||t_h'oN3	// ธอ ธง
+ธ	t_h'O:3||t_h'oN3	$atstart $atend
+_น	n'O:3||n'u:1	// นอ หนู
+น	n'O:3||n'u:1	$atstart $atend
+_บ	b'O:3||b,ai3m'a:i4	// บอ ใบไม้
+บ	b'O:3||b,ai3m'a:i4	$atstart $atend
+_ป	p'O:3||pl'a:3	// ปอ ปลา
+ป	p'O:3||pl'a:3	$atstart $atend
+_ผ	p_h'O:1||p_h'WN5	// ผอ ผึ้ง
+ผ	p_h'O:1||p_h'WN5	$atstart $atend
+_ฝ	f'O:1||f'a:1	// ฝอ ฝา
+ฝ	f'O:1||f'a:1	$atstart $atend
+_พ	p_h'O:3||p_h'a:n3	// พอ พาน
+พ	p_h'O:3||p_h'a:n3	$atstart $atend
+_ฟ	f'O:3||f'an3	// ฟอ ฟัน
+ฟ	f'O:3||f'an3	$atstart $atend
+_ภ	p_h'O:3||s,am1p_h'au3	// ภอ สำเภา
+ภ	p_h'O:3||s,am1p_h'au3	$atstart $atend
+_ม	m'O:3||m'a:4	// มอ ม้า
+ม	m'O:3||m'a:4	$atstart $atend
+_ย	j'O:3||j'ak4	// ยอ ยักษ์
+ย	j'O:3||j'ak4	$atstart $atend
+_ร	R'O:3||R'Wa3	// รอ เรือ
+ร	R'O:3||R'Wa3	$atstart $atend
+_ล	l'O:3||l'iN3	// ลอ ลิง
+ล	l'O:3||l'iN3	$atstart $atend
+_ว	w'O:3||w'E:n1	// วอ แหวน
+ว	w'O:3||w'E:n1	$atstart $atend
+_ศ	s'O:1||s,a:1l'a:3	// ศอ ศาลา
+ศ	s'O:1||s,a:1l'a:3	$atstart $atend
+_ษ	s'O:1||R,W:3s'i:1	// ษอ ฤๅษี
+ษ	s'O:1||R,W:3s'i:1	$atstart $atend
+_ส	s'O:1||s'Wa1	// สอ เสือ
+ส	s'O:1||s'Wa1	$atstart $atend
+_ห	h'O:1||h'i:p2	// หอ หีบ
+ห	h'O:1||h'i:p2	$atstart $atend
+_ฬ	l'O:3||tS;,u2l'a:3	// ฬอ จุฬา
+ฬ	l'O:3||tS;,u2l'a:3	$atstart $atend
+_อ	'O:3||'a:N2	// ออ อ่าง
+อ	'O:3||'a:N2	$atstart $atend
+_ฮ	h'O:3||n,ok4h'u:k5	// ฮอ นกฮูก
+ฮ	h'O:3||n,ok4h'u:k5	$atstart $atend
+
+// vowels, tone marks and other signs: sara a, mai ek ...
+_ฤ	R'W4	// รึ
+ฤ	R'W4	$atstart $atend
+_ฦ	l'W4	// ลึ
+ฦ	l'W4	$atstart $atend
+_ฯ	p,ai3j'a:n3||n'O:i4	// ไปยาลน้อย
+ฯ	p,ai3j'a:n3||n'O:i4	$atstart $atend
+_ะ	s,a2R'a2||'a2	// สระอะ
+ะ	s,a2R'a2||'a2	$atstart $atend
+_ั	m'ai4||h'an1||,a:3k'a:t2	// U+0E31 ไม้หันอากาศ
+U+e31	m'ai4||h'an1||,a:3k'a:t2	$atstart $atend
+_า	s,a2R'a2||'a:3	// สระอา
+า	s,a2R'a2||'a:3	$atstart $atend
+_ำ	s,a2R'a2||'am3	// สระอำ
+ำ	s,a2R'a2||'am3	$atstart $atend
+_ิ	s,a2R'a2||'i2	// U+0E34 สระอิ
+U+e34	s,a2R'a2||'i2	$atstart $atend
+_ี	s,a2R'a2||'i:3	// U+0E35 สระอี
+U+e35	s,a2R'a2||'i:3	$atstart $atend
+_ึ	s,a2R'a2||'W2	// U+0E36 สระอึ
+U+e36	s,a2R'a2||'W2	$atstart $atend
+_ื	s,a2R'a2||'W:3	// U+0E37 สระอือ
+U+e37	s,a2R'a2||'W:3	$atstart $atend
+_ุ	s,a2R'a2||'u2	// U+0E38 สระอุ
+U+e38	s,a2R'a2||'u2	$atstart $atend
+_ู	s,a2R'a2||'u:3	// U+0E39 สระอู
+U+e39	s,a2R'a2||'u:3	$atstart $atend
+_ฺ	p_h,in3t_h'u4	// U+0E3A พินทุ
+U+e3a	p_h,in3t_h'u4	$atstart $atend
+_฿	b'a:t2	// บาท
+฿	b'a:t2	$atstart $atend
+_เ	s,a2R'a2||'e:3	// สระเอ
+เ	s,a2R'a2||'e:3	$atstart $atend
+_แ	s,a2R'a2||'E:3	// สระแอ
+แ	s,a2R'a2||'E:3	$atstart $atend
+_โ	s,a2R'a2||'o:3	// สระโอ
+โ	s,a2R'a2||'o:3	$atstart $atend
+_ใ	s,a2R'a2||'ai3||m'ai4||m'uan4	// สระใอไม้ม้วน
+ใ	s,a2R'a2||'ai3||m'ai4||m'uan4	$atstart $atend
+_ไ	s,a2R'a2||'ai3||m'ai4||m,a4l'a:i3	// สระไอไม้มลาย
+ไ	s,a2R'a2||'ai3||m'ai4||m,a4l'a:i3	$atstart $atend
+_ๅ	l'a:k5||k_h'a:N5||j'a:u3	// ลากข้างยาว
+ๅ	l'a:k5||k_h'a:N5||j'a:u3	$atstart $atend
+_ๆ	m'ai4||j,a4m'ok4	// ไม้ยมก
+ๆ	m'ai4||j,a4m'ok4	$atstart $atend
+_็	m'ai4||t'ai2||k_h'u:4	// U+0E47 ไม้ไต่คู้
+U+e47	m'ai4||t'ai2||k_h'u:4	$atstart $atend
+_่	m'ai4||'e:k2	// U+0E48 ไม้เอก
+U+e48	m'ai4||'e:k2	$atstart $atend
+_้	m'ai4||t_h'o:3	// U+0E49 ไม้โท
+U+e49	m'ai4||t_h'o:3	$atstart $atend
+_๊	m'ai4||tR'i:3	// U+0E4A ไม้ตรี
+U+e4a	m'ai4||tR'i:3	$atstart $atend
+_๋	m'ai4||tS;,at2t,a2w'a:3	// U+0E4B ไม้จัตวา
+U+e4b	m'ai4||tS;,at2t,a2w'a:3	$atstart $atend
+_์	t_h,an3t_h,a4k_h'a:t5	// U+0E4C ทัณฑฆาต
+U+e4c	t_h,an3t_h,a4k_h'a:t5	$atstart $atend
+_ํ	n,ik4k_h,a4h'it2	// U+0E4D นิคหิต
+U+e4d	n,ik4k_h,a4h'it2	$atstart $atend
+_๎	j,a:3m,ak4k'a:n3	// U+0E4E ยามักการ
+U+e4e	j,a:3m,ak4k'a:n3	$atstart $atend
+_๏	f'O:N3||m'an3	// ฟองมัน
+๏	f'O:N3||m'an3	$atstart $atend
+_๚	,aN3k_h'an5||k_h'u:5	// อังคั่นคู่
+๚	,aN3k_h'an5||k_h'u:5	$atstart $atend
+_๛	k_h,o:3m'u:t5	// โคมูตร
+๛	k_h,o:3m'u:t5	$atstart $atend
+
+_cap	t'ua3||j'ai2	// ตัวใหญ่
+
+// The program says the name of the alphabet before a letter of another alphabet that is spelled, and
+// it does not know that Thai is this language's own: the name is left silent.
+_th	_|
+// letter names: end
+
+// Punctuation marks and symbols, with the names Thai schools teach (จุลภาค, อัฒภาค, ทวิภาค, อัศเจรีย์, ปรัศนี,
+// อัญประกาศ, ยัติภังค์) and the everyday ones (จุด, วงเล็บ, ทับ, ดอกจัน, ตัวหนอน, ไข่ปลา).  Phonemes and tones as
+// in the letter names above.  / @ # % & * + = ~ ± were read in English in ordinary text: they are read in Thai now.
+_.	tS;'ut2	// จุด
+_,	tS;,un3l,a4p_h'a:k5	// จุลภาค
+_;	'at2t_h,a2p_h'a:k5	// อัฒภาค
+_:	t_h,a4w,i4p_h'a:k5	// ทวิภาค
+_!	'at2s,a2tS;,e:3R'i:3	// อัศเจรีย์
+_?	pR,at2s,a2n'i:3	// ปรัศนี
+_'	'an3j,a4pR,a2k,a:t2d'i:aw2	// อัญประกาศเดี่ยว
+_"	'an3j,a4pR,a2k'a:t2	// อัญประกาศ
+_“	'an3j,a4pR,a2k,a:t2p'@:t2	// อัญประกาศเปิด
+_”	'an3j,a4pR,a2k,a:t2p'it2	// อัญประกาศปิด
+_‘	'an3j,a4pR,a2k,a:t2d,i:aw2p'@:t2	// อัญประกาศเดี่ยวเปิด
+_’	'an3j,a4pR,a2k,a:t2d,i:aw2p'it2	// อัญประกาศเดี่ยวปิด
+_(	w,oN3l,ep4p'@:t2	// วงเล็บเปิด
+_)	w,oN3l,ep4p'it2	// วงเล็บปิด
+_[	w,oN3l,ep4l,iam2p'@:t2	// วงเล็บเหลี่ยมเปิด
+_]	w,oN3l,ep4l,iam2p'it2	// วงเล็บเหลี่ยมปิด
+_{	w,oN3l,ep4p,i:k2k,a:3p'@:t2	// วงเล็บปีกกาเปิด
+_}	w,oN3l,ep4p,i:k2k,a:3p'it2	// วงเล็บปีกกาปิด
+_<	n,O:i4kw'a:2	// น้อยกว่า
+_>	m,a:k5kw'a:2	// มากกว่า
+_-	j,at4t,i2p_h'aN3	// ยัติภังค์
+_–	j,at4t,i2p_h'a:k5	// ยัติภาค
+_—	j,at4t,i2p_h'a:k5	// ยัติภาค
+__	k_h,i:t2l'a:N5	// ขีดล่าง
+/	t_h'ap4	// ทับ
+_|	k_h,i:t2t'aN5	// ขีดตั้ง
+@	'E:t2	// แอท
+#	tS'a:p4	// ชาร์ป
+_$	d,O:n3l'a:5	// ดอลลาร์
+%	p,@:3s'en3	// เปอร์เซ็นต์
+&	l'E4	// และ
+*	d,O:k2tS;'an3	// ดอกจัน
++	b'uak2	// บวก
+=	t_h,au5k'ap2	// เท่ากับ
+~	t,ua3n'O:n1	// ตัวหนอน
+_…	k_h,ai2pl'a:3	// ไข่ปลา
+_§	m,a:t5tR'a:3	// มาตรา
+_°	'oN3s'a:1	// องศา
+_£	p'O:n3	// ปอนด์
+_¥	j'en3	// เยน
+_¢	s'en3	// เซนต์
+_©	l,ik4k_h,a2s'it2	// ลิขสิทธิ์
+_×	k_h'u:n3	// คูณ
+_÷	h'a:n1	// หาร
+±	b,uak2l'op4	// บวกลบ

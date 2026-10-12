@@ -1,0 +1,2362 @@
+// Emoji and Other Symbol pronunciations for Swahili
+//
+// Entries with `text|emoji` in the comments have text and emoji forms. They
+// can be followed by [FE0E] to select the text style, and [FE0F] to select
+// the emoji style.
+//
+// Entries with 'other' in the comments are not defined as emoji, but are other
+// Unicode characters.
+//
+// NOTE: See `src/ucd-tools/data/espeak-ng/emoji-data.txt` for additional data
+// in interpreting ZWJ emoji sequences.
+
+$textmode
+
+// 0000..007F : C0 Controls and Basic Latin
+
+//+	plus								// [002B] other (no translation)
+
+// 0080..00FF : C1 Controls and Latin-1 Supplement
+
+//¢	cents								// [00A2] other (no translation)
+//£	pound								// [00A3] other (no translation)
+//¤	currency sign							// [00A4] other (no translation)
+//¥	yen								// [00A5] other (no translation)
+//§	section								// [00A7] other (no translation)
+//¨	double dot							// [00A8] other (no translation)
+©	ishara ya hakimiliki						// [00A9] text|emoji
+//¬	not sign							// [00AC] other (no translation)
+®	iliyosajiliwa							// [00AE] text|emoji
+//°	degrees								// [00B0] other (no translation)
+//±	plus or minus							// [00B1] other (no translation)
+//µ	micro								// [00B5] other (no translation)
+//¶	paragraph							// [00B6] other (no translation)
+//¼	a quarter							// [00BC] other (no translation)
+//½	a half								// [00BD] other (no translation)
+//¾	three quarters							// [00BE] other (no translation)
+//×	times								// [00D7] other (no translation)
+//÷	divided by							// [00F7] other (no translation)
+
+// 02B0..02FF : Spacing Modifier Letters
+
+//˙	dot								// [02D9] other (no translation)
+
+// 0900..097F : Devanagari
+
+//।	danda								// [0964] other (no translation)
+
+// 2000..203C : General Punctuation
+
+‼	alama mbili za mshangao						// [203C] text|emoji
+⁄	mkato wa sehemu						// [2044]
+⁉	alama ya mshangao na kuuliza					// [2049] text|emoji
+⁻	alama ya kutoa ya juu					// [207B]
+₡	Colon ya Kostarika					// [20A1]
+₢	kruzeiro						// [20A2]
+₣	faranga ya ufaransa					// [20A3]
+₤	lira							// [20A4]
+₥	mill							// [20A5]
+₦	Naira ya Nigeria					// [20A6]
+//₧								// [20A7] (no translation)
+
+// 20A0..20CF : Currency Symbols
+
+₨	rupii							// [20A8]
+₪	Shekeli Mpya ya Israel					// [20AA]
+₫	Dong ya Vietnam						// [20AB]
+€	yuro							// [20AC]
+₭	Kip ya Laosi						// [20AD]
+₮	Tugrik ya Mongolia					// [20AE]
+₰	peni ya ujerumani					// [20B0]
+₱	peso							// [20B1]
+₲	Guarani ya Paragwai					// [20B2]
+₳	austral							// [20B3]
+₴	Hryvnia ya Ukraine					// [20B4]
+₵	Cedi ya Ghana						// [20B5]
+₶	livre tournois						// [20B6]
+₷	spesmilo						// [20B7]
+₸	Tenge ya Kazakhstan					// [20B8]
+₹	rupia ya india						// [20B9]
+₺	Lira ya Uturuki						// [20BA]
+₼	Manat ya Azerbaijan					// [20BC]
+₽	rubo							// [20BD]
+₾	Lari ya Jojia						// [20BE]
+₿	bitcoin							// [20BF]
+
+// 2100..214F : Letterlike Symbols
+
+//№	numero								// [2116] other (no translation)
+℗	hakimiliki ya rekodi ya sauti				// [2117]
+//℞	prescription							// [211E] other (no translation)
+™	chapa ya biashara						// [2122] text|emoji
+ℹ	kitufe cha maelezo						// [2139] text|emoji
+
+// 2150..218F : Number Forms
+
+//⅓	one third							// [2153] other (no translation)
+//⅔	two thirds							// [2154] other (no translation)
+
+// 2190..21FF : Arrows
+
+←	mshale unaoelekea kushoto				// [2190]
+↑	mshale unaoelekea juu					// [2191]
+→	mshale unaoelekea kulia					// [2192]
+↓	mshale unaoelekea chini					// [2193]
+↔	mshale unaoeleza kushoto na kulia				// [2194] text|emoji
+↕	mshale unaoelekeza chini na juu					// [2195] text|emoji
+↖	mshale unaoelekeza juu kushoto					// [2196] text|emoji
+↗	mshale unaoelekeza juu kulia					// [2197] text|emoji
+↘	mshale unaoelekeza chini kulia					// [2198] text|emoji
+↙	mshale unaoelekeza chini kushoto				// [2199] text|emoji
+↚	mkwaju na kishale kinachoelekea kushoto			// [219A]
+↛	mkwaju na kishale kinachoelekea kulia			// [219B]
+↜	kishale cha kiwimbi kinachoelekea kushoto		// [219C]
+↝	kishale cha kiwimbi kinachoelekea kulia			// [219D]
+↞	kishale chenye vichwa viwili vinavyoelekea kushoto	// [219E]
+↟	kishale chenye vichwa viwili vinavyoelekea juu		// [219F]
+↠	kishale chenye vichwa viwili vinavyoelekea kulia	// [21A0]
+↡	kishale chenye vichwa viwili vinavyoelekea chini	// [21A1]
+↢	kishale chenye mkia unaoelekea kushoto			// [21A2]
+↣	kishale chenye mkia unaoelekea kulia			// [21A3]
+↤	kishale kinachoelekea kushoto kutoka kwenye upao	// [21A4]
+↥	kishale kinachoelekea juu kutoka kwenye upao		// [21A5]
+↦	kishale kinachoelekea kulia kutoka kwenye upao		// [21A6]
+↧	kishale kinachoelekea chini kutoka kwenye upao		// [21A7]
+↨	kishale cha juu chini chenye upao			// [21A8]
+↩	mshale wa kulia unaopinda kushoto				// [21A9] text|emoji
+↪	mshale wa kushoto unaopinda kulia				// [21AA] text|emoji
+↫	kishale kilichosokota kinachoelekea kushoto		// [21AB]
+↬	kishale kilichosokota kinachoelekea kulia		// [21AC]
+↭	kishale cha kiwimbi chenye ncha pande mbili		// [21AD]
+↮	kishale kinachoashiria kulia na kushoto			// [21AE]
+↯	zigizagi yenye kishale kinachoelekea chini		// [21AF]
+↰	kishale kinachoelekea juu chenye ncha iliyopinda kushoto	// [21B0]
+↱	kishale kinachoelekea juu chenye ncha iliyopinda kulia	// [21B1]
+↲	kishale kinachoelekea chini ncha ikipinda kushoto	// [21B2]
+↳	kishale kinachoelekea chini ncha ikipinda kulia		// [21B3]
+↴	kishale cha chini chenye kona inayopinda kulia		// [21B4]
+↵	kishale cha chini chenye kona inayopinda kushoto	// [21B5]
+↶	kishale nusu mviringo kinachoelekea kinyume saa		// [21B6]
+↷	kishale nusu mviringo kinachoelekea kisaa		// [21B7]
+↸	kishale cha upau wa kasakazini magharibi		// [21B8]
+↹	kishale kinachoelekea kushoto juu ya kishale kinachoelekea kulia	// [21B9]
+↺	kishale cha mviringo wazi kinachoelekea kinyume cha saa	// [21BA]
+↻	kishale cha mviringo wazi kinachoelekea kisaa		// [21BB]
+↼	chusa chenye chembe inayoelekea juu kushoto		// [21BC]
+↽	chusa chenye chembe inayoelekea chini kushoto		// [21BD]
+↾	chusa kinachoelekea juu chenye chembe cha kulia		// [21BE]
+↿	chusa kinachoelekea juu chenye chembe cha kushoto	// [21BF]
+⇀	chusa chenye chembe inayoelekea juu kulia		// [21C0]
+⇁	chusa chenye chembe inayoelekea chini kulia		// [21C1]
+⇂	chusa kinachoelekea chini chenye chembe cha kulia	// [21C2]
+⇃	chusa kinachoelekea chini chenye chembe cha kushoto	// [21C3]
+⇄	kishale cha kulia juu ya kishale cha kushoto		// [21C4]
+⇅	mshale unaoelekea juu na mwingine chini			// [21C5]
+⇆	mshale unaoelekea kushoto juu ya mshale unaoelekea kulia	// [21C6]
+⇇	vishale pacha vinavyoelekea kushoto			// [21C7]
+⇈	vishale pacha vinavyoelekea juu				// [21C8]
+⇉	vishale pacha vinavyoelekea kulia			// [21C9]
+⇊	vishale pacha vinavyoelekea chini			// [21CA]
+⇋	chusa kinachoelekea kushoto juu ya chusa kinachoelekea kulia	// [21CB]
+⇌	chusa kinachoelekea kulia juu ya chusa kinachoelekea kushoto	// [21CC]
+⇍	vishale pacha vyenye ncha moja kushoto vina mkato	// [21CD]
+⇎	vishale pacha vyenye ncha pande zote vina mkato		// [21CE]
+⇏	vishale pacha vyenye ncha moja kulia vina mkato		// [21CF]
+⇐	vishale pacha vyenye ncha moja kushoto			// [21D0]
+⇑	vishale pacha vyenye ncha moja kuelekea juu		// [21D1]
+⇒	vishale pacha vyenye ncha moja kulia			// [21D2]
+⇓	vishale pacha vyenye ncha moja kuelekea chini		// [21D3]
+⇔	vishale pacha vyenye ncha pande zote			// [21D4]
+⇖	vishale pacha vyenye ncha kaskazini magharibi		// [21D6]
+⇗	vishale pacha vyenye ncha kaskazini mashariki		// [21D7]
+⇘	vishale pacha vyenye ncha kusini mashariki		// [21D8]
+⇙	vishale pacha vyenye ncha kusini magharibi		// [21D9]
+⇚	vishale vitatu vyenye ncha moja kushoto			// [21DA]
+⇛	vishale vitatu vyenye ncha moja kulia			// [21DB]
+⇜	mcharazo wenye kishale cha kushoto			// [21DC]
+⇝	mcharazo wenye kishale cha kulia			// [21DD]
+⇞	kishale kinachoelekea juu chenye mikato miwili		// [21DE]
+⇟	kishale kinachoelekea chini chenye mikato miwili	// [21DF]
+⇠	kishale cha deshi cha kushoto				// [21E0]
+⇡	kishale cha deshi kinachoelekea juu			// [21E1]
+⇢	kishale cha deshi cha kulia				// [21E2]
+⇣	kishale cha deshi kinachoelekea chini			// [21E3]
+⇤	upao wa kishale cha kushoto				// [21E4]
+⇥	upao wa kishale cha kulia				// [21E5]
+⇦	kishale wazi kinachoelekea kushoto			// [21E6]
+⇧	kishale wazi kinachoelekea juu				// [21E7]
+⇨	kishale wazi kinachoelekea kulia			// [21E8]
+⇩	kishale wazi kinachoelekea chini			// [21E9]
+⇪	kishale wazi chenye mkato kinachoelekea juu		// [21EA]
+⇵	kishale cha kushoto chini cha kulia juu			// [21F5]
+∀	kwa yote						// [2200]
+
+// 2200..22FF : Mathematical Operators
+
+∂	mgawango tenguo						// [2202]
+∃	kuna							// [2203]
+∅	seti kapa						// [2205]
+∆	nyongeza						// [2206]
+∇	nabla							// [2207]
+∈	memba ya						// [2208]
+∉	si memba						// [2209]
+∋	ina kama memba						// [220B]
+∎	mwisho wa thibitisho					// [220E]
+∏	zao la mpango wa n					// [220F]
+∑	jumla ya mpango wa n					// [2211]
+−	alama ya kutoa						// [2212]
+∓	jumlisha au toa						// [2213]
+∕	deshi ya gawanya					// [2215]
+∗	kinyota cha kukokotoa					// [2217]
+∘	kiduara cha kukokotoa					// [2218]
+∙	nukta ya kukokotoa					// [2219]
+√	kipeo cha pili						// [221A]
+//∛	cube root							// [221B] other (no translation)
+∝	kadiri							// [221D]
+∞	alama ya isiyokoma					// [221E]
+∟	pembe mraba						// [221F]
+∠	pembe							// [2220]
+∣	hugawanya						// [2223]
+∥	sambamba						// [2225]
+∧	mantiki na						// [2227]
+∩	ungano							// [2229]
+∪	muungano						// [222A]
+∫	rejeo							// [222B]
+∬	rejeo mbili						// [222C]
+∮	rejeo ya kontua						// [222E]
+∴	hivyo basi						// [2234]
+∵	kwa sababu						// [2235]
+∶	uwiano							// [2236]
+∷	kiwango							// [2237]
+∼	kiwimbi cha kikokotoo					// [223C]
+∽	kiwimbi kinyume						// [223D]
+∾	s iliyopindwa kulala					// [223E]
+≃	usawa usopacha						// [2243]
+≅	karibia sawa na						// [2245]
+≈	karibu inalingana					// [2248]
+≌	yote sawa						// [224C]
+≒	inakaribia kuwa sawa na picha				// [2252]
+≖	usawa wa kujumlisha					// [2256]
+≠	hailingani						// [2260]
+≡	inafanana na						// [2261]
+≣	ni sawa kabisa						// [2263]
+≤	chini ya au lingana					// [2264]
+≥	zaidi ya au lingana					// [2265]
+≦	chini ya juu ya sawa					// [2266]
+≧	zaidi ya juu ya sawa					// [2267]
+≪	chache zaidi ya						// [226A]
+≫	kubwa zaidi ya						// [226B]
+≬	kati ya							// [226C]
+≮	si chini ya						// [226E]
+≯	si zaidi ya						// [226F]
+≳	kisawe cha kubwa kuliko					// [2273]
+≺	inatangulia						// [227A]
+≻	inafuata						// [227B]
+⊁	haifuati						// [2281]
+⊂	seti ndogo ya						// [2282]
+⊃	seti kuu						// [2283]
+⊆	sawa na seti ndogo					// [2286]
+⊇	sawa na seti kuu					// [2287]
+⊕	jumlisha kwenye duara					// [2295]
+⊖	ondoa kwenye duara					// [2296]
+⊗	zidisha kwenye duara					// [2297]
+⊘	gawanya kwenye duara					// [2298]
+⊙	nukta ya kukokotoa kwenye duara				// [2299]
+⊚	ringi ya kugawanya kwenye duara				// [229A]
+⊛	kinyota cha kugawanya kwenye duara			// [229B]
+⊞	jumlisha kwenye mraba					// [229E]
+⊟	ondoa kwenye mraba					// [229F]
+⊥	taki wima						// [22A5]
+⊮	hailazimishi						// [22AE]
+⊰	kutangulia kwenye uhusiano				// [22B0]
+⊱	kufuata kwenye uhusiano					// [22B1]
+⊶	asili							// [22B6]
+⊹	solo la unyambuaji wa hermite				// [22B9]
+⊿	pembe tatu mraba					// [22BF]
+⋁	mantiki ya n-ary au					// [22C1]
+⋂	makutano ya n-ary					// [22C2]
+⋃	muunganiko wa n-ary					// [22C3]
+⋅	nukta ya kigawanyaji					// [22C5]
+⋆	nyota ya kigawanyaji					// [22C6]
+⋈	muunganiko asili					// [22C8]
+⋒	makutano pacha						// [22D2]
+⋘	chini zaidi ya						// [22D8]
+⋙	kubwa zidi ya						// [22D9]
+⋭	haina kama kikundi kidogo kwenye sawa			// [22ED]
+⋮	nukta tatu zilizo wima					// [22EE]
+⋯	nukta tatu katikati ya mstari				// [22EF]
+⋰	nukta tatu za kimshazari kulia juu			// [22F0]
+⋱	nukta tatu za kimshazari kulia chini			// [22F1]
+
+// 2300..23FF : Miscellaneous Technical
+
+⌚	saa								// [231A]
+⌛	shisha								// [231B]
+⌨	kibodi								// [2328] text|emoji
+⏏	kitufe cha kutoa						// [23CF] text|emoji
+⏩	kitufe cha kupeleka mbele kwa kasi				// [23E9]
+⏪	kitufe cha kurudisha nyuma kwa kasi				// [23EA]
+⏫	kitufe cha juu kwa kasi						// [23EB]
+⏬	kitufe cha chini kwa kasi					// [23EC]
+⏭	kitufe cha kwenda kwenye wimbo unaofuata			// [23ED] text|emoji
+⏮	kitufe cha kurudia wimbo uliopita				// [23EE] text|emoji
+⏯	kitufe cha kucheza au kusitisha					// [23EF] text|emoji
+⏰	kipima muda							// [23F0]
+⏱	saa ya michezo							// [23F1] text|emoji
+⏲	saa ya kupima muda						// [23F2] text|emoji
+⏳	shisha inayotiririsha mchanga					// [23F3]
+⏸	kitufe cha kusitisha						// [23F8] text|emoji
+⏹	kitufe cha kusimamisha						// [23F9] text|emoji
+⏺	kitufe cha kurekodi						// [23FA] text|emoji
+
+// 2460..24FF : Enclosed Alphanumerics
+
+Ⓜ	herufi M kwenye mduara						// [24C2] text|emoji
+
+// 25A0..25FF : Geometric Shapes
+
+■	mraba uliokolezwa					// [25A0]
+□	mraba ulio wazi						// [25A1]
+▢	mraba wazi ulio na pembe zilizo mviringo		// [25A2]
+▣	mraba wazi ulio na mraba uliojazwa ndani		// [25A3]
+▤	mraba ulio na milia ya mlazo ndani			// [25A4]
+▥	mraba ulio na milia ya wima ndani			// [25A5]
+▦	mraba wenye miraba midogo ndani				// [25A6]
+▧	mraba wenye mishazari ya kushoto kulia			// [25A7]
+▨	mraba wenye mishazari ya kulia kushoto			// [25A8]
+▩	mraba wenye kunguru za mraba				// [25A9]
+▪	mraba mdogo mweusi						// [25AA] text|emoji
+▫	mraba mdogo mweupe						// [25AB] text|emoji
+▬	mstatili uliojazwa					// [25AC]
+▭	mstatili uliowazi					// [25AD]
+▮	mstatili wima uliojazwa					// [25AE]
+▰	msambamba uliojazwa					// [25B0]
+▲	pembetatu iliyojazwa inayoelekea juu			// [25B2]
+△	pembe tatu wazi inayeolekea juu				// [25B3]
+▴	pembe tatu ndogo iliyojazwa				// [25B4]
+▵	pembe tatu ndogo iliyo wazi				// [25B5]
+▶	kitufe cha kucheza						// [25B6] text|emoji
+▷	pembe tatu wazi inayoelekea kulia			// [25B7]
+▸	pembe tatu ndogo iliyojazwa inayoelekea kulia		// [25B8]
+▹	pembe tatu ndogo iliyo wazi inayoelekea kulia		// [25B9]
+►	kiashiria kilichojazwa kinachoelekea kulia		// [25BA]
+▻	kiashiria kilicho wazi kinachoelekea kulia		// [25BB]
+▼	pembetatu iliyojazwa inayoelekea chini			// [25BC]
+▽	pembe tatu wazi inayeolekea chini			// [25BD]
+▾	pembe tatu ndogo iliyojazwa inayoelekea chini		// [25BE]
+▿	pembe tatu ndogo wazi inayoelekea chini			// [25BF]
+◀	kitufe cha kurudisha nyuma					// [25C0] text|emoji
+◁	pembe tatu wazi inayoelekea kushoto			// [25C1]
+◂	pembe tatu ndogo iliyojazwa inayoelekea kushoto		// [25C2]
+◃	pembe tatu ndogo iliyo wazi inayoelekea kushoto		// [25C3]
+◄	kiashiria kilichojazwa kinachoelekea kushoto		// [25C4]
+◅	kiashiria kilicho wazi kinachoelekea kushoto		// [25C5]
+◆	almasi iliyojazwa					// [25C6]
+◇	almasi iliyo wazi					// [25C7]
+◈	almasi wazi iliyo na almasi iliyojazwa			// [25C8]
+◉	duara wazi iliyo na duara iliyojazwa			// [25C9]
+◊	msambamba						// [25CA]
+○	mduara wazi						// [25CB]
+◌	nukta duara						// [25CC]
+◍	duara iliyo na mistari ya wima				// [25CD]
+◎	duara ndani ya duara					// [25CE]
+●	mduara uliojazwa					// [25CF]
+◐	duara iliyojazwa nusu kushoto				// [25D0]
+◑	duara iliyojazwa nusu kulia				// [25D1]
+◒	duara iliyojazwa nusu ya chini				// [25D2]
+◓	duara iliyojazwa nusu ya juu				// [25D3]
+◔	duara iliyojazwa robo ya juu kulia			// [25D4]
+◕	duara isiyojazwa robo ya juu kushoto			// [25D5]
+◖	duara iliyojazwa kipande cha kushoto			// [25D6]
+◗	duara iliyojazwa kipande cha kulia			// [25D7]
+◘	mraba kinyume						// [25D8]
+◙	mraba iliojazwa wenye duara wazi			// [25D9]
+◜	tao la kushoto la robo ya juu ya duara			// [25DC]
+◝	tao la kulia la robo ya juu ya duara			// [25DD]
+◞	tao la kulia la robo ya chini ya duara			// [25DE]
+◟	tao la kushoto la robo ya chini ya duara		// [25DF]
+◠	nusu duara ya juu					// [25E0]
+◡	nusu duara ya chini					// [25E1]
+◢	pembe tatu ya chini ya kulia iliyojazwa			// [25E2]
+◣	pembe tatu ya chini ya kushoto iliyojazwa		// [25E3]
+◤	pembe tatu ya juu ya kushoto iliyojazwa			// [25E4]
+◥	pembe tatu ya juu ya kulia iliyojazwa			// [25E5]
+◦	tundu wazi						// [25E6]
+◯	mduara mkubwa wazi					// [25EF]
+◳	mraba wazi ulio na mraba mdogo robo ya kulia		// [25F3]
+◷	mduara wazi wenye robo ya juu kulia			// [25F7]
+◻	mraba wa wastani mweupe						// [25FB] text|emoji
+◼	mraba wa wastani mweusi						// [25FC] text|emoji
+◽	mraba wastani mdogo mweupe					// [25FD]
+◾	mraba wastani mdogo mweusi					// [25FE]
+◿	pembe tatu ya chini iliyo wazi				// [25FF]
+
+// 2600..26FF : Miscellaneous Symbols
+
+☀	jua								// [2600] text|emoji
+☁	wingu								// [2601] text|emoji
+☂	mwavuli								// [2602] text|emoji
+☃	sanamu ya mtu ya theluji					// [2603] text|emoji
+☄	kimondo								// [2604] text|emoji
+☎	simu								// [260E] text|emoji
+☑	sanduku la kura lenye alama ya tiki				// [2611] text|emoji
+☔	mwavuli na matone ya mvua					// [2614]
+☕	kinywaji moto							// [2615]
+☘	shamroki							// [2618] text|emoji
+☝	kidole cha kwanza kinachoelekeza juu				// [261D] text|emoji
+☠	fuvu na mifupa							// [2620] text|emoji
+☢	mnururisho							// [2622] text|emoji
+☣	tahadhari ya kibayalojia					// [2623] text|emoji
+☦	msalaba								// [2626] text|emoji
+☪	nyota na mwezi mwandamo						// [262A] text|emoji
+☮	alama ya amani							// [262E] text|emoji
+☯	yin yang							// [262F] text|emoji
+☸	gurudumu la dharma						// [2638] text|emoji
+☹	uso ulionuna							// [2639] text|emoji
+☺	uso unaotabasamu						// [263A] text|emoji
+♀	ishara ya jinsia ya kike					// [2640] text|emoji
+♂	ishara ya jinsia ya kiume					// [2642] text|emoji
+♈	nyota ya kondoo							// [2648]
+♉	fahali								// [2649]
+♊	mapacha								// [264A]
+♋	nyota ya kaa							// [264B]
+♌	simba								// [264C]
+♍	mashuke								// [264D]
+♎	mizani								// [264E]
+♏	nyota ya ng’e							// [264F]
+♐	mshale								// [2650]
+♑	nyota ya mbuzi							// [2651]
+♒	ndoo								// [2652]
+♓	nyota ya samaki							// [2653]
+♟	kipande cha saratanji						// [265F] text|emoji
+♠	shupaza								// [2660] text|emoji
+♣	maua								// [2663] text|emoji
+♥	kopa								// [2665] text|emoji
+♦	kisu								// [2666] text|emoji
+♨	chemichemi za maji ya moto					// [2668] text|emoji
+♪	noti ya nane						// [266A]
+♭	kishukisho						// [266D]
+♯	kipandisho						// [266F]
+♻	alama ya kutumia tena						// [267B] text|emoji
+♾	milele								// [267E] text|emoji
+♿	kiti cha magurudumu						// [267F]
+⚒	nyundo na sululu						// [2692] text|emoji
+⚓	nanga								// [2693]
+⚔	panga zilizopishanishwa						// [2694] text|emoji
+⚕	ishara ya taaluma ya matibabu					// [2695] text|emoji
+⚖	mzani								// [2696] text|emoji
+⚗	alembiki							// [2697] text|emoji
+⚙	gia								// [2699] text|emoji
+⚛	alama ya atomu							// [269B] text|emoji
+⚜	ua la yungi							// [269C] text|emoji
+⚠	onyo								// [26A0] text|emoji
+⚡	volteji ya juu							// [26A1]
+⚧	ishara ya wabadili jinsia				// [26A7]
+⚪	mduara mweupe							// [26AA]
+⚫	mduara mweusi							// [26AB]
+⚰	jeneza								// [26B0] text|emoji
+⚱	chombo cha kutia majivu ya maiti aliyechomwa			// [26B1] text|emoji
+⚽	mpira wa miguu							// [26BD]
+⚾	mpira wa besibali						// [26BE]
+⛄	sanamu ya mtu ya theluji bila theluji				// [26C4]
+⛅	jua nyuma ya wingu						// [26C5]
+⛈	wingu pamoja na radi na mvua					// [26C8] text|emoji
+⛎	opichasi							// [26CE]
+⛏	sululu								// [26CF] text|emoji
+⛑	helmeti iliyo na msalaba mweupe					// [26D1] text|emoji
+⛓	minyororo							// [26D3] text|emoji
+⛔	hakuna kuingia							// [26D4]
+⛩	madhabahu ya shinto						// [26E9] text|emoji
+⛪	kanisa								// [26EA]
+⛰	mlima								// [26F0] text|emoji
+⛱	mwavuli ulio kwenye ardhi					// [26F1] text|emoji
+⛲	mlizamu								// [26F2]
+⛳	bendera katika shimo						// [26F3]
+⛴	kivuko								// [26F4] text|emoji
+⛵	mashua								// [26F5]
+⛷	mtu anayecheza mchezo wa kuskii					// [26F7] text|emoji
+⛸	viatu vya kuteleza kwenye theluji				// [26F8] text|emoji
+⛹	mtu na mpira							// [26F9] text|emoji
+⛺	hema								// [26FA]
+⛽	pampu ya mafuta							// [26FD]
+
+// 2700..27BF : Dingbats
+
+✂	makasi								// [2702] text|emoji
+✅	alama nyeupe ya tiki iliyokolea					// [2705]
+✈	eropleni							// [2708] text|emoji
+✉	bahasha								// [2709] text|emoji
+✊	ngumi iliyoinuliwa						// [270A]
+✋	mkono ulioinuliwa						// [270B]
+✌	mkono wa ushindi						// [270C] text|emoji
+✍	mkono unaoandika						// [270D] text|emoji
+✏	penseli								// [270F] text|emoji
+✒	nibu nyeusi							// [2712] text|emoji
+✔	alama ya tiki iliyokolea					// [2714] text|emoji
+✖	alama ya x iliyokolea						// [2716] text|emoji
+✝	msalaba wa kilatini						// [271D] text|emoji
+✡	nyota ya daudi							// [2721] text|emoji
+✨	kumetameta							// [2728]
+✳	kinyota chenye ncha nane					// [2733] text|emoji
+✴	nyota yenye ncha nane						// [2734] text|emoji
+❄	chembe ya theluji						// [2744] text|emoji
+❇	metameta							// [2747] text|emoji
+❌	alama ya kuzidisha						// [274C]
+❎	kitufe cha alama ya kuzidisha					// [274E]
+❓	alama ya kuuliza						// [2753]
+❔	alama nyeupe ya kuuliza						// [2754]
+❕	alama nyeupe ya mshangao					// [2755]
+❗	alama ya mshangao						// [2757]
+❣	pambo la moyo ulio na alama ya mshangao				// [2763] text|emoji
+❤	moyo mwekundu							// [2764] text|emoji
+➕	alama ya kuongeza iliyokolea					// [2795]
+➖	alama ya kutoa iliyokolea					// [2796]
+➗	alama ya kugawanya iliyokolea					// [2797]
+➡	mshale unaoelekeza kulia					// [27A1] text|emoji
+➰	kitanzi kilichopinda						// [27B0]
+➿	kitanzi kilichopinda mara mbili					// [27BF]
+
+// 2900..297F : Supplemental Arrows-B
+
+⤴	mshale wa kulia unaopinda juu					// [2934] text|emoji
+⤵	mshale wa kulia unaopinda chini					// [2935] text|emoji
+⨧	alama ya jumlisha ikiwa na mbili chini			// [2A27]
+⨯	zao la kugawanya vekta					// [2A2F]
+⨼	zao la ndani						// [2A3C]
+⩣	mantiki au upao pacha wa chini				// [2A63]
+⩽	chini ya usawa ulio hanamu				// [2A7D]
+⪍	chini ya juu ya alama ya sawasawa			// [2A8D]
+⪚	laini mbili za sawa na juu ya zaidi ya			// [2A9A]
+⪺	inafuata juu ya karibu sawa na				// [2ABA]
+
+// 2B00..2BFF : Miscellaneous Symbols and Arrows
+
+⬅	mshale unaoelekeza kushoto					// [2B05] text|emoji
+⬆	mshale unaoelekeza juu						// [2B06] text|emoji
+⬇	mshale unaoelekea chini						// [2B07] text|emoji
+⬛	mraba mkubwa mweusi						// [2B1B]
+⬜	mraba mkubwa mweupe						// [2B1C]
+⭐	nyota nyeupe ya wastani						// [2B50]
+⭕	mduara mkubwa							// [2B55]
+
+// 3000..303F : CJK Symbols and Punctuation
+
+〰	dashi iliyopinda						// [3030] text|emoji
+〽	alama ya mbadala ya sehemu					// [303D] text|emoji
+
+// 3200..32FF : Enclosed CJK Letters and Months
+
+㊗	idiografu ya pongezi kwenye mduara				// [3297] text|emoji
+㊙	idiografu ya siri kwenye mduara					// [3299] text|emoji
+﷼	riale							// [FDFC]
+
+// 1F100..1F1FF : Enclosed Alphanumeric Supplement
+
+🅰	kitufe chenye herufi A						// [1F170] text|emoji
+🅱	kitufe chenye herufi B						// [1F171] text|emoji
+🅾	kitufe cha O							// [1F17E] text|emoji
+🅿	kitufe cha P							// [1F17F] text|emoji
+🆎	kitufe chenye herufi AB						// [1F18E]
+🆑	kitufe chenye herufi CL						// [1F191]
+🆒	kitufe chenye neno 'COOL’					// [1F192]
+🆓	kitufe cheney neno 'FREE’					// [1F193]
+🆔	herufi ID kwenye mraba						// [1F194]
+🆕	kitufe chenye neno 'NEW’					// [1F195]
+🆖	kitufe chenye herufi NG						// [1F196]
+🆗	kitufe chenye neno 'OK’						// [1F197]
+🆘	kitufe chenye neno 'SOS’					// [1F198]
+🆙	kitufe cha UP!							// [1F199]
+🆚	kitufe cha VS							// [1F19A]
+🇨🇶	Sark							// [1F1E8 1F1F6]
+
+// 1F200..1F2FF : Enclosed Ideographic Supplement
+
+🈁	katakana koko kwenye mraba					// [1F201]
+🈂	katakana sa kwenye mraba					// [1F202] text|emoji
+🈚	idiografu ya kutoa kwenye mraba					// [1F21A]
+🈯	idiografu ya kidole kwenye mraba				// [1F22F]
+🈲	idiografu ya marufuku kwenye mraba				// [1F232]
+🈳	idiografu tupu kwenye mraba					// [1F233]
+🈴	idiografu ya pamoja kwenye mraba				// [1F234]
+🈵	idiografu ya kujaa kwenye mraba					// [1F235]
+🈶	idiografu ya kuwepo kwenye mraba				// [1F236]
+🈷	idiografu ya mwezi kwenye mraba					// [1F237] text|emoji
+🈸	idiografu ya kutumia kwenye mraba				// [1F238]
+🈹	idiografu ya kugawanya kwenye mraba				// [1F239]
+🈺	idiografu ya kuendesha kwenye mraba				// [1F23A]
+🉐	idiografu ya manufaa kwenye mduara				// [1F250]
+🉑	idiografu ya kukubali kwenye mduara				// [1F251]
+
+// 1F000..1F02F : Mahjong Tiles
+
+🀄	dragoni jekundu la mahjong					// [1F004]
+
+// 1F0A0..1F0FF : Playing Cards
+
+🃏	jokari								// [1F0CF]
+
+// 1F300..1F5FF : Miscellaneous Symbols and Pictographs
+
+🌀	tufani								// [1F300]
+🌁	mandhari yenye ukungu						// [1F301]
+🌂	mwavuli uliokunjwa						// [1F302]
+🌃	usiku wenye nyota						// [1F303]
+🌄	macheo kwenye milima						// [1F304]
+🌅	macheo								// [1F305]
+🌆	mwonekano wa jiji usiku						// [1F306]
+🌇	machweo								// [1F307]
+🌈	upinde wa mvua							// [1F308]
+🌉	daraja usiku							// [1F309]
+🌊	wimbi la maji							// [1F30A]
+🌋	volkano								// [1F30B]
+🌌	kilimia								// [1F30C]
+🌍	tufe linaloonyesha ulaya-afrika					// [1F30D]
+🌎	tufe linaloonyesha amerika					// [1F30E]
+🌏	tufe linaloonyesha asia-australia				// [1F30F]
+🌐	tufe lenye meridiani						// [1F310]
+🌑	mwezi mpya							// [1F311]
+🌒	mwezi mwandamo							// [1F312]
+🌓	mwezi wa robo ya kwanza						// [1F313]
+🌔	mwezi ulioangazwa zaidi ya nusu unaotanda			// [1F314]
+🌕	mwezi kamili							// [1F315]
+🌖	mwezi ulioangazwa zaidi ya nusu unaofifia			// [1F316]
+🌗	mwezi wa robo ya mwisho						// [1F317]
+🌘	mwezi kongo							// [1F318]
+🌙	mwezi unaoandama mwezi mpya					// [1F319]
+🌚	uso wa mwezi mpya						// [1F31A]
+🌛	mwezi wa robo ya kwanza wenye uso				// [1F31B]
+🌜	mwezi wa robo ya mwisho wenye uso				// [1F31C]
+🌝	uso unaokaa mwezi						// [1F31D]
+🌞	uso unaokaa jua							// [1F31E]
+🌟	nyota inayong’aa						// [1F31F]
+🌠	kimwondo							// [1F320]
+🌡	pima joto							// [1F321] text|emoji
+🌤	jua nyuma ya wingu dogo						// [1F324] text|emoji
+🌥	jua nyuma ya wingu kubwa					// [1F325] text|emoji
+🌦	jua nyuma ya wingu lenye mvua					// [1F326] text|emoji
+🌧	wingu lenye mvua						// [1F327] text|emoji
+🌨	wingu lenye theluji						// [1F328] text|emoji
+🌩	wingu lenye radi						// [1F329] text|emoji
+🌪	kimbunga							// [1F32A] text|emoji
+🌫	ukungu								// [1F32B] text|emoji
+🌬	uso unaopuliza upepo						// [1F32C] text|emoji
+🌭	soseji katika mkate						// [1F32D]
+🌮	chapati iliyojazwa vyakula mbalimbali				// [1F32E]
+🌯	mkate wa kimeksiko uliowekwa nyama au maharage ndani		// [1F32F]
+🌰	aina ya njugu							// [1F330]
+🌱	mche								// [1F331]
+🌲	mmea wenye majani mwaka mzima					// [1F332]
+🌳	mti unaopukutika majani yake					// [1F333]
+🌴	mnazi								// [1F334]
+🌵	dungusi kakati							// [1F335]
+🌶	pilipili kali							// [1F336] text|emoji
+🌷	tulipu								// [1F337]
+🌸	ua la mcheri							// [1F338]
+🌹	ua la waridi							// [1F339]
+🌺	haibiskasi							// [1F33A]
+🌻	alizeti								// [1F33B]
+🌼	maua mengi							// [1F33C]
+🌽	mahindi								// [1F33D]
+🌾	shada la mchele							// [1F33E]
+🌿	mimea ya msimu							// [1F33F]
+🍀	klova yenye majani manne					// [1F340]
+🍁	jani la mshira							// [1F341]
+🍂	jani lililoanguka						// [1F342]
+🍃	jani linalopepea kwenye upepo					// [1F343]
+🍄	uyoga								// [1F344]
+🍅	nyanya								// [1F345]
+🍆	biringanya							// [1F346]
+🍇	zabibu								// [1F347]
+🍈	tikiti								// [1F348]
+🍉	tikitimaji							// [1F349]
+🍊	chenza								// [1F34A]
+🍋	limau								// [1F34B]
+🍌	ndizi								// [1F34C]
+🍍	nanasi								// [1F34D]
+🍎	tufaha jekundu							// [1F34E]
+🍏	tufaha la kijani						// [1F34F]
+🍐	pea								// [1F350]
+🍑	pichi								// [1F351]
+🍒	cheri								// [1F352]
+🍓	stroberi							// [1F353]
+🍔	hambaga								// [1F354]
+🍕	piza								// [1F355]
+🍖	nyama kwenye mfupa						// [1F356]
+🍗	paja la kuku							// [1F357]
+🍘	chakula kilichotengenezwa kutoka kwa mchele			// [1F358]
+🍙	mchele uliotengenezwa kwa mtindo wa tufe			// [1F359]
+🍚	wali								// [1F35A]
+🍛	wali ulio na mchuzi wa viungo					// [1F35B]
+🍜	bakuli yenye tambi						// [1F35C]
+🍝	tambi								// [1F35D]
+🍞	mkate								// [1F35E]
+🍟	chipsi								// [1F35F]
+🍠	kiazi kitamu kilichochomwa					// [1F360]
+🍡	dango								// [1F361]
+🍢	odeni								// [1F362]
+🍣	sushi								// [1F363]
+🍤	uduvi iliyokaangwa						// [1F364]
+🍥	keki ya samaki iliyozingwa					// [1F365]
+🍦	aisikrimu laini							// [1F366]
+🍧	aisikrimu iliyotengenezwa kwa barafu iliyokatwakatwa		// [1F367]
+🍨	aisikrimu							// [1F368]
+🍩	kitumbua							// [1F369]
+🍪	biskuti								// [1F36A]
+🍫	chokoleti							// [1F36B]
+🍬	peremende							// [1F36C]
+🍭	pipi								// [1F36D]
+🍮	faluda								// [1F36E]
+🍯	chungu cha asali						// [1F36F]
+🍰	keki								// [1F370]
+🍱	boksi ya kuweka chakula						// [1F371]
+🍲	chungu cha chakula						// [1F372]
+🍳	kupika								// [1F373]
+🍴	uma na kisu							// [1F374]
+🍵	kikombe kisicho na kishikio					// [1F375]
+🍶	kinywaji cha kijapani kinachotengenezwa kwa kuvundika mchele	// [1F376]
+🍷	glasi ya divai							// [1F377]
+🍸	glasi ya kokteli						// [1F378]
+🍹	kinywaji cha tropiki						// [1F379]
+🍺	kikombe cha bia							// [1F37A]
+🍻	vikombe vya bia vilivyogonganishwa				// [1F37B]
+🍼	chupa ya maziwa ya mtoto					// [1F37C]
+🍽	uma na kisu na sahani						// [1F37D] text|emoji
+🍾	chupa yenye kifuniko kilichofunguliwa				// [1F37E]
+🍿	bisi								// [1F37F]
+🎀	utepe								// [1F380]
+🎁	zawadi iliyofungwa						// [1F381]
+🎂	keki ya kusherehekea siku ya kuzaliwa				// [1F382]
+🎃	taa ya malenge yenye umbo la uso wa mtu				// [1F383]
+🎄	mti wa krismasi							// [1F384]
+🎅	baba krismasi							// [1F385]
+🎆	fataki								// [1F386]
+🎇	kimetameta							// [1F387]
+🎈	puto								// [1F388]
+🎉	mapambo ya sherehe						// [1F389]
+🎊	mpira wa mapambo						// [1F38A]
+🎋	mti wa tanabata							// [1F38B]
+🎌	bendera mbili zilizopishana					// [1F38C]
+🎍	mapambo ya msonobari						// [1F38D]
+🎎	wanaserere wa kijapani						// [1F38E]
+🎏	bendera ya kambare mamba					// [1F38F]
+🎐	kengele ya upepo						// [1F390]
+🎑	sherehe ya mwezi						// [1F391]
+🎒	mfuko wa shuleni						// [1F392]
+🎓	kofia inayovaliwa kwenye sherehe za kuhitimu masomo		// [1F393]
+🎖	tuzo ya kijeshi							// [1F396] text|emoji
+🎗	utepe wa ukumbusho						// [1F397] text|emoji
+🎙	maikrofoni ya studio						// [1F399] text|emoji
+🎚	kitelezi cha kurekebisha sauti					// [1F39A] text|emoji
+🎛	vitufe vya kudhibiti						// [1F39B] text|emoji
+🎞	fremu za utepe wa filamu					// [1F39E] text|emoji
+🎟	tiketi za kuingia						// [1F39F] text|emoji
+🎠	farasi inayozunguka						// [1F3A0]
+🎡	gurudumu linalozunguka						// [1F3A1]
+🎢	rola kosta							// [1F3A2]
+🎣	ndoano ya uvuvi							// [1F3A3]
+🎤	maikrofoni							// [1F3A4]
+🎥	kamera ya kurekodi filamu					// [1F3A5]
+🎦	filamu								// [1F3A6]
+🎧	spika za masikioni						// [1F3A7]
+🎨	paleti ya msanii						// [1F3A8]
+🎩	kofia ya mwanamume						// [1F3A9]
+🎪	hema ya sarakasi						// [1F3AA]
+🎫	tiketi								// [1F3AB]
+🎬	ubao wa kuanzisha matukio wakati wa kutengeneza filamu		// [1F3AC]
+🎭	sanaa								// [1F3AD]
+🎮	mchezo wa video							// [1F3AE]
+🎯	kulenga shabaha							// [1F3AF]
+🎰	mashine ya kamari						// [1F3B0]
+🎱	biliadi								// [1F3B1]
+🎲	dadu								// [1F3B2]
+🎳	mchezo wa kuvingirisha matufe chini				// [1F3B3]
+🎴	kadi za karata za maua						// [1F3B4]
+🎵	noti ya muziki							// [1F3B5]
+🎶	manoti ya muziki						// [1F3B6]
+🎷	saksafoni							// [1F3B7]
+🎸	gita								// [1F3B8]
+🎹	kinanda								// [1F3B9]
+🎺	tarumbeta							// [1F3BA]
+🎻	fidla								// [1F3BB]
+🎼	karatasi ya muziki						// [1F3BC]
+🎽	shati ya kukimbia						// [1F3BD]
+🎾	mpira wa tenisi							// [1F3BE]
+🎿	ski								// [1F3BF]
+🏀	mpira wa kikapu							// [1F3C0]
+🏁	bendera yenye mirabaraba					// [1F3C1]
+🏂	mtu anayeteleza kwenye theluji					// [1F3C2]
+🏃	mkimbiaji							// [1F3C3]
+🏄	mtu anayeteleza kwenye mawimbi					// [1F3C4]
+🏅	medali ya michezo						// [1F3C5]
+🏆	kikombe								// [1F3C6]
+🏇	mbio za farasi							// [1F3C7]
+🏈	mpira wa marekani						// [1F3C8]
+🏉	mpira wa raga							// [1F3C9]
+🏊	mwogeleaji							// [1F3CA]
+🏋	mbeba vyuma vizito						// [1F3CB] text|emoji
+🏌	mcheza gofu							// [1F3CC] text|emoji
+🏍	pikipiki							// [1F3CD] text|emoji
+🏎	gari la mashindano						// [1F3CE] text|emoji
+🏏	kriketi								// [1F3CF]
+🏐	mpira wa wavu							// [1F3D0]
+🏑	mpira wa magongo						// [1F3D1]
+🏒	kigoe cha hoki ya barafuni					// [1F3D2]
+🏓	tenisi ya mezani						// [1F3D3]
+🏔	mlima wenye theluji						// [1F3D4] text|emoji
+🏕	kupiga kambi							// [1F3D5] text|emoji
+🏖	ufuo na mwavuli							// [1F3D6] text|emoji
+🏗	ujenzi wa jengo							// [1F3D7] text|emoji
+🏘	majengo ya nyumba						// [1F3D8] text|emoji
+🏙	mwonekano wa jiji						// [1F3D9] text|emoji
+🏚	jengo la nyumba lililochakaa					// [1F3DA] text|emoji
+🏛	jengo la zamani							// [1F3DB] text|emoji
+🏜	jangwa								// [1F3DC] text|emoji
+🏝	kisiwa cha jangwa						// [1F3DD] text|emoji
+🏞	mbuga ya taifa ya wanyama					// [1F3DE] text|emoji
+🏟	uwanja wa michezo						// [1F3DF] text|emoji
+🏠	jengo la nyumba							// [1F3E0]
+🏡	nyumba yenye ua							// [1F3E1]
+🏢	jengo la ofisi							// [1F3E2]
+🏣	posta ya japani							// [1F3E3]
+🏤	posta								// [1F3E4]
+🏥	hospitali							// [1F3E5]
+🏦	benki								// [1F3E6]
+🏧	alama ya ATM							// [1F3E7]
+🏨	hoteli								// [1F3E8]
+🏩	hoteli ya mapenzi						// [1F3E9]
+🏪	duka la karibu							// [1F3EA]
+🏫	shule								// [1F3EB]
+🏬	duka kuu							// [1F3EC]
+🏭	kiwanda								// [1F3ED]
+🏮	taa nyekundu ya karatasi					// [1F3EE]
+🏯	kasri la kijapani						// [1F3EF]
+🏰	kasri								// [1F3F0]
+🏳	kupeperusha bendera nyeupe					// [1F3F3] text|emoji
+🏴	kupeperusha bendera nyeusi					// [1F3F4]
+🏵	waridi								// [1F3F5] text|emoji
+🏷	lebo								// [1F3F7] text|emoji
+🏸	mpira wa vinyoya						// [1F3F8]
+🏹	upinde na mshale						// [1F3F9]
+🏺	jungu								// [1F3FA]
+🏻	ngozi nyeupe							// [1F3FB]
+🏼	ngozi nyeupe kiasi						// [1F3FC]
+🏽	ngozi ya kahawia						// [1F3FD]
+🏾	ngozi nyeusi kiasi						// [1F3FE]
+🏿	ngozi nyeusi							// [1F3FF]
+🐀	panya								// [1F400]
+🐁	kipanya								// [1F401]
+🐂	maksai								// [1F402]
+🐃	nyati								// [1F403]
+🐄	ng’ombe								// [1F404]
+🐅	chui mkubwa mwenye milia					// [1F405]
+🐆	chui								// [1F406]
+🐇	sungura								// [1F407]
+🐈	paka								// [1F408]
+🐉	dragoni								// [1F409]
+🐊	mamba								// [1F40A]
+🐋	nyangumi							// [1F40B]
+🐌	konokono							// [1F40C]
+🐍	nyoka								// [1F40D]
+🐎	farasi								// [1F40E]
+🐏	kondoo dume							// [1F40F]
+🐐	mbuzi								// [1F410]
+🐑	kondoo								// [1F411]
+🐒	tumbili								// [1F412]
+🐓	jogoo								// [1F413]
+🐔	kuku								// [1F414]
+🐕	mbwa								// [1F415]
+🐖	nguruwe								// [1F416]
+🐗	uso wa nguruwe dume						// [1F417]
+🐘	ndovu								// [1F418]
+🐙	pweza								// [1F419]
+🐚	kombe la mzunguko						// [1F41A]
+🐛	mdudu								// [1F41B]
+🐜	siafu								// [1F41C]
+🐝	nyuki								// [1F41D]
+🐞	kombamwiko							// [1F41E]
+🐟	samaki								// [1F41F]
+🐠	samaki wa tropiki						// [1F420]
+🐡	aina ya samaki							// [1F421]
+🐢	mzee kobe							// [1F422]
+🐣	kifaranga kinachoanguliwa					// [1F423]
+🐤	kifaranga							// [1F424]
+🐥	kifaranga kinachotazama mbele					// [1F425]
+🐦	ndege								// [1F426]
+🐧	pengwini							// [1F427]
+🐨	koala								// [1F428]
+🐩	kijibwa								// [1F429]
+🐪	ngamia								// [1F42A]
+🐫	ngamia mwenye vibyongo viwili					// [1F42B]
+🐬	pomboo								// [1F42C]
+🐭	uso wa panya							// [1F42D]
+🐮	uso wa ng’ombe							// [1F42E]
+🐯	uso wa chui milia						// [1F42F]
+🐰	uso wa sungura							// [1F430]
+🐱	uso wa paka							// [1F431]
+🐲	uso wa dragoni							// [1F432]
+🐳	nyangumi anayerusha maji					// [1F433]
+🐴	uso wa farasi							// [1F434]
+🐵	uso wa tumbili							// [1F435]
+🐶	uso wa mbwa							// [1F436]
+🐷	uso wa nguruwe							// [1F437]
+🐸	uso wa chura							// [1F438]
+🐹	uso wa buku							// [1F439]
+🐺	uso wa mbwa mwitu						// [1F43A]
+🐻	uso wa dubu							// [1F43B]
+🐼	uso wa panda							// [1F43C]
+🐽	pua la nguruwe							// [1F43D]
+🐾	nyayo za mnyama							// [1F43E]
+🐿	kindimilia							// [1F43F] text|emoji
+👀	macho								// [1F440]
+👁	jicho								// [1F441] text|emoji
+👂	sikio								// [1F442]
+👃	pua								// [1F443]
+👄	mdomo								// [1F444]
+👅	ulimi								// [1F445]
+👆	kidole cha kwanza kinachoelekeza juu kwa nyuma			// [1F446]
+👇	kidole cha kwanza kinachoelekeza chini kwa nyuma		// [1F447]
+👈	kidole cha kwanza kinachoelekeza kushoto			// [1F448]
+👉	kidole cha kwanza kinachoelekeza kulia				// [1F449]
+👊	ngumi uliyonyooshewa						// [1F44A]
+👋	mkono unaopunga							// [1F44B]
+👌	mkono wa kuonyesha mambo yako shwari				// [1F44C]
+👍	dole gumba juu							// [1F44D]
+👎	dole gumba chini						// [1F44E]
+👏	mikono inayopiga makofi						// [1F44F]
+👐	mikono iliyowazi						// [1F450]
+👑	taji								// [1F451]
+👒	kofia ya mwanamke						// [1F452]
+👓	miwani								// [1F453]
+👔	tai								// [1F454]
+👕	fulana								// [1F455]
+👖	suruali ya jinzi						// [1F456]
+👗	nguo								// [1F457]
+👘	kimono								// [1F458]
+👙	bikini								// [1F459]
+👚	nguo za wanawake						// [1F45A]
+👛	kibeti								// [1F45B]
+👜	mfuko								// [1F45C]
+👝	kipochi								// [1F45D]
+👞	kiatu cha wanaume						// [1F45E]
+👟	kiatu cha kukimbia						// [1F45F]
+👠	kiatu chenye kisigino kirefu					// [1F460]
+👡	ndara ya mwanamke						// [1F461]
+👢	buti la mwanamke						// [1F462]
+👣	nyayo								// [1F463]
+👤	sanamu ya kichwa na mabega ya mtu katika kivuli			// [1F464]
+👥	sanamu za kichwa na mabega ya mtu katika kivuli			// [1F465]
+👦	mvulana								// [1F466]
+👧	msichana							// [1F467]
+👨	mwanamume							// [1F468]
+👩	mwanamke							// [1F469]
+👪	familia								// [1F46A]
+👫	mwanamume na mwanamke walioshikana mikono			// [1F46B]
+👬	wanaume wawili walioshikana mikono				// [1F46C]
+👭	wanawake wawili walioshikana mikono				// [1F46D]
+👮	askari polisi							// [1F46E]
+👯	watu wanaosherehekea						// [1F46F]
+👰	bi harusi aliyevaa shela					// [1F470]
+👱	mtu mwenye nywele za rangi ya shaba au kimanjano		// [1F471]
+👲	mwanamume aliyevaa kofia ya kichina				// [1F472]
+👳	mwanaume aliyefunga kilemba					// [1F473]
+👴	babu								// [1F474]
+👵	bibi								// [1F475]
+👶	mtoto								// [1F476]
+👷	mfanyakazi wa ujenzi						// [1F477]
+👸	binti mfalme							// [1F478]
+👹	zimwi								// [1F479]
+👺	afriti								// [1F47A]
+👻	pepo								// [1F47B]
+👼	mtoto malaika							// [1F47C]
+👽	jitu geni							// [1F47D]
+👾	dubwana geni							// [1F47E]
+👿	kishetani							// [1F47F]
+💀	fuvu								// [1F480]
+💁	mhudumu anayetoa maelezo					// [1F481]
+💂	mlinzi								// [1F482]
+💃	mwanamke anayecheza						// [1F483]
+💄	rangi ya midomo							// [1F484]
+💅	rangi ya kupaka kwenye kucha					// [1F485]
+💆	kukanda uso							// [1F486]
+💇	kukata nywele							// [1F487]
+💈	nguzo ya kinyozi						// [1F488]
+💉	bomba la sindano						// [1F489]
+💊	kidonge								// [1F48A]
+💋	alama ya busu							// [1F48B]
+💌	barua ya mapenzi						// [1F48C]
+💍	pete								// [1F48D]
+💎	kito								// [1F48E]
+💏	busu								// [1F48F]
+💐	shada la maua							// [1F490]
+💑	mume na mke na ishara ya moyo					// [1F491]
+💒	harusi								// [1F492]
+💓	moyo unaodunda							// [1F493]
+💔	moyo uliovunjika						// [1F494]
+💕	mioyo miwili							// [1F495]
+💖	moyo unaong’aa							// [1F496]
+💗	moyo uaokua							// [1F497]
+💘	moyo uliopenyezwa mshale					// [1F498]
+💙	moyo ya samawati						// [1F499]
+💚	moyo wa kijani							// [1F49A]
+💛	moyo wa manjano							// [1F49B]
+💜	moyo wa zambarau						// [1F49C]
+💝	moyo uliofungwa kwa utepe					// [1F49D]
+💞	mioyo inayozunguka						// [1F49E]
+💟	mapambo ya moyo							// [1F49F]
+💠	almasi yenye kitone						// [1F4A0]
+💡	taa								// [1F4A1]
+💢	alama ya hasira							// [1F4A2]
+💣	bomu								// [1F4A3]
+💤	usingizi							// [1F4A4]
+💥	mgongano							// [1F4A5]
+💦	matone ya jasho							// [1F4A6]
+💧	tone								// [1F4A7]
+💨	kuharakisha							// [1F4A8]
+💩	kinyesi								// [1F4A9]
+💪	misuli iliyotunishwa						// [1F4AA]
+💫	kizunguzungu							// [1F4AB]
+💬	kitufe cha usemi						// [1F4AC]
+💭	kitufe cha mawazo						// [1F4AD]
+💮	ua jeupe							// [1F4AE]
+💯	pointi mia moja							// [1F4AF]
+💰	mfuko wa pesa							// [1F4B0]
+💱	sarafu mbalimbali						// [1F4B1]
+💲	alama ya dola							// [1F4B2]
+💳	kadi ya mkopo							// [1F4B3]
+💴	noti ya yeni							// [1F4B4]
+💵	noti ya dola							// [1F4B5]
+💶	noti ya yuro							// [1F4B6]
+💷	noti ya pauni							// [1F4B7]
+💸	pesa za noti zenye mabawa					// [1F4B8]
+💹	chayi inayopanda yenye yeni					// [1F4B9]
+💺	kiti								// [1F4BA]
+💻	kompyuta ndogo							// [1F4BB]
+💼	mkoba								// [1F4BC]
+💽	diski ndogo							// [1F4BD]
+💾	diski laini							// [1F4BE]
+💿	diski								// [1F4BF]
+📀	diski dijitali							// [1F4C0]
+📁	folda ya faili							// [1F4C1]
+📂	folda ya faili iliyofunguliwa					// [1F4C2]
+📃	ukurasa uliokunjwa						// [1F4C3]
+📄	ukurasa unaotazama juu						// [1F4C4]
+📅	kalenda								// [1F4C5]
+📆	kalenda unayoweza kuchana kurasa				// [1F4C6]
+📇	kadi								// [1F4C7]
+📈	chati inayopanda						// [1F4C8]
+📉	chati inayoshuka						// [1F4C9]
+📊	chati ya miraba							// [1F4CA]
+📋	ubao wa kunakili						// [1F4CB]
+📌	pini								// [1F4CC]
+📍	pini yenye kichwa cha mduara					// [1F4CD]
+📎	kishikizo							// [1F4CE]
+📏	rula								// [1F4CF]
+📐	rula ya pembe							// [1F4D0]
+📑	vichupo vya alamisho						// [1F4D1]
+📒	leja								// [1F4D2]
+📓	daftari								// [1F4D3]
+📔	daftari lenye jalada lililopambwa				// [1F4D4]
+📕	kitabu kilichofungwa						// [1F4D5]
+📖	kitabu kilichofunguliwa						// [1F4D6]
+📗	kitabu cha kijani						// [1F4D7]
+📘	kitabu cha samawati						// [1F4D8]
+📙	kitabu cha njano						// [1F4D9]
+📚	vitabu								// [1F4DA]
+📛	beji ya jina							// [1F4DB]
+📜	hati ya kukunja kwa kuviringisha				// [1F4DC]
+📝	hati								// [1F4DD]
+📞	mkono wa simu							// [1F4DE]
+📟	peja								// [1F4DF]
+📠	mashine ya faksi						// [1F4E0]
+📡	antena ya setilaiti						// [1F4E1]
+📢	kipaza sauti							// [1F4E2]
+📣	megafoni							// [1F4E3]
+📤	trei ya majalada ya kutoka					// [1F4E4]
+📥	trei ya majalada ya kuingia					// [1F4E5]
+📦	kifurushi							// [1F4E6]
+📧	barua pepe							// [1F4E7]
+📨	bahasha inayoingia						// [1F4E8]
+📩	bahasha na kishale						// [1F4E9]
+📪	sanduku la barua lililofungwa lenye bendera iliyoshushwa	// [1F4EA]
+📫	sanduku la barua lililofungwa lenye bendera iliyoinuliwa	// [1F4EB]
+📬	sanduku la barua lililofunguliwa lenye bendera iliyoinuliwa	// [1F4EC]
+📭	sanduku la barua lililofunguliwa lenye bendera iliyoshushwa	// [1F4ED]
+📮	sanduku la barua						// [1F4EE]
+📯	honi ya posta							// [1F4EF]
+📰	gazeti								// [1F4F0]
+📱	simu ya mkononi							// [1F4F1]
+📲	simu ya mkononi yenye kishale					// [1F4F2]
+📳	hali ya mtetemo							// [1F4F3]
+📴	zima simu za mkononi						// [1F4F4]
+📵	simu za mkononi haziruhusiwi					// [1F4F5]
+📶	pau za antena							// [1F4F6]
+📷	kamera								// [1F4F7]
+📸	kamera yenye mmweko						// [1F4F8]
+📹	kamera ya kurekodi video					// [1F4F9]
+📺	runinga								// [1F4FA]
+📻	redio								// [1F4FB]
+📼	kaseti ya video							// [1F4FC]
+📽	projekta ya filamu						// [1F4FD] text|emoji
+📿	shanga za maombi						// [1F4FF]
+🔀	kitufe cha kuchanganya						// [1F500]
+🔁	kitufe cha kurudia						// [1F501]
+🔂	kitufe cha kurudia wimbo mmoja					// [1F502]
+🔃	mishale wima inayoelekeza kwa mzunguko wa akrabu		// [1F503]
+🔄	kitufe cha mishale ya kinyume saa				// [1F504]
+🔅	kitufe cha kufifiza mwanga					// [1F505]
+🔆	kitufe cha kuongeza mwanga					// [1F506]
+🔇	spika imezimwa							// [1F507]
+🔈	spika								// [1F508]
+🔉	spika imewashwa							// [1F509]
+🔊	spika yenye sauti ya juu					// [1F50A]
+🔋	betri								// [1F50B]
+🔌	plagi ya umeme							// [1F50C]
+🔍	kioo cha ukuzaji kinachoelekeza kushoto				// [1F50D]
+🔎	kioo cha ukuzaji kinachoelekeza kulia				// [1F50E]
+🔏	kufuli na kalamu						// [1F50F]
+🔐	kufuli iliyofungwa na ufunguo					// [1F510]
+🔑	ufunguo								// [1F511]
+🔒	kufuli								// [1F512]
+🔓	kufuli iliyofunguliwa						// [1F513]
+🔔	kengele								// [1F514]
+🔕	kengele yenye alama ya mkato					// [1F515]
+🔖	alamisho							// [1F516]
+🔗	pete ya mnyororo						// [1F517]
+🔘	kitufe								// [1F518]
+🔙	mshale wa nyuma							// [1F519]
+🔚	mshale wa mwisho						// [1F51A]
+🔛	mshale wa hewani!						// [1F51B]
+🔜	mshale unaoashiria hivi karibuni				// [1F51C]
+🔝	mshale unaoelekea juu						// [1F51D]
+🔞	walio chini ya miaka kumi na nane hawaruhusiwi			// [1F51E]
+🔟	kitufe: 10							// [1F51F]
+🔠	weka herufi kubwa za kilatini					// [1F520]
+🔡	weka hefuri ndogo za kilatini					// [1F521]
+🔢	weka nambari							// [1F522]
+🔣	weka alama							// [1F523]
+🔤	weka herufi za kilatini						// [1F524]
+🔥	moto								// [1F525]
+🔦	kurunzi								// [1F526]
+🔧	spana malaya							// [1F527]
+🔨	nyundo								// [1F528]
+🔩	nati na bolti							// [1F529]
+🔪	kisu kinachotumika jikoni					// [1F52A]
+🔫	bastola								// [1F52B]
+🔬	hadubini							// [1F52C]
+🔭	darubini							// [1F52D]
+🔮	tufe la kioo							// [1F52E]
+🔯	nyota yenye pembe sita na kitone katikati			// [1F52F]
+🔰	alama ya kijapani ya anayeanza					// [1F530]
+🔱	nembo ya chusa chenye ncha tatu, mkuki wa vyembe vitatu		// [1F531]
+🔲	kitufe cheusi cha mraba						// [1F532]
+🔳	kitufe cheupe cha mraba						// [1F533]
+🔴	mduara mwekundu							// [1F534]
+🔵	mduara wa samawati						// [1F535]
+🔶	almasi kubwa ya njano						// [1F536]
+🔷	almasi kubwa ya samawati					// [1F537]
+🔸	almasi ndogo ya njano						// [1F538]
+🔹	almasi ndogo ya samawati					// [1F539]
+🔺	pembetatu inayoelekeza juu					// [1F53A]
+🔻	pembetatu inayoelekeza chini					// [1F53B]
+🔼	kitufe cha juu							// [1F53C]
+🔽	kitufe cha chini						// [1F53D]
+🕉	omu								// [1F549] text|emoji
+🕊	njiwa								// [1F54A] text|emoji
+🕋	kaaba								// [1F54B]
+🕌	msikiti								// [1F54C]
+🕍	hekalu la kiyahudi						// [1F54D]
+🕎	menorah								// [1F54E]
+🕐	saa saba							// [1F550]
+🕑	saa nane							// [1F551]
+🕒	saa tisa							// [1F552]
+🕓	saa kumi							// [1F553]
+🕔	saa kumi na moja						// [1F554]
+🕕	saa kumi na mbili						// [1F555]
+🕖	saa moja							// [1F556]
+🕗	saa mbili							// [1F557]
+🕘	saa tatu							// [1F558]
+🕙	saa nne								// [1F559]
+🕚	saa tano							// [1F55A]
+🕛	saa sita							// [1F55B]
+🕜	saa saba na nusu						// [1F55C]
+🕝	saa nane na nusu						// [1F55D]
+🕞	saa tisa na nusu						// [1F55E]
+🕟	saa kumi na nusu						// [1F55F]
+🕠	saa kumi na moja na nusu					// [1F560]
+🕡	sa kumi na mbili na nusu					// [1F561]
+🕢	saa moja na nusu						// [1F562]
+🕣	saa mbili na nusu						// [1F563]
+🕤	saa tatu na nusu						// [1F564]
+🕥	saa nne na nusu							// [1F565]
+🕦	saa tano na nusu						// [1F566]
+🕧	saa sita na nusu						// [1F567]
+🕯	mshumaa								// [1F56F] text|emoji
+🕰	saa ya mezani							// [1F570] text|emoji
+🕳	shimo								// [1F573] text|emoji
+🕴	mwanaume aliyevaa suti anayeelea hewani				// [1F574] text|emoji
+🕵	mpelelezi							// [1F575] text|emoji
+🕶	miwani ya jua							// [1F576] text|emoji
+🕷	buibui								// [1F577] text|emoji
+🕸	tandabui							// [1F578] text|emoji
+🕹	usukani								// [1F579] text|emoji
+🕺	kusakata rumba							// [1F57A]
+🖇	klipu za karatasi zilizounganishwa				// [1F587] text|emoji
+🖊	kalamu								// [1F58A] text|emoji
+🖋	kalamu ya wino							// [1F58B] text|emoji
+🖌	brashi ya kupaka rangi						// [1F58C] text|emoji
+🖍	penseli laini							// [1F58D] text|emoji
+🖐	mkono ulioinuliwa wenye vidole vilivyotanuliwa			// [1F590] text|emoji
+🖕	kidole cha kati							// [1F595]
+🖖	ishara ya vulkani						// [1F596]
+🖤	moyo								// [1F5A4]
+🖥	kompyuta ya mezani						// [1F5A5] text|emoji
+🖨	printa								// [1F5A8] text|emoji
+🖱	kipanya cha kompyuta						// [1F5B1] text|emoji
+🖲	kitufe cha kompyuta kinachoendesha kishale			// [1F5B2] text|emoji
+🖼	fremu yenye picha						// [1F5BC] text|emoji
+🗂	vigawanishi vya kadi						// [1F5C2] text|emoji
+🗃	sanduku la faili						// [1F5C3] text|emoji
+🗄	kabati la hati							// [1F5C4] text|emoji
+🗑	ndoo la taka							// [1F5D1] text|emoji
+🗒	daftari lililobanwa kwa waya wa mzunguko			// [1F5D2] text|emoji
+🗓	kalenda iliyofungwa kwa waya wa mzunguko			// [1F5D3] text|emoji
+🗜	kubana								// [1F5DC] text|emoji
+🗝	ufunguo wa zamani						// [1F5DD] text|emoji
+🗞	gazeti lililokunjwa						// [1F5DE] text|emoji
+🗡	sime								// [1F5E1] text|emoji
+🗣	kichwa kinachozugumza						// [1F5E3] text|emoji
+🗨	kitufe cha usemi cha kushoto					// [1F5E8] text|emoji
+🗯	kitufe cha usemi wa hasira cha kulia				// [1F5EF] text|emoji
+🗳	sanduku la kupiga kura na kura					// [1F5F3] text|emoji
+🗺	ramani ya dunia							// [1F5FA] text|emoji
+🗻	mlima fuji							// [1F5FB]
+🗼	mnara wa tokyo							// [1F5FC]
+🗽	sanamu ya uhuru							// [1F5FD]
+🗾	ramani ya japani						// [1F5FE]
+🗿	kinyago								// [1F5FF]
+
+// 1F600..1F64F : Emoticons
+
+😀	sura inayokenua							// [1F600]
+😁	uso uliokenua na macho yanayotabasamu				// [1F601]
+😂	uso wenye machozi ya furaha					// [1F602]
+😃	uso unaotabasamu na mdomo uliofunguliwa				// [1F603]
+😄	uso unaotabasamu wenye mdomo uliofunguliwa na macho yanayotabasamu// [1F604]
+😅	uso unaotabasamu wenye tone la jasho na mdomo uliofunguliwa	// [1F605]
+😆	uso unaotabasamu wenye mdomo wazi na macho yaliyofungwa		// [1F606]
+😇	uso unaotabasamu ulio na mduara wa mwangaza juu yake		// [1F607]
+😈	uso unaotabasamu wenye pembe					// [1F608]
+😉	uso unaokonyeza							// [1F609]
+😊	uso unaotabasamu na macho yanayotabasamu			// [1F60A]
+😋	uso unaofurahia chakula kitamu					// [1F60B]
+😌	uso uliofarijika						// [1F60C]
+😍	uso unaotabasamu wenye macho ya umbo la moyo			// [1F60D]
+😎	uso unaotabasamu uliovaa miwani					// [1F60E]
+😏	uso unaobeza							// [1F60F]
+😐	uso uliotulia							// [1F610]
+😑	uso uliojikausha						// [1F611]
+😒	uso usio na furaha						// [1F612]
+😓	uso wenye huzuni na jasho jembamba				// [1F613]
+😔	uso uliozama katika mawazo					// [1F614]
+😕	uso uliochanganyikiwa						// [1F615]
+😖	uso ulioshangazwa						// [1F616]
+😗	uso unaobusu							// [1F617]
+😘	uso unaotoa busu						// [1F618]
+😙	uso unaobusu na macho yanayotabasamu				// [1F619]
+😚	uso unaobusu na macho yaliyofungwa				// [1F61A]
+😛	uso wenye ulimi nje						// [1F61B]
+😜	uso unaotoa ulimi nje na kukonyeza jicho			// [1F61C]
+😝	uso unaotoa ulimi nje na kufunga macho kabisa			// [1F61D]
+😞	uso uliosikitika						// [1F61E]
+😟	uso ulio na wasiwasi						// [1F61F]
+😠	uso uliojaa hasira						// [1F620]
+😡	uso uliobibidua midomo						// [1F621]
+😢	uso unaolia							// [1F622]
+😣	uso unaovumilia							// [1F623]
+😤	uso wenye mvuke unaotoka puani					// [1F624]
+😥	uso uliosikitika lakini unaoonyesha kufarijika			// [1F625]
+😦	uso ulionuna wenye mdomo uliofunguliwa				// [1F626]
+😧	uso unaoonyesha uchungu						// [1F627]
+😨	uso unaoogopa							// [1F628]
+😩	uso unaoonyesha uchovu						// [1F629]
+😪	uso unaosinzia							// [1F62A]
+😫	uso uliochoka							// [1F62B]
+😬	uso uliokunjwa							// [1F62C]
+😭	uso unaolia kwa sauti						// [1F62D]
+😮	uso wenye mdomo ulio wazi					// [1F62E]
+😯	uso ulionyamaa							// [1F62F]
+😰	uso wenye mdomo uliofunguliwa na jasho jembamba			// [1F630]
+😱	uso unaopiga mayowe ya hofu					// [1F631]
+😲	uso uliostaajabu						// [1F632]
+😳	uso uliojawa msisimko						// [1F633]
+😴	uso unaoonyesha usingizi					// [1F634]
+😵	uso unaoonyesha kuwa na kizunguzungu				// [1F635]
+😶	uso bila mdomo							// [1F636]
+😷	uso uliovaa barakoa ya matibabu					// [1F637]
+😸	uso wa paka unaokenua wenye macho yanayotabasamu		// [1F638]
+😹	uso wa paka wenye machozi ya furaha				// [1F639]
+😺	uso wa paka unaocheka ukiwa umefungua mdomo			// [1F63A]
+😻	uso wa paka unaotabasamu wenye macho yenye umbo la moyo		// [1F63B]
+😼	uso wa paka wenye tabasamu la kulazimisha			// [1F63C]
+😽	uso wa paka wenye busu na macho yaliyofungwa			// [1F63D]
+😾	uso wa paka uliobibidua midomo					// [1F63E]
+😿	uso wa paka unaolia						// [1F63F]
+🙀	uso wa paka uliochoka						// [1F640]
+🙁	uso ulionuna kiasi						// [1F641]
+🙂	uso unaotabasamu kwa mbali					// [1F642]
+🙃	uso uliogeuzwa juu chini					// [1F643]
+🙄	usio wenye macho yanayorembua					// [1F644]
+🙅	mtu anayeonyesha ishara ya kukataa				// [1F645]
+🙆	mtu anayeonyesha ishara ya kukubali				// [1F646]
+🙇	mtu aliyeinama							// [1F647]
+🙈	uso wenye macho yaliyofunikwa kwa mikono			// [1F648]
+🙉	uso wenye masikio yaliyofunikwa kwa mikono			// [1F649]
+🙊	uso wenye mdomo uliofunikwa kwa mikono				// [1F64A]
+🙋	mtu mwenye furaha aliyeinua mkono				// [1F64B]
+🙌	mikono iliyoinuliwa						// [1F64C]
+🙍	mtu anayekunja kipaji cha uso					// [1F64D]
+🙎	mtu aliyebibidua midomo						// [1F64E]
+🙏	mikono iliyokunjwa						// [1F64F]
+
+// 1F680..1F6FF : Transport and Map Symbols
+
+🚀	roketi								// [1F680]
+🚁	helikopta							// [1F681]
+🚂	garimoshi							// [1F682]
+🚃	gari la moshi							// [1F683]
+🚄	treni yenye kasi						// [1F684]
+🚅	treni yenye kasi yenye umbo la risasi				// [1F685]
+🚆	treni								// [1F686]
+🚇	metro								// [1F687]
+🚈	reli nyepesi							// [1F688]
+🚉	kituo								// [1F689]
+🚊	tramu								// [1F68A]
+🚋	gari la tramu							// [1F68B]
+🚌	basi								// [1F68C]
+🚍	basi linalokuja							// [1F68D]
+🚎	kiberenge							// [1F68E]
+🚏	kituo cha basi							// [1F68F]
+🚐	basi dogo							// [1F690]
+🚑	ambulansi							// [1F691]
+🚒	gari la zimamoto						// [1F692]
+🚓	gari la polisi							// [1F693]
+🚔	gari la polisi linalokuja					// [1F694]
+🚕	teksi								// [1F695]
+🚖	teksi inayokuja							// [1F696]
+🚗	gari								// [1F697]
+🚘	gari linalokuja							// [1F698]
+🚙	gari la burudani						// [1F699]
+🚚	gari la kusafirisha mizigo					// [1F69A]
+🚛	lori linalobeba mizigo						// [1F69B]
+🚜	trekta								// [1F69C]
+🚝	reli moja							// [1F69D]
+🚞	reli ya milimani						// [1F69E]
+🚟	reli inayoelea angani						// [1F69F]
+🚠	gari linalosafiri milimani kwa kamba				// [1F6A0]
+🚡	tramu inayosafiri angani kwa kamba				// [1F6A1]
+🚢	meli								// [1F6A2]
+🚣	ngalawa								// [1F6A3]
+🚤	mashua ya kasi							// [1F6A4]
+🚥	taa mlalo ya trafiki						// [1F6A5]
+🚦	taa wima ya trafiki						// [1F6A6]
+🚧	ujenzi								// [1F6A7]
+🚨	taa ya gari la polisi						// [1F6A8]
+🚩	bendera yenye pembe						// [1F6A9]
+🚪	mlango								// [1F6AA]
+🚫	imepigwa marufuku						// [1F6AB]
+🚬	sigara iliyowashwa						// [1F6AC]
+🚭	hakuna kuvuta sigara						// [1F6AD]
+🚮	weka taka kwenye pipa						// [1F6AE]
+🚯	hakuna kutupa taka						// [1F6AF]
+🚰	maji safi ya kunywa						// [1F6B0]
+🚱	maji hayafai kwa matumizi ya kunywa				// [1F6B1]
+🚲	baisikeli							// [1F6B2]
+🚳	baisikeli haziruhusiwi						// [1F6B3]
+🚴	mwendesha baisikeli						// [1F6B4]
+🚵	mtu anayeendesha baisikeli mlimani				// [1F6B5]
+🚶	mtu anayetembea							// [1F6B6]
+🚷	watembea kwa miguu hawaruhusiwi					// [1F6B7]
+🚸	watoto wanavuka barabara					// [1F6B8]
+🚹	maliwato ya wanaume						// [1F6B9]
+🚺	maliwato ya wanawake						// [1F6BA]
+🚻	maliwato							// [1F6BB]
+🚼	alama ya mtoto							// [1F6BC]
+🚽	choo								// [1F6BD]
+🚾	msala								// [1F6BE]
+🚿	bafu ya manyunyu						// [1F6BF]
+🛀	mtu anayeoga							// [1F6C0]
+🛁	bafu								// [1F6C1]
+🛂	udhibiti wa pasipoti						// [1F6C2]
+🛃	forodha								// [1F6C3]
+🛄	madai ya mzigo							// [1F6C4]
+🛅	mahali pa kuhifadhi mizigo					// [1F6C5]
+🛋	kochi na taa							// [1F6CB] text|emoji
+🛌	mtu aliyelala kitandani						// [1F6CC]
+🛍	mifuko ya kubeba bidhaa baada ya kununua			// [1F6CD] text|emoji
+🛎	kengele ya mwandazi						// [1F6CE] text|emoji
+🛏	kitanda								// [1F6CF] text|emoji
+🛐	mahali pa kuabudu						// [1F6D0]
+🛑	taa ya kusimama							// [1F6D1]
+🛒	mkokoteni							// [1F6D2]
+🛕	hekalu la kihindi					// [1F6D5]
+🛖	kibanda cha mviringo					// [1F6D6]
+🛗	kambarau						// [1F6D7]
+🛜	pasiwaya						// [1F6DC]
+🛝	mtelezo wa watoto					// [1F6DD]
+🛞	gurudumu						// [1F6DE]
+🛟	boya okozi						// [1F6DF]
+🛠	nyundo na spana malaya						// [1F6E0] text|emoji
+🛡	ngao								// [1F6E1] text|emoji
+🛢	pipa la mafuta							// [1F6E2] text|emoji
+🛣	barabara kuu							// [1F6E3] text|emoji
+🛤	njia ya reli							// [1F6E4] text|emoji
+🛥	motaboti							// [1F6E5] text|emoji
+🛩	ndege ndogo							// [1F6E9] text|emoji
+🛫	ndege inayoondoka						// [1F6EB]
+🛬	ndege inayowasili						// [1F6EC]
+🛰	setilaiti							// [1F6F0] text|emoji
+🛳	meli ya abiria							// [1F6F3] text|emoji
+🛴	skuta								// [1F6F4]
+🛵	pikipiki (skuta)						// [1F6F5]
+🛶	mtumbwi								// [1F6F6]
+🛷	sleji								// [1F6F7]
+🛸	kisahani kinachopaa						// [1F6F8]
+🛹	ubao mtelezo							// [1F6F9]
+🛺	riksho							// [1F6FA]
+🛻	gari la mizigo						// [1F6FB]
+🛼	rolasketi						// [1F6FC]
+
+// 1F780..1F7FF : Geometric Shapes Extended
+🟠	mduara wa chungwa					// [1F7E0]
+🟡	mduara wa manjano					// [1F7E1]
+🟢	mduara wa kijani					// [1F7E2]
+🟣	mduara wa zambarau					// [1F7E3]
+🟤	mduara wa hudhurungi					// [1F7E4]
+🟥	mraba mwekundu						// [1F7E5]
+🟦	mraba wa samawati					// [1F7E6]
+🟧	mraba wa chungwa					// [1F7E7]
+🟨	mraba wa manjano					// [1F7E8]
+🟩	mraba wa kijani						// [1F7E9]
+🟪	mraba wa zambarau					// [1F7EA]
+🟫	mraba wa hudhurungi					// [1F7EB]
+🟰	ishara ya usawa						// [1F7F0]
+🤌	mkono wenye vidole vinavyobana				// [1F90C]
+🤍	moyo mweupe						// [1F90D]
+🤎	moyo wa hudhurungi					// [1F90E]
+🤏	vidole vinavyobana					// [1F90F]
+
+// 1F900..1F9FF : Supplemental Symbols and Pictographs
+
+🤐	uso uliofungwa mdomo kwa zipu					// [1F910]
+🤑	uso unaoonyesha pesa ya noti mdomoni				// [1F911]
+🤒	uso wenye kipimajoto mdomoni					// [1F912]
+🤓	uso wa mjuaji							// [1F913]
+🤔	uso unaotafakari						// [1F914]
+🤕	uso uliofungwa bandeji kichwani					// [1F915]
+🤖	uso wa roboti							// [1F916]
+🤗	uso unaokumbatia						// [1F917]
+🤘	ishara ya pembe							// [1F918]
+🤙	ishara ya nipigie simu”						// [1F919]
+🤚	kuinua mkono							// [1F91A]
+🤛	ngumi ya kulia							// [1F91B]
+🤜	ngumi ya kushoto						// [1F91C]
+🤝	kusalimiana							// [1F91D]
+🤞	ishara ya kubahatisha						// [1F91E]
+🤟	ishara ya nakupenda						// [1F91F]
+🤠	uso wenye kofia							// [1F920]
+🤡	katuni								// [1F921]
+🤢	kichefuchefu							// [1F922]
+🤣	angua kicheko							// [1F923]
+🤤	kutema mate							// [1F924]
+🤥	kudanganya							// [1F925]
+🤦	ishara ya kutoamini						// [1F926]
+🤧	kupiga chafya							// [1F927]
+🤨	uso wenye nyusi zilizoinuka					// [1F928]
+🤩	uso wenye macho ya nyota					// [1F929]
+🤪	uso wa kutania							// [1F92A]
+🤫	uso unaonyamazisha						// [1F92B]
+🤬	uso wenye ishara mdomoni					// [1F92C]
+🤭	uso uliofunika mdomo kwa mkono					// [1F92D]
+🤮	uso unaotapika							// [1F92E]
+🤯	kichwa kinacholipuka						// [1F92F]
+🤰	mwanamke mjamzito						// [1F930]
+🤱	kunyonyesha mtoto						// [1F931]
+🤲	viganja vilivyoshikana						// [1F932]
+🤳	selfie								// [1F933]
+🤴	mwana wa mfalme							// [1F934]
+🤵	mwanamume mwenye tuxedo						// [1F935]
+🤶	mkongwe								// [1F936]
+🤷	ishara ya kutojali						// [1F937]
+🤸	sarakasi							// [1F938]
+🤹	shughuli nyingi							// [1F939]
+🤺	mtu aliyeshika upanga						// [1F93A]
+🤼	wanandondi							// [1F93C]
+🤽	michezo kwenye bwawa la kuogelea				// [1F93D]
+🤾	mpira wa mikono							// [1F93E]
+🤿	barakoa ya kupiga mbizi					// [1F93F]
+🥀	ua lililonyauka							// [1F940]
+🥁	ngoma								// [1F941]
+🥂	kugonga glasi							// [1F942]
+🥃	glasi								// [1F943]
+🥄	kijiko								// [1F944]
+🥅	wavu								// [1F945]
+🥇	nishani ya dhababu						// [1F947]
+🥈	nishani ya fedha						// [1F948]
+🥉	nishani ya shaba						// [1F949]
+🥊	glavu za ndondi							// [1F94A]
+🥋	vazi la karate							// [1F94B]
+🥌	mpira wa kutelezesha						// [1F94C]
+🥍	mchezo wa lakrosi					// [1F94D]
+🥎	besibali							// [1F94E]
+🥏	kurusha kisahani						// [1F94F]
+🥐	mahamri								// [1F950]
+🥑	parachichi							// [1F951]
+🥒	tango								// [1F952]
+🥓	nyama								// [1F953]
+🥔	viazi								// [1F954]
+🥕	karoti								// [1F955]
+🥖	mkate wa kifaransa						// [1F956]
+🥗	kachumbari							// [1F957]
+🥘	kikaango							// [1F958]
+🥙	shawarma							// [1F959]
+🥚	yai								// [1F95A]
+🥛	glasi yenye maziwa						// [1F95B]
+🥜	njugu								// [1F95C]
+🥝	tunda la kiwi							// [1F95D]
+🥞	chapati								// [1F95E]
+🥟	pudini ya kinyunya						// [1F95F]
+🥠	biskuti ya bahati						// [1F960]
+🥡	kisanduku cha chakula						// [1F961]
+🥢	vijiti vya kutumia kula						// [1F962]
+🥣	bakuli lenye kijiko						// [1F963]
+🥤	kikombe chenye mrija						// [1F964]
+🥥	nazi								// [1F965]
+🥦	brokoli								// [1F966]
+🥧	pai								// [1F967]
+🥨	pretzel								// [1F968]
+🥩	kipande cha nyama						// [1F969]
+🥪	sandwichi							// [1F96A]
+🥫	chakula kilicho koponi						// [1F96B]
+🥬	sukumawiki							// [1F96C]
+🥭	embe								// [1F96D]
+🥮	mkate wa sinia							// [1F96E]
+🥯	mkate wa kuoka							// [1F96F]
+🥰	uso wenye tabasamu na maumbo ya moyo				// [1F970]
+🥱	uso unaopiga miayo					// [1F971]
+🥲	uso unaotabasamu na wenye chozi				// [1F972]
+🥳	uso wenye kofia ya karamu					// [1F973]
+🥴	uso uliolewa							// [1F974]
+🥵	uso wenye joto							// [1F975]
+🥶	uso wenye baridi						// [1F976]
+🥷	ninja							// [1F977]
+🥸	uso uliogeuzwa ili kuficha				// [1F978]
+🥹	uso unaolengwalengwa na machozi				// [1F979]
+🥺	uso unaosihi							// [1F97A]
+🥻	sari							// [1F97B]
+🥼	koti jeupe							// [1F97C]
+🥽	miwani ya kuogelea						// [1F97D]
+🥾	kiatu cha kutembea mbali					// [1F97E]
+🥿	kiatu kisicho na kisigino					// [1F97F]
+🦀	kaa								// [1F980]
+🦁	uso wa simba							// [1F981]
+🦂	ng’e								// [1F982]
+🦃	bata mzinga							// [1F983]
+🦄	uso wa farasi mwenye pembe moja					// [1F984]
+🦅	tai (ndege)							// [1F985]
+🦆	bata								// [1F986]
+🦇	popo								// [1F987]
+🦈	papa								// [1F988]
+🦉	bundi								// [1F989]
+🦊	mbweha								// [1F98A]
+🦋	kipepeo								// [1F98B]
+🦌	kulungu								// [1F98C]
+🦍	sokwe								// [1F98D]
+🦎	mjusi								// [1F98E]
+🦏	kifaru								// [1F98F]
+🦐	uduvi								// [1F990]
+🦑	ngisi								// [1F991]
+🦒	twiga								// [1F992]
+🦓	punda milia							// [1F993]
+🦔	nungunungu							// [1F994]
+🦕	sauropodi							// [1F995]
+🦖	T-Rex								// [1F996]
+🦗	nyenje								// [1F997]
+🦘	kangaruu							// [1F998]
+🦙	ilama								// [1F999]
+🦚	tausi								// [1F99A]
+🦛	kiboko								// [1F99B]
+🦜	kasuku								// [1F99C]
+🦝	rakuni								// [1F99D]
+🦞	kambamti							// [1F99E]
+🦟	mbu								// [1F99F]
+🦠	bakteria							// [1F9A0]
+🦡	melesi								// [1F9A1]
+🦢	bata maji							// [1F9A2]
+🦣	tembo wa kale						// [1F9A3]
+🦤	dodo							// [1F9A4]
+🦥	slothi							// [1F9A5]
+🦦	fisi-maji						// [1F9A6]
+🦧	orangutanu sokwe					// [1F9A7]
+🦨	kicheche						// [1F9A8]
+🦩	Flamingo						// [1F9A9]
+🦪	chaza							// [1F9AA]
+🦫	buku							// [1F9AB]
+🦬	baisani							// [1F9AC]
+🦭	sili							// [1F9AD]
+🦮	mbwa wa kuongoza					// [1F9AE]
+🦯	mkongojo wa vipofu					// [1F9AF]
+🦰	nywele nyekundu							// [1F9B0]
+🦱	nywele yenye mawimbi						// [1F9B1]
+🦲	upara								// [1F9B2]
+🦳	nywele nyeupe							// [1F9B3]
+🦴	mfupa								// [1F9B4]
+🦵	mguu								// [1F9B5]
+🦶	wayo								// [1F9B6]
+🦷	jino								// [1F9B7]
+🦸	shujaa								// [1F9B8]
+🦹	jambazi sugu							// [1F9B9]
+🦺	jaketi la usalama					// [1F9BA]
+🦻	sikio lenye kifaa cha kusikia				// [1F9BB]
+🦼	kiti cha magurudumu chenye mota				// [1F9BC]
+🦽	kiti cha magurudumu kisicho na mota			// [1F9BD]
+🦾	mkono bandia						// [1F9BE]
+🦿	mguu bandia						// [1F9BF]
+🧀	kipande cha jibini						// [1F9C0]
+🧁	keki ndogo							// [1F9C1]
+🧂	chumvi								// [1F9C2]
+🧃	chupa ya kinywaji					// [1F9C3]
+🧄	kitunguu saumu						// [1F9C4]
+🧅	kitunguu						// [1F9C5]
+🧆	felafeli						// [1F9C6]
+🧇	mkate wa sega la nyuki					// [1F9C7]
+🧈	siagi							// [1F9C8]
+🧉	kinywaji cha mate					// [1F9C9]
+🧊	kidonge cha barafu					// [1F9CA]
+🧋	chai ya maziwa ya boba					// [1F9CB]
+🧌	jitu							// [1F9CC]
+🧍	mtu aliyesimama						// [1F9CD]
+🧎	mtu aliyepiga magoti					// [1F9CE]
+🧏	kiziwi							// [1F9CF]
+🧐	uso wenye miwani kwenye jicho moja				// [1F9D0]
+🧑	mtu mzima							// [1F9D1]
+🧒	kijana								// [1F9D2]
+🧓	mzee								// [1F9D3]
+🧔	mtu mwenye ndevu						// [1F9D4]
+🧕	mwanamke aliyejifunga kitambaa kichwani				// [1F9D5]
+🧖	mtu katika bafu la mvuke					// [1F9D6]
+🧗	mtu anayekwea							// [1F9D7]
+🧘	mtu anayetaamali						// [1F9D8]
+🧙	mlozi								// [1F9D9]
+🧚	kichimbakazi							// [1F9DA]
+🧛	mnyonya damu							// [1F9DB]
+🧜	nguva mtu							// [1F9DC]
+🧝	kibwengo							// [1F9DD]
+🧞	jini								// [1F9DE]
+🧟	dubwana								// [1F9DF]
+🧠	ubongo								// [1F9E0]
+🧡	moyo wa rangi ya chungwa					// [1F9E1]
+🧢	kofia iliyochorwa emoji						// [1F9E2]
+🧣	shali								// [1F9E3]
+🧤	glavu								// [1F9E4]
+🧥	koti								// [1F9E5]
+🧦	soksi								// [1F9E6]
+🧧	bahasha nyekundu						// [1F9E7]
+🧨	fataki ya kuchezea						// [1F9E8]
+🧩	mchezofumbo							// [1F9E9]
+🧪	neli ya majaribio						// [1F9EA]
+🧫	chombo cha kupondea						// [1F9EB]
+🧬	dna								// [1F9EC]
+🧭	dira								// [1F9ED]
+🧮	abaki								// [1F9EE]
+🧯	kizima moto						// [1F9EF]
+🧰	kisanduku cha vifaa						// [1F9F0]
+🧱	tofali								// [1F9F1]
+🧲	sumaku								// [1F9F2]
+🧳	mzigo								// [1F9F3]
+🧴	chupa ya losheni						// [1F9F4]
+🧵	uzi								// [1F9F5]
+🧶	uzi uliosokotwa							// [1F9F6]
+🧷	kikwasi								// [1F9F7]
+🧸	mwanaserere wa dubu						// [1F9F8]
+🧹	ufagio								// [1F9F9]
+🧺	kikapu								// [1F9FA]
+🧻	karatasi							// [1F9FB]
+🧼	sabuni								// [1F9FC]
+🧽	sifongo								// [1F9FD]
+🧾	risiti								// [1F9FE]
+🧿	hirizi								// [1F9FF]
+
+// Country Flags (Regional Indicator Symbols) -- ISO 3166-1 Country Codes
+
+🇦🇨	bendera: Kisiwa cha Ascension					// [1F1E6 1F1E8] AC
+🇦🇩	bendera: Andorra						// [1F1E6 1F1E9] AD
+🇦🇪	bendera: Falme za Kiarabu					// [1F1E6 1F1EA] AE
+🇦🇫	bendera: Afghanistan						// [1F1E6 1F1EB] AF
+🇦🇬	bendera: Antigua na Barbuda					// [1F1E6 1F1EC] AG
+🇦🇮	bendera: Anguilla						// [1F1E6 1F1EE] AI
+🇦🇱	bendera: Albania						// [1F1E6 1F1F1] AL
+🇦🇲	bendera: Armenia						// [1F1E6 1F1F2] AM
+🇦🇴	bendera: Angola							// [1F1E6 1F1F4] AO
+🇦🇶	bendera: Antaktiki						// [1F1E6 1F1F6] AQ
+🇦🇷	bendera: Ajentina						// [1F1E6 1F1F7] AR
+🇦🇸	bendera: Samoa ya Marekani					// [1F1E6 1F1F8] AS
+🇦🇹	bendera: Austria						// [1F1E6 1F1F9] AT
+🇦🇺	bendera: Australia						// [1F1E6 1F1FA] AU
+🇦🇼	bendera: Aruba							// [1F1E6 1F1FC] AW
+🇦🇽	bendera: Visiwa vya Aland					// [1F1E6 1F1FD] AX
+🇦🇿	bendera: Azerbaijan						// [1F1E6 1F1FF] AZ
+🇧🇦	bendera: Bosnia na Hezegovina					// [1F1E7 1F1E6] BA
+🇧🇧	bendera: Babadosi						// [1F1E7 1F1E7] BB
+🇧🇩	bendera: Bangladeshi						// [1F1E7 1F1E9] BD
+🇧🇪	bendera: Ubelgiji						// [1F1E7 1F1EA] BE
+🇧🇫	bendera: Bukinafaso						// [1F1E7 1F1EB] BF
+🇧🇬	bendera: Bulgaria						// [1F1E7 1F1EC] BG
+🇧🇭	bendera: Bahareni						// [1F1E7 1F1ED] BH
+🇧🇮	bendera: Burundi						// [1F1E7 1F1EE] BI
+🇧🇯	bendera: Benin							// [1F1E7 1F1EF] BJ
+🇧🇱	bendera: St. Barthelemy						// [1F1E7 1F1F1] BL
+🇧🇲	bendera: Bermuda						// [1F1E7 1F1F2] BM
+🇧🇳	bendera: Brunei							// [1F1E7 1F1F3] BN
+🇧🇴	bendera: Bolivia						// [1F1E7 1F1F4] BO
+🇧🇶	bendera: Uholanzi ya Karibiani					// [1F1E7 1F1F6] BQ
+🇧🇷	bendera: Brazil							// [1F1E7 1F1F7] BR
+🇧🇸	bendera: Bahama							// [1F1E7 1F1F8] BS
+🇧🇹	bendera: Bhutan							// [1F1E7 1F1F9] BT
+🇧🇻	bendera: Kisiwa cha Bouvet					// [1F1E7 1F1FB] BV
+🇧🇼	bendera: Botswana						// [1F1E7 1F1FC] BW
+🇧🇾	bendera: Belarus						// [1F1E7 1F1FE] BY
+🇧🇿	bendera: Belize							// [1F1E7 1F1FF] BZ
+🇨🇦	bendera: Kanada							// [1F1E8 1F1E6] CA
+🇨🇨	bendera: Visiwa vya Cocos (Keeling)				// [1F1E8 1F1E8] CC
+🇨🇩	bendera: Jamhuri ya Kidemokrasia ya Kongo			// [1F1E8 1F1E9] CD
+🇨🇫	bendera: Jamhuri ya Afrika ya Kati				// [1F1E8 1F1EB] CF
+🇨🇬	bendera: Kongo - Brazzaville					// [1F1E8 1F1EC] CG
+🇨🇭	bendera: Uswisi							// [1F1E8 1F1ED] CH
+🇨🇮	bendera: Cote d’Ivoire						// [1F1E8 1F1EE] CI
+🇨🇰	bendera: Visiwa vya Cook					// [1F1E8 1F1F0] CK
+🇨🇱	bendera: Chile							// [1F1E8 1F1F1] CL
+🇨🇲	bendera: Kameruni						// [1F1E8 1F1F2] CM
+🇨🇳	bendera: Uchina							// [1F1E8 1F1F3] CN
+🇨🇴	bendera: Kolombia						// [1F1E8 1F1F4] CO
+🇨🇵	bendera: Kisiwa cha Clipperton					// [1F1E8 1F1F5] CP
+🇨🇷	bendera: Kostarika						// [1F1E8 1F1F7] CR
+🇨🇺	bendera: Cuba							// [1F1E8 1F1FA] CU
+🇨🇻	bendera: Cape Verde						// [1F1E8 1F1FB] CV
+🇨🇼	bendera: Curacao						// [1F1E8 1F1FC] CW
+🇨🇽	bendera: Kisiwa cha Krismasi					// [1F1E8 1F1FD] CX
+🇨🇾	bendera: Cyprus							// [1F1E8 1F1FE] CY
+🇨🇿	bendera: Chechia						// [1F1E8 1F1FF] CZ
+🇩🇪	bendera: Ujerumani						// [1F1E9 1F1EA] DE
+🇩🇬	bendera: Diego Garcia						// [1F1E9 1F1EC] DG
+🇩🇯	bendera: Jibuti							// [1F1E9 1F1EF] DJ
+🇩🇰	bendera: Denmark						// [1F1E9 1F1F0] DK
+🇩🇲	bendera: Dominika						// [1F1E9 1F1F2] DM
+🇩🇴	bendera: Jamhuri ya Dominika					// [1F1E9 1F1F4] DO
+🇩🇿	bendera: Aljeria						// [1F1E9 1F1FF] DZ
+🇪🇦	bendera: Ceuta na Melilla					// [1F1EA 1F1E6] EA
+🇪🇨	bendera: Ecuador						// [1F1EA 1F1E8] EC
+🇪🇪	bendera: Estonia						// [1F1EA 1F1EA] EE
+🇪🇬	bendera: Misri							// [1F1EA 1F1EC] EG
+🇪🇭	bendera: Sahara Magharibi					// [1F1EA 1F1ED] EH
+🇪🇷	bendera: Eritrea						// [1F1EA 1F1F7] ER
+🇪🇸	bendera: Uhispania						// [1F1EA 1F1F8] ES
+🇪🇹	bendera: Ethiopia						// [1F1EA 1F1F9] ET
+🇪🇺	bendera: Umoja wa Ulaya						// [1F1EA 1F1FA] EU
+🇫🇮	bendera: Ufini							// [1F1EB 1F1EE] FI
+🇫🇯	bendera: Fiji							// [1F1EB 1F1EF] FJ
+🇫🇰	bendera: Visiwa vya Falkland					// [1F1EB 1F1F0] FI
+🇫🇲	bendera: Micronesia						// [1F1EB 1F1F2] FM
+🇫🇴	bendera: Visiwa vya Faroe					// [1F1EB 1F1F4] FO
+🇫🇷	bendera: Ufaransa						// [1F1EB 1F1F7] FR
+🇬🇦	bendera: Gabon							// [1F1EC 1F1E6] GA
+🇬🇧	Ufalme wa Muungano					// [1F1EC 1F1E7]
+🇬🇩	bendera: Grenada						// [1F1EC 1F1E9] GD
+🇬🇪	bendera: Jojia							// [1F1EC 1F1EA] GE
+🇬🇫	bendera: Guiana ya Ufaransa					// [1F1EC 1F1EB] GF
+🇬🇬	bendera: Guernsey						// [1F1EC 1F1EC] GG
+🇬🇭	bendera: Ghana							// [1F1EC 1F1ED] GH
+🇬🇮	bendera: Gibraltar						// [1F1EC 1F1EE] GI
+🇬🇱	bendera: Greenland						// [1F1EC 1F1F1] GL
+🇬🇲	bendera: Gambia							// [1F1EC 1F1F2] GM
+🇬🇳	bendera: Gine							// [1F1EC 1F1F3] GN
+🇬🇵	bendera: Guadeloupe						// [1F1EC 1F1F5] GP
+🇬🇶	bendera: Guinea ya Ikweta					// [1F1EC 1F1F6] GQ
+🇬🇷	bendera: Ugiriki						// [1F1EC 1F1F7] GR
+🇬🇸	bendera: Georgia Kusini na Visiwa vya Sandwich Kusini		// [1F1EC 1F1F8] GS
+🇬🇹	bendera: Guatemala						// [1F1EC 1F1F9] GT
+🇬🇺	bendera: Guam							// [1F1EC 1F1FA] GU
+🇬🇼	bendera: Ginebisau						// [1F1EC 1F1FC] GW
+🇬🇾	bendera: Guyana							// [1F1EC 1F1FE] GY
+🇭🇰	bendera: Hong Kong SAR China					// [1F1ED 1F1F0] HK
+🇭🇲	bendera: Kisiwa cha Heard na Visiwa vya McDonald		// [1F1ED 1F1F2] HM
+🇭🇳	bendera: Honduras						// [1F1ED 1F1F3] HN
+🇭🇷	bendera: Croatia						// [1F1ED 1F1F7] HR
+🇭🇹	bendera: Haiti							// [1F1ED 1F1F9] HT
+🇭🇺	bendera: Hungaria						// [1F1ED 1F1FA] HU
+🇮🇨	bendera: Visiwa vya Kanari					// [1F1EE 1F1E8] IC
+🇮🇩	bendera: Indonesia						// [1F1EE 1F1E9] ID
+🇮🇪	bendera: Ayalandi						// [1F1EE 1F1EA] IE
+🇮🇱	bendera: Israeli						// [1F1EE 1F1F1] IL
+🇮🇲	bendera: Isle of Man						// [1F1EE 1F1F2] IM
+🇮🇳	bendera: India							// [1F1EE 1F1F3] IN
+🇮🇴	bendera: Eneo la Uingereza katika Bahari Hindi			// [1F1EE 1F1F4] IO
+🇮🇶	bendera: Iraki							// [1F1EE 1F1F6] IQ
+🇮🇷	bendera: Iran							// [1F1EE 1F1F7] IR
+🇮🇸	bendera: Aislandi						// [1F1EE 1F1F8] IS
+🇮🇹	bendera: Italia							// [1F1EE 1F1F9] IT
+🇯🇪	bendera: Jersey							// [1F1EF 1F1EA] JE
+🇯🇲	bendera: Jamaika						// [1F1EF 1F1F2] JM
+🇯🇴	bendera: Jordan							// [1F1EF 1F1F4] JO
+🇯🇵	bendera: Japani							// [1F1EF 1F1F5] JP
+🇰🇪	bendera: Kenya							// [1F1F0 1F1EA] KE
+🇰🇬	bendera: Kirigizistani						// [1F1F0 1F1EC] KG
+🇰🇭	bendera: Kambodia						// [1F1F0 1F1ED] KH
+🇰🇮	bendera: Kiribati						// [1F1F0 1F1EE] KI
+🇰🇲	bendera: Komoro							// [1F1F0 1F1F2] KM
+🇰🇳	bendera: St. Kitts na Nevis					// [1F1F0 1F1F3] KN
+🇰🇵	bendera: Korea Kaskazini					// [1F1F0 1F1F5] KP
+🇰🇷	bendera: Korea Kusini						// [1F1F0 1F1F7] KR
+🇰🇼	bendera: Kuwait							// [1F1F0 1F1FC] KW
+🇰🇾	bendera: Visiwa vya Cayman					// [1F1F0 1F1FE] KY
+🇰🇿	bendera: Kazakistani						// [1F1F0 1F1FF] KZ
+🇱🇦	bendera: Laos							// [1F1F1 1F1E6] LA
+🇱🇧	bendera: Lebanon						// [1F1F1 1F1E7] LB
+🇱🇨	bendera: St. Lucia						// [1F1F1 1F1E8] LC
+🇱🇮	bendera: Liechtenstein						// [1F1F1 1F1EE] LI
+🇱🇰	bendera: Sri Lanka						// [1F1F1 1F1F0] LK
+🇱🇷	bendera: Liberia						// [1F1F1 1F1F7] LR
+🇱🇸	bendera: Lesoto							// [1F1F1 1F1F8] LS
+🇱🇹	bendera: Lithuania						// [1F1F1 1F1F9] LT
+🇱🇺	bendera: Luxembourg						// [1F1F1 1F1FA] LU
+🇱🇻	bendera: Latvia							// [1F1F1 1F1FB] LV
+🇱🇾	bendera: Libya							// [1F1F1 1F1FE] LY
+🇲🇦	bendera: Morocco						// [1F1F2 1F1E6] MA
+🇲🇨	bendera: Monaco							// [1F1F2 1F1E8] MC
+🇲🇩	bendera: Moldova						// [1F1F2 1F1E9] MD
+🇲🇪	bendera: Montenegro						// [1F1F2 1F1EA] ME
+🇲🇫	bendera: St. Martin						// [1F1F2 1F1EB] MF
+🇲🇬	bendera: Madagaska						// [1F1F2 1F1EC] MG
+🇲🇭	bendera: Visiwa vya Marshall					// [1F1F2 1F1ED] MH
+🇲🇰	bendera: Macedonia						// [1F1F2 1F1F0] MK
+🇲🇱	bendera: Mali							// [1F1F2 1F1F1] ML
+🇲🇲	bendera: Myanmar (Burma)					// [1F1F2 1F1F2] MM
+🇲🇳	bendera: Mongolia						// [1F1F2 1F1F3] MN
+🇲🇴	bendera: Macau SAR China					// [1F1F2 1F1F4] MO
+🇲🇵	bendera: Visiwa vya Mariana vya Kaskazini			// [1F1F2 1F1F5] MP
+🇲🇶	bendera: Martinique						// [1F1F2 1F1F6] MQ
+🇲🇷	bendera: Moritania						// [1F1F2 1F1F7] MR
+🇲🇸	bendera: Montserrat						// [1F1F2 1F1F8] MS
+🇲🇹	bendera: Malta							// [1F1F2 1F1F9] MT
+🇲🇺	bendera: Morisi							// [1F1F2 1F1FA] MU
+🇲🇻	bendera: Maldives						// [1F1F2 1F1FB] MV
+🇲🇼	bendera: Malawi							// [1F1F2 1F1FC] MW
+🇲🇽	bendera: Meksiko						// [1F1F2 1F1FD] MX
+🇲🇾	bendera: Malesia						// [1F1F2 1F1FE] MY
+🇲🇿	bendera: Msumbiji						// [1F1F2 1F1FF] MZ
+🇳🇦	bendera: Namibia						// [1F1F3 1F1E6] NA
+🇳🇨	bendera: New Caledonia						// [1F1F3 1F1E8] NC
+🇳🇪	bendera: Niger							// [1F1F3 1F1EA] NE
+🇳🇫	bendera: Kisiwa cha Norfolk					// [1F1F3 1F1EB] NF
+🇳🇬	bendera: Nigeria						// [1F1F3 1F1EC] NG
+🇳🇮	bendera: Nikaragwa						// [1F1F3 1F1EE] NI
+🇳🇱	bendera: Uholanzi						// [1F1F3 1F1F1] NL
+🇳🇴	bendera: Norway							// [1F1F3 1F1F4] NO
+🇳🇵	bendera: Nepal							// [1F1F3 1F1F5] NP
+🇳🇷	bendera: Nauru							// [1F1F3 1F1F7] NR
+🇳🇺	bendera: Niue							// [1F1F3 1F1FA] NU
+🇳🇿	bendera: Nyuzilandi						// [1F1F3 1F1FF] NZ
+🇴🇲	bendera: Oman							// [1F1F4 1F1F2] OM
+🇵🇦	bendera: Panama							// [1F1F5 1F1E6] PA
+🇵🇪	bendera: Peru							// [1F1F5 1F1EA] PE
+🇵🇫	bendera: Polynesia ya Ufaransa					// [1F1F5 1F1EB] PF
+🇵🇬	bendera: Papua New Guinea					// [1F1F5 1F1EC] PG
+🇵🇭	bendera: Ufilipino						// [1F1F5 1F1ED] PH
+🇵🇰	bendera: Pakistani						// [1F1F5 1F1F0] PK
+🇵🇱	bendera: Poland							// [1F1F5 1F1F1] PL
+🇵🇲	bendera: Santapierre na Miquelon				// [1F1F5 1F1F2] PM
+🇵🇳	bendera: Visiwa vya Pitcairn					// [1F1F5 1F1F3] PN
+🇵🇷	bendera: Puerto Rico						// [1F1F5 1F1F7] PR
+🇵🇸	bendera: Maeneo ya Palestina					// [1F1F5 1F1F8] PS
+🇵🇹	bendera: Ureno							// [1F1F5 1F1F9] PT
+🇵🇼	bendera: Palau							// [1F1F5 1F1FC] PW
+🇵🇾	bendera: Paraguay						// [1F1F5 1F1FE] PY
+🇶🇦	bendera: Qatar							// [1F1F6 1F1E6] QA
+🇷🇪	bendera: Reunion						// [1F1F7 1F1EA] RE
+🇷🇴	bendera: Romania						// [1F1F7 1F1F4] RO
+🇷🇸	bendera: Serbia							// [1F1F7 1F1F8] RS
+🇷🇺	bendera: Urusi							// [1F1F7 1F1FA] RU
+🇷🇼	bendera: Rwanda							// [1F1F7 1F1FC] RW
+🇸🇦	bendera: Saudia							// [1F1F8 1F1E6] SA
+🇸🇧	bendera: Visiwa vya Solomon					// [1F1F8 1F1E7] SB
+🇸🇨	bendera: Ushelisheli						// [1F1F8 1F1E8] SC
+🇸🇩	bendera: Sudan							// [1F1F8 1F1E9] SD
+🇸🇪	bendera: Uswidi							// [1F1F8 1F1EA] SE
+🇸🇬	bendera: Singapore						// [1F1F8 1F1EC] SG
+🇸🇭	bendera: St. Helena						// [1F1F8 1F1ED] SH
+🇸🇮	bendera: Slovenia						// [1F1F8 1F1EE] SI
+🇸🇯	bendera: Svalbard na Jan Mayen					// [1F1F8 1F1EF] SJ
+🇸🇰	bendera: Slovakia						// [1F1F8 1F1F0] SK
+🇸🇱	bendera: Siera Leoni						// [1F1F8 1F1F1] SL
+🇸🇲	bendera: San Marino						// [1F1F8 1F1F2] SM
+🇸🇳	bendera: Senegali						// [1F1F8 1F1F3] SN
+🇸🇴	bendera: Somalia						// [1F1F8 1F1F4] SO
+🇸🇷	bendera: Suriname						// [1F1F8 1F1F7] SR
+🇸🇸	bendera: Sudan Kusini						// [1F1F8 1F1F8] SS
+🇸🇹	bendera: São Tomé na Príncipe					// [1F1F8 1F1F9] ST
+🇸🇻	bendera: El Salvador						// [1F1F8 1F1FB] SV
+🇸🇽	bendera: Sint Maarten						// [1F1F8 1F1FD] SX
+🇸🇾	bendera: Syria							// [1F1F8 1F1FE] SY
+🇸🇿	bendera: Uswazi							// [1F1F8 1F1FF] SZ
+🇹🇦	bendera: Tristan da Cunha					// [1F1F9 1F1E6] TA
+🇹🇨	bendera: Visiwa vya Turks na Caicos				// [1F1F9 1F1E8] TC
+🇹🇩	bendera: Chad							// [1F1F9 1F1E9] TD
+🇹🇫	bendera: Maeneo ya Kusini ya Ufaransa				// [1F1F9 1F1EB] TF
+🇹🇬	bendera: Togo							// [1F1F9 1F1EC] TG
+🇹🇭	bendera: Tailandi						// [1F1F9 1F1ED] TH
+🇹🇯	bendera: Tajikistani						// [1F1F9 1F1EF] TJ
+🇹🇰	bendera: Tokelau						// [1F1F9 1F1F0] TK
+🇹🇱	bendera: Timor-Leste						// [1F1F9 1F1F1] TL
+🇹🇲	bendera: Turkmenistan						// [1F1F9 1F1F2] TM
+🇹🇳	bendera: Tunisia						// [1F1F9 1F1F3] TN
+🇹🇴	bendera: Tonga							// [1F1F9 1F1F4] TO
+🇹🇷	bendera: Uturuki						// [1F1F9 1F1F7] TR
+🇹🇹	bendera: Trinidad na Tobago					// [1F1F9 1F1F9] TT
+🇹🇻	bendera: Tuvalu							// [1F1F9 1F1FB] TV
+🇹🇼	bendera: Taiwan							// [1F1F9 1F1FC] TW
+🇹🇿	bendera: Tanzania						// [1F1F9 1F1FF] TZ
+🇺🇦	bendera: Ukraine						// [1F1FA 1F1E6] UA
+🇺🇬	bendera: Uganda							// [1F1FA 1F1EC] UG
+🇺🇲	bendera: Visiwa Vidogo vya Nje vya Marekani			// [1F1FA 1F1F2] UM
+🇺🇳	bendera: Umoja wa Mataifa					// [1F1FA 1F1F3] UN
+🇺🇸	bendera: Marekani						// [1F1FA 1F1F8] US
+🇺🇾	bendera: Uruguay						// [1F1FA 1F1FE] UY
+🇺🇿	bendera: Uzibekistani						// [1F1FA 1F1FF] UZ
+🇻🇦	bendera: Mji wa Vatican						// [1F1FB 1F1E6] VA
+🇻🇨	bendera: St. Vincent na Grenadines				// [1F1FB 1F1E8] VC
+🇻🇪	bendera: Venezuela						// [1F1FB 1F1EA] VE
+🇻🇬	bendera: Visiwa vya Virgin, Uingereza				// [1F1FB 1F1EC] VG
+🇻🇮	bendera: Visiwa vya Virgin, Marekani				// [1F1FB 1F1EE] VI
+🇻🇳	bendera: Vietnam						// [1F1FB 1F1F3] VN
+🇻🇺	bendera: Vanuatu						// [1F1FB 1F1FA] VU
+🇼🇫	bendera: Wallis na Futuna					// [1F1FC 1F1EB] WF
+🇼🇸	bendera: Samoa							// [1F1FC 1F1F8] WS
+🇽🇰	bendera: Kosovo							// [1F1FD 1F1F0] XK
+🇾🇪	bendera: Yemeni							// [1F1FE 1F1EA] YE
+🇾🇹	bendera: Mayotte						// [1F1FE 1F1F9] YT
+🇿🇦	bendera: Afrika Kusini						// [1F1FF 1F1E6] ZA
+🇿🇲	bendera: Zambia							// [1F1FF 1F1F2] ZM
+🇿🇼	bendera: Zimbabwe						// [1F1FF 1F1FC] ZW
+
+// Subdivision Flags -- ISO 3166-2 Subdivision Codes
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿	bendera: Uingereza					// [1F3F4 E0067 E0062 E0065 E006E E0067 E007F]
+🏴󠁧󠁢󠁳󠁣󠁴󠁿	bendera: Uskoti						// [1F3F4 E0067 E0062 E0073 E0063 E0074 E007F]
+🏴󠁧󠁢󠁷󠁬󠁳󠁿	bendera: Wales						// [1F3F4 E0067 E0062 E0077 E006C E0073 E007F]
+
+// Keycaps (NOTE: keycap 10 is a single Unicode codepoint)
+
+#️⃣	kitufe: #							// [0023 FE0F 20E3]
+*️⃣	kitufe: *							// [002A FE0F 20E3]
+0️⃣	kitufe: 0							// [0030 FE0F 20E3]
+1️⃣	kitufe: 1							// [0031 FE0F 20E3]
+2️⃣	kitufe: 2							// [0032 FE0F 20E3]
+3️⃣	kitufe: 3							// [0033 FE0F 20E3]
+4️⃣	kitufe: 4							// [0034 FE0F 20E3]
+5️⃣	kitufe: 5							// [0035 FE0F 20E3]
+6️⃣	kitufe: 6							// [0036 FE0F 20E3]
+7️⃣	kitufe: 7							// [0037 FE0F 20E3]
+8️⃣	kitufe: 8							// [0038 FE0F 20E3]
+9️⃣	kitufe: 9							// [0039 FE0F 20E3]
+
+// 1FA70..1FAFF : Symbols and Pictographs Extended-A
+🩰	viatu vya bale						// [1FA70]
+🩱	nguo ya kuogelea					// [1FA71]
+🩲	chupi							// [1FA72]
+🩳	kaptura							// [1FA73]
+🩴	ndara							// [1FA74]
+🩵	moyo wa buluu hafifu					// [1FA75]
+🩶	moyo wa kijivu						// [1FA76]
+🩷	moyo wa waridi						// [1FA77]
+🩸	tone la damu						// [1FA78]
+🩹	bendeji inayonata					// [1FA79]
+🩺	stetoskopu						// [1FA7A]
+🩻	eksirei							// [1FA7B]
+🩼	gongo							// [1FA7C]
+🪀	kigurudumu cha uzi					// [1FA80]
+🪁	kishada							// [1FA81]
+🪂	parachuti						// [1FA82]
+🪃	bumerangi						// [1FA83]
+🪄	kifimbo cha mazingaombwe				// [1FA84]
+🪅	pinata							// [1FA85]
+🪆	mwanaserere wa kirusi					// [1FA86]
+🪇	maraka							// [1FA87]
+🪈	zumari							// [1FA88]
+🪉	kinubi							// [1FA89]
+🪏	sepetu							// [1FA8F]
+🪐	sayari yenye duara					// [1FA90]
+🪑	kiti							// [1FA91]
+🪒	wembe							// [1FA92]
+🪓	shoka							// [1FA93]
+🪔	taa ya diya						// [1FA94]
+🪕	gambusi							// [1FA95]
+🪖	kofia ya wanajeshi					// [1FA96]
+🪗	kodiani							// [1FA97]
+🪘	ngoma refu						// [1FA98]
+🪙	sarafu							// [1FA99]
+🪚	msumeno							// [1FA9A]
+🪛	bisibisi						// [1FA9B]
+🪜	ngazi							// [1FA9C]
+🪝	ndoano							// [1FA9D]
+🪞	kioo							// [1FA9E]
+🪟	dirisha							// [1FA9F]
+🪠	kizibuo							// [1FAA0]
+🪡	sindano ya kushona					// [1FAA1]
+🪢	fundo							// [1FAA2]
+🪣	ndoo							// [1FAA3]
+🪤	mtego wa panya						// [1FAA4]
+🪥	mswaki							// [1FAA5]
+🪦	jiwe la kaburi						// [1FAA6]
+🪧	bango							// [1FAA7]
+🪨	mwamba							// [1FAA8]
+🪩	tufe la vioo						// [1FAA9]
+🪪	kitambulisho						// [1FAAA]
+🪫	betri iliyopungua chaji					// [1FAAB]
+🪬	ishara ya hamsa						// [1FAAC]
+🪭	feni ya kujipepeta					// [1FAAD]
+🪮	kitana							// [1FAAE]
+🪯	khanda							// [1FAAF]
+🪰	nzi							// [1FAB0]
+🪱	mnyoo							// [1FAB1]
+🪲	mende							// [1FAB2]
+🪳	kombamwiko						// [1FAB3]
+🪴	mmea ndani ya mkebe					// [1FAB4]
+🪵	kuni							// [1FAB5]
+🪶	unyoya							// [1FAB6]
+🪷	yungiyungi						// [1FAB7]
+🪸	matumbawe						// [1FAB8]
+🪹	kiota tupu						// [1FAB9]
+🪺	kiota chenye mayai					// [1FABA]
+🪻	hyacinthi						// [1FABB]
+🪼	kiwavi wa baharini					// [1FABC]
+🪽	bawa							// [1FABD]
+🪾	mti bila majani						// [1FABE]
+🪿	bata bukini						// [1FABF]
+🫀	moyo							// [1FAC0]
+🫁	mapafu							// [1FAC1]
+🫂	watu wanaokumbatiana					// [1FAC2]
+🫃	mwanamume mwenye kitambi				// [1FAC3]
+🫄	mtu mwenye mimba					// [1FAC4]
+🫅	kichwa chenye taji					// [1FAC5]
+🫆	alama ya kidole						// [1FAC6]
+🫎	kongoni							// [1FACE]
+🫏	punda							// [1FACF]
+🫐	forosadi						// [1FAD0]
+🫑	pilipili boga						// [1FAD1]
+🫒	zeituni							// [1FAD2]
+🫓	chapati ya maji						// [1FAD3]
+🫔	tamale							// [1FAD4]
+🫕	jibini iliyoyeyushwa					// [1FAD5]
+🫖	birika la chai						// [1FAD6]
+🫗	kinywaji kinachomiminika				// [1FAD7]
+🫘	maharagwe						// [1FAD8]
+🫙	chupa kubwa						// [1FAD9]
+🫚	tangawizi						// [1FADA]
+🫛	ganda la njegere					// [1FADB]
+🫜	mzizi mboga						// [1FADC]
+🫟	mtawanyiko						// [1FADF]
+🫠	uso unaoyeyuka						// [1FAE0]
+🫡	uso unaopiga saluti					// [1FAE1]
+🫢	uso wenye macho wazi na mkono kwenye mdomo		// [1FAE2]
+🫣	uso wenye macho yanayochungulia				// [1FAE3]
+🫤	uso wenye mdomo uliopinda				// [1FAE4]
+🫥	uso uliochorwa kwa vitone				// [1FAE5]
+🫦	kuuma mdomo						// [1FAE6]
+🫧	viputo							// [1FAE7]
+🫨	uso unaotikisika					// [1FAE8]
+🫩	uso wenye macho yaliyovimba				// [1FAE9]
+🫰	vidole vya shahada na gumba vinavyopitana		// [1FAF0]
+🫱	mkono unaoelekea kulia					// [1FAF1]
+🫲	mkono unaoelekea kushoto				// [1FAF2]
+🫳	mkono wenye kiganja kinachoelekea chini			// [1FAF3]
+🫴	mkono wenye kiganja kinachoelekea juu			// [1FAF4]
+🫵	kidole cha shahada kinachomwelekea mtazamaji		// [1FAF5]
+🫶	mikono inayoonyesha ishara ya moyo			// [1FAF6]
+🫷	mkono unaosukuma kushoto				// [1FAF7]
+🫸	mkono unaosukuma kulia					// [1FAF8]
+
+// Emoji ZWJ Sequence: Family
+
+⛓‍💥	myororo uliokatika					// [26D3 200D 1F4A5]
+❤‍🔥	moyo unaochomeka					// [2764 200D 1F525]
+❤‍🩹	kurekebisha moyo					// [2764 200D 1FA79]
+🍄‍🟫	uyoga kahawia						// [1F344 200D 1F7EB]
+🍋‍🟩	ndimu							// [1F34B 200D 1F7E9]
+🏃‍♀‍➡	mwanamke anayekimbia inayoangalia kulia			// [1F3C3 200D 2640 200D 27A1]
+🏃‍♂‍➡	mwanamume anayekimbia inayoangalia kulia		// [1F3C3 200D 2642 200D 27A1]
+🏃‍➡	mkimbiaji inayoangalia kulia				// [1F3C3 200D 27A1]
+🏳‍⚧	bendera ya wageuza jinsia				// [1F3F3 200D 26A7]
+🐈‍⬛	paka mweusi						// [1F408 200D 2B1B]
+🐕‍🦺	mbwa msaidizi						// [1F415 200D 1F9BA]
+🐦‍⬛	ndege mweusi						// [1F426 200D 2B1B]
+🐦‍🔥	finiksi							// [1F426 200D 1F525]
+🐻‍❄	dubu barafu						// [1F43B 200D 2744]
+👨‍🍼	mwanamume anayemlisha mtoto				// [1F468 200D 1F37C]
+👨‍🦯	mwanamume anayetembea kwa mkongojo			// [1F468 200D 1F9AF]
+👨‍🦯‍➡	mwanamume anayetembea kwa mkongojo inayoangalia kulia	// [1F468 200D 1F9AF 200D 27A1]
+👨‍🦰	mwanamume nywele nyekundu				// [1F468 200D 1F9B0]
+👨‍🦱	mwanamume nywele yenye mawimbi				// [1F468 200D 1F9B1]
+👨‍🦲	mwanamume upara						// [1F468 200D 1F9B2]
+👨‍🦳	mwanamume nywele nyeupe					// [1F468 200D 1F9B3]
+👨‍🦼	Mtu aliyeketi kwenye kiti cha magurudumu		// [1F468 200D 1F9BC]
+👨‍🦼‍➡	Mtu aliyeketi kwenye kiti cha magurudumu inayoangalia kulia	// [1F468 200D 1F9BC 200D 27A1]
+👨‍🦽	mwanamume anayejiendesha kwa kiti cha magurudumu	// [1F468 200D 1F9BD]
+👨‍🦽‍➡	mwanamume anayejiendesha kwa kiti cha magurudumu inayoangalia kulia	// [1F468 200D 1F9BD 200D 27A1]
+👩‍❤‍💋‍👨	busu: mwanamke na mwanamume		// [1F469 200D 2764 200D 1F48B 200D 1F468]
+👨‍❤‍💋‍👨	busu: mwanamume na mwanamume		// [1F468 200D 2764 200D 1F48B 200D 1F468]
+👩‍❤‍💋‍👩	busu: mwanamke na mwanamke		// [1F469 200D 2764 200D 1F48B 200D 1F469]
+👩‍❤‍👨	mume na mke na ishara ya moyo: mwanamke na mwanamume// [1F469 200D 2764 200D 1F468]
+👨‍❤‍👨	mume na mke na ishara ya moyo: mwanamume na mwanamume// [1F468 200D 2764 200D 1F468]
+👩‍❤‍👩	mume na mke na ishara ya moyo: mwanamke na mwanamke// [1F469 200D 2764 200D 1F469]
+👨‍👩‍👦	familia: mwanamume, mwanamke na mvulana		// [1F468 200D 1F469 200D 1F466]
+👨‍👩‍👧	familia: mwanamume, mwanamke na msichana	// [1F468 200D 1F469 200D 1F467]
+👨‍👩‍👧‍👦	familia: mwanamume, mwanamke, msichana na mvulana// [1F468 200D 1F469 200D 1F467 200D 1F466]
+👨‍👩‍👦‍👦	familia: mwanamume, mwanamke, mvulana na mvulana// [1F468 200D 1F469 200D 1F466 200D 1F466]
+👨‍👩‍👧‍👧	familia: mwanamume, mwanamke, msichana na msichana// [1F468 200D 1F469 200D 1F467 200D 1F467]
+👨‍👨‍👦	familia: mwanamume, mwanamume na mvulana	// [1F468 200D 1F468 200D 1F466]
+👨‍👨‍👧	familia: mwanamume, mwanamume na msichana	// [1F468 200D 1F468 200D 1F467]
+👨‍👨‍👧‍👦	familia: mwanamume, mwanamume, msichana na mvulana// [1F468 200D 1F468 200D 1F467 200D 1F466]
+👨‍👨‍👦‍👦	familia: mwanamume, mwanamume, mvulana na mvulana// [1F468 200D 1F468 200D 1F466 200D 1F466]
+👨‍👨‍👧‍👧	familia: mwanamume, mwanamume, msichana na msichana// [1F468 200D 1F468 200D 1F467 200D 1F467]
+👩‍🍼	mwanamke anayemlisha mtoto				// [1F469 200D 1F37C]
+👩‍👩‍👦	familia: mwanamke, mwanamke na mvulana		// [1F469 200D 1F469 200D 1F466]
+👩‍👩‍👧	familia: mwanamke, mwanamke na msichana		// [1F469 200D 1F469 200D 1F467]
+👩‍👩‍👧‍👦	familia: mwanamke, mwanamke, msichana na mvulana// [1F469 200D 1F469 200D 1F467 200D 1F466]
+👩‍👩‍👦‍👦	familia: mwanamke, mwanamke, mvulana na mvulana// [1F469 200D 1F469 200D 1F466 200D 1F466]
+👩‍👩‍👧‍👧	familia: mwanamke, mwanamke, msichana na msichana// [1F469 200D 1F469 200D 1F467 200D 1F467]
+👨‍👦	familia: mwanamume na mvulana				// [1F468 200D 1F466]
+👨‍👦‍👦	familia: mwanamume, mvulana na mvulana		// [1F468 200D 1F466 200D 1F466]
+👨‍👧	familia: mwanamume na msichana				// [1F468 200D 1F467]
+👨‍👧‍👦	familia: mwanamume, msichana na mvulana		// [1F468 200D 1F467 200D 1F466]
+👨‍👧‍👧	familia: mwanamume, msichana na msichana	// [1F468 200D 1F467 200D 1F467]
+👩‍👦	familia: mwanamke na mvulana				// [1F469 200D 1F466]
+👩‍👦‍👦	familia: mwanamke, mvulana na mvulana		// [1F469 200D 1F466 200D 1F466]
+👩‍👧	familia: mwanamke na msichana				// [1F469 200D 1F467]
+👩‍👧‍👦	familia: mwanamke, msichana na mvulana		// [1F469 200D 1F467 200D 1F466]
+👩‍👧‍👧	familia: mwanamke, msichana na msichana		// [1F469 200D 1F467 200D 1F467]
+
+// Emoji ZWJ Sequence: Gendered Role, with object
+
+👨‍⚕	mhudumu wa afya wa kiume				// [1F468 200D 2695]
+👩‍⚕	mhudumu wa afya wa kike					// [1F469 200D 2695]
+👨‍⚖	jaji wa kiume						// [1F468 200D 2696]
+👩‍⚖	jaji wa kike						// [1F469 200D 2696]
+👨‍✈	rubani wa kiume						// [1F468 200D 2708]
+👩‍✈	rubani wa kike						// [1F469 200D 2708]
+👨‍🌾	mkulima wa kiume					// [1F468 200D 1F33E]
+👩‍🌾	mkulima wa kike						// [1F469 200D 1F33E]
+👨‍🍳	mpishi wa kiume						// [1F468 200D 1F373]
+👩‍🍳	mpishi wa kike						// [1F469 200D 1F373]
+👨‍🎓	mwanafunzi na kofia ya kufuzu				// [1F468 200D 1F393]
+👩‍🎓	mwanafunzi wa kike na kofia ya kufuzu			// [1F469 200D 1F393]
+👨‍🎤	mwimbaji wa kiume					// [1F468 200D 1F3A4]
+👩‍🎤	mwimbaji wa kike					// [1F469 200D 1F3A4]
+👨‍🎨	mchoraji wa kiume					// [1F468 200D 1F3A8]
+👩‍🎨	mchoraji wa kike					// [1F469 200D 1F3A8]
+👨‍🏫	mwalimu na ubao						// [1F468 200D 1F3EB]
+👩‍🏫	mwalimu wa kike na ubao					// [1F469 200D 1F3EB]
+👨‍🏭	mwanamume na gesi ya kuchoma				// [1F468 200D 1F3ED]
+👩‍🏭	mwanamke na gesi ya kuchoma				// [1F469 200D 1F3ED]
+👨‍💻	mwanateknolojia wa kiume				// [1F468 200D 1F4BB]
+👩‍💻	mwanateknolojia wa kike					// [1F469 200D 1F4BB]
+👨‍💼	mwanamume aliyevaa nadhifu				// [1F468 200D 1F4BC]
+👩‍💼	mwanamke aliyevaa nadhifu				// [1F469 200D 1F4BC]
+👨‍🔧	fundi mitambo wa kiume					// [1F468 200D 1F527]
+👩‍🔧	fundi mitambo wa kike					// [1F469 200D 1F527]
+👨‍🔬	mwanasayansi wa kiume					// [1F468 200D 1F52C]
+👩‍🔬	mwanasayansi wa kike					// [1F469 200D 1F52C]
+👨‍🚀	mwanaanga wa kiume					// [1F468 200D 1F680]
+👩‍🚀	mwanaanga wa kike					// [1F469 200D 1F680]
+👨‍🚒	mzimamoto wa kiume					// [1F468 200D 1F692]
+👩‍🚒	mzimamoto wa kike					// [1F469 200D 1F692]
+👩‍🦯	mwanamke anayetembea kwa mkongojo			// [1F469 200D 1F9AF]
+👩‍🦯‍➡	mwanamke anayetembea kwa mkongojo inayoangalia kulia	// [1F469 200D 1F9AF 200D 27A1]
+👩‍🦰	mwanamke nywele nyekundu				// [1F469 200D 1F9B0]
+👩‍🦱	mwanamke nywele yenye mawimbi				// [1F469 200D 1F9B1]
+👩‍🦲	mwanamke upara						// [1F469 200D 1F9B2]
+👩‍🦳	mwanamke nywele nyeupe					// [1F469 200D 1F9B3]
+👩‍🦼	mwanamke aliyeketia kiti cha magurudumu			// [1F469 200D 1F9BC]
+👩‍🦼‍➡	mwanamke aliyeketia kiti cha magurudumu inayoangalia kulia	// [1F469 200D 1F9BC 200D 27A1]
+👩‍🦽	mwanamke anayejiendesha kwa kiti cha magurudumu		// [1F469 200D 1F9BD]
+👩‍🦽‍➡	mwanamke anayejiendesha kwa kiti cha magurudumu inayoangalia kulia	// [1F469 200D 1F9BD 200D 27A1]
+
+// Emoji ZWJ Sequence: Gendered Role
+
+👮‍♀	polisi wa kike						// [1F46E 200D 2640]
+👮‍♂	polisi wa kiume						// [1F46E 200D 2642]
+👰‍♀	mwanamke aliyevalia shela				// [1F470 200D 2640]
+👰‍♂	mwanamume aliyevalia shela				// [1F470 200D 2642]
+👱‍♀	mwanamke mwenye nywele ya kimanjano			// [1F471 200D 2640]
+👱‍♂	mwanamume mwenye nywele ya kimanjano			// [1F471 200D 2642]
+👳‍♀	mwanamke aliyefunga kilemba				// [1F473 200D 2640]
+👳‍♂	mwanamume aliyefunga kilemba				// [1F473 200D 2642]
+👷‍♀	mjenzi wa kike						// [1F477 200D 2640]
+👷‍♂	mjenzi mwanamume					// [1F477 200D 2642]
+💂‍♀	mlinzi wa kike						// [1F482 200D 2640]
+💂‍♂	mlinzi mwanamume					// [1F482 200D 2642]
+🕵️‍♀	jasusi mwanamke						// [1F575 200D 2640]
+🕵️‍♂	jasusi mwanamume					// [1F575 200D 2642]
+😮‍💨	uso unaopumua						// [1F62E 200D 1F4A8]
+😵‍💫	uso wenye macho yanayozunguka				// [1F635 200D 1F4AB]
+😶‍🌫	uso kwenye mawingu					// [1F636 200D 1F32B]
+🙂‍↔	kutikisa kichwa kimlalo					// [1F642 200D 2194]
+🙂‍↕	kutikisa kichwa juu chini				// [1F642 200D 2195]
+🚶‍♀‍➡	mwanamke anayetembea inayoangalia kulia			// [1F6B6 200D 2640 200D 27A1]
+🚶‍♂‍➡	mwanamume anayetembea inayoangalia kulia		// [1F6B6 200D 2642 200D 27A1]
+🚶‍➡	mtu anayetembea inayoangalia kulia			// [1F6B6 200D 27A1]
+🤵‍♀	mwanamke aliyevalia tuxedo				// [1F935 200D 2640]
+🤵‍♂	mwanamume aliyevalia tuxedo				// [1F935 200D 2642]
+🦸‍♀	shujaa wa kike						// [1F9B8 200D 2640]
+🦸‍♂	shujaa wa kiume						// [1F9B8 200D 2642]
+🦹‍♀	jambazi wa kike						// [1F9B9 200D 2640]
+🦹‍♂	jambazi wa kiume					// [1F9B9 200D 2642]
+🧍‍♀	mwanamke aliyesimama					// [1F9CD 200D 2640]
+🧍‍♂	mwanamume aliyesimama					// [1F9CD 200D 2642]
+🧎‍♀	mwanamke aliyepiga magoti				// [1F9CE 200D 2640]
+🧎‍♀‍➡	mwanamke aliyepiga magoti inayoangalia kulia		// [1F9CE 200D 2640 200D 27A1]
+🧎‍♂	mwanamume aliyepiga magoti				// [1F9CE 200D 2642]
+🧎‍♂‍➡	mwanamume aliyepiga magoti inayoangalia kulia		// [1F9CE 200D 2642 200D 27A1]
+🧎‍➡	mtu aliyepiga magoti inayoangalia kulia			// [1F9CE 200D 27A1]
+🧏‍♀	mwanamke kiziwi						// [1F9CF 200D 2640]
+🧏‍♂	mwanamume kiziwi					// [1F9CF 200D 2642]
+🧑‍⚕	mhudumu wa afya						// [1F9D1 200D 2695]
+🧑‍⚖	hakimu							// [1F9D1 200D 2696]
+🧑‍✈	rubani							// [1F9D1 200D 2708]
+🧑‍🌾	mkulima							// [1F9D1 200D 1F33E]
+🧑‍🍳	mpishi							// [1F9D1 200D 1F373]
+🧑‍🍼	mtu anamyelisha mtoto					// [1F9D1 200D 1F37C]
+🧑‍🎄	kichimbakazi yeyote					// [1F9D1 200D 1F384]
+🧑‍🎓	mwanafunzi						// [1F9D1 200D 1F393]
+🧑‍🎤	mwimbaji						// [1F9D1 200D 1F3A4]
+🧑‍🎨	mchoraji						// [1F9D1 200D 1F3A8]
+🧑‍🏫	mwalimu							// [1F9D1 200D 1F3EB]
+🧑‍🏭	mfanyakazi wa kiwanda					// [1F9D1 200D 1F3ED]
+🧑‍💻	mwanateknolojia						// [1F9D1 200D 1F4BB]
+🧑‍💼	mfanyakazi wa ofisi					// [1F9D1 200D 1F4BC]
+🧑‍🔧	makanika						// [1F9D1 200D 1F527]
+🧑‍🔬	mwanasayansi						// [1F9D1 200D 1F52C]
+🧑‍🚀	mwanaanga						// [1F9D1 200D 1F680]
+🧑‍🚒	mzimamoto						// [1F9D1 200D 1F692]
+🧑‍🤝‍🧑	watu walioshikana mikono				// [1F9D1 200D 1F91D 200D 1F9D1]
+🧑‍🦯	mtu anayetembea kwa mkongojo				// [1F9D1 200D 1F9AF]
+🧑‍🦯‍➡	mtu anayetembea kwa mkongojo inayoangalia kulia		// [1F9D1 200D 1F9AF 200D 27A1]
+🧑‍🦰	mtu mzima nywele nyekundu				// [1F9D1 200D 1F9B0]
+🧑‍🦱	mtu mzima nywele yenye mawimbi				// [1F9D1 200D 1F9B1]
+🧑‍🦲	mtu mzima upara						// [1F9D1 200D 1F9B2]
+🧑‍🦳	mtu mzima nywele nyeupe					// [1F9D1 200D 1F9B3]
+🧑‍🦼	mtu aliyeketia kiti cha magurudumu			// [1F9D1 200D 1F9BC]
+🧑‍🦼‍➡	mtu aliyeketia kiti cha magurudumu inayoangalia kulia	// [1F9D1 200D 1F9BC 200D 27A1]
+🧑‍🦽	mtu anayejiendesha kwa kiti cha magurudumu		// [1F9D1 200D 1F9BD]
+🧑‍🦽‍➡	mtu anayejiendesha kwa kiti cha magurudumu inayoangalia kulia	// [1F9D1 200D 1F9BD 200D 27A1]
+🧑‍🧑‍🧒	familia mtu mzima mtu mzima mtoto			// [1F9D1 200D 1F9D1 200D 1F9D2]
+🧑‍🧑‍🧒‍🧒	familia mtu mzima mtu mzima mtoto mtoto			// [1F9D1 200D 1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🧒	familia mtu mzima mtoto					// [1F9D1 200D 1F9D2]
+🧑‍🧒‍🧒	familia mtu mzima mtoto mtoto				// [1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🩰	mcheza bale						// [1F9D1 200D 1FA70]
+🧔‍♀	mwanamke ndevu						// [1F9D4 200D 2640]
+🧔‍♂	mwanamume ndevu						// [1F9D4 200D 2642]
+🧙‍♀	mlozi wa kike						// [1F9D9 200D 2640]
+🧙‍♂	mchawi wa kiume						// [1F9D9 200D 2642]
+🧚‍♀	kichimbakazi wa kike					// [1F9DA 200D 2640]
+🧚‍♂	kichimbakazi wa kiume					// [1F9DA 200D 2642]
+🧛‍♀	mnyonya damu wa kike					// [1F9DB 200D 2640]
+🧛‍♂	mnyonya damu wa kiume					// [1F9DB 200D 2642]
+🧜‍♀	nguva							// [1F9DC 200D 2640]
+🧜‍♂	nguva dume						// [1F9DC 200D 2642]
+🧝‍♀	kibwengo cha kike					// [1F9DD 200D 2640]
+🧝‍♂	kibwengo dume						// [1F9DD 200D 2642]
+🧞‍♀	jini la kike						// [1F9DE 200D 2640]
+🧞‍♂	jini dume						// [1F9DE 200D 2642]
+🧟‍♀	dubwana jike						// [1F9DF 200D 2640]
+🧟‍♂	dubwana dume						// [1F9DF 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Activity
+
+⛹‍♀	mwanamke aliye na mpira					// [26F9 200D 2640]
+⛹‍♂	mwanaume aliye na mpira					// [26F9 200D 2642]
+🏃‍♀	mwanamke anayekimbia					// [1F3C3 200D 2640]
+🏃‍♂	mwanamume anayekimbia					// [1F3C3 200D 2642]
+🏄‍♀	mwanamke anayeteleza kwenye mawimbi			// [1F3C4 200D 2640]
+🏄‍♂	mwanamume anayeteleza kwenye mawimbi			// [1F3C4 200D 2642]
+🏊‍♀	mwanamke anayeogelea					// [1F3CA 200D 2640]
+🏊‍♂	mwanaume anayeogelea					// [1F3CA 200D 2642]
+🏋️‍♀	mwanamke anayebeba vyuma vizito				// [1F3CB 200D 2640]
+🏋️‍♂	mwanamume anayebeba vyuma vizito			// [1F3CB 200D 2642]
+🏌️‍♀	mwanamke anayecheza gofu				// [1F3CC 200D 2640]
+🏌️‍♂	mwanamume anayecheza gofu				// [1F3CC 200D 2642]
+👯‍♀	wanawake wanaosherehekea				// [1F46F 200D 2640]
+👯‍♂	wanaume wanaosherehekea					// [1F46F 200D 2642]
+💆‍♀	mwanamke anayekandwa uso				// [1F486 200D 2640]
+💆‍♂	mwanamume anayekandwa uso				// [1F486 200D 2642]
+💇‍♀	mwanamke anayenyolewa nywele				// [1F487 200D 2640]
+💇‍♂	mwanamume anayenyolewa nywele				// [1F487 200D 2642]
+🚣‍♀	mwanamke anayeendesha ngalawa				// [1F6A3 200D 2640]
+🚣‍♂	mwanamume anayeendesha ngalawa				// [1F6A3 200D 2642]
+🚴‍♀	mwanamke anayeendesha baisikeli				// [1F6B4 200D 2640]
+🚴‍♂	mwanaume anayeendesha baisikeli				// [1F6B4 200D 2642]
+🚵‍♀	mwanamke anayeendesha baiskeli mlimani			// [1F6B5 200D 2640]
+🚵‍♂	mwanamume anayeendesha baiskeli mlimani			// [1F6B5 200D 2642]
+🚶‍♀	mwanamke anayetembea					// [1F6B6 200D 2640]
+🚶‍♂	mwanamume anayetembea					// [1F6B6 200D 2642]
+🤸‍♀	mwanamke anayefanya sarakasi				// [1F938 200D 2640]
+🤸‍♂	mwanamume anayefanya sarakasi				// [1F938 200D 2642]
+🤹‍♀	mwanamke anayechezea mipira mingi mikononi		// [1F939 200D 2640]
+🤹‍♂	mwanamume anayechezea mipira mingi mkononi		// [1F939 200D 2642]
+🤼‍♀	wanawake wanaomenyana miereka				// [1F93C 200D 2640]
+🤼‍♂	wanaume wanaomenyana miereka				// [1F93C 200D 2642]
+🤽‍♀	mwanamke anayecheza mpira wa mikono majini		// [1F93D 200D 2640]
+🤽‍♂	mwanamume anayecheza mpira wa mikono majini		// [1F93D 200D 2642]
+🤾‍♀	mwanamke anayecheza mpira wa mikono			// [1F93E 200D 2640]
+🤾‍♂	mwanamume anayecheza mpira wa mikono			// [1F93E 200D 2642]
+🧖‍♀	mwanamke katika bafu la mvuke				// [1F9D6 200D 2640]
+🧖‍♂	mwanamume katika bafu la mvuke				// [1F9D6 200D 2642]
+🧗‍♀	mwanamke anayekwea					// [1F9D7 200D 2640]
+🧗‍♂	mwanamume anayekwea					// [1F9D7 200D 2642]
+🧘‍♀	mwanamke anayetaamali					// [1F9D8 200D 2640]
+🧘‍♂	mwanamume anayetaamali					// [1F9D8 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Gestures
+
+💁‍♀	mwanamke anayetoa maelezo				// [1F481 200D 2640]
+💁‍♂	mwanamume anayetoa maelezo				// [1F481 200D 2642]
+🙅‍♀	mwanamke anayeonyesha ishara ya kukataa			// [1F645 200D 2640]
+🙅‍♂	mwanamume anayeonyesha ishara ya kukataa		// [1F645 200D 2642]
+🙆‍♀	mwanamke anayeonyesha ishara ya kukubali		// [1F646 200D 2640]
+🙆‍♂	mwanamume anayeonyesha ishara ya kukubali		// [1F646 200D 2642]
+🙇‍♀	mwanamke aliyeinama					// [1F647 200D 2640]
+🙇‍♂	mwanamume aliyeinama					// [1F647 200D 2642]
+🙋‍♀	mwanamke mwenye furaha aliyeinua mnoko			// [1F64B 200D 2640]
+🙋‍♂	mwanamume mwenye furaha aliyeinua mkono			// [1F64B 200D 2642]
+🙍‍♀	mwanamke anayekunja kipaji cha uso			// [1F64D 200D 2640]
+🙍‍♂	mwanamume anayekunja kipaji cha uso			// [1F64D 200D 2642]
+🙎‍♀	mwanamke anayebibidua midomo				// [1F64E 200D 2640]
+🙎‍♂	mwanamume anayebibidua midomo				// [1F64E 200D 2642]
+🤦‍♀	mwanamke anayueashiria kutoamini			// [1F926 200D 2640]
+🤦‍♂	mwanamume anayeashiria kutoamini			// [1F926 200D 2642]
+🤷‍♀	mwanamke anayeashiria kutojali				// [1F937 200D 2640]
+🤷‍♂	mwanamume anayeashiria kutojali				// [1F937 200D 2642]
+
+// Emoji ZWJ Sequence: Other
+
+🏳‍🌈	bendera ya upinde wa mvua				// [1F3F3 200D 1F308]
+🏴‍☠	bendera ya maharamia					// [1F3F4 200D 2620]
+👁‍🗨	jicho ndani ya puto la usemi unaelekea kulia		// [1F441 200D 1F5E8]
+
+// References:
+//   [UCD]	Unicode Character Database 11.0.0 [http://www.unicode.org/Public/11.0.0/ucd/]
+//   [Emoji]	Unicode Emoji 11.0 [http://www.unicode.org/Public/emoji/11.0/]
+//   [CLDR]	Unicode Common Locale Data Repository 33.1 [http://cldr.unicode.org/index/downloads/cldr-33.1]
+//
+// Sources:
+//   1.  emoji-test.txt (Emoji)
+//   2.  common/annotations/sw.xml (CLDR)
+//   3.  emoji-zwj-sequences.txt (Emoji)

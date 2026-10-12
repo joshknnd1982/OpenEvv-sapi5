@@ -1,0 +1,109 @@
+// words with a single light syllable which should not be stressed
+
+// conjunctions:
+a	$u
+an	$u
+ar	$u
+hya	$u
+i	$u
+mal	$u
+nan	$u
+o	$u
+qui	$u
+ta	$u
+var	$u
+// prepositions:
+et	$u
+han	$u
+ho	$u
+lo	$u
+mi	$u
+mil	$u
+no	$u
+nu	$u
+or	$u
+pa	$u
+po	$u
+tar	$u
+ter	$u
+va	$u
+ve	$u
+yo	$u
+
+// Native Numbers 0-10
+
+_0 m'unta
+_1 m'inE
+_2 'at:a
+_3 n'EldE
+_4 k'anta
+_5 l'Empe
+_6 'EnkwE
+_7 'otso
+_8 t'olto
+_9 n'ErtE
+_10 kw'aIn
+
+// numbers are read as single digits (tr_languages.c), except the attested 10, 11 and 12
+10	kw'aIn	// quain
+11	m'iNkwE	// minque
+12	j'uNkwE	// yunque
+
+// The names of the letters.
+// Names are known for the tengwar, but not for the letters of the Latin alphabet:
+// a consonant is named by its sound and the vowel a, a vowel by its sound.
+b	b'a
+c	k'a
+d	d'a
+f	f'a
+g	g'a
+h	h'a
+k	k'a
+l	l'a
+m	m'a
+n	n'a
+p	p'a
+q	kw'a
+r	R'a
+s	s'a
+t	t'a
+v	v'a
+w	w'a
+y	j'a
+z	z'a
+þ	T'a
+ð	D'a
+ñ	N'a
+_x	ks'a	// x when it is spelled
+cs	ks'a	// x alone (qya_rules replaces x by cs)
+
+// a long vowel: the vowel and the long mark, andatehta.
+// These are also words (á, ú ...): the name is said when the letter is spelled,
+// or when it is the only word of a clause.
+_acu	,andat'ECta
+
+// punctuation: the full stop, putta (Tolkien's revision of pusta 'stop, in punctuation full stop')
+_.	p'ut:a
+_´	,andat'ECta	// the acute sign alone: the long mark
+_á	$accent
+á	$accent $atstart $atend
+_é	$accent
+é	$accent $atstart $atend
+_í	$accent
+í	$accent $atstart $atend
+_ó	$accent
+ó	$accent $atstart $atend
+_ú	$accent
+ú	$accent $atstart $atend
+
+// vowels with a circumflex: no Quenya name for the mark is known, they are named in English
+_â	_^_en
+â	_^_en	$atstart $atend
+_ê	_^_en
+ê	_^_en	$atstart $atend
+_î	_^_en
+î	_^_en	$atstart $atend
+_ô	_^_en
+ô	_^_en	$atstart $atend
+_û	_^_en
+û	_^_en	$atstart $atend

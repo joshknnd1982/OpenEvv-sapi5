@@ -15,6 +15,13 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(ESPEAK_NG_SOURCE_DIR "" CACHE PATH "A local eSpeak NG checkout to build instead of fetching one")
+# The repository holds eSpeak NG at ESPEAK_NG_GIT_TAG in third_party/espeak-ng (third_party/README.md), so a
+# clone builds without a download; a source named above still wins, and without the copy it is fetched.
+set(ESPEAK_NG_IN_TREE "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/espeak-ng")
+if(NOT ESPEAK_NG_SOURCE_DIR AND EXISTS "${ESPEAK_NG_IN_TREE}/CMakeLists.txt")
+    get_filename_component(ESPEAK_NG_IN_TREE "${ESPEAK_NG_IN_TREE}" ABSOLUTE)
+    set(ESPEAK_NG_SOURCE_DIR "${ESPEAK_NG_IN_TREE}")
+endif()
 set(ESPEAK_NG_GIT_REPOSITORY "https://github.com/joshknnd1982/espeak-ng.git" CACHE STRING "Where to fetch eSpeak NG from")
 set(ESPEAK_NG_GIT_TAG "openevv-1.2.0" CACHE STRING "Branch, tag or commit of eSpeak NG to build")
 

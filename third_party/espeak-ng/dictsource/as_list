@@ -1,0 +1,378 @@
+
+// Translation rules for Assamese
+// input  by .
+// This file is UTF8 encoded
+
+// Numbers
+// Numbers are changed to latin characters before translation
+_0	X'uinnO
+_1	'ek
+_2	d'ui
+_3	t'ini
+_4	s'ari
+_5	p'a~s
+_6	s'Oj
+_7	X'at
+_8	'at#
+_9	n'O
+
+_2a	d'u
+_6a	s'O
+_9a	n'O
+
+
+_10	d'Oh
+_11	eg#'aro
+_12	b'aro
+_13	t'ero
+_14	s'oid#:O
+_15	p'und#Oro
+_16	X'ullo
+_17	X'utOro
+_18	'ut#Oro
+_19	'unnOis
+
+_20	b'is
+_21	'ekOis
+_22	b'ais
+_23	t'eis
+_24	s'Oubbis
+_25	p'Osis
+_26	s'abbis
+_27	X'atais
+_28	'at#ais
+_29	'unOtris
+
+_30	tr'is
+_31	'ekOtris
+_32	b'Otris
+_33	t'etris
+_34	s'Outris
+_35	p'Ojtris
+_36	s'Ojtris
+_37	X'attris
+_38	'at#tris
+_39	'unOsOllis
+
+_40	s'Ollis
+_41	'eksOllis
+_42	b'ijalis
+_43	t'ijallis
+_44	s'OusOllis
+_45	p'OnsOllis
+_46	s'OjsOllis
+_47	X'atsOllis
+_48	'at#sOllis
+_49	'unOpOnsas
+
+_50	p'Onsas
+_51	'ekawOnnO
+_52	b'awOnnO
+_53	t'ewOnnO
+_54	s'OuwOnnO
+_55	p'OspOnnO
+_56	s'apOnnO
+_57	X'atawOnnO
+_58	'at#awOnnO
+_59	'unnOXat#i
+
+
+_60	X'at#i
+_61	'eXOXt#i
+_62	b'aXOXt#i
+_63	t'eXOXt#i
+_64	s'OuXOXt#i
+_65	p'OXOXt#i
+_66	s'OjXOXt#i
+_67	X'atXOXt#i
+_68	'at#XOXt#i
+_6X	s'at.t.'i
+_69	'unOXOttOr
+
+_70	X'OttOr
+_71	'eXOttOr
+_72	b'aXOttOr
+_73	t'eXOttOr
+_74	s'OuXOttOr
+_75	p'OXOttOr
+_76	s'OjXOttOr
+_77	X'atXOttOr
+_78	'at#XOttOr
+_79	'unaXi
+
+_80	'aXi
+_81	'ekaXi
+_82	b'ijaXi
+_83	t'iraXi
+_84	s'OuraXi
+_85	p'OsaXi
+_86	s'ijaXi
+_87	X'ataXi
+_88	'at#aXi
+_89	'unOnObOi
+
+_90	n'ObbOi
+_91	'ekannObbOi
+_92	b'ijannObbOi
+_93	t'irannObbOi
+_94	s'OurannObbOi
+_95	p'OsanObbOi
+_96	s'OjannObbOi
+_97	X'atannObbOi
+_98	'at#annObbOi
+_99	n'irannObbOi
+
+_0C	X'O
+__চ	pr'Ot#Om||s'O
+__ছ	d'itijO||s'O
+__জ	b'OrgijO||z'O
+__ঝ	zH'O
+__ট	m'urd#OinnO||t.'O
+__ঠ	m'urd#OinnO||t.#'O
+__ড	m'urd#OinnO||d.'O
+__ঢ	m'urd#OinnO||d.#'O
+__ত	d'OntjO||t'O
+__থ	d'OntjO||t#'O
+__দ	d'OntjO||d'O
+__ধ	d'OntjO||d#'O
+__ই	hr'OswO||'i
+__ন	d'OntjO||n'O
+__শ	t'alOibjO||X'O
+_1C	'eXO	// exo (one hundred), when more follows too
+_1M1	'eh,azar	// ehazar (one thousand)
+_10M4	h'azar||k'uti	// a thousand crore
+_0M1	h'azar
+_0M2	l'ak#
+_0M3	k'uti
+_0M4	X'O||k'uti
+_dpt	_d'OXomik_
+
+
+// Single consonants
+ক	kO
+খ	k#O
+গ	gO
+ঘ	g#O
+ঙ	'uNO	// ungo
+চ	tSO
+চ	pr'Ot#Om||s'O	$atstart $atend $sentence	// prothom so
+চ	tSO	$hasdot $atstart $atend
+ছ	tShO    // [h] to distinguish from [tS]
+ছ	d'itijO||s'O	$atstart $atend $sentence	// dwitiyo so
+ছ	tShO	$hasdot $atstart $atend
+জ	JO
+জ	b'OrgijO||z'O	$atstart $atend $sentence	// borgiyo zo
+জ	JO	$hasdot $atstart $atend
+ঝ	J#O
+ঝ	zH'O	$atstart $atend $sentence	// zho
+ঝ	J#O	$hasdot $atstart $atend
+ঞ	'injO	// inyo
+ট	t.O
+ট	m'urd#OinnO||t.'O	$atstart $atend $sentence	// murdhoinno to
+ট	t.O	$hasdot $atstart $atend
+ঠ	t.#O
+ঠ	m'urd#OinnO||t.#'O	$atstart $atend $sentence	// murdhoinno tho
+ঠ	t.#O	$hasdot $atstart $atend
+ড	d.O
+ড	m'urd#OinnO||d.'O	$atstart $atend $sentence	// murdhoinno do
+ড	d.O	$hasdot $atstart $atend
+ঢ	d.#O
+ঢ	m'urd#OinnO||d.#'O	$atstart $atend $sentence	// murdhoinno dho
+ঢ	d.#O	$hasdot $atstart $atend
+ণ	m'urd#OinnO||n'O	// murdhoinno no
+ত	tO
+ত	d'OntjO||t'O	$atstart $atend $sentence	// dontyo to
+ত	tO	$hasdot $atstart $atend
+থ	t#O
+থ	d'OntjO||t#'O	$atstart $atend $sentence	// dontyo tho
+থ	t#O	$hasdot $atstart $atend
+দ	dO
+দ	d'OntjO||d'O	$atstart $atend $sentence	// dontyo do
+দ	dO	$hasdot $atstart $atend
+ধ	d#O
+ধ	d'OntjO||d#'O	$atstart $atend $sentence	// dontyo dho
+ধ	d#O	$hasdot $atstart $atend
+ন	d'OntjO||n'O	$atstart $atend $sentence	// dontyo no: in a sentence it is a word (nine)
+ন	$hasdot $atstart $atend
+প	pO
+ফ	fO      // or [p#O] ?
+ব	bO
+ভ	b#O
+ম	mO
+য	'OntOst#O||z'O	// ontohstho zo
+ৰ	rO
+ল	lO
+ৱ	wO
+শ	t'alOibjO||X'O	$atstart $atend $sentence	// taloibyo xo: in a sentence it is a word (a hundred)
+শ	$hasdot $atstart $atend
+ষ	m'urd#OinnO||X'O	// murdhoinno xo
+স	d'OntjO||X'O	// dontyo xo
+হ	hO
+ক্ষ	k#j'O	// khyo
+ড়	d.'Ore||r'O	// dore ro (d. + nukta)
+ড়	d.'Ore||r'O
+ঢ়	d.#'Ore||r'O	// dhore ro (d#. + nukta)
+ঢ়	d.#'Ore||r'O
+য়	'OntOst#O||j'O	// ontohstho yo
+য়	'OntOst#O||j'O
+ৎ	k#'Ond.O||t'O	// khondo to
+
+
+
+// full vowels
+অ	O
+আ	a
+ই	hr'OswO||'i	$atstart $atend $sentence	// hroswo i: in a sentence it is a word (he, this)
+ই	$hasdot $atstart $atend
+ঈ	d'irg#O||'i	// dirgho i
+উ	hr'OswO||'u	// hroswo u
+উ	$hasdot	// in an abbreviation it is read as it sounds
+ঊ	d'irg#O||'u	// dirgho u
+ঋ	ri
+ও	o
+ঔ	ow
+এ	e  $u+   // word 'it'
+ঐ	oj $u+   // word 'that'
+ও	o  $u+ $brk  // 'and'
+_এ	e
+_ঐ	oj
+
+
+
+// combining vowel signs
+া	'akar
+ি	hr'OswO||'ikar
+ী	d'irg#O||'ikar
+ূ	d'irg#O||'ukar
+ু	hr'OswO||'ukar
+ৃ	r'ikar
+ে	'ekar
+ৈ	'ojkar
+ো	'okar
+ৌ	'owkar
+
+// signs
+্	h'OXOntO
+ং	'OnuXar
+ঃ	b'iXOrgO
+ঁ	s'OndrObindu
+়	b'indu
+ঽ	'OwOgrOhO	// owogroho
+ঌ	l'i
+ৠ	d'irg#O||r'i
+ৡ	d'irg#O||l'i
+ৄ	d'irg#O||r'ikar
+ৢ	l'ikar
+ৣ	d'irg#O||l'ikar
+
+// A capital letter of the Latin alphabet, and a character that has no name
+_cap	k'epit.el
+_??	'ak#Or
+
+$	d.Olar
+%	X'OtaNXO
++	jOg
+=	X'Oman
+
+
+
+// Punctuation
+।	d'ari
+॥	d'ui||d'ari
+_,	k'Oma
+_?	pr'OXnObod#Ok||s'inhO
+_।	d'ari
+_॥	d'ui||d'ari
+_.	b'indu
+_;	s'emikOlOn
+_:	k'OlOn
+_!	b#'awbod#Ok||s'inhO
+_'	'urd#OkOma
+_"	'udd#riti||s'inhO
+_“	b'a~w||'udd#riti||s'inhO
+_”	X'o~||'udd#riti||s'inhO
+_‘	b'a~w||'urd#OkOma
+_’	X'o~||'urd#OkOma
+_(	'arOmb#Oni||s'OndrO||b'Ond#Oni
+_)	X'Omapti||s'OndrO||b'Ond#Oni
+_[	'arOmb#Oni||b'Or||b'Ond#Oni
+_]	X'Omapti||b'Or||b'Ond#Oni
+_{	'arOmb#Oni||k'util||b'Ond#Oni
+_}	X'Omapti||k'util||b'Ond#Oni
+_<	'ijatkoi||X'Oru
+_>	'ijatkoi||d'aNOr
+_-	h'aifen
+_–	'en||d'es
+_—	'em||d'es
+_…	'elipsis
+_/	sl'es
+_\	b'eksles
+__	n'imnO||r'ek#a
+_|	'ulOmbO||r'ek#a
+_@	'&t
+_#	h'&X
+_$	d'Olar
+_^	k'&ret
+_&	'&nd
+_*	t'Oras,inhO
+_+	z'og||s'inhO
+_=	X'Oman
+_~	t'ild
+_`	gr'eb||'eksent
+_°	d'igri
+_•	b'ulet
+_·	m'azOr||b'indu
+_£	p'aund
+_¥	j'en
+_€	'iuro
+_₹	b#'arOtij||t'Oka
+_₨	t'Oka
+_৳	t'Oka
+_৲	t'Oka
+_¢	s'ent
+_×	p'urOn||s'inhO
+_÷	h'OrOn||s'inhO
+_±	z'og||bij'og
+_¶	d'Ofa||s'inhO
+_©	k'Opirait
+_™	p'OinnOs,inhO
+
+// Pronouns
+
+ময	$u	// I, me 
+আমি 	$u	// us 
+আমার 	$u	// our
+
+আপনি	$u	// you(formal)
+আপনাক	$u
+
+তুমি	$u	// you (informal)
+তোমাক 	$u
+তয়	$u	// you (informal)
+তোক 	$u
+তোর 	$u
+
+সি	$u	// he
+তাই	$u	// she
+
+
+কিয়	$u $pause	// kio  why  interrogative particle
+কি	$u $pause	// ki   what
+কোত	$u $pause	// kot  where
+কেতিয়া	$u $pause	// ketia    when
+কোন	$u $pause	// kon        who
+
+// Conjunctions
+
+এরং	$u $pause	// ebong: and
+আরু	$u $pause	// aaru : and
+অথরা	$u $pause	// athoba: or
+কিন্তু	$u $pause	// kintu: but
+যদি	$pause	// jodi: if
+তেতিয়া	$pause	// then
+অথচ	$u	// athacho: yet
+
+
+
+// Exceptions
+এটা	&ta 	// one piece, one 

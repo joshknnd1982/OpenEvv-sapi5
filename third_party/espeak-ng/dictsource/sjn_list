@@ -1,0 +1,106 @@
+// potential “muta cum liquida” rule:
+// the use of these words in poems suggests that they are stressed on the antepenultimate syllable,
+// rather than the penultimate one, even though the penultimate syllable is heavy;
+// see <https://menegroth.github.io/stress-in-sindarin.html> for details
+
+imladris	$1 // Seek for the Sword that was broken, line 2
+menegroþ	$1 // Lay of Leithian Recommenced, line 65
+nargoþrond	$1 // The world was young, the mountains green, line 13
+
+// words with a single light syllable which should not be stressed
+
+// conjunctions:
+// a – exception: also an interjection, should still be stressed then
+ach	$u
+ah	$u
+ir	$u
+sui	$u
+// prepositions:
+am	$u
+an	$u
+ben	$u
+bo	$u
+dan	$u
+na	$u
+ned	$u
+nef	$u
+nu	$u
+o	$u
+or	$u
+os	$u
+pen	$u
+vi	$u
+
+// numbers
+// Only 1-12 are attested. Zero is not, so "lost" (empty) is used. The translator
+// has no number option: numbers are spoken as individual digits, except 10-12.
+_0	l'Ost	// lost
+_1	m'In	// min
+_2	t'a::d	// tâd
+_3	n'E::l	// nêl
+_4	k'anad	// canad
+_5	l'EbEn	// leben
+_6	'EnEg	// eneg
+_7	'OdOg	// odog
+_8	t'OlOT	// toloth
+_9	n'EdER	// neder
+10	p'aE	// pae
+11	m'InIb	// minib
+12	'Imp	// imp
+
+// The names of the letters.
+// Names are known for the tengwar, but not for the letters of the Latin alphabet:
+// a consonant is named by its sound and the vowel a, a vowel by its sound.
+// q (sjn_rules) and z, which Sindarin does not use, are named as in Quenya.
+b	b'a
+c	k'a
+d	d'a
+f	f'a
+g	g'a
+h	h'a
+k	k'a
+l	l'a
+m	m'a
+n	n'a
+p	p'a
+r	R'a
+s	s'a
+t	t'a
+v	v'a
+w	w'a
+þ	T'a
+ð	D'a
+z	_^_qya
+_x	ks'a	// x when it is spelled
+cs	ks'a	// x alone (sjn_rules replaces x by cs)
+
+// a long vowel: the vowel and the long mark, andaith.
+// The name is said when the letter is spelled, or when it is the only word of a clause.
+_acu	'andaIT
+_´	'andaIT	// the acute sign alone: the long mark
+_á	$accent
+á	$accent $atstart $atend
+_é	$accent
+é	$accent $atstart $atend
+_í	$accent
+í	$accent $atstart $atend
+_ó	$accent
+ó	$accent $atstart $atend
+_ú	$accent
+ú	$accent $atstart $atend
+_ý	$accent
+ý	$accent $atstart $atend
+
+// vowels with a circumflex: no Sindarin name for the mark is known, they are named in English
+_â	_^_en
+â	_^_en	$atstart $atend
+_ê	_^_en
+ê	_^_en	$atstart $atend
+_î	_^_en
+î	_^_en	$atstart $atend
+_ô	_^_en
+ô	_^_en	$atstart $atend
+_û	_^_en
+û	_^_en	$atstart $atend
+_ŷ	_^_en
+ŷ	_^_en	$atstart $atend

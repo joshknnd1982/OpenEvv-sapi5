@@ -1,0 +1,397 @@
+
+// This file in UTF8 encoded
+
+// Letters maltese
+
+
+
+a	a
+_b	b'e
+c	ka
+_ċ	tS'e
+_d	d'e
+e	e
+_f	f'e
+_g	g'e
+_ġ	dZ'e
+_h	'ak:a
+_ħ	h'e
+i	i
+_j	j'e
+_k	k'e
+_l	l'e
+_m	m'e
+_n	n'e
+o	o
+_p	p'e
+_q	?'e
+_r	r'e
+_s	s'e
+_t	t'e
+u	u
+_v	v'e
+_w	w'e
+_x	S'e
+y	y
+_z	ts'e
+_ż	z'e
+// consonants standing alone are letters; those that can be articles (l- ċ- d- n- r- s-
+// t- x- ż- z-) only at the end of a clause, which an article never ends
+b	b'e
+ċ	tS'e	$atend
+d	d'e	$atend
+f	f'e
+g	g'e
+ġ	dZ'e
+h	'ak:a
+ħ	h'e
+j	j'e
+k	k'e
+l	l'e	$atend
+m	m'e
+n	n'e	$atend
+p	p'e
+q	?'e
+r	r'e	$atend
+s	s'e	$atend
+t	t'e	$atend
+v	v'e
+w	w'e
+x	S'e	$atend
+z	ts'e	$atend
+ż	z'e	$atend
+
+// accented vowels (à è ì ò ù): "a bl-aċċent"
+_grv	bl,at:S'ent
+_à	$accent
+_è	$accent
+_ì	$accent
+_ò	$accent
+_ù	$accent
+
+
+
+
+
+
+_.	p'unt
+_,	v'irgola
+_;	p'unt||u||v'irgola
+_:	z'ewdZ||p'unti
+_!	p'unt||esklamat:'iv
+_?	p'unt||inter:ogat:'iv
+_"	virgol'et:i
+_“	virgol'et:i
+_”	virgol'et:i
+_«	virgol'et:i
+_»	virgol'et:i
+_#	haS
+_$	dol:'aru
+%	fil||m'ija	// also in ordinary text: 50% ħamsin fil-mija
+_&	u
+_'	ap:'ostrofu
+_’	ap:'ostrofu
+€	ewro
+_(	par'entesi||mift'uha
+_)	par'entesi||ma:l'u?a
+_[	par'entesi||kw'adra||mift'uha
+_]	par'entesi||kw'adra||ma:l'u?a
+_<	iz'a:r||min:
+_>	'akbar||min:
+_-	s'ing
+_–	s'ing
+_—	s'ing
+_…	el'is:i
++	plus	$max3
+*	stil:a	$max3
+=	ugw'a:li	$max3
+/	izb'ar:a
+£	sterlina
+@	_at
+~	tilde
+
+
+
+// numbers maltese
+
+
+
+_0	z'ero
+_1	w'iehet
+_2	tn'ejn
+_3	tl'ieta
+_4	'erba:
+_5	h'amsa
+_6	s'it:a
+_7	s'eba:
+_8	tm'ienja
+_9	d'isa:
+_10	'a:Sra
+_11	hd'aS
+_12	tn'aS
+_13	tlet:'aS
+_14	erbat'aS
+_15	hmist'aS
+_16	sit:'aS
+_17	sbat'aS
+_18	tmint'aS
+_19	tsat'aS
+_2X	oSr'i:n
+_3X	tlet'i:n
+_4X	erb'i:n
+_5X	hams'i:n
+_6X	sit:'i:n
+_7X	seb'i:n
+_8X	tmen'i:n
+_9X	dis'i:n
+_0and	u
+_0C	m'ija
+_1C	m'ija
+_2C	mit'ejn
+_3C	tl,iet||m'ija
+_4C	'erba||m'ija
+_5C	h'ames||m'ija
+_6C	s'it:||m'ija
+_7C	s'eba||m'ija
+_8C	tm'ien||m'ija
+_9C	d'isa||m'ija
+_0M1	'elf
+_1M1	'elf
+_2M1	elf'ejn
+_3M1	tl'it:||'elef
+_4M1	'erbat||'elef
+_5M1	h'amest||'elef
+_6M1	s'it:||'elef
+_7M1	s'ebat||'elef
+_8M1	tm'int||'elef
+_9M1	d'isat||'elef
+_10M1	'a:Sart||'elef
+_11M1	hd'aSil||'elf
+_12M1	tn'aSil||'elf
+_13M1	tlet:'aSil||'elf
+_14M1	erbat'aSil||'elf
+_15M1	hmist'aSil||'elf
+_16M1	sit:'aSil||'elf
+_17M1	sbat'aSil||'elf
+_18M1	tmint'aSil||'elf
+_19M1	tsat'aSil||'elf
+_100M1	m'it:||'elf
+_300M1	tl,iet||m'it:||'elf
+_400M1	'erba||m'it:||'elf
+_500M1	h'ames||m'it:||'elf
+_600M1	s'it:||m'it:||'elf
+_700M1	s'eba||m'it:||'elf
+_800M1	tm'ien||m'it:||'elf
+_900M1	d'isa||m'it:||'elf
+_0M2	milj'un
+_1M2	milj'un
+_2M2	z'ewdZ||milj'uni
+_3M2	tl,iet||milj'uni
+_4M2	'erba||milj'uni
+_5M2	h'ames||milj'uni
+_6M2	s'it:||milj'uni
+_7M2	s'eba||milj'uni
+_8M2	tm'ien||milj'uni
+_9M2	d'isa||milj'uni
+_10M2	'a:Sar||milj'uni
+_100M2	m'it:||milj'un
+_0M3	bilj'un
+_1M3	bilj'un
+_2M3	z'ewdZ||bilj'uni
+_dpt	p'unt
+
+
+
+
+// articles 
+
+
+// pronouns maltese
+jiena	iuena $u
+inti	inti: $u
+huwa	ua   $u
+hija	i:a  $u
+aħna	ah'@na   $u
+intom	i:ntom   $u
+huma	u:ma   $u
+
+
+
+
+
+
+// possessives maltese
+
+
+tiegħi	ti:ai: 	$u
+tiegħek	ti:ake	$u
+tiegħu	ti:u:	$u
+tagħha	tah'@a	$u
+tagħna	tana:	$u
+tagħkom	takom	$u
+tagħhom	tahom	$u
+
+
+// prepositions
+ta			ta:
+għal		al:
+lil			li:l:
+ġo			dZeo
+mal			mal:
+mingħajr	mi:nai:r
+madwar		madua:r
+il-quddiem	il-di:m:'@
+qabel		a:bel
+wara		uara
+minbarra	minba:ra:
+bejn		bei:n
+flimkien	flimkin:
+viċin		vi:S@i:n
+minn		mi:n
+minn fejn	mi:n fei:n
+isfel		isfel
+fil-mija	fi:l-mi:a
+permezz		permets
+lejn		lein:
+fuq			fu'@
+taħt		taht
+fi			fi:
+mingħajr	mi:nair
+madwar		madu:ar
+kontra		contra
+quddiem		'@udi:m
+fost        fost  
+qabel		abel
+wara		uara	
+taħt		taht
+lil hinn	lil:in:
+ħdejn		h'@dein
+bejn		bei:n
+flimkien	flinki:m
+qrib		ri:p
+minn hemm	min:em:
+
+
+
+
+
+
+
+// conjunctions
+
+
+minkejja    minCeia
+u           u  	
+kif			Ci:f
+għax		aS
+darba       dar:ba    
+jew         ieu:            
+iżda       	i:z'@da
+jekk        ietSe    
+minkejja    mintSei:a 
+minflok    	minflotSe
+irrespettivament 	ir:espetivament
+mindu  		mindu:	       
+b’hekk      betSe  
+għalkemm 	altSem:	     
+kull darba	kul: darba 
+kull min   	kul: mi:n
+tkun xi tkun    tkun Si tkun
+waqt		ua:t         
+
+
+
+
+
+
+// negative maltese
+
+ma   $u
+
+
+
+
+
+// auxillary verbs
+
+
+ikun		icu:n:              
+kien   		Ci:n              
+qiegħed		ied           
+huwa    	u:a                   
+huma    	uma                    
+ma kienx  	ma CieS      
+kienu     	Cienu        
+mhux      	muS     
+mhumiex   	umumiS       
+ma kienux	ma CienuS       
+għamel      amel      
+għandhom    andom                
+ghandu jkollhom		andu kolum       
+ma jridux ikunu		mrdS kunu				  
+għandu		andu	            
+m'għandux	m'anduS                 
+jista		ista             
+ma jistax   ma istaS         
+għandi		andi             
+għandha     an:a                
+kienet      ki:net     
+ikseb       i:kseb                
+mur         mu:r      
+tmur        tmur    
+sejjer      sei:er   
+mort        mort   
+agħmel      a:mel      
+tagħmilx	ta:milS   
+jagħmel     ia:mel                      
+għamel		a:mel
+għamilt		amilt
+tpoġġi      tpodZi:   
+poġġi       odZi:       
+issir		is:ir     
+saret		sa:ret    
+għamel		a:mel	
+
+
+
+
+
+
+// adverbs
+
+biss		bis:	             	
+qatt        at:    	
+issa        is:a      	              
+dalwaqt     daluat        
+xorta       Sorta     	
+diġa      	didZa
+mhux        mu:S                                  
+kull        cul:     
+bosta       bosta      
+xi          Si:
+dan         dan   
+dak         dak 
+dawn      	dau:n
+dawk       	dau:k
+hemm       	em:
+minn        min:   
+            
+
+
+
+
+
+
+// Abbreviations maltese
+
+$textmode
+eċċ	etSetra
+mm	milim'etri
+cm	tSentim'etri 
+km	kilom'etri
+ml	milil'itri
+mg	miligr'am:i
+kg	kilogr'am:i
+
+
+

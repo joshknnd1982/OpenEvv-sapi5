@@ -1,0 +1,121 @@
+// Letters
+
+a       ?at
+b       b'ai
+ch      tS'ai
+d       d'ai
+e       ?Et
+gh      r-'ai
+h       x'ai
+i       ?it
+j       dZ'ai
+l       l'ai
+m       m'ai
+n       n'ai
+ng      N'ai
+o       ?ot
+p       p'ai
+q       q'ai
+r       R'ai
+s       S'ai
+t       t'ai
+tlh     dX'ai
+u       ?ut
+v       v'ai
+w       w'ai
+y       j'ai
+'       ?
+H       x
+I       i
+Q       qx
+
+// The entries H, I, Q above are the sounds of pieces of words (a word is broken at a capital letter).
+// The names of these letters (Hay, 'It, Qay), for a letter which is the only word of its clause:
+H	x'ai	$atstart $atend
+I	?it	$atstart $atend
+Q	qx'ai	$atstart $atend
+
+// The name of the apostrophe (the glottal stop): qaghwI'
+_'	qar-w'i?
+_’	qar-w'i?	// the apostrophe written as U+2019
+
+// The letters tlh and Q of pIqaD come from piqd_rules as th and qh: their names (tlhay, Qay)
+th	dX'ai	$atstart $atend
+qh	qx'ai	$atstart $atend
+
+// The letters of pIqaD (U+F8D0 to U+F8E9), for spelling.
+// In ordinary reading piqd_rules replaces them by Latin letters before the dictionary is looked at.
+U+f8d0	?at
+U+f8d1	b'ai
+U+f8d2	tS'ai
+U+f8d3	d'ai
+U+f8d4	?Et
+U+f8d5	r-'ai
+U+f8d6	x'ai
+U+f8d7	?it
+U+f8d8	dZ'ai
+U+f8d9	l'ai
+U+f8da	m'ai
+U+f8db	n'ai
+U+f8dc	N'ai
+U+f8dd	?ot
+U+f8de	p'ai
+U+f8df	q'ai
+U+f8e0	qx'ai
+U+f8e1	R'ai
+U+f8e2	S'ai
+U+f8e3	t'ai
+U+f8e4	dX'ai
+U+f8e5	?ut
+U+f8e6	v'ai
+U+f8e7	w'ai
+U+f8e8	j'ai
+U+f8e9	qar-w'i?
+// the digits of pIqaD (U+F8F0 to U+F8F9), for spelling; in ordinary reading piqd_rules replaces them by 0 to 9
+U+f8f0	p'ar-
+U+f8f1	wa?
+U+f8f2	tSa?
+U+f8f3	w'EdZ
+U+f8f4	l'oS
+U+f8f5	v'ar-
+U+f8f6	dZ'av
+U+f8f7	S'otS
+U+f8f8	tS'orR-
+U+f8f9	x'ut
+
+// Numbers
+_0      p'ar-
+_1      wa?
+_2      tSa?
+_3      w'EdZ
+_4      l'oS
+_5      v'ar-
+_6      dZ'av
+_7      S'otS
+_8      tS'orR-
+_9      x'ut
+_1X     wa?_m'ax_:
+_2X     tSa?_m'ax_:
+_3X     w'EdZ_m'ax_:
+_4X     l'oS_m'ax_:
+_5X     v'ar-_m'ax_:
+_6X     dZ'av_m'ax_:
+_7X     S'otS_m'ax_:
+_8X     tS'orR-_m'ax_:
+_9X     x'ut_m'ax_:
+_0C     _v'adX_:
+// each place from the thousands up is a group of its own (break_numbers in tr_languages.c):
+// wa'SaD, wa'netlh, wa'bIp, wa''uy', wa'Saghan
+_0M1    _S'aD_:
+_0M2    _n'EdX_:
+_0M3    _b'ip_:
+_0M4    _?'uj?_:
+_0M5    _S,ar-'an_:
+_dpt    _v'i?_
+_ord    DitS
+%       v,adXv'i?       // vatlhvI' (per cent), said after the number
+
+
+
+
+

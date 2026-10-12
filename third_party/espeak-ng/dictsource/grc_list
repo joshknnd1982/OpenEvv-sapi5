@@ -1,0 +1,354 @@
+
+// Numbers (Attic Greek), counted in myriads: see the grc translator options
+// in tr_languages.c. The phonemes are those which grc_rules gives for the
+// words in the comments.
+
+_0	u:d'en	// οὐδέν
+_1	'he:s	// εἷς
+_2	d'yo	// δύο
+_3	tR'e:s	// τρεῖς
+_4	t'ettaRes	// τέτταρες
+_5	p'ente	// πέντε
+_6	h'eks	// ἕξ
+_7	hept'a	// ἑπτά
+_8	okt'O:	// ὀκτώ
+_9	enn'ea	// ἐννέα
+_10	d'eka	// δέκα
+_11	h'endeka	// ἕνδεκα
+_12	d'O:deka	// δώδεκα
+_13	tRe:sk'aIdeka	// τρεισκαίδεκα
+_14	tettaResk'aIdeka	// τετταρεσκαίδεκα
+_15	pentek'aIdeka	// πεντεκαίδεκα
+_16	hekk'aIdeka	// ἑκκαίδεκα
+_17	heptak'aIdeka	// ἑπτακαίδεκα
+_18	oktO:k'aIdeka	// ὀκτωκαίδεκα
+_19	enneak'aIdeka	// ἐννεακαίδεκα
+
+_1X	d'eka	// δέκα
+_2X	'e:kosi	// εἴκοσι
+_3X	tRi'akonta	// τριάκοντα
+_4X	tettaR'akonta	// τετταράκοντα
+_5X	pent'E:konta	// πεντήκοντα
+_6X	heks'E:konta	// ἑξήκοντα
+_7X	hebdom'E:konta	// ἑβδομήκοντα
+_8X	ogdo'E:konta	// ὀγδοήκοντα
+_9X	enen'E:konta	// ἐνενήκοντα
+
+_1C	hekat'on	// ἑκατόν
+_2C	diak'osioI	// διακόσιοι
+_3C	tRiak'osioI	// τριακόσιοι
+_4C	tetRak'osioI	// τετρακόσιοι
+_5C	pentak'osioI	// πεντακόσιοι
+_6C	heksak'osioI	// ἑξακόσιοι
+_7C	heptak'osioI	// ἑπτακόσιοι
+_8C	oktak'osioI	// ὀκτακόσιοι
+_9C	enak'osioI	// ἐνακόσιοι
+
+_1M0	x'ilioI	// χίλιοι
+_2M0	disx'ilioI	// δισχίλιοι
+_3M0	tRisx'ilioI	// τρισχίλιοι
+_4M0	tetRakisx'ilioI	// τετρακισχίλιοι
+_5M0	pentakisx'ilioI	// πεντακισχίλιοι
+_6M0	heksakisx'ilioI	// ἑξακισχίλιοι
+_7M0	heptakisx'ilioI	// ἑπτακισχίλιοι
+_8M0	oktakisx'ilioI	// ὀκτακισχίλιοι
+_9M0	enakisx'ilioI	// ἐνακισχίλιοι
+
+_1M1	m'yRioI	// μύριοι
+_2M1	dism'yRioI	// δισμύριοι
+_3M1	tRism'yRioI	// τρισμύριοι
+_4M1	tetRakism'yRioI	// τετρακισμύριοι
+_5M1	pentakism'yRioI	// πεντακισμύριοι
+_6M1	heksakism'yRioI	// ἑξακισμύριοι
+_7M1	heptakism'yRioI	// ἑπτακισμύριοι
+_8M1	oktakism'yRioI	// ὀκτακισμύριοι
+_9M1	enakism'yRioI	// ἐνακισμύριοι
+_0M1	myRi'ades	// μυριάδες
+
+_0and	||k'aI||	// καί, between tens and units
+_dpt	||k'omma||	// κόμμα, decimal comma (as for Modern Greek)
+
+// articles
+ɦο	$u	// ὁ
+τὼ	$u	// τώ
+οɦι	$u	// οἱ
+ɦη	$u	// ἡ
+τὰ	$u	// τά
+αɦι	$u	// αἱ
+τὸ	$u	// τό
+
+τοὺ	$u	// τοῦ
+τοὶν	$u	// τοῖν
+τὴς	$u	// τῆς	
+ταὶν	$u	// ταῖν
+τὼν	$u	// τῶν
+
+τῲ	$u	// τῷ
+τοὶς	$u	// τοῖς
+τῂ	$u	// τῇ
+ταὶν	$u	// ταῖν
+ταὶς	$u	// ταῖς
+
+τὸν	$u	// τόν
+τοὺς	$u	// τούς
+τὴν	$u	// τήν
+τὰς	$u	// τάς
+
+
+// Letters
+// The names of the letters as they are given in the grammars: ἄλφα, βῆτα,
+// γάμμα ... The phonemes are those which grc_rules gives for the names,
+// with the long vowels marked.
+// A name with _ is used when a word is spelled. In a text a letter is named
+// only when it stands at the end of a clause ($atend): elsewhere a single
+// letter is a word (δ', τ', γ' before a vowel; ο and η without accent may be
+// the article).
+_α	'alfa	// ἄλφα
+α	'alfa	$atend
+_β	b'E:ta	// βῆτα
+β	b'E:ta	$atend
+_γ	g'amma	// γάμμα
+γ	g'amma	$atend
+_δ	d'elta	// δέλτα
+δ	d'elta	$atend
+_ε	'e||psil'on	// ἒ ψιλόν
+ε	'e||psil'on	$atend
+_ζ	z'E:ta	// ζῆτα
+ζ	z'E:ta	$atend
+_η	'E:ta	// ἦτα
+η	'E:ta	$atend
+_θ	T'E:ta	// θῆτα
+θ	T'E:ta	$atend
+_ι	i'O:ta	// ἰῶτα
+ι	i'O:ta	$atend
+_κ	k'appa	// κάππα
+κ	k'appa	$atend
+_λ	l'ambda	// λάμβδα
+λ	l'ambda	$atend
+_μ	m'y:	// μῦ
+μ	m'y:	$atend
+_ν	n'y:	// νῦ
+ν	n'y:	$atend
+_ξ	ks'i:	// ξῖ
+ξ	ks'i:	$atend
+_ο	'o||mikR'on	// ὂ μικρόν
+ο	'o||mikR'on	$atend
+_π	p'i:	// πῖ
+π	p'i:	$atend
+_ρ	hR'O:	// ῥῶ
+ρ	hR'O:	$atend
+_σ	s'igma	// σίγμα
+σ	s'igma	$atend
+_ς	s'igma	// σίγμα
+ς	s'igma	$atend
+_τ	t'aU	// ταῦ
+τ	t'aU	$atend
+_υ	'y||psil'on	// ὖ ψιλόν
+υ	'y||psil'on	$atend
+_φ	f'i:	// φῖ
+φ	f'i:	$atend
+_χ	x'i:	// χῖ
+χ	x'i:	$atend
+_ψ	ps'i:	// ψῖ
+ψ	ps'i:	$atend
+_ω	'O:||m'ega	// ὦ μέγα
+ω	'O:||m'ega	$atend
+
+// letters which are met as numerals or in inscriptions, and other forms of letters
+_ϝ	d'igamma	// δίγαμμα
+_ϛ	st'igma	// στίγμα
+_ϙ	k'oppa	// κόππα
+_ϟ	k'oppa
+_ϡ	samp'i:	// σαμπῖ
+_ϻ	s'an	// σάν
+_ϐ	b'E:ta
+_ϑ	T'E:ta
+_ϕ	f'i:
+_ϖ	p'i:
+_ϰ	k'appa
+_ϱ	hR'O:
+_ϲ	s'igma
+_ϵ	'e||psil'on
+
+// The accented letters: the name of the letter, then the breathing (ψιλή,
+// δασεῖα), the accent (ὀξεῖα, βαρεῖα, περισπωμένη) and the iota subscript
+// (ὑπογεγραμμένη). They are used only when a word is spelled: grc_rules
+// replaces these characters before a word is read, and many of them are
+// words (ὁ, ἡ, ἤ, ὦ ...).
+_ΐ	i,O:ta||di,aIResis||oks'e:a	// ἰῶτα διαίρεσις ὀξεῖα
+_ά	,alfa||oks'e:a	// ἄλφα ὀξεῖα
+_έ	,e||psil,on||oks'e:a	// ἒ ψιλόν ὀξεῖα
+_ή	,E:ta||oks'e:a	// ἦτα ὀξεῖα
+_ί	i,O:ta||oks'e:a	// ἰῶτα ὀξεῖα
+_ΰ	,y||psil,on||di,aIResis||oks'e:a	// ὖ ψιλόν διαίρεσις ὀξεῖα
+_ϊ	i,O:ta||di'aIResis	// ἰῶτα διαίρεσις
+_ϋ	,y||psil,on||di'aIResis	// ὖ ψιλόν διαίρεσις
+_ό	,o||mikR,on||oks'e:a	// ὂ μικρόν ὀξεῖα
+_ύ	,y||psil,on||oks'e:a	// ὖ ψιλόν ὀξεῖα
+_ώ	,O:||m,ega||oks'e:a	// ὦ μέγα ὀξεῖα
+_ἀ	,alfa||psil'E:	// ἄλφα ψιλή
+_ἁ	,alfa||das'e:a	// ἄλφα δασεῖα
+_ἂ	,alfa||psil,E:||baR'e:a	// ἄλφα ψιλή βαρεῖα
+_ἃ	,alfa||das,e:a||baR'e:a	// ἄλφα δασεῖα βαρεῖα
+_ἄ	,alfa||psil,E:||oks'e:a	// ἄλφα ψιλή ὀξεῖα
+_ἅ	,alfa||das,e:a||oks'e:a	// ἄλφα δασεῖα ὀξεῖα
+_ἆ	,alfa||psil,E:||peRispO:m'enE:	// ἄλφα ψιλή περισπωμένη
+_ἇ	,alfa||das,e:a||peRispO:m'enE:	// ἄλφα δασεῖα περισπωμένη
+_ἐ	,e||psil,on||psil'E:	// ἒ ψιλόν ψιλή
+_ἑ	,e||psil,on||das'e:a	// ἒ ψιλόν δασεῖα
+_ἒ	,e||psil,on||psil,E:||baR'e:a	// ἒ ψιλόν ψιλή βαρεῖα
+_ἓ	,e||psil,on||das,e:a||baR'e:a	// ἒ ψιλόν δασεῖα βαρεῖα
+_ἔ	,e||psil,on||psil,E:||oks'e:a	// ἒ ψιλόν ψιλή ὀξεῖα
+_ἕ	,e||psil,on||das,e:a||oks'e:a	// ἒ ψιλόν δασεῖα ὀξεῖα
+_ἠ	,E:ta||psil'E:	// ἦτα ψιλή
+_ἡ	,E:ta||das'e:a	// ἦτα δασεῖα
+_ἢ	,E:ta||psil,E:||baR'e:a	// ἦτα ψιλή βαρεῖα
+_ἣ	,E:ta||das,e:a||baR'e:a	// ἦτα δασεῖα βαρεῖα
+_ἤ	,E:ta||psil,E:||oks'e:a	// ἦτα ψιλή ὀξεῖα
+_ἥ	,E:ta||das,e:a||oks'e:a	// ἦτα δασεῖα ὀξεῖα
+_ἦ	,E:ta||psil,E:||peRispO:m'enE:	// ἦτα ψιλή περισπωμένη
+_ἧ	,E:ta||das,e:a||peRispO:m'enE:	// ἦτα δασεῖα περισπωμένη
+_ἰ	i,O:ta||psil'E:	// ἰῶτα ψιλή
+_ἱ	i,O:ta||das'e:a	// ἰῶτα δασεῖα
+_ἲ	i,O:ta||psil,E:||baR'e:a	// ἰῶτα ψιλή βαρεῖα
+_ἳ	i,O:ta||das,e:a||baR'e:a	// ἰῶτα δασεῖα βαρεῖα
+_ἴ	i,O:ta||psil,E:||oks'e:a	// ἰῶτα ψιλή ὀξεῖα
+_ἵ	i,O:ta||das,e:a||oks'e:a	// ἰῶτα δασεῖα ὀξεῖα
+_ἶ	i,O:ta||psil,E:||peRispO:m'enE:	// ἰῶτα ψιλή περισπωμένη
+_ἷ	i,O:ta||das,e:a||peRispO:m'enE:	// ἰῶτα δασεῖα περισπωμένη
+_ὀ	,o||mikR,on||psil'E:	// ὂ μικρόν ψιλή
+_ὁ	,o||mikR,on||das'e:a	// ὂ μικρόν δασεῖα
+_ὂ	,o||mikR,on||psil,E:||baR'e:a	// ὂ μικρόν ψιλή βαρεῖα
+_ὃ	,o||mikR,on||das,e:a||baR'e:a	// ὂ μικρόν δασεῖα βαρεῖα
+_ὄ	,o||mikR,on||psil,E:||oks'e:a	// ὂ μικρόν ψιλή ὀξεῖα
+_ὅ	,o||mikR,on||das,e:a||oks'e:a	// ὂ μικρόν δασεῖα ὀξεῖα
+_ὐ	,y||psil,on||psil'E:	// ὖ ψιλόν ψιλή
+_ὑ	,y||psil,on||das'e:a	// ὖ ψιλόν δασεῖα
+_ὒ	,y||psil,on||psil,E:||baR'e:a	// ὖ ψιλόν ψιλή βαρεῖα
+_ὓ	,y||psil,on||das,e:a||baR'e:a	// ὖ ψιλόν δασεῖα βαρεῖα
+_ὔ	,y||psil,on||psil,E:||oks'e:a	// ὖ ψιλόν ψιλή ὀξεῖα
+_ὕ	,y||psil,on||das,e:a||oks'e:a	// ὖ ψιλόν δασεῖα ὀξεῖα
+_ὖ	,y||psil,on||psil,E:||peRispO:m'enE:	// ὖ ψιλόν ψιλή περισπωμένη
+_ὗ	,y||psil,on||das,e:a||peRispO:m'enE:	// ὖ ψιλόν δασεῖα περισπωμένη
+_ὠ	,O:||m,ega||psil'E:	// ὦ μέγα ψιλή
+_ὡ	,O:||m,ega||das'e:a	// ὦ μέγα δασεῖα
+_ὢ	,O:||m,ega||psil,E:||baR'e:a	// ὦ μέγα ψιλή βαρεῖα
+_ὣ	,O:||m,ega||das,e:a||baR'e:a	// ὦ μέγα δασεῖα βαρεῖα
+_ὤ	,O:||m,ega||psil,E:||oks'e:a	// ὦ μέγα ψιλή ὀξεῖα
+_ὥ	,O:||m,ega||das,e:a||oks'e:a	// ὦ μέγα δασεῖα ὀξεῖα
+_ὦ	,O:||m,ega||psil,E:||peRispO:m'enE:	// ὦ μέγα ψιλή περισπωμένη
+_ὧ	,O:||m,ega||das,e:a||peRispO:m'enE:	// ὦ μέγα δασεῖα περισπωμένη
+_ὰ	,alfa||baR'e:a	// ἄλφα βαρεῖα
+_ά	,alfa||oks'e:a	// ἄλφα ὀξεῖα
+_ὲ	,e||psil,on||baR'e:a	// ἒ ψιλόν βαρεῖα
+_έ	,e||psil,on||oks'e:a	// ἒ ψιλόν ὀξεῖα
+_ὴ	,E:ta||baR'e:a	// ἦτα βαρεῖα
+_ή	,E:ta||oks'e:a	// ἦτα ὀξεῖα
+_ὶ	i,O:ta||baR'e:a	// ἰῶτα βαρεῖα
+_ί	i,O:ta||oks'e:a	// ἰῶτα ὀξεῖα
+_ὸ	,o||mikR,on||baR'e:a	// ὂ μικρόν βαρεῖα
+_ό	,o||mikR,on||oks'e:a	// ὂ μικρόν ὀξεῖα
+_ὺ	,y||psil,on||baR'e:a	// ὖ ψιλόν βαρεῖα
+_ύ	,y||psil,on||oks'e:a	// ὖ ψιλόν ὀξεῖα
+_ὼ	,O:||m,ega||baR'e:a	// ὦ μέγα βαρεῖα
+_ώ	,O:||m,ega||oks'e:a	// ὦ μέγα ὀξεῖα
+_ᾀ	,alfa||psil,E:||hypogegRamm'enE:	// ἄλφα ψιλή ὑπογεγραμμένη
+_ᾁ	,alfa||das,e:a||hypogegRamm'enE:	// ἄλφα δασεῖα ὑπογεγραμμένη
+_ᾂ	,alfa||psil,E:||baR,e:a||hypogegRamm'enE:	// ἄλφα ψιλή βαρεῖα ὑπογεγραμμένη
+_ᾃ	,alfa||das,e:a||baR,e:a||hypogegRamm'enE:	// ἄλφα δασεῖα βαρεῖα ὑπογεγραμμένη
+_ᾄ	,alfa||psil,E:||oks,e:a||hypogegRamm'enE:	// ἄλφα ψιλή ὀξεῖα ὑπογεγραμμένη
+_ᾅ	,alfa||das,e:a||oks,e:a||hypogegRamm'enE:	// ἄλφα δασεῖα ὀξεῖα ὑπογεγραμμένη
+_ᾆ	,alfa||psil,E:||peRispO:m,enE:||hypogegRamm'enE:	// ἄλφα ψιλή περισπωμένη ὑπογεγραμμένη
+_ᾇ	,alfa||das,e:a||peRispO:m,enE:||hypogegRamm'enE:	// ἄλφα δασεῖα περισπωμένη ὑπογεγραμμένη
+_ᾐ	,E:ta||psil,E:||hypogegRamm'enE:	// ἦτα ψιλή ὑπογεγραμμένη
+_ᾑ	,E:ta||das,e:a||hypogegRamm'enE:	// ἦτα δασεῖα ὑπογεγραμμένη
+_ᾒ	,E:ta||psil,E:||baR,e:a||hypogegRamm'enE:	// ἦτα ψιλή βαρεῖα ὑπογεγραμμένη
+_ᾓ	,E:ta||das,e:a||baR,e:a||hypogegRamm'enE:	// ἦτα δασεῖα βαρεῖα ὑπογεγραμμένη
+_ᾔ	,E:ta||psil,E:||oks,e:a||hypogegRamm'enE:	// ἦτα ψιλή ὀξεῖα ὑπογεγραμμένη
+_ᾕ	,E:ta||das,e:a||oks,e:a||hypogegRamm'enE:	// ἦτα δασεῖα ὀξεῖα ὑπογεγραμμένη
+_ᾖ	,E:ta||psil,E:||peRispO:m,enE:||hypogegRamm'enE:	// ἦτα ψιλή περισπωμένη ὑπογεγραμμένη
+_ᾗ	,E:ta||das,e:a||peRispO:m,enE:||hypogegRamm'enE:	// ἦτα δασεῖα περισπωμένη ὑπογεγραμμένη
+_ᾠ	,O:||m,ega||psil,E:||hypogegRamm'enE:	// ὦ μέγα ψιλή ὑπογεγραμμένη
+_ᾡ	,O:||m,ega||das,e:a||hypogegRamm'enE:	// ὦ μέγα δασεῖα ὑπογεγραμμένη
+_ᾢ	,O:||m,ega||psil,E:||baR,e:a||hypogegRamm'enE:	// ὦ μέγα ψιλή βαρεῖα ὑπογεγραμμένη
+_ᾣ	,O:||m,ega||das,e:a||baR,e:a||hypogegRamm'enE:	// ὦ μέγα δασεῖα βαρεῖα ὑπογεγραμμένη
+_ᾤ	,O:||m,ega||psil,E:||oks,e:a||hypogegRamm'enE:	// ὦ μέγα ψιλή ὀξεῖα ὑπογεγραμμένη
+_ᾥ	,O:||m,ega||das,e:a||oks,e:a||hypogegRamm'enE:	// ὦ μέγα δασεῖα ὀξεῖα ὑπογεγραμμένη
+_ᾦ	,O:||m,ega||psil,E:||peRispO:m,enE:||hypogegRamm'enE:	// ὦ μέγα ψιλή περισπωμένη ὑπογεγραμμένη
+_ᾧ	,O:||m,ega||das,e:a||peRispO:m,enE:||hypogegRamm'enE:	// ὦ μέγα δασεῖα περισπωμένη ὑπογεγραμμένη
+_ᾰ	,alfa||bRax'e:a	// ἄλφα βραχεῖα
+_ᾱ	,alfa||makR'a	// ἄλφα μακρά
+_ᾲ	,alfa||baR,e:a||hypogegRamm'enE:	// ἄλφα βαρεῖα ὑπογεγραμμένη
+_ᾳ	,alfa||hypogegRamm'enE:	// ἄλφα ὑπογεγραμμένη
+_ᾴ	,alfa||oks,e:a||hypogegRamm'enE:	// ἄλφα ὀξεῖα ὑπογεγραμμένη
+_ᾶ	,alfa||peRispO:m'enE:	// ἄλφα περισπωμένη
+_ᾷ	,alfa||peRispO:m,enE:||hypogegRamm'enE:	// ἄλφα περισπωμένη ὑπογεγραμμένη
+_ῂ	,E:ta||baR,e:a||hypogegRamm'enE:	// ἦτα βαρεῖα ὑπογεγραμμένη
+_ῃ	,E:ta||hypogegRamm'enE:	// ἦτα ὑπογεγραμμένη
+_ῄ	,E:ta||oks,e:a||hypogegRamm'enE:	// ἦτα ὀξεῖα ὑπογεγραμμένη
+_ῆ	,E:ta||peRispO:m'enE:	// ἦτα περισπωμένη
+_ῇ	,E:ta||peRispO:m,enE:||hypogegRamm'enE:	// ἦτα περισπωμένη ὑπογεγραμμένη
+_ῐ	i,O:ta||bRax'e:a	// ἰῶτα βραχεῖα
+_ῑ	i,O:ta||makR'a	// ἰῶτα μακρά
+_ῒ	i,O:ta||di,aIResis||baR'e:a	// ἰῶτα διαίρεσις βαρεῖα
+_ΐ	i,O:ta||di,aIResis||oks'e:a	// ἰῶτα διαίρεσις ὀξεῖα
+_ῖ	i,O:ta||peRispO:m'enE:	// ἰῶτα περισπωμένη
+_ῗ	i,O:ta||di,aIResis||peRispO:m'enE:	// ἰῶτα διαίρεσις περισπωμένη
+_ῠ	,y||psil,on||bRax'e:a	// ὖ ψιλόν βραχεῖα
+_ῡ	,y||psil,on||makR'a	// ὖ ψιλόν μακρά
+_ῢ	,y||psil,on||di,aIResis||baR'e:a	// ὖ ψιλόν διαίρεσις βαρεῖα
+_ΰ	,y||psil,on||di,aIResis||oks'e:a	// ὖ ψιλόν διαίρεσις ὀξεῖα
+_ῤ	hR,O:||psil'E:	// ῥῶ ψιλή
+_ῥ	hR,O:||das'e:a	// ῥῶ δασεῖα
+_ῦ	,y||psil,on||peRispO:m'enE:	// ὖ ψιλόν περισπωμένη
+_ῧ	,y||psil,on||di,aIResis||peRispO:m'enE:	// ὖ ψιλόν διαίρεσις περισπωμένη
+_ῲ	,O:||m,ega||baR,e:a||hypogegRamm'enE:	// ὦ μέγα βαρεῖα ὑπογεγραμμένη
+_ῳ	,O:||m,ega||hypogegRamm'enE:	// ὦ μέγα ὑπογεγραμμένη
+_ῴ	,O:||m,ega||oks,e:a||hypogegRamm'enE:	// ὦ μέγα ὀξεῖα ὑπογεγραμμένη
+_ῶ	,O:||m,ega||peRispO:m'enE:	// ὦ μέγα περισπωμένη
+_ῷ	,O:||m,ega||peRispO:m,enE:||hypogegRamm'enE:	// ὦ μέγα περισπωμένη ὑπογεγραμμένη
+
+// the accents and breathings, as combining characters, and standing alone
+// (these with _ : they are named only when a word is spelled)
+U+313	psil'E:	// ψιλή
+U+314	das'e:a	// δασεῖα
+U+301	oks'e:a	// ὀξεῖα
+U+300	baR'e:a	// βαρεῖα
+U+342	peRispO:m'enE:	// περισπωμένη
+U+308	di'aIResis	// διαίρεσις
+U+345	hypogegRamm'enE:	// ὑπογεγραμμένη
+U+343	koRO:n'is	// κορωνίς
+U+304	makR'a	// μακρά
+U+306	bRax'e:a	// βραχεῖα
+U+344	di,aIResis||oks'e:a
+_ͺ	hypogegRamm'enE:	// U+37a
+_΄	oks'e:a	// U+384
+_΅	di,aIResis||oks'e:a	// U+385
+_᾽	koRO:n'is	// U+1fbd
+_ι	pRosgegRamm'enE:	// U+1fbe προσγεγραμμένη
+_᾿	psil'E:	// U+1fbf
+_῀	peRispO:m'enE:	// U+1fc0
+_῁	di,aIResis||peRispO:m'enE:	// U+1fc1
+_῍	psil,E:||baR'e:a	// U+1fcd
+_῎	psil,E:||oks'e:a	// U+1fce
+_῏	psil,E:||peRispO:m'enE:	// U+1fcf
+_῝	das,e:a||baR'e:a	// U+1fdd
+_῞	das,e:a||oks'e:a	// U+1fde
+_῟	das,e:a||peRispO:m'enE:	// U+1fdf
+_῭	di,aIResis||baR'e:a	// U+1fed
+_΅	di,aIResis||oks'e:a	// U+1fee
+_`	baR'e:a	// U+1fef
+_´	oks'e:a	// U+1ffd
+_῾	das'e:a	// U+1ffe
+
+// the names of the accents, for an accented letter of another language
+_acu	oks'e:a	// ὀξεῖα
+_grv	baR'e:a	// βαρεῖα
+_cir	peRispO:m'enE:	// περισπωμένη
+_dia	di'aIResis	// διαίρεσις
+_mcn	makR'a	// μακρά
+_brv	bRax'e:a	// βραχεῖα
+
+// a capital letter
+_cap	kefal,aIon||	// κεφαλαῖον
+

@@ -1,0 +1,140 @@
+//vla pe sal
+
+_0	n%u
+_1	n%E
+_2	dw%o
+_3	tj%E
+_4	kw%a
+_5	p%eI
+_6	lj%o
+_7	Z%aI
+_8	bw%i
+_9	gj%u
+_dpt	Z%ew
+
+//vla pe patxozi
+
+// The names of the consonants are given as phonemes (those which xex_rules gives for the names).
+// As replacement text ($textmode) a name of two words lost its second word when the letter
+// stood alone, and a letter which was spelled had its own sound added to its name.
+b	b'a:bon	// bábon
+d	d'o:din	// dódin
+f	f'E:fEl	// féfel
+g	g'u:guk	// gúguk
+h	h'a:flu	// háflu
+j	_!'i:ki||fl'u:	// íki flu
+k	k'u:kan	// kúkan
+l	l'E:lon	// lélon
+m	m'a:spa	// máspa
+n	n'i:nEp	// nínep
+p	p'o:pEl	// pópel
+q	Z'a:Zip	// qáqip
+r	R'E:Sti	// réxti
+s	s'a:sEk	// sásek
+t	t'o:tot	// tótot
+v	v'E:vEt	// vévet
+w	_!'u:bu||fl'u:	// úbu flu
+x	S'u:Sut	// xúxut
+z	z'o:zot	// zózot
+c	S'u:Sut||l'o:Zban	// xúxut loqban
+
+// letter names which start with a vowel: an entry which starts with "_" is
+// translated into phonemes when the dictionary is compiled, so it can't be $text
+_a	_!'a:fa	// áfa
+_e	_!'E:tE	// éte
+_i	_!'i:ki	// íki
+_o	_!'o:no	// óno
+_u	_!'u:bu	// úbu
+_y	_!'@:bu	// ýbu
+
+//pause naturalization
+//stress naturalization has been removed in favor of explicit marking
+
+//quoters
+lau	l%aU_:
+lou	l%ow_:
+
+//terminators
+gu	g%u:_
+ku	k%u:_:
+vu	_:v%u:_:
+
+//adverbs
+y	$brk
+
+// A vowel letter which is the only word of a clause is named (inside a sentence it is the word).
+// These must stay below the entries for the words.
+a	_!'a:fa	$atstart $atend
+e	_!'E:tE	$atstart $atend
+i	_!'i:ki	$atstart $atend
+o	_!'o:no	$atstart $atend
+u	_!'u:bu	$atstart $atend
+y	_!'@:bu	$atstart $atend
+
+// The vowel letters with marks: no Xextan names for them or for the marks are known,
+// so they are named in English (the letter and the mark), when they are spelled
+// or when one is the only word of a clause.
+_á	_^_en
+á	_^_en	$atstart $atend
+_é	_^_en
+é	_^_en	$atstart $atend
+_í	_^_en
+í	_^_en	$atstart $atend
+_ó	_^_en
+ó	_^_en	$atstart $atend
+_ú	_^_en
+ú	_^_en	$atstart $atend
+_ý	_^_en
+ý	_^_en	$atstart $atend
+_à	_^_en
+à	_^_en	$atstart $atend
+_è	_^_en
+è	_^_en	$atstart $atend
+_ì	_^_en
+ì	_^_en	$atstart $atend
+_ò	_^_en
+ò	_^_en	$atstart $atend
+_ù	_^_en
+ù	_^_en	$atstart $atend
+_ã	_^_en
+ã	_^_en	$atstart $atend
+_õ	_^_en
+õ	_^_en	$atstart $atend
+_ĩ	_^_en
+ĩ	_^_en	$atstart $atend
+_ũ	_^_en
+ũ	_^_en	$atstart $atend
+_â	_^_en
+â	_^_en	$atstart $atend
+_ê	_^_en
+ê	_^_en	$atstart $atend
+_î	_^_en
+î	_^_en	$atstart $atend
+_ô	_^_en
+ô	_^_en	$atstart $atend
+_û	_^_en
+û	_^_en	$atstart $atend
+_ā	_^_en
+ā	_^_en	$atstart $atend
+_ē	_^_en
+ē	_^_en	$atstart $atend
+_ī	_^_en
+ī	_^_en	$atstart $atend
+_ō	_^_en
+ō	_^_en	$atstart $atend
+_ū	_^_en
+ū	_^_en	$atstart $atend
+_ä	_^_en
+ä	_^_en	$atstart $atend
+_ë	_^_en
+ë	_^_en	$atstart $atend
+_ï	_^_en
+ï	_^_en	$atstart $atend
+_ö	_^_en
+ö	_^_en	$atstart $atend
+_ü	_^_en
+ü	_^_en	$atstart $atend
+
+// no Xextan names for punctuation are known: "." is named in English (xex_rules makes it a pause,
+// which would otherwise also stop the English name when punctuation is spoken)
+_.	_^_en

@@ -1,0 +1,392 @@
+// Irish Gaeilge dictionary
+// written by Ronan McGuirk
+//  2013
+// version 2.8.2
+// Please send comments and suggestions to espeak.gaeilge@gmail.com
+
+// This file is UTF8 encoded
+
+// letters
+// letter namesd, as they are spoken as a single character in text
+// precede by _  to distinguish from pronunciation as a language word
+
+_a	eI
+b	bi: $atend
+?1 bh	v	// eclipsis
+c	si:
+d	di: $atend
+e	i:
+f	Ef
+g	dZi: $atend
+h	eItS $atend
+_i	aI
+j	dZeI
+k	keI
+l	El
+m	Em $atend
+n	En $atend
+_o	oU
+p	pi:
+q	kju:
+r	ar
+_s	Es
+s	Es $atend	// the letter alone; 's before a word is still read by the rules
+t	ti: $atend
+u	ju:
+v	vi:
+w	d'O#b@lju:
+x	Eks
+y	waI
+z	zEd
+_á	eI||f0d[@
+_é	i:||f0d[@
+_í      aI||f0d[@
+_ó	o:||f0d[@
+_ú	ju:||f0d[@
+ú	ju:||f0d[@	// ú is not a word: the letter alone is named too
+ 
+_#32	spA:s
+_cap    m'o:r
+
+// accent names (de Bhaldraithe): fada, graif, cuairín, umlabht, straithín; tilde (CLDR Irish)
+_acu	f'0d[@
+_grv	gr'af
+_cir	k'u@Ri:n
+_dia	'UmlaU#t[
+_ced	st[r'ahi:n
+_tld	c'Il;d;@
+
+// accent names
+
+// names of symbols
+_.	pO#nk
+_,	ka#m'o:g	// camóg
+_;	l;'ahst[a#d[	// leathstad
+_:	'IdZIRst[a#d[	// idirstad
+_!	'u@lvRa#s	// uaillbhreas
+_?	kESt
+_'	u:sx0m@
+.	pO#nk
+%	f@i:nge:@d[
+_"	'ahR;It[a#l	// athfhriotal
+_(	l'u:b;i:n||t['OsIg	// lúibín tosaigh
+_)	l'u:b;i:n||d;'ERIg	// lúibín deiridh
+_[	l'u:b;i:n||k;a#rn'o:ga#x||t['OsIg	// lúibín cearnógach tosaigh
+_]	l'u:b;i:n||k;a#rn'o:ga#x||d;'ERIg	// lúibín cearnógach deiridh
+_{	l'u:b;i:n||k'0t[a#x||t['OsIg	// lúibín catach tosaigh
+_}	l'u:b;i:n||k'0t[a#x||d;'ERIg	// lúibín catach deiridh
+_<	n;'i:@s||l'u:||nA:	// níos lú ná
+_>	n;'i:@s||m'o:||nA:	// níos mó ná
+_-	fl'ESk;i:n	// fleiscín
+_‐	fl'ESk;i:n
+_‑	fl'ESk;i:n
+_–	'End[,aS	// ein-dais
+_—	'Emd[,aS	// eim-dais
+_―	b'0R@||k'Ohra#m,A:na#x	// barra cothrománach
+_…	b'arn@||s@n||'InSIntS	// bearna san insint
+/	sl'aS	// slais
+\	k'u:lslaS	// cúlslais
+__	l'i:n;@||'i:Sa#l	// líne íseal
+_|	l'i:n;@||,In_g;'ara#x	// líne ingearach
+@	'Eg	// ag, as in an address
+_#	k'o:@rh@||h'aS@	// comhartha haise
+#	h'aS	// hais
+_$	d['Ola#r	// dollar
+_^	k'u@Ri:n	// cuairín
+_&	'0mpa#rsa#n	// amparsan
+&	'0g@s	// agus
+*	r'e:l;tSi:n	// réiltín
++	m'o:idZ@	// móide
+=	k'Ohra#m||lE	// cothrom le
+~	c'Il;d;@	// tilde
+_`	gr'af	// graif
+_´	'0gu:dZ	// agúid
+_¨	d;'e:Re:S	// déiréis
+_°	k;'e:m	// céim
+_§	r'0n,A:n	// rannán
+_¶	m'0rk||'al;tS	// marc ailt
+_•	'Urxa#r	// urchar
+_·	l'A:rfa#nk	// lárphonc
+_£	p'Unt[	// punt
+_¥	j'En	// yen
+_¢	k;'EntS	// cent
+_©	k'o:pC;a#rt[	// cóipcheart (ga_emoji has it for reading; spelled it was said twice)
+_®	kl'A:rIh@	// cláraithe
+_™	k'o:@rh@||t[r'A:d[va#Rk	// comhartha trádmhairc
+_«	r'0xt[,A:n||t['OsIg	// rachtán tosaigh
+_»	r'0xt[,A:n||d;'ERIg	// rachtán deiridh
+_„	k'o:@rh@||'ahR;It[a#l;||'i:Sa#l||'Er||j'ES	// comhartha athfhriotail íseal ar dheis
+_“	k'o:@rh@||'ahR;It[a#l;||'Er||xl'e:	// comhartha athfhriotail ar chlé
+_”	k'o:@rh@||'ahR;It[a#l;||'Er||j'ES	// comhartha athfhriotail ar dheis
+_‘	u@sxa#m'o:g||'Er||xl'e:	// uaschamóg ar chlé
+_’	u@sxa#m'o:g||'Er||j'ES	// uaschamóg ar dheis
+_‚	u@sxa#m'o:g||'i:Sa#l||'Er||j'ES	// uaschamóg íseal ar dheis
+_¡	k'o:@rh@||'u@lvRa#s@||'aSa#mpIh@	// comhartha uaillbhreasa aisiompaithe
+_¿	k'o:@rh@||k;'EStS@||'aSa#mpIh@	// comhartha ceiste aisiompaithe
+_†	k'o:@rh@||m;a#d['o:ig;@	// comhartha miodóige
+_‡	k'o:@rh@||m;a#d['o:ig;@||d['u:ba#l;tS@	// comhartha miodóige dúbailte
+_‰	In||'aIg||@n||v'i:lE	// in aghaidh an mhíle
+_×	k'o:@rh@||'OlrIh@	// comhartha iolraithe
+_÷	k'o:@rh@||r'Inc@	// comhartha roinnte
+±	m'o:idZ@||l'u:dZ@	// móide-lúide
+_−	k'o:@rh@||l'u:dZ@	// comhartha lúide
+µ	m'IkRa#	// micrea
+¬	dZ'u:lt[u:	// diúltú
+_′	pR'i:m	// prím
+_″	pR'i:m||Q'u:ba#l;tS@	// prím dhúbailte
+_⁊	'0g@s	// agus: the Tironian et of Gaelic type
+_sup	f,UrSkR'i:@f@	// forscríofa: ² is "a dó forscríofa"
+
+
+// numbers
+_0	@nA:idZ
+_1	@h'e:n
+_2	@d['o:
+_3	@tSR'i:
+_4	@k'ah@r
+_5	@ku:Ig
+_6	@S'e:
+_7	@S0xt[
+_8	@h'0xt[
+_9	@n@@'i:
+_1X	@dZ'E
+_11	e:@nde:@g
+_12	d[o:je:@g
+_13	tr'i:de:@g
+_14	kah@rde:@g
+_15	ku:igde:@g
+_16 Se:de:@g
+_17	S0xtde:@g
+_18 O#xtde:@g
+_19 ni:de:@g
+_20	fICe
+_2X	fiCE
+_3X	trO#x@
+_31 trO#x@he:@n
+ _40 d[0C@d
+ _4X	d[0C@d@
+ _41 d[0C@dahe:@n
+ _5X	k@e:@g@
+ _51 k@e:@g@he:@n
+_6X	Sask@
+_61 Sask@he:@n
+_7X	S0xto:
+_71 S0xt[o:he:@n
+_8X	O#Xto:
+_81 O#xt[o:he:@n
+_9X	no:x@
+_91 no:x@he:@n
+_0C	ke:@d[
+_1C0	ke:@d[         // exactly one hundred
+_1C	ke:@d[
+_101 ke:@d[@he:@n
+_2C	QA:Ce:@d[	// dhá chéad
+_3C	tri:Ce:@d[
+_4C	kEr@Ce:@d[	// ceithre chéad
+_5C	ku:igCe:@d[	// cúig chéad
+_6C	Se:Ce:@d[	// sé chéad
+_7C	S0xtge:@d[
+_8C O#xtg'e:@d[
+_9C	ni:ge:@d[
+_0M1	mi:lE
+_1M1 m'i:lE
+_2M1 QA:vi:lE	// dhá mhíle
+_3M1	tri:vi:lE	// trí mhíle
+_4M1	kEr@vi:lE	// ceithre mhíle
+_5M1	ku:igvi:lE	// cúig mhíle
+_6M1	Se:vi:lE	// sé mhíle
+_7M1	S0xt[mi:lE	// seacht míle
+_8M1	O#xt[mi:lE	// ocht míle
+_9M1	ni:mi:lE	// naoi míle
+_10M1	dZEmi:lE	// deich míle
+_2001 QA:vi:lEs@he:@n
+_2002 QA:vi:lEs@d['o:
+_2003 QA:vi:lEs@tr'i:
+_2004 QA:vi:lEs@kah@r
+_2005 QA:vi:lEs@ku:ig
+_0M2	mIlu:n
+_1M2	'milu:n
+_2M2	QA:vIlu:n	// dhá mhilliún
+_3M2	tri:vilu:n
+_4M2	kEr@vilu:n	// ceithre mhilliún
+_5M2	ku:igvilu:n	// cúig mhilliún
+_6M2	Se:vilu:n	// sé mhilliún
+_7M2	S0xt[milu:n	// seacht milliún
+_8M2	O#xt[milu:n	// ocht milliún
+_9M2	ni:milu:n	// naoi milliún
+_10M2	dZEmilu:n	// deich milliún
+_0M4	_trilu:n	// trilliún
+_1M4	'trilu:n
+_2M4 QA:hrilu:n	// dhá thrilliún
+_3M4 tri:hrilu:n	// trí thrilliún
+_4M4 kEr@hrilu:n	// ceithre thrilliún
+_5M4	ku:ighrilu:n	// cúig thrilliún
+_6M4	Se:hrilu:n	// sé thrilliún
+_7M4	S0xt[d[rilu:n	// seacht dtrilliún
+_8M4	O#xt[d[rilu:n	// ocht dtrilliún
+_9M4	ni:d[rilu:n	// naoi dtrilliún
+_10M4	dZEd[rilu:n	// deich dtrilliún
+
+_0and	Is
+_dpt	pO#nk
+//_roman	Rom'ano
+
+//delete
+
+// old script
+ċur x'Ur
+ḃ	b,i:b'u:ltS@
+
+ċ s,i:b'u:ltS@
+ḋ	d,i:b'u:ltS@
+ḟ	,Efb'u:ltS@
+ġ	dZ,i:b'u:ltS@
+ṁ	,Emb'u:ltS@
+ṗ	p,i:b'u:ltS@
+ṡ	,Esb'u:ltS@
+ẛ	,Esb'u:ltS@
+_ſ	Es
+ṫ	t,i:b'u:ltS@
+
+
+
+
+ 
+// words 
+a	@
+ab	@b
+abhaile @w'0l;E
+ach	0x		$u
+ag Eg $verbf $u
+anall	@n'aUl
+anam	'0n@m
+aige @g'E
+air Er
+acu 0k'U
+ar Er		
+arsa	@rs@
+agaibh	0g@Iv
+agus	0g@s $u
+aisfhilleadh	,aS'Il;@
+amach	@m'0x
+amárach	@m'A:r@x
+amuigh	@mu1'I
+amháin @w'A:in
+hamháin	h@w'A:in
+
+am aUm
+anaithnid	'0nah@nIdZ
+anonn @naUn
+ann aUn
+ansan  @ns'an // Munster dialect
+anseo	@nS'O
+anso @ns'O // Munster dialect
+ansúd @ns'ud[ // Munster dialect
+anuas	a#n'u@s
+aodh e:
+aodha e:
+aon e:@n
+(ar ais) Er'aS
+arís	@r'i:S
+as 0s
+aschurtha	'0sxUrh@
+
+atá	@t['A:		$u
+baill	bu1'i:l
+bhaill	vu1'i:l
+beadh	b;'@X
+bheadh	v;'@X
+beidh	bEg
+bhfuil w'Il
+bheas	v'e:@s
+bhuel	w'El
+ceithre kEr@
+cathair	k'0h@r
+chathair	x'0h@r
+clainne	kl'InE
+chlainne	xl'InE
+chun	xUn		$u
+crainn kri:n
+chrainn	xri:n
+cúlslais	ku:lslaS
+de	dE		$u+
+des	dEs		$u
+
+dhaoibh ji:v
+di	dI		$u+
+do	dO#		$u
+domhnach d[aUn@x
+domhnaigh d[aUnig
+dúghorm	d['u:Q"Or@m
+eile	'El@
+euro ju:ro:
+faic f@ak
+  faide f@Id[E
+faigh	faIg
+  feadh fag
+fear	f'ar
+féin	h'e:n
+gcathair	g0h@r
+gan	g0n		$u
+  gheall jaUl
+  (go raibh maith) g@r@m0h
+  (go raibh míle) g@r@mi:l@
+gur	gUr		$u
+i	I		$u
+in	In		$u
+ina	In@		$u
+ins	Ins		$u
+    inniu Inj'u:v
+iontach	'i:nt[@x
+hiontach	h'i:nt[@x
+ 	irish	_^_EN
+    is  'Is		$u
+  (is ea) IS'a
+  isteach	IstS'0x
+      iúl ju:l
+  laoghaire li:@r@
+le	lE		$u
+       leí le:i:
+(maigh eo)	mu1'i:||'o:
+(muigheo)	mu1'i:||'o:
+mhuigh	vu1'i:
+(mhaigh eo)	vu1'i:||'o:
+mhama	w'0m@
+maith m'0
+mhaith w'0
+mhaithe	w'0h;E
+
+	   mbeadh m;O#X
+mo	mO#		$u
+mura	mUr@		$u
+ná	nA:		$u
+	   nigh ni:
+	   níorbh ni:@r@vv $u
+	   nó nu:		$u
+  nollag n@l@g
+  nolaig nO#lig
+Oirghiall	'Err@X@l
+orthu O#rhu
+os	o:s
+rabh	raU
+raibh rEv
+raidió	r'adi:o:
+réidh	re:
+rímhaith	R'i:w0
+(s é)	S'e:
+(s í)	S'i:
+	  san s@n
+	  san	s'an $capital
+seo SU_ $u
+(sinn féin)	S'In||f'e:n
+
+	tabhair t'u:@r
+	(tiocfaidh ár lá)	tSO#ki:|'A:r|l'A:
+	
+	// temporary fix for NO#DA punctuation
+dot pO#nk
+comma k0m@
+dash flESki:n
+tick u:@sx0m@
+space spA:s
+	

@@ -1,0 +1,542 @@
+
+// Translation rules for Bengali
+// Improvement input  by Him Prasad gautam (Nepal).
+// This file is UTF8 encoded
+
+// Numbers
+// Bengali numbers are changed to latin characters before translation
+_0	S'unjO
+_1	'&k
+_2	d'uj
+_3	t'in
+_4	tS'ar
+_5	p'a~tS
+_6	tS#'Oj
+_7	S'at
+_8	'at.
+_9	n'Oj
+
+_2a	d'u     // with hundreds etc.
+_6a	tS#'O
+_9a	n'O
+
+
+_10	d'OS
+_11	'&garo
+_12	b'arO
+_13	t'erO
+_14	tS'oddO
+_15	p'OnerO
+_16	S'olO
+_17	S'OterO
+_18	'at.#arO 
+_19	'uniS
+
+_20	b'iS
+_21	ek'uS
+_22	b'ajS
+_23	t'ejS
+_24	tS'ObbiS
+_25	p'O~tSiS
+_26	tS#'abbiS
+_27	Sat'aS
+_28	'at.#aS
+_29	'unOtr'iS
+
+_30	tr'iS
+_31	'ekOtr'iS
+_32	b'Otr'iS
+_33	t'etr'iS
+_34	tS'owtr'iS
+_35	p'O~jtr'iS
+_36	tS#'Otr'iS
+_37	S'a~itr'iS
+_38	'at.tr'iS
+_39	'unOtSOll'iS
+
+_40	tSOll'iS
+_41	'ektSOll'iS
+_42	b'iall'iS
+_43	t'etall'iS
+_44	tS'uall'iS
+_45	p'O~jtall'iS
+_46	tS#'etSOll'iS
+_47	S'atSOll'iS
+_48	'at.tSOll'iS
+_49	'unOpOntS'aS
+
+_50	pOntS'aS
+_51	'&kann'o
+_52	b'ahann'o
+_53	t'ippann'o
+_54	tS'ujann'o
+_55	p'ontSann'o
+_56	tS#'appann'o
+_57	S'atann'o
+_58	'at.ann'o
+_59	'unOS'at.
+
+
+_60	S'at.
+_61	'ekSOt.t.'i
+_62	b'aSOt.t.'i
+_63	t'eSOt.t.'i
+_64	tS'owSOt.t.'i
+_65	p'ojSOt.t.'i
+_66	tS#'eSOt.t.'i
+_67	S'atSOt.t.'i
+_68	'at.SOt.t.'i
+_6X	s'at.t.'i
+_69	'unOSOtt'Or
+
+_70	S'Ott'Or
+_71	'ekatt'Or
+_72	b'ahatt'Or
+_73	t'iatt'Or
+_74	tS'uatt'Or
+_75	p'O~tSatt'Or
+_76	tS#'ijatt'Or
+_77	S'atatt'Or
+_78	'at.att'Or
+_79	'unOaS'i
+
+_80	aS'i
+_81	'&kaS'i
+_82	b'iraS'i
+_83	t'iraS'i
+_84	tS'uraS'i
+_85	p'O~tSaS'i
+_86	tS#'ijaS'i
+_87	S'ataS'i
+_88	'OSt.aS'i
+_89	'unOnObb'oj
+
+_90	nObb'oj
+_91	'&kanObb'oj
+_92	b'iranObb'oj
+_93	t'iranObb'oj
+_94	tS'uranObb'oj
+_95	p'O~tSanObb'oj
+_96	tS#'ijanObb'oj
+_97	S'atanObb'oj
+_98	'at.anObb'oj
+_99	n'iranObb'oj
+
+_0C	S'o
+_0M1	h'ajar
+_0M2	l'ak#
+_0M3	k'ot.i
+_0M4	S'o||k'ot.i
+_10M4	h'aJar||k'ot.i	// a thousand crore
+_dpt	_d'OSomik_
+
+
+// Single consonants
+ক	kO
+খ	k#O
+গ	gO
+ঘ	g#O
+ঙ	'u~jo	// uuyo
+চ	tSO
+ছ	tShO    // [h] to distinguish from [tS]
+জ	JO
+__জ	b'orgijo||J'O	// borgiyo jo, when a word is spelled out
+ঝ	J#O
+ঞ	'i~jo	// iiyo
+ট	t.O
+ঠ	t.#O
+ড	d.O
+ঢ	d.#O
+ণ	m'urd#Onno||n'O	// murdhonno no
+ত	tO
+থ	t#O
+দ	dO
+ধ	d#O
+ন	d'Ont:o||n'O	$atstart $atend $sentence	// dontto no: in a sentence it is the word "not" (ন হন্যতে)
+ন	$hasdot $atstart $atend
+__ন	d'Ont:o||n'O
+প	pO
+ফ	fO      // or [p#O] ?
+ব	bO
+ভ	b#O
+ম	mO
+য়	Oj
+__য়	'OntOst#o||j'O	// ontostho yo, when a word is spelled out
+য	'OntOst#o||J'O	// ontostho jo
+র	rO
+ড়       r.O
+ড়	r.O     // (d. + nukta)
+ঢ়	hr.O
+ঢ়	hr.O    // (d#. + nukta)
+ল	lO
+শ	So	// a hundred
+শ	t'alObbo||S'O	$atstart $atend $sentence	// talobbo sho
+শ	So	$hasdot $atstart $atend
+__শ	t'alObbo||S'O
+ষ	m'urd#Onno||S'O	// murdhonno sho
+স	d'Ont:o||S'O	// dontto sho
+হ	hO
+ৎ	k#'Ond.o||t'O	// khondo to
+ক্ষ	k'Oje||m'urd#Onno||S'O	// ko-ye murdhonno sho
+
+// Letters that had no name
+য়	Oj	// (j + nukta)
+ঌ	l'i
+ৠ	d'i:rg#o||r'i
+ৡ	d'i:rg#o||l'i
+ৰ	'OSOmija||r'O	// the Assamese r
+ৱ	'OSOmija||w'O	// the Assamese w
+
+
+// full vowels
+অ	O:
+আ	a
+ই	hr'OSSo||'i	$atstart $atend $sentence	// 12i: the ending of a date is read as it sounds
+ই	$hasdot $atstart $atend
+__ই	hr'OSSo||'i	// hroshsho i, when a word is spelled out
+ঈ	d'i:rg#o'i
+উ	hrOS:o'u
+উ	$hasdot	// the abbreviation of uttor
+ঊ	d'i:rg#o'u
+ঋ	ri
+ঔ	ow
+
+এ	e  $u+   // word 'it'
+ঐ	oj $u+   // word 'that'
+ও	o  $u+ $brk  // 'and'
+_এ	e
+_ঐ	oj
+_ও	o
+
+
+// combining vowel signs
+া	'akar
+ি	hrOS:o'ikar
+ী	d'i:rg#ikar
+ূ	d'i:rg#ukar
+ু	hrOS:o'ukar
+ৃ	r'ikar
+ে	'ekar
+ৈ	'ojkar
+ো	'okar
+ৌ	'owkar
+ৄ	d'i:rg#o||r'ikar
+ৢ	l'ikar
+ৣ	d'i:rg#o||l'ikar
+
+// signs
+্	h'OSonto
+ং	'OnuSSOr
+ঃ	b'iSOrgo
+ঁ	tS'Ondrobindu
+়	b'indu
+ঽ	'ObOgrOho	// obogroho
+৺	'iSSOr	// isshor
+
+// A capital letter of the Latin alphabet, and a character that has no name
+_cap	k'&pit.al
+_??	'Ok#k#Or
+
+$	d.Olar
+%	S'OtaNSo
++	jOg
+=	SOman
+৴	&k'ana:
+৵	du,ana:
+৶	tin,ana:
+
+
+
+
+// Punctuation
+।	d'a~r.i
+॥	d'ui||d'a~r.i
+_,	k'Oma
+_?	pr'oSnObod#Ok||tS'inno
+_।	d'a~r.i
+_॥	d'ui||d'a~r.i
+_.	f'ulSt.Op
+_;	S'emikolOn
+_:	k'olOn
+_!	b'iSmOjSutSOk||tS'inno
+_'	'urd#Ok,Oma
+_"	'udd#riti||tS'inno
+_“	'udd#riti||S'uru
+_”	'udd#riti||S'eS
+_‘	'ekOk||'udd#riti||S'uru
+_’	'ekOk||'udd#riti||S'eS
+_(	pr'ot#Om||b'Ond#Oni||S'uru
+_)	pr'ot#Om||b'Ond#Oni||S'eS
+_{	d'itijo||b'Ond#Oni||S'uru
+_}	d'itijo||b'Ond#Oni||S'eS
+_[	tr'itijo||b'Ond#Oni||S'uru
+_]	tr'itijo||b'Ond#Oni||S'eS
+_<	'er||tS'eje||tS#'ot.o
+_>	'er||tS'eje||b'Or.o
+_-	h'aifen
+_–	'en||d.'&S
+_—	d.'&S
+_…	'elipsis
+_/	Sl'&S
+_\	b'&kSl&S
+__	'and.arSkor
+_|	'ullOmbo||r'ek#a
+_@	'&t.
+_#	h'&S
+_$	d.'Olar
+_^	k'&ret.
+_&	'&nd.
+_*	t'arOkatS,inno
+_+	J'og||tS'inno
+_=	S'Oman||tS'inno
+_~	t.'ild.
+_`	b'&kt.ik
+_°	d.'igri
+_§	b'ib#ag
+_•	b'ulet.
+_·	m'Odd#o||b'indu
+_£	p'aund.
+_¥	'ijen
+_€	'iuro
+_₹	r'upi
+_₨	r'upi
+_৳	t.'aka
+_৲	t.'aka
+_¢	S'ent.
+_×	g'un||tS'inno
+_÷	b#'ag||tS'inno
+_±	J'og||bij'og
+_¶	'OnutStS#ed||tS'inno
+_©	k'opirait.
+_®	n'ibOnd#ito
+_™	t.r'ed.||m'ark
+
+// Pronouns
+আমি 	$u	// main: I
+আমায়	$u
+আমার 	$u
+
+আমরা 	$u	// we
+আমাদের	$u
+
+আপনি	$u	// you(formal)
+আপনাকে	$u
+আপনার 	$u
+
+তুমি	$u	// you (informal)
+তোমায় 	$u
+তোমার 	$u
+তোমাদের 	$u
+
+তুই	$u	// you (informal)
+তোকে 	$u
+তোর 	$u
+
+এ	$u	// he/she/it
+আপনি	$u
+এটার 	$u
+এর 	$u
+
+ইনি	$u	// they
+এনাকে	$u
+এনার 	$u
+
+ও	$u	// he/she/it
+সে 	$u
+ওর 	$u
+তার 	$u
+
+ওরা	$u	// they
+তারা	$u
+ওদের	$u	// unheṃ: them 
+তাদের	$u
+
+এই	$u	// e:I this/it
+এটা 	$u	// e:ta: this/it
+এটার 	$u	// e:ta:'r  this/it
+এর 	$u	// e:r  this/it
+
+ওটা	$u	// o:ta: that
+ওটাকে 	$u	// o:ta:ke: to that
+ওটার 	$u	// o:ta:'r  of that
+
+ওগুলো	$u	// o:gu:lo: those
+ওগুলোকে $u	// o:gu:lo:ke: to those
+ওগুলোর 	$u	// o:gu:lo:'r  of those
+
+
+
+// Prepositions/Postpositions
+মধ্যে	$u	// moddhe  in
+উপর	$u	// upor    on, above
+নীচে	$u	// niche   below
+
+পূর্ব্বে	$u	// purbe   before, prior
+পর্য্যন্ত 	$u	// parjonto  till
+অব্দি	$u 	// abdi      till
+বিনা	$u	// bina      without
+
+
+
+// Questions
+কেন	$u $pause	// kano why  interrogative particle
+কি	$u $pause	// ki  what
+কোথায়	$u $pause	// kothaay  where
+কখন	$u $pause	// kakhon   when
+কে	$u $pause	// ke       who
+
+// Conjunctions
+
+এবং	$u $pause	// ebong: and
+আর	$u $pause	// aar: and
+অথবা	$u $pause	// athoba: or
+কিন্তু	$u $pause	// kintu: but
+যদি	$pause	// jodi: if
+তবু	$pause	// tobu: still, yet
+তবে	$pause	// tabe: if...then
+অথচ	$u	// athacho: yet
+
+
+// Verbs
+
+হয়	$u
+হয়	$u
+
+
+ছিল	$u	// chilo: past aux
+ছিলেন 	$u	// chilen
+
+
+করছি 	$u	// korchi: continuous
+করছিলাম	$u	// korchilam: past indefinite
+করেছি 	$u	// korechi: past
+
+
+// Exceptions
+এত	&to
+// Exceptions - where inherent vowel even being between two consonant is not pronounced as (o) mostly in case of two words pronounced and used as a single word. The list however is not final and contain most commonly used words.
+
+সোমবার		Sombar
+মঙ্গলবার		mOng'ol,bar
+বুধবার		budh,bar
+অমলকান্তি	O:mol,kanti
+অন্দরমহল	andor,mahol
+আকাশকুসুম	aka:S,kuSum
+আতসবাজী	atoS,ba:JI
+আদবকায়দা	a:dob,kaj'da:
+আনকোরা		a:n,kora:
+আনচান		an,can
+আপনজন		a:pon,jon
+আমজনতা	a:m'jano'ta:
+আলটপকা	al,tO,pka
+আসকারা		a:s,ka:ra:
+আসনতলে	aS'ontO:le
+ইমনকল্যান	i,mO'n'k,ollan
+ঈগলপাখী	igol,pa:khi
+ইঁদুরছানা		i~dur'cha:na:
+একজন		&k'JOn
+উত্তরদাতা		utt'or,data
+উত্তরদায়ী		utt;or,da:I
+কচকচি		kOtS,kOci
+কবরখানা		kObOr,kha:na
+করদাতা		kOr,data:
+কয়েদখানা		kO'edkhana
+কয়েকজন		kOekJOn
+কলকাতা		kOlkata
+কনকচাঁপা		kOnOk,c~a:pa
+কাজললতা	kaJol,lOta
+কারখানা		kar,khana
+কারবার		kar,bar
+কালকেতু		kal,ketu
+কালপুরুষ		kal,puruS
+খরখরে		k#'Or,k#Ore
+খাপছাড়া		khap,chara:
+খানখান		khan,khan
+খানসামা		khan,Sama
+খাশমহল		khaS,mOhOl
+খিড়কি		khir.ki
+খুনসুটি		khun,Suti
+খুরপি		khu,rpi
+গজগজ		g'OJ,g'OJ
+গরমিল		gOr,mil
+ঘটকালী		g#Ot'kali
+চটপট		cOt',pOt'
+চালবাজ		cal'baJ
+চালবাজি		cal'baJi
+ছটপট		tS#'Ot,pOt
+জলখাবার		JOl,khabar
+টনটনে		tOn,tOne
+টানটান		ta:n,tan
+ঠগবাজ		t.#Og'baJ
+ঠিকঠাক		t.#ik,t.#ak
+নাড়কোল		nar,kol
+প্রধানমন্ত্রী		prOd.#an,mOn'tri
+বাসনকোসন	ba:son'koson
+গালগল্প		gal'gOlpo
+ঘাসপাতা		gha:s'pa:ta
+চালচুলো		ca:lculo
+ছালবাকল		tS#'al,bako'l
+কানপাতলা	ka:n'patla:
+খানখান		kha:n'khan
+আরামবাগ	ara:m'bag
+হারামজাদা	hara:m'Jada:
+নামডাক		na:m'da:k
+নাকছাবি		na:kcha:bi
+পাশবালিশ	pash'baliS
+ফুলশয্যা		fu'l,So'JJa:
+খালবিল		kha:l'bil
+জালসাজি		Jal'Sa:Ji
+পোষ্টমাস্টার	post'ma:sta:r
+অমরসঙ্গী                 O:mor'SongI
+চুপচাপ                    cup'c,ap
+পাগলা                   pa',g'la
+পাগলামো                pa',g'la'mo
+মর্যাদা		mO:rJ,ada
+আমপাতা		'ampa,ta
+আকাশবানী             akaS'banI
+বিদঘুটে 		bi,dg#Ut.e
+দেবদেবী		deb'debI
+অথচ 		O:t#oco
+আমরাই	   	am,rai
+খেলা 		k#&'la
+খেলবো 		k#el'bo
+চারটি 		car,t.i
+একটি 		ekt.i
+একটা 		&kt.a:
+দরকার		dO:r'kar'
+দেখছি		dek#'c#i
+বলছি		bo,lc#i
+করছি	 	ko'rc#i
+শুনছি	 	Sun'c#i
+ভাবছি	 	b#a'bc#i
+ঘুরছি 	 	g#U,rc#i
+দিনরাত 	  	din'rat.
+সবরকম 	 	SO:b,rO:kom
+কাজকর্ম 	 	kaJ,kO:'rmo
+দুঃখ 		duk#'k#o
+তিনটে		tin't.e
+চারটে		car't.e
+পাঁচটা		p~ac't.a
+সাতটা		Sat't.a
+আটটা		a:t.'t.a
+দশটা		dOS't.:a
+একুশটা		ekuS't.:a
+বাইশটা		ba:iS't.:a
+তেইশটা		tei'St.:a
+চব্বিশটা		co'b'biS't.:a
+পঁচিশটা		p~o'ciS't.:a
+ছাব্বিশটা		ch:a'b'biS't.:a
+সাতাশটা		Sat.aS't.:a
+আঠাশটা		a:t.#a:S't.:a
+উনত্রিশটা		un'triS't.:a
+তিরিশটা		tiriS't.:a
+একত্রিশটা		ek'triS't.:a
+বত্রিশটা		bot:riS't.:a
+তেত্রিশটা		tetriS't.:a
+চৌঁত্রিশটা		c~ou:triS't.:a
+পঁয়ত্রিশটা		p~oj'triS't.:a
+ছত্রিশটা		chot:riS't.:a
+সাঁইত্রিশটা		S~ai'triS't.:a
+আটত্রিশটা	a:t.triS't.:a
+উনচল্লিশটা	uno'col'l:iS't.:a
+চল্লিশটা		col'l:iS't.:a

@@ -1,0 +1,406 @@
+// This file is UTF-8 encoded
+// all words lower case
+
+// Uses of $alt:
+// 1.  Change ['i:] to [=I@] at end of word 
+
+
+// Letter names
+//========
+// If a letter has a "word" pronunciation which is different from its
+// "letter" name, then include the letter name here, with the letter
+// prefixed by a _ character.
+
+a	a:
+_a	'a:
+b	be:
+c	ke:
+d	de:
+e	e:
+_e	'e:
+f	Ef
+g	ge:
+h	ha:
+i	i:
+_j	'i:||l'ONga	// i longa (Vicipaedia)
+k	ka:
+l	El
+m	Em
+n	En
+o	o:
+p	pe:
+q	kwu: // k<w>u:
+r	Er
+s	Es
+t	te:
+u	u:
+v	u: // same as u
+_w	'u:||d'UplEks	// u duplex (Vicipaedia)
+x	Eks
+y	i:||g@-*'aIka
+z	'ze:ta
+
+_cap	majj'UskUla
+
+// the marks on a vowel, said after it: ā longa, ă brevis, é acūta, è gravis,
+// ê circumflexa, ë cum diaeresī
+_mcn	l'ONga
+_brv	b@-*'EwIs
+_acu	ak'u:ta
+_grv	g@-*'awIs
+_cir	kIRkUmfl'Eksa
+_dia	kUm||dI;'aIREsi:
+_ā	$accent
+_ē	$accent
+_ī	$accent
+_ō	$accent
+_ū	$accent
+_ȳ	i:||g@-*'aIka||l'ONga
+_â	$accent
+_ê	$accent
+_î	$accent
+_ô	$accent
+_û	$accent
+_œ	'OI	// oe
+_ǽ	'aI||ak'u:ta
+
+// names of the marks, said when a text is read character by character
+_.	p'u:NktUm
+_,	w'IRgUla
+_;	w'IRgUla||pu:Nkt'a:ta
+_:	bIp'u:NktUm
+_!	s'INnUm||Ekskla:ma:tI;'o:nIs
+_?	s'INnUm||IntER*Oga:tI;'o:nIs
+_…	s'INnUm||REtIk'EntI;aI
+_"	w'IRgUlaI||d'UplaI
+_'	ap'Ost*Op<h>Us
+_’	ap'Ost*Op<h>Us
+_«	s'INna||kIta:tI;'o:nIs
+_»	s'INna||kIta:tI;'o:nIs
+_“	w'IRgUlaI||d'UplaI
+_”	w'IRgUlaI||d'UplaI
+_‘	w'IRgUla||s'ImplEks
+/	l'i:nEa||Obl'i:kwa
+_|	l'i:nEa||wERtIk'a:lIs
+_(	paR'Ent<h>EsIs||ap'ERta
+_)	paR'Ent<h>EsIs||kl'aUsa
+_[	paR'Ent<h>EsIs||kw'ad*a||ap'ERta
+_]	paR'Ent<h>EsIs||kw'ad*a||kl'aUsa
+_{	paR'Ent<h>EsIs||UNgUl'a:ta||ap'ERta
+_}	paR'Ent<h>EsIs||UNgUl'a:ta||kl'aUsa
+_-	IntERd'UktUs
+_–	l'i:nEa||'EnnE
+_—	l'i:nEa||'EmmE
+&	'Et
+*	astER'IskUs
++	pl'u:s
+−	m'InUs
+_°	g*'adUs
+_£	l'i:b*a
+// / & * + − ½ ¼ ± also in ordinary text, which read them in English
+½	di:m'IdI;Um
+¼	kw'a:Rta||p'aRs
+±	pl'u:s||mIn'UswE
+
+// ABBREVIATIONS
+//========
+
+(a. u. c.)   ab||wRb,E||kOnd'i:ta //ab urbe condita
+(a. d.)      'antE||d'I;Em      //ante diem;
+(D. M.)      d,i:s||m'a:nIbUs   //Dīs Mānibus
+ib           'Ibi:||d,Em //ibīdem
+ibd          'Ibi:||d,Em //ibīdem
+Idib         'i:dIbUs //Īdibus, from Īdūs
+Idq          i:d'EmkwE //īdemque
+(i. e.)      ,Id||Est //id est
+
+
+// FUNCTION WORDS
+//========
+
+// adverbs
+
+non
+
+// Pronouns:
+// Relative pronouns. These should probably be unstressed most of the time, hence the $u markers.
+// However, since some of them are identical to interrogative pronouns, which should be
+// stressed, we will not 'unstress' these to be on the safe side.
+
+quī $u
+quae $u
+quod $u
+quae $u
+// cūius $u (also an interrogative pronoun)
+quōrum $u
+quārum $u
+// cui $u (also an interrogative pronoun)
+quibus $u
+// quem $u (also an interrogative pronoun)
+quās $u
+quam $u
+quōs $u
+// quō $u (also an interrogative pronoun)
+
+
+// Personal pronouns.
+// Note that the nominative forms are not marked as unstressed. This is because
+// Latin is a pro-drop language like Italian or Polish, and therefore nominative
+// personal pronouns should often be emphasised.
+
+// ego $u (probably should be stressed as it is nominative)
+// nōs $u (probably should be stressed as it is nominative)
+// t? $u (probably should be stressed as it is nominative)
+// vōs $u (probably should be stressed as it is nominative)
+// is $u (probably should be stressed as it is nominative)
+// e? $u (probably should be stressed as it is nominative)
+// i? $u (probably should be stressed as it is nominative)
+// ea $u (probably should be stressed as it is nominative)
+// eae $u (probably should be stressed as it is nominative)
+// id $u (probably should be stressed as it is nominative)
+// ea $u (probably should be stressed as it is nominative)
+
+meī $u
+nostrum $u
+tu? $u
+vestrum $u
+mihi $u
+nōbīs $u
+tibi $u
+vōbīs $u
+mē $u
+// nōs (identical to nominative form)
+tē $u
+// vōs (identical to nominative form)
+
+eius $u
+eōrum $u
+eārum $u
+eō $u
+eōs $u
+iīs $u
+eum $u
+eīs $u
+eam $u
+eās $u
+id $u
+ea $u
+eī $u
+eā $u
+
+// Reflexive pronouns - should these all be unstressed?
+
+se $u
+su? $u
+sibi $u
+
+
+
+// prepositions
+
+a $u
+ac $u
+ad $u
+ab $u
+in $u
+cum $u
+e $u
+ex $u
+ante $u
+apud $u
+circa $u
+circum $u
+contra $u
+de $u
+erga $u
+extra $u
+in $u
+infra $u
+inter $u
+intra $u
+iuxta $u
+ob $u
+penes $u
+per $u
+pone $u
+post $u
+prae $u
+praeter $u
+praeterea $u
+pro $u
+prope $u
+propius $u
+proximus $u
+propter $u
+secundum $u
+sine $u
+sub $u
+subter $u
+super $u
+supra $u
+trans $u
+ultra $u
+versus $u
+
+// conjunctions
+
+atque $pause
+atqui $pause
+at $pause
+aut $pause
+autem $pause
+dum $pause
+enim $pause
+et $u $brk
+etenim $pause
+etiam $pause
+ergo $pause
+etsi $pause
+idcirco $pause
+ideo $pause
+nam $pause
+namque $pause
+nec $pause
+nisi $pause
+propterea $pause
+prout $pause
+quamdiu $pause
+quamquam $pause
+quando $pause
+quasi $pause
+quemadmodum $pause
+quoad $pause
+quod $pause
+
+
+// forms of esse
+
+sum $u
+es $u
+est $u
+sumus $u
+estis $u
+sunt $u
+
+erām $u
+erās $u
+erāt $u
+erāmus $u
+erātis $u
+erant $u
+
+erō $u
+eris $u
+erit $u
+erimus $u
+eritis $u
+erunt $u
+
+fuī $u
+fuīstī $u
+fuit $u
+fuimus $u
+fuīstis $u
+fuereunt $u
+
+fueram $u
+fuerās $u
+fuerat $u
+fuerāmus $u
+fuerātis $u
+fuērunt $u
+
+fuerō $u
+fuerīs $u
+fuerit $u
+fuerīmus $u
+fuerītis $u
+fuerunt $u
+
+este $u
+esto $u
+estote $u
+sunto $u
+
+
+// numerals
+
+ii	II	// word, not numeric
+vi	wI	// word, not numeric
+
+i		'u:nUs $capital 
+ii		d'UO $allcaps
+vi		s,Eks $allcaps 
+
+// eSpeak translates Roman numbers to Arabic numerals
+_0	n'Ulla
+_1	'u:nUs 
+_2	d'UO 
+_3	t@-*,e:s 
+_4	kw'at:UOR 
+_5	kw'i:NkwE 
+_6	s,Eks
+_7	s'EptEm 
+_8	'Okto: 
+_9	n'OwEm 
+_10	d'EkEm 
+
+_11	'u:ndEkIm
+_12	dU'OdEkIm
+_13	t@-*,e:d'EkIm
+_14	kwat:w'ORdEkIm
+_15	kw,i:nd'EkIm
+_16	s'EdEkIm
+_17	sEpt'EndEkIm
+_18	dUOdEwIg'IntI
+_19	u:ndEwIg'IntI 
+
+_2X	wi:g'Inti:
+_3X	t@-*i:g'Inta:
+_4X	kwad@-*a:g'Inta:
+_5X	kwi:Nkwa:g'Inta:
+_6X	sEksa:g'Inta:
+_7X	sEptUa:g'Inta:
+_8X	Okto:g'Inta:
+_9X	no:na:g'Inta:
+_0C	k'EntUm
+_28	dUOde:t@-*i:g'Inta:
+_29	u:nde:t@-*i:g'Inta:
+_38	dUOde:kwad@-*a:g'Inta:
+_39	u:nde:kwad@-*a:g'Inta:
+_48	dUOde:kwi:Nkwa:g'Inta:
+_49	u:nde:kwi:Nkwa:g'Inta:
+_58	dUOde:sEksa:g'Inta:
+_59	u:nde:sEksa:g'Inta:
+_68	dUOde:sEptUa:g'Inta:
+_69	u:nde:sEptUa:g'Inta:
+_78	dUOde:Okto:g'Inta:
+_79	u:nde:Okto:g'Inta:
+_88	dUOde:no:na:g'Inta:
+_89	u:nde:no:na:g'Inta:
+_98	dUOde:k'EntUm
+_99	u:nde:k'EntUm
+_1C	k'EntUm
+_2C	dUk'Enti:
+_3C	t@-*Ek'Enti:
+_4C	kwad@-*INg'Enti:
+_5C	kwi:Ng'Enti:
+_6C	sEsk'Enti:
+_7C	sEptINg'Enti:
+_8C	OktINg'Enti:
+_9C	no:Ng'Enti:
+_1M1	m'i:llE
+_0M1	m'i:lI;a
+_3M1	t@-*'I;a||m'i:lI;a
+_200M1	dUk'Enta||m'i:lI;a
+_300M1	t@-*Ek'Enta||m'i:lI;a
+_400M1	kwad@-*INg'Enta||m'i:lI;a
+_500M1	kwi:Ng'Enta||m'i:lI;a
+_600M1	sEsk'Enta||m'i:lI;a
+_700M1	sEptINg'Enta||m'i:lI;a
+_800M1	OktINg'Enta||m'i:lI;a
+_900M1	no:Ng'Enta||m'i:lI;a
+_1M2	'u:nUs||m'i:lI;o:
+_0M2	mi:lI;'o:ne:s
+_dpt	p'u:NktUm
+%	pER||k'EntUm	// also in ordinary text, which said it in English

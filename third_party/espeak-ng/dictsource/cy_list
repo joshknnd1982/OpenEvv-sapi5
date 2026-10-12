@@ -1,0 +1,381 @@
+
+// Letters
+// If a letter has a "word" pronunciation which is different from its
+// "letter" name, then include the letter name here, with the letter
+// prefixed by a _ character.
+_a	A:
+_e	e:
+_i	i:
+_o	o:
+_y	V
+
+// Names of the other letters (yr wyddor): bi, èc, di, èf, èg, aets, je, ce, èl, èm, èn,
+// pi, ciw, èr, ès, ti, u bedol, fi, w, ecs, zèd
+b	bi:
+c	Ek
+d	di:
+f	Ev
+g	Eg
+h	aItS
+j	dZe:
+k	ke:
+l	El
+m	Em
+n	En
+p	pi:
+q	kIu
+r	Er
+s	Es
+t	ti:
+u	'y:||b'e:dOl
+v	vi:
+w	u:
+x	Eks
+z	zEd
+
+// Accented letters, named with the accent:
+// to bach (circumflex), acen ddyrchafedig (acute), acen ddisgynedig (grave), didolnod (diaeresis)
+_â	'A:||t'o:||b'A:x
+ê	'e:||t'o:||b'A:x
+î	'i:||t'o:||b'A:x
+ô	'o:||t'o:||b'A:x
+û	'y:||b'e:dOl||t'o:||b'A:x
+ŵ	'u:||t'o:||b'A:x
+ŷ	'V||t'o:||b'A:x
+á	'A:||'akEn||D,Vrxav'e:dIg
+é	'e:||'akEn||D,Vrxav'e:dIg
+í	'i:||'akEn||D,Vrxav'e:dIg
+ó	'o:||'akEn||D,Vrxav'e:dIg
+ú	'y:||b'e:dOl||'akEn||D,Vrxav'e:dIg
+ẃ	'u:||'akEn||D,Vrxav'e:dIg
+ý	'V||'akEn||D,Vrxav'e:dIg
+à	'A:||'akEn||D,IsgVn'e:dIg
+è	'e:||'akEn||D,IsgVn'e:dIg
+ì	'i:||'akEn||D,IsgVn'e:dIg
+ò	'o:||'akEn||D,IsgVn'e:dIg
+ù	'y:||b'e:dOl||'akEn||D,IsgVn'e:dIg
+ẁ	'u:||'akEn||D,IsgVn'e:dIg
+ỳ	'V||'akEn||D,IsgVn'e:dIg
+ä	'A:||dId'OlnOd
+ë	'e:||dId'OlnOd
+ï	'i:||dId'OlnOd
+ö	'o:||dId'OlnOd
+ü	'y:||b'e:dOl||dId'OlnOd
+ẅ	'u:||dId'OlnOd
+ÿ	'V||dId'OlnOd
+
+// accent names, for the accented letters of other languages
+_acu	'akEn||D,Vrxav'e:dIg
+_grv	'akEn||D,IsgVn'e:dIg
+_cir	t'o:||b'A:x
+_dia	dId'OlnOd
+_tld	t'Ild
+
+// priflythyren: capital letter
+_cap	pr,IvlVT'VrEn
+
+
+// numbers
+_0       d'Im	// dim
+_1       'Yn
+_2       d'aY
+_3       tr'i:
+_4       p'Edwar
+_5       p'Ymp
+_6       xw'e:C
+_7       s'aIT
+_8       w'YT
+_9       n'aU
+_10      d'e:g	// deg
+_1X      'Ynd,e:g	// un deg: 11 is un deg un
+_2X      d'aYD,e:g
+_3X      tr'i:d,e:g	// tri deg
+_4X      p'Edward,e:g	// pedwar deg
+_5X      p'Ymd,e:g	// pum deg
+_6X      xw'e:d,e:g	// chwe deg
+_7X      s'aITd,e:g	// saith deg
+_8X      w'YTd,e:g	// wyth deg
+_9X      n'aUd,e:g	// naw deg
+_0C      k'ant
+_2C      d'aYg,ant
+_3C      tr'i:x,ant
+_5C      p'Ymk,ant	// pum cant
+_6C      xw'e:x,ant	// chwe chant
+_0M1     m'i:l_
+_1M1     m'i:l_          // no '1' before thousand
+_2M1     d'uYv,i:l_	// dwy fil (mil is feminine)
+_3M1     t'aIrm,i:l_	// tair mil
+_4M1     p'e:daIrm,i:l_	// pedair mil
+_5M1     p'Ymm,i:l_	// pum mil
+_6M1     xw'e:m,i:l_	// chwe mil
+_10M1    d'ENm,i:l_	// deng mil
+_0M2     m'i:lIun_
+_2M2     d'uY||v'i:lIun_	// dwy filiwn (miliwn is feminine)
+_3M2     t'aIr||m'i:lIun_	// tair miliwn
+_4M2     p'e:daIr||m'i:lIun_	// pedair miliwn
+_5M2     p'Ym||m'i:lIun_	// pum miliwn
+_6M2     xw'e:||m'i:lIun_	// chwe miliwn
+_0M3     b'i:lIun_
+_0M4     tr'i:lIun_	// triliwn
+_dpt     puYnt
+_.p	at'alnOd||l#'aUn	// atalnod llawn, at the end of a sentence
+_,	k'Oma	// coma
+_;	h'annEr||k'OlOn	// hanner colon
+_:	k'OlOn	// colon
+_!	Eb'VxnOd	// ebychnod
+_?	gOv'VnnOd	// gofynnod
+_'	k'Ol#nOd	// collnod
+_"	dVv'VnnOd	// dyfynnod
+_(	kr'Omvax||'A:gOr	// cromfach agor
+_)	kr'Omvax||k'aY	// cromfach cau
+_[	br'akEd||sgw'A:r||'A:gOr	// braced sgwâr agor
+_]	br'akEd||sgw'A:r||k'aY	// braced sgwâr cau
+_{	br'akEd||'A:gOr||k'VrljOg	// braced agor cyrliog
+_}	br'akEd||k'aY||k'VrljOg	// braced cau cyrliog
+_<	l#'aI||na	// llai na
+_>	m'uY||na	// mwy na
+_-	kVs'Vl#tnOd	// cysylltnod
+_‐	kVs'Vl#tnOd
+_‑	kVs'Vl#tnOd
+_–	l#'i:nEl#||d'Orjad||'En	// llinell doriad en
+_—	l#'i:nEl#||d'Orjad||'Em	// llinell doriad em
+_―	b'ar||l#Orw'e:DOl	// bar llorweddol
+_…	El'IpsIs	// elipsis
+/	sl'AYs	// slaes
+\	sl'AYs||'o:l	// slaes ôl
+__	l#'i:nEl#||'i:sEl	// llinell isel
+_|	l#'i:nEl#||vErt'i:gOl	// llinell fertigol
+_@	'aruYD||'at	// arwydd at
+@	'at	// at, in an address
+_#	'aruYD||h'aS	// arwydd hash
+#	h'aS	// hash
+$	d'OlEr	// doler
+%	@||k'ant	// y cant: 50% is "pum deg y cant"
+_^	'akEn||gr'Om	// acen grom
+_&	amp'Ersand	// ampersand
+&	'a	// a (and)
+*	s'ErEn	// seren
++	pl'u:s	// plws
+=	kVv'artal	// cyfartal
+~	t'Ild	// tild
+_`	'akEn||b'e:D	// acen bedd
+_´	'akEn||'akIut	// acen acíwt
+_¨	dId'OlnOd	// didolnod
+_°	gr'A:D	// gradd
+_§	'adran	// adran
+_¶	m'ark||par'agraf	// marc paragraff
+_•	b'UlEd	// bwled
+_·	d'Ot||k'anOl	// dot canol
+_£	p'Ynt	// punt
+_¥	j'En	// ien
+_¢	s'Ent	// sent
+_€	'eUrO	// ewro
+_©	h'aUlvraInt	// hawlfraint
+_®	k,OvrEstr'e:dIg	// cofrestredig
+_™	n'o:d||m'asnax	// nod masnach
+_«	d,VvVn'o:daY||s'AYTaY||d'Ubl||Ir||xw'i:T	// dyfynodau saethau dwbl i'r chwith
+_»	d,VvVn'o:daY||s'AYTaY||d'Ubl||Ir||D'e:	// dyfynodau saethau dwbl i'r dde
+_„	dVv'VnnOd||D'e:||'i:sEl	// dyfynnod dde isel
+_“	dVv'VnnOd||xw'i:T	// dyfynnod chwith
+_”	dVv'VnnOd||D'e:	// dyfynnod dde
+_‘	k'Ol#nOd||xw'i:T	// collnod chwith
+_’	k'Ol#nOd||d'e:	// collnod de
+_‚	k'Ol#nOd||d'e:||'i:sEl	// collnod de isel
+_¡	p'uYnt||Eb'VxnOd||gw@-rTdr'o:	// pwynt ebychnod gwrthdro
+_¿	gOv'VnnOd||gw@-rTdr'o:	// gofynnod gwrthdro
+_†	'aruYD||d'A:gEr	// arwydd dager
+_‡	'aruYD||d'A:gEr||d'Ubl	// arwydd dager dwbl
+_‰	@||v'Il#tIr	// y filltir
+_×	'aruYD||l#Y'o:sI	// arwydd lluosi
+_÷	'aruYD||hr'annY	// arwydd rhannu
+±	pl'u:s||m'i:nUs	// plws minws
+_−	'aruYD||m'i:nUs	// arwydd minws
+_µ	'aruYD||m'IkrO	// arwydd micro
+¬	nEg'VDY	// negyddu
+_′	kVs'e:vIn	// cysefin
+_″	kVs'e:vIn||d'Ubl	// cysefin dwbl
+_sup	,YuxVsgr'i:vEn||	// uwchysgrifen: ² is "uwchysgrifen dau"
+
+
+// articles
+y         @
+yr        @r
+
+// conjunctions
+a         %a  $pause  // and
+ac        $u $pause   // and
+os        $u $pause   // if
+er        $u $pause   // although
+achos     $pause      // because
+felly     $pause      // so, therefore
+mor       $pause      // as,so
+neu       $pause      // or(not)
+oherwydd  $pause      // because
+ond       $pause      // but
+petai     $pause      // if it were
+sy        $u $pause   // which is
+sydd      $u $pause   // which are
+
+// prepositions
+//yn        @n      // in  (cy_rules)
+ym        @       // in (+nasal word)
+yng       @       // in (+nasal word)
+ynddi     $u+     // in it (f)
+ynddo     $u+      // in it (m)
+
+o         _%o:      // of,from,out of
+(o hyd)   o:h'y:d  $pause // until
+â         _%A:      // with
+am        _%am      // for
+ar        _%ar      // on
+at        _%at      // to,towards
+ap        _%ap
+gan       $u+      // by,with,from
+mewn      $u+      // in(a)
+tu        $u+
+wrth      $u $pause $strend     // by,with,while
+
+heb       $u      // without,not
+gyda      $u+     // with
+ers       $u $pause $strend  // since
+cyn       $u $pause $strend  // before,as
+nes       $pause $strend     // until
+tan       $pause $strend     // until
+dan       $pause $strend     // until,under
+
+agos      _A:gOs $u+ // near
+blaen     $u+        // in front of
+ôl        _%o:l $strend     // behind
+rhwng     $u+        // between
+dan       $u+        // under
+dros      $u+        // over,for,on behalf of
+//draws               // across
+drwy      $u+        // through
+erbyn     $u+        // by, against
+ymhen     $pause $strend    // within
+
+
+// pronouns
+i         I	$u+
+ti        ti:	$u+
+e         E	$u+
+hi        hi:	$u+
+ni        ni:	$u+
+chi       xi:	$u+
+nhw       nhu:	$u+
+
+hon       $u+       // this one (f)
+honna     $u+       // that one (f)
+hwn       $u+       // this one (m)
+hwnna     $u+       // that one (m)
+hwnnw     $u+       // that one (m)
+hyn       $u+       // this, these
+hynny     $u+       // that, those
+
+rhain     $u+       // these
+rheina    $u+       // those
+rheini    $u+       // those
+
+taw       $u+       // that
+
+mai       $u+       // that
+Mai       $capital         // May: month
+
+'na       $u+       // that
+yna       $u+       // that
+
+'ma       $u+       // this
+yma       $u+       // this
+
+// possessives
+fy        $u     // my
+ei        $u     // his, her
+ein       $u     // our
+eu        $u     // their
+
+// questions
+shwd      $u $pause $strend     // how
+sud       $u $pause $strend     // how
+
+// adverbs etc.
+fel       $u      // like,as
+na        $u      // than
+nag       $u      // than
+//bron            // almost
+//cwbl            // all
+pob       $u      // each
+rhywfaint $u      // some (amount)
+rhywrai   $u      // some (pl)
+unrhyw    $u      // any
+
+// verbs
+yn        @n
+wedi      $u   // perfect tense
+fe        $u+  // positive marker
+
+bod       $u  // to be
+rydw      $u
+rwyt      $u
+mae       $u
+mae       $u
+rydyn     $u
+rydych    $u
+maen      $u
+
+dwy       $u  // to be, contractions
+dan       $u
+dach      $u
+rwy       $u
+ryn       $u
+rych      $u
+
+roedd     $u  // was
+
+fod       $u
+
+oes       $u  // is there?
+yw        %Yu  // is,are
+
+dyma      $u  // here is
+dyna      $u  // there is, that's
+
+cael	$u+ // to get,have
+ga	$u+
+
+gafodd	$u+  // past
+gawson	$u+
+gawsoch	$u+
+gas	$u+
+geson	$u+
+gesoch	$u+
+
+
+gallu     $u  // can, to be able to
+alla	$u
+alli	$u
+all	$u
+allwn	$u
+allwch	$u
+allan	$u
+galla	$u
+galli	$u
+gall	$u
+gallwn	$u
+gallwch	$u
+gallan	$u
+
+//gorfod        // must, to have to
+//gorffod
+
+gwneud    $u+   // to do, make
+neud      $u+   // to do, make
+
+//myna           // to go
+
+
+bangor    baNgOr
+cymraeg   kVmr'AYg
+ysbryd    $2
+
+Hughes    hIu:s
+Jones     dZo:ns

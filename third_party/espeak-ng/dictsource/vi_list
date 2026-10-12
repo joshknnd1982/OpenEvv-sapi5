@@ -1,0 +1,370 @@
+//vi_list
+// letter names: begin
+// chữ cái - letter names (tên chữ cái): bê, xê, dê, đê ...
+b	_b'e	// bê
+c	s'e	// xê
+d	z'e	// dê
+?1 d	J^'e
+?2 d	J^'e
+đ	d_'e	// đê
+f	'E3p	// ép
+g	Q'@:2	// gờ
+h	h'a3t[	// hắt
+?1 h	h'a3kh
+?2 h	h'a3kh
+j	Z'i	// gi
+k	k'a:	// ca
+l	'E||l'@:2	// e-lờ
+m	'Em||m'@:2	// em-mờ
+n	'En||n'@:2	// en-nờ
+?1 n	'EN||n'@:2
+?2 n	'EN||n'@:2
+p	p'e	// pê
+q	kw'i	// quy
+r	'E||z'@:2	// e-rờ
+?1 r	'E||z.'@:2
+?2 r	'E||Q'@:2
+s	'E3t[||s'i2	// ét-sì
+?1 s	'E3kh||s'i2
+?2 s	'E3kh||s'i2
+t	t['e	// tê
+v	v'e	// vê
+w	v'e||k'E3p	// vê-kép
+x	'i3c||s'i2	// ích-xì
+?1 x	'@3c||s'i2
+?2 x	'@3c||s'i2
+z	z'E3t[	// dét
+?1 z	z'E3kh
+?2 z	z'E3kh
+
+// nguyên âm - vowels: ă is "á", â is "ớ", i is "i ngắn", y is "i dài"
+// _x is used where the letter alone is also a word (a, e, o, u, y ...): it is then named only when spelling
+_a	'a:	// a
+ă	'a:3	// á
+â	'@:3	// ớ
+_e	'E	// e
+_ê	'e	// ê
+i	'i||N'a3n	// i ngắn
+?1 i	'i||N'a3N
+?2 i	'i||N'a3N
+_o	'O	// o
+_ô	'o	// ô
+_ơ	'@:	// ơ
+_u	'u	// u
+?2 _u	'u-
+_ư	'y	// ư
+_y	'i||z'a:2j	// i dài
+?1 _y	'i||J^'a:2j
+?2 _y	'i||J^'a:2j
+
+// nguyên âm có dấu thanh - vowels with a tone mark: the letter's name, then the tone's name
+// (huyền, sắc, hỏi, ngã, nặng).  ?1 is the central voice, ?2 the southern voice.
+_à	'a:||hw'iE2n	// a huyền
+?1 _à	'a:||hw'iE2N
+?2 _à	'a:||w'iE2N
+_á	'a:||s'a3c	// a sắc
+_ả	'a:||h'O4j	// a hỏi
+_ã	'a:||N'a:5	// a ngã
+_ạ	'a:||n'a6N	// a nặng
+ằ	'a:3||hw'iE2n	// á huyền
+?1 ằ	'a:3||hw'iE2N
+?2 ằ	'a:3||w'iE2N
+ắ	'a:3||s'a3c	// á sắc
+ẳ	'a:3||h'O4j	// á hỏi
+ẵ	'a:3||N'a:5	// á ngã
+ặ	'a:3||n'a6N	// á nặng
+ầ	'@:3||hw'iE2n	// ớ huyền
+?1 ầ	'@:3||hw'iE2N
+?2 ầ	'@:3||w'iE2N
+ấ	'@:3||s'a3c	// ớ sắc
+ẩ	'@:3||h'O4j	// ớ hỏi
+ẫ	'@:3||N'a:5	// ớ ngã
+ậ	'@:3||n'a6N	// ớ nặng
+_è	'E||hw'iE2n	// e huyền
+?1 _è	'E||hw'iE2N
+?2 _è	'E||w'iE2N
+_é	'E||s'a3c	// e sắc
+_ẻ	'E||h'O4j	// e hỏi
+_ẽ	'E||N'a:5	// e ngã
+_ẹ	'E||n'a6N	// e nặng
+_ề	'e||hw'iE2n	// ê huyền
+?1 _ề	'e||hw'iE2N
+?2 _ề	'e||w'iE2N
+_ế	'e||s'a3c	// ê sắc
+_ể	'e||h'O4j	// ê hỏi
+_ễ	'e||N'a:5	// ê ngã
+_ệ	'e||n'a6N	// ê nặng
+_ì	'i||N'a3n||hw'iE2n	// i ngắn huyền
+?1 _ì	'i||N'a3N||hw'iE2N
+?2 _ì	'i||N'a3N||w'iE2N
+_í	'i||N'a3n||s'a3c	// i ngắn sắc
+?1 _í	'i||N'a3N||s'a3c
+?2 _í	'i||N'a3N||s'a3c
+_ỉ	'i||N'a3n||h'O4j	// i ngắn hỏi
+?1 _ỉ	'i||N'a3N||h'O4j
+?2 _ỉ	'i||N'a3N||h'O4j
+_ĩ	'i||N'a3n||N'a:5	// i ngắn ngã
+?1 _ĩ	'i||N'a3N||N'a:5
+?2 _ĩ	'i||N'a3N||N'a:5
+_ị	'i||N'a3n||n'a6N	// i ngắn nặng
+?1 _ị	'i||N'a3N||n'a6N
+?2 _ị	'i||N'a3N||n'a6N
+_ò	'O||hw'iE2n	// o huyền
+?1 _ò	'O||hw'iE2N
+?2 _ò	'O||w'iE2N
+_ó	'O||s'a3c	// o sắc
+_ỏ	'O||h'O4j	// o hỏi
+_õ	'O||N'a:5	// o ngã
+_ọ	'O||n'a6N	// o nặng
+_ồ	'o||hw'iE2n	// ô huyền
+?1 _ồ	'o||hw'iE2N
+?2 _ồ	'o||w'iE2N
+_ố	'o||s'a3c	// ô sắc
+_ổ	'o||h'O4j	// ô hỏi
+_ỗ	'o||N'a:5	// ô ngã
+_ộ	'o||n'a6N	// ô nặng
+_ờ	'@:||hw'iE2n	// ơ huyền
+?1 _ờ	'@:||hw'iE2N
+?2 _ờ	'@:||w'iE2N
+_ớ	'@:||s'a3c	// ơ sắc
+_ở	'@:||h'O4j	// ơ hỏi
+_ỡ	'@:||N'a:5	// ơ ngã
+_ợ	'@:||n'a6N	// ơ nặng
+_ù	'u||hw'iE2n	// u huyền
+?1 _ù	'u||hw'iE2N
+?2 _ù	'u-||w'iE2N
+_ú	'u||s'a3c	// u sắc
+?2 _ú	'u-||s'a3c
+_ủ	'u||h'O4j	// u hỏi
+?2 _ủ	'u-||h'O4j
+_ũ	'u||N'a:5	// u ngã
+?2 _ũ	'u-||N'a:5
+_ụ	'u||n'a6N	// u nặng
+?2 _ụ	'u-||n'a6N
+_ừ	'y||hw'iE2n	// ư huyền
+?1 _ừ	'y||hw'iE2N
+?2 _ừ	'y||w'iE2N
+_ứ	'y||s'a3c	// ư sắc
+_ử	'y||h'O4j	// ư hỏi
+_ữ	'y||N'a:5	// ư ngã
+_ự	'y||n'a6N	// ư nặng
+_ỳ	'i||z'a:2j||hw'iE2n	// i dài huyền
+?1 _ỳ	'i||J^'a:2j||hw'iE2N
+?2 _ỳ	'i||J^'a:2j||w'iE2N
+_ý	'i||z'a:2j||s'a3c	// i dài sắc
+?1 _ý	'i||J^'a:2j||s'a3c
+?2 _ý	'i||J^'a:2j||s'a3c
+_ỷ	'i||z'a:2j||h'O4j	// i dài hỏi
+?1 _ỷ	'i||J^'a:2j||h'O4j
+?2 _ỷ	'i||J^'a:2j||h'O4j
+_ỹ	'i||z'a:2j||N'a:5	// i dài ngã
+?1 _ỹ	'i||J^'a:2j||N'a:5
+?2 _ỹ	'i||J^'a:2j||N'a:5
+_ỵ	'i||z'a:2j||n'a6N	// i dài nặng
+?1 _ỵ	'i||J^'a:2j||n'a6N
+?2 _ỵ	'i||J^'a:2j||n'a6N
+
+// n with tilde, in foreign names
+ñ	'En||n'@:2||N'a:5	// en-nờ ngã
+?1 ñ	'EN||n'@:2||N'a:5
+?2 ñ	'EN||n'@:2||N'a:5
+
+// dấu rời - combining marks standing alone (text that is not precomposed)
+U+300	z'@3w||hw'iE2n	// dấu huyền  U+0300
+?1 U+300	J^'@3w||hw'iE2N
+?2 U+300	J^'@3w||w'iE2N
+U+301	z'@3w||s'a3c	// dấu sắc  U+0301
+?1 U+301	J^'@3w||s'a3c
+?2 U+301	J^'@3w||s'a3c
+U+309	z'@3w||h'O4j	// dấu hỏi  U+0309
+?1 U+309	J^'@3w||h'O4j
+?2 U+309	J^'@3w||h'O4j
+U+303	z'@3w||N'a:5	// dấu ngã  U+0303
+?1 U+303	J^'@3w||N'a:5
+?2 U+303	J^'@3w||N'a:5
+U+323	z'@3w||n'a6N	// dấu nặng  U+0323
+?1 U+323	J^'@3w||n'a6N
+?2 U+323	J^'@3w||n'a6N
+U+302	z'@3w||m'u5	// dấu mũ  U+0302
+?1 U+302	J^'@3w||m'u5
+?2 U+302	J^'@3w||m'u-5
+U+306	z'@3w||tS'aN	// dấu trăng  U+0306
+?1 U+306	J^'@3w||cr'aN
+?2 U+306	J^'@3w||c'aN
+U+31b	z'@3w||m'O#3k	// dấu móc  U+031B
+?1 U+31b	J^'@3w||m'O#3k
+?2 U+31b	J^'@3w||m'O#3k
+
+// chữ hoa - capital
+_cap	hw'a:	// hoa
+
+// names of accents, for accented letters of other languages: sắc, huyền, ngã, mũ, trăng
+_acu	s'a3c	// sắc
+_grv	hw'iE2n	// huyền
+?1 _grv	hw'iE2N
+?2 _grv	w'iE2N
+_tld	N'a:5	// ngã
+_cir	m'u5	// mũ
+?2 _cir	m'u-5
+_brv	tS'aN	// trăng
+?1 _brv	cr'aN
+?2 _brv	c'aN
+// letter names: end
+
+// số - numbers
+_0	x,o1N	// không
+_1	m'o6t[		// một
+_2	h'a:I		// hai
+_3	_b'a:		// ba
+_4	_b'o3n		// bốn
+_5	n'am		// năm
+_6	s'aU3		// sáu
+_7	_b'aI4		// bảy
+_8	t['a:3m		// tám
+_9	tSi3n		// chín
+_1X	m'y@2j		// mười
+_15	m'y@2j||l'a7m	// mười lăm (15, like 25 ... 95)
+_2X	h'a:I||m'y@7j	// hai mươi
+_3X	_b'a:||m'y@7j	// ba mươi
+_4X	_b'o3n||m'y@7j	// bốn mươi
+_5X	n'am||m'y@7j	// năm mươi
+_6X	s'aU3||m'y@7j	// sáu mươi
+_7X	_b'aI4||m'y@7j	// bảy mươi
+_8X	t['a:3m||m'y@7j	// tám mươi
+_9X	tSi3n||m'y@7j	// chín mươi
+
+_21	h'a:I||m'y@7j||m'o3t[
+_31	_b'a:||m'y@7j||m'o3t[
+_41	_b'o3n||m'y@7j||m'o3t[
+_51	n'am||m'y@7j||m'o3t[
+_61	s'aU3||m'y@7j||m'o3t[
+_71	_b'aI4||m'y@7j||m'o3t[
+_81	t['a:3m||m'y@7j||m'o3t[
+_91	tSi3n||m'y@7j||m'o3t[
+
+_25	h'a:I||m'y@7j||l'a7m
+_35	_b'a:||m'y@7j||l'a7m
+_45	_b'o3n||m'y@7j||l'a7m
+_55	n'am||m'y@7j||l'a7m
+_65	s'aU3||m'y@7j||l'a7m
+_75	_b'aI4||m'y@7j||l'a7m
+_85	t['a:3m||m'y@7j||l'a7m
+_95	tSi3n||m'y@7j||l'a7m
+
+_0C	tS'am		// trăm
+_0M1	N'i2n		// nghìn (the north)
+?1 _0M1	N'a:2n	// ngàn (the centre and the south)
+?2 _0M1	N'a:2n
+_0M2	tS'i@6w		// triệu
+_0M3	t['i4		// tỷ
+_0and	l,in^		// linh
+?2 _0and	l,E4		// lẻ (the south)
+_dpt	_f,@I4_
+
+// kí hiệu - symbols
+~	J'@U3N'a:5
+`	J'@U3hw'i@2n
+_!	J'@U3tS@3mt'a:7n
+@	a:1k'O2N
+#	J'@U3t'a7N	$max3
+$	J'@U3_d'o1l'a:7
+%	f'@2ntS'a7m
+^	J'@U3m'u5
+&	J'@U3v,a:2
+*	J'@U3s'a:U7	$max3
+_(	m'@:4Nw'a6kh
+_)	_d'O3NNw'a6kh
+_-	Q'a:6cN'a:7N
+__	Q'a:6cJ'y@3j
+=	J'@U3_b'a2N	$max3
++	J'@U3k'o6N	$max3
+_{	m'@:4Nw'a6khn^'O6n
+_}	_d'O3NNw'a6khn^'O6n
+_[	m'@:4Nw'a6khv'u@7N
+_]	_d'O3NNw'a6khv'u@7N
+_|	s'o4t'a4N
+_\	s'o4f,a:I4
+_:	h'a:I1tS@3m
+_;	tS@3mf'@I4
+_'	n^'a3j||d_'@:7n	// nháy đơn (ngoặc đơn is also the name of the brackets ( ))
+_“	m'@:4||Nw'a6kh||k'E3p	// mở ngoặc kép
+_,	f'@I4
+_.	tS@3m
+_/	s'o4tS'a:I3
+_<	n^'O4h'@:7n
+_>	l'@:3nh'@:7n
+_?	h'OI4tS@3m
+
+// more marks and symbols, with the names of NVDA's Vietnamese symbol list.
+// ± was read in English in ordinary text: it is read in Vietnamese now (€ is read there as the word euro).
+_"	Nw'a6kh||k'E3p	// ngoặc kép
+_”	d_'O#3N||Nw'a6kh||k'E3p	// đóng ngoặc kép
+_‘	n^'a3j||d_'@:1n||tS'a:3j	// nháy đơn trái
+_’	n^'a3j||d_'@:1n||f'a:4j	// nháy đơn phải
+_‚	n^'a3j||d_'@:1n||t'@3p	// nháy đơn thấp
+_„	n^'a3j||k'E3p||t'@3p	// nháy kép thấp
+_–	Q'a:6c||N'a:7N	// gạch ngang
+_—	Q'a:6c||n'o3j	// gạch nối
+_…	_b'a:1||tS'@3m	// ba chấm
+_·	tS'@3m||z'y@5	// chấm giữa
+_¡	tS'@3m||t'a:1n||N'y@6c	// chấm than ngược
+_¿	tS'@3m||h'O4j||N'y@6c	// chấm hỏi ngược
+_§	f'@2n	// phần
+_¶	d_'e-3n^||z'@3w||d_w'a:6n	// đánh dấu đoạn
+_°	d_'o6	// độ
+_€	'@:1||z'o7	// ơ rô
+_£	_b'a:4N||'e-7n^	// bảng Anh
+_¥	'iE7n	// yên
+_¢	s'E7n	// xen
+_•	tS'@3m||d_'@2w||z'O#2N	// chấm đầu dòng
+_×	n^'@7n	// nhân
+_÷	tS'i@7	// chia
+±	k'o#6N||tS'y2	// cộng trừ
+_©	_b'a:4n||kw'iE2n	// bản quyền
+_®	d_,a:5||d_'a1N||k'i3	// đã đăng ký
+_™	n^'a:5n||h'iE6w	// nhãn hiệu
+
+// ?? found in festival wow_vi_ptn_phrasing.scm
+bị	$u
+bởi	$u
+các	$u
+cái	$u
+chẳng	$u
+cho	$u
+chưa	$u
+con	$u
+còn	$u
+của	$u
+dẫu	$u
+dù	$u
+đang	$u
+đã	$u
+đến	$u
+để	$u
+được	$u
+hoặc	$u
+khi	$u
+khoảng	$u
+không	$u
+là	$u
+lúc	$u
+mà	$u
+mọi	$u
+mỗi	$u
+nên	$u
+nếu	$u
+như	$u
+nhưng	$u
+những	$u
+phải	$u
+sẽ	$u
+thì	$u
+tới	$u
+từ	$u
+và	$u
+vẫn	$u
+vì	$u
+với	$u
+
+// từ gốc nước ngoài -common foreign language words
+internet       int@:n'E3t 

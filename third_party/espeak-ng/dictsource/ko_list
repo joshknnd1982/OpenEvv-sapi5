@@ -1,0 +1,349 @@
+// eSpeak Korean rules. Changed pronunciation, as numbers were not announced.
+
+
+// Number forms:
+_0	j'@N_!
+_1	'iR_!
+_2	'i_!
+_3	s'am_!
+_4	s'a_!
+_5	'o_!
+_6	j'uq_!
+_7	tS'h'iR_!
+_8	ph'aR_!
+_9	g'u_!
+_1X	s'ip_!
+_2X	'i_!||s'ip_!
+_3X	s'am_!||s'ip_!
+_4X	s'a_!||s'ip_!
+_5X	'o_!||s'ip_!
+_6X	j'uq_!||s'ip_!
+_7X	tS'h'iR_!s'ip_!
+_8X	ph'aR_!||s'ip_!
+_9X	g'u_!||s'ip_!
+_0C	p'Eq_!
+
+// Larger numbers
+_0M0	tS'h@n       // 10^3
+_1M0	tS'h@n
+_0M1	m'an          // 10^4
+_1M1	m'an
+_0M2	'@q           // 10^8
+_1M2	'@q
+_0M3	tS;'o         // 10^12
+_1M3	tS;'o
+_0M4	gj'@N
+_1M4	gj'@N
+_dpt	tS;'@m	// 점, the decimal point (3.14 삼 점 일사)
+
+// letter names: begin
+// Character names.  A Hangul syllable has no name: it is read as the syllable.
+// initial consonants (U+1100 ...); the consonants of the compatibility block (U+3131 ...) come here
+// when they stand alone in a text
+ᄀ	gij'@q	// ㄱ 기역
+ᄁ	s-'aNq,ij@q	// ㄲ 쌍기역
+ᄂ	ni;'u-n	// ㄴ 니은
+ᄃ	diq'u-d-	// ㄷ 디귿
+ᄄ	s-'aNd,iqu-d-	// ㄸ 쌍디귿
+ᄅ	*i;'u-L	// ㄹ 리을
+ᄆ	mi;'u-m	// ㅁ 미음
+ᄇ	pi;'u-p	// ㅂ 비읍
+ᄈ	s-'aNb,i;u-p	// ㅃ 쌍비읍
+ᄉ	si;'ot-	// ㅅ 시옷
+ᄊ	s-'aNs,i;ot-	// ㅆ 쌍시옷
+ᄋ	i;'u-N	// ㅇ 이응
+ᄌ	tS;i;'u-t	// ㅈ 지읒
+ᄍ	s-'aNdZ;,i;u-t	// ㅉ 쌍지읒
+ᄎ	tShi;'u-t	// ㅊ 치읓
+ᄏ	khi;'u-k	// ㅋ 키읔
+ᄐ	thi;'u-t-	// ㅌ 티읕
+ᄑ	phi;'u-p	// ㅍ 피읖
+ᄒ	hi;'u-t-	// ㅎ 히읗
+
+// final consonants (U+11A8 ...), named as the letters they are
+ᆨ	gij'@q	// ㄱ 기역
+ᆩ	s-'aNq,ij@q	// ㄲ 쌍기역
+ᆪ	gij'@qs-i;,ot-	// ㄳ 기역시옷
+ᆫ	ni;'u-n	// ㄴ 니은
+ᆬ	ni;'u-ndZ;i;,u-t	// ㄵ 니은지읒
+ᆭ	ni;'u-nhi;,u-t-	// ㄶ 니은히읗
+ᆮ	diq'u-d-	// ㄷ 디귿
+ᆯ	*i;'u-L	// ㄹ 리을
+ᆰ	*i;'u-Lqij,@q	// ㄺ 리을기역
+ᆱ	*i;'u-Lmi;,u-m	// ㄻ 리을미음
+ᆲ	*i;'u-Lbi;,u-p	// ㄼ 리을비읍
+ᆳ	*i;'u-Lsi;,ot-	// ㄽ 리을시옷
+ᆴ	*i;'u-Lthi;,u-t-	// ㄾ 리을티읕
+ᆵ	*i;'u-Lphi;,u-p	// ㄿ 리을피읖
+ᆶ	*i;'u-Lhi;,u-t-	// ㅀ 리을히읗
+ᆷ	mi;'u-m	// ㅁ 미음
+ᆸ	pi;'u-p	// ㅂ 비읍
+ᆹ	pi;'u-ps-i;,ot-	// ㅄ 비읍시옷
+ᆺ	si;'ot-	// ㅅ 시옷
+ᆻ	s-'aNs,i;ot-	// ㅆ 쌍시옷
+ᆼ	i;'u-N	// ㅇ 이응
+ᆽ	tS;i;'u-t	// ㅈ 지읒
+ᆾ	tShi;'u-t	// ㅊ 치읓
+ᆿ	khi;'u-k	// ㅋ 키읔
+ᇀ	thi;'u-t-	// ㅌ 티읕
+ᇁ	phi;'u-p	// ㅍ 피읖
+ᇂ	hi;'u-t-	// ㅎ 히읗
+
+// vowels (U+1161 ...): the name is the sound. Alone in a text they are syllables and words
+// (이, 오, 예, 왜 ...), so these are used for spelling only
+_ᅡ	'a	// ㅏ 아
+_ᅢ	'E	// ㅐ 애
+_ᅣ	j'a	// ㅑ 야
+_ᅤ	j'E	// ㅒ 얘
+_ᅥ	'@	// ㅓ 어
+_ᅦ	'e	// ㅔ 에
+_ᅧ	j'@	// ㅕ 여
+_ᅨ	j'e	// ㅖ 예
+_ᅩ	'o	// ㅗ 오
+_ᅪ	w'a	// ㅘ 와
+_ᅫ	w'E	// ㅙ 왜
+_ᅬ	w'e	// ㅚ 외
+_ᅭ	j'o	// ㅛ 요
+_ᅮ	'u	// ㅜ 우
+_ᅯ	w'@	// ㅝ 워
+_ᅰ	w'e	// ㅞ 웨
+_ᅱ	w'i	// ㅟ 위
+_ᅲ	j'u	// ㅠ 유
+_ᅳ	'u-	// ㅡ 으
+_ᅴ	'u-j	// ㅢ 의
+_ᅵ	'i	// ㅣ 이
+
+// the letters of the compatibility block, U+3131 to U+3163, as they come when a word is spelled
+ㄱ	gij'@q	// 기역
+ㄲ	s-'aNq,ij@q	// 쌍기역
+ㄳ	gij'@qs-i;,ot-	// 기역시옷
+ㄴ	ni;'u-n	// 니은
+ㄵ	ni;'u-ndZ;i;,u-t	// 니은지읒
+ㄶ	ni;'u-nhi;,u-t-	// 니은히읗
+ㄷ	diq'u-d-	// 디귿
+ㄸ	s-'aNd,iqu-d-	// 쌍디귿
+ㄹ	*i;'u-L	// 리을
+ㄺ	*i;'u-Lqij,@q	// 리을기역
+ㄻ	*i;'u-Lmi;,u-m	// 리을미음
+ㄼ	*i;'u-Lbi;,u-p	// 리을비읍
+ㄽ	*i;'u-Lsi;,ot-	// 리을시옷
+ㄾ	*i;'u-Lthi;,u-t-	// 리을티읕
+ㄿ	*i;'u-Lphi;,u-p	// 리을피읖
+ㅀ	*i;'u-Lhi;,u-t-	// 리을히읗
+ㅁ	mi;'u-m	// 미음
+ㅂ	pi;'u-p	// 비읍
+ㅃ	s-'aNb,i;u-p	// 쌍비읍
+ㅄ	pi;'u-ps-i;,ot-	// 비읍시옷
+ㅅ	si;'ot-	// 시옷
+ㅆ	s-'aNs,i;ot-	// 쌍시옷
+ㅇ	i;'u-N	// 이응
+ㅈ	tS;i;'u-t	// 지읒
+ㅉ	s-'aNdZ;,i;u-t	// 쌍지읒
+ㅊ	tShi;'u-t	// 치읓
+ㅋ	khi;'u-k	// 키읔
+ㅌ	thi;'u-t-	// 티읕
+ㅍ	phi;'u-p	// 피읖
+ㅎ	hi;'u-t-	// 히읗
+ㅏ	'a	// 아
+ㅐ	'E	// 애
+ㅑ	j'a	// 야
+ㅒ	j'E	// 얘
+ㅓ	'@	// 어
+ㅔ	'e	// 에
+ㅕ	j'@	// 여
+ㅖ	j'e	// 예
+ㅗ	'o	// 오
+ㅘ	w'a	// 와
+ㅙ	w'E	// 왜
+ㅚ	w'e	// 외
+ㅛ	j'o	// 요
+ㅜ	'u	// 우
+ㅝ	w'@	// 워
+ㅞ	w'e	// 웨
+ㅟ	w'i	// 위
+ㅠ	j'u	// 유
+ㅡ	'u-	// 으
+ㅢ	'u-j	// 의
+ㅣ	'i	// 이
+
+// old letters
+ㆍ	'a*E,a	// 아래아
+ㅿ	p'ansi;,ot-	// 반시옷
+ㆁ	j'enni;,u-N	// 옛이응
+ㆆ	j@*'inhi;,u-t-	// 여린히읗
+
+_cap	d'EmuntS;-,a	// 대문자
+
+// The program counts U+3100 to U+9FFF as one alphabet, _zh, and says its name before a letter of it
+// that is spelled. The Hangul letters U+3131 to U+318E are in that range, so the name is left silent here.
+_zh	_|
+// letter names: end
+
+// Punctuation marks and symbols, with the names of NVDA's Korean symbol list (the names Korean computer
+// users say: 쩜, 콤마, 골뱅이, 샵, 여는 괄호 ...).  / \ @ # % & * + = ~ ± were read in English in ordinary
+// text: they are read in Korean now.
+_.	tS;-'@m	// 쩜
+_,	kh'omma	// 콤마
+_;	s'emikh,olon	// 세미콜론
+_:	kh'olon	// 콜론
+_!	nu-q-'imphjo	// 느낌표
+_?	mu*'u-mphjo	// 물음표
+_'	'@ph@s,u-thu-*,ophi	// 어퍼스트로피
+_"	khw'@the,isj@n	// 쿼테이션
+_(	j'@nu-n||gw'aLho	// 여는 괄호
+_)	d'annu-n||gw'aLho	// 닫는 괄호
+_[	j'@nu-n||d'EqwaLh,o	// 여는 대괄호
+_]	d'annu-n||d'EqwaLh,o	// 닫는 대괄호
+_{	j'@nu-n||tS;'uNqwaLh,o	// 여는 중괄호
+_}	d'annu-n||tS;'uNqwaLh,o	// 닫는 중괄호
+_<	*'esu-||d'En	// 레스 댄
+_>	g'u-*e,ith@||d'En	// 그레이터 댄
+_-	d'Esi	// 대시
+__	'@nd@b,a	// 언더바
+/	s'u-lEs,i	// 슬래시
+\	j'@qs-u-l,Esi	// 역슬래시
+_|	p'@thikh,@L||p'a	// 버티컬 바
+@	g'oLbEN,i	// 골뱅이
+#	sj'ap	// 샵
+_$	d'al@	// 달러
+%	ph@s'enthu-	// 퍼센트
+_^	khE*'@t-	// 캐럿
+&	'Enph@s,endu-	// 앤퍼센드
+*	s'u-tha	// 스타
++	ph'u-l@s,u-	// 플러스
+=	'ikhw@L	// 이퀄
+~	m'uLqj@L	// 물결
+_`	g'u-*e,ibu-	// 그레이브
+_¡	dw'idZ;iph,in||nu-q-'imphjo	// 뒤집힌 느낌표
+_¿	dw'idZ;iph,in||mu*'u-mphjo	// 뒤집힌 물음표
+_«	j'@nu-n||g'ime||kh'u-nt-a,omphjo	// 여는 기메 큰따옴표
+_»	d'annu-n||g'ime||kh'u-nt-a,omphjo	// 닫는 기메 큰따옴표
+_‘	j'@nu-n||tS;aq'u-nt-a,omphjo	// 여는 작은따옴표
+_’	d'annu-n||tS;aq'u-nt-a,omphjo	// 닫는 작은따옴표
+_‚	'a*E||t-a'omphjo	// 아래 따옴표
+_“	j'@nu-n||kh'u-nt-a,omphjo	// 여는 큰따옴표
+_”	d'annu-n||kh'u-nt-a,omphjo	// 닫는 큰따옴표
+_„	'a*E||kh'u-nt-a,omphjo	// 아래 큰따옴표
+_–	'en||d'Esi	// 엔 대시
+_—	'em||d'Esi	// 엠 대시
+_…	m'aLdZ;u*,imphjo	// 말줄임표
+_·	ga'unde||tS;'@m	// 가운데 점
+_§	tS;'@Lphjo||g'iho	// 절표 기호
+_¶	d'an*aq||g'iho	// 단락 기호
+_°	d'o||g'iho	// 도 기호
+_€	j'u*o	// 유로
+_£	pha'undu-	// 파운드
+_¥	'en	// 엔
+_¢	s-'enthu-	// 쎈트
+_©	tS;@dZ;'aqk-w@n||g'iho	// 저작권 기호
+_®	d'u-N*oqk-,iho	// 등록기호
+_™	th'u-*e,idu-m,akhu-	// 트레이드마크
+_•	g'u-Lm@*,i||g'iho	// 글머리 기호
+_×	g'ophaq,i	// 곱하기
+_÷	n'anuq,i	// 나누기
+±	ph'u-l@s,u-ma,in@s,u-	// 플러스마이너스
+
+
+$textmode
+// Misc:
+// 사ᅵ시ᅩᆺ
+고랫재		고랟째
+귓밥		귇빱
+나룻배		나룯빼
+나뭇가지	나묻까지
+냇가		낻ː까
+댓가지		댇까지
+뒷갈망		뒫ː깔망
+맷돌		맫똘
+머릿기름	머릳끼림
+모깃불		모ː긷뿔
+못자리		몯짜리
+바닷가		바닫까
+뱃길		밷낄
+볏가리		볃까리
+부싯돌		부싣똘
+선짓국		선짇꾹
+쇳조각		쉗쪼각
+ᅡ랫집		ᅡ랟찝
+ᅮ렁ᅵᆺ속	ᅮ렁ᅵᆮ쏙
+ᅵᆺ자국		ᅵᆮ짜국
+잿더미		잳떠미
+조갯살		조갣쌀
+찻집		찯찝
+쳇바퀴		첻빠퀴
+킷값		킫깝
+핏대		핃때
+햇볕		핻뼏
+혓바늘		혇빠늘
+ 
+// (2) 뒷말ᅴ 첫소리 'ᄂ, ᄆ' ᅡᇁᅦ서 'ᄂ' 소리가 덧나는 것
+멧나물		멘나물
+ᅡ랫니		ᅡ랜니
+텃마당		턴마당
+ᅡ랫마ᅳᆯ	ᅡ랜마ᅳᆯ
+뒷머리		뒨ː머리
+ᅵᆺ몸		ᅵᆫ몸
+깻묵		깬묵
+냇물		낸ː물
+빗물		빈물
+ 
+// (3) 뒷말ᅴ 첫소리 모ᅳᆷ ᅡᇁᅦ서 'ᄂᄂ' 소리가 덧나는 것
+도리깻ᅧᆯ	도리깬녈
+뒷ᅲᆾ		뒨ː뉻
+두렛ᅵᆯ		두렌닐
+뒷ᅵᆯ		뒨ː닐
+뒷ᅵᆸ맛		뒨ː님맏
+베갯ᅵᆺ		베갠닏
+ᅭᆺᅵᆺ		ᅭᆫ닏
+깻ᅵᇁ		깬닙
+나뭇ᅵᇁ		나문닙
+댓ᅵᇁ		댄닙
+ 
+// 2. 순 ᅮ리말과 한자ᅥ로 된 합성ᅥ로서 ᅡᇁ말ᅵ 모ᅳᆷᅳ로 끝난 경ᅮ
+// (1) 뒷말ᅴ 첫소리가 된소리로 나는 것
+귓병	귇뼝
+머릿방	머릳빵
+뱃병	밷뼝
+봇둑	볻뚝
+사잣밥	사ː잗빱
+샛강	샏ː깡
+ᅡ랫방	ᅡ랟빵
+자릿세	자릳쎄
+전깃세	전긷쎄
+전셋집	전섿찝
+찻잔 	찯짠
+찻종	찯쫑
+촛국	촏꾹
+콧병	콛뼝
+탯줄	탣쭐
+텃세	턷쎄
+핏기	핃끼
+햇수	핻쑤
+횟가루	휃까루
+횟배	휃빼
+ 
+// (2) 뒷말ᅴ 첫소리 'ᄂ, ᄆ' ᅡᇁᅦ서 'ᄂ' 소리가 덧나는 것
+곗날	곈ː날/겐ː날
+제삿날	제ː삳날
+훗날	훈ː날
+툇마루	퇸ː마루/퉨ː마루
+ᅣᆼ칫물	ᅣᆼ친물
+ 
+// (3) 뒷말ᅴ 첫소리 모ᅳᆷ ᅡᇁᅦ서 'ᄂᄂ' 소리가 덧나는 것
+가ᅬᆺᅵᆯ	가ᅬᆫ닐/가ᅰᆫ닐
+사삿ᅵᆯ	사산닐
+ᅨ삿ᅵᆯ	ᅨː산닐
+훗ᅵᆯ	훈ː닐
+ 
+// 3. 두 ᅳᆷ절로 된 다ᅳᆷ 한자ᅥ
+곳간	곧깐
+셋방	섿빵
+숫자	숟짜
+찻간	찯깐
+툇간	퇻깐
+횟수	횓쑤
+
+찻잔	찯짠
+
+ᄉᄇ    시바
+

@@ -1,0 +1,2363 @@
+// Emoji and Other Symbol pronunciations for Welsh
+//
+// Entries with `text|emoji` in the comments have text and emoji forms. They
+// can be followed by [FE0E] to select the text style, and [FE0F] to select
+// the emoji style.
+//
+// Entries with 'other' in the comments are not defined as emoji, but are other
+// Unicode characters.
+//
+// NOTE: See `src/ucd-tools/data/espeak-ng/emoji-data.txt` for additional data
+// in interpreting ZWJ emoji sequences.
+
+$textmode
+
+// 0000..007F : C0 Controls and Basic Latin
+
+//+	plus								// [002B] other (no translation)
+
+// 0080..00FF : C1 Controls and Latin-1 Supplement
+
+//¢	cents								// [00A2] other (no translation)
+//£	pound								// [00A3] other (no translation)
+//¤	currency sign							// [00A4] other (no translation)
+//¥	yen								// [00A5] other (no translation)
+//§	section								// [00A7] other (no translation)
+//¨	double dot							// [00A8] other (no translation)
+©	hawlfraint							// [00A9] text|emoji
+//¬	not sign							// [00AC] other (no translation)
+®	cofrestredig							// [00AE] text|emoji
+//°	degrees								// [00B0] other (no translation)
+//±	plus or minus							// [00B1] other (no translation)
+//µ	micro								// [00B5] other (no translation)
+//¶	paragraph							// [00B6] other (no translation)
+//¼	a quarter							// [00BC] other (no translation)
+//½	a half								// [00BD] other (no translation)
+//¾	three quarters							// [00BE] other (no translation)
+//×	times								// [00D7] other (no translation)
+//÷	divided by							// [00F7] other (no translation)
+
+// 02B0..02FF : Spacing Modifier Letters
+
+//˙	dot								// [02D9] other (no translation)
+
+// 0900..097F : Devanagari
+
+//।	danda								// [0964] other (no translation)
+
+// 2000..203C : General Punctuation
+
+‼	ebychnod dwbl							// [203C] text|emoji
+⁄	slaes ffracsiwn						// [2044]
+⁉	marc cwestiwn ag ebychnod					// [2049] text|emoji
+⁻	uwchysgrifen minws					// [207B]
+₡	Colón Costa Rica					// [20A1]
+₢	crwseiro						// [20A2]
+₣	ffranc Ffrengig						// [20A3]
+₤	lira							// [20A4]
+₥	milfed							// [20A5]
+₦	Naira Nigeria						// [20A6]
+//₧								// [20A7] (no translation)
+
+// 20A0..20CF : Currency Symbols
+
+₨	rwpî							// [20A8]
+₪	Shegel Newydd Israel					// [20AA]
+₫	Dong Fietnam						// [20AB]
+€	ewro							// [20AC]
+₭	Kip Laos						// [20AD]
+₮	Tugrik Mongolia						// [20AE]
+₰	ceiniog yr Almaen					// [20B0]
+₱	peso							// [20B1]
+₲	Guarani Paraguay					// [20B2]
+₳	deheuol							// [20B3]
+₴	Hryvnia Wcráin						// [20B4]
+₵	Cedi Ghana						// [20B5]
+₶	llyfr twrnamaint					// [20B6]
+₷	spesmilo						// [20B7]
+₸	Tenge Kazakstan						// [20B8]
+₹	rwpî indiaidd						// [20B9]
+₺	Lira Twrci						// [20BA]
+₼	Manat Azerbaijan					// [20BC]
+₽	rwbl							// [20BD]
+₾	Lari Georgia						// [20BE]
+₿	bitcoin							// [20BF]
+
+// 2100..214F : Letterlike Symbols
+
+//№	numero								// [2116] other (no translation)
+℗	hawlfraint recordio sain				// [2117]
+//℞	prescription							// [211E] other (no translation)
+™	nod masnachu							// [2122] text|emoji
+ℹ	gwybodaeth							// [2139] text|emoji
+
+// 2150..218F : Number Forms
+
+//⅓	one third							// [2153] other (no translation)
+//⅔	two thirds							// [2154] other (no translation)
+
+// 2190..21FF : Arrows
+
+←	saeth yn pwyntio i’r chwith				// [2190]
+↑	saeth yn pwyntio i fyny					// [2191]
+→	saeth yn pwyntio i’r dde				// [2192]
+↓	saeth yn pwyntio i lawr					// [2193]
+↔	saeth chwith-dde						// [2194] text|emoji
+↕	saeth i fyny-lawr						// [2195] text|emoji
+↖	saeth i fyny-chwith						// [2196] text|emoji
+↗	saeth i fyny-dde						// [2197] text|emoji
+↘	saeth i lawr-dde						// [2198] text|emoji
+↙	saeth i lawr-chwith						// [2199] text|emoji
+↚	saeth i’r chwith strôc					// [219A]
+↛	saeth i’r dde strôc					// [219B]
+↜	saeth donnog i’r chwith					// [219C]
+↝	saeth donnog i’r dde					// [219D]
+↞	saeth ddeuben i’r chwith				// [219E]
+↟	saeth ddeuben i fyny					// [219F]
+↠	saeth ddeuben i’r dde					// [21A0]
+↡	saeth ddeuben i lawr					// [21A1]
+↢	saeth i’r chwith gyda chynffon				// [21A2]
+↣	saeth i’r dde gyda chynffon				// [21A3]
+↤	saeth i’r chwith o’r bar				// [21A4]
+↥	saeth i fyny o’r bar					// [21A5]
+↦	saeth i’r dde o’r bar					// [21A6]
+↧	saeth i lawr o’r bar					// [21A7]
+↨	saeth i fyny i lawr gyda sail				// [21A8]
+↩	saeth i’r dde yn troi i’r chwith				// [21A9] text|emoji
+↪	saeth i’r chwith yn troi i’r dde				// [21AA] text|emoji
+↫	saeth i’r chwith gyda dolen				// [21AB]
+↬	saeth i’r dde gyda dolen				// [21AC]
+↭	saeth donnog chwith dde					// [21AD]
+↮	saeth dde chwith strôc					// [21AE]
+↯	saeth igam-ogam i lawr					// [21AF]
+↰	saeth i fyny gyda’r pwynt i’r chwith			// [21B0]
+↱	saeth i fyny gyda’r pwynt i’r dde			// [21B1]
+↲	saeth i lawr gyda’r pwynt i’r chwith			// [21B2]
+↳	saeth i lawr gyda’r pwynt i’r dde			// [21B3]
+↴	saeth i’r dde gyda’r gornel i lawr			// [21B4]
+↵	saeth i lawr gyda’r gornel i’r chwith			// [21B5]
+↶	saeth hanner cylch uchaf gwrthglocwedd			// [21B6]
+↷	saeth hanner cylch uchaf clocwedd			// [21B7]
+↸	bar hir saeth y gogledd orllewin			// [21B8]
+↹	bar saeth i’r chwith dros far saeth i’r dde		// [21B9]
+↺	saeth cylch agored gwrthglocwedd			// [21BA]
+↻	saeth cylch agored clocwedd				// [21BB]
+↼	tryfer i’r chwith gyda’r adfach i fyny			// [21BC]
+↽	tryfer i’r chwith gyda’r adfach i lawr			// [21BD]
+↾	tryfer i fyny gyda’r adfach i’r dde			// [21BE]
+↿	tryfer i fyny gyda’r adfach i’r chwith			// [21BF]
+⇀	tryfer i’r dde gyda’r adfach i fyny			// [21C0]
+⇁	tryfer i’r dde gyda’r adfach i lawr			// [21C1]
+⇂	tryfer i lawr gyda’r adfach i’r dde			// [21C2]
+⇃	tryfer i lawr gyda’r adfach i’r chwith			// [21C3]
+⇄	saeth i’r dde dros saeth i’r chwith			// [21C4]
+⇅	saethau yn pwyntio i fyny ac i lawr			// [21C5]
+⇆	saethau i’r chwith dros ben saethau i’r dde		// [21C6]
+⇇	saethau pâr i’r chwith					// [21C7]
+⇈	saethau pâr i fyny					// [21C8]
+⇉	saethau pâr i’r dde					// [21C9]
+⇊	saethau pâr i lawr					// [21CA]
+⇋	tryfer i’r chwith dros dryfer i’r dde			// [21CB]
+⇌	tryfer i’r dde dros dryfer i’r chwith			// [21CC]
+⇍	saeth ddwbl i’r chwith strôc				// [21CD]
+⇎	saeth ddwbl chwith dde strôc				// [21CE]
+⇏	saeth ddwbl i’r dde strôc				// [21CF]
+⇐	saeth ddwbl i’r chwith					// [21D0]
+⇑	saeth ddwbl i fyny					// [21D1]
+⇒	saeth ddwbl i’r dde					// [21D2]
+⇓	saeth ddwbl i lawr					// [21D3]
+⇔	saeth ddwbl chwith dde					// [21D4]
+⇖	saeth ddwbl gogledd orllewin				// [21D6]
+⇗	saeth ddwbl gogledd ddwyrain				// [21D7]
+⇘	saeth ddwbl de ddwyrain					// [21D8]
+⇙	saeth ddwbl de orllewin					// [21D9]
+⇚	saeth driphlyg i’r chwith				// [21DA]
+⇛	saeth driphlyg i’r dde					// [21DB]
+⇜	saeth grych i’r chwith					// [21DC]
+⇝	saeth grych i’r dde					// [21DD]
+⇞	saeth i fyny strôc ddwbl				// [21DE]
+⇟	saeth i lawr strôc ddwbl				// [21DF]
+⇠	saeth doriedig i’r chwith				// [21E0]
+⇡	saeth doriedig i fyny					// [21E1]
+⇢	saeth doriedig i’r dde					// [21E2]
+⇣	saeth doriedig i lawr					// [21E3]
+⇤	saeth i’r chwith bar					// [21E4]
+⇥	saeth i’r dde bar					// [21E5]
+⇦	saeth wag i’r chwith					// [21E6]
+⇧	saeth wag i fyny					// [21E7]
+⇨	saeth wag i’r dde					// [21E8]
+⇩	saeth wag i lawr					// [21E9]
+⇪	saeth wag i fyny o’r bar				// [21EA]
+⇵	saeth i lawr i’r chwith saeth i fyny			// [21F5]
+∀	i bawb							// [2200]
+
+// 2200..22FF : Mathematical Operators
+
+∂	differyn rhannol					// [2202]
+∃	mae yn bodoli						// [2203]
+∅	set wag							// [2205]
+∆	cynyddran						// [2206]
+∇	nabla							// [2207]
+∈	elfen o							// [2208]
+∉	ddim yn elfen						// [2209]
+∋	yn cynnwys fel aelod					// [220B]
+∎	prawf diwedd						// [220E]
+∏	cynnyrch n-ary						// [220F]
+∑	crynhoad n-ary						// [2211]
+−	arwydd minws						// [2212]
+∓	minws neu blws						// [2213]
+∕	slaes rhannu						// [2215]
+∗	gweithredwr serennig					// [2217]
+∘	gweithredwr cylch					// [2218]
+∙	gweithredwr bwled					// [2219]
+√	ail isradd						// [221A]
+//∛	cube root							// [221B] other (no translation)
+∝	cyfrannol						// [221D]
+∞	arwydd anfeidredd					// [221E]
+∟	ongl sgwâr						// [221F]
+∠	ongl							// [2220]
+∣	yn rhannu						// [2223]
+∥	cyfochrog						// [2225]
+∧	rhesymegol a						// [2227]
+∩	croestoriad						// [2229]
+∪	uno							// [222A]
+∫	integrol						// [222B]
+∬	integrol ddwbl						// [222C]
+∮	cyfuchlin integrol					// [222E]
+∴	felly							// [2234]
+∵	oherwydd						// [2235]
+∶	cymhareb						// [2236]
+∷	cyfran							// [2237]
+∼	gweithredwr tild					// [223C]
+∽	tild wedi’i wrthdroi					// [223D]
+∾	s gwrthdro diog						// [223E]
+≃	anghymesur yn hafal					// [2243]
+≅	bron yn hafal						// [2245]
+≈	bron yn gyfartal					// [2248]
+≌	i gyd yn hafal						// [224C]
+≒	tua’r un faint â’r ddelwedd				// [2252]
+≖	cylch yn hafalnod					// [2256]
+≠	ddim yn gyfartal					// [2260]
+≡	union yr un fath â					// [2261]
+≣	hollol hafal						// [2263]
+≤	llai na neu’n gyfartal					// [2264]
+≥	mwy na neu’n gyfartal					// [2265]
+≦	arwydd llai na dros hafalnod				// [2266]
+≧	arwydd mwy na dros hafalnod				// [2267]
+≪	llawer llai na						// [226A]
+≫	llawer mwy na						// [226B]
+≬	rhwng							// [226C]
+≮	dim llai na						// [226E]
+≯	ddim mwy na						// [226F]
+≳	mwy na hafal						// [2273]
+≺	yn rhagflaenu						// [227A]
+≻	yn dilyn						// [227B]
+⊁	nid yw’n dilyn						// [2281]
+⊂	is-set o						// [2282]
+⊃	uwchset							// [2283]
+⊆	is-set hafal						// [2286]
+⊇	uwchset hafal						// [2287]
+⊕	plws mewn cylch						// [2295]
+⊖	minws mewn cylch					// [2296]
+⊗	amseroedd mewn cylch					// [2297]
+⊘	slaes rhannu mewn cylch					// [2298]
+⊙	gweithredwr dotiau mewn cylch				// [2299]
+⊚	gweithredwr cylch mewn cylch				// [229A]
+⊛	gweithredwr seren mewn cylch				// [229B]
+⊞	plws mewn sgwâr						// [229E]
+⊟	minws mewn sgwâr					// [229F]
+⊥	tac i fyny						// [22A5]
+⊮	ddim yn gorfodi						// [22AE]
+⊰	yn rhagflaenu dan berthynas				// [22B0]
+⊱	yn dilyn o dan berthynas				// [22B1]
+⊶	gwreiddiol						// [22B6]
+⊹	matrics cyfunedig hermitian				// [22B9]
+⊿	triongl dde						// [22BF]
+⋁	n-ary rhesymegol neu					// [22C1]
+⋂	croestoriad n-ary					// [22C2]
+⋃	uniad n-ary						// [22C3]
+⋅	gweithredwr dot						// [22C5]
+⋆	gweithredwr seren					// [22C6]
+⋈	uniad naturiol						// [22C8]
+⋒	croestoriad dwbl					// [22D2]
+⋘	llawer iawn yn llai na					// [22D8]
+⋙	llawer iawn yn fwy na					// [22D9]
+⋭	ddim yn cynnwys fel is-grŵp hafal arferol		// [22ED]
+⋮	hepgoriad fertigol					// [22EE]
+⋯	hepgoriad llorweddol llinell ganol			// [22EF]
+⋰	hepgoriad i fyny croeslin dde				// [22F0]
+⋱	hepgoriad i lawr croeslin dde				// [22F1]
+
+// 2300..23FF : Miscellaneous Technical
+
+⌚	oriawr								// [231A]
+⌛	awrwydr								// [231B]
+⌨	bysellfwrdd							// [2328] text|emoji
+⏏	botwm allfwrw							// [23CF] text|emoji
+⏩	botwm blaenyrru cyflym						// [23E9]
+⏪	botwm cildroi cyflym						// [23EA]
+⏫	botwm i fyny cyflym						// [23EB]
+⏬	botwm i lawr cyflym						// [23EC]
+⏭	botwm trac nesaf						// [23ED] text|emoji
+⏮	botwm trac olaf							// [23EE] text|emoji
+⏯	botwm chwarae neu saib						// [23EF] text|emoji
+⏰	cloc larwm							// [23F0]
+⏱	stop wats							// [23F1] text|emoji
+⏲	cloc ag amserydd						// [23F2] text|emoji
+⏳	awrwydr gyda thywod yn llifo					// [23F3]
+⏸	botwm saib							// [23F8] text|emoji
+⏹	botwm stop							// [23F9] text|emoji
+⏺	botwm recordio							// [23FA] text|emoji
+
+// 2460..24FF : Enclosed Alphanumerics
+
+Ⓜ	llythyren M mewn cylch						// [24C2] text|emoji
+
+// 25A0..25FF : Geometric Shapes
+
+■	sgwâr wedi’i lenwi					// [25A0]
+□	sgwâr wag						// [25A1]
+▢	sgwâr wag â chorneli crwn				// [25A2]
+▣	sgwâr gwag sy’n cynnwys sgwâr wedi’i lenwi		// [25A3]
+▤	sgwâr gyda llenwad llorweddol				// [25A4]
+▥	sgwâr gyda llenwad fertigol				// [25A5]
+▦	sgwâr llenwad croes-groes orthogonal			// [25A6]
+▧	sgwâr llenwad chwith uchaf de isaf			// [25A7]
+▨	sgwâr llenwad de uchaf chwith isaf			// [25A8]
+▩	sgwâr llenwad croes-groeslin croeslin			// [25A9]
+▪	sgwâr bach du							// [25AA] text|emoji
+▫	sgwâr bach gwyn							// [25AB] text|emoji
+▬	petryal wedi’i lenwi					// [25AC]
+▭	petryal gwag						// [25AD]
+▮	petryal fertigol wedi’i lenwi				// [25AE]
+▰	paralelogram wedi’i lenwi				// [25B0]
+▲	triongl wedi’i lenwi yn pwyntio i fyny			// [25B2]
+△	triongl i fyny gwag					// [25B3]
+▴	triongl i fyny bach wedi’i lenwi			// [25B4]
+▵	triongl i fyny bach gwag				// [25B5]
+▶	botwm chwarae							// [25B6] text|emoji
+▷	triongl i’r dde gwag					// [25B7]
+▸	triongl i’r dde bach wedi’i lenwi			// [25B8]
+▹	triongl i’r dde bach gwag				// [25B9]
+►	pwyntydd i’r dde wedi’i lenwi				// [25BA]
+▻	pwyntydd i’r dde gwag					// [25BB]
+▼	triongl wedi’i lenwi yn pwyntio i lawr			// [25BC]
+▽	triongl i lawr gwag					// [25BD]
+▾	triongl i lawr wedi’i lenwi				// [25BE]
+▿	triongl i lawr bach wedi’i lenwi			// [25BF]
+◀	botwm cildroi							// [25C0] text|emoji
+◁	triongl i’r chwith gwag					// [25C1]
+◂	triongl i’r chwith bach wedi’i lenwi			// [25C2]
+◃	triongl i’r chwith bach pwyntio gwag			// [25C3]
+◄	pwyntydd i’r chwith wedi’i lenwi			// [25C4]
+◅	pwyntydd gwag i’r chwith				// [25C5]
+◆	diemwnt wedi’i lenwi					// [25C6]
+◇	diemwnt gwag						// [25C7]
+◈	diemwnt gwag sy’n cynnwys diemwnt wedi’i lenwi		// [25C8]
+◉	cylch gwag sy’n cynnwys cylch wedi’i lenwi		// [25C9]
+◊	losen							// [25CA]
+○	cylch gwag						// [25CB]
+◌	cylch dotiog						// [25CC]
+◍	cylch gyda llenwad fertigol				// [25CD]
+◎	cylchoedd consentrig					// [25CE]
+●	cylch wedi’i lenwi					// [25CF]
+◐	cylch hanner chwith wedi’i lenwi			// [25D0]
+◑	cylch hanner dde wedi’i lenwi				// [25D1]
+◒	cylch hanner isaf wedi’i lenwi				// [25D2]
+◓	cylch hanner uchaf wedi’i lenwi				// [25D3]
+◔	cylch cwadrant dde uchaf wedi’i lenwi			// [25D4]
+◕	cylch wedi’i lenwi heblaw am gwadrant chwith uchaf	// [25D5]
+◖	hanner chwith cylch wedi’i lenwi			// [25D6]
+◗	hanner chwith dde wedi’i lenwi				// [25D7]
+◘	bwled gwrthdro						// [25D8]
+◙	sgwâr wedi’i lenwi sy’n cynnwys cylch gwag		// [25D9]
+◜	arc crwn cwadrant chwith uchaf				// [25DC]
+◝	arc crwn cwadrant dde uchaf				// [25DD]
+◞	arc crwn cwadrant dde isaf				// [25DE]
+◟	arc crwn cwadrant chwith isaf				// [25DF]
+◠	hanner cylch uchaf					// [25E0]
+◡	hanner cylch isaf					// [25E1]
+◢	triongl dde isaf wedi’i lenwi				// [25E2]
+◣	triongl chwith isaf wedi’i lenwi			// [25E3]
+◤	triongl chwith uchaf wedi’i lenwi			// [25E4]
+◥	triongl dde uchaf wedi’i lenwi				// [25E5]
+◦	bwled gwag						// [25E6]
+◯	cylch gwag mawr						// [25EF]
+◳	cwadrant sgwâr uchaf gwag				// [25F3]
+◷	cylch gwag gyda chwadrant dde uchaf			// [25F7]
+◻	sgwâr canolig gwyn						// [25FB] text|emoji
+◼	sgwâr canolig du						// [25FC] text|emoji
+◽	sgwâr canolig-bach gwyn						// [25FD]
+◾	sgwâr canolig-bach du						// [25FE]
+◿	triongl dde isaf					// [25FF]
+
+// 2600..26FF : Miscellaneous Symbols
+
+☀	haul								// [2600] text|emoji
+☁	cwmwl								// [2601] text|emoji
+☂	ymbarel								// [2602] text|emoji
+☃	dyn eira							// [2603] text|emoji
+☄	comed								// [2604] text|emoji
+☎	ffôn								// [260E] text|emoji
+☑	blwch pleidlais gyda thic					// [2611] text|emoji
+☔	ymbarel gyda glaw						// [2614]
+☕	diod boeth							// [2615]
+☘	samrog								// [2618] text|emoji
+☝	mynegfys yn pwyntio i fyny					// [261D] text|emoji
+☠	penglog ac esgyrn croes						// [2620] text|emoji
+☢	ymbelydrol							// [2622] text|emoji
+☣	bioberyg							// [2623] text|emoji
+☦	croes uniongred							// [2626] text|emoji
+☪	seren a chilgant						// [262A] text|emoji
+☮	symbol hedd							// [262E] text|emoji
+☯	yin yang							// [262F] text|emoji
+☸	olwyn dharma							// [2638] text|emoji
+☹	wyneb gwgus							// [2639] text|emoji
+☺	wyneb yn gwenu							// [263A] text|emoji
+♀	arwydd benyw							// [2640] text|emoji
+♂	arwydd gwrw							// [2642] text|emoji
+♈	yr Hwrdd							// [2648]
+♉	y Tarw								// [2649]
+♊	yr Efeilliaid							// [264A]
+♋	y Cranc								// [264B]
+♌	y Llew								// [264C]
+♍	y Forwyn							// [264D]
+♎	y Fantol							// [264E]
+♏	y Sgorpion							// [264F]
+♐	y Saethydd							// [2650]
+♑	yr afr								// [2651]
+♒	y Dyfrwr							// [2652]
+♓	y Pysgod							// [2653]
+♟	gwerinwr gwyddbwyll						// [265F] text|emoji
+♠	siwt rhofiau							// [2660] text|emoji
+♣	siwt clybiau							// [2663] text|emoji
+♥	siwt calonnau							// [2665] text|emoji
+♦	siwt diemwntau							// [2666] text|emoji
+♨	tarddelli poeth							// [2668] text|emoji
+♪	wythfed nodyn						// [266A]
+♭	fflat							// [266D]
+♯	miniog							// [266F]
+♻	symbol ailgylchu						// [267B] text|emoji
+♾	anfeidredd							// [267E] text|emoji
+♿	cadair olwyn							// [267F]
+⚒	morthwyl a chaib						// [2692] text|emoji
+⚓	angor								// [2693]
+⚔	cleddyfau wedi croesi						// [2694] text|emoji
+⚕	arwydd meddygol							// [2695] text|emoji
+⚖	clorian								// [2696] text|emoji
+⚗	distyllydd							// [2697] text|emoji
+⚙	gêr								// [2699] text|emoji
+⚛	symbol o atom							// [269B] text|emoji
+⚜	gellesgen							// [269C] text|emoji
+⚠	rhybudd								// [26A0] text|emoji
+⚡	foltedd uchel							// [26A1]
+⚧	symbol trawsryweddol					// [26A7]
+⚪	cylch gwyn							// [26AA]
+⚫	cylch du							// [26AB]
+⚰	arch								// [26B0] text|emoji
+⚱	wrn angladd							// [26B1] text|emoji
+⚽	pêl droed							// [26BD]
+⚾	pêl fas								// [26BE]
+⛄	dyn eira heb eira						// [26C4]
+⛅	haul tu ôl i gwmwl						// [26C5]
+⛈	cwmwl â mellt a glaw						// [26C8] text|emoji
+⛎	ophiuchus							// [26CE]
+⛏	caib								// [26CF] text|emoji
+⛑	helmed â chroes wen						// [26D1] text|emoji
+⛓	cadwyni								// [26D3] text|emoji
+⛔	dim mynediad							// [26D4]
+⛩	cysegrfa shinto							// [26E9] text|emoji
+⛪	eglwys								// [26EA]
+⛰	mynydd								// [26F0] text|emoji
+⛱	ymbarel ar lawr							// [26F1] text|emoji
+⛲	ffynnon								// [26F2]
+⛳	baner mewn twll							// [26F3]
+⛴	fferi								// [26F4] text|emoji
+⛵	cwch hwylio							// [26F5]
+⛷	sgïwr								// [26F7] text|emoji
+⛸	sglefrio iâ							// [26F8] text|emoji
+⛹	person â phêl							// [26F9] text|emoji
+⛺	pabell								// [26FA]
+⛽	pwmp tanwydd							// [26FD]
+
+// 2700..27BF : Dingbats
+
+✂	siswrn								// [2702] text|emoji
+✅	marc tic gwyn trwm						// [2705]
+✈	awyren								// [2708] text|emoji
+✉	amlen								// [2709] text|emoji
+✊	dwrn wedi codi							// [270A]
+✋	llaw wedi codi							// [270B]
+✌	llaw fuddugol							// [270C] text|emoji
+✍	dwylo yn ysgrifennu						// [270D] text|emoji
+✏	pensil								// [270F] text|emoji
+✒	nib du								// [2712] text|emoji
+✔	marc tic trwm							// [2714] text|emoji
+✖	lluosi x trwm							// [2716] text|emoji
+✝	croes ladin							// [271D] text|emoji
+✡	seren Dafydd							// [2721] text|emoji
+✨	gwreichion							// [2728]
+✳	asterics wyth pwynt						// [2733] text|emoji
+✴	seren wyth pwynt						// [2734] text|emoji
+❄	pluen eira							// [2744] text|emoji
+❇	fflachiad							// [2747] text|emoji
+❌	marc croes							// [274C]
+❎	botwm croes							// [274E]
+❓	marc cwestiwn							// [2753]
+❔	marc cwestiwn gwyn						// [2754]
+❕	ebychnod gwyn							// [2755]
+❗	ebychnod							// [2757]
+❣	ebychiad trwm galon						// [2763] text|emoji
+❤	calon goch							// [2764] text|emoji
+➕	arwydd adio trwm						// [2795]
+➖	arwydd tynnu trwm						// [2796]
+➗	arwydd rhannu trwm						// [2797]
+➡	saeth i’r dde							// [27A1] text|emoji
+➰	dolen gyrliog							// [27B0]
+➿	dolen gyrliog ddwbl						// [27BF]
+
+// 2900..297F : Supplemental Arrows-B
+
+⤴	saeth i’r dde yn troi i fyny					// [2934] text|emoji
+⤵	saeth i’r dde yn troi i lawr					// [2935] text|emoji
+⨧	plws is-sgript dau					// [2A27]
+⨯	traws-gynnyrch fector					// [2A2F]
+⨼	cynnyrch mewnol						// [2A3C]
+⩣	is-res rhesymegol neu ddwbl				// [2A63]
+⩽	llai na hafalnod ar ogwydd				// [2A7D]
+⪍	arwydd llai nag uwchben hafalnod tebyg			// [2A8D]
+⪚	llinell ddwbl hafalnod arwydd mwy na			// [2A9A]
+⪺	yn dilyn uwchben ddim bron yn hafal			// [2ABA]
+
+// 2B00..2BFF : Miscellaneous Symbols and Arrows
+
+⬅	saeth i’r chwith						// [2B05] text|emoji
+⬆	saeth i fyny							// [2B06] text|emoji
+⬇	saeth i lawr							// [2B07] text|emoji
+⬛	sgwâr mawr du							// [2B1B]
+⬜	sgwâr mawr wyn							// [2B1C]
+⭐	seren ganolig wen						// [2B50]
+⭕	cylch mawr trwm							// [2B55]
+
+// 3000..303F : CJK Symbols and Punctuation
+
+〰	llinell donnog							// [3030] text|emoji
+〽	marc aryneilio rhannol						// [303D] text|emoji
+
+// 3200..32FF : Enclosed CJK Letters and Months
+
+㊗	ideograff cyfarchion mewn cylch					// [3297] text|emoji
+㊙	ideograff cyfrinach mewn cylch					// [3299] text|emoji
+﷼	rial							// [FDFC]
+
+// 1F100..1F1FF : Enclosed Alphanumeric Supplement
+
+🅰	botwm A (grwp gwaed)						// [1F170] text|emoji
+🅱	botwm B (grwp gwaed)						// [1F171] text|emoji
+🅾	botwm O (grwp gwaed)						// [1F17E] text|emoji
+🅿	botwm P								// [1F17F] text|emoji
+🆎	botwm AB (grwp gwaed)						// [1F18E]
+🆑	botwm CL							// [1F191]
+🆒	botwm COOL							// [1F192]
+🆓	botwm FREE							// [1F193]
+🆔	botwm ID							// [1F194]
+🆕	botwm NEW							// [1F195]
+🆖	botwm NG							// [1F196]
+🆗	botwm OK							// [1F197]
+🆘	botwm SOS							// [1F198]
+🆙	botwm UP!							// [1F199]
+🆚	botwm VS							// [1F19A]
+🇨🇶	Sarc							// [1F1E8 1F1F6]
+🇫🇰	Ynysoedd y Falkland Malvinas				// [1F1EB 1F1F0]
+
+// 1F200..1F2FF : Enclosed Ideographic Supplement
+
+🈁	katakana koko mewn sgwâr					// [1F201]
+🈂	katakana sa mewn sgwâr						// [1F202] text|emoji
+🈚	ideograff negyddiad mewn sgwâr					// [1F21A]
+🈯	ideograff bys mewn sgwâr					// [1F22F]
+🈲	ideograff gwaharddiad mewn sgwâr				// [1F232]
+🈳	ideograff gwag mewn sgwâr					// [1F233]
+🈴	ideograff gyda’i gilydd mewn sgwâr				// [1F234]
+🈵	ideograff llawnder mewn sgwâr					// [1F235]
+🈶	ideograff bodoli mewn sgwâr					// [1F236]
+🈷	ideograff lleuad mewn sgwâr					// [1F237] text|emoji
+🈸	ideograff cais mewn sgwâr					// [1F238]
+🈹	ideograff rhannu mewn sgwâr					// [1F239]
+🈺	ideograff gweithredu mewn sgwâr					// [1F23A]
+🉐	ideograff mantais mewn cylch					// [1F250]
+🉑	ideograff derbyn mewn cylch					// [1F251]
+
+// 1F000..1F02F : Mahjong Tiles
+
+🀄	draig goch mahjong						// [1F004]
+
+// 1F0A0..1F0FF : Playing Cards
+
+🃏	cellweiriwr							// [1F0CF]
+
+// 1F300..1F5FF : Miscellaneous Symbols and Pictographs
+
+🌀	seiclon								// [1F300]
+🌁	niwlog								// [1F301]
+🌂	ymbarel ar gau							// [1F302]
+🌃	noson â sêr							// [1F303]
+🌄	codiad haul dros fynyddoedd					// [1F304]
+🌅	codiad haul							// [1F305]
+🌆	dinaslun cyfnos							// [1F306]
+🌇	machlud haul							// [1F307]
+🌈	enfys								// [1F308]
+🌉	pont gyda’r nos							// [1F309]
+🌊	ton ddŵr							// [1F30A]
+🌋	llosgfynydd							// [1F30B]
+🌌	y llwybr llaethog						// [1F30C]
+🌍	glôb yn dangos Ewrop-Affrica					// [1F30D]
+🌎	glôb yn dangos yr Americas					// [1F30E]
+🌏	glôb yn dangos Asia-Awstralia					// [1F30F]
+🌐	glôb gyda meridianau						// [1F310]
+🌑	lleuad newydd							// [1F311]
+🌒	lleuad gilgant ar ei chynnydd					// [1F312]
+🌓	lleuad chwarter cyntaf						// [1F313]
+🌔	lleuad amgrwm ar ei chynnydd					// [1F314]
+🌕	lleuad lawn							// [1F315]
+🌖	lleuad amgrwm ar ei chil					// [1F316]
+🌗	lleuad chwarter olaf						// [1F317]
+🌘	lleuad cilgant ar ei chil					// [1F318]
+🌙	lleuad gilgant							// [1F319]
+🌚	wyneb lleuad newydd						// [1F31A]
+🌛	lleuad chwarter cyntaf gydag wyneb				// [1F31B]
+🌜	lleuad chwarter olaf gydag wyneb				// [1F31C]
+🌝	lleuad lawn gydag wyneb						// [1F31D]
+🌞	lleuad ag wyneb							// [1F31E]
+🌟	seren yn tywynnu						// [1F31F]
+🌠	seren wib							// [1F320]
+🌡	thermomedr							// [1F321] text|emoji
+🌤	haul tu ôl i gwmwl bach						// [1F324] text|emoji
+🌥	haul tu ôl i gwmwl mawr						// [1F325] text|emoji
+🌦	haul tu ôl i gwmwl gyda glaw					// [1F326] text|emoji
+🌧	cwmwl gyda glaw							// [1F327] text|emoji
+🌨	cwmwl gydag eira						// [1F328] text|emoji
+🌩	cwmwl gyda mellt						// [1F329] text|emoji
+🌪	corwynt								// [1F32A] text|emoji
+🌫	niwl								// [1F32B] text|emoji
+🌬	wyneb gwyntog							// [1F32C] text|emoji
+🌭	selsigen mewn bynen						// [1F32D]
+🌮	taco								// [1F32E]
+🌯	burrito								// [1F32F]
+🌰	castan								// [1F330]
+🌱	eginblanhigyn							// [1F331]
+🌲	bythwyrdd							// [1F332]
+🌳	coeden gollddail						// [1F333]
+🌴	palmwydden							// [1F334]
+🌵	cactws								// [1F335]
+🌶	pupur twym							// [1F336] text|emoji
+🌷	tiwlip								// [1F337]
+🌸	blodeuyn ceirios						// [1F338]
+🌹	rhosyn								// [1F339]
+🌺	hibisgws							// [1F33A]
+🌻	blodyn haul							// [1F33B]
+🌼	blodeuyn							// [1F33C]
+🌽	tywysen o gorn							// [1F33D]
+🌾	ysgub o reis							// [1F33E]
+🌿	llysieuyn							// [1F33F]
+🍀	meillionen pedair deilen					// [1F340]
+🍁	deilen masarnen							// [1F341]
+🍂	deilen yn cwympo						// [1F342]
+🍃	deilen yn crynu yn y gwynt					// [1F343]
+🍄	madarch								// [1F344]
+🍅	tomato								// [1F345]
+🍆	ŵylyst								// [1F346]
+🍇	grawnwin							// [1F347]
+🍈	melon								// [1F348]
+🍉	melon dŵr							// [1F349]
+🍊	tanjerin							// [1F34A]
+🍋	lemwn								// [1F34B]
+🍌	banana								// [1F34C]
+🍍	pinafal								// [1F34D]
+🍎	afal coch							// [1F34E]
+🍏	afal gwyrdd							// [1F34F]
+🍐	peren								// [1F350]
+🍑	eirinen wlanog							// [1F351]
+🍒	ceirios								// [1F352]
+🍓	mefus								// [1F353]
+🍔	hambyrgyr							// [1F354]
+🍕	pitsa								// [1F355]
+🍖	cig ar yr asgwrn						// [1F356]
+🍗	coes o ffowls							// [1F357]
+🍘	cracer reis							// [1F358]
+🍙	pêl reis							// [1F359]
+🍚	reis wedi’i goginio						// [1F35A]
+🍛	reis cyrri							// [1F35B]
+🍜	bowlen yn stemio						// [1F35C]
+🍝	sbageti								// [1F35D]
+🍞	bara								// [1F35E]
+🍟	sglodion							// [1F35F]
+🍠	taten felys wedi’i rostio					// [1F360]
+🍡	dango								// [1F361]
+🍢	oden								// [1F362]
+🍣	swshi								// [1F363]
+🍤	berdysyn wedi’i ffrio						// [1F364]
+🍥	cacen bysgod gyda chwyrlïad					// [1F365]
+🍦	hufen iâ meddal							// [1F366]
+🍧	iâ wedi’i siafio						// [1F367]
+🍨	hufen iâ							// [1F368]
+🍩	toesen								// [1F369]
+🍪	bisgeden							// [1F36A]
+🍫	bar o siocled							// [1F36B]
+🍬	losin								// [1F36C]
+🍭	lolipop								// [1F36D]
+🍮	cwstard								// [1F36E]
+🍯	pot mêl								// [1F36F]
+🍰	cacen fer							// [1F370]
+🍱	bocs bento							// [1F371]
+🍲	llestr o fwyd							// [1F372]
+🍳	coginio								// [1F373]
+🍴	fforc a chyllell						// [1F374]
+🍵	cwpan te heb ddolen						// [1F375]
+🍶	sake								// [1F376]
+🍷	gwydr gwin							// [1F377]
+🍸	gwydr coctel							// [1F378]
+🍹	diod drofannol							// [1F379]
+🍺	mwg cwrw							// [1F37A]
+🍻	mygiau cwrw yn clincian						// [1F37B]
+🍼	botel babi							// [1F37C]
+🍽	fforc a chyllell gyda phlât					// [1F37D] text|emoji
+🍾	potel gyda chorcyn yn popian					// [1F37E]
+🍿	pop gorn							// [1F37F]
+🎀	rhuban								// [1F380]
+🎁	anrheg wedi’i lapio						// [1F381]
+🎂	cacen pen-blwydd						// [1F382]
+🎃	jack-o-lantern							// [1F383]
+🎄	coeden nadolig							// [1F384]
+🎅	Siôn Corn							// [1F385]
+🎆	tân gwyllt							// [1F386]
+🎇	ffon wreichion							// [1F387]
+🎈	balŵn								// [1F388]
+🎉	popiwr parti							// [1F389]
+🎊	pelen gonffeti							// [1F38A]
+🎋	coeden tanabata							// [1F38B]
+🎌	baneri â chroesau						// [1F38C]
+🎍	addurn pinwydden						// [1F38D]
+🎎	doliau Japaneaidd						// [1F38E]
+🎏	baner y carp							// [1F38F]
+🎐	clychsain wynt							// [1F390]
+🎑	seremoni’r lleuad						// [1F391]
+🎒	bag ysgol							// [1F392]
+🎓	cap graddio							// [1F393]
+🎖	medal filwrol							// [1F396] text|emoji
+🎗	rhuban atgoffa							// [1F397] text|emoji
+🎙	meicroffon stiwdio						// [1F399] text|emoji
+🎚	llithrydd lefel							// [1F39A] text|emoji
+🎛	dyrnau rheoli							// [1F39B] text|emoji
+🎞	fframiau ffilm							// [1F39E] text|emoji
+🎟	tocynnau mynediad						// [1F39F] text|emoji
+🎠	ceffyl carwsél							// [1F3A0]
+🎡	olwyn fawr							// [1F3A1]
+🎢	cert sglefrio							// [1F3A2]
+🎣	polyn pysgota							// [1F3A3]
+🎤	meicroffon							// [1F3A4]
+🎥	camera ffilm							// [1F3A5]
+🎦	sinema								// [1F3A6]
+🎧	clustffon							// [1F3A7]
+🎨	palet arlunydd							// [1F3A8]
+🎩	het silc							// [1F3A9]
+🎪	tent syrcas							// [1F3AA]
+🎫	tocyn								// [1F3AB]
+🎬	clepiwr								// [1F3AC]
+🎭	celfyddydau perfformiadol					// [1F3AD]
+🎮	gêm fideo							// [1F3AE]
+🎯	ergyd uniongyrchol						// [1F3AF]
+🎰	peiriant slot							// [1F3B0]
+🎱	biliards							// [1F3B1]
+🎲	dis								// [1F3B2]
+🎳	bowlio								// [1F3B3]
+🎴	cardiau chwarae blodau						// [1F3B4]
+🎵	nodyn cerddorol							// [1F3B5]
+🎶	nodau cerddorol							// [1F3B6]
+🎷	sacsoffon							// [1F3B7]
+🎸	gitâr								// [1F3B8]
+🎹	allweddell							// [1F3B9]
+🎺	trwmped								// [1F3BA]
+🎻	ffidl								// [1F3BB]
+🎼	sgôr cerddorol							// [1F3BC]
+🎽	crys rhedeg							// [1F3BD]
+🎾	tenis								// [1F3BE]
+🎿	sgîs								// [1F3BF]
+🏀	pêl fasged							// [1F3C0]
+🏁	baner frith							// [1F3C1]
+🏂	eirafyrddiwr							// [1F3C2]
+🏃	person yn rhedeg						// [1F3C3]
+🏄	person yn syrffio						// [1F3C4]
+🏅	medal chwaraeon							// [1F3C5]
+🏆	tlws								// [1F3C6]
+🏇	rasio ceffylau							// [1F3C7]
+🏈	pêl droed Americanaidd						// [1F3C8]
+🏉	pêl rygbi							// [1F3C9]
+🏊	person yn nofio							// [1F3CA]
+🏋	person yn codi pwysau						// [1F3CB] text|emoji
+🏌	person yn chwarae golff						// [1F3CC] text|emoji
+🏍	beic modur							// [1F3CD] text|emoji
+🏎	car rasio							// [1F3CE] text|emoji
+🏏	criced								// [1F3CF]
+🏐	pêl-foli							// [1F3D0]
+🏑	hoci cae							// [1F3D1]
+🏒	cnap a ffon hoci iâ						// [1F3D2]
+🏓	ping-pong							// [1F3D3]
+🏔	mynydd wedi’i orchuddio mewn eira				// [1F3D4] text|emoji
+🏕	gwersyllu							// [1F3D5] text|emoji
+🏖	traeth ag ymbarél						// [1F3D6] text|emoji
+🏗	adeiladwaith adeilad						// [1F3D7] text|emoji
+🏘	tai								// [1F3D8] text|emoji
+🏙	dinaslun							// [1F3D9] text|emoji
+🏚	tŷ gwag								// [1F3DA] text|emoji
+🏛	adeilad clasurol						// [1F3DB] text|emoji
+🏜	anialwch							// [1F3DC] text|emoji
+🏝	ynys anghyfannedd						// [1F3DD] text|emoji
+🏞	parc cenedlaethol						// [1F3DE] text|emoji
+🏟	stadiwm								// [1F3DF] text|emoji
+🏠	tŷ								// [1F3E0]
+🏡	tŷ gyda gardd							// [1F3E1]
+🏢	adeilad o swyddfa						// [1F3E2]
+🏣	swyddfa bost Japaneaidd						// [1F3E3]
+🏤	swyddfa bost							// [1F3E4]
+🏥	ysbyty								// [1F3E5]
+🏦	banc								// [1F3E6]
+🏧	arwydd peiriant codi arian					// [1F3E7]
+🏨	gwesty								// [1F3E8]
+🏩	gwesty cariad							// [1F3E9]
+🏪	siop gyfleus							// [1F3EA]
+🏫	ysgol								// [1F3EB]
+🏬	siop adrannol							// [1F3EC]
+🏭	ffatri								// [1F3ED]
+🏮	llusern bapur coch						// [1F3EE]
+🏯	castell Japaneaidd						// [1F3EF]
+🏰	castell								// [1F3F0]
+🏳	chwifio baner wen						// [1F3F3] text|emoji
+🏴	chwifio baner ddu						// [1F3F4]
+🏵	rhosglwm							// [1F3F5] text|emoji
+🏷	label								// [1F3F7] text|emoji
+🏸	badminton							// [1F3F8]
+🏹	bwa saeth							// [1F3F9]
+🏺	llestri								// [1F3FA]
+🏻	arlliw croen golau						// [1F3FB]
+🏼	arlliw croen canolig-golau					// [1F3FC]
+🏽	arlliw croen canolog						// [1F3FD]
+🏾	arlliw croen canolig-tywyll					// [1F3FE]
+🏿	arlliw croen tywyll						// [1F3FF]
+🐀	llygoden fawr							// [1F400]
+🐁	llygoden							// [1F401]
+🐂	ych								// [1F402]
+🐃	byfflo dwr							// [1F403]
+🐄	buwch								// [1F404]
+🐅	teigr								// [1F405]
+🐆	llewpard							// [1F406]
+🐇	cwningen							// [1F407]
+🐈	cath								// [1F408]
+🐉	draig								// [1F409]
+🐊	crocodeil							// [1F40A]
+🐋	morfil								// [1F40B]
+🐌	malwoden							// [1F40C]
+🐍	neidr								// [1F40D]
+🐎	ceffyl								// [1F40E]
+🐏	hwrdd								// [1F40F]
+🐐	gafr								// [1F410]
+🐑	dafad								// [1F411]
+🐒	mwnci								// [1F412]
+🐓	ceiliog								// [1F413]
+🐔	iâr								// [1F414]
+🐕	ci								// [1F415]
+🐖	mochyn								// [1F416]
+🐗	baedd								// [1F417]
+🐘	eliffant							// [1F418]
+🐙	octopws								// [1F419]
+🐚	cragen droellog							// [1F41A]
+🐛	chwilen								// [1F41B]
+🐜	morgrugyn							// [1F41C]
+🐝	gwenynen							// [1F41D]
+🐞	chwilen y wraig							// [1F41E]
+🐟	pysgodyn							// [1F41F]
+🐠	pysgod trofannol						// [1F420]
+🐡	chwydd bysgodyn							// [1F421]
+🐢	crwban y môr							// [1F422]
+🐣	deoriad cywion							// [1F423]
+🐤	cyw bach							// [1F424]
+🐥	cyw iâr yn blaen-wynebu						// [1F425]
+🐦	aderyn								// [1F426]
+🐧	pengwin								// [1F427]
+🐨	coala								// [1F428]
+🐩	pwdl								// [1F429]
+🐪	camel								// [1F42A]
+🐫	camel dau dwmpath						// [1F42B]
+🐬	dolffin								// [1F42C]
+🐭	wyneb llygoden							// [1F42D]
+🐮	wyneb buwch							// [1F42E]
+🐯	wyneb teigr							// [1F42F]
+🐰	wyneb cwningen							// [1F430]
+🐱	wyneb cath							// [1F431]
+🐲	wyneb draig							// [1F432]
+🐳	morfil yn chwythu dŵr						// [1F433]
+🐴	wyneb ceffyl							// [1F434]
+🐵	wyneb mwnci							// [1F435]
+🐶	wyneb ci							// [1F436]
+🐷	wyneb mochyn							// [1F437]
+🐸	wyneb broga							// [1F438]
+🐹	wyneb bochdew							// [1F439]
+🐺	wyneb blaidd							// [1F43A]
+🐻	wyneb arth							// [1F43B]
+🐼	wyneb panda							// [1F43C]
+🐽	trwyn mochyn							// [1F43D]
+🐾	olion pawen							// [1F43E]
+🐿	gwiwer resog							// [1F43F] text|emoji
+👀	llygaid								// [1F440]
+👁	llygad								// [1F441] text|emoji
+👂	clust								// [1F442]
+👃	trwyn								// [1F443]
+👄	ceg								// [1F444]
+👅	tafod								// [1F445]
+👆	mynegfys yr wrthlaw yn pwyntio i fyny				// [1F446]
+👇	mynegfys yr wrthlaw yn pwyntio i lawr				// [1F447]
+👈	mynegfys yr wrthlaw yn pwyntio i’r chwith			// [1F448]
+👉	mynegfys yr wrthlaw yn pwyntio i’r dde				// [1F449]
+👊	dwrn yn agosáu							// [1F44A]
+👋	llaw yn chwifio							// [1F44B]
+👌	llaw ocê							// [1F44C]
+👍	bys bawd i fyny							// [1F44D]
+👎	bys bawd i lawr							// [1F44E]
+👏	dwylo yn curo							// [1F44F]
+👐	dwylo agored							// [1F450]
+👑	coron								// [1F451]
+👒	het fenyw							// [1F452]
+👓	sbectol								// [1F453]
+👔	tei								// [1F454]
+👕	crys T								// [1F455]
+👖	jîns								// [1F456]
+👗	ffrog								// [1F457]
+👘	cimono								// [1F458]
+👙	bicini								// [1F459]
+👚	dillad menywod							// [1F45A]
+👛	pwrs								// [1F45B]
+👜	bag llaw							// [1F45C]
+👝	cwd								// [1F45D]
+👞	esgid dyn							// [1F45E]
+👟	esgidiau rhedeg							// [1F45F]
+👠	esgidiau sodlau uchel						// [1F460]
+👡	sandal menyw							// [1F461]
+👢	esgid fenyw							// [1F462]
+👣	olion traed							// [1F463]
+👤	bron mewn silwét						// [1F464]
+👥	bronnau mewn silwét						// [1F465]
+👦	bachgen								// [1F466]
+👧	merch								// [1F467]
+👨	dyn								// [1F468]
+👩	menyw								// [1F469]
+👪	teulu								// [1F46A]
+👫	dyn a menyw yn dal dwylo					// [1F46B]
+👬	dau ddyn yn dal dwylo						// [1F46C]
+👭	dwy fenyw yn dal dwylo						// [1F46D]
+👮	heddwas								// [1F46E]
+👯	pobl mewn parti							// [1F46F]
+👰	priodferch â fêl						// [1F470]
+👱	person â gwallt golau						// [1F471]
+👲	dyn â chap Tsieineaidd						// [1F472]
+👳	person yn gwisgo twrban						// [1F473]
+👴	hen ddyn							// [1F474]
+👵	hen fenyw							// [1F475]
+👶	babi								// [1F476]
+👷	adeiladwr							// [1F477]
+👸	tywysoges							// [1F478]
+👹	anghenfil							// [1F479]
+👺	bwgan								// [1F47A]
+👻	ysbryd								// [1F47B]
+👼	babi angel							// [1F47C]
+👽	estron								// [1F47D]
+👾	anghenfil estron						// [1F47E]
+👿	wyneb dig â chyrn						// [1F47F]
+💀	penglog								// [1F480]
+💁	person yn gwyro llaw						// [1F481]
+💂	gwarchodfilwr							// [1F482]
+💃	menyw yn dawnsio						// [1F483]
+💄	minlliw								// [1F484]
+💅	farnais ewinedd							// [1F485]
+💆	person yn derbyn tyluniad					// [1F486]
+💇	person yn cael ei wallt wedi’u torri				// [1F487]
+💈	polyn barbwr							// [1F488]
+💉	chwistrell							// [1F489]
+💊	pilsen								// [1F48A]
+💋	ôl cusan							// [1F48B]
+💌	llythyr caru							// [1F48C]
+💍	modrwy								// [1F48D]
+💎	gemfaen								// [1F48E]
+💏	cusan								// [1F48F]
+💐	tusw								// [1F490]
+💑	pâr a chalon							// [1F491]
+💒	priodas								// [1F492]
+💓	calon yn curo							// [1F493]
+💔	calon wedi torri						// [1F494]
+💕	dwy galon							// [1F495]
+💖	calon yn disgleirio						// [1F496]
+💗	calon yn tyfu							// [1F497]
+💘	calon â saeth trwyddi						// [1F498]
+💙	calon las							// [1F499]
+💚	calon werdd							// [1F49A]
+💛	calon felen							// [1F49B]
+💜	calon borffor							// [1F49C]
+💝	calon â rhuban							// [1F49D]
+💞	calonnau yn troelli						// [1F49E]
+💟	addurn calon							// [1F49F]
+💠	diemwnt â dot							// [1F4A0]
+💡	bwlb golau							// [1F4A1]
+💢	symbol dicter							// [1F4A2]
+💣	bom								// [1F4A3]
+💤	zzz								// [1F4A4]
+💥	trawiad								// [1F4A5]
+💦	defnynnau chwys							// [1F4A6]
+💧	defnyn								// [1F4A7]
+💨	rhuthro								// [1F4A8]
+💩	pentwr o faw							// [1F4A9]
+💪	cyhyrau deuben wedi eu hystwytho				// [1F4AA]
+💫	penysgafn							// [1F4AB]
+💬	balŵn deialog							// [1F4AC]
+💭	cwmwl meddwl							// [1F4AD]
+💮	blodyn gwyn							// [1F4AE]
+💯	cant o bwyntiau							// [1F4AF]
+💰	bag arian							// [1F4B0]
+💱	cyfnewid arian cyfredol						// [1F4B1]
+💲	arwydd doler drom						// [1F4B2]
+💳	cerdyn credyd							// [1F4B3]
+💴	papur arian yen							// [1F4B4]
+💵	papur arian doler						// [1F4B5]
+💶	papur arian ewro						// [1F4B6]
+💷	papur arian punt						// [1F4B7]
+💸	arian gydag adenydd						// [1F4B8]
+💹	siart yn cynyddu â yen						// [1F4B9]
+💺	sedd								// [1F4BA]
+💻	cluniadur							// [1F4BB]
+💼	cas friff							// [1F4BC]
+💽	disg mini							// [1F4BD]
+💾	disg hyblyg							// [1F4BE]
+💿	disg optegol							// [1F4BF]
+📀	dvd								// [1F4C0]
+📁	ffolder ffeiliau						// [1F4C1]
+📂	agor ffolder ffeiliau						// [1F4C2]
+📃	tudalen gyda chwrl						// [1F4C3]
+📄	tudalen yn wynebu i fyny					// [1F4C4]
+📅	calendr								// [1F4C5]
+📆	calendr rwygo							// [1F4C6]
+📇	mynegai cardiau							// [1F4C7]
+📈	siart yn cynyddu						// [1F4C8]
+📉	siart yn gostwng						// [1F4C9]
+📊	siart bar							// [1F4CA]
+📋	clipfwrdd							// [1F4CB]
+📌	pin								// [1F4CC]
+📍	pin crwn							// [1F4CD]
+📎	clip papur							// [1F4CE]
+📏	pren mesur							// [1F4CF]
+📐	pren mesur trionglog						// [1F4D0]
+📑	tabiau nodau tudalen						// [1F4D1]
+📒	cyfriflyfr							// [1F4D2]
+📓	llyfr nodiadau							// [1F4D3]
+📔	llyfr nodiadau gyda chlawr addurnol				// [1F4D4]
+📕	llyfr ynghau							// [1F4D5]
+📖	llyfr agored							// [1F4D6]
+📗	llyfr gwyrdd							// [1F4D7]
+📘	llyfr glas							// [1F4D8]
+📙	llyfr oren							// [1F4D9]
+📚	llyfrau								// [1F4DA]
+📛	bathodyn enw							// [1F4DB]
+📜	sgrôl								// [1F4DC]
+📝	memo								// [1F4DD]
+📞	derbynnydd ffôn							// [1F4DE]
+📟	peiriant galw							// [1F4DF]
+📠	peiriant ffacs							// [1F4E0]
+📡	antena lloeren							// [1F4E1]
+📢	uchelseinydd							// [1F4E2]
+📣	megaffon							// [1F4E3]
+📤	hambwrdd blwch allan						// [1F4E4]
+📥	hambwrdd mewnflwch						// [1F4E5]
+📦	parsel								// [1F4E6]
+📧	e-bost								// [1F4E7]
+📨	amlen yn dyfod i mewn						// [1F4E8]
+📩	amlen gyda saeth						// [1F4E9]
+📪	blwch post caeedig gyda banner wedi’i gostwng			// [1F4EA]
+📫	blwch post caeedig gyda banner wedi’i chodi			// [1F4EB]
+📬	blwch post agored gyda banner wedi’i chodi			// [1F4EC]
+📭	blwch post agored gyda banner wedi’i gostwng			// [1F4ED]
+📮	blwch post							// [1F4EE]
+📯	corn bost							// [1F4EF]
+📰	papur newydd							// [1F4F0]
+📱	ffôn symudol							// [1F4F1]
+📲	ffôn symudol â saeth						// [1F4F2]
+📳	modd dirgryniad							// [1F4F3]
+📴	ffôn symudol wedi’i ddiffodd					// [1F4F4]
+📵	dim ffonau symudol						// [1F4F5]
+📶	barau antena							// [1F4F6]
+📷	camera								// [1F4F7]
+📸	camera â fflach							// [1F4F8]
+📹	camera fideo							// [1F4F9]
+📺	teledu								// [1F4FA]
+📻	radio								// [1F4FB]
+📼	casét fideo							// [1F4FC]
+📽	taflunydd ffilm							// [1F4FD] text|emoji
+📿	gleiniau gweddïo						// [1F4FF]
+🔀	botwm cymysgu traciau						// [1F500]
+🔁	botwm ailadrodd							// [1F501]
+🔂	botwm ailadrodd sengl						// [1F502]
+🔃	saethau clocwedd fertigol					// [1F503]
+🔄	botwm saethau gwrthglocwedd					// [1F504]
+🔅	botwm pylu							// [1F505]
+🔆	botwm disglair							// [1F506]
+🔇	seinydd wedi’i ddiffodd						// [1F507]
+🔈	seinydd								// [1F508]
+🔉	seinydd ymlaen							// [1F509]
+🔊	seinydd uchel							// [1F50A]
+🔋	batri								// [1F50B]
+🔌	plwg trydanol							// [1F50C]
+🔍	chwyddwydr yn wynebu’r chwith					// [1F50D]
+🔎	chwyddwydr yn wynebu’r dde					// [1F50E]
+🔏	clô ac ysgrifbin						// [1F50F]
+🔐	clô ynghau gydag allwedd					// [1F510]
+🔑	allwedd								// [1F511]
+🔒	clô								// [1F512]
+🔓	clô agored							// [1F513]
+🔔	cloch								// [1F514]
+🔕	cloch a slaes							// [1F515]
+🔖	nod tudalen							// [1F516]
+🔗	dolen								// [1F517]
+🔘	botwm radio							// [1F518]
+🔙	saeth BACK							// [1F519]
+🔚	saeth END							// [1F51A]
+🔛	saeth ON!							// [1F51B]
+🔜	saeth SOON							// [1F51C]
+🔝	saeth TOP							// [1F51D]
+🔞	neb o dan un deg wyth oed					// [1F51E]
+🔟	gorchudd bysell: 10						// [1F51F]
+🔠	mewnbwn llythrennau mawr ladin					// [1F520]
+🔡	mewnbwn llythrennau bach lladin					// [1F521]
+🔢	mewnbwn rhifedd							// [1F522]
+🔣	mewnbwn symbylau						// [1F523]
+🔤	mewnbwn llythrennau lladin					// [1F524]
+🔥	tân								// [1F525]
+🔦	tortsh								// [1F526]
+🔧	sbaner								// [1F527]
+🔨	morthwyl							// [1F528]
+🔩	nyten a bollt							// [1F529]
+🔪	cyllell cegin							// [1F52A]
+🔫	pistol								// [1F52B]
+🔬	microsgop							// [1F52C]
+🔭	telesgop							// [1F52D]
+🔮	pêl grisial							// [1F52E]
+🔯	seren chwe ochr dotiog						// [1F52F]
+🔰	symbol Japaneaidd am ddechreuwr					// [1F530]
+🔱	arwyddlun tryfer						// [1F531]
+🔲	botwm sgwâr du							// [1F532]
+🔳	botwm sgwâr gwyn						// [1F533]
+🔴	cylch coch							// [1F534]
+🔵	cylch glas							// [1F535]
+🔶	diemwnt mawr oren						// [1F536]
+🔷	diemwnt mawr glas						// [1F537]
+🔸	diemwnt bach oren						// [1F538]
+🔹	diemwnt bach glas						// [1F539]
+🔺	triongl coch yn pwyntio tuag i fyny				// [1F53A]
+🔻	triongl coch yn pwyntio tuag i lawr				// [1F53B]
+🔼	botwm i fyny							// [1F53C]
+🔽	botwm i lawr							// [1F53D]
+🕉	om								// [1F549] text|emoji
+🕊	colomen								// [1F54A] text|emoji
+🕋	kaaba								// [1F54B]
+🕌	mosg								// [1F54C]
+🕍	synagog								// [1F54D]
+🕎	menorah								// [1F54E]
+🕐	un o’r gloch							// [1F550]
+🕑	dau o’r gloch							// [1F551]
+🕒	tri o’r gloch							// [1F552]
+🕓	pedwar o’r gloch						// [1F553]
+🕔	pump o’r gloch							// [1F554]
+🕕	chwech o’r gloch						// [1F555]
+🕖	saith o’r gloch							// [1F556]
+🕗	wyth o’r gloch							// [1F557]
+🕘	naw o’r gloch							// [1F558]
+🕙	deg o’r gloch							// [1F559]
+🕚	un ar ddeg o’r gloch						// [1F55A]
+🕛	deuddeg o’r gloch						// [1F55B]
+🕜	hanner awr wedi un						// [1F55C]
+🕝	hanner awr wedi dau						// [1F55D]
+🕞	hanner awr wedi tri						// [1F55E]
+🕟	hanner awr wedi pedwar						// [1F55F]
+🕠	hanner awr wedi pump						// [1F560]
+🕡	hanner awr wedi chwech						// [1F561]
+🕢	hanner awr wedi saith						// [1F562]
+🕣	hanner awr wedi wyth						// [1F563]
+🕤	hanner awr wedi naw						// [1F564]
+🕥	hanner awr wedi deg						// [1F565]
+🕦	hanner awr wedi un ar ddeg					// [1F566]
+🕧	hanner awr wedi deuddeg						// [1F567]
+🕯	cannwyll							// [1F56F] text|emoji
+🕰	cloc silff ben tân						// [1F570] text|emoji
+🕳	twll								// [1F573] text|emoji
+🕴	dyn mewn gwisg fusnes yn ymddyrchafu				// [1F574] text|emoji
+🕵	ditectif							// [1F575] text|emoji
+🕶	sbectol haul							// [1F576] text|emoji
+🕷	pry copyn							// [1F577] text|emoji
+🕸	gwe pry cop							// [1F578] text|emoji
+🕹	ffon reoli							// [1F579] text|emoji
+🕺	dyn yn dawnsio							// [1F57A]
+🖇	clipiau papur wedi’u cysylltu					// [1F587] text|emoji
+🖊	beiro								// [1F58A] text|emoji
+🖋	ysgrifbin							// [1F58B] text|emoji
+🖌	brwsh paent							// [1F58C] text|emoji
+🖍	pensil lliw							// [1F58D] text|emoji
+🖐	llaw wedi ei chodi â bysedd wedi eu lledu			// [1F590] text|emoji
+🖕	bys canol							// [1F595]
+🖖	saliwt fulcanaidd						// [1F596]
+🖤	calon du							// [1F5A4]
+🖥	cyfrifiadur							// [1F5A5] text|emoji
+🖨	argraffydd							// [1F5A8] text|emoji
+🖱	llygoden gyfrifiadurol						// [1F5B1] text|emoji
+🖲	pelen lwybro							// [1F5B2] text|emoji
+🖼	ffrâm gyda llun							// [1F5BC] text|emoji
+🗂	rhanwyr mynegai cardiau						// [1F5C2] text|emoji
+🗃	blwch ffeilio cardiau						// [1F5C3] text|emoji
+🗄	ffeil gabinet							// [1F5C4] text|emoji
+🗑	bin sbwriel							// [1F5D1] text|emoji
+🗒	llyfr nodiadau troellog						// [1F5D2] text|emoji
+🗓	calendr troellog						// [1F5D3] text|emoji
+🗜	cywasgedd							// [1F5DC] text|emoji
+🗝	hen allwedd							// [1F5DD] text|emoji
+🗞	papur newydd wedi’i rolio					// [1F5DE] text|emoji
+🗡	dagr								// [1F5E1] text|emoji
+🗣	pen yn siarad							// [1F5E3] text|emoji
+🗨	swigen yn siarad i’r chwith					// [1F5E8] text|emoji
+🗯	swigen ddig i’r dde						// [1F5EF] text|emoji
+🗳	blwch pleidlais gyda phleidlais					// [1F5F3] text|emoji
+🗺	map o’r byd							// [1F5FA] text|emoji
+🗻	mynydd Fuji							// [1F5FB]
+🗼	tŵr tokyo							// [1F5FC]
+🗽	Cerflun Rhyddid							// [1F5FD]
+🗾	map o Japan							// [1F5FE]
+🗿	moai								// [1F5FF]
+
+// 1F600..1F64F : Emoticons
+
+😀	wyneb yn gwenu â cheg agored					// [1F600]
+😁	wyneb yn lledwenu â gwên yn y llygaid				// [1F601]
+😂	wyneb â dagrau hapusrwydd					// [1F602]
+😃	wyneb yn gwenu â cheg agored a llygaid mawr			// [1F603]
+😄	wyneb yn gwenu â cheg agored a gwên yn y llygaid		// [1F604]
+😅	wyneb yn gwenu â cheg agored a chwys o ofid			// [1F605]
+😆	wyneb yn gwenu â cheg agored a llygaid ynghau			// [1F606]
+😇	wyneb yn gwenu ag eurgylch					// [1F607]
+😈	wyneb yn gwenu â chyrn						// [1F608]
+😉	llygaid yn wincio						// [1F609]
+😊	wyneb yn gwenu â gwên yn y llygaid				// [1F60A]
+😋	wyneb yn blasu bwyd blasus					// [1F60B]
+😌	wyneb o ryddhad							// [1F60C]
+😍	wyneb yn gwenu â chalonnau yn y llygaid				// [1F60D]
+😎	wyneb yn gwenu â sbectol haul					// [1F60E]
+😏	wyneb yn cilwenu						// [1F60F]
+😐	wyneb niwtral							// [1F610]
+😑	wyneb difynegiant						// [1F611]
+😒	wyneb ddi-ddifyr						// [1F612]
+😓	wyneb yn chwysu o ofid						// [1F613]
+😔	wyneb synfyfyriol						// [1F614]
+😕	wyneb cymysglyd							// [1F615]
+😖	wyneb dryslyd							// [1F616]
+😗	wyneb yn rhoi cusan						// [1F617]
+😘	wyneb yn chwythu cusan						// [1F618]
+😙	wyneb yn rhoi cusan â gwên yn y llygaid				// [1F619]
+😚	wyneb yn rhoi cusan â llygaid ynghau				// [1F61A]
+😛	wyneb â thafod yng ngolwg					// [1F61B]
+😜	wyneb â thafod yng ngolwg a llygaid yn wincio			// [1F61C]
+😝	wyneb â thafod yng ngolwg a llygaid ynghau			// [1F61D]
+😞	wyneb siomedig							// [1F61E]
+😟	wyneb gofidio							// [1F61F]
+😠	wyneb dig							// [1F620]
+😡	wyneb pwdu							// [1F621]
+😢	wyneb yn crio							// [1F622]
+😣	wyneb dyfal							// [1F623]
+😤	wyneb â stêm yn dod o’r trwyn					// [1F624]
+😥	wyneb siomedig ond â rhyddhad					// [1F625]
+😦	wyneb gwgus â cheg agored					// [1F626]
+😧	wyneb dirboen							// [1F627]
+😨	wyneb ofnus							// [1F628]
+😩	wyneb lluddedig							// [1F629]
+😪	wyneb cysglyd							// [1F62A]
+😫	wyneb blinedig							// [1F62B]
+😬	wyneb ag ystum							// [1F62C]
+😭	wyneb yn beichio crio						// [1F62D]
+😮	wyneb â cheg agored						// [1F62E]
+😯	wyneb distewi							// [1F62F]
+😰	wyneb â cheg agored a chwys o ofid				// [1F630]
+😱	wyneb yn sgrechian ag ofn					// [1F631]
+😲	wyneb wedi rhyfeddu						// [1F632]
+😳	wyneb yn gwrido							// [1F633]
+😴	wyneb yn cysgu							// [1F634]
+😵	wyneb penysgafn							// [1F635]
+😶	wyneb heb geg							// [1F636]
+😷	wyneb â mwgwd meddygol						// [1F637]
+😸	wyneb cath yn gwenu â cheg agored a gwên yn y llygaid		// [1F638]
+😹	wyneb cath â dagrau o hapusrwydd				// [1F639]
+😺	wyneb cath yn gwenu â cheg agored				// [1F63A]
+😻	wyneb cath yn gwenu â chalonnau yn y llygaid			// [1F63B]
+😼	wyneb cath â gwên ar gam					// [1F63C]
+😽	wyneb cath yn cusanu â llygaid ynghau				// [1F63D]
+😾	wyneb cath yn pwdu						// [1F63E]
+😿	wyneb cath yn crio						// [1F63F]
+🙀	wyneb cath luddedig						// [1F640]
+🙁	wyneb â pheth gwg arni						// [1F641]
+🙂	wyneb ag ychydig o wên arni					// [1F642]
+🙃	wyneb â’i ben i waered						// [1F643]
+🙄	wyneb â llygaid yn rholio					// [1F644]
+🙅	person yn ystumio nad yw’n iawn					// [1F645]
+🙆	person yn ystumio iawn						// [1F646]
+🙇	person yn ymgrymu						// [1F647]
+🙈	gweld dim drwg							// [1F648]
+🙉	clywed dim drwg							// [1F649]
+🙊	siarad dim drwg							// [1F64A]
+🙋	person yn codi llaw						// [1F64B]
+🙌	person yn codi dwylo						// [1F64C]
+🙍	person yn gwgu							// [1F64D]
+🙎	person yn pwdu							// [1F64E]
+🙏	dwylo wedi plygu						// [1F64F]
+
+// 1F680..1F6FF : Transport and Map Symbols
+
+🚀	roced								// [1F680]
+🚁	hofrennydd							// [1F681]
+🚂	locomotif							// [1F682]
+🚃	car rheilffordd							// [1F683]
+🚄	trên tra chyflym						// [1F684]
+🚅	trên tra chyflym gyda thrwyn fel bwled				// [1F685]
+🚆	trên								// [1F686]
+🚇	metro								// [1F687]
+🚈	rheilffordd ysgafn						// [1F688]
+🚉	gorsaf								// [1F689]
+🚊	tram								// [1F68A]
+🚋	car tram							// [1F68B]
+🚌	bws								// [1F68C]
+🚍	bws yn dod i’ch cwrdd						// [1F68D]
+🚎	bws trydan							// [1F68E]
+🚏	arhosfan bws							// [1F68F]
+🚐	bws mini							// [1F690]
+🚑	ambiwlans							// [1F691]
+🚒	peiriant tân							// [1F692]
+🚓	car yr heddlu							// [1F693]
+🚔	car heddlu sy’n dod i’ch cwrdd					// [1F694]
+🚕	tacsi								// [1F695]
+🚖	tacsi sy’n dod i’ch cwrdd					// [1F696]
+🚗	modur								// [1F697]
+🚘	modur sy’n dod i’ch cwrdd					// [1F698]
+🚙	cerbyd hamdden							// [1F699]
+🚚	lori dosbarthu							// [1F69A]
+🚛	lori gymalog							// [1F69B]
+🚜	tractor								// [1F69C]
+🚝	trên un gledren							// [1F69D]
+🚞	rheilffordd fynydd						// [1F69E]
+🚟	rheilffordd grog						// [1F69F]
+🚠	rhaffbont fynydd						// [1F6A0]
+🚡	tramffordd awyrol						// [1F6A1]
+🚢	llong								// [1F6A2]
+🚣	person yn rhwyfo cwch						// [1F6A3]
+🚤	cwch gwib							// [1F6A4]
+🚥	golau traffig llorweddol					// [1F6A5]
+🚦	golau traffig fertigol						// [1F6A6]
+🚧	adeiladwaith							// [1F6A7]
+🚨	golau car yr heddlu						// [1F6A8]
+🚩	baner drionglog							// [1F6A9]
+🚪	drws								// [1F6AA]
+🚫	wedi’i wahardd							// [1F6AB]
+🚬	ysmygu								// [1F6AC]
+🚭	dim ysmygu							// [1F6AD]
+🚮	arwydd sbwriel mewn bin						// [1F6AE]
+🚯	dim sbwriel							// [1F6AF]
+🚰	dŵr yfed							// [1F6B0]
+🚱	dwr na ellir ei foteli						// [1F6B1]
+🚲	beic								// [1F6B2]
+🚳	dim beiciau							// [1F6B3]
+🚴	person yn beicio						// [1F6B4]
+🚵	person yn beicio mynydd						// [1F6B5]
+🚶	person yn cerdded						// [1F6B6]
+🚷	dim cerddwyr							// [1F6B7]
+🚸	plant yn croesi							// [1F6B8]
+🚹	ystafell ymolchi i ddynion					// [1F6B9]
+🚺	ystafell ymolchi i fenywod					// [1F6BA]
+🚻	ystafell ymolchi						// [1F6BB]
+🚼	symbol babi							// [1F6BC]
+🚽	toiled								// [1F6BD]
+🚾	tŷ bach								// [1F6BE]
+🚿	cawod								// [1F6BF]
+🛀	person mewn bath						// [1F6C0]
+🛁	twba bath							// [1F6C1]
+🛂	arolygaeth pasbort						// [1F6C2]
+🛃	tollau								// [1F6C3]
+🛄	hawlio bagiau							// [1F6C4]
+🛅	bagiau wedi’u gadael						// [1F6C5]
+🛋	soffa a lamp							// [1F6CB] text|emoji
+🛌	person mewn gwely						// [1F6CC]
+🛍	bagiau siopa							// [1F6CD] text|emoji
+🛎	porthor								// [1F6CE] text|emoji
+🛏	gwely								// [1F6CF] text|emoji
+🛐	man addoli							// [1F6D0]
+🛑	arwydd stop							// [1F6D1]
+🛒	troli siopa							// [1F6D2]
+🛕	teml hindwaidd						// [1F6D5]
+🛖	cwt							// [1F6D6]
+🛗	lifft							// [1F6D7]
+🛜	diwifr							// [1F6DC]
+🛝	sleid maes chwarae					// [1F6DD]
+🛞	olwyn							// [1F6DE]
+🛟	bwi cylch						// [1F6DF]
+🛠	morthwyl a sbaner						// [1F6E0] text|emoji
+🛡	tarian								// [1F6E1] text|emoji
+🛢	drwm olew							// [1F6E2] text|emoji
+🛣	traffordd							// [1F6E3] text|emoji
+🛤	trac rheilffordd						// [1F6E4] text|emoji
+🛥	cwch modur							// [1F6E5] text|emoji
+🛩	awyren fach							// [1F6E9] text|emoji
+🛫	ymadawiad awyren						// [1F6EB]
+🛬	dyfodiad awyren							// [1F6EC]
+🛰	lloeren								// [1F6F0] text|emoji
+🛳	llong deithwyr							// [1F6F3] text|emoji
+🛴	sgwter cicio							// [1F6F4]
+🛵	sgwter modur							// [1F6F5]
+🛶	canŵ								// [1F6F6]
+🛷	sled								// [1F6F7]
+🛸	soser hedegog							// [1F6F8]
+🛹	sgrialfwrdd							// [1F6F9]
+🛺	ricshio â pheiriant					// [1F6FA]
+🛻	lori pickup						// [1F6FB]
+🛼	esgid sglefrio						// [1F6FC]
+
+// 1F780..1F7FF : Geometric Shapes Extended
+🟠	cylch oren						// [1F7E0]
+🟡	cylch melyn						// [1F7E1]
+🟢	cylch gwyrdd						// [1F7E2]
+🟣	cylch piws						// [1F7E3]
+🟤	cylch brown						// [1F7E4]
+🟥	sgwâr coch						// [1F7E5]
+🟦	sgwâr glas						// [1F7E6]
+🟧	sgwâr oren						// [1F7E7]
+🟨	sgwâr melyn						// [1F7E8]
+🟩	sgwâr gwyrdd						// [1F7E9]
+🟪	sgwâr piws						// [1F7EA]
+🟫	sgwâr brown						// [1F7EB]
+🟰	arwydd hafal trwm					// [1F7F0]
+🤌	bysedd wedi’u pinsio					// [1F90C]
+🤍	calon wen						// [1F90D]
+🤎	calon frown						// [1F90E]
+🤏	bysedd yn pinshio					// [1F90F]
+
+// 1F900..1F9FF : Supplemental Symbols and Pictographs
+
+🤐	wyneb â sip dros y geg						// [1F910]
+🤑	wyneb symbol arian						// [1F911]
+🤒	wyneb â thermomedr						// [1F912]
+🤓	wyneb clyfar							// [1F913]
+🤔	wyneb yn meddwl							// [1F914]
+🤕	wyneb â rhwymyn i’r pen						// [1F915]
+🤖	wyneb robot							// [1F916]
+🤗	wyneb yn rhoi cwtsh						// [1F917]
+🤘	arwydd y cyrn							// [1F918]
+🤙	llaw ffonia fi							// [1F919]
+🤚	cefn llaw wedi’i chodi						// [1F91A]
+🤛	dwrn tua’r chwith						// [1F91B]
+🤜	dwrn tua’r dde							// [1F91C]
+🤝	ysgwyd dwylo							// [1F91D]
+🤞	bysedd wedi’u croesi						// [1F91E]
+🤟	arwydd caru ti							// [1F91F]
+🤠	wyneb het cowboi						// [1F920]
+🤡	wyneb clown							// [1F921]
+🤢	wyneb chwydlyd							// [1F922]
+🤣	rholio ar y llawr yn chwerthin					// [1F923]
+🤤	wyneb glafoerio							// [1F924]
+🤥	wyneb celwydd							// [1F925]
+🤦	cledr i’r wyneb							// [1F926]
+🤧	wyneb tisian							// [1F927]
+🤨	wyneb gydag ael wedi codi					// [1F928]
+🤩	wyneb â ser yn y llygaid					// [1F929]
+🤪	wyneb penwan							// [1F92A]
+🤫	wyneb hisht							// [1F92B]
+🤬	wyneb â symbolau dros y ceg					// [1F92C]
+🤭	wyneb gyda llaw dros y geg					// [1F92D]
+🤮	wyneb yn chwydu							// [1F92E]
+🤯	pen yn ffrwydro							// [1F92F]
+🤰	menyw feichiog							// [1F930]
+🤱	bwydo o’r fron							// [1F931]
+🤲	cledrau dwylo yn yr awyr gyda’u gilydd				// [1F932]
+🤳	hunlun								// [1F933]
+🤴	tywysog								// [1F934]
+🤵	dyn mewn tycs							// [1F935]
+🤶	Siân Corn							// [1F936]
+🤷	codi gwar							// [1F937]
+🤸	olwyn droi							// [1F938]
+🤹	jyglo								// [1F939]
+🤺	ffensiwr							// [1F93A]
+🤼	taflwyr codwm							// [1F93C]
+🤽	polo dŵr							// [1F93D]
+🤾	pêl-law								// [1F93E]
+🤿	masg deifio						// [1F93F]
+🥀	blodyn wedi gwiwo						// [1F940]
+🥁	drwm								// [1F941]
+🥂	gwydrau yn tincian						// [1F942]
+🥃	tymbler								// [1F943]
+🥄	llwy								// [1F944]
+🥅	rhwyd gôl							// [1F945]
+🥇	medal aur							// [1F947]
+🥈	medal arian							// [1F948]
+🥉	medal efydd							// [1F949]
+🥊	maneg bocsio							// [1F94A]
+🥋	gwisg y crefftau ymladd						// [1F94B]
+🥌	carreg cyrlio							// [1F94C]
+🥍	lacrós							// [1F94D]
+🥎	pêl feddal							// [1F94E]
+🥏	disg hedfan							// [1F94F]
+🥐	croissant							// [1F950]
+🥑	afocado								// [1F951]
+🥒	ciwcymber							// [1F952]
+🥓	bacwn								// [1F953]
+🥔	taten								// [1F954]
+🥕	moron								// [1F955]
+🥖	ffon fara							// [1F956]
+🥗	salad gwyrdd							// [1F957]
+🥘	padell fas o fwyd						// [1F958]
+🥙	bara gwastad wedi’i stwffio					// [1F959]
+🥚	wy								// [1F95A]
+🥛	gwydraid o laeth						// [1F95B]
+🥜	cnai ddaear							// [1F95C]
+🥝	ffrwyth ciwi							// [1F95D]
+🥞	crempogau							// [1F95E]
+🥟	twmplen								// [1F95F]
+🥠	bisgeden lwcus							// [1F960]
+🥡	bocs prydau parod						// [1F961]
+🥢	gweill bwyta							// [1F962]
+🥣	bowlen â llwy							// [1F963]
+🥤	cwpan â gwellt yfed						// [1F964]
+🥥	cneuen goco							// [1F965]
+🥦	brocoli								// [1F966]
+🥧	pei								// [1F967]
+🥨	pretsel								// [1F968]
+🥩	toriad o gig							// [1F969]
+🥪	brechdan							// [1F96A]
+🥫	bwyd tun							// [1F96B]
+🥬	gwyrdd deiliog							// [1F96C]
+🥭	mango								// [1F96D]
+🥮	cacen lleuad							// [1F96E]
+🥯	bagel								// [1F96F]
+🥰	wyneb yn gwenu â thair calon					// [1F970]
+🥱	wyneb yn dylyfu gên					// [1F971]
+🥲	wyneb yn gwenu gyda deugryn				// [1F972]
+🥳	wyneb yn partïo							// [1F973]
+🥴	wyneb meddw							// [1F974]
+🥵	wyneb poeth							// [1F975]
+🥶	wyneb oer							// [1F976]
+🥷	ninja							// [1F977]
+🥸	wyneb mewn cuddwisg					// [1F978]
+🥹	wyneb yn dal dagrau yn ôl				// [1F979]
+🥺	wyneb yn pledio							// [1F97A]
+🥻	sari							// [1F97B]
+🥼	cot lab								// [1F97C]
+🥽	gogls								// [1F97D]
+🥾	esgid gerdded							// [1F97E]
+🥿	esgid fflat							// [1F97F]
+🦀	cranc								// [1F980]
+🦁	wyneb llew							// [1F981]
+🦂	sgorpion							// [1F982]
+🦃	twrci								// [1F983]
+🦄	wyneb uncorn							// [1F984]
+🦅	eryr								// [1F985]
+🦆	hwyaden								// [1F986]
+🦇	ystlum								// [1F987]
+🦈	siarc								// [1F988]
+🦉	tylluan								// [1F989]
+🦊	wyneb llwynog							// [1F98A]
+🦋	pili-pala							// [1F98B]
+🦌	carw								// [1F98C]
+🦍	gorila								// [1F98D]
+🦎	madfall								// [1F98E]
+🦏	rhinoseros							// [1F98F]
+🦐	berdysyn							// [1F990]
+🦑	ystifflog							// [1F991]
+🦒	jiráff								// [1F992]
+🦓	sebra								// [1F993]
+🦔	draenog								// [1F994]
+🦕	sawropod							// [1F995]
+🦖	T-Rex								// [1F996]
+🦗	criciedyn							// [1F997]
+🦘	cangarŵ								// [1F998]
+🦙	lama								// [1F999]
+🦚	paun								// [1F99A]
+🦛	afonfarch							// [1F99B]
+🦜	parot								// [1F99C]
+🦝	racŵn								// [1F99D]
+🦞	cimwch								// [1F99E]
+🦟	mosgito								// [1F99F]
+🦠	microb								// [1F9A0]
+🦡	mochyn daear							// [1F9A1]
+🦢	alarch								// [1F9A2]
+🦣	mamoth							// [1F9A3]
+🦤	dodo							// [1F9A4]
+🦥	diogyn							// [1F9A5]
+🦦	dyfrgi							// [1F9A6]
+🦧	orangwtan						// [1F9A7]
+🦨	drewgi							// [1F9A8]
+🦩	fflamingo						// [1F9A9]
+🦪	wystrys							// [1F9AA]
+🦫	afanc							// [1F9AB]
+🦬	bual							// [1F9AC]
+🦭	morlo							// [1F9AD]
+🦮	ci tywys						// [1F9AE]
+🦯	ffon wen						// [1F9AF]
+🦰	gwallt coch							// [1F9B0]
+🦱	gwallt cyrliog							// [1F9B1]
+🦲	moel								// [1F9B2]
+🦳	gwallt gwyn							// [1F9B3]
+🦴	asgwrn								// [1F9B4]
+🦵	coes								// [1F9B5]
+🦶	troed								// [1F9B6]
+🦷	dant								// [1F9B7]
+🦸	archarwr							// [1F9B8]
+🦹	archleidr							// [1F9B9]
+🦺	siaced ddiogelwch					// [1F9BA]
+🦻	clust gyda chymorth clyw				// [1F9BB]
+🦼	cadair olwyn â pheiriant				// [1F9BC]
+🦽	cadair olwyn heb beiriant				// [1F9BD]
+🦾	braich fecanyddol					// [1F9BE]
+🦿	coes fecanyddol						// [1F9BF]
+🧀	darn o gaws							// [1F9C0]
+🧁	cacen cwpan							// [1F9C1]
+🧂	halen								// [1F9C2]
+🧃	blwch diodydd						// [1F9C3]
+🧄	garlleg							// [1F9C4]
+🧅	winwns							// [1F9C5]
+🧆	ffalaffel						// [1F9C6]
+🧇	woffl							// [1F9C7]
+🧈	menyn							// [1F9C8]
+🧉	maté							// [1F9C9]
+🧊	ciwb iâ							// [1F9CA]
+🧋	te swigod						// [1F9CB]
+🧌	ellyll							// [1F9CC]
+🧍	person yn sefyll					// [1F9CD]
+🧎	person yn penlinio					// [1F9CE]
+🧏	person byddar						// [1F9CF]
+🧐	wyneb gyda monocl						// [1F9D0]
+🧑	oedolyn								// [1F9D1]
+🧒	plentyn								// [1F9D2]
+🧓	oedolyn oedranus						// [1F9D3]
+🧔	person barfog							// [1F9D4]
+🧕	menyw â phensgarff						// [1F9D5]
+🧖	person mewn ystafell llawn stêm					// [1F9D6]
+🧗	person yn dringo						// [1F9D7]
+🧘	person mewn ystum lingroes					// [1F9D8]
+🧙	dewin								// [1F9D9]
+🧚	tylwyth teg							// [1F9DA]
+🧛	fampir								// [1F9DB]
+🧜	môrberson							// [1F9DC]
+🧝	coblyn								// [1F9DD]
+🧞	genie								// [1F9DE]
+🧟	sombi								// [1F9DF]
+🧠	ymennydd							// [1F9E0]
+🧡	calon oren							// [1F9E1]
+🧢	cap pêl fas							// [1F9E2]
+🧣	scarff								// [1F9E3]
+🧤	menyg								// [1F9E4]
+🧥	côt								// [1F9E5]
+🧦	sanau								// [1F9E6]
+🧧	amlen goch							// [1F9E7]
+🧨	gwialen tân							// [1F9E8]
+🧩	jig-so								// [1F9E9]
+🧪	tiwb profi							// [1F9EA]
+🧫	dysgl petri							// [1F9EB]
+🧬	dna								// [1F9EC]
+🧭	cwmpawd								// [1F9ED]
+🧮	abacws								// [1F9EE]
+🧯	diffoddydd tân						// [1F9EF]
+🧰	blwch offer							// [1F9F0]
+🧱	bricsen								// [1F9F1]
+🧲	magnet								// [1F9F2]
+🧳	bagiau								// [1F9F3]
+🧴	potel hufen							// [1F9F4]
+🧵	edafedd								// [1F9F5]
+🧶	edau								// [1F9F6]
+🧷	pin diogelwch							// [1F9F7]
+🧸	tedi bêr							// [1F9F8]
+🧹	ysgubell							// [1F9F9]
+🧺	basged								// [1F9FA]
+🧻	rholyn o bapur							// [1F9FB]
+🧼	sebon								// [1F9FC]
+🧽	sbwng								// [1F9FD]
+🧾	derbynneb							// [1F9FE]
+🧿	amwled nazar							// [1F9FF]
+
+// Country Flags (Regional Indicator Symbols) -- ISO 3166-1 Country Codes
+
+🇦🇨	baner: Ynys Ascension						// [1F1E6 1F1E8] AC
+🇦🇩	baner: Andorra							// [1F1E6 1F1E9] AD
+🇦🇪	baner: Emiradau Arabaidd Unedig					// [1F1E6 1F1EA] AE
+🇦🇫	baner: Afghanistan						// [1F1E6 1F1EB] AF
+🇦🇬	baner: Antigua a Barbuda					// [1F1E6 1F1EC] AG
+🇦🇮	baner: Anguilla							// [1F1E6 1F1EE] AI
+🇦🇱	baner: Albania							// [1F1E6 1F1F1] AL
+🇦🇲	baner: Armenia							// [1F1E6 1F1F2] AM
+🇦🇴	baner: Angola							// [1F1E6 1F1F4] AO
+🇦🇶	baner: Antarctica						// [1F1E6 1F1F6] AQ
+🇦🇷	baner: Yr Ariannin						// [1F1E6 1F1F7] AR
+🇦🇸	baner: Samoa America						// [1F1E6 1F1F8] AS
+🇦🇹	baner: Awstria							// [1F1E6 1F1F9] AT
+🇦🇺	baner: Awstralia						// [1F1E6 1F1FA] AU
+🇦🇼	baner: Aruba							// [1F1E6 1F1FC] AW
+🇦🇽	baner: Ynysoedd Åland						// [1F1E6 1F1FD] AX
+🇦🇿	baner: Azerbaijan						// [1F1E6 1F1FF] AZ
+🇧🇦	baner: Bosnia & Herzegovina					// [1F1E7 1F1E6] BA
+🇧🇧	baner: Barbados							// [1F1E7 1F1E7] BB
+🇧🇩	baner: Bangladesh						// [1F1E7 1F1E9] BD
+🇧🇪	baner: Gwlad Belg						// [1F1E7 1F1EA] BE
+🇧🇫	baner: Burkina Faso						// [1F1E7 1F1EB] BF
+🇧🇬	baner: Bwlgaria							// [1F1E7 1F1EC] BG
+🇧🇭	baner: Bahrain							// [1F1E7 1F1ED] BH
+🇧🇮	baner: Burundi							// [1F1E7 1F1EE] BI
+🇧🇯	baner: Benin							// [1F1E7 1F1EF] BJ
+🇧🇱	baner: Saint Barthélemy						// [1F1E7 1F1F1] BL
+🇧🇲	baner: Bermuda							// [1F1E7 1F1F2] BM
+🇧🇳	baner: Brunei							// [1F1E7 1F1F3] BN
+🇧🇴	baner: Bolifia							// [1F1E7 1F1F4] BO
+🇧🇶	baner: Antilles yr Iseldiroedd					// [1F1E7 1F1F6] BQ
+🇧🇷	baner: Brasil							// [1F1E7 1F1F7] BR
+🇧🇸	baner: Y Bahamas						// [1F1E7 1F1F8] BS
+🇧🇹	baner: Bhutan							// [1F1E7 1F1F9] BT
+🇧🇻	baner: Ynys Bouvet						// [1F1E7 1F1FB] BV
+🇧🇼	baner: Botswana							// [1F1E7 1F1FC] BW
+🇧🇾	baner: Belarws							// [1F1E7 1F1FE] BY
+🇧🇿	baner: Belize							// [1F1E7 1F1FF] BZ
+🇨🇦	baner: Canada							// [1F1E8 1F1E6] CA
+🇨🇨	baner: Ynysoedd Cocos (Keeling)					// [1F1E8 1F1E8] CC
+🇨🇩	baner: Y Congo - Kinshasa					// [1F1E8 1F1E9] CD
+🇨🇫	baner: Gweriniaeth Canolbarth Affrica				// [1F1E8 1F1EB] CF
+🇨🇬	baner: Y Congo - Brazzaville					// [1F1E8 1F1EC] CG
+🇨🇭	baner: Y Swistir						// [1F1E8 1F1ED] CH
+🇨🇮	baner: Côte d’Ivoire						// [1F1E8 1F1EE] CI
+🇨🇰	baner: Ynysoedd Cook						// [1F1E8 1F1F0] CK
+🇨🇱	baner: Chile							// [1F1E8 1F1F1] CL
+🇨🇲	baner: Camerŵn							// [1F1E8 1F1F2] CM
+🇨🇳	baner: Tsieina							// [1F1E8 1F1F3] CN
+🇨🇴	baner: Colombia							// [1F1E8 1F1F4] CO
+🇨🇵	baner: Ynys Clipperton						// [1F1E8 1F1F5] CP
+🇨🇷	baner: Costa Rica						// [1F1E8 1F1F7] CR
+🇨🇺	baner: Ciwba							// [1F1E8 1F1FA] CU
+🇨🇻	baner: Cabo Verde						// [1F1E8 1F1FB] CV
+🇨🇼	baner: Curaçao							// [1F1E8 1F1FC] CW
+🇨🇽	baner: Ynys y Nadolig						// [1F1E8 1F1FD] CX
+🇨🇾	baner: Cyprus							// [1F1E8 1F1FE] CY
+🇨🇿	baner: Tsiecia							// [1F1E8 1F1FF] CZ
+🇩🇪	baner: Yr Almaen						// [1F1E9 1F1EA] DE
+🇩🇬	baner: Diego Garcia						// [1F1E9 1F1EC] DG
+🇩🇯	baner: Djibouti							// [1F1E9 1F1EF] DJ
+🇩🇰	baner: Denmarc							// [1F1E9 1F1F0] DK
+🇩🇲	baner: Dominica							// [1F1E9 1F1F2] DM
+🇩🇴	baner: Gweriniaeth Dominica					// [1F1E9 1F1F4] DO
+🇩🇿	baner: Algeria							// [1F1E9 1F1FF] DZ
+🇪🇦	baner: Ceuta a Melilla						// [1F1EA 1F1E6] EA
+🇪🇨	baner: Ecuador							// [1F1EA 1F1E8] EC
+🇪🇪	baner: Estonia							// [1F1EA 1F1EA] EE
+🇪🇬	baner: Yr Aifft							// [1F1EA 1F1EC] EG
+🇪🇭	baner: Gorllewin Sahara						// [1F1EA 1F1ED] EH
+🇪🇷	baner: Eritrea							// [1F1EA 1F1F7] ER
+🇪🇸	baner: Sbaen							// [1F1EA 1F1F8] ES
+🇪🇹	baner: Ethiopia							// [1F1EA 1F1F9] ET
+🇪🇺	baner: Yr Undeb Ewropeaidd					// [1F1EA 1F1FA] EU
+🇫🇮	baner: Y Ffindir						// [1F1EB 1F1EE] FI
+🇫🇯	baner: Fiji							// [1F1EB 1F1EF] FJ
+🇫🇰	baner: Ynysoedd y Falkland/Malvinas				// [1F1EB 1F1F0] FI
+🇫🇲	baner: Micronesia						// [1F1EB 1F1F2] FM
+🇫🇴	baner: Ynysoedd Ffaro						// [1F1EB 1F1F4] FO
+🇫🇷	baner: Ffrainc							// [1F1EB 1F1F7] FR
+🇬🇦	baner: Gabon							// [1F1EC 1F1E6] GA
+🇬🇧	baner: Y Deyrnas Unedig						// [1F1EC 1F1E7] GB
+🇬🇩	baner: Grenada							// [1F1EC 1F1E9] GD
+🇬🇪	baner: Georgia							// [1F1EC 1F1EA] GE
+🇬🇫	baner: Guyane Ffrengig						// [1F1EC 1F1EB] GF
+🇬🇬	baner: Ynys y Garn						// [1F1EC 1F1EC] GG
+🇬🇭	baner: Ghana							// [1F1EC 1F1ED] GH
+🇬🇮	baner: Gibraltar						// [1F1EC 1F1EE] GI
+🇬🇱	baner: Yr Ynys Las						// [1F1EC 1F1F1] GL
+🇬🇲	baner: Gambia							// [1F1EC 1F1F2] GM
+🇬🇳	baner: Guinée							// [1F1EC 1F1F3] GN
+🇬🇵	baner: Guadeloupe						// [1F1EC 1F1F5] GP
+🇬🇶	baner: Guinea Gyhydeddol					// [1F1EC 1F1F6] GQ
+🇬🇷	baner: Gwlad Groeg						// [1F1EC 1F1F7] GR
+🇬🇸	baner: De Georgia ac Ynysoedd Sandwich y De			// [1F1EC 1F1F8] GS
+🇬🇹	baner: Guatemala						// [1F1EC 1F1F9] GT
+🇬🇺	baner: Guam							// [1F1EC 1F1FA] GU
+🇬🇼	baner: Guiné-Bissau						// [1F1EC 1F1FC] GW
+🇬🇾	baner: Guyana							// [1F1EC 1F1FE] GY
+🇭🇰	baner: Hong Kong RhGA Tsieina					// [1F1ED 1F1F0] HK
+🇭🇲	baner: Ynys Heard ac Ynysoedd McDonald				// [1F1ED 1F1F2] HM
+🇭🇳	baner: Honduras							// [1F1ED 1F1F3] HN
+🇭🇷	baner: Croatia							// [1F1ED 1F1F7] HR
+🇭🇹	baner: Haiti							// [1F1ED 1F1F9] HT
+🇭🇺	baner: Hwngari							// [1F1ED 1F1FA] HU
+🇮🇨	baner: Yr Ynysoedd Dedwydd					// [1F1EE 1F1E8] IC
+🇮🇩	baner: Indonesia						// [1F1EE 1F1E9] ID
+🇮🇪	baner: Iwerddon							// [1F1EE 1F1EA] IE
+🇮🇱	baner: Israel							// [1F1EE 1F1F1] IL
+🇮🇲	baner: Ynys Manaw						// [1F1EE 1F1F2] IM
+🇮🇳	baner: India							// [1F1EE 1F1F3] IN
+🇮🇴	baner: Tiriogaeth Brydeinig Cefnfor India			// [1F1EE 1F1F4] IO
+🇮🇶	baner: Irac							// [1F1EE 1F1F6] IQ
+🇮🇷	baner: Iran							// [1F1EE 1F1F7] IR
+🇮🇸	baner: Gwlad yr Iâ						// [1F1EE 1F1F8] IS
+🇮🇹	baner: Yr Eidal							// [1F1EE 1F1F9] IT
+🇯🇪	baner: Jersey							// [1F1EF 1F1EA] JE
+🇯🇲	baner: Jamaica							// [1F1EF 1F1F2] JM
+🇯🇴	baner: Gwlad Iorddonen						// [1F1EF 1F1F4] JO
+🇯🇵	baner: Japan							// [1F1EF 1F1F5] JP
+🇰🇪	baner: Kenya							// [1F1F0 1F1EA] KE
+🇰🇬	baner: Kyrgyzstan						// [1F1F0 1F1EC] KG
+🇰🇭	baner: Cambodia							// [1F1F0 1F1ED] KH
+🇰🇮	baner: Kiribati							// [1F1F0 1F1EE] KI
+🇰🇲	baner: Comoros							// [1F1F0 1F1F2] KM
+🇰🇳	baner: Saint Kitts a Nevis					// [1F1F0 1F1F3] KN
+🇰🇵	baner: Gogledd Korea						// [1F1F0 1F1F5] KP
+🇰🇷	baner: De Korea							// [1F1F0 1F1F7] KR
+🇰🇼	baner: Kuwait							// [1F1F0 1F1FC] KW
+🇰🇾	baner: Ynysoedd Cayman						// [1F1F0 1F1FE] KY
+🇰🇿	baner: Kazakstan						// [1F1F0 1F1FF] KZ
+🇱🇦	baner: Laos							// [1F1F1 1F1E6] LA
+🇱🇧	baner: Libanus							// [1F1F1 1F1E7] LB
+🇱🇨	baner: Saint Lucia						// [1F1F1 1F1E8] LC
+🇱🇮	baner: Liechtenstein						// [1F1F1 1F1EE] LI
+🇱🇰	baner: Sri Lanka						// [1F1F1 1F1F0] LK
+🇱🇷	baner: Liberia							// [1F1F1 1F1F7] LR
+🇱🇸	baner: Lesotho							// [1F1F1 1F1F8] LS
+🇱🇹	baner: Lithuania						// [1F1F1 1F1F9] LT
+🇱🇺	baner: Lwcsembwrg						// [1F1F1 1F1FA] LU
+🇱🇻	baner: Latfia							// [1F1F1 1F1FB] LV
+🇱🇾	baner: Libya							// [1F1F1 1F1FE] LY
+🇲🇦	baner: Moroco							// [1F1F2 1F1E6] MA
+🇲🇨	baner: Monaco							// [1F1F2 1F1E8] MC
+🇲🇩	baner: Moldofa							// [1F1F2 1F1E9] MD
+🇲🇪	baner: Montenegro						// [1F1F2 1F1EA] ME
+🇲🇫	baner: Saint Martin						// [1F1F2 1F1EB] MF
+🇲🇬	baner: Madagascar						// [1F1F2 1F1EC] MG
+🇲🇭	baner: Ynysoedd Marshall					// [1F1F2 1F1ED] MH
+🇲🇰	baner: Macedonia						// [1F1F2 1F1F0] MK
+🇲🇱	baner: Mali							// [1F1F2 1F1F1] ML
+🇲🇲	baner: Myanmar (Burma)						// [1F1F2 1F1F2] MM
+🇲🇳	baner: Mongolia							// [1F1F2 1F1F3] MN
+🇲🇴	baner: Macau RhGA Tsieina					// [1F1F2 1F1F4] MO
+🇲🇵	baner: Ynysoedd Gogledd Mariana					// [1F1F2 1F1F5] MP
+🇲🇶	baner: Martinique						// [1F1F2 1F1F6] MQ
+🇲🇷	baner: Mauritania						// [1F1F2 1F1F7] MR
+🇲🇸	baner: Montserrat						// [1F1F2 1F1F8] MS
+🇲🇹	baner: Malta							// [1F1F2 1F1F9] MT
+🇲🇺	baner: Mauritius						// [1F1F2 1F1FA] MU
+🇲🇻	baner: Y Maldives						// [1F1F2 1F1FB] MV
+🇲🇼	baner: Malawi							// [1F1F2 1F1FC] MW
+🇲🇽	baner: Mecsico							// [1F1F2 1F1FD] MX
+🇲🇾	baner: Malaysia							// [1F1F2 1F1FE] MY
+🇲🇿	baner: Mozambique						// [1F1F2 1F1FF] MZ
+🇳🇦	baner: Namibia							// [1F1F3 1F1E6] NA
+🇳🇨	baner: Caledonia Newydd						// [1F1F3 1F1E8] NC
+🇳🇪	baner: Niger							// [1F1F3 1F1EA] NE
+🇳🇫	baner: Ynys Norfolk						// [1F1F3 1F1EB] NF
+🇳🇬	baner: Nigeria							// [1F1F3 1F1EC] NG
+🇳🇮	baner: Nicaragua						// [1F1F3 1F1EE] NI
+🇳🇱	baner: Yr Iseldiroedd						// [1F1F3 1F1F1] NL
+🇳🇴	baner: Norwy							// [1F1F3 1F1F4] NO
+🇳🇵	baner: Nepal							// [1F1F3 1F1F5] NP
+🇳🇷	baner: Nauru							// [1F1F3 1F1F7] NR
+🇳🇺	baner: Niue							// [1F1F3 1F1FA] NU
+🇳🇿	baner: Seland Newydd						// [1F1F3 1F1FF] NZ
+🇴🇲	baner: Oman							// [1F1F4 1F1F2] OM
+🇵🇦	baner: Panama							// [1F1F5 1F1E6] PA
+🇵🇪	baner: Periw							// [1F1F5 1F1EA] PE
+🇵🇫	baner: Polynesia Ffrengig					// [1F1F5 1F1EB] PF
+🇵🇬	baner: Papua Guinea Newydd					// [1F1F5 1F1EC] PG
+🇵🇭	baner: Y Philipinau						// [1F1F5 1F1ED] PH
+🇵🇰	baner: Pakistan							// [1F1F5 1F1F0] PK
+🇵🇱	baner: Gwlad Pwyl						// [1F1F5 1F1F1] PL
+🇵🇲	baner: Saint-Pierre-et-Miquelon					// [1F1F5 1F1F2] PM
+🇵🇳	baner: Ynysoedd Pitcairn					// [1F1F5 1F1F3] PN
+🇵🇷	baner: Puerto Rico						// [1F1F5 1F1F7] PR
+🇵🇸	baner: Tiriogaethau Palesteinaidd				// [1F1F5 1F1F8] PS
+🇵🇹	baner: Portiwgal						// [1F1F5 1F1F9] PT
+🇵🇼	baner: Palau							// [1F1F5 1F1FC] PW
+🇵🇾	baner: Paraguay							// [1F1F5 1F1FE] PY
+🇶🇦	baner: Qatar							// [1F1F6 1F1E6] QA
+🇷🇪	baner: Réunion							// [1F1F7 1F1EA] RE
+🇷🇴	baner: Rwmania							// [1F1F7 1F1F4] RO
+🇷🇸	baner: Serbia							// [1F1F7 1F1F8] RS
+🇷🇺	baner: Rwsia							// [1F1F7 1F1FA] RU
+🇷🇼	baner: Rwanda							// [1F1F7 1F1FC] RW
+🇸🇦	baner: Saudi Arabia						// [1F1F8 1F1E6] SA
+🇸🇧	baner: Ynysoedd Solomon						// [1F1F8 1F1E7] SB
+🇸🇨	baner: Seychelles						// [1F1F8 1F1E8] SC
+🇸🇩	baner: Swdan							// [1F1F8 1F1E9] SD
+🇸🇪	baner: Sweden							// [1F1F8 1F1EA] SE
+🇸🇬	baner: Singapore						// [1F1F8 1F1EC] SG
+🇸🇭	baner: Saint Helena						// [1F1F8 1F1ED] SH
+🇸🇮	baner: Slofenia							// [1F1F8 1F1EE] SI
+🇸🇯	baner: Svalbard a Jan Mayen					// [1F1F8 1F1EF] SJ
+🇸🇰	baner: Slofacia							// [1F1F8 1F1F0] SK
+🇸🇱	baner: Sierra Leone						// [1F1F8 1F1F1] SL
+🇸🇲	baner: San Marino						// [1F1F8 1F1F2] SM
+🇸🇳	baner: Senegal							// [1F1F8 1F1F3] SN
+🇸🇴	baner: Somalia							// [1F1F8 1F1F4] SO
+🇸🇷	baner: Suriname							// [1F1F8 1F1F7] SR
+🇸🇸	baner: De Swdan							// [1F1F8 1F1F8] SS
+🇸🇹	baner: São Tomé a Príncipe					// [1F1F8 1F1F9] ST
+🇸🇻	baner: El Salvador						// [1F1F8 1F1FB] SV
+🇸🇽	baner: Sint Maarten						// [1F1F8 1F1FD] SX
+🇸🇾	baner: Syria							// [1F1F8 1F1FE] SY
+🇸🇿	baner: Gwlad Swazi						// [1F1F8 1F1FF] SZ
+🇹🇦	baner: Tristan da Cunha						// [1F1F9 1F1E6] TA
+🇹🇨	baner: Ynysoedd Turks a Caicos					// [1F1F9 1F1E8] TC
+🇹🇩	baner: Tchad							// [1F1F9 1F1E9] TD
+🇹🇫	baner: Tiroedd Deheuol ac Antarctig Ffrainc			// [1F1F9 1F1EB] TF
+🇹🇬	baner: Togo							// [1F1F9 1F1EC] TG
+🇹🇭	baner: Gwlad Thai						// [1F1F9 1F1ED] TH
+🇹🇯	baner: Tajikistan						// [1F1F9 1F1EF] TJ
+🇹🇰	baner: Tokelau							// [1F1F9 1F1F0] TK
+🇹🇱	baner: Timor-Leste						// [1F1F9 1F1F1] TL
+🇹🇲	baner: Turkmenistan						// [1F1F9 1F1F2] TM
+🇹🇳	baner: Tunisia							// [1F1F9 1F1F3] TN
+🇹🇴	baner: Tonga							// [1F1F9 1F1F4] TO
+🇹🇷	baner: Twrci							// [1F1F9 1F1F7] TR
+🇹🇹	baner: Trinidad a Tobago					// [1F1F9 1F1F9] TT
+🇹🇻	baner: Tuvalu							// [1F1F9 1F1FB] TV
+🇹🇼	baner: Taiwan							// [1F1F9 1F1FC] TW
+🇹🇿	baner: Tanzania							// [1F1F9 1F1FF] TZ
+🇺🇦	baner: Wcráin							// [1F1FA 1F1E6] UA
+🇺🇬	baner: Uganda							// [1F1FA 1F1EC] UG
+🇺🇲	baner: Ynysoedd Pellennig UDA					// [1F1FA 1F1F2] UM
+🇺🇳	baner: y Cenhedloedd Unedig					// [1F1FA 1F1F3] UN
+🇺🇸	baner: Yr Unol Daleithiau					// [1F1FA 1F1F8] US
+🇺🇾	baner: Uruguay							// [1F1FA 1F1FE] UY
+🇺🇿	baner: Uzbekistan						// [1F1FA 1F1FF] UZ
+🇻🇦	baner: Y Fatican						// [1F1FB 1F1E6] VA
+🇻🇨	baner: Saint Vincent a’r Grenadines				// [1F1FB 1F1E8] VC
+🇻🇪	baner: Venezuela						// [1F1FB 1F1EA] VE
+🇻🇬	baner: Ynysoedd Gwyryf Prydain					// [1F1FB 1F1EC] VG
+🇻🇮	baner: Ynysoedd Gwyryf yr Unol Daleithiau			// [1F1FB 1F1EE] VI
+🇻🇳	baner: Fietnam							// [1F1FB 1F1F3] VN
+🇻🇺	baner: Vanuatu							// [1F1FB 1F1FA] VU
+🇼🇫	baner: Wallis a Futuna						// [1F1FC 1F1EB] WF
+🇼🇸	baner: Samoa							// [1F1FC 1F1F8] WS
+🇽🇰	baner: Kosovo							// [1F1FD 1F1F0] XK
+🇾🇪	baner: Yemen							// [1F1FE 1F1EA] YE
+🇾🇹	baner: Mayotte							// [1F1FE 1F1F9] YT
+🇿🇦	baner: De Affrica						// [1F1FF 1F1E6] ZA
+🇿🇲	baner: Zambia							// [1F1FF 1F1F2] ZM
+🇿🇼	baner: Zimbabwe							// [1F1FF 1F1FC] ZW
+
+// Subdivision Flags -- ISO 3166-2 Subdivision Codes
+
+//🏴󠁧󠁢󠁥󠁮󠁧󠁿	england							// [1F3F4 E0067 E0062 E0065 E006E E0067 E007F] (no translation)
+//🏴󠁧󠁢󠁳󠁣󠁴󠁿	scotland						// [1F3F4 E0067 E0062 E0073 E0063 E0074 E007F] (no translation)
+//🏴󠁧󠁢󠁷󠁬󠁳󠁿	wales							// [1F3F4 E0067 E0062 E0077 E006C E0073 E007F] (no translation)
+
+// Keycaps (NOTE: keycap 10 is a single Unicode codepoint)
+
+#️⃣	gorchudd bysell: #						// [0023 FE0F 20E3]
+*️⃣	gorchudd bysell: *						// [002A FE0F 20E3]
+0️⃣	gorchudd bysell: 0						// [0030 FE0F 20E3]
+1️⃣	gorchudd bysell: 1						// [0031 FE0F 20E3]
+2️⃣	gorchudd bysell: 2						// [0032 FE0F 20E3]
+3️⃣	gorchudd bysell: 3						// [0033 FE0F 20E3]
+4️⃣	gorchudd bysell: 4						// [0034 FE0F 20E3]
+5️⃣	gorchudd bysell: 5						// [0035 FE0F 20E3]
+6️⃣	gorchudd bysell: 6						// [0036 FE0F 20E3]
+7️⃣	gorchudd bysell: 7						// [0037 FE0F 20E3]
+8️⃣	gorchudd bysell: 8						// [0038 FE0F 20E3]
+9️⃣	gorchudd bysell: 9						// [0039 FE0F 20E3]
+
+// 1FA70..1FAFF : Symbols and Pictographs Extended-A
+🩰	esgidiau bale						// [1FA70]
+🩱	siwt nofio						// [1FA71]
+🩲	trôns							// [1FA72]
+🩳	siorts							// [1FA73]
+🩴	sandal thong						// [1FA74]
+🩵	calon las golau						// [1FA75]
+🩶	calon lwyd						// [1FA76]
+🩷	calon binc						// [1FA77]
+🩸	diferyn o waed						// [1FA78]
+🩹	bandej glynu						// [1FA79]
+🩺	stethosgop						// [1FA7A]
+🩻	pelydr-x						// [1FA7B]
+🩼	bagl							// [1FA7C]
+🪀	io-io							// [1FA80]
+🪁	barcud							// [1FA81]
+🪂	parasiwt						// [1FA82]
+🪃	bwmerang						// [1FA83]
+🪄	ffon hud						// [1FA84]
+🪅	piñata							// [1FA85]
+🪆	doliau sy’n nythu					// [1FA86]
+🪇	maracas							// [1FA87]
+🪈	ffliwt							// [1FA88]
+🪉	telyn							// [1FA89]
+🪏	rhaw							// [1FA8F]
+🪐	planed cylchog						// [1FA90]
+🪑	cadair							// [1FA91]
+🪒	rasel							// [1FA92]
+🪓	bwyell							// [1FA93]
+🪔	lamp diya						// [1FA94]
+🪕	banjo							// [1FA95]
+🪖	helmed filitaraidd					// [1FA96]
+🪗	acordion						// [1FA97]
+🪘	drwm hir						// [1FA98]
+🪙	darn arian						// [1FA99]
+🪚	llif gwaith coed					// [1FA9A]
+🪛	sgriwdreifar						// [1FA9B]
+🪜	ysgol ddringo						// [1FA9C]
+🪝	bachyn							// [1FA9D]
+🪞	drych							// [1FA9E]
+🪟	ffenestr						// [1FA9F]
+🪠	offeryn sugno						// [1FAA0]
+🪡	nodwydd wnïo						// [1FAA1]
+🪢	cwlwm							// [1FAA2]
+🪣	bwced							// [1FAA3]
+🪤	trap llygod						// [1FAA4]
+🪥	brwsh dannedd						// [1FAA5]
+🪦	carreg fedd						// [1FAA6]
+🪧	placard							// [1FAA7]
+🪨	carreg							// [1FAA8]
+🪩	pêl ddrych						// [1FAA9]
+🪪	cerdyn adnabod						// [1FAAA]
+🪫	batri isel						// [1FAAB]
+🪬	hamsa							// [1FAAC]
+🪭	ffan llaw plyg						// [1FAAD]
+🪮	pig gwallt						// [1FAAE]
+🪯	khanda							// [1FAAF]
+🪰	pry							// [1FAB0]
+🪱	mwydyn							// [1FAB1]
+🪲	chwilen							// [1FAB2]
+🪳	chwilen ddu						// [1FAB3]
+🪴	planhigyn mewn pot					// [1FAB4]
+🪵	pren							// [1FAB5]
+🪶	pluen							// [1FAB6]
+🪷	lotws							// [1FAB7]
+🪸	cwrel							// [1FAB8]
+🪹	nyth gwag						// [1FAB9]
+🪺	nythu gydag wyau					// [1FABA]
+🪻	hiasinth						// [1FABB]
+🪼	slefren fôr						// [1FABC]
+🪽	adain							// [1FABD]
+🪾	coeden heb ddail					// [1FABE]
+🪿	gwydd							// [1FABF]
+🫀	Y galon							// [1FAC0]
+🫁	Yr ysgyfaint						// [1FAC1]
+🫂	pobl yn cofleidio					// [1FAC2]
+🫃	dyn beichiog						// [1FAC3]
+🫄	person beichiog						// [1FAC4]
+🫅	person â choron						// [1FAC5]
+🫆	ôl bys							// [1FAC6]
+🫎	elc							// [1FACE]
+🫏	asyn							// [1FACF]
+🫐	llus							// [1FAD0]
+🫑	pupryn							// [1FAD1]
+🫒	olewydd							// [1FAD2]
+🫓	Bara fflat						// [1FAD3]
+🫔	tamale							// [1FAD4]
+🫕	fondue							// [1FAD5]
+🫖	tebot							// [1FAD6]
+🫗	arllwys hylif						// [1FAD7]
+🫘	ffa							// [1FAD8]
+🫙	jar							// [1FAD9]
+🫚	gwraidd sinsir						// [1FADA]
+🫛	pod pys							// [1FADB]
+🫜	gwreiddlysieuyn						// [1FADC]
+🫟	slempio							// [1FADF]
+🫠	wyneb toddi						// [1FAE0]
+🫡	wyneb saliwt						// [1FAE1]
+🫢	wyneb gyda llygaid agored a llaw dros geg		// [1FAE2]
+🫣	wyneb gyda llygad sy’n sbïo				// [1FAE3]
+🫤	wyneb â cheg letraws					// [1FAE4]
+🫥	wyneb llinell dotiog					// [1FAE5]
+🫦	brathu gwefus						// [1FAE6]
+🫧	swigod							// [1FAE7]
+🫨	wyneb sydd ysgwyd					// [1FAE8]
+🫩	wyneb gyda bagiau dan y llygaid				// [1FAE9]
+🫰	llaw gyda bys mynegai a bawd wedi’u croesi		// [1FAF0]
+🫱	llaw i’r dde						// [1FAF1]
+🫲	llaw i’r chwith						// [1FAF2]
+🫳	llaw palmwydd i lawr					// [1FAF3]
+🫴	llaw palmwydd i fyny					// [1FAF4]
+🫵	bys mynegai yn pwyntio at y gwyliwr			// [1FAF5]
+🫶	dwylo calon						// [1FAF6]
+🫷	llaw yn gwthio i’r chwith				// [1FAF7]
+🫸	llaw yn gwthio i’r dde					// [1FAF8]
+
+// Emoji ZWJ Sequence: Family
+
+⛓‍💥	cadwyn wedi torri					// [26D3 200D 1F4A5]
+❤‍🔥	calon ar dân						// [2764 200D 1F525]
+❤‍🩹	trwsio calon						// [2764 200D 1FA79]
+🍄‍🟫	madarch brown						// [1F344 200D 1F7EB]
+🍋‍🟩	leim							// [1F34B 200D 1F7E9]
+🏃‍♀‍➡	menyw yn rhedeg wynebu i’r dde				// [1F3C3 200D 2640 200D 27A1]
+🏃‍♂‍➡	dyn yn rhedeg wynebu i’r dde				// [1F3C3 200D 2642 200D 27A1]
+🏃‍➡	person yn rhedeg wynebu i’r dde				// [1F3C3 200D 27A1]
+🏳‍⚧	baner las pinc a gwyn					// [1F3F3 200D 26A7]
+🐈‍⬛	cath ddu						// [1F408 200D 2B1B]
+🐕‍🦺	ci cymorth						// [1F415 200D 1F9BA]
+🐦‍⬛	aderyn du						// [1F426 200D 2B1B]
+🐦‍🔥	ffenics							// [1F426 200D 1F525]
+🐻‍❄	arth wen						// [1F43B 200D 2744]
+👨‍🍼	dyn yn bwydo babi					// [1F468 200D 1F37C]
+👨‍🦯	dyn â ffon wen						// [1F468 200D 1F9AF]
+👨‍🦯‍➡	dyn â ffon wen wynebu i’r dde				// [1F468 200D 1F9AF 200D 27A1]
+👨‍🦰	dyn gwallt coch						// [1F468 200D 1F9B0]
+👨‍🦱	dyn gwallt cyrliog					// [1F468 200D 1F9B1]
+👨‍🦲	dyn moel						// [1F468 200D 1F9B2]
+👨‍🦳	dyn gwallt gwyn						// [1F468 200D 1F9B3]
+👨‍🦼	dyn mewn cadair olwyn fodur				// [1F468 200D 1F9BC]
+👨‍🦼‍➡	dyn mewn cadair olwyn fodur wynebu i’r dde		// [1F468 200D 1F9BC 200D 27A1]
+👨‍🦽	dyn mewn cadair olwyn					// [1F468 200D 1F9BD]
+👨‍🦽‍➡	dyn mewn cadair olwyn wynebu i’r dde			// [1F468 200D 1F9BD 200D 27A1]
+👩‍❤‍💋‍👨	cusan: menyw, dyn			// [1F469 200D 2764 200D 1F48B 200D 1F468]
+👨‍❤‍💋‍👨	cusan: dyn, dyn				// [1F468 200D 2764 200D 1F48B 200D 1F468]
+👩‍❤‍💋‍👩	cusan: menyw, menyw			// [1F469 200D 2764 200D 1F48B 200D 1F469]
+👩‍❤‍👨	pâr a chalon: menyw, dyn			// [1F469 200D 2764 200D 1F468]
+👨‍❤‍👨	pâr a chalon: dyn, dyn				// [1F468 200D 2764 200D 1F468]
+👩‍❤‍👩	pâr a chalon: menyw, menyw			// [1F469 200D 2764 200D 1F469]
+👨‍👩‍👦	teulu: dyn, menyw, bachgen			// [1F468 200D 1F469 200D 1F466]
+👨‍👩‍👧	teulu: dyn, menyw, merch			// [1F468 200D 1F469 200D 1F467]
+👨‍👩‍👧‍👦	teulu: dyn, menyw, merch, bachgen	// [1F468 200D 1F469 200D 1F467 200D 1F466]
+👨‍👩‍👦‍👦	teulu: dyn, menyw, bachgen, bachgen	// [1F468 200D 1F469 200D 1F466 200D 1F466]
+👨‍👩‍👧‍👧	teulu: dyn, menyw, merch, merch		// [1F468 200D 1F469 200D 1F467 200D 1F467]
+👨‍👨‍👦	teulu: dyn, dyn, bachgen			// [1F468 200D 1F468 200D 1F466]
+👨‍👨‍👧	teulu: dyn, dyn, merch				// [1F468 200D 1F468 200D 1F467]
+👨‍👨‍👧‍👦	teulu: dyn, dyn, merch, bachgen		// [1F468 200D 1F468 200D 1F467 200D 1F466]
+👨‍👨‍👦‍👦	teulu: dyn, dyn, bachgen, bachgen	// [1F468 200D 1F468 200D 1F466 200D 1F466]
+👨‍👨‍👧‍👧	teulu: dyn, dyn, merch, merch		// [1F468 200D 1F468 200D 1F467 200D 1F467]
+👩‍🍼	menyw yn bwydo babi					// [1F469 200D 1F37C]
+👩‍👩‍👦	teulu: menyw, menyw, bachgen			// [1F469 200D 1F469 200D 1F466]
+👩‍👩‍👧	teulu: menyw, menyw, merch			// [1F469 200D 1F469 200D 1F467]
+👩‍👩‍👧‍👦	teulu: menyw, menyw, merch, bachgen	// [1F469 200D 1F469 200D 1F467 200D 1F466]
+👩‍👩‍👦‍👦	teulu: menyw, menyw, bachgen, bachgen	// [1F469 200D 1F469 200D 1F466 200D 1F466]
+👩‍👩‍👧‍👧	teulu: menyw, menyw, merch, merch	// [1F469 200D 1F469 200D 1F467 200D 1F467]
+👨‍👦	teulu: dyn, bachgen					// [1F468 200D 1F466]
+👨‍👦‍👦	teulu: dyn, bachgen, bachgen			// [1F468 200D 1F466 200D 1F466]
+👨‍👧	teulu: dyn, merch					// [1F468 200D 1F467]
+👨‍👧‍👦	teulu: dyn, merch, bachgen			// [1F468 200D 1F467 200D 1F466]
+👨‍👧‍👧	teulu: dyn, merch, merch			// [1F468 200D 1F467 200D 1F467]
+👩‍👦	teulu: menyw, bachgen					// [1F469 200D 1F466]
+👩‍👦‍👦	teulu: menyw, bachgen, bachgen			// [1F469 200D 1F466 200D 1F466]
+👩‍👧	teulu: menyw, merch					// [1F469 200D 1F467]
+👩‍👧‍👦	teulu: menyw, merch, bachgen			// [1F469 200D 1F467 200D 1F466]
+👩‍👧‍👧	teulu: menyw, merch, merch			// [1F469 200D 1F467 200D 1F467]
+
+// Emoji ZWJ Sequence: Gendered Role, with object
+
+👨‍⚕	gweithiwr iechyd gwrywaidd				// [1F468 200D 2695]
+👩‍⚕	gweithiwr iechyd benywaidd				// [1F469 200D 2695]
+👨‍⚖	barnwr							// [1F468 200D 2696]
+👩‍⚖	barnwres						// [1F469 200D 2696]
+👨‍✈	peilot gwrywaidd					// [1F468 200D 2708]
+👩‍✈	peilot benywaidd					// [1F469 200D 2708]
+👨‍🌾	ffermwr							// [1F468 200D 1F33E]
+👩‍🌾	ffarmwraig						// [1F469 200D 1F33E]
+👨‍🍳	cogydd							// [1F468 200D 1F373]
+👩‍🍳	cogyddes						// [1F469 200D 1F373]
+👨‍🎓	myfyriwr						// [1F468 200D 1F393]
+👩‍🎓	myfyrwraig						// [1F469 200D 1F393]
+👨‍🎤	cantor							// [1F468 200D 1F3A4]
+👩‍🎤	cantores						// [1F469 200D 1F3A4]
+👨‍🎨	arlunydd						// [1F468 200D 1F3A8]
+👩‍🎨	arlunwraig						// [1F469 200D 1F3A8]
+👨‍🏫	athro							// [1F468 200D 1F3EB]
+👩‍🏫	athrawes						// [1F469 200D 1F3EB]
+👨‍🏭	gweithiwr ffatri					// [1F468 200D 1F3ED]
+👩‍🏭	gweithwraig ffatri					// [1F469 200D 1F3ED]
+👨‍💻	technolegwr						// [1F468 200D 1F4BB]
+👩‍💻	technolegwraig						// [1F469 200D 1F4BB]
+👨‍💼	gweithiwr swyddfa gwrywaidd				// [1F468 200D 1F4BC]
+👩‍💼	gweithiwr swyddfa benywaidd				// [1F469 200D 1F4BC]
+👨‍🔧	peiriannydd gwrywaidd					// [1F468 200D 1F527]
+👩‍🔧	peiriannydd benywaidd					// [1F469 200D 1F527]
+👨‍🔬	gwyddonydd						// [1F468 200D 1F52C]
+👩‍🔬	gwyddonwraig						// [1F469 200D 1F52C]
+👨‍🚀	gofodwr							// [1F468 200D 1F680]
+👩‍🚀	gofodwraig						// [1F469 200D 1F680]
+👨‍🚒	dyn tân							// [1F468 200D 1F692]
+👩‍🚒	menyw tân						// [1F469 200D 1F692]
+👩‍🦯	menyw â ffon wen					// [1F469 200D 1F9AF]
+👩‍🦯‍➡	menyw â ffon wen wynebu i’r dde				// [1F469 200D 1F9AF 200D 27A1]
+👩‍🦰	menyw gwallt coch					// [1F469 200D 1F9B0]
+👩‍🦱	menyw gwallt cyrliog					// [1F469 200D 1F9B1]
+👩‍🦲	menyw moel						// [1F469 200D 1F9B2]
+👩‍🦳	menyw gwallt gwyn					// [1F469 200D 1F9B3]
+👩‍🦼	menyw mewn cadair olwyn fodur				// [1F469 200D 1F9BC]
+👩‍🦼‍➡	menyw mewn cadair olwyn fodur wynebu i’r dde		// [1F469 200D 1F9BC 200D 27A1]
+👩‍🦽	menyw mewn cadair olwyn					// [1F469 200D 1F9BD]
+👩‍🦽‍➡	menyw mewn cadair olwyn wynebu i’r dde			// [1F469 200D 1F9BD 200D 27A1]
+
+// Emoji ZWJ Sequence: Gendered Role
+
+👮‍♀	swyddog heddlu benywaidd				// [1F46E 200D 2640]
+👮‍♂	swyddog heddlu gwrywaidd				// [1F46E 200D 2642]
+👰‍♀	menyw yn gwisgo llen					// [1F470 200D 2640]
+👰‍♂	dyn yn gwisgo llen					// [1F470 200D 2642]
+👱‍♀	menyw â gwallt golau					// [1F471 200D 2640]
+👱‍♂	dyn â gwallt golau					// [1F471 200D 2642]
+👳‍♀	menyw â thwrban						// [1F473 200D 2640]
+👳‍♂	dyn â thwrban						// [1F473 200D 2642]
+👷‍♀	gweithiwr adeiladu benywaidd				// [1F477 200D 2640]
+👷‍♂	gweithiwr adeiladu gwrywaidd				// [1F477 200D 2642]
+💂‍♀	gwarchodydd benywaidd					// [1F482 200D 2640]
+💂‍♂	gwarchodydd gwrywaidd					// [1F482 200D 2642]
+🕵️‍♀	ditectif benywaidd					// [1F575 200D 2640]
+🕵️‍♂	ditectif gwrywaidd					// [1F575 200D 2642]
+😮‍💨	wyneb anadlu allan					// [1F62E 200D 1F4A8]
+😵‍💫	wyneb â llygaid troellog				// [1F635 200D 1F4AB]
+😶‍🌫	wyneb mewn cymylau					// [1F636 200D 1F32B]
+🙂‍↔	pen yn ysgwyd o ochr i ochr				// [1F642 200D 2194]
+🙂‍↕	pen yn ysgwyd i fyny ac i lawr				// [1F642 200D 2195]
+🚶‍♀‍➡	menyw yn cerdded wynebu i’r dde				// [1F6B6 200D 2640 200D 27A1]
+🚶‍♂‍➡	dyn yn cerdded wynebu i’r dde				// [1F6B6 200D 2642 200D 27A1]
+🚶‍➡	person yn cerdded wynebu i’r dde			// [1F6B6 200D 27A1]
+🤵‍♀	menyw mewn siaced ginio					// [1F935 200D 2640]
+🤵‍♂	dyn mewn siaced ginio					// [1F935 200D 2642]
+🦸‍♀	archarwr benywaidd					// [1F9B8 200D 2640]
+🦸‍♂	archarwr gwrywaidd					// [1F9B8 200D 2642]
+🦹‍♀	archleidr benywaidd					// [1F9B9 200D 2640]
+🦹‍♂	archleidr gwrywaidd					// [1F9B9 200D 2642]
+🧍‍♀	menyw yn sefyll						// [1F9CD 200D 2640]
+🧍‍♂	dyn yn sefyll						// [1F9CD 200D 2642]
+🧎‍♀	menyw yn penlinio					// [1F9CE 200D 2640]
+🧎‍♀‍➡	menyw yn penlinio wynebu i’r dde			// [1F9CE 200D 2640 200D 27A1]
+🧎‍♂	dyn yn penlinio						// [1F9CE 200D 2642]
+🧎‍♂‍➡	dyn yn penlinio wynebu i’r dde				// [1F9CE 200D 2642 200D 27A1]
+🧎‍➡	person yn penlinio wynebu i’r dde			// [1F9CE 200D 27A1]
+🧏‍♀	menyw fyddar						// [1F9CF 200D 2640]
+🧏‍♂	dyn byddar						// [1F9CF 200D 2642]
+🧑‍⚕	gweithiwr iechyd					// [1F9D1 200D 2695]
+🧑‍⚖	person sy’n barnu					// [1F9D1 200D 2696]
+🧑‍✈	peilot							// [1F9D1 200D 2708]
+🧑‍🌾	person sy’n ffermio					// [1F9D1 200D 1F33E]
+🧑‍🍳	person sy’n coginio					// [1F9D1 200D 1F373]
+🧑‍🍼	person yn bwydo babi					// [1F9D1 200D 1F37C]
+🧑‍🎄	mx claus						// [1F9D1 200D 1F384]
+🧑‍🎓	person sy’n astudio					// [1F9D1 200D 1F393]
+🧑‍🎤	person sy’n canu					// [1F9D1 200D 1F3A4]
+🧑‍🎨	artist							// [1F9D1 200D 1F3A8]
+🧑‍🏫	person sy’n addysgu					// [1F9D1 200D 1F3EB]
+🧑‍🏭	person sy’n gweithio mewn ffatri			// [1F9D1 200D 1F3ED]
+🧑‍💻	technolegydd						// [1F9D1 200D 1F4BB]
+🧑‍💼	gweithiwr swyddfa					// [1F9D1 200D 1F4BC]
+🧑‍🔧	mecanig							// [1F9D1 200D 1F527]
+🧑‍🔬	person sy’n ymwneud â gwyddoniaeth			// [1F9D1 200D 1F52C]
+🧑‍🚀	gofod-deithiwr						// [1F9D1 200D 1F680]
+🧑‍🚒	diffoddwr tân						// [1F9D1 200D 1F692]
+🧑‍🤝‍🧑	pobl yn dal dwylo					// [1F9D1 200D 1F91D 200D 1F9D1]
+🧑‍🦯	person â ffon gerdded					// [1F9D1 200D 1F9AF]
+🧑‍🦯‍➡	person â ffon gerdded wynebu i’r dde			// [1F9D1 200D 1F9AF 200D 27A1]
+🧑‍🦰	person gwallt coch					// [1F9D1 200D 1F9B0]
+🧑‍🦱	person gwallt cyrliog					// [1F9D1 200D 1F9B1]
+🧑‍🦲	person moel						// [1F9D1 200D 1F9B2]
+🧑‍🦳	person gwallt gwyn					// [1F9D1 200D 1F9B3]
+🧑‍🦼	person mewn cadair olwyn drydan				// [1F9D1 200D 1F9BC]
+🧑‍🦼‍➡	person mewn cadair olwyn drydan wynebu i’r dde		// [1F9D1 200D 1F9BC 200D 27A1]
+🧑‍🦽	person mewn cadair olwyn â llaw				// [1F9D1 200D 1F9BD]
+🧑‍🦽‍➡	person mewn cadair olwyn â llaw wynebu i’r dde		// [1F9D1 200D 1F9BD 200D 27A1]
+🧑‍🧑‍🧒	teulu oedolyn oedolyn plentyn				// [1F9D1 200D 1F9D1 200D 1F9D2]
+🧑‍🧑‍🧒‍🧒	teulu oedolyn oedolyn plentyn plentyn			// [1F9D1 200D 1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🧒	teulu oedolyn plentyn					// [1F9D1 200D 1F9D2]
+🧑‍🧒‍🧒	teulu oedolyn plentyn plentyn				// [1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🩰	dawnsiwr dawnswraig bale				// [1F9D1 200D 1FA70]
+🧔‍♀	menyw barf						// [1F9D4 200D 2640]
+🧔‍♂	dyn barf						// [1F9D4 200D 2642]
+🧙‍♀	dewin benywaidd						// [1F9D9 200D 2640]
+🧙‍♂	dewin gwrywaidd						// [1F9D9 200D 2642]
+🧚‍♀	tylwythen deg						// [1F9DA 200D 2640]
+🧚‍♂	tylwythen teg						// [1F9DA 200D 2642]
+🧛‍♀	fampir benywaidd					// [1F9DB 200D 2640]
+🧛‍♂	fampir gwrywaidd					// [1F9DB 200D 2642]
+🧜‍♀	môr-forwyn						// [1F9DC 200D 2640]
+🧜‍♂	morwas							// [1F9DC 200D 2642]
+🧝‍♀	coblyn benywaidd					// [1F9DD 200D 2640]
+🧝‍♂	coblyn gwrwywaidd					// [1F9DD 200D 2642]
+🧞‍♀	genie benywaidd						// [1F9DE 200D 2640]
+🧞‍♂	genie gwrywaidd						// [1F9DE 200D 2642]
+🧟‍♀	sombi benywaidd						// [1F9DF 200D 2640]
+🧟‍♂	sombi gwrywaidd						// [1F9DF 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Activity
+
+⛹‍♀	menyw â phêl						// [26F9 200D 2640]
+⛹‍♂	dyn â phêl						// [26F9 200D 2642]
+🏃‍♀	menyw yn rhedeg						// [1F3C3 200D 2640]
+🏃‍♂	dyn yn rhedeg						// [1F3C3 200D 2642]
+🏄‍♀	menyw yn syrffio					// [1F3C4 200D 2640]
+🏄‍♂	dyn yn syrffio						// [1F3C4 200D 2642]
+🏊‍♀	menyw yn nofio						// [1F3CA 200D 2640]
+🏊‍♂	dyn yn nofio						// [1F3CA 200D 2642]
+🏋️‍♀	menyw yn codi pwysau					// [1F3CB 200D 2640]
+🏋️‍♂	dyn yn codi pwysau					// [1F3CB 200D 2642]
+🏌️‍♀	menyw yn chwarae golff					// [1F3CC 200D 2640]
+🏌️‍♂	dyn yn chwarae golff					// [1F3CC 200D 2642]
+👯‍♀	menyw mewn parti					// [1F46F 200D 2640]
+👯‍♂	dyn mewn parti						// [1F46F 200D 2642]
+💆‍♀	menyw yn derbyn tyluniad i’w wyneb			// [1F486 200D 2640]
+💆‍♂	dyn yn derbyn tyluniad i’w wyneb			// [1F486 200D 2642]
+💇‍♀	menyw yn cael ei gwallt wedi’u torri			// [1F487 200D 2640]
+💇‍♂	dyn yn cael ei wallt wedi’u torri			// [1F487 200D 2642]
+🚣‍♀	menyw yn rhwyfo cwch					// [1F6A3 200D 2640]
+🚣‍♂	dyn yn rhwyfo cwch					// [1F6A3 200D 2642]
+🚴‍♀	menyw yn beicio						// [1F6B4 200D 2640]
+🚴‍♂	dyn yn beicio						// [1F6B4 200D 2642]
+🚵‍♀	menyw yn beicio mynydd					// [1F6B5 200D 2640]
+🚵‍♂	dyn yn beicio mynydd					// [1F6B5 200D 2642]
+🚶‍♀	menyw yn cerdded					// [1F6B6 200D 2640]
+🚶‍♂	dyn yn cerdded						// [1F6B6 200D 2642]
+🤸‍♀	menyw yn gwneud olwyn dro				// [1F938 200D 2640]
+🤸‍♂	dyn yn gwneud olwyn dro					// [1F938 200D 2642]
+🤹‍♀	menyw yn jyglo						// [1F939 200D 2640]
+🤹‍♂	dyn yn jyglo						// [1F939 200D 2642]
+🤼‍♀	menywod yn reslo					// [1F93C 200D 2640]
+🤼‍♂	dynion yn reslo						// [1F93C 200D 2642]
+🤽‍♀	menyw yn chwarae polo dŵr				// [1F93D 200D 2640]
+🤽‍♂	dyn yn chwarae polo dŵr					// [1F93D 200D 2642]
+🤾‍♀	menyw yn chwarae pêl law				// [1F93E 200D 2640]
+🤾‍♂	dyn yn chwarae pêl law					// [1F93E 200D 2642]
+🧖‍♀	menyw mewn ystafell llawn stêm				// [1F9D6 200D 2640]
+🧖‍♂	dyn mewn ystafell llawn stêm				// [1F9D6 200D 2642]
+🧗‍♀	menyw yn dringo						// [1F9D7 200D 2640]
+🧗‍♂	dyn yn dringo						// [1F9D7 200D 2642]
+🧘‍♀	menyw mewn ystum lingroes				// [1F9D8 200D 2640]
+🧘‍♂	dyn mewn ystum lingroes					// [1F9D8 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Gestures
+
+💁‍♀	menyw yn gwyro ei llaw					// [1F481 200D 2640]
+💁‍♂	dyn yn gwyro ei law					// [1F481 200D 2642]
+🙅‍♀	menyw yn ystumio nad yw’n iawn				// [1F645 200D 2640]
+🙅‍♂	dyn yn ystumio nad yw’n iawn				// [1F645 200D 2642]
+🙆‍♀	menyw yn ystumio iawn					// [1F646 200D 2640]
+🙆‍♂	dyn yn ystumio iawn					// [1F646 200D 2642]
+🙇‍♀	menyw yn ymgrymu’n isel					// [1F647 200D 2640]
+🙇‍♂	dyn yn ymgrymu’n isel					// [1F647 200D 2642]
+🙋‍♀	menyw yn codi ei llaw					// [1F64B 200D 2640]
+🙋‍♂	dyn yn codi ei law					// [1F64B 200D 2642]
+🙍‍♀	menyw yn gwgu						// [1F64D 200D 2640]
+🙍‍♂	dyn yn gwgu						// [1F64D 200D 2642]
+🙎‍♀	menyw yn pwdu						// [1F64E 200D 2640]
+🙎‍♂	dyn yn pwdu						// [1F64E 200D 2642]
+🤦‍♀	menyw yn codi cledr i’w wyneb				// [1F926 200D 2640]
+🤦‍♂	dyn yn codi cledr i’w wyneb				// [1F926 200D 2642]
+🤷‍♀	menyw yn codi gwar					// [1F937 200D 2640]
+🤷‍♂	dyn yn codi gwar					// [1F937 200D 2642]
+
+// Emoji ZWJ Sequence: Other
+
+🏳‍🌈	baner enfys						// [1F3F3 200D 1F308]
+🏴‍☠	baner môr-leidr						// [1F3F4 200D 2620]
+👁‍🗨	llygad mewn cwmwl					// [1F441 200D 1F5E8]
+
+// References:
+//   [UCD]	Unicode Character Database 11.0.0 [http://www.unicode.org/Public/11.0.0/ucd/]
+//   [Emoji]	Unicode Emoji 11.0 [http://www.unicode.org/Public/emoji/11.0/]
+//   [CLDR]	Unicode Common Locale Data Repository 33.1 [http://cldr.unicode.org/index/downloads/cldr-33.1]
+//
+// Sources:
+//   1.  emoji-test.txt (Emoji)
+//   2.  common/annotations/cy.xml (CLDR)
+//   3.  emoji-zwj-sequences.txt (Emoji)

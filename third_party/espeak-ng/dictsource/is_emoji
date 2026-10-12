@@ -1,0 +1,2362 @@
+// Emoji and Other Symbol pronunciations for Icelandic
+//
+// Entries with `text|emoji` in the comments have text and emoji forms. They
+// can be followed by [FE0E] to select the text style, and [FE0F] to select
+// the emoji style.
+//
+// Entries with 'other' in the comments are not defined as emoji, but are other
+// Unicode characters.
+//
+// NOTE: See `src/ucd-tools/data/espeak-ng/emoji-data.txt` for additional data
+// in interpreting ZWJ emoji sequences.
+
+$textmode
+
+// 0000..007F : C0 Controls and Basic Latin
+
+//+	plus								// [002B] other (no translation)
+
+// 0080..00FF : C1 Controls and Latin-1 Supplement
+
+//¢	cents								// [00A2] other (no translation)
+//£	pound								// [00A3] other (no translation)
+//¤	currency sign							// [00A4] other (no translation)
+//¥	yen								// [00A5] other (no translation)
+//§	section								// [00A7] other (no translation)
+//¨	double dot							// [00A8] other (no translation)
+©	höfundarréttarmerki						// [00A9] text|emoji
+//¬	not sign							// [00AC] other (no translation)
+®	skráð								// [00AE] text|emoji
+//°	degrees								// [00B0] other (no translation)
+//±	plus or minus							// [00B1] other (no translation)
+//µ	micro								// [00B5] other (no translation)
+//¶	paragraph							// [00B6] other (no translation)
+//¼	a quarter							// [00BC] other (no translation)
+//½	a half								// [00BD] other (no translation)
+//¾	three quarters							// [00BE] other (no translation)
+//×	times								// [00D7] other (no translation)
+//÷	divided by							// [00F7] other (no translation)
+
+// 02B0..02FF : Spacing Modifier Letters
+
+//˙	dot								// [02D9] other (no translation)
+
+// 0900..097F : Devanagari
+
+//।	danda								// [0964] other (no translation)
+
+// 2000..203C : General Punctuation
+
+‼	tvöfalt upphrópunarmerki					// [203C] text|emoji
+⁄	brotaskástrik						// [2044]
+⁉	upphrópunarmerki og spurningarmerki				// [2049] text|emoji
+⁻	brjóstletur mínus					// [207B]
+₡	kostarískt kólon					// [20A1]
+₢	cruzeiro						// [20A2]
+₣	franskur franki						// [20A3]
+₤	líra							// [20A4]
+₥	millidalur						// [20A5]
+₦	nígerísk næra						// [20A6]
+₧	Spænskur peseti						// [20A7]
+
+// 20A0..20CF : Currency Symbols
+
+₨	rúpía							// [20A8]
+₪	nýr ísraelskur sikill					// [20AA]
+₫	víetnamskt dong						// [20AB]
+€	evra							// [20AC]
+₭	laoskt kip						// [20AD]
+₮	mongólskur túríkur					// [20AE]
+₰	þýskt pfennig						// [20B0]
+₱	pesi							// [20B1]
+₲	paragvæskt gvaraní					// [20B2]
+₳	austral							// [20B3]
+₴	úkraínsk hrinja						// [20B4]
+₵	ganverskur sedi						// [20B5]
+₶	livre tournois						// [20B6]
+₷	spesmilo						// [20B7]
+₸	kasakst tengi						// [20B8]
+₹	indversk rúpía						// [20B9]
+₺	tyrknesk líra						// [20BA]
+₼	aserskt manat						// [20BC]
+₽	rúbla							// [20BD]
+₾	georgískur lari						// [20BE]
+₿	bitcoin							// [20BF]
+
+// 2100..214F : Letterlike Symbols
+
+//№	numero								// [2116] other (no translation)
+℗	höfundarréttur hljóðupptöku				// [2117]
+//℞	prescription							// [211E] other (no translation)
+™	skrásett vörumerki						// [2122] text|emoji
+ℹ	upplýsingaveita							// [2139] text|emoji
+
+// 2150..218F : Number Forms
+
+//⅓	one third							// [2153] other (no translation)
+//⅔	two thirds							// [2154] other (no translation)
+
+// 2190..21FF : Arrows
+
+←	ör sem vísar til vinstri				// [2190]
+↑	ör sem vísar upp					// [2191]
+→	ör sem vísar til hægri					// [2192]
+↓	ör sem vísar niður					// [2193]
+↔	ör til vinstri og hægri						// [2194] text|emoji
+↕	ör upp og niður							// [2195] text|emoji
+↖	ör ská upp til vinstri						// [2196] text|emoji
+↗	ör ská upp til hægri						// [2197] text|emoji
+↘	ör ská niður til hægri						// [2198] text|emoji
+↙	ör ská niður til vinstri					// [2199] text|emoji
+↚	ör til vinstri með striki				// [219A]
+↛	ör til hægri með striki					// [219B]
+↜	bylgjuör til vinstri					// [219C]
+↝	bylgjuör til hægri					// [219D]
+↞	tvíhöfða ör til vinstri					// [219E]
+↟	tvíhöfða ör upp á við					// [219F]
+↠	tvíhöfða ör til hægri					// [21A0]
+↡	tvíhöfða ör niður á við					// [21A1]
+↢	örvarendi til vinstri					// [21A2]
+↣	örvarendi til hægri					// [21A3]
+↤	ör til vinstri frá rönd					// [21A4]
+↥	ör upp á við frá rönd					// [21A5]
+↦	ör til hægri frá rönd					// [21A6]
+↧	ör niður á við frá rönd					// [21A7]
+↨	ör upp niður með grunni					// [21A8]
+↩	sveigð ör til vinstri						// [21A9] text|emoji
+↪	sveigð ör til hægri						// [21AA] text|emoji
+↫	ör til vinstri með lykkju				// [21AB]
+↬	ör til hægri með lykkju					// [21AC]
+↭	bylgjuör vinstri hægri					// [21AD]
+↮	ör vinstri hægri með striki				// [21AE]
+↯	sikksakk ör niður á við					// [21AF]
+↰	örvaroddur upp á við til vinstri			// [21B0]
+↱	örvaroddur upp á við til hægri				// [21B1]
+↲	örvaroddur niður á við til vinstri			// [21B2]
+↳	örvaroddur niður á við til hægri			// [21B3]
+↴	ör til hægri með beygju niður á við			// [21B4]
+↵	ör niður á við með beygju tl vinstri			// [21B5]
+↶	ör uppi í hálfhring rangsælis				// [21B6]
+↷	ör uppi í hálfhring réttsælis				// [21B7]
+↸	ör ská upp til vinstri að rönd				// [21B8]
+↹	örvar að striki vinstri yfir hægri			// [21B9]
+↺	opin hringör rangsælis					// [21BA]
+↻	opin hringör réttsælis					// [21BB]
+↼	skutull til vinstri með brodd upp á við			// [21BC]
+↽	skutull til vinstri með brodd niður á við		// [21BD]
+↾	skutull upp á við með brodd til hægri			// [21BE]
+↿	skutull upp á við með brodd til vinstri			// [21BF]
+⇀	skutull til hægri með brodd upp á við			// [21C0]
+⇁	skutull til hægri með brodd niður á við			// [21C1]
+⇂	skutull niður á við með brodd til hægri			// [21C2]
+⇃	skutull niður á við með brodd til vinstri		// [21C3]
+⇄	ör til hægri yfir ör til vinstri			// [21C4]
+⇅	ör sem vísar upp og ör sem vísar niður			// [21C5]
+⇆	vinstriör yfir hægriör					// [21C6]
+⇇	örvapar til vinstri					// [21C7]
+⇈	örvapar upp á við					// [21C8]
+⇉	örvapar til hægri					// [21C9]
+⇊	örvapar niður á við					// [21CA]
+⇋	skutull til vinstri yfir skutli til hægri		// [21CB]
+⇌	skutull til hægri yfir skutli til vinstri		// [21CC]
+⇍	tvístrikuð ör til vinstri				// [21CD]
+⇎	tvístrikuð ör vinstri hægri				// [21CE]
+⇏	tvístrikuð ör til hægri					// [21CF]
+⇐	tvöföld ör til vinstri					// [21D0]
+⇑	tvöföld ör upp á við					// [21D1]
+⇒	tvöföld ör til hægri					// [21D2]
+⇓	tvöföld ör niður á við					// [21D3]
+⇔	tvöföld ör vinstri hægri				// [21D4]
+⇖	tvöföld ör í norðvestur					// [21D6]
+⇗	tvöföld ör í norðaustur					// [21D7]
+⇘	tvöföld ör í suðaustur					// [21D8]
+⇙	tvöföld ör í suðvestur					// [21D9]
+⇚	þreföld ör til vinstri					// [21DA]
+⇛	þreföld ör til hægri					// [21DB]
+⇜	hlykkjótt ör til vinstri				// [21DC]
+⇝	hlykkjótt ör til hægri					// [21DD]
+⇞	tvístrikuð ör upp á við					// [21DE]
+⇟	tvístrikuð ör niður á við				// [21DF]
+⇠	punktalínuör til vinstri				// [21E0]
+⇡	punktalínuör upp á við					// [21E1]
+⇢	punktalínuör til hægri					// [21E2]
+⇣	punktalínuör niður á við				// [21E3]
+⇤	ör að striki til vinstri				// [21E4]
+⇥	ör að striki til hægri					// [21E5]
+⇦	hol ör til vinstri					// [21E6]
+⇧	hol ör upp á við					// [21E7]
+⇨	hol ör til hægri					// [21E8]
+⇩	hol ör niður á við					// [21E9]
+⇪	hol ör upp á við frá rönd				// [21EA]
+⇵	ör niður á við vinstra megin við ör upp á við		// [21F5]
+∀	algildi							// [2200]
+
+// 2200..22FF : Mathematical Operators
+
+∂	hlutafleiða						// [2202]
+∃	tilvist							// [2203]
+∅	tómamengi						// [2205]
+∆	aukning							// [2206]
+∇	nafla							// [2207]
+∈	stak í							// [2208]
+∉	ekki stak						// [2209]
+∋	stak							// [220B]
+∎	endanleg sönnun						// [220E]
+∏	n-unda-margfeldi					// [220F]
+∑	n-unda-summun						// [2211]
+−	mínusmerki						// [2212]
+∓	mínus-eða-plús						// [2213]
+∕	deilingarskástrik					// [2215]
+∗	stjörnuvirki						// [2217]
+∘	hringvirkir						// [2218]
+∙	virkir							// [2219]
+√	kvaðratrót						// [221A]
+//∛	cube root							// [221B] other (no translation)
+∝	hlutfallsmerki						// [221D]
+∞	óendanlegt-merki					// [221E]
+∟	rétt horn						// [221F]
+∠	horn							// [2220]
+∣	deilir							// [2223]
+∥	samsíða							// [2225]
+∧	og-röktákn						// [2227]
+∩	sniðmengi						// [2229]
+∪	sammengi						// [222A]
+∫	heildi							// [222B]
+∬	tvöfalt heildi						// [222C]
+∮	lykkjuheildi						// [222E]
+∴	þar af leiðandi						// [2234]
+∵	vegna þess						// [2235]
+∶	hlutfall						// [2236]
+∷	hlutfallsleiki						// [2237]
+∼	tilduvirkir						// [223C]
+∽	öfug tilda						// [223D]
+∾	öfugt s á hlið						// [223E]
+≃	undirstrikuð bugða					// [2243]
+≅	tvíundirstrikuð bugða					// [2245]
+≈	næstum jafnt						// [2248]
+≌	öll jöfn						// [224C]
+≒	næstum jafnt eða gildi					// [2252]
+≖	hringur í jafnaðarmerki					// [2256]
+≠	ekki jafnt						// [2260]
+≡	nákvæmlega eins og					// [2261]
+≣	aljafnaðarmerki						// [2263]
+≤	minna en eða jafnt					// [2264]
+≥	stærra en eða jafnt					// [2265]
+≦	minna en yfir jafngildi					// [2266]
+≧	stærra en yfir jafngildi				// [2267]
+≪	miklu minna en						// [226A]
+≫	miklu stærra en						// [226B]
+≬	á milli							// [226C]
+≮	ekki minna en						// [226E]
+≯	ekki stærra en						// [226F]
+≳	stærra en jafngildi					// [2273]
+≺	kemur á undan						// [227A]
+≻	kemur á eftir						// [227B]
+⊁	kemur ekki á eftir					// [2281]
+⊂	hlutmengi í						// [2282]
+⊃	yfirmengistákn						// [2283]
+⊆	hlutmengisjafnaðartákn					// [2286]
+⊇	yfirmengisjafnaðartákn					// [2287]
+⊕	plús í hring						// [2295]
+⊖	mínus í hring						// [2296]
+⊗	margföldun í hring					// [2297]
+⊘	deilingarskástrik í hring				// [2298]
+⊙	depill í hring virki					// [2299]
+⊚	hringur í hring virki					// [229A]
+⊛	stjarna í hring virki					// [229B]
+⊞	plús í ferningi						// [229E]
+⊟	mínus í ferningi					// [229F]
+⊥	hornrétt á						// [22A5]
+⊮	þvingar ekki						// [22AE]
+⊰	kemur á undan í venslum					// [22B0]
+⊱	kemur á eftir í venslum					// [22B1]
+⊶	upprunaleg						// [22B6]
+⊹	hermískt samoka fylki					// [22B9]
+⊿	réttur þríhyrningur					// [22BF]
+⋁	n-unda-eða-röktákn					// [22C1]
+⋂	n-unda-sniðmengi					// [22C2]
+⋃	n-unda-sammengi						// [22C3]
+⋅	punktavirkir						// [22C5]
+⋆	stjörnuvirkir						// [22C6]
+⋈	eðlileg töflutenging					// [22C8]
+⋒	tvöfalt sniðmengi					// [22D2]
+⋘	mjög miklu minna en					// [22D8]
+⋙	mjög miklu stærra en					// [22D9]
+⋭	inniheldur ekki sem normleg hlutgrúpa eða jafnt		// [22ED]
+⋮	lóðrétt úrfellingarmerki				// [22EE]
+⋯	lárétt úrfellingarmerki á miðlínu			// [22EF]
+⋰	úrfellingarmerki á ská upp hægri			// [22F0]
+⋱	úrfellingarmerki á ská niður hægri			// [22F1]
+
+// 2300..23FF : Miscellaneous Technical
+
+⌚	úr								// [231A]
+⌛	stundaglas							// [231B]
+⌨	lyklaborð							// [2328] text|emoji
+⏏	takki til að opna						// [23CF] text|emoji
+⏩	spóla áfram							// [23E9]
+⏪	spóla til baka							// [23EA]
+⏫	uppör								// [23EB]
+⏬	niðurör								// [23EC]
+⏭	skiptitakki							// [23ED] text|emoji
+⏮	hnappur til að skipta á síðustu rás				// [23EE] text|emoji
+⏯	spilunar- og pásuhnappur					// [23EF] text|emoji
+⏰	vekjaraklukka							// [23F0]
+⏱	skeiðklukka							// [23F1] text|emoji
+⏲	tímamælir							// [23F2] text|emoji
+⏳	stundaglas með rennandi sandi					// [23F3]
+⏸	pásutakki							// [23F8] text|emoji
+⏹	stopptakki							// [23F9] text|emoji
+⏺	upptökutakki							// [23FA] text|emoji
+
+// 2460..24FF : Enclosed Alphanumerics
+
+Ⓜ	bókstafurinn m inni í hring					// [24C2] text|emoji
+
+// 25A0..25FF : Geometric Shapes
+
+■	fylltur ferningur					// [25A0]
+□	holur ferningur						// [25A1]
+▢	holur ferningur með rúnnuðum hornum			// [25A2]
+▣	fylltur ferningur í holum ferningi			// [25A3]
+▤	ferningur með láréttri fyllingu				// [25A4]
+▥	ferningur með lóðréttri fyllingu			// [25A5]
+▦	ferningur fylltur með hornréttum krossstrikum		// [25A6]
+▧	ferningur fylltur efra vinstri neðra hægri		// [25A7]
+▨	ferningur fylltur efra hægri neðra vinstri		// [25A8]
+▩	ferningur fylltur krossstrikum á ská			// [25A9]
+▪	lítill svartur ferningur					// [25AA] text|emoji
+▫	lítill hvítur ferningur						// [25AB] text|emoji
+▬	fylltur rétthyrningur					// [25AC]
+▭	holur rétthyrningur					// [25AD]
+▮	fylltur lóðréttur rétthyrningur				// [25AE]
+▰	fylltur samsíðungur					// [25B0]
+▲	fylltur þríhyrningur sem vísar upp			// [25B2]
+△	holur þríhyrningur sem vísar upp			// [25B3]
+▴	fylltur lítill þríhyrningur sem vísar upp		// [25B4]
+▵	holur lítill þríhyrningur sem vísar upp			// [25B5]
+▶	spilunartakki							// [25B6] text|emoji
+▷	holur þríhyrningur sem vísar til hægri			// [25B7]
+▸	fylltur lítill þríhyrningur sem vísar til hægri		// [25B8]
+▹	holur lítill þríhyrningur sem vísar til hægri		// [25B9]
+►	fylltur bendir sem vísar til hægri			// [25BA]
+▻	holur bendir sem vísar til hægri			// [25BB]
+▼	fylltur þríhyrningur sem vísar niður			// [25BC]
+▽	holur þríhyrningur sem vísar niður			// [25BD]
+▾	fylltur lítill þríhyrningur sem vísar niður		// [25BE]
+▿	holur lítill þríhyrningur sem vísar niður		// [25BF]
+◀	hnappur til að spóla til baka					// [25C0] text|emoji
+◁	holur þríhyrningur sem vísar til vinstri		// [25C1]
+◂	fylltur lítill þríhyrningur sem vísar til vinstri	// [25C2]
+◃	holur lítill þríhyrningur sem vísar til vinstri		// [25C3]
+◄	fylltur bendir sem vísar til vinstri			// [25C4]
+◅	holur bendir sem vísar til vinstri			// [25C5]
+◆	fylltur tígull						// [25C6]
+◇	holur tígull						// [25C7]
+◈	fylltur tígull í holum tígli				// [25C8]
+◉	fylltur hringur í holum hring				// [25C9]
+◊	tígullaga						// [25CA]
+○	holur hringflötur					// [25CB]
+◌	hringur úr punktum					// [25CC]
+◍	hringur með lóðréttri fyllingu				// [25CD]
+◎	sammiðja hringir					// [25CE]
+●	fylltur hringflötur					// [25CF]
+◐	hringur hálffylltur til vinstri				// [25D0]
+◑	hringur hálffylltur til hægri				// [25D1]
+◒	fylltur neðri helmingur hrings				// [25D2]
+◓	fylltur efri helmingur hrings				// [25D3]
+◔	fylltur efri fjórðungsbogi hrings til hægri		// [25D4]
+◕	hringur fylltur fyrir utan efri vinstri fjórðung	// [25D5]
+◖	fylltur vinstri helmingur hrings			// [25D6]
+◗	fylltur hægri helmingur hrings				// [25D7]
+◘	öfugur merkill						// [25D8]
+◙	holur hringur í fylltum ferningi			// [25D9]
+◜	hringbogi í efri vinstri fjórðungi			// [25DC]
+◝	hringbogi í efri hægri fjórðungi			// [25DD]
+◞	hringbogi í neðri hægri fjórðungi			// [25DE]
+◟	hringbogi í neðri vinstri fjórðungi			// [25DF]
+◠	efri helmingur hrings					// [25E0]
+◡	neðri helmingur hrings					// [25E1]
+◢	fylltur neðri þríhyrningur til hægri			// [25E2]
+◣	fylltur neðri þríhyrningur til vinstri			// [25E3]
+◤	fylltur efri þríhyrningur til vinstri			// [25E4]
+◥	fylltur efri þríhyrningur til hægri			// [25E5]
+◦	holt áherslumerki					// [25E6]
+◯	stór holur hringflötur					// [25EF]
+◳	holur ferningur með efri fjórðungsgeira til hægri	// [25F3]
+◷	holur hringur með efri fjórðungsboga til hægri		// [25F7]
+◻	hvítur meðalstór ferningur					// [25FB] text|emoji
+◼	svartur meðalstór ferningur					// [25FC] text|emoji
+◽	hvítur meðalsmár ferningur					// [25FD]
+◾	svartur meðalsmár ferningur					// [25FE]
+◿	neðri þríhyrningur til hægri				// [25FF]
+
+// 2600..26FF : Miscellaneous Symbols
+
+☀	sól								// [2600] text|emoji
+☁	ský								// [2601] text|emoji
+☂	regnhlíf							// [2602] text|emoji
+☃	snjókarl í snjókomu						// [2603] text|emoji
+☄	halastjarna							// [2604] text|emoji
+☎	sími								// [260E] text|emoji
+☑	kjörkassi með hakmerki						// [2611] text|emoji
+☔	regnhlíf með regndropum						// [2614]
+☕	heitur drykkur							// [2615]
+☘	músarsmári							// [2618] text|emoji
+☝	vísifingur bendir upp						// [261D] text|emoji
+☠	hauskúpa og beinleggir						// [2620] text|emoji
+☢	geislavirkni							// [2622] text|emoji
+☣	hættuleg efni							// [2623] text|emoji
+☦	rétttrúnaðarkross						// [2626] text|emoji
+☪	stjarna og skarður máni						// [262A] text|emoji
+☮	friðartákn							// [262E] text|emoji
+☯	jin jang							// [262F] text|emoji
+☸	dharmahjól							// [2638] text|emoji
+☹	andlit með stóra skeifu						// [2639] text|emoji
+☺	broskarl							// [263A] text|emoji
+♀	kvenkyns merki							// [2640] text|emoji
+♂	karlkyns merki							// [2642] text|emoji
+♈	hrúturinn							// [2648]
+♉	nautið								// [2649]
+♊	tvíburar							// [264A]
+♋	krabbinn							// [264B]
+♌	ljón								// [264C]
+♍	meyja								// [264D]
+♎	vogin								// [264E]
+♏	sporðdrekinn							// [264F]
+♐	bogmaður							// [2650]
+♑	steingeit							// [2651]
+♒	vatnsberi							// [2652]
+♓	fiskar								// [2653]
+♟	taflpeð								// [265F] text|emoji
+♠	spaði								// [2660] text|emoji
+♣	lauf								// [2663] text|emoji
+♥	hjarta								// [2665] text|emoji
+♦	tígull								// [2666] text|emoji
+♨	heitar laugar							// [2668] text|emoji
+♪	áttundapartsnóta					// [266A]
+♭	lækkaður tónn						// [266D]
+♯	hækkaður tónn						// [266F]
+♻	endurvinnsla							// [267B] text|emoji
+♾	óendanleiki							// [267E] text|emoji
+♿	hjólastólaaðgengi						// [267F]
+⚒	hamar og haki							// [2692] text|emoji
+⚓	akkeri								// [2693]
+⚔	krosslögð sverð							// [2694] text|emoji
+⚕	lækningamerki							// [2695] text|emoji
+⚖	vog								// [2696] text|emoji
+⚗	eimingarflaska							// [2697] text|emoji
+⚙	gírhjól								// [2699] text|emoji
+⚛	frumeindartákn							// [269B] text|emoji
+⚜	fleur-de-lis-tákn						// [269C] text|emoji
+⚠	varúð								// [26A0] text|emoji
+⚡	háspenna							// [26A1]
+⚧	transmerki						// [26A7]
+⚪	hvítur hringur							// [26AA]
+⚫	svartur hringur							// [26AB]
+⚰	líkkista							// [26B0] text|emoji
+⚱	duftker								// [26B1] text|emoji
+⚽	fótbolti							// [26BD]
+⚾	hafnabolti							// [26BE]
+⛄	snjókarl							// [26C4]
+⛅	sól bakvið ský							// [26C5]
+⛈	ský með eldingu og regni					// [26C8] text|emoji
+⛎	naðurvaldi							// [26CE]
+⛏	haki								// [26CF] text|emoji
+⛑	hjálmur með hvítum krossi					// [26D1] text|emoji
+⛓	keðja								// [26D3] text|emoji
+⛔	einstefna							// [26D4]
+⛩	sjintó-hof							// [26E9] text|emoji
+⛪	kirkja								// [26EA]
+⛰	fjall								// [26F0] text|emoji
+⛱	regnhlíf á jörðinni						// [26F1] text|emoji
+⛲	gosbrunnur							// [26F2]
+⛳	golf								// [26F3]
+⛴	ferja								// [26F4] text|emoji
+⛵	seglskúta							// [26F5]
+⛷	skíðamaður							// [26F7] text|emoji
+⛸	skauti								// [26F8] text|emoji
+⛹	manneskja með bolta						// [26F9] text|emoji
+⛺	tjald								// [26FA]
+⛽	bensíndæla							// [26FD]
+
+// 2700..27BF : Dingbats
+
+✂	skæri								// [2702] text|emoji
+✅	hak								// [2705]
+✈	flugvél								// [2708] text|emoji
+✉	umslag								// [2709] text|emoji
+✊	hnefi								// [270A]
+✋	lófi								// [270B]
+✌	friðarmerki							// [270C] text|emoji
+✍	skrifandi hönd							// [270D] text|emoji
+✏	blýantur							// [270F] text|emoji
+✒	svartur pennaoddur						// [2712] text|emoji
+✔	stórt hakmerki							// [2714] text|emoji
+✖	stórt margföldunar-x						// [2716] text|emoji
+✝	latneskur kross							// [271D] text|emoji
+✡	davíðsstjarna							// [2721] text|emoji
+✨	stjörnur							// [2728]
+✳	áttarma stjörnumerki						// [2733] text|emoji
+✴	áttarma stjarna							// [2734] text|emoji
+❄	snjókorn							// [2744] text|emoji
+❇	leiftur								// [2747] text|emoji
+❌	kross								// [274C]
+❎	krosshnappur							// [274E]
+❓	spurningarmerki							// [2753]
+❔	hvítt spurningarmerki						// [2754]
+❕	hvítt upphrópunarmerki						// [2755]
+❗	upphrópunarmerki						// [2757]
+❣	hjarta sem upphrópunarmerki					// [2763] text|emoji
+❤	rautt hjarta							// [2764] text|emoji
+➕	plús								// [2795]
+➖	mínus								// [2796]
+➗	deiling								// [2797]
+➡	ör til hægri							// [27A1] text|emoji
+➰	lykkja								// [27B0]
+➿	tvöföld lykkja							// [27BF]
+
+// 2900..297F : Supplemental Arrows-B
+
+⤴	sveig ör upp							// [2934] text|emoji
+⤵	sveigð ör niður							// [2935] text|emoji
+⨧	plús og hnéletrað tveir					// [2A27]
+⨯	krossfeldi						// [2A2F]
+⨼	innfeldi						// [2A3C]
+⩣	röklegt eða tvöfalt undirstrik				// [2A63]
+⩽	minna en eða jafnt og hallandi				// [2A7D]
+⪍	minna en fyrir ofan svipað eða jafnt			// [2A8D]
+⪚	jafnt eða meira en með tvöfaldri línu			// [2A9A]
+⪺	kemur á eftir fyrir ofan ekki næstum jafnt		// [2ABA]
+
+// 2B00..2BFF : Miscellaneous Symbols and Arrows
+
+⬅	ör til vinstri							// [2B05] text|emoji
+⬆	ör upp								// [2B06] text|emoji
+⬇	ör niður							// [2B07] text|emoji
+⬛	stór svartur ferningur						// [2B1B]
+⬜	stór hvítur ferningur						// [2B1C]
+⭐	hvít stjarna							// [2B50]
+⭕	stór og breiður hringur						// [2B55]
+
+// 3000..303F : CJK Symbols and Punctuation
+
+〰	bugðustrik							// [3030] text|emoji
+〽	japanskt upphafsmerki söngs					// [303D] text|emoji
+
+// 3200..32FF : Enclosed CJK Letters and Months
+
+㊗	Til hamingju ´a japönsku					// [3297] text|emoji
+㊙	Leyndarmál á japönsku						// [3299] text|emoji
+﷼	ríal							// [FDFC]
+
+// 1F100..1F1FF : Enclosed Alphanumeric Supplement
+
+🅰	A-blóðflokkur							// [1F170] text|emoji
+🅱	B-blóðflokkur							// [1F171] text|emoji
+🅾	O-blóðflokkur							// [1F17E] text|emoji
+🅿	bílastæði							// [1F17F] text|emoji
+🆎	AB-blóðflokkur							// [1F18E]
+🆑	CL								// [1F191]
+🆒	svalt								// [1F192]
+🆓	ókeypis								// [1F193]
+🆔	ID								// [1F194]
+🆕	nýtt								// [1F195]
+🆖	NG								// [1F196]
+🆗	OK								// [1F197]
+🆘	SOS								// [1F198]
+🆙	UP!								// [1F199]
+🆚	VS								// [1F19A]
+🇨🇶	Sark							// [1F1E8 1F1F6]
+
+// 1F200..1F2FF : Enclosed Ideographic Supplement
+
+🈁	katakana koko, kassi						// [1F201]
+🈂	katakana sa, kassi						// [1F202] text|emoji
+🈚	Ókeypis á japönsku						// [1F21A]
+🈯	Frátekið á japönsku						// [1F22F]
+🈲	Bannað á japönsku						// [1F232]
+🈳	Laust pláss á japönsku						// [1F233]
+🈴	Viðunandi einkunn á japönsku					// [1F234]
+🈵	Allt fullt á japönsku						// [1F235]
+🈶	Ekki ókeypis á japönsku						// [1F236]
+🈷	mánaðarleg upphæð, kassi					// [1F237] text|emoji
+🈸	Umsókn á japönsku						// [1F238]
+🈹	Afsláttur á japönsku						// [1F239]
+🈺	Opið á japönsku							// [1F23A]
+🉐	Kjarakaup á japönsku						// [1F250]
+🉑	Viðunandi á japönsku						// [1F251]
+
+// 1F000..1F02F : Mahjong Tiles
+
+🀄	Mahjong-tafla							// [1F004]
+
+// 1F0A0..1F0FF : Playing Cards
+
+🃏	jókerspil							// [1F0CF]
+
+// 1F300..1F5FF : Miscellaneous Symbols and Pictographs
+
+🌀	fellibylur							// [1F300]
+🌁	þokukennt							// [1F301]
+🌂	lokuð regnhlíf							// [1F302]
+🌃	stjörnuhiminn							// [1F303]
+🌄	sólarupprás yfir fjöllum					// [1F304]
+🌅	sólarupprás							// [1F305]
+🌆	borg um kvöld							// [1F306]
+🌇	sólarlag							// [1F307]
+🌈	regnbogi							// [1F308]
+🌉	brú um nótt							// [1F309]
+🌊	alda								// [1F30A]
+🌋	eldfjall							// [1F30B]
+🌌	vetrarbrautin							// [1F30C]
+🌍	hnöttur sem sýnir Evrópu-Afríku					// [1F30D]
+🌎	hnöttur sem sýnir Ameríku					// [1F30E]
+🌏	hnöttur sem sýnir Asíu-Ástralíu					// [1F30F]
+🌐	hnöttur sem sýnir lengdarbauga					// [1F310]
+🌑	nýtt tungl							// [1F311]
+🌒	vaxandi tungl (minna en hálft)					// [1F312]
+🌓	fyrsta kvartil tungls						// [1F313]
+🌔	vaxandi tungl (meira en hálft)					// [1F314]
+🌕	fullt tungl							// [1F315]
+🌖	minnkandi tungl (meira en hálft)				// [1F316]
+🌗	síðasta kvartil							// [1F317]
+🌘	minnkandi tungl (minna en hálft)				// [1F318]
+🌙	hálfmáni							// [1F319]
+🌚	nýtt tungl með andliti						// [1F31A]
+🌛	fyrsta kvartil tungls með andliti				// [1F31B]
+🌜	síðasta kvartil tungls með andliti				// [1F31C]
+🌝	fullt tungl með andliti						// [1F31D]
+🌞	sól með andliti							// [1F31E]
+🌟	skínandi stjarna						// [1F31F]
+🌠	stjörnuhrap							// [1F320]
+🌡	hitamælir							// [1F321] text|emoji
+🌤	sól á bak við ský						// [1F324] text|emoji
+🌥	sól á bak við stórt ský						// [1F325] text|emoji
+🌦	sól á bak við regnský						// [1F326] text|emoji
+🌧	regnský								// [1F327] text|emoji
+🌨	snjóský								// [1F328] text|emoji
+🌩	eldingarský							// [1F329] text|emoji
+🌪	skýstrókur							// [1F32A] text|emoji
+🌫	þoka								// [1F32B] text|emoji
+🌬	veðurandlit							// [1F32C] text|emoji
+🌭	pylsa í brauði							// [1F32D]
+🌮	takó								// [1F32E]
+🌯	búrrító								// [1F32F]
+🌰	kastanía							// [1F330]
+🌱	græðlingur							// [1F331]
+🌲	sígrænt tré							// [1F332]
+🌳	sumargrænt tré							// [1F333]
+🌴	pálmatré							// [1F334]
+🌵	kaktus								// [1F335]
+🌶	chilipipar							// [1F336] text|emoji
+🌷	túlípani							// [1F337]
+🌸	kirsuberjablóm							// [1F338]
+🌹	rós								// [1F339]
+🌺	Havaírós							// [1F33A]
+🌻	sólblóm								// [1F33B]
+🌼	blóm								// [1F33C]
+🌽	maís								// [1F33D]
+🌾	hrísgrjónaplanta						// [1F33E]
+🌿	kryddjurt							// [1F33F]
+🍀	fjögurra laufa smári						// [1F340]
+🍁	hlynslauf							// [1F341]
+🍂	fallandi lauf							// [1F342]
+🍃	lauf í vindi							// [1F343]
+🍄	sveppur								// [1F344]
+🍅	tómatur								// [1F345]
+🍆	eggaldin							// [1F346]
+🍇	vínber								// [1F347]
+🍈	melóna								// [1F348]
+🍉	vatnsmelóna							// [1F349]
+🍊	mandarína							// [1F34A]
+🍋	sítróna								// [1F34B]
+🍌	banani								// [1F34C]
+🍍	ananas								// [1F34D]
+🍎	rautt epli							// [1F34E]
+🍏	grænt epli							// [1F34F]
+🍐	pera								// [1F350]
+🍑	ferskja								// [1F351]
+🍒	kirsuber							// [1F352]
+🍓	jarðarber							// [1F353]
+🍔	hamborgari							// [1F354]
+🍕	pítsusneið							// [1F355]
+🍖	kjöt								// [1F356]
+🍗	kjúklingaleggur							// [1F357]
+🍘	hrísgrjónakex							// [1F358]
+🍙	hrísgrjónabolla							// [1F359]
+🍚	soðin hrísgrjón							// [1F35A]
+🍛	hrísgrjón og karrí						// [1F35B]
+🍜	núðlur								// [1F35C]
+🍝	spagettí							// [1F35D]
+🍞	brauð								// [1F35E]
+🍟	franskar							// [1F35F]
+🍠	steiktar sætar kartöflur					// [1F360]
+🍡	soðkökur á teini						// [1F361]
+🍢	oden								// [1F362]
+🍣	sushi								// [1F363]
+🍤	djúpsteikt rækja						// [1F364]
+🍥	fiskkaka							// [1F365]
+🍦	rjómaís								// [1F366]
+🍧	skafís								// [1F367]
+🍨	kúluís								// [1F368]
+🍩	kleinuhringur							// [1F369]
+🍪	smákaka								// [1F36A]
+🍫	súkkulaði							// [1F36B]
+🍬	nammi								// [1F36C]
+🍭	sleikibrjóstsykur						// [1F36D]
+🍮	búðingur							// [1F36E]
+🍯	hunang								// [1F36F]
+🍰	kökusneið							// [1F370]
+🍱	bento-box							// [1F371]
+🍲	pottréttur							// [1F372]
+🍳	steikarpanna							// [1F373]
+🍴	hnífur og gaffall						// [1F374]
+🍵	tebolli								// [1F375]
+🍶	sake								// [1F376]
+🍷	vín								// [1F377]
+🍸	kokteill							// [1F378]
+🍹	suðrænn kokteill						// [1F379]
+🍺	bjór								// [1F37A]
+🍻	bjórglös							// [1F37B]
+🍼	peli								// [1F37C]
+🍽	gaffall og hnífur við disk					// [1F37D] text|emoji
+🍾	flaska með korktappa						// [1F37E]
+🍿	popp								// [1F37F]
+🎀	borði								// [1F380]
+🎁	gjöf								// [1F381]
+🎂	afmæliskaka							// [1F382]
+🎃	hrekkjavökugrasker						// [1F383]
+🎄	jólatré								// [1F384]
+🎅	jólasveinn							// [1F385]
+🎆	flugeldar							// [1F386]
+🎇	stjörnuljós							// [1F387]
+🎈	blaðra								// [1F388]
+🎉	knall								// [1F389]
+🎊	veisluskraut							// [1F38A]
+🎋	Tanabata-tré							// [1F38B]
+🎌	japanskir fánar í kross						// [1F38C]
+🎍	blómaskreyting með furu						// [1F38D]
+🎎	japanskar brúður						// [1F38E]
+🎏	fiskveifur							// [1F38F]
+🎐	órói								// [1F390]
+🎑	tunglskoðun							// [1F391]
+🎒	skólataska							// [1F392]
+🎓	útskriftarhúfa							// [1F393]
+🎖	hermedalía							// [1F396] text|emoji
+🎗	minnisvarðaborði						// [1F397] text|emoji
+🎙	hljóðnemi í hljóðveri						// [1F399] text|emoji
+🎚	hljóðstyrkssleði						// [1F39A] text|emoji
+🎛	stýritakkar							// [1F39B] text|emoji
+🎞	kvikmyndafilma							// [1F39E] text|emoji
+🎟	aðgöngumiði							// [1F39F] text|emoji
+🎠	hringekjuhestur							// [1F3A0]
+🎡	parísarhjól							// [1F3A1]
+🎢	rússíbani							// [1F3A2]
+🎣	stangveiði							// [1F3A3]
+🎤	hljóðnemi							// [1F3A4]
+🎥	kvikmyndatökuvél						// [1F3A5]
+🎦	bíó								// [1F3A6]
+🎧	heyrnartól							// [1F3A7]
+🎨	litapalletta							// [1F3A8]
+🎩	pípuhattur							// [1F3A9]
+🎪	sirkus								// [1F3AA]
+🎫	miði								// [1F3AB]
+🎬	klapptré							// [1F3AC]
+🎭	leikhúsgrímur							// [1F3AD]
+🎮	tölvuleikur							// [1F3AE]
+🎯	skotmark							// [1F3AF]
+🎰	spilakassi							// [1F3B0]
+🎱	billjard							// [1F3B1]
+🎲	teningur							// [1F3B2]
+🎳	keila								// [1F3B3]
+🎴	blómaspil							// [1F3B4]
+🎵	nóta								// [1F3B5]
+🎶	nótur								// [1F3B6]
+🎷	saxófónn							// [1F3B7]
+🎸	gítar								// [1F3B8]
+🎹	píanó								// [1F3B9]
+🎺	trompet								// [1F3BA]
+🎻	fiðla								// [1F3BB]
+🎼	nótnaskrif							// [1F3BC]
+🎽	hlaupabolur							// [1F3BD]
+🎾	tennis								// [1F3BE]
+🎿	skíði								// [1F3BF]
+🏀	körfubolti							// [1F3C0]
+🏁	rásflagg							// [1F3C1]
+🏂	snjóbrettamaður							// [1F3C2]
+🏃	hlaupari							// [1F3C3]
+🏄	brimbrettamaður							// [1F3C4]
+🏅	íþróttamedalía							// [1F3C5]
+🏆	verðlaunabikar							// [1F3C6]
+🏇	veðreiðar							// [1F3C7]
+🏈	amerískur fótbolti						// [1F3C8]
+🏉	rúgbíbolti							// [1F3C9]
+🏊	sund								// [1F3CA]
+🏋	kraftlyftingamaður						// [1F3CB] text|emoji
+🏌	kylfingur							// [1F3CC] text|emoji
+🏍	mótorhjól							// [1F3CD] text|emoji
+🏎	kappakstursbíll							// [1F3CE] text|emoji
+🏏	krikket								// [1F3CF]
+🏐	blak								// [1F3D0]
+🏑	grashokkí							// [1F3D1]
+🏒	íshokkí								// [1F3D2]
+🏓	borðtennis							// [1F3D3]
+🏔	snæviþakinn fjallstindur					// [1F3D4] text|emoji
+🏕	tjaldstæði							// [1F3D5] text|emoji
+🏖	strönd með sólhlíf						// [1F3D6] text|emoji
+🏗	mannvirki í byggingu						// [1F3D7] text|emoji
+🏘	húsaþyrping							// [1F3D8] text|emoji
+🏙	borgarlandslag							// [1F3D9] text|emoji
+🏚	niðurnítt hús							// [1F3DA] text|emoji
+🏛	klassísk fornbygging						// [1F3DB] text|emoji
+🏜	eyðimörk							// [1F3DC] text|emoji
+🏝	eyðieyja							// [1F3DD] text|emoji
+🏞	þjóðgarður							// [1F3DE] text|emoji
+🏟	leikvangur							// [1F3DF] text|emoji
+🏠	hús								// [1F3E0]
+🏡	hús með garði							// [1F3E1]
+🏢	skrifstofuhúsnæði						// [1F3E2]
+🏣	japanskt pósthús						// [1F3E3]
+🏤	evrópskt pósthús						// [1F3E4]
+🏥	sjúkrahús							// [1F3E5]
+🏦	banki								// [1F3E6]
+🏧	hraðbanki							// [1F3E7]
+🏨	hótel								// [1F3E8]
+🏩	ástarhótel							// [1F3E9]
+🏪	matvörubúð							// [1F3EA]
+🏫	skóli								// [1F3EB]
+🏬	stórmarkaður							// [1F3EC]
+🏭	verksmiðja							// [1F3ED]
+🏮	rauður lampi							// [1F3EE]
+🏯	japanskur kastali						// [1F3EF]
+🏰	evrópskur kastali						// [1F3F0]
+🏳	hvítur fáni							// [1F3F3] text|emoji
+🏴	svartur fáni							// [1F3F4]
+🏵	rósarmynstur							// [1F3F5] text|emoji
+🏷	merkimiði							// [1F3F7] text|emoji
+🏸	badminton							// [1F3F8]
+🏹	bogi og ör							// [1F3F9]
+🏺	leirkrukka							// [1F3FA]
+🏻	húðtegund 1–2							// [1F3FB]
+🏼	húðtegund 3							// [1F3FC]
+🏽	húðtegund 4							// [1F3FD]
+🏾	húðtegund 5							// [1F3FE]
+🏿	húðtegund 6							// [1F3FF]
+🐀	rotta								// [1F400]
+🐁	mús								// [1F401]
+🐂	uxi								// [1F402]
+🐃	vatnabuffaló							// [1F403]
+🐄	kýr								// [1F404]
+🐅	tígrisdýr							// [1F405]
+🐆	hlébarði							// [1F406]
+🐇	kanína								// [1F407]
+🐈	köttur								// [1F408]
+🐉	dreki								// [1F409]
+🐊	krókódíll							// [1F40A]
+🐋	hvalur								// [1F40B]
+🐌	snigill								// [1F40C]
+🐍	snákur								// [1F40D]
+🐎	hestur								// [1F40E]
+🐏	hrútur								// [1F40F]
+🐐	geit								// [1F410]
+🐑	ær								// [1F411]
+🐒	api								// [1F412]
+🐓	hani								// [1F413]
+🐔	kjúklingur							// [1F414]
+🐕	hundur								// [1F415]
+🐖	svín								// [1F416]
+🐗	villisvín							// [1F417]
+🐘	fíll								// [1F418]
+🐙	kolkrabbi							// [1F419]
+🐚	kuðungur							// [1F41A]
+🐛	skordýr								// [1F41B]
+🐜	maur								// [1F41C]
+🐝	hunangsfluga							// [1F41D]
+🐞	maríuhæna							// [1F41E]
+🐟	fiskur								// [1F41F]
+🐠	hitabeltisfiskur						// [1F420]
+🐡	blöðrufiskur							// [1F421]
+🐢	skjaldbaka							// [1F422]
+🐣	hænuungi í eggi							// [1F423]
+🐤	hænuungi							// [1F424]
+🐥	framhlið hænuunga						// [1F425]
+🐦	fugl								// [1F426]
+🐧	mörgæs								// [1F427]
+🐨	kóalabjörn							// [1F428]
+🐩	púðluhundur							// [1F429]
+🐪	drómedari							// [1F42A]
+🐫	kameldýr							// [1F42B]
+🐬	höfrungur							// [1F42C]
+🐭	músarhöfuð							// [1F42D]
+🐮	kýrhöfuð							// [1F42E]
+🐯	tígrisdýrshöfuð							// [1F42F]
+🐰	kanínuhöfuð							// [1F430]
+🐱	kattarhöfuð							// [1F431]
+🐲	drekahöfuð							// [1F432]
+🐳	blásandi hvalur							// [1F433]
+🐴	hestshöfuð							// [1F434]
+🐵	apahöfuð							// [1F435]
+🐶	hundshöfuð							// [1F436]
+🐷	svínshöfuð							// [1F437]
+🐸	froskshöfuð							// [1F438]
+🐹	hamsturshöfuð							// [1F439]
+🐺	úlfshöfuð							// [1F43A]
+🐻	bjarnarhöfuð							// [1F43B]
+🐼	pönduhöfuð							// [1F43C]
+🐽	svínstrýni							// [1F43D]
+🐾	loppa								// [1F43E]
+🐿	jarðíkorni							// [1F43F] text|emoji
+👀	augu								// [1F440]
+👁	auga								// [1F441] text|emoji
+👂	eyru								// [1F442]
+👃	nef								// [1F443]
+👄	munnur								// [1F444]
+👅	tunga								// [1F445]
+👆	fingur bendir upp						// [1F446]
+👇	fingur bendir niður						// [1F447]
+👈	fingur bendir til vinstri					// [1F448]
+👉	fingur bendir til hægri						// [1F449]
+👊	krepptur hnefi							// [1F44A]
+👋	hönd veifar							// [1F44B]
+👌	Í lagi								// [1F44C]
+👍	þumall upp							// [1F44D]
+👎	þumall niður							// [1F44E]
+👏	lófaklapp							// [1F44F]
+👐	opinn lófi							// [1F450]
+👑	kóróna								// [1F451]
+👒	kvenhattur							// [1F452]
+👓	gleraugu							// [1F453]
+👔	hálsbindi							// [1F454]
+👕	stuttermabolur							// [1F455]
+👖	buxur								// [1F456]
+👗	kjóll								// [1F457]
+👘	kímónó								// [1F458]
+👙	bikíní								// [1F459]
+👚	kvenföt								// [1F45A]
+👛	budda								// [1F45B]
+👜	handtaska							// [1F45C]
+👝	smáveski							// [1F45D]
+👞	herraskór							// [1F45E]
+👟	íþróttaskór							// [1F45F]
+👠	háhælaður skór							// [1F460]
+👡	kvensandali							// [1F461]
+👢	kvenstígvél							// [1F462]
+👣	fótspor								// [1F463]
+👤	brjóstmynd í skugga						// [1F464]
+👥	brjóstmyndir í skugga						// [1F465]
+👦	drengur								// [1F466]
+👧	stúlka								// [1F467]
+👨	karl								// [1F468]
+👩	kona								// [1F469]
+👪	fjölskylda							// [1F46A]
+👫	karl og kona							// [1F46B]
+👬	tveir karlar							// [1F46C]
+👭	tvær konur							// [1F46D]
+👮	lögregluþjónn							// [1F46E]
+👯	kanínueyru							// [1F46F]
+👰	brúður								// [1F470]
+👱	ljóshærð manneskja						// [1F471]
+👲	maður með kínverska húfu					// [1F472]
+👳	maður með túrban						// [1F473]
+👴	eldri maður							// [1F474]
+👵	eldri kona							// [1F475]
+👶	ungbarn								// [1F476]
+👷	verkamaður							// [1F477]
+👸	prinsessa							// [1F478]
+👹	tröll								// [1F479]
+👺	ári								// [1F47A]
+👻	draugur								// [1F47B]
+👼	barnsengill							// [1F47C]
+👽	geimvera							// [1F47D]
+👾	geimveruskrímsli						// [1F47E]
+👿	púki								// [1F47F]
+💀	hauskúpa							// [1F480]
+💁	upplýsingaborð							// [1F481]
+💂	vörður								// [1F482]
+💃	dansandi kona							// [1F483]
+💄	varalitur							// [1F484]
+💅	naglalakk							// [1F485]
+💆	andlitsnudd							// [1F486]
+💇	klipping							// [1F487]
+💈	rakarastofa							// [1F488]
+💉	sprauta								// [1F489]
+💊	pilla								// [1F48A]
+💋	kossafar							// [1F48B]
+💌	ástarbréf							// [1F48C]
+💍	hringur								// [1F48D]
+💎	gimsteinn							// [1F48E]
+💏	koss								// [1F48F]
+💐	blómvöndur							// [1F490]
+💑	par								// [1F491]
+💒	brúðkaup							// [1F492]
+💓	hjartsláttur							// [1F493]
+💔	brostið hjarta							// [1F494]
+💕	tvö hjörtu							// [1F495]
+💖	glitrandi hjarta						// [1F496]
+💗	stækkandi hjarta						// [1F497]
+💘	hjarta með ör							// [1F498]
+💙	blátt hjarta							// [1F499]
+💚	grænt hjarta							// [1F49A]
+💛	gult hjarta							// [1F49B]
+💜	fjólublátt hjarta						// [1F49C]
+💝	hjarta með slaufu						// [1F49D]
+💞	snúningshjörtu							// [1F49E]
+💟	skraut með hjarta						// [1F49F]
+💠	blóm með punkti							// [1F4A0]
+💡	ljósapera							// [1F4A1]
+💢	reiði								// [1F4A2]
+💣	sprengja							// [1F4A3]
+💤	þreyta								// [1F4A4]
+💥	árekstur							// [1F4A5]
+💦	svitadropar							// [1F4A6]
+💧	smádropi							// [1F4A7]
+💨	hraðferð							// [1F4A8]
+💩	kúkur								// [1F4A9]
+💪	upphandleggsvöðvar						// [1F4AA]
+💫	ringlaður							// [1F4AB]
+💬	talblaðra							// [1F4AC]
+💭	hugsanablaðra							// [1F4AD]
+💮	hvítt blóm							// [1F4AE]
+💯	fullt hús							// [1F4AF]
+💰	peningapoki							// [1F4B0]
+💱	gjaldmiðlar							// [1F4B1]
+💲	dollaramerki							// [1F4B2]
+💳	kreditkort							// [1F4B3]
+💴	yenaseðill							// [1F4B4]
+💵	dollaraseðill							// [1F4B5]
+💶	evruseðill							// [1F4B6]
+💷	pundaseðill							// [1F4B7]
+💸	fljúgandi peningar						// [1F4B8]
+💹	markaður á uppleið						// [1F4B9]
+💺	sæti								// [1F4BA]
+💻	tölva								// [1F4BB]
+💼	skjalataska							// [1F4BC]
+💽	MD-diskur							// [1F4BD]
+💾	disketta							// [1F4BE]
+💿	blu-ray								// [1F4BF]
+📀	DVD								// [1F4C0]
+📁	skráamappa							// [1F4C1]
+📂	opin mappa							// [1F4C2]
+📃	skjal								// [1F4C3]
+📄	skjal snýr upp							// [1F4C4]
+📅	dagatal								// [1F4C5]
+📆	dagatal með rifgötum						// [1F4C6]
+📇	spjaldskrá							// [1F4C7]
+📈	á uppleið							// [1F4C8]
+📉	á niðurleið							// [1F4C9]
+📊	súlurit								// [1F4CA]
+📋	klippiborð							// [1F4CB]
+📌	teiknibóla							// [1F4CC]
+📍	teiknibóla með kúlu						// [1F4CD]
+📎	bréfaklemma							// [1F4CE]
+📏	reglustika							// [1F4CF]
+📐	þríhyrnd reglustika						// [1F4D0]
+📑	bókamerki í tölvu						// [1F4D1]
+📒	dagbók								// [1F4D2]
+📓	glósubók							// [1F4D3]
+📔	glósubók með skrautkápu						// [1F4D4]
+📕	lokuð bók							// [1F4D5]
+📖	opin bók							// [1F4D6]
+📗	græn bók							// [1F4D7]
+📘	blá bók								// [1F4D8]
+📙	appelsínugul bók						// [1F4D9]
+📚	bækur								// [1F4DA]
+📛	nafnspjald							// [1F4DB]
+📜	bókrolla							// [1F4DC]
+📝	minnismiði							// [1F4DD]
+📞	símtól								// [1F4DE]
+📟	símboði								// [1F4DF]
+📠	fax								// [1F4E0]
+📡	gervihnattaloftnet						// [1F4E1]
+📢	Almannavarnahátalari						// [1F4E2]
+📣	gjallarhorn							// [1F4E3]
+📤	sendur póstur							// [1F4E4]
+📥	móttekinn póstur						// [1F4E5]
+📦	pakki								// [1F4E6]
+📧	tölvupóstur							// [1F4E7]
+📨	póstur á innleið						// [1F4E8]
+📩	póstur á útleið							// [1F4E9]
+📪	lokaður póstkassi með niðurdregnum fána				// [1F4EA]
+📫	lokaður póstkassi með reistum fána				// [1F4EB]
+📬	opinn póstkassi með reistum fána				// [1F4EC]
+📭	opinn póstkassi með niðurdregnum fána				// [1F4ED]
+📮	póstkassi							// [1F4EE]
+📯	póstlúður							// [1F4EF]
+📰	dagblað								// [1F4F0]
+📱	farsími								// [1F4F1]
+📲	farsími með ör							// [1F4F2]
+📳	titringur							// [1F4F3]
+📴	slökkt á síma							// [1F4F4]
+📵	enginn farsími							// [1F4F5]
+📶	farsímasamband							// [1F4F6]
+📷	myndavél							// [1F4F7]
+📸	myndavél með flassi						// [1F4F8]
+📹	lítil kvikmyndatökuvél						// [1F4F9]
+📺	sjónvarp							// [1F4FA]
+📻	útvarp								// [1F4FB]
+📼	myndbandsspóla							// [1F4FC]
+📽	sýningarvél							// [1F4FD] text|emoji
+📿	bænaband							// [1F4FF]
+🔀	fléttaðar örvar til hægri					// [1F500]
+🔁	endurtaka							// [1F501]
+🔂	réttsælis örvar							// [1F502]
+🔃	endurhlaða							// [1F503]
+🔄	rangsælis örvar							// [1F504]
+🔅	lítil birta							// [1F505]
+🔆	mikil birta							// [1F506]
+🔇	hljóðlaus hátalari						// [1F507]
+🔈	lágvær hátalari							// [1F508]
+🔉	hátalari í gangi						// [1F509]
+🔊	hávær hátalari							// [1F50A]
+🔋	rafhlaða							// [1F50B]
+🔌	innstunga							// [1F50C]
+🔍	stækkunargler sem vísar til vinstri				// [1F50D]
+🔎	stækkunargler sem vísar til hægri				// [1F50E]
+🔏	lás með penna							// [1F50F]
+🔐	lokaður lás							// [1F510]
+🔑	lykill								// [1F511]
+🔒	lás								// [1F512]
+🔓	opinn lás							// [1F513]
+🔔	bjalla								// [1F514]
+🔕	engin bjalla							// [1F515]
+🔖	bókamerki							// [1F516]
+🔗	tenglamerki							// [1F517]
+🔘	valhnappur							// [1F518]
+🔙	til baka							// [1F519]
+🔚	endir								// [1F51A]
+🔛	kveikt-ör							// [1F51B]
+🔜	bráðum-ör							// [1F51C]
+🔝	efst-ör								// [1F51D]
+🔞	enginn undir 18 ára						// [1F51E]
+🔟	takki: 10							// [1F51F]
+🔠	hástafir							// [1F520]
+🔡	lágstafir							// [1F521]
+🔢	tölustafir							// [1F522]
+🔣	tákn								// [1F523]
+🔤	latneska stafrófið						// [1F524]
+🔥	eldur								// [1F525]
+🔦	vasaljós							// [1F526]
+🔧	skiptilykill							// [1F527]
+🔨	hamar								// [1F528]
+🔩	bolti og ró							// [1F529]
+🔪	hnífur								// [1F52A]
+🔫	byssa								// [1F52B]
+🔬	smásjá								// [1F52C]
+🔭	sjónauki							// [1F52D]
+🔮	kristalskúla							// [1F52E]
+🔯	sexhyrnd stjarna						// [1F52F]
+🔰	græn og gul lauf						// [1F530]
+🔱	þríforkur							// [1F531]
+🔲	svartur ferningslaga hnappur					// [1F532]
+🔳	hvítur ferningslaga hnappur					// [1F533]
+🔴	stór rauður hringur						// [1F534]
+🔵	stór blár hringur						// [1F535]
+🔶	stór appelsínugulur tígull					// [1F536]
+🔷	stór blár tígull						// [1F537]
+🔸	lítill appelsínugulur tígull					// [1F538]
+🔹	lítill blár tígull						// [1F539]
+🔺	uppvísandi rauður þríhyrningur					// [1F53A]
+🔻	niðurvísandi rauður þríhyrningur				// [1F53B]
+🔼	uppvísandi þríhyrningur						// [1F53C]
+🔽	niðurvísandi þríhyrningur					// [1F53D]
+🕉	om-merki							// [1F549] text|emoji
+🕊	dúfa								// [1F54A] text|emoji
+🕋	kaaba-bygging							// [1F54B]
+🕌	moska								// [1F54C]
+🕍	sýnagóga							// [1F54D]
+🕎	menorah-ljósastika						// [1F54E]
+🕐	klukkan eitt							// [1F550]
+🕑	klukkan tvö							// [1F551]
+🕒	klukkan þrjú							// [1F552]
+🕓	klukkan fjögur							// [1F553]
+🕔	klukkan fimm							// [1F554]
+🕕	klukkan sex							// [1F555]
+🕖	klukkan sjö							// [1F556]
+🕗	klukkan átta							// [1F557]
+🕘	klukkan níu							// [1F558]
+🕙	klukkan tíu							// [1F559]
+🕚	klukkan ellefu							// [1F55A]
+🕛	klukkan tólf							// [1F55B]
+🕜	hálftvö								// [1F55C]
+🕝	hálfþrjú							// [1F55D]
+🕞	hálffjögur							// [1F55E]
+🕟	hálffimm							// [1F55F]
+🕠	hálfsex								// [1F560]
+🕡	hálfsjö								// [1F561]
+🕢	hálfátta							// [1F562]
+🕣	hálfníu								// [1F563]
+🕤	hálftíu								// [1F564]
+🕥	hálfellefu							// [1F565]
+🕦	hálftólf							// [1F566]
+🕧	hálfeitt							// [1F567]
+🕯	kerti								// [1F56F] text|emoji
+🕰	stássklukka							// [1F570] text|emoji
+🕳	hola								// [1F573] text|emoji
+🕴	svífandi bisnessmaður í jakkafötum				// [1F574] text|emoji
+🕵	spæjari								// [1F575] text|emoji
+🕶	sólgleraugu							// [1F576] text|emoji
+🕷	könguló								// [1F577] text|emoji
+🕸	köngulóarvefur							// [1F578] text|emoji
+🕹	stýripinni							// [1F579] text|emoji
+🕺	dansandi karl							// [1F57A]
+🖇	samankræktar bréfaklemmur					// [1F587] text|emoji
+🖊	penni								// [1F58A] text|emoji
+🖋	sjálfblekungur							// [1F58B] text|emoji
+🖌	málningarpensill						// [1F58C] text|emoji
+🖍	vaxlitur							// [1F58D] text|emoji
+🖐	upprétt hönd með glennta fingur					// [1F590] text|emoji
+🖕	langatöng							// [1F595]
+🖖	vulcan-kveðja							// [1F596]
+🖤	svart hjarta							// [1F5A4]
+🖥	heimilistölva							// [1F5A5] text|emoji
+🖨	prentari							// [1F5A8] text|emoji
+🖱	tölvumús							// [1F5B1] text|emoji
+🖲	stýrihjól							// [1F5B2] text|emoji
+🖼	rammi með mynd							// [1F5BC] text|emoji
+🗂	spjaldskráarblöð						// [1F5C2] text|emoji
+🗃	kassi með minnismiðum						// [1F5C3] text|emoji
+🗄	skjalaskápur							// [1F5C4] text|emoji
+🗑	ruslakarfa							// [1F5D1] text|emoji
+🗒	minnisblokk með gormum						// [1F5D2] text|emoji
+🗓	dagatal með gormum						// [1F5D3] text|emoji
+🗜	þjöppun								// [1F5DC] text|emoji
+🗝	gamall lykill							// [1F5DD] text|emoji
+🗞	samanrúllað dagblað						// [1F5DE] text|emoji
+🗡	rýtingur							// [1F5E1] text|emoji
+🗣	talandi höfuð							// [1F5E3] text|emoji
+🗨	vinstri talblaðra						// [1F5E8] text|emoji
+🗯	reiðileg hægri talblaðra					// [1F5EF] text|emoji
+🗳	kjörseðlakassi með kjörseðli					// [1F5F3] text|emoji
+🗺	heimskort							// [1F5FA] text|emoji
+🗻	fuji-fjall							// [1F5FB]
+🗼	tokyo-turninn							// [1F5FC]
+🗽	frelsisstyttan							// [1F5FD]
+🗾	kort af Japan							// [1F5FE]
+🗿	moyai-stytta							// [1F5FF]
+
+// 1F600..1F64F : Emoticons
+
+😀	glottandi andlit						// [1F600]
+😁	glottandi andlit með brosandi augum				// [1F601]
+😂	andlit tárast af gleði						// [1F602]
+😃	brosandi andlit með opinn munn					// [1F603]
+😄	hlæjandi andlit							// [1F604]
+😅	bros og kaldur sviti						// [1F605]
+😆	brosandi andlit með pírð augu					// [1F606]
+😇	brosandi andlit með geislabaug					// [1F607]
+😈	broskarl með horn						// [1F608]
+😉	blikkandi andlit						// [1F609]
+😊	bros								// [1F60A]
+😋	andlit að njóta matar						// [1F60B]
+😌	andlit sem er létt						// [1F60C]
+😍	brosandi andlit með hjartalaga augu				// [1F60D]
+😎	brosandi andlit með sólgleraugu					// [1F60E]
+😏	sjálfsánægt andlit						// [1F60F]
+😐	hlutlaust andlit						// [1F610]
+😑	svipbrigðalaust andlit						// [1F611]
+😒	engin gleði							// [1F612]
+😓	kaldur sviti							// [1F613]
+😔	íbyggið andlit							// [1F614]
+😕	ruglingslegt andlit						// [1F615]
+😖	forviða andlit							// [1F616]
+😗	kyssandi andlit							// [1F617]
+😘	kveðjukoss							// [1F618]
+😙	kyssa og brosa							// [1F619]
+😚	kyssandi andlit með lokuð augu					// [1F61A]
+😛	tunga út							// [1F61B]
+😜	blikkarl með útrétta tungu					// [1F61C]
+😝	oj								// [1F61D]
+😞	vonbrigði							// [1F61E]
+😟	áhyggjufullt andlit						// [1F61F]
+😠	reitt andlit							// [1F620]
+😡	fýlulegt andlit							// [1F621]
+😢	grátandi andlit							// [1F622]
+😣	klúður								// [1F623]
+😤	sigursvipur							// [1F624]
+😥	léttir								// [1F625]
+😦	leitt andlit							// [1F626]
+😧	angistarfullt andlit						// [1F627]
+😨	hrætt andlit							// [1F628]
+😩	þreytulegt andlit						// [1F629]
+😪	syfjað andlit							// [1F62A]
+😫	þreytt andlit							// [1F62B]
+😬	gretta								// [1F62C]
+😭	hágrátandi andlit						// [1F62D]
+😮	andlit með opinn munn						// [1F62E]
+😯	undrandi andlit							// [1F62F]
+😰	sveitt andlit							// [1F630]
+😱	óttaslegið andlit						// [1F631]
+😲	stórundrandi andlit						// [1F632]
+😳	andlit að roðna							// [1F633]
+😴	sofandi								// [1F634]
+😵	svimi								// [1F635]
+😶	andlit án munns							// [1F636]
+😷	andlit með grímu						// [1F637]
+😸	glottandi köttur						// [1F638]
+😹	gleðitár							// [1F639]
+😺	hlæjandi köttur							// [1F63A]
+😻	brosandi köttur							// [1F63B]
+😼	lúmskur köttur							// [1F63C]
+😽	kyssandi köttur							// [1F63D]
+😾	köttur í fýlu							// [1F63E]
+😿	grátandi köttur							// [1F63F]
+🙀	hnugginn köttur							// [1F640]
+🙁	andlit með litla skeifu						// [1F641]
+🙂	milt bros							// [1F642]
+🙃	andlit á hvolfi							// [1F643]
+🙄	ranghvolfir augum						// [1F644]
+🙅	ekki gott							// [1F645]
+🙆	allt í lagi							// [1F646]
+🙇	fyrirgefðu							// [1F647]
+🙈	api heldur fyrir augu						// [1F648]
+🙉	api heldur fyrir eyru						// [1F649]
+🙊	api heldur fyrir munn						// [1F64A]
+🙋	gleði								// [1F64B]
+🙌	húrra								// [1F64C]
+🙍	manneskja með ygglibrún						// [1F64D]
+🙎	manneskja í fýlu						// [1F64E]
+🙏	bæn								// [1F64F]
+
+// 1F680..1F6FF : Transport and Map Symbols
+
+🚀	eldflaug							// [1F680]
+🚁	þyrla								// [1F681]
+🚂	eimreið								// [1F682]
+🚃	járnbrautarlest							// [1F683]
+🚄	hraðlest							// [1F684]
+🚅	háhraðalest							// [1F685]
+🚆	lest								// [1F686]
+🚇	neðanjarðarlest							// [1F687]
+🚈	léttlest							// [1F688]
+🚉	lestarstöð							// [1F689]
+🚊	vagn								// [1F68A]
+🚋	sporvagn							// [1F68B]
+🚌	strætó								// [1F68C]
+🚍	strætó á móti							// [1F68D]
+🚎	trissustrætó							// [1F68E]
+🚏	rúta								// [1F68F]
+🚐	smárúta								// [1F690]
+🚑	sjúkrabíll							// [1F691]
+🚒	slökkviliðsbíll							// [1F692]
+🚓	lögreglubíll							// [1F693]
+🚔	lögreglubíll á móti						// [1F694]
+🚕	leigubíll							// [1F695]
+🚖	leigubíll á móti						// [1F696]
+🚗	bíll								// [1F697]
+🚘	bíll á móti							// [1F698]
+🚙	jeppi								// [1F699]
+🚚	flutningabíll							// [1F69A]
+🚛	vörubíll							// [1F69B]
+🚜	dráttarvél							// [1F69C]
+🚝	einteinungur							// [1F69D]
+🚞	fjallalest							// [1F69E]
+🚟	loftlest							// [1F69F]
+🚠	kláfferja í fjalli						// [1F6A0]
+🚡	kláfferja á línu						// [1F6A1]
+🚢	skip								// [1F6A2]
+🚣	árabátur							// [1F6A3]
+🚤	hraðbátur							// [1F6A4]
+🚥	lárétt umferðarljós						// [1F6A5]
+🚦	lóðrétt umferðarljós						// [1F6A6]
+🚧	vegavinna							// [1F6A7]
+🚨	sírena								// [1F6A8]
+🚩	flagg								// [1F6A9]
+🚪	dyr								// [1F6AA]
+🚫	bannað								// [1F6AB]
+🚬	sígaretta							// [1F6AC]
+🚭	reykingar bannaðar						// [1F6AD]
+🚮	merki, rusl í ruslatunnu					// [1F6AE]
+🚯	ekkert rusl							// [1F6AF]
+🚰	drykkjarvatn							// [1F6B0]
+🚱	óhæft drykkjarvatn						// [1F6B1]
+🚲	hjólreiðar							// [1F6B2]
+🚳	hjólreiðar bannaðar						// [1F6B3]
+🚴	hjól								// [1F6B4]
+🚵	fjallahjól							// [1F6B5]
+🚶	vegfarandi							// [1F6B6]
+🚷	bannað að ganga							// [1F6B7]
+🚸	börn á ferð							// [1F6B8]
+🚹	karlaklósett							// [1F6B9]
+🚺	kvennaklósett							// [1F6BA]
+🚻	salernisaðstaða							// [1F6BB]
+🚼	barnamerki							// [1F6BC]
+🚽	klósett								// [1F6BD]
+🚾	salerni								// [1F6BE]
+🚿	sturta								// [1F6BF]
+🛀	bað								// [1F6C0]
+🛁	baðker								// [1F6C1]
+🛂	vegabréfaeftirlit						// [1F6C2]
+🛃	tollur								// [1F6C3]
+🛄	töskur								// [1F6C4]
+🛅	farangursgeymsla						// [1F6C5]
+🛋	sófi og lampi							// [1F6CB] text|emoji
+🛌	manneskja í rúmi						// [1F6CC]
+🛍	innkaupapoki							// [1F6CD] text|emoji
+🛎	hótelbjalla							// [1F6CE] text|emoji
+🛏	rúm								// [1F6CF] text|emoji
+🛐	tilbeiðslustaður						// [1F6D0]
+🛑	stöðvunarskylda							// [1F6D1]
+🛒	innkaupakerra							// [1F6D2]
+🛕	hindúahof						// [1F6D5]
+🛖	kofi							// [1F6D6]
+🛗	lyfta							// [1F6D7]
+🛜	þráðlaust						// [1F6DC]
+🛝	rennibraut						// [1F6DD]
+🛞	hjól							// [1F6DE]
+🛟	björgunarhringur					// [1F6DF]
+🛠	hamar og skiptilykill						// [1F6E0] text|emoji
+🛡	skjöldur							// [1F6E1] text|emoji
+🛢	olíutunna							// [1F6E2] text|emoji
+🛣	hraðbraut							// [1F6E3] text|emoji
+🛤	járnbrautarteinar						// [1F6E4] text|emoji
+🛥	mótorbátur							// [1F6E5] text|emoji
+🛩	lítil flugvél							// [1F6E9] text|emoji
+🛫	flugvél í flugtaki						// [1F6EB]
+🛬	flugvél í lendingu						// [1F6EC]
+🛰	gervihnöttur							// [1F6F0] text|emoji
+🛳	farþegaskip							// [1F6F3] text|emoji
+🛴	sparkhjól							// [1F6F4]
+🛵	vespa								// [1F6F5]
+🛶	kanó								// [1F6F6]
+🛷	sleði								// [1F6F7]
+🛸	fljúgandi diskur						// [1F6F8]
+🛹	hlaupabretti							// [1F6F9]
+🛺	vélknúinn léttvagn					// [1F6FA]
+🛻	pallbíll						// [1F6FB]
+🛼	hjólaskautar						// [1F6FC]
+
+// 1F780..1F7FF : Geometric Shapes Extended
+🟠	appelsínugulur hringur					// [1F7E0]
+🟡	gulur hringur						// [1F7E1]
+🟢	grænn hringur						// [1F7E2]
+🟣	fjólublár hringur					// [1F7E3]
+🟤	brúnn hringur						// [1F7E4]
+🟥	rauður ferningur					// [1F7E5]
+🟦	blár ferningur						// [1F7E6]
+🟧	appelsínugulur ferningur				// [1F7E7]
+🟨	gulur ferningur						// [1F7E8]
+🟩	grænn ferningur						// [1F7E9]
+🟪	fjólublár ferningur					// [1F7EA]
+🟫	brúnn ferningur						// [1F7EB]
+🟰	þungt jafnaðarmerki					// [1F7F0]
+🤌	klípandi fingur						// [1F90C]
+🤍	hvítt hjarta						// [1F90D]
+🤎	brúnt hjarta						// [1F90E]
+🤏	klípandi hönd						// [1F90F]
+
+// 1F900..1F9FF : Supplemental Symbols and Pictographs
+
+🤐	andlit með rennilás fyrir munninum				// [1F910]
+🤑	andlit með peningaseðil í munninum				// [1F911]
+🤒	andlit með hitamæli í munninum					// [1F912]
+🤓	nördaandlit							// [1F913]
+🤔	hugsandi andlit							// [1F914]
+🤕	andlit með sárabindi						// [1F915]
+🤖	vélmennisandlit							// [1F916]
+🤗	faðmandi andlit							// [1F917]
+🤘	rokkmerki							// [1F918]
+🤙	hringdu								// [1F919]
+🤚	upprétt hönd							// [1F91A]
+🤛	hægri hnefi							// [1F91B]
+🤜	vinstri hnefi							// [1F91C]
+🤝	handaband							// [1F91D]
+🤞	krosslagðir fingur						// [1F91E]
+🤟	elska-þig merki							// [1F91F]
+🤠	kúreki								// [1F920]
+🤡	trúður								// [1F921]
+🤢	gubbukall							// [1F922]
+🤣	veltist um af hlátri						// [1F923]
+🤤	slefandi							// [1F924]
+🤥	lygari								// [1F925]
+🤦	hönd fyrir andlit						// [1F926]
+🤧	hnerrandi andlit						// [1F927]
+🤨	andlit með yppta brún						// [1F928]
+🤩	stjörnustjarfur							// [1F929]
+🤪	sturlað andlit							// [1F92A]
+🤫	andilt að segja uss						// [1F92B]
+🤬	andlit með tákn fyrir munni					// [1F92C]
+🤭	andlit með hendi fyrir munn					// [1F92D]
+🤮	ælandi andlit							// [1F92E]
+🤯	splundrað höfuð							// [1F92F]
+🤰	ólétt kona							// [1F930]
+🤱	brjóstagjöf							// [1F931]
+🤲	lófar saman							// [1F932]
+🤳	sjálfa								// [1F933]
+🤴	prins								// [1F934]
+🤵	smóking								// [1F935]
+🤶	jólamamma							// [1F936]
+🤷	yppir öxlum							// [1F937]
+🤸	handalaup							// [1F938]
+🤹	boltakast							// [1F939]
+🤺	skylmingar							// [1F93A]
+🤼	glíma								// [1F93C]
+🤽	manneskja í vatnapóló						// [1F93D]
+🤾	handbolti							// [1F93E]
+🤿	köfunargríma						// [1F93F]
+🥀	sölnað blóm							// [1F940]
+🥁	tromma								// [1F941]
+🥂	skál								// [1F942]
+🥃	viskíglas							// [1F943]
+🥄	skeið								// [1F944]
+🥅	mark								// [1F945]
+🥇	gullverðlaun							// [1F947]
+🥈	silfurverðlaun							// [1F948]
+🥉	bronsverðlaun							// [1F949]
+🥊	boxhanski							// [1F94A]
+🥋	bardagabúningur							// [1F94B]
+🥌	krullusteinn							// [1F94C]
+🥍	háfleikur						// [1F94D]
+🥎	mjúkbolti							// [1F94E]
+🥏	frisbídiskur							// [1F94F]
+🥐	horn								// [1F950]
+🥑	avókadó								// [1F951]
+🥒	gúrka								// [1F952]
+🥓	beikon								// [1F953]
+🥔	kartafla							// [1F954]
+🥕	gulrót								// [1F955]
+🥖	fransbrauð							// [1F956]
+🥗	salat								// [1F957]
+🥘	pönnuréttur							// [1F958]
+🥙	kebab								// [1F959]
+🥚	egg								// [1F95A]
+🥛	mjólkurglas							// [1F95B]
+🥜	jarðhneta							// [1F95C]
+🥝	kíví								// [1F95D]
+🥞	pönnukökur							// [1F95E]
+🥟	dumpling							// [1F95F]
+🥠	spádómskaka							// [1F960]
+🥡	takeaway-box							// [1F961]
+🥢	matprjónar							// [1F962]
+🥣	skál og skeið							// [1F963]
+🥤	glas og rör							// [1F964]
+🥥	kókoshneta							// [1F965]
+🥦	brokkólí							// [1F966]
+🥧	baka								// [1F967]
+🥨	saltkringla							// [1F968]
+🥩	kjötsneið							// [1F969]
+🥪	samloka								// [1F96A]
+🥫	dósamatur							// [1F96B]
+🥬	kál								// [1F96C]
+🥭	mangó								// [1F96D]
+🥮	tunglkaka							// [1F96E]
+🥯	beygla								// [1F96F]
+🥰	brosandi andlit með 3 hjörtum					// [1F970]
+🥱	geispandi andlit					// [1F971]
+🥲	brosandi andlit með tár					// [1F972]
+🥳	partíandlit							// [1F973]
+🥴	ringlað andlit							// [1F974]
+🥵	heitt								// [1F975]
+🥶	kalt								// [1F976]
+🥷	ninja							// [1F977]
+🥸	dulargervi						// [1F978]
+🥹	andlit að berjast við tárin				// [1F979]
+🥺	biðjandi andlit							// [1F97A]
+🥻	sari							// [1F97B]
+🥼	læknasloppur							// [1F97C]
+🥽	hlífðargleraugu							// [1F97D]
+🥾	gönguskór							// [1F97E]
+🥿	lágbotna skór							// [1F97F]
+🦀	krabbi								// [1F980]
+🦁	ljónshöfuð							// [1F981]
+🦂	sporðdreki							// [1F982]
+🦃	kalkúnn								// [1F983]
+🦄	einhyrningshöfuð						// [1F984]
+🦅	örn								// [1F985]
+🦆	önd								// [1F986]
+🦇	leðurblaka							// [1F987]
+🦈	hákarl								// [1F988]
+🦉	ugla								// [1F989]
+🦊	refshöfuð							// [1F98A]
+🦋	fiðrildi							// [1F98B]
+🦌	´hjartardýr							// [1F98C]
+🦍	górilla								// [1F98D]
+🦎	eðla								// [1F98E]
+🦏	nashyrningur							// [1F98F]
+🦐	rækja								// [1F990]
+🦑	smokkfiskur							// [1F991]
+🦒	gíraffi								// [1F992]
+🦓	sebrahestur							// [1F993]
+🦔	broddgöltur							// [1F994]
+🦕	graseðla							// [1F995]
+🦖	Grameðla							// [1F996]
+🦗	krybba								// [1F997]
+🦘	kengúra								// [1F998]
+🦙	lamadýr								// [1F999]
+🦚	páfugl								// [1F99A]
+🦛	flóðhestur							// [1F99B]
+🦜	páfagaukur							// [1F99C]
+🦝	þvottabjörn							// [1F99D]
+🦞	humar								// [1F99E]
+🦟	moskító								// [1F99F]
+🦠	örvera								// [1F9A0]
+🦡	greifingi							// [1F9A1]
+🦢	svanur								// [1F9A2]
+🦣	loðfíll							// [1F9A3]
+🦤	dúdúfugl						// [1F9A4]
+🦥	letidýr							// [1F9A5]
+🦦	otur							// [1F9A6]
+🦧	órangútan						// [1F9A7]
+🦨	skunkur							// [1F9A8]
+🦩	flamingói						// [1F9A9]
+🦪	ostra							// [1F9AA]
+🦫	bifur							// [1F9AB]
+🦬	vísundur						// [1F9AC]
+🦭	selur							// [1F9AD]
+🦮	leiðsöguhundur						// [1F9AE]
+🦯	blindrastafur						// [1F9AF]
+🦰	rautt hár							// [1F9B0]
+🦱	krullur								// [1F9B1]
+🦲	skalli								// [1F9B2]
+🦳	hvítt hár							// [1F9B3]
+🦴	bein								// [1F9B4]
+🦵	fótleggur							// [1F9B5]
+🦶	fótur								// [1F9B6]
+🦷	tennur								// [1F9B7]
+🦸	ofurhetja							// [1F9B8]
+🦹	skúrkur								// [1F9B9]
+🦺	öryggisvesti						// [1F9BA]
+🦻	eyra með heyrnartæki					// [1F9BB]
+🦼	vélknúinn hjólastóll					// [1F9BC]
+🦽	hjólastóll						// [1F9BD]
+🦾	vélhandleggur						// [1F9BE]
+🦿	vélfótleggur						// [1F9BF]
+🧀	götóttur ostur							// [1F9C0]
+🧁	bollakaka							// [1F9C1]
+🧂	salt								// [1F9C2]
+🧃	ferna							// [1F9C3]
+🧄	hvítlaukur						// [1F9C4]
+🧅	laukur							// [1F9C5]
+🧆	falafel							// [1F9C6]
+🧇	vaffla							// [1F9C7]
+🧈	smjör							// [1F9C8]
+🧉	mate							// [1F9C9]
+🧊	ísmoli							// [1F9CA]
+🧋	kúlute							// [1F9CB]
+🧌	jarðálfur						// [1F9CC]
+🧍	standandi manneskja					// [1F9CD]
+🧎	krjúpandi manneskja					// [1F9CE]
+🧏	heyrnarlaus						// [1F9CF]
+🧐	andlit með einglyrni						// [1F9D0]
+🧑	manneskja							// [1F9D1]
+🧒	barn								// [1F9D2]
+🧓	eldri fullorðinn						// [1F9D3]
+🧔	maður með skegg							// [1F9D4]
+🧕	kona með höfuðklút						// [1F9D5]
+🧖	einstaklingur í gufubaði					// [1F9D6]
+🧗	maður í klettaklifri						// [1F9D7]
+🧘	maður í lótuspósu						// [1F9D8]
+🧙	galdramaður							// [1F9D9]
+🧚	álfur								// [1F9DA]
+🧛	vampíra								// [1F9DB]
+🧜	sæbúi								// [1F9DC]
+🧝	huldumaður							// [1F9DD]
+🧞	andi								// [1F9DE]
+🧟	uppvakningur							// [1F9DF]
+🧠	heili								// [1F9E0]
+🧡	appelsínugult hjarta						// [1F9E1]
+🧢	derhúfa								// [1F9E2]
+🧣	trefill								// [1F9E3]
+🧤	hanskar								// [1F9E4]
+🧥	kápa								// [1F9E5]
+🧦	sokkar								// [1F9E6]
+🧧	rautt umslag							// [1F9E7]
+🧨	púðurkerling							// [1F9E8]
+🧩	pússl								// [1F9E9]
+🧪	tilraunaglas							// [1F9EA]
+🧫	petrílskál							// [1F9EB]
+🧬	dna								// [1F9EC]
+🧭	áttaviti							// [1F9ED]
+🧮	talnagrind							// [1F9EE]
+🧯	slökkvitæki						// [1F9EF]
+🧰	verkfærakassi							// [1F9F0]
+🧱	múrsteinn							// [1F9F1]
+🧲	segull								// [1F9F2]
+🧳	farangur							// [1F9F3]
+🧴	áburðarflaska							// [1F9F4]
+🧵	tvinni								// [1F9F5]
+🧶	garn								// [1F9F6]
+🧷	öryggisnæla							// [1F9F7]
+🧸	bangsi								// [1F9F8]
+🧹	kústur								// [1F9F9]
+🧺	karfa								// [1F9FA]
+🧻	pappírsrúlla							// [1F9FB]
+🧼	sápa								// [1F9FC]
+🧽	svampur								// [1F9FD]
+🧾	kvittun								// [1F9FE]
+🧿	nazar verndargripur						// [1F9FF]
+
+// Country Flags (Regional Indicator Symbols) -- ISO 3166-1 Country Codes
+
+🇦🇨	fáni: Ascension-eyja						// [1F1E6 1F1E8] AC
+🇦🇩	fáni: Andorra							// [1F1E6 1F1E9] AD
+🇦🇪	fáni: Sameinuðu arabísku furstadæmin				// [1F1E6 1F1EA] AE
+🇦🇫	fáni: Afganistan						// [1F1E6 1F1EB] AF
+🇦🇬	fáni: Antígva og Barbúda					// [1F1E6 1F1EC] AG
+🇦🇮	fáni: Angvilla							// [1F1E6 1F1EE] AI
+🇦🇱	fáni: Albanía							// [1F1E6 1F1F1] AL
+🇦🇲	fáni: Armenía							// [1F1E6 1F1F2] AM
+🇦🇴	fáni: Angóla							// [1F1E6 1F1F4] AO
+🇦🇶	fáni: Suðurskautslandið						// [1F1E6 1F1F6] AQ
+🇦🇷	fáni: Argentína							// [1F1E6 1F1F7] AR
+🇦🇸	fáni: Bandaríska Samóa						// [1F1E6 1F1F8] AS
+🇦🇹	fáni: Austurríki						// [1F1E6 1F1F9] AT
+🇦🇺	fáni: Ástralía							// [1F1E6 1F1FA] AU
+🇦🇼	fáni: Arúba							// [1F1E6 1F1FC] AW
+🇦🇽	fáni: Álandseyjar						// [1F1E6 1F1FD] AX
+🇦🇿	fáni: Aserbaídsjan						// [1F1E6 1F1FF] AZ
+🇧🇦	fáni: Bosnía og Hersegóvína					// [1F1E7 1F1E6] BA
+🇧🇧	fáni: Barbados							// [1F1E7 1F1E7] BB
+🇧🇩	fáni: Bangladess						// [1F1E7 1F1E9] BD
+🇧🇪	fáni: Belgía							// [1F1E7 1F1EA] BE
+🇧🇫	fáni: Búrkína Fasó						// [1F1E7 1F1EB] BF
+🇧🇬	fáni: Búlgaría							// [1F1E7 1F1EC] BG
+🇧🇭	fáni: Barein							// [1F1E7 1F1ED] BH
+🇧🇮	fáni: Búrúndí							// [1F1E7 1F1EE] BI
+🇧🇯	fáni: Benín							// [1F1E7 1F1EF] BJ
+🇧🇱	fáni: Sankti Bartólómeusareyjar					// [1F1E7 1F1F1] BL
+🇧🇲	fáni: Bermúdaeyjar						// [1F1E7 1F1F2] BM
+🇧🇳	fáni: Brúnei							// [1F1E7 1F1F3] BN
+🇧🇴	fáni: Bólivía							// [1F1E7 1F1F4] BO
+🇧🇶	fáni: Karíbahafshluti Hollands					// [1F1E7 1F1F6] BQ
+🇧🇷	fáni: Brasilía							// [1F1E7 1F1F7] BR
+🇧🇸	fáni: Bahamaeyjar						// [1F1E7 1F1F8] BS
+🇧🇹	fáni: Bútan							// [1F1E7 1F1F9] BT
+🇧🇻	fáni: Bouveteyja						// [1F1E7 1F1FB] BV
+🇧🇼	fáni: Botsvana							// [1F1E7 1F1FC] BW
+🇧🇾	fáni: Hvíta-Rússland						// [1F1E7 1F1FE] BY
+🇧🇿	fáni: Belís							// [1F1E7 1F1FF] BZ
+🇨🇦	fáni: Kanada							// [1F1E8 1F1E6] CA
+🇨🇨	fáni: Kókoseyjar (Keeling)					// [1F1E8 1F1E8] CC
+🇨🇩	fáni: Kongó-Kinshasa						// [1F1E8 1F1E9] CD
+🇨🇫	fáni: Mið-Afríkulýðveldið					// [1F1E8 1F1EB] CF
+🇨🇬	fáni: Kongó-Brazzaville						// [1F1E8 1F1EC] CG
+🇨🇭	fáni: Sviss							// [1F1E8 1F1ED] CH
+🇨🇮	fáni: Côte d’Ivoire						// [1F1E8 1F1EE] CI
+🇨🇰	fáni: Cooks-eyjar						// [1F1E8 1F1F0] CK
+🇨🇱	fáni: Síle							// [1F1E8 1F1F1] CL
+🇨🇲	fáni: Kamerún							// [1F1E8 1F1F2] CM
+🇨🇳	fáni: Kína							// [1F1E8 1F1F3] CN
+🇨🇴	fáni: Kólumbía							// [1F1E8 1F1F4] CO
+🇨🇵	fáni: Clipperton-eyja						// [1F1E8 1F1F5] CP
+🇨🇷	fáni: Kostaríka							// [1F1E8 1F1F7] CR
+🇨🇺	fáni: Kúba							// [1F1E8 1F1FA] CU
+🇨🇻	fáni: Grænhöfðaeyjar						// [1F1E8 1F1FB] CV
+🇨🇼	fáni: Curacao							// [1F1E8 1F1FC] CW
+🇨🇽	fáni: Jólaey							// [1F1E8 1F1FD] CX
+🇨🇾	fáni: Kýpur							// [1F1E8 1F1FE] CY
+🇨🇿	fáni: Tékkland							// [1F1E8 1F1FF] CZ
+🇩🇪	fáni: Þýskaland							// [1F1E9 1F1EA] DE
+🇩🇬	fáni: Diego Garcia						// [1F1E9 1F1EC] DG
+🇩🇯	fáni: Djíbútí							// [1F1E9 1F1EF] DJ
+🇩🇰	fáni: Danmörk							// [1F1E9 1F1F0] DK
+🇩🇲	fáni: Dóminíka							// [1F1E9 1F1F2] DM
+🇩🇴	fáni: Dóminíska lýðveldið					// [1F1E9 1F1F4] DO
+🇩🇿	fáni: Alsír							// [1F1E9 1F1FF] DZ
+🇪🇦	fáni: Ceuta og Melilla						// [1F1EA 1F1E6] EA
+🇪🇨	fáni: Ekvador							// [1F1EA 1F1E8] EC
+🇪🇪	fáni: Eistland							// [1F1EA 1F1EA] EE
+🇪🇬	fáni: Egyptaland						// [1F1EA 1F1EC] EG
+🇪🇭	fáni: Vestur-Sahara						// [1F1EA 1F1ED] EH
+🇪🇷	fáni: Erítrea							// [1F1EA 1F1F7] ER
+🇪🇸	fáni: Spánn							// [1F1EA 1F1F8] ES
+🇪🇹	fáni: Eþíópía							// [1F1EA 1F1F9] ET
+🇪🇺	fáni: Evrópusambandið						// [1F1EA 1F1FA] EU
+🇫🇮	fáni: Finnland							// [1F1EB 1F1EE] FI
+🇫🇯	fáni: Fídjíeyjar						// [1F1EB 1F1EF] FJ
+🇫🇰	fáni: Falklandseyjar						// [1F1EB 1F1F0] FI
+🇫🇲	fáni: Míkrónesía						// [1F1EB 1F1F2] FM
+🇫🇴	fáni: Færeyjar							// [1F1EB 1F1F4] FO
+🇫🇷	fáni: Frakkland							// [1F1EB 1F1F7] FR
+🇬🇦	fáni: Gabon							// [1F1EC 1F1E6] GA
+🇬🇧	fáni: Bretland							// [1F1EC 1F1E7] GB
+🇬🇩	fáni: Grenada							// [1F1EC 1F1E9] GD
+🇬🇪	fáni: Georgía							// [1F1EC 1F1EA] GE
+🇬🇫	fáni: Franska Gvæjana						// [1F1EC 1F1EB] GF
+🇬🇬	fáni: Guernsey							// [1F1EC 1F1EC] GG
+🇬🇭	fáni: Gana							// [1F1EC 1F1ED] GH
+🇬🇮	fáni: Gíbraltar							// [1F1EC 1F1EE] GI
+🇬🇱	fáni: Grænland							// [1F1EC 1F1F1] GL
+🇬🇲	fáni: Gambía							// [1F1EC 1F1F2] GM
+🇬🇳	fáni: Gínea							// [1F1EC 1F1F3] GN
+🇬🇵	fáni: Gvadelúpeyjar						// [1F1EC 1F1F5] GP
+🇬🇶	fáni: Miðbaugs-Gínea						// [1F1EC 1F1F6] GQ
+🇬🇷	fáni: Grikkland							// [1F1EC 1F1F7] GR
+🇬🇸	fáni: Suður-Georgía og Suður-Sandvíkureyjar			// [1F1EC 1F1F8] GS
+🇬🇹	fáni: Gvatemala							// [1F1EC 1F1F9] GT
+🇬🇺	fáni: Gvam							// [1F1EC 1F1FA] GU
+🇬🇼	fáni: Gínea-Bissá						// [1F1EC 1F1FC] GW
+🇬🇾	fáni: Gvæjana							// [1F1EC 1F1FE] GY
+🇭🇰	fáni: sérstjórnarsvæðið Hong Kong				// [1F1ED 1F1F0] HK
+🇭🇲	fáni: Heard og McDonaldseyjar					// [1F1ED 1F1F2] HM
+🇭🇳	fáni: Hondúras							// [1F1ED 1F1F3] HN
+🇭🇷	fáni: Króatía							// [1F1ED 1F1F7] HR
+🇭🇹	fáni: Haítí							// [1F1ED 1F1F9] HT
+🇭🇺	fáni: Ungverjaland						// [1F1ED 1F1FA] HU
+🇮🇨	fáni: Kanaríeyjar						// [1F1EE 1F1E8] IC
+🇮🇩	fáni: Indónesía							// [1F1EE 1F1E9] ID
+🇮🇪	fáni: Írland							// [1F1EE 1F1EA] IE
+🇮🇱	fáni: Ísrael							// [1F1EE 1F1F1] IL
+🇮🇲	fáni: Mön							// [1F1EE 1F1F2] IM
+🇮🇳	fáni: Indland							// [1F1EE 1F1F3] IN
+🇮🇴	fáni: Bresku Indlandshafseyjar					// [1F1EE 1F1F4] IO
+🇮🇶	fáni: Írak							// [1F1EE 1F1F6] IQ
+🇮🇷	fáni: Íran							// [1F1EE 1F1F7] IR
+🇮🇸	fáni: Ísland							// [1F1EE 1F1F8] IS
+🇮🇹	fáni: Ítalía							// [1F1EE 1F1F9] IT
+🇯🇪	fáni: Jersey							// [1F1EF 1F1EA] JE
+🇯🇲	fáni: Jamaíka							// [1F1EF 1F1F2] JM
+🇯🇴	fáni: Jórdanía							// [1F1EF 1F1F4] JO
+🇯🇵	fáni: Japan							// [1F1EF 1F1F5] JP
+🇰🇪	fáni: Kenía							// [1F1F0 1F1EA] KE
+🇰🇬	fáni: Kirgistan							// [1F1F0 1F1EC] KG
+🇰🇭	fáni: Kambódía							// [1F1F0 1F1ED] KH
+🇰🇮	fáni: Kíribatí							// [1F1F0 1F1EE] KI
+🇰🇲	fáni: Kómoreyjar						// [1F1F0 1F1F2] KM
+🇰🇳	fáni: Sankti Kitts og Nevis					// [1F1F0 1F1F3] KN
+🇰🇵	fáni: Norður-Kórea						// [1F1F0 1F1F5] KP
+🇰🇷	fáni: Suður-Kórea						// [1F1F0 1F1F7] KR
+🇰🇼	fáni: Kúveit							// [1F1F0 1F1FC] KW
+🇰🇾	fáni: Caymaneyjar						// [1F1F0 1F1FE] KY
+🇰🇿	fáni: Kasakstan							// [1F1F0 1F1FF] KZ
+🇱🇦	fáni: Laos							// [1F1F1 1F1E6] LA
+🇱🇧	fáni: Líbanon							// [1F1F1 1F1E7] LB
+🇱🇨	fáni: Sankti Lúsía						// [1F1F1 1F1E8] LC
+🇱🇮	fáni: Liechtenstein						// [1F1F1 1F1EE] LI
+🇱🇰	fáni: Srí Lanka							// [1F1F1 1F1F0] LK
+🇱🇷	fáni: Líbería							// [1F1F1 1F1F7] LR
+🇱🇸	fáni: Lesótó							// [1F1F1 1F1F8] LS
+🇱🇹	fáni: Litháen							// [1F1F1 1F1F9] LT
+🇱🇺	fáni: Lúxemborg							// [1F1F1 1F1FA] LU
+🇱🇻	fáni: Lettland							// [1F1F1 1F1FB] LV
+🇱🇾	fáni: Líbía							// [1F1F1 1F1FE] LY
+🇲🇦	fáni: Marokkó							// [1F1F2 1F1E6] MA
+🇲🇨	fáni: Mónakó							// [1F1F2 1F1E8] MC
+🇲🇩	fáni: Moldóva							// [1F1F2 1F1E9] MD
+🇲🇪	fáni: Svartfjallaland						// [1F1F2 1F1EA] ME
+🇲🇫	fáni: St. Martin						// [1F1F2 1F1EB] MF
+🇲🇬	fáni: Madagaskar						// [1F1F2 1F1EC] MG
+🇲🇭	fáni: Marshalleyjar						// [1F1F2 1F1ED] MH
+🇲🇰	fáni: Makedónía							// [1F1F2 1F1F0] MK
+🇲🇱	fáni: Malí							// [1F1F2 1F1F1] ML
+🇲🇲	fáni: Mjanmar (Búrma)						// [1F1F2 1F1F2] MM
+🇲🇳	fáni: Mongólía							// [1F1F2 1F1F3] MN
+🇲🇴	fáni: sérstjórnarsvæðið Makaó					// [1F1F2 1F1F4] MO
+🇲🇵	fáni: Norður-Maríanaeyjar					// [1F1F2 1F1F5] MP
+🇲🇶	fáni: Martiník							// [1F1F2 1F1F6] MQ
+🇲🇷	fáni: Máritanía							// [1F1F2 1F1F7] MR
+🇲🇸	fáni: Montserrat						// [1F1F2 1F1F8] MS
+🇲🇹	fáni: Malta							// [1F1F2 1F1F9] MT
+🇲🇺	fáni: Máritíus							// [1F1F2 1F1FA] MU
+🇲🇻	fáni: Maldíveyjar						// [1F1F2 1F1FB] MV
+🇲🇼	fáni: Malaví							// [1F1F2 1F1FC] MW
+🇲🇽	fáni: Mexíkó							// [1F1F2 1F1FD] MX
+🇲🇾	fáni: Malasía							// [1F1F2 1F1FE] MY
+🇲🇿	fáni: Mósambík							// [1F1F2 1F1FF] MZ
+🇳🇦	fáni: Namibía							// [1F1F3 1F1E6] NA
+🇳🇨	fáni: Nýja-Kaledónía						// [1F1F3 1F1E8] NC
+🇳🇪	fáni: Níger							// [1F1F3 1F1EA] NE
+🇳🇫	fáni: Norfolkeyja						// [1F1F3 1F1EB] NF
+🇳🇬	fáni: Nígería							// [1F1F3 1F1EC] NG
+🇳🇮	fáni: Níkaragva							// [1F1F3 1F1EE] NI
+🇳🇱	fáni: Holland							// [1F1F3 1F1F1] NL
+🇳🇴	fáni: Noregur							// [1F1F3 1F1F4] NO
+🇳🇵	fáni: Nepal							// [1F1F3 1F1F5] NP
+🇳🇷	fáni: Nárú							// [1F1F3 1F1F7] NR
+🇳🇺	fáni: Niue							// [1F1F3 1F1FA] NU
+🇳🇿	fáni: Nýja-Sjáland						// [1F1F3 1F1FF] NZ
+🇴🇲	fáni: Óman							// [1F1F4 1F1F2] OM
+🇵🇦	fáni: Panama							// [1F1F5 1F1E6] PA
+🇵🇪	fáni: Perú							// [1F1F5 1F1EA] PE
+🇵🇫	fáni: Franska Pólýnesía						// [1F1F5 1F1EB] PF
+🇵🇬	fáni: Papúa Nýja-Gínea						// [1F1F5 1F1EC] PG
+🇵🇭	fáni: Filippseyjar						// [1F1F5 1F1ED] PH
+🇵🇰	fáni: Pakistan							// [1F1F5 1F1F0] PK
+🇵🇱	fáni: Pólland							// [1F1F5 1F1F1] PL
+🇵🇲	fáni: Sankti Pierre og Miquelon					// [1F1F5 1F1F2] PM
+🇵🇳	fáni: Pitcairn-eyjar						// [1F1F5 1F1F3] PN
+🇵🇷	fáni: Púertó Ríkó						// [1F1F5 1F1F7] PR
+🇵🇸	fáni: Heimastjórnarsvæði Palestínumanna				// [1F1F5 1F1F8] PS
+🇵🇹	fáni: Portúgal							// [1F1F5 1F1F9] PT
+🇵🇼	fáni: Palá							// [1F1F5 1F1FC] PW
+🇵🇾	fáni: Paragvæ							// [1F1F5 1F1FE] PY
+🇶🇦	fáni: Katar							// [1F1F6 1F1E6] QA
+🇷🇪	fáni: Réunion							// [1F1F7 1F1EA] RE
+🇷🇴	fáni: Rúmenía							// [1F1F7 1F1F4] RO
+🇷🇸	fáni: Serbía							// [1F1F7 1F1F8] RS
+🇷🇺	fáni: Rússland							// [1F1F7 1F1FA] RU
+🇷🇼	fáni: Rúanda							// [1F1F7 1F1FC] RW
+🇸🇦	fáni: Sádi-Arabía						// [1F1F8 1F1E6] SA
+🇸🇧	fáni: Salómonseyjar						// [1F1F8 1F1E7] SB
+🇸🇨	fáni: Seychelles-eyjar						// [1F1F8 1F1E8] SC
+🇸🇩	fáni: Súdan							// [1F1F8 1F1E9] SD
+🇸🇪	fáni: Svíþjóð							// [1F1F8 1F1EA] SE
+🇸🇬	fáni: Singapúr							// [1F1F8 1F1EC] SG
+🇸🇭	fáni: Sankti Helena						// [1F1F8 1F1ED] SH
+🇸🇮	fáni: Slóvenía							// [1F1F8 1F1EE] SI
+🇸🇯	fáni: Svalbarði og Jan Mayen					// [1F1F8 1F1EF] SJ
+🇸🇰	fáni: Slóvakía							// [1F1F8 1F1F0] SK
+🇸🇱	fáni: Síerra Leóne						// [1F1F8 1F1F1] SL
+🇸🇲	fáni: San Marínó						// [1F1F8 1F1F2] SM
+🇸🇳	fáni: Senegal							// [1F1F8 1F1F3] SN
+🇸🇴	fáni: Sómalía							// [1F1F8 1F1F4] SO
+🇸🇷	fáni: Súrínam							// [1F1F8 1F1F7] SR
+🇸🇸	fáni: Suður-Súdan						// [1F1F8 1F1F8] SS
+🇸🇹	fáni: Saó Tóme og Prinsípe					// [1F1F8 1F1F9] ST
+🇸🇻	fáni: El Salvador						// [1F1F8 1F1FB] SV
+🇸🇽	fáni: Sankti Martin						// [1F1F8 1F1FD] SX
+🇸🇾	fáni: Sýrland							// [1F1F8 1F1FE] SY
+🇸🇿	fáni: Svasíland							// [1F1F8 1F1FF] SZ
+🇹🇦	fáni: Tristan da Cunha						// [1F1F9 1F1E6] TA
+🇹🇨	fáni: Turks- og Caicoseyjar					// [1F1F9 1F1E8] TC
+🇹🇩	fáni: Tsjad							// [1F1F9 1F1E9] TD
+🇹🇫	fáni: Frönsku suðlægu landsvæðin				// [1F1F9 1F1EB] TF
+🇹🇬	fáni: Tógó							// [1F1F9 1F1EC] TG
+🇹🇭	fáni: Taíland							// [1F1F9 1F1ED] TH
+🇹🇯	fáni: Tadsjikistan						// [1F1F9 1F1EF] TJ
+🇹🇰	fáni: Tókelá							// [1F1F9 1F1F0] TK
+🇹🇱	fáni: Tímor-Leste						// [1F1F9 1F1F1] TL
+🇹🇲	fáni: Túrkmenistan						// [1F1F9 1F1F2] TM
+🇹🇳	fáni: Túnis							// [1F1F9 1F1F3] TN
+🇹🇴	fáni: Tonga							// [1F1F9 1F1F4] TO
+🇹🇷	fáni: Tyrkland							// [1F1F9 1F1F7] TR
+🇹🇹	fáni: Trínidad og Tóbagó					// [1F1F9 1F1F9] TT
+🇹🇻	fáni: Túvalú							// [1F1F9 1F1FB] TV
+🇹🇼	fáni: Taívan							// [1F1F9 1F1FC] TW
+🇹🇿	fáni: Tansanía							// [1F1F9 1F1FF] TZ
+🇺🇦	fáni: Úkraína							// [1F1FA 1F1E6] UA
+🇺🇬	fáni: Úganda							// [1F1FA 1F1EC] UG
+🇺🇲	fáni: Smáeyjar Bandaríkjanna					// [1F1FA 1F1F2] UM
+🇺🇳	fáni: Sameinuðu þjóðirnar					// [1F1FA 1F1F3] UN
+🇺🇸	fáni: Bandaríkin						// [1F1FA 1F1F8] US
+🇺🇾	fáni: Úrúgvæ							// [1F1FA 1F1FE] UY
+🇺🇿	fáni: Úsbekistan						// [1F1FA 1F1FF] UZ
+🇻🇦	fáni: Vatíkanið							// [1F1FB 1F1E6] VA
+🇻🇨	fáni: Sankti Vinsent og Grenadíneyjar				// [1F1FB 1F1E8] VC
+🇻🇪	fáni: Venesúela							// [1F1FB 1F1EA] VE
+🇻🇬	fáni: Bresku Jómfrúaeyjar					// [1F1FB 1F1EC] VG
+🇻🇮	fáni: Bandarísku Jómfrúaeyjar					// [1F1FB 1F1EE] VI
+🇻🇳	fáni: Víetnam							// [1F1FB 1F1F3] VN
+🇻🇺	fáni: Vanúatú							// [1F1FB 1F1FA] VU
+🇼🇫	fáni: Wallis- og Fútúnaeyjar					// [1F1FC 1F1EB] WF
+🇼🇸	fáni: Samóa							// [1F1FC 1F1F8] WS
+🇽🇰	fáni: Kósóvó							// [1F1FD 1F1F0] XK
+🇾🇪	fáni: Jemen							// [1F1FE 1F1EA] YE
+🇾🇹	fáni: Mayotte							// [1F1FE 1F1F9] YT
+🇿🇦	fáni: Suður-Afríka						// [1F1FF 1F1E6] ZA
+🇿🇲	fáni: Sambía							// [1F1FF 1F1F2] ZM
+🇿🇼	fáni: Simbabve							// [1F1FF 1F1FC] ZW
+
+// Subdivision Flags -- ISO 3166-2 Subdivision Codes
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿	fáni: England						// [1F3F4 E0067 E0062 E0065 E006E E0067 E007F]
+🏴󠁧󠁢󠁳󠁣󠁴󠁿	fáni: Skotland						// [1F3F4 E0067 E0062 E0073 E0063 E0074 E007F]
+🏴󠁧󠁢󠁷󠁬󠁳󠁿	fáni: Wales						// [1F3F4 E0067 E0062 E0077 E006C E0073 E007F]
+
+// Keycaps (NOTE: keycap 10 is a single Unicode codepoint)
+
+#️⃣	takki: #							// [0023 FE0F 20E3]
+*️⃣	takki: *							// [002A FE0F 20E3]
+0️⃣	takki: 0							// [0030 FE0F 20E3]
+1️⃣	takki: 1							// [0031 FE0F 20E3]
+2️⃣	takki: 2							// [0032 FE0F 20E3]
+3️⃣	takki: 3							// [0033 FE0F 20E3]
+4️⃣	takki: 4							// [0034 FE0F 20E3]
+5️⃣	takki: 5							// [0035 FE0F 20E3]
+6️⃣	takki: 6							// [0036 FE0F 20E3]
+7️⃣	takki: 7							// [0037 FE0F 20E3]
+8️⃣	takki: 8							// [0038 FE0F 20E3]
+9️⃣	takki: 9							// [0039 FE0F 20E3]
+
+// 1FA70..1FAFF : Symbols and Pictographs Extended-A
+🩰	balletskór						// [1FA70]
+🩱	sundföt							// [1FA71]
+🩲	nærbuxur						// [1FA72]
+🩳	stuttbuxur						// [1FA73]
+🩴	sandali með ól						// [1FA74]
+🩵	ljósblátt hjarta					// [1FA75]
+🩶	grátt hjarta						// [1FA76]
+🩷	bleikt hjarta						// [1FA77]
+🩸	blóðdropi						// [1FA78]
+🩹	plástur							// [1FA79]
+🩺	hlustunarpípa						// [1FA7A]
+🩻	röntgengeisli						// [1FA7B]
+🩼	hækja							// [1FA7C]
+🪀	jójó							// [1FA80]
+🪁	flugdreki						// [1FA81]
+🪂	fallhlíf						// [1FA82]
+🪃	búmerang						// [1FA83]
+🪄	töfrasproti						// [1FA84]
+🪅	piñata							// [1FA85]
+🪆	babúskur						// [1FA86]
+🪇	hristur							// [1FA87]
+🪈	flauta							// [1FA88]
+🪉	harpa							// [1FA89]
+🪏	skófla							// [1FA8F]
+🪐	pláneta með hringi					// [1FA90]
+🪑	stóll							// [1FA91]
+🪒	rakhnífur						// [1FA92]
+🪓	öxi							// [1FA93]
+🪔	diya-lampi						// [1FA94]
+🪕	banjó							// [1FA95]
+🪖	hermannahjálmur						// [1FA96]
+🪗	harmonika						// [1FA97]
+🪘	handtromma						// [1FA98]
+🪙	mynt							// [1FA99]
+🪚	sög							// [1FA9A]
+🪛	skrúfjárn						// [1FA9B]
+🪜	stigi							// [1FA9C]
+🪝	krókur							// [1FA9D]
+🪞	spegill							// [1FA9E]
+🪟	gluggi							// [1FA9F]
+🪠	drullusokkur						// [1FAA0]
+🪡	saumnál							// [1FAA1]
+🪢	hnútur							// [1FAA2]
+🪣	fata							// [1FAA3]
+🪤	músagildra						// [1FAA4]
+🪥	tannbursti						// [1FAA5]
+🪦	legsteinn						// [1FAA6]
+🪧	skilti							// [1FAA7]
+🪨	steinn							// [1FAA8]
+🪩	diskókúla						// [1FAA9]
+🪪	persónuskilríki						// [1FAAA]
+🪫	raflítil rafhlaða					// [1FAAB]
+🪬	hamsa							// [1FAAC]
+🪭	blævængur						// [1FAAD]
+🪮	hárkambur						// [1FAAE]
+🪯	khanda							// [1FAAF]
+🪰	fluga							// [1FAB0]
+🪱	ormur							// [1FAB1]
+🪲	bjölludýr						// [1FAB2]
+🪳	kakkalakki						// [1FAB3]
+🪴	pottaplanta						// [1FAB4]
+🪵	timbur							// [1FAB5]
+🪶	fjöður							// [1FAB6]
+🪷	lótus							// [1FAB7]
+🪸	kórall							// [1FAB8]
+🪹	tómt hreiður						// [1FAB9]
+🪺	hreiður með eggjum					// [1FABA]
+🪻	hýasinta						// [1FABB]
+🪼	marglytta						// [1FABC]
+🪽	vængur							// [1FABD]
+🪾	blaðlaust tré						// [1FABE]
+🪿	gæs							// [1FABF]
+🫀	hjartavöðvi						// [1FAC0]
+🫁	lungu							// [1FAC1]
+🫂	fólk að faðmast						// [1FAC2]
+🫃	barnshafandi maður					// [1FAC3]
+🫄	barnshafandi manneskja					// [1FAC4]
+🫅	manneskja með kórónu					// [1FAC5]
+🫆	fingrafar						// [1FAC6]
+🫎	elgur							// [1FACE]
+🫏	asni							// [1FACF]
+🫐	bláber							// [1FAD0]
+🫑	paprika							// [1FAD1]
+🫒	ólífa							// [1FAD2]
+🫓	flatkaka						// [1FAD3]
+🫔	tamale							// [1FAD4]
+🫕	fondú							// [1FAD5]
+🫖	tekanna							// [1FAD6]
+🫗	hellir vökva						// [1FAD7]
+🫘	baunir							// [1FAD8]
+🫙	krukka							// [1FAD9]
+🫚	engiferrót						// [1FADA]
+🫛	baunabelgur						// [1FADB]
+🫜	rótargrænmeti						// [1FADC]
+🫟	sletta							// [1FADF]
+🫠	andlit að bráðna					// [1FAE0]
+🫡	andlit að heilsa					// [1FAE1]
+🫢	andlit með opin augu og hendi yfir munni		// [1FAE2]
+🫣	andlit með auga að kíkja				// [1FAE3]
+🫤	andlit með skáhallan munn				// [1FAE4]
+🫥	punktalínuandlit					// [1FAE5]
+🫦	bítur í vör						// [1FAE6]
+🫧	loftbólur						// [1FAE7]
+🫨	skjálfandi andlit					// [1FAE8]
+🫩	andlit með poka undir augum				// [1FAE9]
+🫰	hendi með vísifingur og þumal í kross			// [1FAF0]
+🫱	hendi hægra megin					// [1FAF1]
+🫲	hendi vinstra megin					// [1FAF2]
+🫳	hendi með lófa niður					// [1FAF3]
+🫴	hendi með lófa upp					// [1FAF4]
+🫵	vísifingur bendir á áhorfandann				// [1FAF5]
+🫶	hjartahendur						// [1FAF6]
+🫷	hönd ýtt til vinstri					// [1FAF7]
+🫸	hönd ýtt til hægri					// [1FAF8]
+
+// Emoji ZWJ Sequence: Family
+
+⛓‍💥	slitin keðja						// [26D3 200D 1F4A5]
+❤‍🔥	logandi hjarta						// [2764 200D 1F525]
+❤‍🩹	hjarta að gróa						// [2764 200D 1FA79]
+🍄‍🟫	brúnn sveppur						// [1F344 200D 1F7EB]
+🍋‍🟩	límóna							// [1F34B 200D 1F7E9]
+🏃‍♀‍➡	hlaupandi kona snýr til hægri				// [1F3C3 200D 2640 200D 27A1]
+🏃‍♂‍➡	hlaupandi maður snýr til hægri				// [1F3C3 200D 2642 200D 27A1]
+🏃‍➡	hlaupari snýr til hægri					// [1F3C3 200D 27A1]
+🏳‍⚧	transfáni						// [1F3F3 200D 26A7]
+🐈‍⬛	svartur köttur						// [1F408 200D 2B1B]
+🐕‍🦺	þjónustuhundur						// [1F415 200D 1F9BA]
+🐦‍⬛	svartur fugl						// [1F426 200D 2B1B]
+🐦‍🔥	fönix							// [1F426 200D 1F525]
+🐻‍❄	ísbjörn							// [1F43B 200D 2744]
+👨‍🍼	karl að gefa barni					// [1F468 200D 1F37C]
+👨‍🦯	maður með blindrastaf					// [1F468 200D 1F9AF]
+👨‍🦯‍➡	maður með blindrastaf snýr til hægri			// [1F468 200D 1F9AF 200D 27A1]
+👨‍🦰	karl rautt hár						// [1F468 200D 1F9B0]
+👨‍🦱	karl krullur						// [1F468 200D 1F9B1]
+👨‍🦲	karl skalli						// [1F468 200D 1F9B2]
+👨‍🦳	karl hvítt hár						// [1F468 200D 1F9B3]
+👨‍🦼	maður í vélknúnum hjólastól				// [1F468 200D 1F9BC]
+👨‍🦼‍➡	maður í vélknúnum hjólastól snýr til hægri		// [1F468 200D 1F9BC 200D 27A1]
+👨‍🦽	maður í hjólastól					// [1F468 200D 1F9BD]
+👨‍🦽‍➡	maður í hjólastól snýr til hægri			// [1F468 200D 1F9BD 200D 27A1]
+👩‍❤‍💋‍👨	koss: kona og karl			// [1F469 200D 2764 200D 1F48B 200D 1F468]
+👨‍❤‍💋‍👨	koss: karl og karl			// [1F468 200D 2764 200D 1F48B 200D 1F468]
+👩‍❤‍💋‍👩	koss: kona og kona			// [1F469 200D 2764 200D 1F48B 200D 1F469]
+👩‍❤‍👨	par: kona og karl				// [1F469 200D 2764 200D 1F468]
+👨‍❤‍👨	par: karl og karl				// [1F468 200D 2764 200D 1F468]
+👩‍❤‍👩	par: kona og kona				// [1F469 200D 2764 200D 1F469]
+👨‍👩‍👦	fjölskylda: karl, kona og drengur		// [1F468 200D 1F469 200D 1F466]
+👨‍👩‍👧	fjölskylda: karl, kona og stúlka		// [1F468 200D 1F469 200D 1F467]
+👨‍👩‍👧‍👦	fjölskylda: karl, kona, stúlka og drengur// [1F468 200D 1F469 200D 1F467 200D 1F466]
+👨‍👩‍👦‍👦	fjölskylda: karl, kona, drengur og drengur// [1F468 200D 1F469 200D 1F466 200D 1F466]
+👨‍👩‍👧‍👧	fjölskylda: karl, kona, stúlka og stúlka// [1F468 200D 1F469 200D 1F467 200D 1F467]
+👨‍👨‍👦	fjölskylda: karl, karl og drengur		// [1F468 200D 1F468 200D 1F466]
+👨‍👨‍👧	fjölskylda: karl, karl og stúlka		// [1F468 200D 1F468 200D 1F467]
+👨‍👨‍👧‍👦	fjölskylda: karl, karl, stúlka og drengur// [1F468 200D 1F468 200D 1F467 200D 1F466]
+👨‍👨‍👦‍👦	fjölskylda: karl, karl, drengur og drengur// [1F468 200D 1F468 200D 1F466 200D 1F466]
+👨‍👨‍👧‍👧	fjölskylda: karl, karl, stúlka og stúlka// [1F468 200D 1F468 200D 1F467 200D 1F467]
+👩‍🍼	kona að gefa barni					// [1F469 200D 1F37C]
+👩‍👩‍👦	fjölskylda: kona, kona og drengur		// [1F469 200D 1F469 200D 1F466]
+👩‍👩‍👧	fjölskylda: kona, kona og stúlka		// [1F469 200D 1F469 200D 1F467]
+👩‍👩‍👧‍👦	fjölskylda: kona, kona, stúlka og drengur// [1F469 200D 1F469 200D 1F467 200D 1F466]
+👩‍👩‍👦‍👦	fjölskylda: kona, kona, drengur og drengur// [1F469 200D 1F469 200D 1F466 200D 1F466]
+👩‍👩‍👧‍👧	fjölskylda: kona, kona, stúlka og stúlka// [1F469 200D 1F469 200D 1F467 200D 1F467]
+👨‍👦	fjölskylda: karl og drengur				// [1F468 200D 1F466]
+👨‍👦‍👦	fjölskylda: karl, drengur og drengur		// [1F468 200D 1F466 200D 1F466]
+👨‍👧	fjölskylda: karl og stúlka				// [1F468 200D 1F467]
+👨‍👧‍👦	fjölskylda: karl, stúlka og drengur		// [1F468 200D 1F467 200D 1F466]
+👨‍👧‍👧	fjölskylda: karl, stúlka og stúlka		// [1F468 200D 1F467 200D 1F467]
+👩‍👦	fjölskylda: kona og drengur				// [1F469 200D 1F466]
+👩‍👦‍👦	fjölskylda: kona, drengur og drengur		// [1F469 200D 1F466 200D 1F466]
+👩‍👧	fjölskylda: kona og stúlka				// [1F469 200D 1F467]
+👩‍👧‍👦	fjölskylda: kona, stúlka og drengur		// [1F469 200D 1F467 200D 1F466]
+👩‍👧‍👧	fjölskylda: kona, stúlka og stúlka		// [1F469 200D 1F467 200D 1F467]
+
+// Emoji ZWJ Sequence: Gendered Role, with object
+
+👨‍⚕	karlkyns heilbrigðisstarfsmaður				// [1F468 200D 2695]
+👩‍⚕	kvenkyns heilbrigðisstarfsmaður				// [1F469 200D 2695]
+👨‍⚖	karlkyns dómari						// [1F468 200D 2696]
+👩‍⚖	kvenkyns dómari						// [1F469 200D 2696]
+👨‍✈	karlkyns flugstjóri					// [1F468 200D 2708]
+👩‍✈	kvenkyns flugstjóri					// [1F469 200D 2708]
+👨‍🌾	karlkyns bóndi						// [1F468 200D 1F33E]
+👩‍🌾	kvenkyns bóndi						// [1F469 200D 1F33E]
+👨‍🍳	karlkyns kokkur						// [1F468 200D 1F373]
+👩‍🍳	kvenkyns kokkur						// [1F469 200D 1F373]
+👨‍🎓	karlkyns námsmaður					// [1F468 200D 1F393]
+👩‍🎓	kvenkyns námsmaður					// [1F469 200D 1F393]
+👨‍🎤	söngvari						// [1F468 200D 1F3A4]
+👩‍🎤	söngkona						// [1F469 200D 1F3A4]
+👨‍🎨	listamaður						// [1F468 200D 1F3A8]
+👩‍🎨	listakona						// [1F469 200D 1F3A8]
+👨‍🏫	karlkyns kennari					// [1F468 200D 1F3EB]
+👩‍🏫	kvenkyns kennari					// [1F469 200D 1F3EB]
+👨‍🏭	karlkyns verksmiðjustarfsmaður				// [1F468 200D 1F3ED]
+👩‍🏭	kvenkyns verksmiðjustarfsmaður				// [1F469 200D 1F3ED]
+👨‍💻	karlkyns forritari					// [1F468 200D 1F4BB]
+👩‍💻	kvenkyns forritari					// [1F469 200D 1F4BB]
+👨‍💼	karlkyns skrifstofustarfsmaður				// [1F468 200D 1F4BC]
+👩‍💼	kvenkyns skrifstofustarfsmaður				// [1F469 200D 1F4BC]
+👨‍🔧	karl með skiptilykil					// [1F468 200D 1F527]
+👩‍🔧	kona með skiptilykil					// [1F469 200D 1F527]
+👨‍🔬	vísindamaður						// [1F468 200D 1F52C]
+👩‍🔬	vísindakona						// [1F469 200D 1F52C]
+👨‍🚀	karlkyns geimfari					// [1F468 200D 1F680]
+👩‍🚀	kvenkyns geimfari					// [1F469 200D 1F680]
+👨‍🚒	slökkviliðsmaður					// [1F468 200D 1F692]
+👩‍🚒	slökkviliðskona						// [1F469 200D 1F692]
+👩‍🦯	kona með blindrastaf					// [1F469 200D 1F9AF]
+👩‍🦯‍➡	kona með blindrastaf snýr til hægri			// [1F469 200D 1F9AF 200D 27A1]
+👩‍🦰	kona rautt hár						// [1F469 200D 1F9B0]
+👩‍🦱	kona krullur						// [1F469 200D 1F9B1]
+👩‍🦲	kona skalli						// [1F469 200D 1F9B2]
+👩‍🦳	kona hvítt hár						// [1F469 200D 1F9B3]
+👩‍🦼	kona í vélknúnum hjólastól				// [1F469 200D 1F9BC]
+👩‍🦼‍➡	kona í vélknúnum hjólastól snýr til hægri		// [1F469 200D 1F9BC 200D 27A1]
+👩‍🦽	kona í hjólastól					// [1F469 200D 1F9BD]
+👩‍🦽‍➡	kona í hjólastól snýr til hægri				// [1F469 200D 1F9BD 200D 27A1]
+
+// Emoji ZWJ Sequence: Gendered Role
+
+👮‍♀	kvenkyns lögregluþjónn					// [1F46E 200D 2640]
+👮‍♂	karlkyns lögregluþjónn					// [1F46E 200D 2642]
+👰‍♀	kona með slör						// [1F470 200D 2640]
+👰‍♂	karl með slör						// [1F470 200D 2642]
+👱‍♀	ljóshærð kona						// [1F471 200D 2640]
+👱‍♂	ljóshærður maður					// [1F471 200D 2642]
+👳‍♀	kona með túrban						// [1F473 200D 2640]
+👳‍♂	karl með túrban						// [1F473 200D 2642]
+👷‍♀	kvenkyns byggingarstarfsmaður				// [1F477 200D 2640]
+👷‍♂	karlkyns byggingarstarfsmaður				// [1F477 200D 2642]
+💂‍♀	kvenkyns vörður						// [1F482 200D 2640]
+💂‍♂	karlkyns vörður						// [1F482 200D 2642]
+🕵️‍♀	kvenkyns spæjari					// [1F575 200D 2640]
+🕵️‍♂	karlkyns spæjari					// [1F575 200D 2642]
+😮‍💨	andlit að anda frá sér					// [1F62E 200D 1F4A8]
+😵‍💫	andlit með gormaugu					// [1F635 200D 1F4AB]
+😶‍🌫	andlit í skýjum						// [1F636 200D 1F32B]
+🙂‍↔	hristir höfuðið lárétt					// [1F642 200D 2194]
+🙂‍↕	hristir höfuðið lóðrétt					// [1F642 200D 2195]
+🚶‍♀‍➡	gangandi kona snýr til hægri				// [1F6B6 200D 2640 200D 27A1]
+🚶‍♂‍➡	gangandi maður snýr til hægri				// [1F6B6 200D 2642 200D 27A1]
+🚶‍➡	vegfarandi snýr til hægri				// [1F6B6 200D 27A1]
+🤵‍♀	kona í smóking						// [1F935 200D 2640]
+🤵‍♂	karl í smóking						// [1F935 200D 2642]
+🦸‍♀	ofurkona						// [1F9B8 200D 2640]
+🦸‍♂	ofurmaður						// [1F9B8 200D 2642]
+🦹‍♀	illkvendi						// [1F9B9 200D 2640]
+🦹‍♂	illmenni						// [1F9B9 200D 2642]
+🧍‍♀	standandi kona						// [1F9CD 200D 2640]
+🧍‍♂	standandi maður						// [1F9CD 200D 2642]
+🧎‍♀	krjúpandi kona						// [1F9CE 200D 2640]
+🧎‍♀‍➡	krjúpandi kona snýr til hægri				// [1F9CE 200D 2640 200D 27A1]
+🧎‍♂	krjúpandi maður						// [1F9CE 200D 2642]
+🧎‍♂‍➡	krjúpandi maður snýr til hægri				// [1F9CE 200D 2642 200D 27A1]
+🧎‍➡	krjúpandi manneskja snýr til hægri			// [1F9CE 200D 27A1]
+🧏‍♀	heyrnarlaus kona					// [1F9CF 200D 2640]
+🧏‍♂	heyrnarlaus karl					// [1F9CF 200D 2642]
+🧑‍⚕	heilbrigðisstarfsmaður					// [1F9D1 200D 2695]
+🧑‍⚖	dómari							// [1F9D1 200D 2696]
+🧑‍✈	flugstjóri						// [1F9D1 200D 2708]
+🧑‍🌾	bóndi							// [1F9D1 200D 1F33E]
+🧑‍🍳	kokkur							// [1F9D1 200D 1F373]
+🧑‍🍼	manneskja að gefa barni					// [1F9D1 200D 1F37C]
+🧑‍🎄	frú sveinki						// [1F9D1 200D 1F384]
+🧑‍🎓	nemi							// [1F9D1 200D 1F393]
+🧑‍🎤	söngfugl						// [1F9D1 200D 1F3A4]
+🧑‍🎨	listmálari						// [1F9D1 200D 1F3A8]
+🧑‍🏫	kennari							// [1F9D1 200D 1F3EB]
+🧑‍🏭	verksmiðjustarfsmaður					// [1F9D1 200D 1F3ED]
+🧑‍💻	forritari						// [1F9D1 200D 1F4BB]
+🧑‍💼	skrifstofustarfsmaður					// [1F9D1 200D 1F4BC]
+🧑‍🔧	vélvirki						// [1F9D1 200D 1F527]
+🧑‍🔬	vísindafræðingur					// [1F9D1 200D 1F52C]
+🧑‍🚀	geimfari						// [1F9D1 200D 1F680]
+🧑‍🚒	brunaliðsmaður						// [1F9D1 200D 1F692]
+🧑‍🤝‍🧑	fólk að leiðast						// [1F9D1 200D 1F91D 200D 1F9D1]
+🧑‍🦯	manneskja með blindrastaf				// [1F9D1 200D 1F9AF]
+🧑‍🦯‍➡	manneskja með blindrastaf snýr til hægri		// [1F9D1 200D 1F9AF 200D 27A1]
+🧑‍🦰	manneskja rautt hár					// [1F9D1 200D 1F9B0]
+🧑‍🦱	manneskja krullur					// [1F9D1 200D 1F9B1]
+🧑‍🦲	manneskja skalli					// [1F9D1 200D 1F9B2]
+🧑‍🦳	manneskja hvítt hár					// [1F9D1 200D 1F9B3]
+🧑‍🦼	manneskja í vélknúnum hjólastól				// [1F9D1 200D 1F9BC]
+🧑‍🦼‍➡	manneskja í vélknúnum hjólastól snýr til hægri		// [1F9D1 200D 1F9BC 200D 27A1]
+🧑‍🦽	manneskja í hjólastól					// [1F9D1 200D 1F9BD]
+🧑‍🦽‍➡	manneskja í hjólastól snýr til hægri			// [1F9D1 200D 1F9BD 200D 27A1]
+🧑‍🧑‍🧒	fjölskylda fullorðinn fullorðinn barn			// [1F9D1 200D 1F9D1 200D 1F9D2]
+🧑‍🧑‍🧒‍🧒	fjölskylda fullorðinn fullorðinn barn barn		// [1F9D1 200D 1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🧒	fjölskylda fullorðinn barn				// [1F9D1 200D 1F9D2]
+🧑‍🧒‍🧒	fjölskylda fullorðinn barn barn				// [1F9D1 200D 1F9D2 200D 1F9D2]
+🧑‍🩰	ballettdansari						// [1F9D1 200D 1FA70]
+🧔‍♀	kona skegg						// [1F9D4 200D 2640]
+🧔‍♂	karl skegg						// [1F9D4 200D 2642]
+🧙‍♀	galdrakona						// [1F9D9 200D 2640]
+🧙‍♂	galdrakarl						// [1F9D9 200D 2642]
+🧚‍♀	álfadís							// [1F9DA 200D 2640]
+🧚‍♂	álfakarl						// [1F9DA 200D 2642]
+🧛‍♀	kvenkyns vampíra					// [1F9DB 200D 2640]
+🧛‍♂	karlkyns vampíra					// [1F9DB 200D 2642]
+🧜‍♀	hafmeyja						// [1F9DC 200D 2640]
+🧜‍♂	marbendill						// [1F9DC 200D 2642]
+🧝‍♀	huldukona						// [1F9DD 200D 2640]
+🧝‍♂	huldukarl						// [1F9DD 200D 2642]
+🧞‍♀	kvenkyns andi						// [1F9DE 200D 2640]
+🧞‍♂	karlkyns andi						// [1F9DE 200D 2642]
+🧟‍♀	kvenkyns uppvakningur					// [1F9DF 200D 2640]
+🧟‍♂	karlkyns uppvakningur					// [1F9DF 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Activity
+
+⛹‍♀	kona með bolta						// [26F9 200D 2640]
+⛹‍♂	maður með bolta						// [26F9 200D 2642]
+🏃‍♀	hlaupandi kona						// [1F3C3 200D 2640]
+🏃‍♂	hlaupandi maður						// [1F3C3 200D 2642]
+🏄‍♀	kona á brimbretti					// [1F3C4 200D 2640]
+🏄‍♂	maður á brimbretti					// [1F3C4 200D 2642]
+🏊‍♀	sundkona						// [1F3CA 200D 2640]
+🏊‍♂	sundmaður						// [1F3CA 200D 2642]
+🏋️‍♀	kona í kraftlyftingum					// [1F3CB 200D 2640]
+🏋️‍♂	maður í kraftlyftingum					// [1F3CB 200D 2642]
+🏌️‍♀	kona í golfi						// [1F3CC 200D 2640]
+🏌️‍♂	maður í golfi						// [1F3CC 200D 2642]
+👯‍♀	konur með kanínueyru					// [1F46F 200D 2640]
+👯‍♂	menn með kanínueyru					// [1F46F 200D 2642]
+💆‍♀	kona fær andlitsnudd					// [1F486 200D 2640]
+💆‍♂	maður fær andlitsnudd					// [1F486 200D 2642]
+💇‍♀	kona í klippingu					// [1F487 200D 2640]
+💇‍♂	maður í klippingu					// [1F487 200D 2642]
+🚣‍♀	kona á árabát						// [1F6A3 200D 2640]
+🚣‍♂	maður á árabát						// [1F6A3 200D 2642]
+🚴‍♀	kona á hjóli						// [1F6B4 200D 2640]
+🚴‍♂	maður á hjóli						// [1F6B4 200D 2642]
+🚵‍♀	kona á fjallahjóli					// [1F6B5 200D 2640]
+🚵‍♂	maður á fjallahjóli					// [1F6B5 200D 2642]
+🚶‍♀	gangandi kona						// [1F6B6 200D 2640]
+🚶‍♂	gangandi maður						// [1F6B6 200D 2642]
+🤸‍♀	kona á handahlaupum					// [1F938 200D 2640]
+🤸‍♂	maður á handahlaupum					// [1F938 200D 2642]
+🤹‍♀	kona kastar boltum					// [1F939 200D 2640]
+🤹‍♂	maður kastar boltum					// [1F939 200D 2642]
+🤼‍♀	konur í glímu						// [1F93C 200D 2640]
+🤼‍♂	menn í glímu						// [1F93C 200D 2642]
+🤽‍♀	kona í vatnapóló					// [1F93D 200D 2640]
+🤽‍♂	maður í vatnapóló					// [1F93D 200D 2642]
+🤾‍♀	kona í handbolta					// [1F93E 200D 2640]
+🤾‍♂	maður í handbolta					// [1F93E 200D 2642]
+🧖‍♀	kona í gufubaði						// [1F9D6 200D 2640]
+🧖‍♂	maður í gufubaði					// [1F9D6 200D 2642]
+🧗‍♀	kona í klettaklifri					// [1F9D7 200D 2640]
+🧗‍♂	karl í klettaklifri					// [1F9D7 200D 2642]
+🧘‍♀	kona í lótusp´ósu					// [1F9D8 200D 2640]
+🧘‍♂	karl í lótuspósu					// [1F9D8 200D 2642]
+
+// Emoji ZWJ Sequence: Gendered Gestures
+
+💁‍♀	kona réttir út lófa					// [1F481 200D 2640]
+💁‍♂	maður réttir út lófa					// [1F481 200D 2642]
+🙅‍♀	kona segir ekki í lagi					// [1F645 200D 2640]
+🙅‍♂	maður segir ekki í lagi					// [1F645 200D 2642]
+🙆‍♀	kona segir allt í lagi					// [1F646 200D 2640]
+🙆‍♂	maður segir allt í lagi					// [1F646 200D 2642]
+🙇‍♀	kona hneigir sig					// [1F647 200D 2640]
+🙇‍♂	maður hneigir sig					// [1F647 200D 2642]
+🙋‍♀	kona réttir upp hönd					// [1F64B 200D 2640]
+🙋‍♂	maður réttir upp hönd					// [1F64B 200D 2642]
+🙍‍♀	kona með skeifu						// [1F64D 200D 2640]
+🙍‍♂	maður með skeifu					// [1F64D 200D 2642]
+🙎‍♀	kona í fýlu						// [1F64E 200D 2640]
+🙎‍♂	maður í fýlu						// [1F64E 200D 2642]
+🤦‍♀	kona með hönd fyrir andlit				// [1F926 200D 2640]
+🤦‍♂	maður með hönd fyrir andlit				// [1F926 200D 2642]
+🤷‍♀	kona yppir öxlum					// [1F937 200D 2640]
+🤷‍♂	maður yppir öxlum					// [1F937 200D 2642]
+
+// Emoji ZWJ Sequence: Other
+
+🏳‍🌈	regnbogafáni						// [1F3F3 200D 1F308]
+🏴‍☠	sjóræningjafáni						// [1F3F4 200D 2620]
+👁‍🗨	auga í talblöðru					// [1F441 200D 1F5E8]
+
+// References:
+//   [UCD]	Unicode Character Database 11.0.0 [http://www.unicode.org/Public/11.0.0/ucd/]
+//   [Emoji]	Unicode Emoji 11.0 [http://www.unicode.org/Public/emoji/11.0/]
+//   [CLDR]	Unicode Common Locale Data Repository 33.1 [http://cldr.unicode.org/index/downloads/cldr-33.1]
+//
+// Sources:
+//   1.  emoji-test.txt (Emoji)
+//   2.  common/annotations/is.xml (CLDR)
+//   3.  emoji-zwj-sequences.txt (Emoji)
