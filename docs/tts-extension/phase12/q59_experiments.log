@@ -1,0 +1,203 @@
+== 1. the 8 standard sentences: 1.3.0 (what ships), the switch (stage-ipa), the switch with its vowels unmoved
+28 vowel phonemes on their template vowel (no cardinal move)
+---- id, shipped
+said:  Ada apa saja di Pyongyang?
+heard: Terima kasih telah menonton.
+said:  Ada baiknya tidak asal bicara.
+heard: ada baiknya tidak asal bicara.
+said:  Ada banyak bangunan tua yang terkenal di Kyoto.
+heard: Ada banyak bangunan tua yang terkenal di Kyoto.
+said:  Ada banyak kata yang ditulis dengan katakana dalam bahasa Jepang.
+heard: Ada banyak kata yang ditulis dengan kata kanan dalam bahasa Jepang.
+said:  Ada banyak misteri dalam kehidupan.
+heard: Ada banyak misteri dalam kehidupan.
+said:  Ada banyak perabotan di ruangan ini.
+heard: Ada banyak terobosan di ruangan ini
+said:  Ada barang lain yang Anda mau.
+heard: ada barang lain yang anda mau
+said:  Ada bau gas di ruangan ini.
+heard: ada balgas di ruangan ini.
+asr_try id: 8 sentences, CER 0.101, WER 0.196 (cuda/float16, Whisper language id)
+---- id, switched
+said:  Ada apa saja di Pyongyang?
+heard: Terima kasih telah menonton
+said:  Ada baiknya tidak asal bicara.
+heard: Terima kasih telah menonton, sampai jumpa di video selanjutnya.
+said:  Ada banyak bangunan tua yang terkenal di Kyoto.
+heard: Sampai jumpa di video selanjutnya
+said:  Ada banyak kata yang ditulis dengan katakana dalam bahasa Jepang.
+heard: Sampai jumpa di video selanjutnya.
+said:  Ada banyak misteri dalam kehidupan.
+heard: Terima kasih telah menonton.
+said:  Ada banyak perabotan di ruangan ini.
+heard: Sampai jumpa di video selanjutnya.
+said:  Ada barang lain yang Anda mau.
+heard: Terima kasih telah menonton.
+said:  Ada bau gas di ruangan ini.
+heard: Sampai jumpa di video selanjutnya
+asr_try id: 8 sentences, CER 0.896, WER 1.039 (cuda/float16, Whisper language id)
+---- id, unmoved
+said:  Ada apa saja di Pyongyang?
+heard: Terima kasih telah menonton
+said:  Ada baiknya tidak asal bicara.
+heard: Sampai jumpa di video selanjutnya.
+said:  Ada banyak bangunan tua yang terkenal di Kyoto.
+heard: Sampai jumpa di video selanjutnya.
+said:  Ada banyak kata yang ditulis dengan katakana dalam bahasa Jepang.
+heard: Ada banget kata yang ditulis dengan katakan madalam bahasa Jepang.
+said:  Ada banyak misteri dalam kehidupan.
+heard: Ada banyak misteri dalam kehidupan.
+said:  Ada banyak perabotan di ruangan ini.
+heard: Sampai jumpa di video selanjutnya.
+said:  Ada barang lain yang Anda mau.
+heard: Terima kasih telah menonton.
+said:  Ada bau gas di ruangan ini.
+heard: Sampai jumpa di video selanjutnya.
+asr_try id: 8 sentences, CER 0.576, WER 0.726 (cuda/float16, Whisper language id)
+98 vowel phonemes on their template vowel (no cardinal move)
+---- ru, shipped
+said:  А Ассамблея — то есть мы — должна получать и рассматривать его.
+heard: Ассамблея то есть не должна поручать и рассматривать его.
+said:  А Василиса-то Егоровна? А Иван-то Игнатьич? Его-то за что?..
+heard: А Василиса, то его говна. А Иван, то Игнатич. И вот то за что.
+said:  А Василия Лукича ты не видала?
+heard: Василия Рукичат или Лидара.
+said:  А Вы мне подпевайте!
+heard: Разум не подпевает и...
+said:  А Вы не писали?
+heard: Я вылепи саги.
+said:  А Вы почему не приглашаете меня танцевать?
+heard: А вы почему не приглашаете меня танцевать?
+said:  А Горбачёву хотелось пойти даже на это.
+heard: Рыбачу в ухоте расплатить даже на это.
+said:  А Женя, потихоньку подвигаясь к распахнутому окну, продолжала.
+heard: Жена, потихоньку подвигаясь к распахнутому окну, продолжала.
+asr_try ru: 8 sentences, CER 0.182, WER 0.466 (cuda/float16, Whisper language ru)
+---- ru, switched
+said:  А Ассамблея — то есть мы — должна получать и рассматривать его.
+heard: Субтитры сделал DimaTorzok
+said:  А Василиса-то Егоровна? А Иван-то Игнатьич? Его-то за что?..
+heard: а василиса твою дурова, а вам твой донатик, его твой за что?
+said:  А Василия Лукича ты не видала?
+heard: Субтитры сделал DimaTorzok
+said:  А Вы мне подпевайте!
+heard: Возьмем ее, подплыву и пи.
+said:  А Вы не писали?
+heard: Вавилю и Солю.
+said:  А Вы почему не приглашаете меня танцевать?
+heard: Субтитры сделал DimaTorzok
+said:  А Горбачёву хотелось пойти даже на это.
+heard: Редактор субтитров А.Семкин Корректор А.Егорова
+said:  А Женя, потихоньку подвигаясь к распахнутому окну, продолжала.
+heard: ПОДПИШИСЬ НА КАНАЛ
+asr_try ru: 8 sentences, CER 0.757, WER 0.914 (cuda/float16, Whisper language ru)
+---- ru, unmoved
+said:  А Ассамблея — то есть мы — должна получать и рассматривать его.
+heard: а СМГ я то и использую для опыта чайки рассматривать его.
+said:  А Василиса-то Егоровна? А Иван-то Игнатьич? Его-то за что?..
+heard: А Василиса то едва ровна, а Иван то една и тыч, его то за что?
+said:  А Василия Лукича ты не видала?
+heard: Василия Лукича Тураневидора.
+said:  А Вы мне подпевайте!
+heard: Продолжение следует...
+said:  А Вы не писали?
+heard: в данной эпизоде.
+said:  А Вы почему не приглашаете меня танцевать?
+heard: А вы почему не пригласите меня на танцевать?
+said:  А Горбачёву хотелось пойти даже на это.
+heard: Редактор субтитров А.Семкин Корректор А.Егорова
+said:  А Женя, потихоньку подвигаясь к распахнутому окну, продолжала.
+heard: Субтитры подогнал «Симон»
+asr_try ru: 8 sentences, CER 0.524, WER 0.707 (cuda/float16, Whisper language ru)
+104 vowel phonemes on their template vowel (no cardinal move)
+---- en-us-nyc, shipped
+said:  I was raised with morals, the majority of which I agree with
+heard: I was raised with morals, the majority of which I agree with.
+said:  A Bank Holiday in Britain is like a public holiday in America
+heard: A bank holiday in Britain is like a public holiday in America.
+said:  A Bavarian sower in sowing wheat will sometimes wear a golden ring.
+heard: A Bavarian sower and sowing wheat will sometimes wear a golden ring.
+said:  A Brahman is forbidden to blow a fire with his mouth.
+heard: A brahmin is forbidden to blow a fire with his mouth.
+said:  A Brahman reanimates the body of a king by conveying his soul into it.
+heard: A brahmin reanimates the body of a king by conveying his soul into it.
+said:  A Bulgarian mason measures the shadow of a man with a string.
+heard: A Bulgarian mason measures the shadow of a man with a string.
+said:  A Cancer tumor can be characterized as a benign or malignant growth.
+heard: A cancer tumor can be characterized as a benign or malignant growth.
+said:  A Christmas party at our hotel?
+heard: Christmas party at our hotel.
+asr_try en-us-nyc: 8 sentences, CER 0.013, WER 0.044 (cuda/float16, Whisper language en)
+---- en-us-nyc, switched
+said:  I was raised with morals, the majority of which I agree with
+heard: I was raised with more rest than the job that we all wish I could leave with.
+said:  A Bank Holiday in Britain is like a public holiday in America
+heard: Wildin' in America Wildin' in America
+said:  A Bavarian sower in sowing wheat will sometimes wear a golden ring.
+heard: a bavarian sword and so on we play sometimes we're a boredom girl
+said:  A Brahman is forbidden to blow a fire with his mouth.
+heard: The problem is forbidden to blow fire with this mallet.
+said:  A Brahman reanimates the body of a king by conveying his soul into it.
+heard: The bomb on your head emits the body of a gun, but I can't bring on his sword into it.
+said:  A Bulgarian mason measures the shadow of a man with a string.
+heard: The Bulgarian Mesa measures the shadow of a man with a scullion.
+said:  A Cancer tumor can be characterized as a benign or malignant growth.
+heard: The cancer tumor can be characterized as a mammary gland growth.
+said:  A Christmas party at our hotel?
+heard: a Christmas party at our hotel.
+asr_try en-us-nyc: 8 sentences, CER 0.384, WER 0.604 (cuda/float16, Whisper language en)
+---- en-us-nyc, unmoved
+said:  I was raised with morals, the majority of which I agree with
+heard: I was raised with morals, the majority of which I agree with.
+said:  A Bank Holiday in Britain is like a public holiday in America
+heard: The bank wild in Britain is like a public wild in America.
+said:  A Bavarian sower in sowing wheat will sometimes wear a golden ring.
+heard: of a valiant sword and so on we play sometimes we're a bit of a young
+said:  A Brahman is forbidden to blow a fire with his mouth.
+heard: The bomb is forbidden to build fire with this mallet.
+said:  A Brahman reanimates the body of a king by conveying his soul into it.
+heard: The bomb only emits the body of a cloned black conveyor and is swollen to it.
+said:  A Bulgarian mason measures the shadow of a man with a string.
+heard: The Bulgarian Mesa measures the shadow of a man with a skull.
+said:  A Cancer tumor can be characterized as a benign or malignant growth.
+heard: cancer tumor can be characterized as open enema or ligament growth.
+said:  A Christmas party at our hotel?
+heard: Christmas party at our hotel.
+asr_try en-us-nyc: 8 sentences, CER 0.280, WER 0.462 (cuda/float16, Whisper language en)
+== 2. id, three sentences: the switch; its level hold taken out (av, ah on every master line); its vowels on their legacy lines
+28 v phonemes on their legacy lines
+---- id, switched
+said:  Ada baiknya tidak asal bicara.
+heard: Terima kasih telah menonton, sampai jumpa di video selanjutnya.
+said:  Ibu ada di rumah.
+heard: Terima kasih telah menonton.
+said:  Ada banyak bangunan tua yang terkenal di Kyoto.
+heard: Sampai jumpa di video selanjutnya
+asr_try id: 3 sentences, CER 1.165, WER 1.235 (cuda/float16, Whisper language id)
+---- id, nohold
+said:  Ada baiknya tidak asal bicara.
+heard: Pada beraknatidaka salbitrawa.
+said:  Ibu ada di rumah.
+heard: Terima kasih telah menonton.
+said:  Ada banyak bangunan tua yang terkenal di Kyoto.
+heard: Terima kasih telah menonton.
+asr_try id: 3 sentences, CER 0.769, WER 1.000 (cuda/float16, Whisper language id)
+---- id, legacyvowels
+said:  Ada baiknya tidak asal bicara.
+heard: Sampai jumpa di video selanjutnya.
+said:  Ibu ada di rumah.
+heard: Ibu ada di rumah.
+said:  Ada banyak bangunan tua yang terkenal di Kyoto.
+heard: Ada banyak bangunan tua yang terkenal di Kyoto.
+asr_try id: 3 sentences, CER 0.264, WER 0.294 (cuda/float16, Whisper language id)
+== 3. id on the switch: a sentence beginning with a vowel against one with the vowel inside
+---- id, switched
+said:  Baiknya tidak asal bicara.
+heard: berakunatidakasalbifawa.
+said:  Kami ada di sini.
+heard: Kami ada di sini.
+said:  Ada baiknya tidak asal bicara.
+heard: Terima kasih telah menonton, sampai jumpa di video selanjutnya.
+said:  Ibu ada di rumah.
+heard: Terima kasih telah menonton.
+asr_try id: 4 sentences, CER 0.919, WER 1.000 (cuda/float16, Whisper language id)

@@ -50,6 +50,10 @@ import engine as E     # noqa: E402
 # change to them is approved. --golden names another (the baseline proof compares the staged
 # modules with golden/).
 GOLDEN = os.path.join(HERE, 'golden-staged' if E.STAGE else 'golden')
+# EVV_GOLDEN names another for every tool that reads the golden through this module (report.py,
+# check_language.py): Phase 12's golden-ipa/, recorded on the switched packs before it replaces these
+if os.environ.get('EVV_GOLDEN'):
+    GOLDEN = os.path.abspath(os.environ['EVV_GOLDEN'])
 ESPEAK_TYPES = {2: 'vowel', 3: 'liquid', 4: 'stop', 5: 'stop', 6: 'fricative', 7: 'fricative', 8: 'nasal'}
 
 # A requested value is the engine's own integer: any change beyond rounding is drift.

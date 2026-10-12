@@ -4,6 +4,8 @@ Read this at the start of every session, after Part 1 of `TTS_EXTENSION_PLAYBOOK
 
 ## Phase
 
+**Phase 12 (Switch every language read by eSpeak NG): STOPPED, NOT COMPLETE (2026-10-11, twenty-sixth session)** on branch `tts-ext/phase-12`, Opus 5.5. Decision D97. The table's three fixes the human chose for its start are done and proved (Q55 voiced stops, Q53 carriers per template, Q52 ʱ); the switch of all 146 packs was built and measured (`IPA_SWITCH_REPORT.md`): recognition much worse (median CER +0.21, 75 languages worse by more than 0.10), the largest cause found in the master path itself (every language's plain vowel said as the table's cardinal vowel). Shown this, the human chose **stop and investigate** (Q59): nothing was replaced; `packs/`, `languages/`, the goldens and `LANGUAGE_STATUS.md` are 1.3.0's. **Next: Phase 12 continued**, in a new session: find and fix the causes (vowels first, then consonants), then step 4 again; read "Phase 12 at its stop" below first.
+
 **Phase 11 (The IPA generator and a pilot): COMPLETE (2026-10-11, twenty-fifth session)** on branch `tts-ext/phase-11`, Opus 5.5. Decision D96; the master path `engine/packs/master.py`, the tool `engine/packs/to_master.py`; the pilot `docs/tts-extension/phase11/` (pilot.py, compare.py, raw outputs); Q52 to Q55 put to the human in chat and answered (`HUMAN_ANSWERS.md`). Nothing in `packs/`, `languages/` or `dist/` changed. **Next: Phase 12 (switch every language read by eSpeak NG)**, in a new session, starting with the three table fixes the human chose for its start: Q55 (voiced stops), Q53 (per-template carriers), Q52 (ʱ).
 
 **Phase 10 (Release): COMPLETE (2026-10-11, twenty-fourth session)** on branch `tts-ext/phase-10`, Opus 5.5. Decision D95; `LICENCE_AUDIT.md`; release **1.3.0** built (`output\OpenEVV-SAPI5-Setup-1.3.0.exe`, not installed, not published). **Next: Phase 11 (the IPA generator and a pilot)**, in a new session: the human added Phases 11 to 13 after this phase's pause (switch every language read by eSpeak NG to the IPA sounds, then release 1.4.0 on GitHub; `HUMAN_ANSWERS.md`, "after Phase 10"), and cleanup is Phase 14. R20 now holds until Phase 13 is complete. `main` holds Phase 10 (the human said yes to the merge).
@@ -34,7 +36,7 @@ Phase 8's summary follows for the record; "The whole project so far" below is up
 | 9 Completion review | Fable 5.1: the full doctor (0 FAILED), the chart re-researched (0 differences), a fresh sweep of every symbol (proofs identical), two trials by fresh helpers (fi-x-evvtrial, nl-be; 22 doc gaps fixed), ASR re-run and the status regenerated on the staged golden, the reference lookup ruled (D93), the R18 report (nothing replaced, nothing retired) | complete 2026-10-11 |
 | 10 Release | 1.3.0: the staged template modules shipped (the human's say-so after the golden difference was shown), Belgian Dutch shipped (Q50), version bump and changelog, two full builds with every test, the licence audit (`check_licences.py`, 0 unclassified) and SPDX headers, README and guides (step 2b, `check_readme.py`), the worked examples re-run, golden of what ships against `golden-staged`, the fresh-clone check | complete 2026-10-11 |
 | 11 IPA generator | the master path of the pack compiler (`master.py`, `to_master.py`), piloted on six packs: check A passes on all six with no fallback, recognition worse in all five scored (D96); Q52 to Q55 answered | complete 2026-10-11 |
-| 12 Switch all | first the table fixes Q55, Q53, Q52; then every language read by eSpeak NG, its dialects and accents, to the IPA table's sounds; measure all; the ten native languages untouched | **next** |
+| 12 Switch all | the table fixes Q55, Q53, Q52 done and proved; every pack read by eSpeak NG switched in a stage and measured (`IPA_SWITCH_REPORT.md`): much worse; stopped at the human's choice (Q59) before the replacement point | **stopped; continue next** (D97) |
 | 13 Release 1.4.0 | installer, README, commit, push, merge, GitHub release | to do |
 | 14 Cleanup | free the disk, item by item with the human's yes (R20 holds until Phase 13 is complete) | to do |
 
@@ -49,6 +51,27 @@ Phase 8's summary follows for the record; "The whole project so far" below is up
 **How work is done from now on**: `ADDING_A_LANGUAGE.md` and the slash commands `/add-language`, `/add-dialect`, `/add-accent`, `/improve-language`, `/diagnose-language`, `/create-missing-sound` (each names its model and effort and ends with the `tts-reviewer` agent; a session started after Phase 8 has that agent type loaded, this one did not). Start every session with `engine\doctor.py --quick`. New packs wait in `packs-proposed/`; tests and worked examples live in `docs/tts-extension/examples/` (TEST, never shipped).
 
 **Open for Phase 9 and after** (`OPEN_QUESTIONS.md`): Q46 (check B's lookup lends one dialect's references to its siblings: rule on it, then regenerate `LANGUAGE_STATUS.md`); Q45 (Swahili's vowel-to-vowel junctions, a proposed fix); Q40 (VOT on natural speech); Q41 answered (D91); Q42 (Scottish next steps); Q15 (439 estimated values to verify); Q38, Q39 (for the expert review); the Phase 6 "Needs escalation" list (tonal languages to Fable; heavy allophony to Opus). Native speakers come after Phase 9 (D82).
+
+## Phase 12 at its stop
+
+| Playbook Phase 12 step | State |
+|---|---|
+| 1 doctor --quick | **done**: `doctor: 20 checks, 20 passed, 0 warnings, 0 FAILED (none), 78 s` (`phase12/doctor_p12_start.log`) |
+| (start) Q55, Q53, Q52 in the table | **done**, D97: b d ɡ ɖ ɟ ɢ voiced through the closure with a lead (ringen_kulikov); `carrier_on` per template, the voicing rule; ʱ (CS-0077, approximate: its low pitch not made); the reference sweep 394 of 394, coverage 175 of 175, MISSING 0; six other templates 128 of 174 (Q57 lists what did not pass, ɾ on itix among them) |
+| 2 stage-ipa | **done**: a copy of `stage-dev` (no engine change since Phase 10) |
+| 3 switch all, build | **done in the stage, then put back**: 146 packs, fallback 8, kept apart 6, problems 0; built into `stage-ipa`; `packs/` restored to 1.3.0 after Q59 (the switched files in `%USERPROFILE%\OpenEvvBuild-ttsext\p12-switched-packs`) |
+| 4 measure all | **done**: `golden-ipa/` (156 packs, 2775 s), check A 151 of 156 (Q58), diag 5 with a loss, ASR 106 scored; `IPA_SWITCH_REPORT.md` |
+| 5 fix the generator | **begun**: the vowel cause found and measured (Q59); not fixed: the human chose to stop |
+| 6 replacement point | **not done** (Q59): `languages/`, `golden/`, `golden-staged/`, `LANGUAGE_STATUS.md` are 1.3.0's |
+| 7 full doctor, D97, R15, commit, push | D97 written; `doctor --quick` at the stop (`phase12/doctor_p12_stop.log`, 0 FAILED; the full doctor not run: nothing it guards was replaced); the R15 review's seven findings fixed (D97); commit by path and push at the pause |
+
+### For Phase 12 continued (read first)
+
+- **The question to answer first** (Q59): how a language's broad vowel (eSpeak NG's /a/, /i/) is to be realised. Measured so far: the table's cardinal vowels (jassem1992) make most languages hard to understand; the template's own vowel position recovers part (id 0.90 → 0.58, ru 0.76 → 0.52, en-us-nyc 0.38 → 0.28; 1.3.0: 0.10, 0.18, 0.01; `phase12/q59_experiments.log`, `q59_experiments.sh` reruns it). Candidates: a language's own measured formants (`engine/profiles/*.json`, 28 of 145 have `vowel_formants`), the template's own vowel, a typical value per symbol. Whatever is chosen must keep the cardinal values for IPA typed directly (`say_ipa`, the proofs) and must be said in each line (a reading, R7).
+- **Then the consonants and the rest**: the nasals' F1 (the table's murmur value, n 245 → 610 Hz in the pilot), fricative noise centres (ʃ on many packs), durations, the sentence-initial vowel (id: every sentence beginning with a vowel heard as Whisper's filler), Q58 (esex's final [a]).
+- **Tools**: `phase12/measure_all.sh build|golden|report|faults|asr|diag` (EVV_STAGE `stage-ipa`, EVV_GOLDEN `harness/golden-ipa`); `phase12/switch_report.py`; `phase12/prove_templates.py`; `harness/asr_try.py` with a scratch stage holding one edited pack (`p12-exp-id`, `p12-exp-nv`) tests a hypothesis in minutes. `to_master.py --all` writes the switch into `packs/` again (deterministic); `build_packs.py check` fails while `packs/` is switched and `languages/` is not, so switch only when the replacement point is near, or work with `--out`.
+- **Leave alone**: `stage-ipa/languages/` holds ten native folders with only a `language.ini` (made by a faulty build; harmless, measured; their removal was declined, R20). The untracked `results/diag-compare.json`, `diag-golden.json` are not this project's work.
+- **Measured but not shipped**: `harness/golden-ipa/` and `phase12/ipa_*.json` describe the cardinal-vowel switch; re-record after the fixes.
 
 ## Phase 11 at its end
 
