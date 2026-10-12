@@ -9,7 +9,7 @@ Before: phase12/before/status.json (report.py's record of 1.3.0's languages on t
 LANGUAGE_STATUS.md showed when Phase 12 began). After: harness/results/status.json as report.py wrote it
 on golden-ipa/ (EVV_GOLDEN) with this phase's asr.py. The to_master report gives each pack's counts and
 its fallbacks with their reasons (R21f). At the top, plainly: the languages whose CER rose by more than
-0.10 (the human's guard answer was to ship them anyway; at Q59 they chose to stop) and every level that dropped.
+0.10 (the note says what the human was shown of them and chose) and every level that dropped.
 --previous STATUS adds a column with an earlier switch's CER (D97's, phase12/ipa_status.json); --note FILE is the
 paragraph said under the title in place of D97's (the state of the switch when the report was written).
 """
@@ -96,7 +96,7 @@ def main(argv):
              'itself: a language\'s plain vowel said as the table\'s cardinal vowel (D97, Q59). The after-figures are '
              '`phase12/ipa_status.json` and `phase12/ipa_asr.json`.'), '',
              '## Plainly', '']
-    lines.append('**Recognition worse by more than 0.10 CER (%d languages; the human\'s guard answer was to ship them anyway; at Q59 they chose to stop and investigate):** %s.' % (
+    lines.append('**Recognition worse by more than 0.10 CER (%d languages; what the human was shown of them, and chose, is said in the note above):** %s.' % (
         len(rose), ', '.join('%s %.3f -> %.3f' % (t, x, y) for t, x, y, _ in sorted(rose, key=lambda r: -r[3])) or 'none'))
     lines.append('')
     lines.append('**Levels that dropped (%d):** %s.' % (len(dropped), ', '.join('%s %d -> %d' % r for r in dropped) or 'none'))

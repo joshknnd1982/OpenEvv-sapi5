@@ -2,17 +2,17 @@
 
 Every language, dialect and accent read by eSpeak NG (146 packs) was switched from the old sound generator to the IPA master table's sounds (`realization = "master"`, `engine/packs/to_master.py`; the human's order, D96, D97). The ten native languages and the seven templates were not touched. Before: release 1.3.0 as Phase 12 found it (`phase12/before/status.json`, the staged golden); after: the switched packs on the same modules (`golden-ipa/`, this phase's `asr.py`). Written by `docs/tts-extension/phase12/switch_report.py`; nothing here was judged by ear.
 
-**Shipped in 1.4.0, with Phase 13's fix (D99, 2026-10-12).** The switch was shipped at the human's answer to Q62 (ship all now) and measured as below on 2026-10-12; Phase 13's build then found, with `engine/check_espeak_packs.py`, that the phonemic reading's whole diphthong phones (English-based Y W O, German-based aj aw oj), which the module says as two phones, made the accent layer lay later words' sounds on the wrong phones (15 packs failed the check). The human chose to fix, re-measure and release (Q65): those diphthongs are now the first vowel gliding to the second; 65 packs' maps changed, their goldens were recorded again and `asr.py` run on them; the figures below ("CER now", check A and B, levels) are after the fix. The first switch (D97, column "CER D97") said every phoneme as the table's single value per IPA letter and was much worse (median CER +0.210; Q59, stop and investigate); D98 found and fixed its causes in the generator (the phonemic reading). Measured with `golden/` (= `golden-staged/`), check A and B (`report.py`), `asr.py`; the after-figures are `phase13/p13_status.json` and `phase13/p13_asr.json`. Quechua fails check A as it did in 1.3.0 (Q61). Any language goes back to its 1.3.0 sounds with one line (`realization = "legacy"`).
+**Shipped in 1.4.0, with Phase 13's fix (D99, 2026-10-12).** At Q62 the human chose to ship Phase 12's switch, shown with its six languages worse by more than 0.10 (yue, my, sd, ms, el, cy). Phase 13's build then found, with `engine/check_espeak_packs.py`, that the phonemic reading's whole diphthong phones (English-based Y W O, German-based aj aw oj), which the module says as two phones, made the accent layer lay later words' sounds on the wrong phones (15 packs failed the check). Shown the fault and the first 14 languages' recognition (12 within 0.02), the human chose to fix, re-measure and release (Q65): those diphthongs are now the first vowel gliding to the second; 65 packs' maps changed, their goldens were recorded again and `asr.py` was run on them with nothing else running (`phase13/p13_asr65_quiet2.log`); the figures below ("CER now", check A and B, levels) are after the fix. **New to the list since Q62: Faroese (fo)**, 0.565 in Phase 12, 0.645 after D99 (the same in every run); it is said to the human before 1.4.0 is published. **Run-to-run variation**: 8 of the 46 changed languages Whisper scores gave a different CER in two quiet runs of the same build (yue 2.102 / 1.518, sd 1.126 / 1.214, cy 0.985 / 0.935, cmn 0.832 / 0.794, si 1.119 / 1.075, ml 0.990 / 0.979, pa 0.614 / 0.632, ta 0.422 / 0.411; cause not investigated), so Sindhi's place on the list depends on the run; the second run is the one below. Assamese measured 1.177 in a run made beside the golden recording (one sentence heard as a string of numbers) and 1.020 in each of four runs without that load (two of it alone, `phase13/p13_asr-as-alone.log`, and the two quiet runs of the 65), as in Phase 12. The first switch (D97, column "CER D97") said every phoneme as the table's single value per IPA letter and was much worse (median CER +0.210; Q59, stop and investigate); D98 found and fixed its causes in the generator (the phonemic reading). Measured with `golden/` (= `golden-staged/`), check A and B (`report.py`) and `asr.py`; the after-figures are `phase13/p13_status.json` and `phase13/p13_asr.json`. Quechua fails check A as it did in 1.3.0 (Q61). Any language goes back to its 1.3.0 sounds with one line (`realization = "legacy"`).
 
 ## Plainly
 
-**Recognition worse by more than 0.10 CER (7 languages; the human's guard answer was to ship them anyway; at Q59 they chose to stop and investigate):** as 0.948 -> 1.177, yue 1.056 -> 1.222, cy 0.761 -> 0.922, ms 0.149 -> 0.298, el 0.697 -> 0.825, my 0.986 -> 1.103, fo 0.540 -> 0.645.
+**Recognition worse by more than 0.10 CER (7 languages; what the human was shown of them, and chose, is said in the note above):** yue 1.056 -> 1.518, cy 0.761 -> 0.935, ms 0.149 -> 0.298, sd 1.068 -> 1.214, el 0.697 -> 0.825, my 0.986 -> 1.103, fo 0.540 -> 0.645.
 
 **Levels that dropped (1):** pt-br 4 -> 2.
 
-**Recognition better by more than 0.02 CER (29):** vi-vn-x-south 1.669 -> 1.468, fi 0.490 -> 0.294, uk 0.254 -> 0.101, tt 0.617 -> 0.484, ru-cl 0.243 -> 0.134, ar 0.649 -> 0.548, bs 0.258 -> 0.159, cmn 0.855 -> 0.756, lt 0.348 -> 0.250, haw 0.421 -> 0.328, is 0.590 -> 0.499, sk 0.283 -> 0.193, sv 0.270 -> 0.180, nl-be 0.293 -> 0.223, ta 0.505 -> 0.435, ur 0.579 -> 0.510, lb 0.537 -> 0.468, bg 0.250 -> 0.182, mi 0.325 -> 0.265, ko 0.462 -> 0.402, lv 0.380 -> 0.327, vi 1.361 -> 1.323, ka 0.312 -> 0.279, ru 0.182 -> 0.150, ru-lv 0.179 -> 0.147, en-gb-scotland 0.065 -> 0.037, ps-x-southeast 0.613 -> 0.585, nb 0.306 -> 0.279, mr 0.549 -> 0.523.
+**Recognition better by more than 0.02 CER (30):** si 1.309 -> 1.075, vi-vn-x-south 1.669 -> 1.468, fi 0.490 -> 0.294, uk 0.254 -> 0.101, tt 0.617 -> 0.484, ru-cl 0.243 -> 0.134, ar 0.649 -> 0.548, bs 0.258 -> 0.159, lt 0.348 -> 0.250, ta 0.505 -> 0.411, haw 0.421 -> 0.328, is 0.590 -> 0.499, sk 0.283 -> 0.193, sv 0.270 -> 0.180, nl-be 0.293 -> 0.223, ur 0.579 -> 0.510, lb 0.537 -> 0.468, bg 0.250 -> 0.182, cmn 0.855 -> 0.794, mi 0.325 -> 0.265, ko 0.462 -> 0.402, lv 0.380 -> 0.327, vi 1.361 -> 1.323, ka 0.312 -> 0.279, ru 0.182 -> 0.150, ru-lv 0.179 -> 0.147, en-gb-scotland 0.065 -> 0.037, ps-x-southeast 0.613 -> 0.585, nb 0.306 -> 0.279, mr 0.549 -> 0.523.
 
-**CER over the 96 languages Whisper scores:** median change -0.006, mean -0.002; worse in 44, better in 51.
+**CER over the 96 languages Whisper scores:** median change -0.007, mean -0.003; worse in 44, better in 52.
 
 **Where the sounds came from (R21f, `to_master.py --all`):** composed 14319, created 12567, kept-apart 12, legacy-fallback 6, silent 980, table 17166.
 
@@ -27,7 +27,7 @@ Fallbacks: phonemes on their old line because of a fault, each with its reason i
 | am | Amharic | dedx | 0 | 0 | 1.321 | 1.647 | 1.312 | -0.009 | pass 832/835 | pass 915/915 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
 | an | Aragonese | esex | 0 | 0 | - | - | - | - | pass 951/952 | pass 941/943 | too few 3/5 / too few 3/5 | 2 / 2 | - |
 | ar | Arabic | dedx | 0 | 1 | 0.649 | 0.768 | 0.548 | -0.101 | pass 1828/1836 | pass 2081/2083 | too few 6/10 / too few 6/10 | 2 / 2 | unknown |
-| as | Assamese | dedx | 0 | 0 | 0.948 | 1.145 | 1.177 | +0.229 | pass 1120/1128 | pass 1214/1216 | too few 4/5 / too few 3/5 | 2 / 2 | unknown |
+| as | Assamese | dedx | 0 | 0 | 0.948 | 1.145 | 1.020 | +0.073 | pass 1120/1128 | pass 1214/1216 | too few 4/5 / too few 3/5 | 2 / 2 | unknown |
 | az | Azerbaijani | dedx | 0 | 0 | 0.486 | 0.697 | 0.481 | -0.005 | pass 850/854 | pass 931/933 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
 | ba | Bashkir | dedx | 0 | 0 | 0.993 | 0.973 | 0.997 | +0.003 | pass 799/801 | pass 750/752 | too few 4/5 / too few 4/5 | 2 / 2 | unknown |
 | be | Belarusian | dedx | 0 | 0 | 0.244 | 0.415 | 0.256 | +0.013 | pass 975/976 | pass 1032/1032 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
@@ -40,12 +40,12 @@ Fallbacks: phonemes on their old line because of a fault, each with its reason i
 | ca-nw | Catalan (North-western) | esex | 0 | 0 | 0.178 | 0.479 | 0.170 | -0.008 | pass 974/974 | pass 965/965 | too few 3/5 / too few 3/5 | 2 / 2 | unknown |
 | ca-va | Catalan (Valencian) | esex | 0 | 0 | 0.158 | 0.479 | 0.165 | +0.007 | pass 973/974 | pass 964/965 | FAIL 21/29 / FAIL 21/29 | 2 / 2 | phoneme values |
 | chr | Cherokee | enux | 0 | 0 | - | - | - | - | pass 981/991 | pass 1004/1010 | too few 3/5 / too few 4/5 | 2 / 2 | - |
-| cmn | Chinese (Mandarin, latin as English) | dedx | 0 | 1 | 0.855 | 0.786 | 0.756 | -0.099 | FAIL 1983/2367 | pass 2298/2397 | too few 0/10 / too few 4/10 | 1 / 2 | stress-or-tone |
+| cmn | Chinese (Mandarin, latin as English) | dedx | 0 | 1 | 0.855 | 0.786 | 0.794 | -0.061 | FAIL 1983/2367 | pass 2298/2397 | too few 0/10 / too few 4/10 | 1 / 2 | stress-or-tone |
 | cmn-latn-pinyin | Chinese (Mandarin, latin as Pinyin) | dedx | 0 | 1 | - | - | - | - | FAIL 947/1124 | pass 1098/1145 | too few 0/5 / too few 2/5 | 1 / 2 | - |
 | crh | Crimean Tatar | dedx | 0 | 0 | - | - | - | - | pass 807/811 | pass 896/896 | too few 3/5 / too few 4/5 | 2 / 2 | - |
 | cs | Czech | dedx | 0 | 0 | 0.185 | 0.375 | 0.188 | +0.003 | pass 825/827 | pass 1069/1070 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
 | cv | Chuvash | dedx | 0 | 0 | - | - | - | - | pass 865/867 | pass 948/948 | too few 4/5 / too few 3/5 | 2 / 2 | - |
-| cy | Welsh | engx | 0 | 0 | 0.761 | 1.034 | 0.922 | +0.161 | pass 866/866 | pass 920/920 | too few 2/5 / too few 2/5 | 2 / 2 | unknown |
+| cy | Welsh | engx | 0 | 0 | 0.761 | 1.034 | 0.935 | +0.174 | pass 866/866 | pass 920/920 | too few 2/5 / too few 2/5 | 2 / 2 | unknown |
 | da | Danish | dedx | 0 | 0 | 0.346 | 0.644 | 0.376 | +0.029 | pass 769/770 | pass 950/951 | too few 4/5 / too few 3/5 | 2 / 2 | unknown |
 | el | Greek | esex | 0 | 0 | 0.697 | 0.718 | 0.825 | +0.128 | pass 741/745 | pass 736/738 | too few 3/5 / too few 3/5 | 2 / 2 | unknown |
 | en-029 | English (Caribbean) | engx | 0 | 0 | 0.039 | 0.468 | 0.058 | +0.019 | pass 1010/1012 | pass 1101/1103 | too few 2/5 / too few 2/5 | 2 / 2 | - |
@@ -101,7 +101,7 @@ Fallbacks: phonemes on their old line because of a fault, each with its reason i
 | lv | Latvian | dedx | 0 | 0 | 0.380 | 0.556 | 0.327 | -0.053 | pass 820/820 | pass 1038/1038 | too few 4/5 / too few 3/5 | 2 / 2 | unknown |
 | mi | Māori | esex | 0 | 0 | 0.325 | 0.360 | 0.265 | -0.060 | pass 160/161 | pass 957/958 | too few 3/5 / too few 3/5 | 2 / 2 | unknown |
 | mk | Macedonian | itix | 0 | 0 | 0.164 | 0.256 | 0.156 | -0.008 | pass 1095/1098 | pass 1095/1097 | too few 2/4 / too few 2/4 | 2 / 2 | unknown |
-| ml | Malayalam | dedx | 0 | 0 | 0.935 | 1.000 | 0.990 | +0.056 | pass 1088/1094 | pass 1037/1042 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
+| ml | Malayalam | dedx | 0 | 0 | 0.935 | 1.000 | 0.979 | +0.044 | pass 1088/1094 | pass 1037/1042 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
 | mn | Mongolian | dedx | 0 | 0 | 0.447 | 0.696 | 0.466 | +0.019 | pass 714/718 | pass 945/948 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
 | mn-f | Ankhmaa | dedx | 0 | 0 | 0.449 | 0.686 | 0.498 | +0.048 | pass 714/718 | pass 945/948 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
 | mr | Marathi | dedx | 0 | 1 | 0.549 | 0.599 | 0.523 | -0.027 | pass 1113/1123 | pass 1209/1211 | too few 4/5 / too few 3/5 | 2 / 2 | unknown |
@@ -117,7 +117,7 @@ Fallbacks: phonemes on their old line because of a fault, each with its reason i
 | nog | Nogai | dedx | 0 | 0 | - | - | - | - | pass 1698/1707 | pass 1734/1735 | too few 9/12 / too few 10/12 | 2 / 2 | - |
 | om | Oromo | dedx | 0 | 0 | - | - | - | - | pass 694/697 | pass 951/951 | too few 3/5 / too few 2/5 | 2 / 2 | - |
 | or | Oriya | itix | 0 | 0 | - | - | - | - | pass 1200/1208 | pass 1197/1206 | too few 2/4 / too few 2/4 | 2 / 2 | - |
-| pa | Punjabi | dedx | 0 | 0 | 0.593 | 0.863 | 0.660 | +0.067 | pass 1076/1090 | pass 1203/1205 | too few 3/5 / too few 4/5 | 2 / 2 | stress-or-tone |
+| pa | Punjabi | dedx | 0 | 0 | 0.593 | 0.863 | 0.632 | +0.039 | pass 1076/1090 | pass 1203/1205 | too few 3/5 / too few 4/5 | 2 / 2 | stress-or-tone |
 | pap | Papiamento | esux | 0 | 0 | - | - | - | - | pass 941/942 | pass 930/931 | too few 3/5 / too few 3/5 | 2 / 2 | - |
 | pdc | Pennsylvania Dutch (Lancaster) | dedx | 0 | 0 | - | - | - | - | pass 977/980 | pass 962/963 | too few 4/5 / too few 4/5 | 2 / 2 | - |
 | pdc-x-lehigh | Pennsylvania Dutch (Lehigh) | dedx | 0 | 0 | - | - | - | - | pass 977/980 | pass 960/961 | too few 4/5 / too few 4/5 | 2 / 2 | - |
@@ -139,9 +139,9 @@ Fallbacks: phonemes on their old line because of a fault, each with its reason i
 | ru-cl | Russian (Classic) | dedx | 0 | 0 | 0.243 | 0.748 | 0.134 | -0.109 | pass 2227/2231 | pass 2233/2233 | too few 10/12 / too few 9/12 | 2 / 2 | - |
 | ru-lv | Russian (Latvia) | dedx | 0 | 0 | 0.179 | 0.489 | 0.147 | -0.032 | pass 2227/2231 | pass 2233/2233 | too few 10/12 / too few 9/12 | 2 / 2 | - |
 | rup | Aromanian | itix | 0 | 0 | - | - | - | - | pass 997/997 | pass 992/992 | too few 2/4 / too few 2/4 | 2 / 2 | - |
-| sd | Sindhi | dedx | 0 | 0 | 1.068 | 1.408 | 1.146 | +0.078 | pass 875/885 | pass 1195/1197 | too few 4/5 / too few 3/5 | 2 / 2 | unknown |
+| sd | Sindhi | dedx | 0 | 0 | 1.068 | 1.408 | 1.214 | +0.146 | pass 875/885 | pass 1195/1197 | too few 4/5 / too few 3/5 | 2 / 2 | unknown |
 | shn | Shan (Tai Yai) | dedx | 0 | 0 | - | - | - | - | pass 1923/2003 | pass 2260/2260 | too few 4/10 / too few 4/10 | 2 / 2 | - |
-| si | Sinhala | dedx | 0 | 0 | 1.309 | 0.981 | 1.309 | +0.000 | pass 1096/1105 | pass 1080/1086 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
+| si | Sinhala | dedx | 0 | 0 | 1.309 | 0.981 | 1.075 | -0.235 | pass 1096/1105 | pass 1080/1086 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
 | sjn | Sindarin | dedx | 0 | 0 | - | - | - | - | pass 776/780 | pass 982/982 | too few 4/5 / too few 4/5 | 2 / 2 | - |
 | sk | Slovak | dedx | 0 | 0 | 0.283 | 0.438 | 0.193 | -0.090 | pass 825/827 | pass 1069/1070 | too few 3/5 / too few 4/5 | 2 / 2 | unknown |
 | sl | Slovenian | dedx | 0 | 0 | 0.086 | 0.350 | 0.066 | -0.019 | pass 765/765 | pass 1001/1002 | too few 4/5 / too few 3/5 | 2 / 2 | - |
@@ -150,7 +150,7 @@ Fallbacks: phonemes on their old line because of a fault, each with its reason i
 | sr | Serbian | itix | 0 | 0 | 0.166 | 0.225 | 0.172 | +0.006 | pass 824/831 | pass 1119/1124 | too few 2/4 / too few 1/4 | 2 / 2 | unknown |
 | sv | Swedish | dedx | 0 | 0 | 0.270 | 0.491 | 0.180 | -0.090 | pass 1833/1839 | pass 2094/2094 | too few 6/10 / too few 6/10 | 2 / 2 | unknown |
 | sw | Swahili | esex | 0 | 0 | 0.198 | 0.413 | 0.190 | -0.008 | pass 843/843 | pass 837/837 | too few 3/5 / too few 3/5 | 2 / 2 | unknown |
-| ta | Tamil | dedx | 0 | 0 | 0.505 | 0.854 | 0.435 | -0.070 | pass 1944/1955 | pass 2454/2456 | too few 8/10 / too few 6/10 | 2 / 2 | unknown |
+| ta | Tamil | dedx | 0 | 0 | 0.505 | 0.854 | 0.411 | -0.094 | pass 1944/1955 | pass 2454/2456 | too few 8/10 / too few 6/10 | 2 / 2 | unknown |
 | te | Telugu | dedx | 0 | 0 | 0.447 | 0.646 | 0.450 | +0.003 | pass 875/885 | pass 1197/1199 | too few 4/5 / too few 3/5 | 2 / 2 | unknown |
 | th | Thai | esex | 0 | 0 | 1.121 | 1.273 | 1.211 | +0.090 | pass 506/506 | pass 961/964 | too few 3/5 / too few 3/5 | 2 / 2 | unknown |
 | ti | Tigrinya | dedx | 0 | 0 | - | - | - | - | pass 844/848 | pass 928/928 | too few 3/5 / too few 4/5 | 2 / 2 | - |
@@ -166,7 +166,7 @@ Fallbacks: phonemes on their old line because of a fault, each with its reason i
 | vi-vn-x-central | Vietnamese (Central) | dedx | 0 | 1 | 1.405 | 1.461 | 1.472 | +0.067 | pass 980/986 | pass 1110/1110 | too few 2/5 / too few 2/5 | 2 / 2 | stress-or-tone |
 | vi-vn-x-south | Vietnamese (Southern) | dedx | 0 | 1 | 1.669 | 1.554 | 1.468 | -0.201 | pass 982/986 | pass 1110/1110 | too few 3/5 / too few 3/5 | 2 / 2 | stress-or-tone |
 | xex | xextan-test | dedx | 0 | 0 | - | - | - | - | pass 943/948 | pass 1013/1014 | too few 4/6 / too few 4/6 | 2 / 2 | - |
-| yue | Chinese (Cantonese) | dedx | 0 | 1 | 1.056 | 1.306 | 1.222 | +0.167 | pass 2001/2003 | pass 2266/2266 | too few 2/10 / too few 2/10 | 2 / 2 | stress-or-tone |
+| yue | Chinese (Cantonese) | dedx | 0 | 1 | 1.056 | 1.306 | 1.518 | +0.463 | pass 2001/2003 | pass 2266/2266 | too few 2/10 / too few 2/10 | 2 / 2 | stress-or-tone |
 | yue-latn-jyutping | Chinese (Cantonese, latin as Jyutping) | dedx | 0 | 1 | - | - | - | - | pass 886/886 | pass 1014/1014 | too few 1/5 / too few 1/5 | 2 / 2 | - |
 
 ## Each fallback and each phoneme kept apart, with its reason
