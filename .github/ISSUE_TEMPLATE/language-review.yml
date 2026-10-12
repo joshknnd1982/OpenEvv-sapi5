@@ -1,0 +1,96 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
+name: Language review (native speaker)
+description: Say how one language, dialect or accent sounds to you as a native speaker, or send a filled review packet.
+title: "Review: <language> (<tag>)"
+labels: ["language review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Nobody who builds OpenEVV SAPI5 speaks most of its languages, and the AI that did much of the work cannot hear at all, so every sound was checked by measurement only. Many sounds are informed guesses waiting for someone like you.
+
+        You do not need to be a programmer. Answer what you can and leave the rest empty. Write words in your language's own spelling. If you know the International Phonetic Alphabet, you can add it too, but you don't have to.
+
+        A signed review from a named native speaker changes one thing by itself: the language's **level**, to 5 (native-validated). It changes no sound on its own. What you report becomes a change to the language's pack, measured before it ships.
+  - type: input
+    id: language
+    attributes:
+      label: Language, dialect or accent
+      description: Its name and, if you know it, its tag (the tag is in `docs/LANGUAGE-REPORT.md`, for example Welsh is `cy`).
+      placeholder: "Welsh (cy)"
+    validations:
+      required: true
+  - type: input
+    id: variety
+    attributes:
+      label: The variety you speak natively
+      description: Where you grew up and for how long, for example "North Wales, 30 years".
+    validations:
+      required: true
+  - type: input
+    id: voice
+    attributes:
+      label: The voice you listened to
+      description: For example "OpenEVV Welsh Adult Male 1", and the program (NVDA, Balabolka ...).
+  - type: dropdown
+    id: understood
+    attributes:
+      label: Can you understand it?
+      options:
+        - "Yes, easily"
+        - "Mostly"
+        - "Only with effort"
+        - "No"
+    validations:
+      required: true
+  - type: dropdown
+    id: recognisable
+    attributes:
+      label: Does it sound like your language?
+      options:
+        - "Yes"
+        - "Yes, with a foreign accent"
+        - "Partly"
+        - "No"
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What sounds wrong
+      description: The words or sentences that are wrong, and how a native speaker says them. One line each if you can. A vowel or consonant that sounds like another, the wrong stress, a wrong tone, a question that ends wrongly, a voice that is buzzy, breathy or harsh.
+      placeholder: |
+        "llyfr": the ll sounds like l; it should be the voiceless sound of Welsh ll.
+        Questions end too high.
+  - type: textarea
+    id: reading
+    attributes:
+      label: Words, numbers, letter names or punctuation read wrongly (optional)
+      description: These are fixed in eSpeak NG's dictionary, not in the sounds. Say what was read and what it should be.
+  - type: textarea
+    id: packet
+    attributes:
+      label: Review packet (optional)
+      description: |
+        If you were given a review packet (`index.html` with recordings, `CHECKLIST.md`, `feedback.toml`), attach your filled `feedback.toml` here. GitHub does not take .toml files on their own: put it in a .zip first. Packets are in `docs/tts-extension/review_packets/`; if your language has none, ask for one in this issue.
+  - type: dropdown
+    id: consent
+    attributes:
+      label: May your name be written in the project's files as this language's reviewer?
+      description: Only a named review (or a stable pseudonym) can raise a language to level 5. Your GitHub name is used unless you write another below.
+      options:
+        - "Yes"
+        - "Yes, under the name or pseudonym I give below"
+        - "No, don't name me (the review still helps, but the level stays as it is)"
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name or pseudonym to record (optional)
+  - type: textarea
+    id: recording
+    attributes:
+      label: A recording of you saying it (optional)
+      description: Attach a short recording in a .zip file (GitHub does not take sound files on their own).

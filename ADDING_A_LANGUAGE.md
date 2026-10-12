@@ -78,37 +78,40 @@ before it ships.
 Every session begins with the **doctor**, which checks everything at once and must end with
 `0 FAILED`:
 
-    & $py engine\doctor.py --quick       # about a minute; the full form (no --quick) runs the whole golden regression, 25 to 40 minutes
+    & $py engine\doctor.py --quick       # about three minutes; the full form (no --quick) runs the whole golden regression, 25 to 40 minutes
 
-What it printed on 2026-10-11 after the 1.3.0 build (Phase 10; the stage and the shipped modules are
-the same since then):
+What it printed on 2026-10-12 after the 1.4.0 build (Phase 13; the stage and the shipped modules are
+the same since 1.3.0):
 
     PASS  env        Python 3.10.11 at C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe; stage C:\Users\joshk\OpenEvvBuild-ttsext\stage-dev
-    PASS  harness    == 76 checks, 76 passed, 0 failed  (docs\tts-extension\harness\selftest.py --quick, 10 s)
-    PASS  packs      Ran 22 tests in 17.853s  (engine\packs\test_packs.py, 18 s)
-    PASS  packs      check: every file identical to languages/  (engine\packs\build_packs.py check, 18 s)
-    PASS  validate   validate: 22 packs, 22 accepted, 0 rejected  (engine\packs\validate_packs.py, 17 s)
+    PASS  harness    == 76 checks, 76 passed, 0 failed  (docs\tts-extension\harness\selftest.py --quick, 2 s)
+    PASS  packs      Ran 44 tests in 57.254s  (engine\packs\test_packs.py, 57 s)
+    PASS  packs      check: every file identical to languages/  (engine\packs\build_packs.py check, 50 s)
+    PASS  master     master check: 150 packs at realization "master"; every one builds, no phoneme silent  (engine\packs\to_master.py --check, 67 s)
+    PASS  validate   validate: 22 packs, 22 accepted, 0 rejected  (engine\packs\validate_packs.py, 12 s)
     PASS  validate   validate: 1 packs, 1 accepted, 0 rejected  (engine\packs\validate_packs.py fi-x-evvtrial, 0 s)
-    PASS  validate   validate: 6 packs, 6 accepted, 0 rejected  (engine\packs\validate_packs.py ca-va-x-evvdemo, 1 s)
-    PASS  validate   validate selftest: 16 of 16 pass  (engine\packs\validate_packs.py --selftest, 1 s)
+    PASS  validate   validate: 6 packs, 6 accepted, 0 rejected  (engine\packs\validate_packs.py ca-va-x-evvdemo, 4 s)
+    PASS  validate   validate selftest: 16 of 16 pass  (engine\packs\validate_packs.py --selftest, 0 s)
     PASS  validate   normalize selftest: 3 of 3 pass  (engine\authenticity\normalize.py --selftest, 0 s)
     PASS  validate   ingest selftest: pass  (engine\review\ingest_feedback.py --selftest, 1 s)
-    PASS  table      table: 393 entries (composed 245, created 76, mapped 72); 0 problems; 439 estimated values queued for verification  (engine\ipa\table.py, 0 s)
+    PASS  table      table: 394 entries (composed 245, created 77, mapped 72); 0 problems; 439 estimated values queued for verification  (engine\ipa\table.py, 0 s)
     PASS  table      validator: the table accepted; 30 planted faults, 30 refused  (engine\ipa\table.py --selftest, 2 s)
-    PASS  coverage   coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0; rendered and measured 175 (proof passed 175); approximate 6  (engine\ipa\coverage.py --quiet, 22 s)
+    PASS  coverage   coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0; rendered and measured 175 (proof passed 175); approximate 6  (engine\ipa\coverage.py --quiet, 3 s)
     PASS  coverage   state against proof: every entry that is not MISSING has a passing proof
     PASS  coverage   proof against map: every proof of a done entry was made on the map as it stands
     PASS  estimated  439 estimated values in the table, 439 queued in Q15 (written 2026-10-11)
-    PASS  docs       check: pass (0 problems)  (engine\check_readme.py, 1 s)
+    PASS  docs       check: pass (0 problems)  (engine\check_readme.py, 0 s)
     PASS  docs       check: pass (unclassified 0, stale rules 0, MIT claimed over another's file 0, missing headers 0)  (engine\check_licences.py --headers, 1 s)
-    PASS  golden     golden: 6 packs, 28 cases, 0 FAILED, 0 changed within tolerance, 10 s  (docs\tts-extension\harness\golden.py --smoke, 12 s)
-    doctor: 19 checks, 19 passed, 0 warnings, 0 FAILED (none), 107 s
+    PASS  placed     3 packs checked, 0 failed  (engine\check_espeak_packs.py C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\dist\x64\OpenEvvFrontend.exe, 1 s)
+    PASS  golden     golden: 6 packs, 28 cases, 0 FAILED, 0 changed within tolerance, 3 s  (docs\tts-extension\harness\golden.py --smoke, 4 s)
+    doctor: 21 checks, 21 passed, 0 warnings, 0 FAILED (none), 205 s
 
 What each line means: `env` the tools and the stage are there; `harness` the measuring code
 measures known test signals correctly; `packs` every pack builds to exactly the files the product
 ships; `validate` every dialect and accent pack documents who it describes and cites its sources;
 `table` and `coverage` the master table of IPA sounds is consistent and every one of the 175 IPA
 chart symbols is made and proved; `estimated` every guessed value is queued to be checked;
+`placed` the module says each phone of a language where its map put it (three packs here, every pack in the full run);
 `golden` nothing the engine says has changed by accident; `docs` the README's links, paths and
 version hold, and every tracked file is in one licence class (`docs/tts-extension/LICENCE_AUDIT.md`).
 

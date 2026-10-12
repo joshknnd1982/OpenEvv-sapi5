@@ -164,3 +164,19 @@ Raised by the R15 review; asked with AskUserQuestion, the recommended choice fir
 | Question | Choices offered | Answer |
 |---|---|---|
 | **Q64.** The fixed generator reads each language's own measured stop timing (29 languages) and vowel formants (28), each from a cited study, from its profile in `engine/profiles/`; R21 says a value for one language lives in its pack as an override with its source. | Profiles, recorded (recommended) · Move into overrides · Drop profile values | **Profiles, recorded**: kept, recorded as how R21 applies (D98), and every sound line names the study its value came from. |
+
+## 2026-10-12, Phase 13: running build_all.bat (no OPEN_QUESTIONS id; an approval)
+
+The auto-mode check refused to run `build_all.bat` (it rewrites the tracked `dist\`) until the human said yes in chat. Asked with AskUserQuestion; the recommended choice first.
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| **Build.** Phase 13 needs `build_all.bat` (about 15 minutes, run twice: now and after the README). It rewrites `dist\x64`, `dist\x86`, `dist\docs` and builds the 1.4.0 installer into `output\`; `languages\` and the packs are not touched; git history keeps the old `dist\`. May I run it? | Yes, run it (recommended) · No, stop here | **Yes, run it.** |
+
+## 2026-10-12, Phase 13: the defect the build's pack check found (OPEN_QUESTIONS.md Q65)
+
+`build_all.bat`'s `check_espeak_packs.py` failed 15 of the 146 switched packs (26 with more misplaced phones than 1.3.0). The cause: the phonemic reading (D98) takes the module's own diphthong phones (English-based Y W O, German-based aj aw oj), which the module says as two phones; the accent layer then lays later sounds on the wrong vowels. Asked with AskUserQuestion; the recommended choice first.
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| **Q65.** A defect in what Phase 12 shipped: in 65 languages, after certain diphthongs, later sounds land on the wrong vowels (Vietnamese: 43 of 199 sounds of the check's text). A one-rule fix in the generator removes it; recognition so far unchanged (12 of 14 within 0.02). What should Phase 13 do? | Fix, re-measure, release (recommended) · Put the 65 on 1.3.0 sounds · Stop Phase 13 here | **Fix, re-measure, release.** |

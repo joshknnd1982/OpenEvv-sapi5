@@ -29,7 +29,7 @@ Run at 13:15 on 2026-10-11 with the symbol sweep, the two trial helpers and the 
 
 After every change of this phase (the reference lookup, the regenerated results, the trial packs under `packs-proposed/`), `engine\doctor.py --quick` once more:
 
-    PASS  validate   validate: 2 packs, 2 accepted, 0 rejected  (engine\packsalidate_packs.py fi-x-evvtrial, 0 s)
+    PASS  validate   validate: 2 packs, 2 accepted, 0 rejected  (engine\packs\validate_packs.py fi-x-evvtrial, 0 s)
     PASS  golden     golden: 6 packs, 28 cases, 0 FAILED, 0 changed within tolerance, 4 s  (docs	ts-extension\harness\golden.py --smoke, 5 s)
     doctor: 17 checks, 17 passed, 0 warnings, 0 FAILED (none), 67 s
 

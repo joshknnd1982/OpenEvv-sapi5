@@ -174,7 +174,7 @@ The module says the phone `C` as `t` and then `S`: every module takes an affrica
 
 ### The lines for IPA (a map of version 2)
 
-Since 1.3.0 the front-end reads IPA marks, tone letters and extIPA's braces and composes them on the sounds they belong to; the IPA master table (`ipa/table/`) is realised into these lines by `engine/ipa` (`ipa/realized/dedx.map`). No language shipped in 1.3.0 uses them yet: text is still read by eSpeak NG into each language's own sounds, and the realised map is read by the tools, `engine/ipa/say_ipa.py` (any IPA, said and measured) and the proofs of `ipa/proofs/`. Speaking IPA through SAPI is a later addition.
+Since 1.3.0 the front-end reads IPA marks, tone letters and extIPA's braces and composes them on the sounds they belong to; the IPA master table (`ipa/table/`) is realised into these lines by `engine/ipa` (`ipa/realized/dedx.map`). No language shipped in 1.3.0 used them; since 1.4.0 the sound lines of every language read by eSpeak NG are made from the table (below, "Where the numbers come from"). In 1.3.0: text is still read by eSpeak NG into each language's own sounds, and the realised map is read by the tools, `engine/ipa/say_ipa.py` (any IPA, said and measured) and the proofs of `ipa/proofs/`. Speaking IPA through SAPI is a later addition.
 
 | Line | What it says |
 |---|---|
@@ -197,7 +197,9 @@ Two more things the front-end does with these lines:
 
 ## Where the numbers come from
 
-`engine\accent\sounds.py` writes the sounds, `engine\accent\prosody.py` the melody and the tones, `engine\accent\questions.py` the question words, and `engine\accent\mapwriter.py` puts them into a pack's `sounds.map`; `engine\make_espeak_packs.py` runs them for every language.
+**Since 1.4.0** the `sound` lines of the 146 languages read by eSpeak NG are made from the IPA master table (`ipa/table/`) when a pack is built: each pack names its phonemes as IPA (`[master.ipa]`), and the pack compiler's master path (`realization = "master"`, `engine\packs\master.py`; `packs/README.md`) says a sound the module has as the module's own phone, takes one it lacks from the table (composed from a base and its marks where it can be), and uses a language's own published stop timing and vowel formants from its profile where a study gives them, each line naming its source (`docs/tts-extension/DECISIONS.md` D96, D98, D99). The melody, the tones, the question words and the rest of the map below are still written as this section describes. The older generator's sound lines stay in each pack, for the few phonemes kept on them (each with its reason) and for a pack set back to `realization = "legacy"`, its 1.3.0 sounds.
+
+Before 1.4.0, and still for the melody and the tones: `engine\accent\sounds.py` writes the sounds, `engine\accent\prosody.py` the melody and the tones, `engine\accent\questions.py` the question words, and `engine\accent\mapwriter.py` puts them into a pack's `sounds.map`; `engine\make_espeak_packs.py` runs them for every language.
 
 - **Each module was measured** (`engine\accent\chassis.py`, results in `engine\accent\chassis\<module>.json`): every phone was put through the module and its formants, its length, its voice onset time and its noise were read off the frames the module asked the synthesiser for.
 - **Vowels.** The formants of each vowel of the IPA chart for a man's voice (`VOWEL` in `sounds.py`: the middle of what is reported across languages), or the language's own where its profile has a published table, are scaled to the size of the module's voice and held against the module's nearest vowel. The ratio is the definition. A vowel the module has is left as the module says it unless the language's own measurements are more than 8 per cent away.

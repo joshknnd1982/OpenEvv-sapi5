@@ -78,7 +78,7 @@ RULES = [
     ("mit-here", ["openevv/src/accent/*", "openevv/accents/**", "openevv/tools/module/clone.py"], None,
      "this project's additions to the engine, under openevv/LICENSE's terms (NOTICE.md)"),
     ("mit-openevv", ["openevv/**", "dist/docs/openevv-*.txt"], None, "upstream openevv"),
-    ("mit-here", ["src/**", "engine/**", "installer/**", "docs/**", "ipa/**", "packs/**", "packs-proposed/**", ".claude/**",
+    ("mit-here", ["src/**", "engine/**", "installer/**", "docs/**", "ipa/**", "packs/**", "packs-proposed/**", ".claude/**", ".github/**",
                   "samples/README.md", "samples/render-report.txt", "languages/*/language.ini",
                   "dist/x64/OpenEvvHost.exe", "dist/x86/OpenEvvHost.exe", "dist/x64/OpenEvvConfig.exe",
                   "dist/x86/OpenEvvConfig.exe", "dist/docs/*.txt",
