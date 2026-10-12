@@ -25,6 +25,9 @@ The checks, each PASS, WARN or FAIL; the exit code is 1 if any FAILED:
              not, in an entry first committed more than --stale-days ago (default 14), FAILS (newer: WARN)
   docs       engine/check_readme.py (README links, paths, version, MIT wording) and engine/check_licences.py
              --headers (every tracked file in one licence class; Phase 10)
+  placed     engine/check_espeak_packs.py: each pack read by eSpeak NG through its template's module, every
+             phone placed where its map put it (Phase 13, D99); --quick: three packs whose diphthongs once
+             lost their place (vi, en-gb-x-rp, en-us-nyc), the full run every pack (as build_all.bat does)
 """
 import argparse
 import datetime
@@ -225,6 +228,10 @@ def main():
     check_estimated(a.stale_days)
     step("docs", [os.path.join(ROOT, "engine", "check_readme.py")], 120, r"check: pass")
     step("docs", [os.path.join(ROOT, "engine", "check_licences.py"), "--headers"], 120, r"check: pass")
+    placed = [os.path.join(ROOT, "engine", "check_espeak_packs.py"), os.path.join(ROOT, "dist", "x64", "OpenEvvFrontend.exe"),
+              os.path.join(ROOT, "dist", "espeak-ng-data")]
+    step("placed", placed + (["vi", "en-gb-x-rp", "en-us-nyc"] if a.quick else []), 600 if a.quick else 3600,
+         r"\d+ packs checked, 0 failed")
     if a.quick:
         step("golden", [os.path.join(HARNESS, "golden.py"), "--smoke"], 1200, r"golden: .* 0 FAILED")
     else:

@@ -459,9 +459,17 @@ class Phonemic(unittest.TestCase):
         self.assertLess(r["keys"]["f2"], 110)
 
     def test_a_diphthong_or_nasal_vowel_the_template_has_is_said_whole(self):
-        for ipa, tm, phone in (("eɪ", "enux", "e"), ("aɪ", "dedx", "aj"), ("ɑ̃", "frfx", "a~")):
+        for ipa, tm, phone in (("eɪ", "enux", "e"), ("ɑ̃", "dedx", "a~"), ("ɑ̃", "frfx", "a~")):
             parts = self.M.realize_ipa(ipa, True, tm)["parts"]
             self.assertEqual([(p, k) for p, k, _, _ in parts], [(phone, {})], (ipa, tm))
+
+    def test_a_diphthong_the_module_says_as_two_phones_glides(self):
+        # D99: the module says aj as A j and Y as a y; the accent layer cannot place the second half, so
+        # these are the first vowel gliding to the second, never the whole phone
+        for ipa, tm, whole in (("aɪ", "dedx", "aj"), ("aʊ", "dedx", "aw"), ("aɪ", "engx", "Y"), ("aʊ", "enux", "W")):
+            parts = self.M.realize_ipa(ipa, True, tm)["parts"]
+            self.assertNotIn(whole, [p for p, _, _, _ in parts], (ipa, tm))
+            self.assertEqual(parts[0][1].get("glide"), 1, (ipa, tm))
 
     def test_the_languages_own_stop_onsets(self):
         def vot(tag, tm, ipa="t"):

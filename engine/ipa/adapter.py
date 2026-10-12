@@ -210,6 +210,14 @@ PHONEMIC_WHOLE = {
     'dedx': {'aj': 'aɪ', 'aw': 'aʊ', 'oj': 'ɔʏ', 'a~': 'ɑ̃', 'E~': 'ɛ̃', 'o~': 'ɔ̃', 'oe~': 'œ̃'},
     'frfx': {'a~': 'ɑ̃', 'E~': 'ɛ̃', 'o~': 'ɔ̃', 'oe~': 'œ̃'},
 }
+# Phase 13 (D99): whole phones the module says as two phones of its own (Y as a y, W as a w, O as c y, aj as
+# A j, aw as A w, oj as its two halves). The accent layer cannot place the second half: it looks ahead for it
+# and lays the next words' sounds on the wrong phones (engine/check_espeak_packs.py failed 15 packs). They are
+# not taken whole: the diphthong is the first vowel gliding to the second, as the table has it. The French and
+# German nasal vowels stay whole (the module's added N is unplaced, and the next phone is placed again).
+# EVV_P13_SPLIT_WHOLE=1 takes them whole again (Phase 12's maps), to measure the difference.
+SPLIT_WHOLE = {'enux': {'Y', 'W', 'O'}, 'engx': {'Y', 'W', 'O'}, 'dedx': {'aj', 'aw', 'oj'}}
+TAKE_SPLIT_WHOLE = os.environ.get('EVV_P13_SPLIT_WHOLE', '0') == '1'
 
 
 def whole_phone(template, text):
@@ -218,6 +226,8 @@ def whole_phone(template, text):
     want = EP.normalise(text)
     measured = chassis(template)
     for p, ipa in sorted(PHONEMIC_WHOLE.get(template, {}).items()):
+        if not TAKE_SPLIT_WHOLE and p in SPLIT_WHOLE.get(template, ()):
+            continue
         if EP.normalise(ipa) == want and p in measured:
             return p
     return None
