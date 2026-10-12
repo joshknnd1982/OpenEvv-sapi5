@@ -26,6 +26,8 @@ The rules are tried in order and the first that matches decides, so the exceptio
 | `cc-by-sa` | CC BY-SA 4.0, International Phonetic Association | `IPA_Kiel.pdf` and the seven official sub-chart images in `docs/tts-extension/inventory/ipa_chart_images/`, unchanged; nothing of them is copied into an MIT file |
 | `unicode` | Unicode License v3 | `docs/tts-extension/inventory/unicode/` (`UnicodeData.txt`, `Blocks.txt`, and the licence itself) |
 | `cmu` | CMU's notice, `third_party/cmu_arctic/cmu_us_awb_arctic/COPYING` (free for any purpose, notice kept) | CMU ARCTIC speaker awb, unchanged |
+| `espeak-src` | GPL-3.0-or-later (`COPYING`); BSD-2-Clause for `src/compat/getopt.c`; Apache-2.0 for parts of the Android app; the Unicode licence for its Unicode data (`COPYING.UCD`), as eSpeak NG's README says | `third_party/espeak-ng/`: eSpeak NG's source at tag `openevv-1.2.0`, the reading side of the 146 languages (added after Phase 13, Q67) |
+| `installer` | each bundled file's own terms (every class above) | `release/<version>/*.exe`: the published installer (added after Phase 13, Q68) |
 
 **CC0 text inside MIT files.** Some files of this project quote Common Voice sentences (CC0 1.0): the review lists (`review.toml`) and the packets' forms (`feedback.toml`). CC0 waives every right, so such text may sit in an MIT file without changing what the file may be used for; these files stay `mit-here`. A Tatoeba sentence (CC BY 2.0 FR, attribution required) is quoted only in the files of the `sentences` class, where its id and author are kept.
 

@@ -332,7 +332,7 @@ Then run:
 
 This builds x86 and x64, runs the test suites, stages `dist\` and writes `output\OpenEVV-SAPI5-Setup-<version>.exe`. `build_all.bat notest` skips the tests.
 
-The eSpeak NG front-end is built too, with eSpeak NG fetched from [joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng) (so the first build wants the internet and Git), or from a local checkout with `set ESPEAK_NG_SOURCE_DIR=C:\path\to\espeak-ng`. With a 64-bit Python on the PATH, every eSpeak NG pack is also checked against its template's module. `build_all.bat packs` writes the 145 eSpeak NG packs of 1.2 in `languages\` again from eSpeak NG's sources, choosing each template and translating each phoneme table (it predates `packs/`; `engine\packs\build_packs.py build languages <tag>` builds a language's folder from its pack).
+The eSpeak NG front-end is built too, from the copy of eSpeak NG this repository holds in `third_party/espeak-ng/` ([joshknnd1982/espeak-ng](https://github.com/joshknnd1982/espeak-ng) at the tag release 1.4.0 was built from; `third_party/README.md`), so no download is needed, or from another checkout with `set ESPEAK_NG_SOURCE_DIR=C:\path\to\espeak-ng`. With a 64-bit Python on the PATH, every eSpeak NG pack is also checked against its template's module. `build_all.bat packs` writes the 145 eSpeak NG packs of 1.2 in `languages\` again from eSpeak NG's sources, choosing each template and translating each phoneme table (it predates `packs/`; `engine\packs\build_packs.py build languages <tag>` builds a language's folder from its pack).
 
 Rebuilding the language modules from `openevv/` also needs [MSYS2](https://www.msys2.org/) with GNU make, Python and the two mingw-w64 GCCs:
 
@@ -357,7 +357,8 @@ Then run `engine\build_modules.cmd` for all ten languages or `engine\build_modul
 | `ipa/` | the IPA master table (`table/`), its aliases and sources, and a rendered, measured proof for every symbol (`proofs/`) |
 | `ADDING_A_LANGUAGE.md` | how to add or improve a language, dialect or accent, with worked examples |
 | `docs/tts-extension/` | the extension's records: decisions, design, created sounds, language status, the licence audit, references, the IPA checklist, the measurement harness (`harness/README.md`), review packets |
-| `third_party/` | CMU ARCTIC speaker awb, the recordings the Scottish English measurements rest on (CMU's notice) |
+| `third_party/` | other people's work kept unchanged under its own licence (`third_party/README.md`): `espeak-ng/`, the eSpeak NG source every language read by eSpeak NG is built from (its dictionaries, phoneme tables, voice files and library; GPL-3.0), and `cmu_arctic/`, the recordings the Scottish English measurements rest on (CMU's notice) |
+| `release/` | the installer of each published release, the same file as on the Releases page, with its SHA-256 (`release/README.md`) |
 | `IPA_Kiel.pdf` | the IPA chart, 2026 issue (CC BY-SA 4.0) |
 | `engine/` | building the modules and packs from `openevv/`, and the eSpeak NG packs from eSpeak NG (`make_espeak_packs.py`, `espeak_phonemes.py`, `check_espeak_packs.py`, `espeak_templates.txt`) |
 | `dictionaries/community/` | the community pronunciation dictionary installed with OpenEVV: the English files of IBMTTSDictionaries at the commit `community-dictionary.ini` names, byte for byte |
@@ -401,7 +402,7 @@ All of this project's own work is under the MIT licence (`LICENSE`); not every f
 - **The eSpeak NG front-end** (`frontend/`, `OpenEvvFrontend.exe`), the eSpeak NG data installed with it and the eSpeak NG packs' phoneme maps are under the GNU General Public License version 3 or later, as eSpeak NG is; see `frontend/COPYING`. The front-end is a separate program the wrapper talks to over pipes.
 - **The openevv engine** is under the MIT licence; see `openevv/LICENSE`.
 - **The community pronunciation dictionary** (`dictionaries/community/`) is [eigencrow/IBMTTSDictionaries](https://github.com/eigencrow/IBMTTSDictionaries), released under CC0 1.0 (its `LICENSE.md` is installed beside it).
-- **Other people's data kept in the tree**, each under its own terms and named in `NOTICE.md`: the IPA chart and its images (CC BY-SA 4.0), CMU ARCTIC speaker awb (`third_party/cmu_arctic/`, CMU's notice), the Unicode data files (Unicode License v3), the test sentences (Common Voice CC0, Tatoeba CC BY 2.0 FR), and `praat_crosscheck.py` (GPL, it imports Praat). The engine's rendered speech in `samples/` and the review packets is IBM's language data at work and is not offered under the MIT licence.
+- **Other people's data kept in the tree**, each under its own terms and named in `NOTICE.md`: the IPA chart and its images (CC BY-SA 4.0), CMU ARCTIC speaker awb (`third_party/cmu_arctic/`, CMU's notice), the eSpeak NG source (`third_party/espeak-ng/`, GPL-3.0-or-later with a BSD-2-Clause `getopt`, Apache-2.0 parts of its Android app and Unicode data, as its README says), the Unicode data files (Unicode License v3), the test sentences (Common Voice CC0, Tatoeba CC BY 2.0 FR), and `praat_crosscheck.py` (GPL, it imports Praat). The engine's rendered speech in `samples/` and the review packets is IBM's language data at work and is not offered under the MIT licence.
 - **The language data inside each language module** was transcribed from IBM's Embedded ViaVoice objects, and is IBM's work. Neither licence covers it, and nobody here can license it to anyone. `NOTICE.md` and `openevv/NOTICE` say whose it is and who the rights may belong to today.
 
 `CREDITS.md` names everyone this is built on.

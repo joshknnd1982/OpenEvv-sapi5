@@ -188,3 +188,13 @@ Asked with AskUserQuestion after showing in chat the tag (`v1.4.0` on `main` at 
 | Question | Choices offered | Answer |
 |---|---|---|
 | **Q66.** Publish release v1.4.0 on GitHub now, with the installer, the language-pack zip and the samples zip, and the notes shown (including that Faroese is now harder to understand than in 1.3.0)? | Publish now (recommended) · After I test the installer | **Publish now.** |
+
+## 2026-10-12, after Phase 13: a `git clone` holds everything (OPEN_QUESTIONS.md Q67 to Q69)
+
+The human asked that a clone hold everything (every markdown file, binary, all source, every language pack and its source) and that everything be under the MIT licence as much as possible. Told in chat: all of this project's own work is already MIT (licence audit: 1,983 files, and openevv's 465); IBM's data, eSpeak NG (GPL-3.0), the BestSpeech parts and other people's data cannot be relicensed here; the Whisper model (3.09 GB) cannot go to GitHub and Phase 10's rule keeps models out. Asked with AskUserQuestion; the recommended choice first.
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| **Q67.** Put the eSpeak NG source (dictionaries, phoneme tables, voice files, library; 70.5 MB, GPL-3.0) into the repository? | Yes, in third_party/ (recommended) · No, keep downloading it | **Yes, in third_party/.** |
+| **Q68.** Which built release files to commit (release/1.4.0/)? | Installer only, 34 MB (recommended) · Installer and language zip · Neither | **Installer only.** |
+| **Q69.** Commit the 146 sample recordings (142 MB)? | No, release page only (recommended) · Yes, commit the 146 WAVs | **No, release page only.** |

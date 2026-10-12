@@ -40,14 +40,20 @@ CLASSES = OrderedDict([
     ("cc-by-sa", "the IPA chart: CC BY-SA 4.0, International Phonetic Association"),
     ("unicode", "Unicode Character Database files: Unicode License v3"),
     ("cmu", "CMU ARCTIC speaker awb: CMU's own notice (free for any purpose, notice kept)"),
+    ("espeak-src", "eSpeak NG's source at tag openevv-1.2.0, unchanged: GPL-3.0-or-later (COPYING), getopt BSD-2-Clause, "
+                   "parts of its Android app Apache-2.0, Unicode data under COPYING.UCD, as its README says"),
+    ("installer", "a published installer: it bundles files of the classes above, each under its own terms"),
 ])
 
 PACK_DATA = re.compile(r"^\[(sounds|phonemes)\]", re.M)
 
 # (class, path patterns, content pattern or None, why). First match wins.
 RULES = [
-    ("mit-here", ["third_party/cmu_arctic/README.md"], None, "this project's description of the corpus"),
+    ("mit-here", ["third_party/cmu_arctic/README.md", "third_party/README.md", "release/README.md"], None,
+     "this project's descriptions of what third_party/ and release/ hold"),
     ("cmu", ["third_party/cmu_arctic/**"], None, "the corpus, unchanged"),
+    ("espeak-src", ["third_party/espeak-ng/**"], None, "eSpeak NG's own tree, copied from tag openevv-1.2.0 (third_party/README.md)"),
+    ("installer", ["release/*/*.exe"], None, "the installer as published on GitHub (release/README.md)"),
     ("cc-by-sa", ["IPA_Kiel.pdf", "docs/tts-extension/inventory/ipa_chart_images/*"], None, "the IPA's chart and its official images"),
     ("unicode", ["docs/tts-extension/inventory/unicode/*"], None, "UnicodeData.txt, Blocks.txt and their licence"),
     ("cc0", ["dictionaries/community/*", "dist/docs/community-dictionary-*.txt"], None, "IBMTTSDictionaries, byte for byte"),
