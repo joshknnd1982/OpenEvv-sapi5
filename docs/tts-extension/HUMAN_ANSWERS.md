@@ -138,3 +138,29 @@ Asked with AskUserQuestion after step 4's measurements; the recommended choice f
 | Question | Choices offered | Answer |
 |---|---|---|
 | **Q59. The switch measured, much worse than the pilot.** Recognition worse in 91 of 96 languages, median CER +0.21, 75 worse by more than 0.10 (Indonesian 0.10 → 0.90, Russian 0.18 → 0.76, NYC English 0.01 → 0.38); the largest cause a fault of the new generator (every language's plain vowel said as the cardinal vowel); vowels at the template's own position recover part (0.90 → 0.58, 0.76 → 0.57, 0.38 → 0.28). Nothing shipped yet. What should Phase 12 do? | Fix vowels, then ship all (recommended) · Fix vowels, hold the worst (any language still worse by more than 0.10 stays on its old sounds) · Ship as measured now · Stop and investigate (end Phase 12 without replacing anything; a new session finds and fixes all the causes, vowels and consonants, before the switch is shipped) | **Stop and investigate.** (Not the recommended choice.) |
+
+## 2026-10-11, Phase 12 continued: which languages aspirate their plain p t k (OPEN_QUESTIONS.md Q60)
+
+The human asked that the open question be put to them in chat. Asked with AskUserQuestion; the recommended choice first.
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| **Q60a.** Kyrgyz, Bashkir, Uyghur: aspiration described only on Wikipedia (Uyghur's page cites Hahn 1991, not opened). | Aspirated, marked (recommended) · Unaspirated for now · Search harder first | **Aspirated, marked** as a secondary source, queued for confirmation. |
+| **Q60b.** Turkmen, Tatar, Chuvash, Crimean Tatar, Karakalpak, Nogai: no source found; their Turkic relatives with sources (Turkish, Azerbaijani, Uzbek, Kazakh) aspirate. | Aspirated, as inferred (recommended) · Unaspirated (IPA reading) · Search harder first | **Aspirated, as inferred**, recorded as an inference and queued for native review. |
+| **Q60c.** Mongolian: eSpeak NG writes т (the aspirated stop) as plain t; Ueta 2024 describes two series. | Yes, aspirate (recommended) · No, unaspirated | **Yes, aspirate.** |
+
+## 2026-10-12, Phase 12 continued: the fixed switch measured (OPEN_QUESTIONS.md Q62)
+
+Asked with AskUserQuestion after step 4 was run again on the phonemic reading (D98); the recommended choice first.
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| **Q62.** The fixed switch measures about even with 1.3.0 (96 scored languages: median CER change about zero, 51 better, 45 worse; 27 better by more than 0.02; 6 worse by more than 0.10: yue, my, sd, ms, el, cy; pt-br's level 4 → 2 on one vowel 33 Hz out of a reference range, its CER better). Do the replacement point now? | Ship all now (recommended) · Ship, hold the six back · Don't ship yet | **Ship all now.** |
+
+## 2026-10-12, Phase 12 continued: a language's measured values and R21 (OPEN_QUESTIONS.md Q64)
+
+Raised by the R15 review; asked with AskUserQuestion, the recommended choice first.
+
+| Question | Choices offered | Answer |
+|---|---|---|
+| **Q64.** The fixed generator reads each language's own measured stop timing (29 languages) and vowel formants (28), each from a cited study, from its profile in `engine/profiles/`; R21 says a value for one language lives in its pack as an override with its source. | Profiles, recorded (recommended) · Move into overrides · Drop profile values | **Profiles, recorded**: kept, recorded as how R21 applies (D98), and every sound line names the study its value came from. |

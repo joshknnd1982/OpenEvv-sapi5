@@ -1,0 +1,144 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Josh Kennedy
+#
+# The phonemic reading's language facts (engine/packs/master.py, D98): what the master path takes from the
+# language and not from the letter. Read by master.language(); a pack takes the entry of its own tag or of the
+# nearest tag above it (en-us-nyc, en-us, en).
+#
+# [aspirating.<tag>]: whether the language says the voiceless stops its broad transcription writes as plain
+# /p t k/ (eSpeak NG's IPA has no ʰ on them) aspirated, word-initially before a stressed vowel. The IPA's plain
+# [t] is unaspirated, and the master path says it so (the table's voice onset time) unless the language is
+# listed here as aspirating; then a template whose own stop is aspirated keeps its own. A language with its own
+# measured onset times (engine/profiles/<tag>.json, voice_onset_time_ms) takes those before either.
+# Sources were opened and read on 2026-10-11 (docs/tts-extension/REFERENCES.md, "Phase 12 continued");
+# `confidence = "secondary"` marks a fact found only in Wikipedia, `confidence = "inferred"` one inferred from
+# related languages with sources; both are the human's answers to Q60 (HUMAN_ANSWERS.md, 2026-10-11) and queued
+# for a native reviewer or a primary source. A language not listed takes the IPA's reading (Kurdish: eSpeak NG
+# writes its aspirated series pʰ tʰ, so its plain p t are the unaspirated series, Naser & Saaed 2024).
+
+[aspirating.en]
+plain_stops_aspirated = true
+source = "Lisker & Abramson 1965, Proc. 5th ICPhS, pp. 389-390 (American English); Roach 2004, JIPA 34(2), p. 240 (RP)"
+note = "en-029 and en-us-nyc take this entry: no source on aspiration found for Caribbean or New York English"
+
+[aspirating.en-gb-scotland]
+plain_stops_aspirated = true
+source = "Stuart-Smith et al. 2015 (Glasgow): shorter aspiration than other varieties, 24-50 ms in the vernacular, 61-83 ms for speakers with Scottish parents"
+note = "mixed: aspiration shorter than in RP; the template's own aspirated stop kept"
+
+[aspirating.da]
+plain_stops_aspirated = true
+source = "Grønnum 1998, JIPA 28(1-2), p. 100"
+
+[aspirating.nb]
+plain_stops_aspirated = true
+source = "Ringen & van Dommelen 2013, J. Phonetics 41, section 3 and Table 1: fortis +52 ms"
+
+[aspirating.no]
+plain_stops_aspirated = true
+source = "Ringen & van Dommelen 2013, J. Phonetics 41, section 3 and Table 1: fortis +52 ms"
+
+[aspirating.sv]
+plain_stops_aspirated = true
+source = "Engstrand 1990, JIPA 20(1), p. 43"
+
+[aspirating.is]
+plain_stops_aspirated = true
+source = "Helgason 2001, Lund Working Papers 49, p. 54 (fortis stops postaspirated word-initially)"
+
+[aspirating.fo]
+plain_stops_aspirated = true
+source = "Helgason 2001, Lund Working Papers 49, p. 54; Hjøllum & Mees 2012, Moderna språk 2012:2"
+
+[aspirating.lb]
+plain_stops_aspirated = true
+source = "Gilles & Trouvain 2013, JIPA 43(1), p. 69"
+
+[aspirating.pdc]
+plain_stops_aspirated = true
+source = "Kopp 2006, Yearbook of German-American Studies suppl. 2, pp. 50-51 (citing Meister Ferré 1994)"
+note = "mixed: /p k/ aspirated in native words, initial aspirated /t/ only in English loans"
+
+[aspirating.cy]
+plain_stops_aspirated = true
+source = "Bell et al. 2021, JIPA 53(2), p. 491 (fortis plosives strongly aspirated)"
+
+[aspirating.ga]
+plain_stops_aspirated = true
+source = "Ní Chasaide 1995, JIPA 25(1), p. 36"
+
+[aspirating.gd]
+plain_stops_aspirated = true
+source = "Nance & Ó Maolalaigh 2021, JIPA 51(2), p. 265"
+note = "the source writes the aspirated series /pʰ tʰ kʰ/; eSpeak NG's gd writes it plain"
+
+[aspirating.fa]
+plain_stops_aspirated = true
+source = "Majidi & Ternes 1991, JIPA 21(2), p. 98"
+
+[aspirating.tr]
+plain_stops_aspirated = true
+source = "Zimmer & Orgun 1992, JIPA 22(1-2), p. 44"
+
+[aspirating.az]
+plain_stops_aspirated = true
+source = "Ghaffarvand Mokari & Werner 2017, JIPA 47(2), p. 209"
+
+[aspirating.uz]
+plain_stops_aspirated = true
+source = "Ido 2025, JIPA 55(1-2), p. 154 (Fig. 2): moderate aspiration"
+
+[aspirating.kk]
+plain_stops_aspirated = true
+source = "McCollum & Chen 2021, JIPA 51(2), p. 278, Table 1: mean 32.0 ms, one speaker (moderate)"
+note = "Kazakh's profile has its own onset times, which come first"
+
+[aspirating.ky]
+plain_stops_aspirated = true
+source = "en.wikipedia.org 'Kyrgyz phonology' (uncited there)"
+confidence = "secondary"
+
+[aspirating.ba]
+plain_stops_aspirated = true
+source = "en.wikipedia.org 'Bashkir phonology' (nearest citation Keyekbaev 1958): weakly aspirated"
+confidence = "secondary"
+
+[aspirating.ug]
+plain_stops_aspirated = true
+source = "en.wikipedia.org 'Uyghur phonology' (citing Hahn 1991, Spoken Uyghur, p. 89)"
+confidence = "secondary"
+
+[aspirating.mn]
+plain_stops_aspirated = true
+source = "Ueta 2024, Hokkaido University bulletin 14, section 2.1 (two series, aspirated and unaspirated); eSpeak NG's mn writes Cyrillic т as t and д as d (OpenEvvFrontend --phonemes, 2026-10-11), т being the aspirated one"
+note = "the human's answer to Q60c"
+
+[aspirating.tk]
+plain_stops_aspirated = true
+source = "no source found for Turkmen; inferred from its Turkic relatives with sources (Turkish, Azerbaijani, Uzbek, Kazakh), the human's answer to Q60b"
+confidence = "inferred"
+
+[aspirating.tt]
+plain_stops_aspirated = true
+source = "no source found for Tatar; inferred from its Turkic relatives with sources (Turkish, Azerbaijani, Uzbek, Kazakh), the human's answer to Q60b"
+confidence = "inferred"
+
+[aspirating.cv]
+plain_stops_aspirated = true
+source = "no source found for Chuvash; inferred from its Turkic relatives with sources (Turkish, Azerbaijani, Uzbek, Kazakh), the human's answer to Q60b"
+confidence = "inferred"
+
+[aspirating.crh]
+plain_stops_aspirated = true
+source = "no source found for Crimean Tatar; inferred from its Turkic relatives with sources (Turkish, Azerbaijani, Uzbek, Kazakh), the human's answer to Q60b"
+confidence = "inferred"
+
+[aspirating.kaa]
+plain_stops_aspirated = true
+source = "no source found for Karakalpak; inferred from its Turkic relatives with sources (Turkish, Azerbaijani, Uzbek, Kazakh), the human's answer to Q60b"
+confidence = "inferred"
+
+[aspirating.nog]
+plain_stops_aspirated = true
+source = "no source found for Nogai; inferred from its Turkic relatives with sources (Turkish, Azerbaijani, Uzbek, Kazakh), the human's answer to Q60b"
+confidence = "inferred"

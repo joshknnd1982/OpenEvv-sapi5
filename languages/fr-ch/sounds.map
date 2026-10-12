@@ -23,545 +23,577 @@ says J d Z
 
 # the sounds of the language that the module has not, each as it differs from the phone
 # that stands for it: formants and lengths in per cent, times in milliseconds
-sound s1 f3=114 dur=52                   # ə
-sound s2 tap=1 tapms=24 hold=60 f1=144 f3=92 # ɾ
-sound s3 voi=0                           # ʰχ
-sound s4 ms=50 hush=1                    # ʔ
-sound s5 f2=82 dur=49                    # ʰa
-sound s6 dur=59                          # ʰe
-sound s7 f1=111 dur=68                   # ʰi
-sound s8 f1=91 dur=44                    # ʰo
-sound s9 f1=113 f2=90 dur=68             # ʰu
-sound s10 tap=3 tapms=18 f1=141 f3=92    # r̩
+# realization master (engine/packs/master.py): each sound from the IPA master table (ipa/table) through the
+# adapter, as it differs from the template's phone; its comment names the table entries and the provenance of their values
 sound s11 tap=3 tapms=18                 # ʀ
-sound s12 f2=145 f3=113                  # ʎ
-sound s13 f3=84                          # ɭ
-sound s14 f2=65 f3=109                   # ɫ
-sound s15 ms=70 whisper=44               # h
-sound s16 f3=79                          # ɳ
-sound s17 tap=1 tapms=24 hold=60 f1=138 f3=78 # r.
-sound s18 voi=1 lead=75                  # b
-sound s19 voi=1 lead=75 hold=85          # dʒ
-sound s20 hold=70                        # dʒ
-sound s21 hold=85                        # tʃ
-sound s22 voi=1 lead=75 hold=85 f2=143 f3=118 # dʑ
-sound s23 a3=33 a4=58 a5=22 f2=143 f3=118 hold=70 # dʑ
-sound s24 hold=85 f2=143 f3=118          # tɕ
-sound s25 a3=33 a4=49 a5=23 f2=143 f3=118 hold=70 # tɕ
-sound s26 f2=148 f3=109 a3=56 a4=56 voi=1 lead=75 # ɟ
 sound s27 f2=148 f3=109 a3=56 a4=56      # c
-sound s28 af=-8                          # β
-sound s29 af=-14                         # ʋ
-sound s30 f2=129 f3=118 a6=28 ab=48      # ð
-sound s31 f2=131 f3=111 a6=28 ab=48      # θ
-sound s32 a4=57 f3=85 f4=88              # ʐ
-sound s33 a3=33 a4=58 a5=22 f2=143 f3=118 # ʑ
-sound s34 a3=33 a4=49 a5=23 f2=143 f3=118 # ɕ
-sound s35 f2=146 f3=124 a4=0             # ʝ
-sound s36 f1=60 f2=111                   # ɣ
-sound s37 f1=60 f2=111 voi=0             # x
-sound s38 f2=68 f3=109 f1=118 burst=3    # q
-sound s39 fric=52 a3=54 a4=58 a5=44 whisper=30 hold=190 # ɬ
-sound s40 dur=68                         # y
-sound s41 dur=52                         # ɛ
-sound s42 f1=133 dur=42 nas=100          # ɑ̃
-sound s43 dur=52 nas=100                 # ɛ̃
-sound s44 f2=87 dur=42 nas=100           # ɔ̃
-sound s45 f1=131 f2=94 f3=114 dur=52     # ɐ
-sound s46 f3=94 dur=59                   # ɪ
-sound s47 f2=87 dur=42                   # ɔ
-sound s48 f3=114 g1=84 g2=74 g3=108 glide=1 dur=151 # əʊ
-sound s49 f1=113 f2=90 dur=198           # uː
-sound s50 f1=113 dur=42                  # ʌ
-sound s51 vot=70 asp=50                  # tʰ
-sound s52 f3=64                          # ɹ
-sound s53 voi=1 lead=75 brth=90 f0=-15   # dʰ
-sound s54 whisper=46                     # ʍ
-sound s55 f1=77 f2=87 dur=42             # ʊ
-sound s56 f1=133 dur=162                 # ɑː
-sound s57 f1=124 f2=79 dur=42            # ɒ
-sound s58 f1=133 dur=42                  # ɑ
-sound s59 f1=108 f3=114 dur=151          # ɜː
-sound s60 f1=111 dur=198                 # iː
-sound s61 f2=87 dur=162                  # ɔː
-sound s62 g1=64 g2=68 g3=99 glide=1 dur=154 # aʊ
-sound s63 g1=98 g2=124 g3=94 glide=1 dur=128 # oʊ
-sound s64 g1=62 g2=120 g3=108 glide=1 dur=154 # aɪ
-sound s65 g1=99 g2=96 g3=95 glide=1 dur=171 # eɪ
-sound s66 g1=77 g2=158 g3=108 glide=1 dur=162 # ɔɪ
-sound s67 hold=55                        # eə
-sound s68 f1=91 dur=128                  # oː
-sound s69 dur=171                        # eː
-sound s70 f1=128                         # æ
-sound s71 f1=93 f2=94 f3=77              # ɚ
-sound s72 f2=93 f3=120 dur=131           # ᵻ
-sound s73 f2=79 dur=162                  # ɔːɹ
-sound s74 f3=94 dur=113                  # ɪɹ
-sound s75 f1=77 f2=87                    # ʊɹ
-sound s76 f3=77 f4=88 a4=52 a5=42 vot=51 asp=50 # ʈ
-sound s77 f3=77 f4=88 a4=52 a5=42        # ɖ
-sound s78 f2=92                          # ɱ
-sound s79 f2=55                          # ɴ
-sound s80 tap=1 tapms=24 hold=60 f1=121  # ɺ
-sound s81 ms=85 whisper=48 f1=125 f2=88  # ħ
-sound s82 ms=80 whisper=30 voi=1 f1=125 f2=86 # ʕ
-sound s83 ms=70 whisper=38 voi=1         # ɦ
-sound s84 f1=60 f3=87 voi=0              # ɧ
-sound s85 fric=52 a3=54 a4=58 a5=44      # ɮ
-sound s86 f3=58                          # ɻ
-sound s87 f1=71 f2=127 f3=109            # ɰ
-sound s88 f2=80                          # ʟ
-sound s89 vot=55 asp=50 burst=8 ej=25    # ʘ
-sound s90 vot=59 asp=50 burst=8 ej=25    # ǀ
-sound s91 f2=148 f3=109 a3=56 a4=56 vot=63 asp=50 burst=8 ej=25 # ǂ
-sound s92 impl=1 voi=1 burst=-8          # ɓ
-sound s93 f2=148 f3=109 a3=56 a4=56 impl=1 voi=1 burst=-8 # ʄ
-sound s94 f2=68 f3=109 f1=118 burst=-8 impl=1 voi=1 # ʛ
-sound s95 f2=85 f3=110 dur=131           # ʉ
-sound s96 f1=90 f3=107                   # ɯ
-sound s97 f1=119 f3=110 dur=131          # ʏ
-sound s98 f1=79 f2=92                    # ɘ
-sound s99 f1=83 f2=94                    # ɵ
-sound s100 f1=84 f2=109                  # ɤ
-sound s101 f1=108 f3=114                 # ɜ
-sound s102 f1=108 f2=90 f3=107           # ɞ
-sound s103 f2=94                         # ɶ
-sound s104 f2=94 f3=77                   # ɝ
+sound m1 ant=50 f1=109 f2=126 f3=100 tap=1 tapms=31 # ɾ: U+027E; values derived 1, literature 4, measured 1
+sound m2 a2=65 a3=0 a4=45 a5=0 a6=0 f2=106 pre=98 voi=0 # ʰχ: U+03C7+B:U+02B0#pre; values derived 1, estimated 1, measured 1
+sound m3 hush=1 ms=45                    # ʔ: U+0294; values derived 2
+sound m4 ms=98 whisper=44                # ʰə: U+0068+B:U+02B0#pre; ʰa: U+0068+B:U+02B0#pre; ʰe: U+0068+B:U+02B0#pre; ʰi: U+0068+B:U+02B0#pre; and 2 more; values derived 3
+sound m5 f1=95 f2=81 f3=104              # ʰa: U+0061; a: U+0061; aʊ: U+0061; aɪ: U+0061; and 5 more; values derived 3, estimated 1, literature 3, measured 1; language: a F1 to F3 the language's own vowel a, 684/1256/2503 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m6 f1=91 f2=96 f3=95               # ʰe: U+0065; e: U+0065; eɪ: U+0065; eə: U+0065; values derived 3, literature 3; language: e F1 to F3 the language's own vowel e, 365/1961/2644 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m7 f1=110 f2=94 f3=103             # ʰi: U+0069; i: U+0069; iə: U+0069; values derived 3, literature 3; language: i F1 to F3 the language's own vowel i, 308/2064/2976 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m8 f1=90 f2=101 f3=91              # ʰo: U+006F; o: U+006F; oʊ: U+006F; values derived 3, literature 3; language: o F1 to F3 the language's own vowel o, 383/793/2283 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m9 ah=-4 av=-4 f1=112 f2=90 f3=92  # ʰu: U+0075; u: U+0075; values derived 3, literature 3; language: u F1 to F3 the language's own vowel u, 315/764/2027 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m10 hold=150                       # m̩: U+006D+U+0329; n̩: U+006E+U+0329; ŋ̩: U+014B+U+0329; l̩: U+006C+U+0329; values estimated 1, literature 19, measured 4
+sound m11 ant=50 f1=141 f2=89 f3=92 hold=150 tapms=15 tdepth=20 trate=28 # r̩: U+0072+U+0329; values derived 2, estimated 1, literature 6, measured 4
+sound m12 vot=15                         # t: U+0074; tʃ: U+0074; tɕ: U+0074; values derived 3, measured 1
+sound m13 vot=20                         # p: U+0070; values derived 2, literature 1, measured 1
+sound m14 vot=23                         # k: U+006B; values literature 3, measured 1
+sound m15 ant=50 f1=141 f2=89 f3=92 tapms=15 tdepth=20 trate=28 # r: U+0072; values derived 2, literature 6, measured 4
+sound m16 tdepth=20 trate=23             # ʀ: U+0280; values derived 1, literature 1, measured 2
+sound m17 ah=-7 ant=50 av=-7 f1=100 f2=143 f3=115 # ʎ: U+028E; values literature 4, measured 2
+sound m18 ah=-3 ant=50 av=-3 f1=125 f2=94 f3=94 # ɭ: U+026D; values literature 4
+sound m19 f2=64                          # ɫ: U+006C+U+0334; values derived 1, literature 4
+sound m20 ms=102 whisper=44              # h: U+0068; values derived 2
+sound m21 ant=50 f1=131 f2=76 f3=89 f4=80 # ɳ: U+0273; values literature 5, measured 1
+sound m22 ant=50 f3=72 tap=1 tapms=25    # ɽ: U+027D; values derived 2, estimated 1
+sound m23 lead=70 voi=1                  # b: U+0062; values derived 3, literature 1, measured 2
+sound m24 lead=75 voi=1                  # d: U+0064; dʒ: U+0064; dʑ: U+0064; values derived 3, literature 1, measured 3
+sound m25 f2=93 lead=75 voi=1            # d̪: U+0064+U+032A; values derived 3, estimated 1, literature 1, measured 3
+sound m26 f2=93 vot=15                   # t̪: U+0074+U+032A; values derived 3, estimated 1, measured 1
+sound m27 hold=127 lead=75 voi=1         # dʒ: U+0064+U+0361; dʑ: U+0064+U+0361; values derived 6, estimated 1, literature 1, measured 3
+sound m28 hold=127                       # dʒ: U+0292; values derived 1, literature 3
+sound m29 hold=100 vot=15                # tʃ: U+0074+U+0361; tɕ: U+0074+U+0361; values derived 6, estimated 1, measured 1
+sound m30 hold=100                       # tʃ: U+0283; values derived 1, literature 4
+sound m31 a2=0 a3=45 a4=65 a5=0 a6=0 f4=100 hold=127 # dʑ: U+0291; values estimated 1
+sound m32 a2=0 a3=45 a4=65 a5=0 a6=0 f4=100 hold=100 # tɕ: U+0255; values literature 1
+sound m33 ant=50 l2=487 lead=76 lk=59 voi=1 # ɟ: U+025F; values derived 4
+sound m34 ant=50 l2=469 lk=34 vot=34     # c: U+0063; values literature 3
+sound m35 lead=78 voi=1                  # ɡ: U+0261; g: U+0261; values derived 1, literature 3, measured 1
+sound m36 ant=50 l2=216 lk=75            # β: U+03B2; ɸ: U+0278; values estimated 4
+sound m37 ant=50 f2=81                   # ʋ: U+028B; values literature 2
+sound m38 ant=50 l2=446 lk=53            # ð: U+00F0; θ: U+03B8; values derived 2, literature 4
+sound m39 a2=0 a3=65 a4=45 a5=0 a6=0 f3=116 # ʐ: U+0290; ʂ: U+0282; values estimated 1, literature 1
+sound m40 a2=0 a3=45 a4=65 a5=0 a6=0 f4=100 # ʑ: U+0291; ɕ: U+0255; dʑ: U+0291; tɕ: U+0255; values estimated 1, literature 1
+sound m41 a2=45 a3=0 a4=65 a5=0 a6=0 f4=125 voi=1 # ʝ: U+029D; values derived 1, estimated 1, literature 1, measured 1
+sound m42 a2=0 a3=45 a4=65 a5=50 a6=0 f4=118 # ç: U+00E7; values estimated 2, literature 1
+sound m43 a2=45 a3=65 a4=45 a5=0 a6=0 f3=85 voi=1 # ɣ: U+0263; values derived 1, estimated 1, literature 1, measured 1
+sound m44 a2=45 a3=65 a4=45 a5=0 a6=0 f3=85 voi=0 # x: U+0078; values estimated 1, literature 1, measured 2
+sound m45 ant=50 f1=124 l2=150 lk=78 vot=23 # q: U+0071; values derived 2, estimated 2
+sound m46 a2=0 a3=52 a4=30 a5=32 a6=0 f2=90 f3=102 # ɬ: U+026C; values derived 1, literature 3
+sound m47 a2=65 a3=0 a4=45 a5=0 a6=0 f2=106 voi=0 # χ: U+03C7; values estimated 1, measured 1
+sound m48 pre=98                         # ʰl: U+006C+B:U+02B0#pre; values derived 1, literature 4
+sound m49 ant=50 f1=141 f2=89 f3=92 pre=98 tapms=15 tdepth=20 trate=28 # ʰr: U+0072+B:U+02B0#pre; values derived 3, literature 6, measured 4
+sound m50 f1=94 f2=102 f3=103            # y: U+0079; values derived 3, literature 3; language: y F1 to F3 the language's own vowel y, 300/1750/2120 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m51 f1=96 f2=95 f3=98              # ɛ: U+025B; ɛɹ: U+025B; values derived 3, literature 3; language: ɛ F1 to F3 the language's own vowel ɛ, 530/1718/2558 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m52 f1=99 f2=96 f3=107             # œ: U+0153; values derived 3, literature 3; language: œ F1 to F3 the language's own vowel œ, 517/1391/2379 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m53 f1=103 f2=87 f3=104            # ɐ: U+0250; values derived 3, literature 3
+sound m54 f1=94 f2=96 f3=93              # ɪ: U+026A; aɪ: U+026A; eɪ: U+026A; ɔɪ: U+026A; and 4 more; values derived 3, literature 3
+sound m55 f1=97 f2=87 f3=100             # ɔ: U+0254; ɔɪ: U+0254; values derived 3, literature 3; language: ɔ F1 to F3 the language's own vowel ɔ, 531/998/2399 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m56 g1=96 g2=67 g3=102 glide=1     # əʊ: U+0259+U+028A; values derived 9, literature 3
+sound m57 ah=-4 av=-4 dur=133 f1=112 f2=90 f3=92 # uː: U+0075+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 120 against 90 without the mark; language: u F1 to F3 the language's own vowel u, 315/764/2027 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m58 ah=-2 av=-2 f1=100 f2=107 f3=97 # ø: U+00F8; values derived 3, literature 3; language: ø F1 to F3 the language's own vowel ø, 381/1417/2235 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m59 f1=85 f2=75 f3=103             # ʌ: U+028C; ʌɹ: U+028C; values derived 3, literature 3
+sound m60 vot=79                         # tʰ: U+0074+U+02B0; values derived 4, measured 1
+sound m61 ant=50 f1=83 f2=105 f3=68 f4=105 # ɹ: U+0279; əɹ: U+0279; ʌɹ: U+0279; ɑːɹ: U+0279; and 5 more; values literature 4, measured 1
+sound m62 brth=70 lead=75 voi=1          # dʱ: U+0064+U+02B1; values derived 3, literature 3, measured 3
+sound m63 ms=64 whisper=44               # zʰ: U+0068+U+02B0; values derived 3
+sound m64 ant=50 f2=105 voi=0 whisper=44 # ʍ: U+028D; values derived 2, estimated 1
+sound m65 f1=79 f2=92 f3=98              # ʊ: U+028A; əʊ: U+028A; aʊ: U+028A; oʊ: U+028A; and 4 more; values derived 3, literature 3
+sound m66 dur=128 f1=100 f2=76 f3=106    # ɑː: U+0251+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 115 against 90 without the mark
+sound m67 f1=110 f2=82 f3=110            # ɒ: U+0252; values derived 3, literature 3
+sound m68 f1=100 f2=76 f3=106            # ɑ: U+0251; values derived 3, literature 3
+sound m69 dur=176 f1=94 f2=84 f3=97      # ɜː: U+025C+U+02D0; values derived 5, literature 4; language: ː, 2.3 x the template's short vowel (65 ms) against the phone's 85 ms
+sound m70 dur=116 f1=110 f2=94 f3=103    # iː: U+0069+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 87 against 75 without the mark; language: i F1 to F3 the language's own vowel i, 308/2064/2976 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m71 dur=115 f1=97 f2=87 f3=100     # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 115 against 100 without the mark; language: ɔ F1 to F3 the language's own vowel ɔ, 531/998/2399 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m72 dur=120 f1=97 f2=87 f3=100     # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 120 against 100 without the mark; language: ɔ F1 to F3 the language's own vowel ɔ, 531/998/2399 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m73 dur=125 f1=97 f2=87 f3=100     # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 125 against 100 without the mark; language: ɔ F1 to F3 the language's own vowel ɔ, 531/998/2399 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m74 ah=-4 av=-4 dur=124 f1=112 f2=90 f3=92 # uː: U+0075+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 105 against 85 without the mark; language: u F1 to F3 the language's own vowel u, 315/764/2027 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m75 f1=95 f2=81 f3=104 g1=60 g2=69 g3=98 glide=1 # aʊ: U+0061+U+028A; aʊə: U+0061+U+028A; values derived 6, literature 6, measured 1; language: a F1 to F3 the language's own vowel a, 684/1256/2503 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m76 f1=90 f2=101 f3=91 g1=102 g2=135 g3=94 glide=1 # oʊ: U+006F+U+028A; values derived 6, literature 6; language: o F1 to F3 the language's own vowel o, 383/793/2283 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m77 f1=95 f2=81 f3=104 g1=52 g2=127 g3=107 glide=1 # aɪ: U+0061+U+026A; aɪə: U+0061+U+026A; values derived 6, literature 6, measured 1; language: a F1 to F3 the language's own vowel a, 684/1256/2503 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m78 f1=91 f2=96 f3=95 g1=94 g2=96 g3=93 glide=1 # eɪ: U+0065+U+026A; values derived 6, literature 6; language: e F1 to F3 the language's own vowel e, 365/1961/2644 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m79 f1=97 f2=87 f3=100 g1=68 g2=170 g3=107 glide=1 # ɔɪ: U+0254+U+026A; values derived 6, literature 6; language: ɔ F1 to F3 the language's own vowel ɔ, 531/998/2399 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m80 f1=91 f2=96 f3=95 g1=112 g2=78 g3=83 glide=1 # eə: U+0065+U+0259; values derived 9, literature 3; language: e F1 to F3 the language's own vowel e, 365/1961/2644 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m81 f1=110 f2=94 f3=103 g1=161 g2=72 g3=79 glide=1 # iə: U+0069+U+0259; values derived 9, literature 3; language: i F1 to F3 the language's own vowel i, 308/2064/2976 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m82 f1=79 f2=92 f3=98 g1=82 g2=138 g3=96 glide=1 # ʊə: U+028A+U+0259; values derived 9, literature 3
+sound m83 dur=129 f1=90 f2=101 f3=91     # oː: U+006F+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 110 against 85 without the mark; language: o F1 to F3 the language's own vowel o, 383/793/2283 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m84 dur=124 f1=91 f2=96 f3=95      # eː: U+0065+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 105 against 85 without the mark; language: e F1 to F3 the language's own vowel e, 365/1961/2644 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m85 f1=100 f2=76 f3=106 nas=70     # ɑ̃: U+0251+U+0303; values derived 3, estimated 2, literature 3
+sound m86 f1=96 f2=95 f3=98 nas=70       # ɛ̃: U+025B+U+0303; values derived 3, estimated 2, literature 3; language: ɛ F1 to F3 the language's own vowel ɛ, 530/1718/2558 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m87 f1=99 f2=96 f3=107 nas=70      # œ̃: U+0153+U+0303; values derived 3, estimated 2, literature 3; language: œ F1 to F3 the language's own vowel œ, 517/1391/2379 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m88 f1=97 f2=87 f3=100 nas=70      # ɔ̃: U+0254+U+0303; values derived 3, estimated 2, literature 3; language: ɔ F1 to F3 the language's own vowel ɔ, 531/998/2399 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m89 ah=-4 av=-4 dur=230 f1=112 f2=90 f3=92 # uː: U+0075+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (65 ms) against the phone's 65 ms; language: u F1 to F3 the language's own vowel u, 315/764/2027 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m90 dur=187 f1=100 f2=76 f3=106    # ɑː: U+0251+U+02D0; ɑːɹ: U+0251+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (65 ms) against the phone's 80 ms
+sound m91 dur=230 f1=110 f2=94 f3=103    # iː: U+0069+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (65 ms) against the phone's 65 ms; language: i F1 to F3 the language's own vowel i, 308/2064/2976 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m92 dur=214 f1=97 f2=87 f3=100     # ɔː: U+0254+U+02D0; ɔːɹ: U+0254+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (65 ms) against the phone's 70 ms; language: ɔ F1 to F3 the language's own vowel ɔ, 531/998/2399 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m93 dur=150 f1=90 f2=101 f3=91     # oː: U+006F+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (65 ms) against the phone's 100 ms; language: o F1 to F3 the language's own vowel o, 383/793/2283 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m94 dur=199 f1=91 f2=96 f3=95      # eː: U+0065+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (65 ms) against the phone's 75 ms; language: e F1 to F3 the language's own vowel e, 365/1961/2644 Hz from engine/profiles/fr-ch.json: Calliope 1989; no table for Swiss speakers is cited, so these are stand-in values for the oral vowels that Swiss and reference French share (no value for the back /ɑ/) (adult male, reference French of France (means over speakers))
+sound m95 f1=92 f2=112 f3=104            # æ: U+00E6; values derived 3, literature 3
+sound m96 f3=81                          # ə˞: U+0259+U+02DE; aɪə˞: U+0259+U+02DE; values derived 6, literature 1
+sound m97 f1=94 f2=103 f3=113            # ɨ: U+0268; values derived 3, literature 3
+sound m98 ant=50 f3=69 l2=380 lk=72 vot=17 # ʈ: U+0288; values derived 2, estimated 1, literature 1, measured 1
+sound m99 ant=50 f3=69 l2=368 lead=75 lk=80 voi=1 # ɖ: U+0256; values derived 4, estimated 1, measured 2
+sound m100 ant=50 f1=186 l2=123 lead=78 lk=78 voi=1 # ɢ: U+0262; values derived 2, estimated 3, measured 1
+sound m101 ant=50 f1=122 f2=130 f3=108 f4=110 # ɱ: U+0271; values literature 5, measured 1
+sound m102 ant=50 f1=172 f2=55 f3=96     # ɴ: U+0274; values estimated 3, measured 3
+sound m103 tdepth=20 trate=19            # ʙ: U+0299; values derived 1, literature 1
+sound m104 tap=1 tapms=25                # ⱱ: U+2C71; ɺ: U+027A; values derived 2, estimated 2, measured 1
+sound m105 ms=105 whisper=48             # ħ: U+0127; values derived 1, literature 3, measured 1
+sound m106 ms=105 voi=1 whisper=30       # ʕ: U+0295; values derived 2, literature 3, measured 1
+sound m107 ms=102 voi=1 whisper=38       # ɦ: U+0266; values derived 2, estimated 1
+sound m108 a2=0 a3=65 a4=45 a5=0 a6=0 f3=82 # ɧ: U+0267; values estimated 1
+sound m109 a2=0 a3=50 a4=30 a5=30 a6=0 f3=102 # ɮ: U+026E; values estimated 1
+sound m110 ant=50 f1=90 f2=123 f3=71 f4=95 # ɻ: U+027B; values literature 4, measured 4
+sound m111 ant=50 f1=106 f2=65 f3=84     # ɰ: U+0270; values estimated 3, measured 2
+sound m112 ah=-4 ant=50 av=-4 f1=126 f2=97 f3=100 # ʟ: U+029F; values estimated 3
+sound m113 a2=70 a3=30 a4=0 a5=0 a6=0 ab=0 bgain=30 burstms=23 ej=2 vot=32 # ʘ: U+0298; values derived 1, estimated 12, measured 1
+sound m114 a2=20 a3=50 a4=60 a5=30 a6=10 bgain=20 burstms=22 ej=2 hold=130 vot=26 # ǀ: U+01C0; values derived 2, estimated 10, literature 1, measured 2
+sound m115 a2=80 a3=0 a4=0 a5=0 a6=0 bgain=34 burst=10 burstms=5 ej=1 f2=55 vot=13 # ǃ: U+01C3; values derived 3, estimated 10, literature 1, measured 2
+sound m116 a2=50 a3=55 a4=0 a5=0 a6=0 bgain=20 burst=10 burstms=5 ej=2 vot=13 # ǂ: U+01C2; values derived 2, estimated 10, literature 1, measured 2
+sound m117 a2=50 a3=60 a4=30 a5=0 a6=0 bgain=22 burst=10 burstms=16 ej=2 vot=26 # ǁ: U+01C1; values derived 4, estimated 8, literature 1, measured 2
+sound m118 ant=50 hold=75 impl=12 l2=215 lk=82 # ɓ: U+0253; values derived 1, estimated 4
+sound m119 ant=50 hold=90 impl=9 l2=428 lk=80 # ɗ: U+0257; values derived 1, estimated 4
+sound m120 ant=50 hold=75 impl=12 l2=487 lk=59 # ʄ: U+0284; values derived 1, estimated 4, measured 1
+sound m121 ant=50 hold=90 impl=2 l2=252 lk=88 # ɠ: U+0260; values derived 1, estimated 4, measured 1
+sound m122 ant=50 hold=85 impl=9 l2=150 lk=78 # ʛ: U+029B; values derived 1, estimated 4
+sound m123 f1=98 f2=91 f3=117            # ʉ: U+0289; values derived 3, literature 3
+sound m124 f1=97 f2=99 f3=108            # ɯ: U+026F; values derived 3, literature 3
+sound m125 ah=-2 av=-2 f1=97 f2=114 f3=101 # ʏ: U+028F; values derived 3, literature 3
+sound m126 f1=112 f2=83 f3=98            # ɘ: U+0258; values derived 3, estimated 3
+sound m127 ah=-2 av=-2 f1=108 f2=92 f3=108 # ɵ: U+0275; values derived 3, literature 3
+sound m128 f1=89 f2=87 f3=109            # ɤ: U+0264; values derived 3, literature 3
+sound m129 f1=94 f2=84 f3=97             # ɜ: U+025C; values derived 3, literature 4
+sound m130 f1=101 f2=89 f3=104           # ɞ: U+025E; values derived 4, estimated 2
+sound m131 ah=-4 av=-4 f1=130 f2=95 f3=118 # ɶ: U+0276; values derived 3, literature 3
+sound m132 f1=94 f2=84 f3=74             # ɜ˞: U+025C+U+02DE; values derived 3, literature 5
 
 # eSpeak NG phoneme table fr
 @fr::            -                       # ː  (not met)
-@fr:@            oe=s1                   # ə
-@fr:@-           oe=s1                   # ə-
-@fr:*            l=s2                    # ɾ  (not met)
-@fr:#X1          r=s3                    # ʰχ  (not met)
-@fr:?            <q=s4                   # ʔ  (not met)
+@fr:@            x                       # ə
+@fr:@-           x                       # ə-
+@fr:*            l=m1                    # ɾ  (not met)
+@fr:#X1          r=m2                    # ʰχ  (not met)
+@fr:?            <q=m3                   # ʔ  (not met)
 @fr:-            -                       # -  (not met)
-@fr:#@           oe=s1                   # ʰə  (not met)
-@fr:#a           a=s5                    # ʰa  (not met)
-@fr:#e           e=s6                    # ʰe  (not met)
-@fr:#i           i=s7                    # ʰi  (not met)
-@fr:#o           o=s8                    # ʰo  (not met)
-@fr:#u           u=s9                    # ʰu  (not met)
+@fr:#@           <h=m4 x                 # ʰə  (not met)
+@fr:#a           <h=m4 a=m5              # ʰa  (not met)
+@fr:#e           <h=m4 e=m6              # ʰe  (not met)
+@fr:#i           <h=m4 i=m7              # ʰi  (not met)
+@fr:#o           <h=m4 o=m8              # ʰo  (not met)
+@fr:#u           <h=m4 u=m9              # ʰu  (not met)
 @fr:r            r                       # ʁ
-@fr:a            a=s5                    # a
-@fr:e            e=s6                    # e
-@fr:i            i=s7                    # i
+@fr:a            a=m5                    # a
+@fr:e            e=m6                    # e
+@fr:i            i=m7                    # i
 @fr:;            -                       # ʲ  (not met)
-@fr:o            o=s8                    # o
-@fr:u            u=s9                    # u
-@fr:m-           m                       # m̩  (not met)
-@fr:n-           n                       # n̩  (not met)
-@fr:N-           ng                      # ŋ̩  (not met)
-@fr:r-           l=s10                   # r̩  (not met)
-@fr:l-           l                       # l̩  (not met)
-@fr:t            t                       # t
-@fr:p            p                       # p
-@fr:k            k                       # k
+@fr:o            o=m8                    # o
+@fr:u            u=m9                    # u
+@fr:m-           m=m10                   # m̩  (not met)
+@fr:n-           n=m10                   # n̩  (not met)
+@fr:N-           ng=m10                  # ŋ̩  (not met)
+@fr:r-           l=m11                   # r̩  (not met)
+@fr:l-           l=m10                   # l̩  (not met)
+@fr:t            t=m12                   # t
+@fr:p            p=m13                   # p
+@fr:k            k=m14                   # k
 @fr:n            n                       # n
-@fr:R            l=s10                   # r  (not met)
-@fr:R2           l=s10                   # r  (not met)
-@fr:R3           l=s10                   # r  (not met)
-@fr:r"           r=s11                   # ʀ  (not met)
+@fr:R            l=m15                   # r  (not met)
+@fr:R2           l=m15                   # r  (not met)
+@fr:R3           l=m15                   # r  (not met)
+@fr:r"           r=m16                   # ʀ  (not met)
 @fr:l            l                       # l
 @fr:j            j                       # j  (not met)
 @fr:w            w                       # w  (not met)
-@fr:l^           l=s12                   # ʎ  (not met)
-@fr:l.           l=s13                   # ɭ  (not met)
-@fr:L            l=s14                   # ɫ  (not met)
-@fr:h            <h=s15                  # h  (not met)
+@fr:l^           l=m17                   # ʎ  (not met)
+@fr:l.           l=m18                   # ɭ  (not met)
+@fr:L            l=m19                   # ɫ  (not met)
+@fr:h            <h=m20                  # h  (not met)
 @fr:m            m                       # m
-@fr:n.           n=s16                   # ɳ  (not met)
+@fr:n.           n=m21                   # ɳ  (not met)
 @fr:n^           nj                      # ɲ  (not met)
 @fr:N            ng                      # ŋ  (not met)
-@fr:**           l=s2                    # ɾ  (not met)
-@fr:r.           l=s17                   # r.  (not met)
-@fr:b            b=s18                   # b
-@fr:d            d=s18                   # d
-@fr:d[           d=s18                   # d̪  (not met)
-@fr:t[           t                       # t̪  (not met)
-@fr:dZ           d=s19 Z=s20             # dʒ  (not met)
-@fr:tS           t=s21 S=s20             # tʃ  (not met)
-@fr:dZ;          d=s22 Z=s23             # dʑ  (not met)
-@fr:tS;          t=s24 S=s25             # tɕ  (not met)
-@fr:J            d=s26                   # ɟ  (not met)
-@fr:c            t=s27                   # c  (not met)
-@fr:g            g=s18                   # ɡ
-@fr:B            v=s28                   # β  (not met)
+@fr:**           l=m1                    # ɾ  (not met)
+@fr:r.           l=m22                   # r.  (not met)
+@fr:b            b=m23                   # b
+@fr:d            d=m24                   # d
+@fr:d[           d=m25                   # d̪  (not met)
+@fr:t[           t=m26                   # t̪  (not met)
+@fr:dZ           d=m27 Z=m28             # dʒ  (not met)
+@fr:tS           t=m29 S=m30             # tʃ  (not met)
+@fr:dZ;          d=m27 Z=m31             # dʑ  (not met)
+@fr:tS;          t=m29 S=m32             # tɕ  (not met)
+@fr:J            g=m33                   # ɟ  (not met)
+@fr:c            k=m34                   # c  (not met)
+@fr:g            g=m35                   # ɡ
+@fr:B            v=m36                   # β  (not met)
 @fr:f            f                       # f
 @fr:v            v                       # v
-@fr:v#           v=s29                   # ʋ  (not met)
-@fr:D            v=s30                   # ð  (not met)
-@fr:T            f=s31                   # θ  (not met)
+@fr:v#           H=m37                   # ʋ  (not met)
+@fr:D            v=m38                   # ð  (not met)
+@fr:T            f=m38                   # θ  (not met)
 @fr:z            z                       # z
 @fr:s            s                       # s
 @fr:Z            Z                       # ʒ
 @fr:S            S                       # ʃ  (not met)
-@fr:z.           Z=s32                   # ʐ  (not met)
-@fr:s.           S=s32                   # ʂ  (not met)
-@fr:z;           Z=s33                   # ʑ  (not met)
-@fr:s;           S=s32                   # ʂ  (not met)
-@fr:Z;           Z=s33                   # ʑ  (not met)
-@fr:S;           S=s34                   # ɕ  (not met)
-@fr:J^           Z=s35                   # ʝ  (not met)
-@fr:C            S=s35                   # ç  (not met)
-@fr:Q            r=s36                   # ɣ  (not met)
-@fr:x            r=s37                   # x  (not met)
-@fr:Q^           r=s36                   # ɣ^  (not met)
+@fr:z.           Z=m39                   # ʐ  (not met)
+@fr:s.           S=m39                   # ʂ  (not met)
+@fr:z;           Z=m40                   # ʑ  (not met)
+@fr:s;           S=m39                   # ʂ  (not met)
+@fr:Z;           Z=m40                   # ʑ  (not met)
+@fr:S;           S=m40                   # ɕ  (not met)
+@fr:J^           r=m41                   # ʝ  (not met)
+@fr:C            S=m42                   # ç  (not met)
+@fr:Q            r=m43                   # ɣ  (not met)
+@fr:x            r=m44                   # x  (not met)
+@fr:Q^           r=m43                   # ɣ^  (not met)
 @fr:Q"           r                       # ʁ  (not met)
-@fr:q            k=s38                   # q  (not met)
-@fr:l#           l=s39                   # ɬ  (not met)
-@fr:X            r=s3                    # χ  (not met)
-@fr:#l           l                       # ʰl  (not met)
-@fr:#r           l=s10                   # ʰr  (not met)
-@fr:#cFR         t=s27 r=s11             # ʰcFʀ  (not met)
-@fr:y            y=s40                   # y
-@fr:E            E=s41                   # ɛ
-@fr:A~           c=s42                   # ɑ̃  (not met)
-@fr:E~           E=s43                   # ɛ̃
-@fr:W~           oe=s43                  # œ̃
-@fr:O~           c=s44                   # ɔ̃
-@fr:W            oe=s41                  # œ
+@fr:q            k=m45                   # q  (not met)
+@fr:l#           s=m46                   # ɬ  (not met)
+@fr:X            r=m47                   # χ  (not met)
+@fr:#l           l=m48                   # ʰl  (not met)
+@fr:#r           l=m49                   # ʰr  (not met)
+@fr:#cFR         t=s27 r=s11             # ʰcFʀ  (not met)  [legacy-fallback: IPA 'ʰcFʀ': U+0046 F is not in the table (LATIN CAPITAL LETTER F)]
+@fr:y            y=m50                   # y
+@fr:E            E=m51                   # ɛ
+@fr:A~           a~                      # ɑ̃  (not met)
+@fr:E~           E~                      # ɛ̃
+@fr:W~           oe~                     # œ̃
+@fr:O~           o~                      # ɔ̃
+@fr:W            oe=m52                  # œ
 @fr:r2           r                       # ʁ  (not met)
-@fr:a-           a=s5                    # a-
-@fr:a#           oe=s45                  # ɐ  (not met)
-@fr:e-           e=s6                    # e-  (not met)
-@fr:E-           E=s41                   # ɛ-  (not met)
-@fr:I            e=s46                   # ɪ  (not met)
-@fr:I2           e=s46                   # ɪ  (not met)
-@fr:O            c=s47                   # ɔ
-@fr:oU           oe=s48                  # əʊ  (not met)
-@fr:u:           u=s49                   # uː  (not met)
-@fr:y-           y=s40                   # y-  (not met)
-@fr:W2           oe=s41                  # œ  (not met)
-@fr:Y            eu=s41                  # ø
+@fr:a-           a=m5                    # a-
+@fr:a#           a=m53                   # ɐ  (not met)
+@fr:e-           e=m6                    # e-  (not met)
+@fr:E-           E=m51                   # ɛ-  (not met)
+@fr:I            e=m54                   # ɪ  (not met)
+@fr:I2           e=m54                   # ɪ  (not met)
+@fr:O            c=m55                   # ɔ
+@fr:oU           x=m56                   # əʊ  (not met)
+@fr:u:           u=m57                   # uː  (not met)
+@fr:y-           y=m50                   # y-  (not met)
+@fr:W2           oe=m52                  # œ  (not met)
+@fr:Y            eu=m58                  # ø
 @fr:n2           n                       # n  (not met)
-@fr:p2           p                       # p  (not met)
-@fr:t2           t                       # t  (not met)
-@fr:t3           t                       # t  (not met)
-@fr:V            c=s50                   # ʌ  (not met)
+@fr:p2           p=m13                   # p  (not met)
+@fr:t2           t=m12                   # t  (not met)
+@fr:t3           t=m12                   # t  (not met)
+@fr:V            a=m59                   # ʌ  (not met)
 @fr:z2           z                       # z  (not met)
 @fr:z3           z                       # z  (not met)
 @fr:j.           H                       # ɥ  (not met)
 
 # eSpeak NG phoneme table en
 @en::            -                       # ː  (not met)
-@en:@            oe=s1                   # ə  (not met)
-@en:@-           oe=s1                   # ə  (not met)
-@en:*            l=s2                    # ɾ  (not met)
-@en:#X1          r=s3                    # ʰχ  (not met)
-@en:?            <q=s4                   # ʔ  (not met)
+@en:@            x                       # ə  (not met)
+@en:@-           x                       # ə  (not met)
+@en:*            l=m1                    # ɾ  (not met)
+@en:#X1          r=m2                    # ʰχ  (not met)
+@en:?            <q=m3                   # ʔ  (not met)
 @en:-            -                       # -  (not met)
-@en:t#           t=s51                   # tʰ  (not met)
-@en:#@           oe=s1                   # ʰə  (not met)
-@en:#a           a=s5                    # ʰa  (not met)
-@en:#e           e=s6                    # ʰe  (not met)
-@en:#i           i=s7                    # ʰi  (not met)
-@en:#o           o=s8                    # ʰo  (not met)
-@en:#u           u=s9                    # ʰu  (not met)
-@en:r            r=s52                   # ɹ  (not met)
-@en:a            a=s5                    # a  (not met)
-@en:e            e=s6                    # e  (not met)
-@en:i            i=s7                    # i
+@en:t#           t=m60                   # tʰ  (not met)
+@en:#@           <h=m4 x                 # ʰə  (not met)
+@en:#a           <h=m4 a=m5              # ʰa  (not met)
+@en:#e           <h=m4 e=m6              # ʰe  (not met)
+@en:#i           <h=m4 i=m7              # ʰi  (not met)
+@en:#o           <h=m4 o=m8              # ʰo  (not met)
+@en:#u           <h=m4 u=m9              # ʰu  (not met)
+@en:r            r=m61                   # ɹ  (not met)
+@en:a            a=m5                    # a  (not met)
+@en:e            e=m6                    # e  (not met)
+@en:i            i=m7                    # i
 @en:;            -                       # ʲ  (not met)
-@en:o            o=s8                    # o  (not met)
-@en:u            u=s9                    # u  (not met)
-@en:m-           m                       # m̩  (not met)
-@en:n-           n                       # n̩  (not met)
-@en:N-           ng                      # ŋ̩  (not met)
-@en:r-           r=s52                   # ɹ  (not met)
-@en:l-           l                       # l̩  (not met)
-@en:t            t                       # t  (not met)
-@en:p            p                       # p  (not met)
-@en:k            k                       # k
+@en:o            o=m8                    # o  (not met)
+@en:u            u=m9                    # u  (not met)
+@en:m-           m=m10                   # m̩  (not met)
+@en:n-           n=m10                   # n̩  (not met)
+@en:N-           ng=m10                  # ŋ̩  (not met)
+@en:r-           r=m61                   # ɹ  (not met)
+@en:l-           l=m10                   # l̩  (not met)
+@en:t            t=m12                   # t  (not met)
+@en:p            p=m13                   # p  (not met)
+@en:k            k=m14                   # k
 @en:n            n                       # n  (not met)
-@en:R            l=s10                   # r  (not met)
-@en:R2           l=s10                   # r  (not met)
-@en:R3           l=s10                   # r  (not met)
-@en:r"           r=s11                   # ʀ  (not met)
+@en:R            l=m15                   # r  (not met)
+@en:R2           l=m15                   # r  (not met)
+@en:R3           l=m15                   # r  (not met)
+@en:r"           r=m16                   # ʀ  (not met)
 @en:l            l                       # l  (not met)
 @en:j            j                       # j  (not met)
 @en:w            w                       # w
-@en:l^           l=s12                   # ʎ  (not met)
-@en:l.           l=s13                   # ɭ  (not met)
-@en:L            l=s14                   # ɫ  (not met)
-@en:h            <h=s15                  # h  (not met)
+@en:l^           l=m17                   # ʎ  (not met)
+@en:l.           l=m18                   # ɭ  (not met)
+@en:L            l=m19                   # ɫ  (not met)
+@en:h            <h=m20                  # h  (not met)
 @en:m            m                       # m  (not met)
-@en:n.           n=s16                   # ɳ  (not met)
+@en:n.           n=m21                   # ɳ  (not met)
 @en:n^           nj                      # ɲ  (not met)
 @en:N            ng                      # ŋ  (not met)
-@en:**           l=s2                    # ɾ  (not met)
-@en:r.           l=s17                   # r.  (not met)
-@en:b            b=s18                   # b  (not met)
-@en:d            d=s18                   # d  (not met)
-@en:d[           d=s18                   # d̪  (not met)
-@en:t[           t                       # t̪  (not met)
-@en:dZ           d=s19 Z=s20             # dʒ  (not met)
-@en:tS           t=s21 S=s20             # tʃ  (not met)
-@en:dZ;          d=s22 Z=s23             # dʑ  (not met)
-@en:tS;          t=s24 S=s25             # tɕ  (not met)
-@en:J            d=s26                   # ɟ  (not met)
-@en:c            t=s27                   # c  (not met)
-@en:g            g=s18                   # ɡ  (not met)
-@en:B            v=s28                   # β  (not met)
+@en:**           l=m1                    # ɾ  (not met)
+@en:r.           l=m22                   # r.  (not met)
+@en:b            b=m23                   # b  (not met)
+@en:d            d=m24                   # d  (not met)
+@en:d[           d=m25                   # d̪  (not met)
+@en:t[           t=m26                   # t̪  (not met)
+@en:dZ           d=m27 Z=m28             # dʒ  (not met)
+@en:tS           t=m29 S=m30             # tʃ  (not met)
+@en:dZ;          d=m27 Z=m31             # dʑ  (not met)
+@en:tS;          t=m29 S=m32             # tɕ  (not met)
+@en:J            g=m33                   # ɟ  (not met)
+@en:c            k=m34                   # c  (not met)
+@en:g            g=m35                   # ɡ  (not met)
+@en:B            v=m36                   # β  (not met)
 @en:f            f                       # f  (not met)
 @en:v            v                       # v  (not met)
-@en:v#           v=s29                   # ʋ  (not met)
-@en:D            v=s30                   # ð  (not met)
-@en:T            f=s31                   # θ  (not met)
+@en:v#           H=m37                   # ʋ  (not met)
+@en:D            v=m38                   # ð  (not met)
+@en:T            f=m38                   # θ  (not met)
 @en:z            z                       # z  (not met)
 @en:s            s                       # s
 @en:Z            Z                       # ʒ  (not met)
 @en:S            S                       # ʃ  (not met)
-@en:z.           Z=s32                   # ʐ  (not met)
-@en:s.           S=s32                   # ʂ  (not met)
-@en:z;           Z=s33                   # ʑ  (not met)
-@en:s;           S=s32                   # ʂ  (not met)
-@en:Z;           Z=s33                   # ʑ  (not met)
-@en:S;           S=s34                   # ɕ  (not met)
-@en:J^           Z=s35                   # ʝ  (not met)
-@en:C            S=s35                   # ç  (not met)
-@en:Q            r=s36                   # ɣ  (not met)
-@en:x            r=s37                   # x  (not met)
-@en:Q^           r=s36                   # ɣ^  (not met)
+@en:z.           Z=m39                   # ʐ  (not met)
+@en:s.           S=m39                   # ʂ  (not met)
+@en:z;           Z=m40                   # ʑ  (not met)
+@en:s;           S=m39                   # ʂ  (not met)
+@en:Z;           Z=m40                   # ʑ  (not met)
+@en:S;           S=m40                   # ɕ  (not met)
+@en:J^           r=m41                   # ʝ  (not met)
+@en:C            S=m42                   # ç  (not met)
+@en:Q            r=m43                   # ɣ  (not met)
+@en:x            r=m44                   # x  (not met)
+@en:Q^           r=m43                   # ɣ^  (not met)
 @en:Q"           r                       # ʁ  (not met)
-@en:q            k=s38                   # q  (not met)
-@en:l#           l=s39                   # ɬ  (not met)
-@en:X            r=s3                    # χ  (not met)
-@en:t2           t                       # t  (not met)
-@en:d#           d=s53                   # dʰ  (not met)
-@en:z#           z                       # zʰ  (not met)
-@en:3            oe=s1                   # ə  (not met)
-@en:I2           e=s46                   # ɪ  (not met)
-@en:w#           w=s54                   # ʍ  (not met)
-@en:@2           oe=s1                   # ə  (not met)
-@en:@5           oe=s1                   # ə  (not met)
-@en:U            c=s55                   # ʊ  (not met)
-@en:@L           oe=s1 l                 # əl  (not met)
-@en:a#           oe=s45                  # ɐ  (not met)
-@en:a2           a=s5                    # a  (not met)
-@en:aa           a=s5                    # a  (not met)
-@en:A:           c=s56                   # ɑː  (not met)
-@en:E            E=s41                   # ɛ  (not met)
-@en:E#           E=s41                   # ɛ  (not met)
-@en:E2           E=s41                   # ɛ  (not met)
-@en:I            e=s46                   # ɪ
-@en:I#           e=s46                   # ɪ  (not met)
-@en:I2#          e=s46                   # ɪ  (not met)
-@en:0            c=s57                   # ɒ  (not met)
-@en:0#           c=s57                   # ɒ  (not met)
-@en:02           c=s57                   # ɒ  (not met)
-@en:O2           c=s47                   # ɔ  (not met)
-@en:V            c=s50                   # ʌ  (not met)
-@en:A@           c=s56                   # ɑː  (not met)
-@en:A#           c=s58                   # ɑ  (not met)
-@en:3:           oe=s59                  # ɜː  (not met)
-@en:i:           i=s60                   # iː  (not met)
-@en:O:           c=s61                   # ɔː  (not met)
-@en:O            c=s47                   # ɔ  (not met)
-@en:O@           c=s61                   # ɔː  (not met)
-@en:o@           c=s61                   # ɔː  (not met)
-@en:u:           u=s49                   # uː  (not met)
-@en:aU           a=s62                   # aʊ  (not met)
-@en:oU           oe=s48                  # əʊ  (not met)
-@en:oU#          o=s63                   # oʊ  (not met)
-@en:aI           a=s64                   # aɪ  (not met)
-@en:eI           e=s65                   # eɪ  (not met)
-@en:OI           c=s66                   # ɔɪ  (not met)
-@en:e@           j=s67 oe=s1             # eə  (not met)
-@en:i@           j=s67 oe=s1             # iə  (not met)
-@en:i@3          j=s67 oe=s1             # iə  (not met)
-@en:U@           w=s67 oe=s1             # ʊə  (not met)
-@en:aI@          a=s5 j=s67 j=s67        # aɪə  (not met)
-@en:aI3          a=s64                   # aɪ  (not met)
-@en:aU@          a=s5 w=s67 j=s67        # aʊə  (not met)
-@en:IR           oe=s1 r=s52             # əɹ  (not met)
-@en:VR           c=s50 r=s52             # ʌɹ  (not met)
-@en:o:           o=s68                   # oː  (not met)
-@en:A~           c=s42                   # ɑ̃  (not met)
-@en:O~           c=s44                   # ɔ̃  (not met)
-@en:e:           e=s69                   # eː  (not met)
-@en:e#           e=s6                    # e  (not met)
-@en:a#2          a=s5                    # a  (not met)
-@en:@#           oe=s1                   # ə  (not met)
+@en:q            k=m45                   # q  (not met)
+@en:l#           s=m46                   # ɬ  (not met)
+@en:X            r=m47                   # χ  (not met)
+@en:t2           t=m12                   # t  (not met)
+@en:d#           d=m62                   # dʰ  (not met)  [read: breathy]
+@en:z#           z <h=m63                # zʰ  (not met)
+@en:3            x                       # ə  (not met)
+@en:I2           e=m54                   # ɪ  (not met)
+@en:w#           w=m64                   # ʍ  (not met)
+@en:@2           x                       # ə  (not met)
+@en:@5           x                       # ə  (not met)
+@en:U            c=m65                   # ʊ  (not met)
+@en:@L           x l                     # əl  (not met)
+@en:a#           a=m53                   # ɐ  (not met)
+@en:a2           a=m5                    # a  (not met)
+@en:aa           a=m5                    # a  (not met)
+@en:A:           a=m66                   # ɑː  (not met)
+@en:E            E=m51                   # ɛ  (not met)
+@en:E#           E=m51                   # ɛ  (not met)
+@en:E2           E=m51                   # ɛ  (not met)
+@en:I            e=m54                   # ɪ
+@en:I#           e=m54                   # ɪ  (not met)
+@en:I2#          e=m54                   # ɪ  (not met)
+@en:0            c=m67                   # ɒ  (not met)
+@en:0#           c=m67                   # ɒ  (not met)
+@en:02           c=m67                   # ɒ  (not met)
+@en:O2           c=m55                   # ɔ  (not met)
+@en:V            a=m59                   # ʌ  (not met)
+@en:A@           a=m66                   # ɑː  (not met)
+@en:A#           a=m68                   # ɑ  (not met)
+@en:3:           E=m69                   # ɜː  (not met)
+@en:i:           i=m70                   # iː  (not met)
+@en:O:           c=m71                   # ɔː  (not met)
+@en:O            c=m55                   # ɔ  (not met)
+@en:O@           c=m72                   # ɔː  (not met)
+@en:o@           c=m73                   # ɔː  (not met)
+@en:u:           u=m74                   # uː  (not met)
+@en:aU           a=m75                   # aʊ  (not met)
+@en:oU           x=m56                   # əʊ  (not met)
+@en:oU#          o=m76                   # oʊ  (not met)
+@en:aI           a=m77                   # aɪ  (not met)
+@en:eI           e=m78                   # eɪ  (not met)
+@en:OI           c=m79                   # ɔɪ  (not met)
+@en:e@           e=m80                   # eə  (not met)
+@en:i@           i=m81                   # iə  (not met)
+@en:i@3          i=m81                   # iə  (not met)
+@en:U@           c=m82                   # ʊə  (not met)
+@en:aI@          a=m77 x                 # aɪə  (not met)
+@en:aI3          a=m77                   # aɪ  (not met)
+@en:aU@          a=m75 x                 # aʊə  (not met)
+@en:IR           x r=m61                 # əɹ  (not met)
+@en:VR           a=m59 r=m61             # ʌɹ  (not met)
+@en:o:           o=m83                   # oː  (not met)
+@en:A~           a~                      # ɑ̃  (not met)
+@en:O~           o~                      # ɔ̃  (not met)
+@en:e:           e=m84                   # eː  (not met)
+@en:e#           e=m6                    # e  (not met)
+@en:a#2          a=m5                    # a  (not met)
+@en:@#           x                       # ə  (not met)
 
 # by IPA: this language's sounds in words eSpeak NG reads in another
 ː                -
-ə                oe=s1
-ə-               oe=s1
-ɾ                l=s2
-ʰχ               r=s3
-ʔ                <q=s4
+ə                x
+ə-               x
+ɾ                l=m1
+ʰχ               r=m2
+ʔ                <q=m3
 -                -
-ʰə               oe=s1
-ʰa               a=s5
-ʰe               e=s6
-ʰi               i=s7
-ʰo               o=s8
-ʰu               u=s9
+ʰə               <h=m4 x
+ʰa               <h=m4 a=m5
+ʰe               <h=m4 e=m6
+ʰi               <h=m4 i=m7
+ʰo               <h=m4 o=m8
+ʰu               <h=m4 u=m9
 ʁ                r
-a                a=s5
-e                e=s6
-i                i=s7
+a                a=m5
+e                e=m6
+i                i=m7
 ʲ                -
-o                o=s8
-u                u=s9
-m̩               m
-n̩               n
-ŋ̩               ng
-r̩               l=s10
-l̩               l
-t                t
-p                p
-k                k
+o                o=m8
+u                u=m9
+m̩               m=m10
+n̩               n=m10
+ŋ̩               ng=m10
+r̩               l=m11
+l̩               l=m10
+t                t=m12
+p                p=m13
+k                k=m14
 n                n
-r                l=s10
-ʀ                r=s11
+r                l=m15
+ʀ                r=m16
 l                l
 j                j
 w                w
-ʎ                l=s12
-ɭ                l=s13
-ɫ                l=s14
-h                <h=s15
+ʎ                l=m17
+ɭ                l=m18
+ɫ                l=m19
+h                <h=m20
 m                m
-ɳ                n=s16
+ɳ                n=m21
 ɲ                nj
 ŋ                ng
-r.               l=s17
-b                b=s18
-d                d=s18
-d̪               d=s18
-t̪               t
-dʒ               d=s19 Z=s20
-tʃ               t=s21 S=s20
-dʑ               d=s22 Z=s23
-tɕ               t=s24 S=s25
-ɟ                d=s26
-c                t=s27
-ɡ                g=s18
-β                v=s28
+r.               l=m22
+b                b=m23
+d                d=m24
+d̪               d=m25
+t̪               t=m26
+dʒ               d=m24 Z
+tʃ               t=m12 S
+dʑ               d=m24 Z=m40
+tɕ               t=m12 S=m40
+ɟ                g=m33
+c                k=m34
+ɡ                g=m35
+β                v=m36
 f                f
 v                v
-ʋ                v=s29
-ð                v=s30
-θ                f=s31
+ʋ                H=m37
+ð                v=m38
+θ                f=m38
 z                z
 s                s
 ʒ                Z
 ʃ                S
-ʐ                Z=s32
-ʂ                S=s32
-ʑ                Z=s33
-ɕ                S=s34
-ʝ                Z=s35
-ç                S=s35
-ɣ                r=s36
-x                r=s37
-ɣ^               r=s36
-q                k=s38
-ɬ                l=s39
-χ                r=s3
-ʰl               l
-ʰr               l=s10
-ʰcFʀ             t=s27 r=s11
-y                y=s40
-ɛ                E=s41
-ɑ̃               c=s42
-ɛ̃               E=s43
-œ̃               oe=s43
-ɔ̃               c=s44
-œ                oe=s41
-a-               a=s5
-ɐ                oe=s45
-e-               e=s6
-ɛ-               E=s41
-ɪ                e=s46
-ɔ                c=s47
-əʊ               oe=s48
-uː               u=s49
-y-               y=s40
-ø                eu=s41
-ʌ                c=s50
+ʐ                Z=m39
+ʂ                S=m39
+ʑ                Z=m40
+ɕ                S=m40
+ʝ                r=m41
+ç                S=m42
+ɣ                r=m43
+x                r=m44
+ɣ^               r=m43
+q                k=m45
+ɬ                s=m46
+χ                r=m47
+ʰl               l=m48
+ʰr               l=m49
+ʰcFʀ             t=s27 r=s11             # [legacy-fallback: IPA 'ʰcFʀ': U+0046 F is not in the table (LATIN CAPITAL LETTER F)]
+y                y=m50
+ɛ                E=m51
+ɑ̃               a=m85
+ɛ̃               E=m86
+œ̃               oe=m87
+ɔ̃               c=m88
+œ                oe=m52
+a-               a=m5
+ɐ                a=m53
+e-               e=m6
+ɛ-               E=m51
+ɪ                e=m54
+ɔ                c=m55
+əʊ               x c=m65
+uː               u=m89
+y-               y=m50
+ø                eu=m58
+ʌ                a=m59
 ɥ                H
-tʰ               t=s51
-ɹ                r=s52
-dʰ               d=s53
-zʰ               z
-ʍ                w=s54
-ʊ                c=s55
-əl               oe=s1 l
-ɑː               c=s56
-ɒ                c=s57
-ɑ                c=s58
-ɜː               oe=s59
-iː               i=s60
-ɔː               c=s61
-aʊ               a=s62
-oʊ               o=s63
-aɪ               a=s64
-eɪ               e=s65
-ɔɪ               c=s66
-eə               j=s67 oe=s1
-iə               j=s67 oe=s1
-ʊə               w=s67 oe=s1
-aɪə              a=s5 j=s67 j=s67
-aʊə              a=s5 w=s67 j=s67
-əɹ               oe=s1 r=s52
-ʌɹ               c=s50 r=s52
-oː               o=s68
-eː               e=s69
+tʰ               t=m60
+ɹ                r=m61
+dʰ               d=m62                   # [read: breathy]
+zʰ               z <h=m63
+ʍ                w=m64
+ʊ                c=m65
+əl               x l
+ɑː               a=m90
+ɒ                c=m67
+ɑ                a=m68
+ɜː               E=m69
+iː               i=m91
+ɔː               c=m92
+aʊ               a=m5 c=m65
+oʊ               o=m8 c=m65
+aɪ               a=m5 e=m54
+eɪ               e=m6 e=m54
+ɔɪ               c=m55 e=m54
+eə               e=m6 x
+iə               i=m7 x
+ʊə               c=m65 x
+aɪə              a=m5 e=m54 x
+aʊə              a=m5 c=m65 x
+əɹ               x r=m61
+ʌɹ               a=m59 r=m61
+oː               o=m93
+eː               e=m94
 
 # by IPA: English, for the English words a text has in it
-æ                E=s70
-ɚ                oe=s71
-ᵻ                y=s72
-ɑːɹ              c=s56 r=s52
-ɔːɹ              c=s73 r=s52
-ɛɹ               E r=s52
-ɪɹ               e=s74 r=s52
-ʊɹ               c=s75 r=s52
-aɪɚ              a j=s67 j=s67
-aɪʊɹ             a e=s74 c=s75 r=s52
+æ                a=m95
+ɚ                x=m96                   # [read: rhotic]
+ᵻ                eu=m97
+ɑːɹ              a=m90 r=m61
+ɔːɹ              c=m92 r=m61
+ɛɹ               E=m51 r=m61
+ɪɹ               e=m54 r=m61
+ʊɹ               c=m65 r=m61
+aɪɚ              a=m5 e=m54 x=m96        # [read: rhotic]
+aɪʊɹ             a=m5 e=m54 c=m65 r=m61
 
 # by IPA: every letter of it, so that anything can be taken apart
-ʈ                t=s76
-ɖ                d=s77
-g                g
-ɢ                g=s38
-ɱ                m=s78
-ɴ                ng=s79
-ʙ                v
-ⱱ                b
-ɽ                l=s17
-ɺ                l=s80
-ɸ                f
-ħ                <h=s81
-ʕ                <h=s82
-ɦ                <h=s83
-ɧ                r=s84
-ɮ                l=s85
-ɻ                r=s86
-ɰ                w=s87
-ʟ                l=s88
-ʘ                p=s89
-ǀ                t=s90
-ǃ                t=s90
-ǂ                t=s91
-ǁ                t=s90
-ɓ                b=s92
-ɗ                d=s92
-ʄ                d=s93
-ɠ                g=s92
-ʛ                g=s94
-ɨ                y=s72
-ʉ                y=s95
-ɯ                eu=s96
-ʏ                y=s97
-ɘ                E=s98
-ɵ                oe=s99
-ɤ                c=s100
-ɜ                oe=s101
-ɞ                oe=s102
-ɶ                a=s103
-ɝ                oe=s104
-ä                a
+ʈ                t=m98
+ɖ                d=m99
+g                g=m35
+ɢ                g=m100
+ɱ                m=m101
+ɴ                ng=m102
+ʙ                w=m103
+ⱱ                w=m104
+ɽ                l=m22
+ɺ                l=m104
+ɸ                f=m36
+ħ                <h=m105
+ʕ                <h=m106
+ɦ                <h=m107
+ɧ                S=m108
+ɮ                z=m109
+ɻ                r=m110
+ɰ                j=m111
+ʟ                l=m112
+ʘ                p=m113
+ǀ                t=m114
+ǃ                t=m115
+ǂ                t=m116
+ǁ                t=m117
+ɓ                b=m118
+ɗ                d=m119
+ʄ                g=m120
+ɠ                g=m121
+ʛ                g=m122
+ɨ                eu=m97
+ʉ                y=m123
+ɯ                eu=m124
+ʏ                eu=m125
+ɘ                e=m126
+ɵ                eu=m127
+ɤ                c=m128
+ɜ                E=m129
+ɞ                oe=m130
+ɶ                oe=m131
+ɝ                E=m132                  # [read: rhotic]
+ä                a=m5

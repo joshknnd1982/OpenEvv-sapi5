@@ -21,566 +21,584 @@ says T t s
 
 # the sounds of the language that the module has not, each as it differs from the phone
 # that stands for it: formants and lengths in per cent, times in milliseconds
-sound s1 tap=1 tapms=24 hold=60 f1=122 f2=111 f3=77 # ɾ
-sound s2 f2=88                           # ʰχ
-sound s3 ms=50 hush=1                    # ʔ
-sound s4 dur=40                          # ʰa
-sound s5 dur=53                          # ʰe
-sound s6 dur=56                          # ʰi
-sound s7 dur=57                          # ʰu
-sound s8 tap=3 tapms=18 f2=109 f3=77     # r
-sound s9 vot=17                          # t
-sound s10 vot=13                         # p
-sound s11 vot=28                         # k
-sound s12 tap=3 tapms=18 f2=85 f3=112    # ʀ
-sound s13 f2=159                         # ʎ
-sound s14 f2=111 f3=71                   # ɭ
-sound s15 f2=71 f3=91                    # ɫ
-sound s16 ms=70 whisper=44               # h
-sound s17 f3=80                          # ɳ
-sound s18 f2=136 f3=109                  # ɲ
-sound s19 tap=1 tapms=24 hold=60 f2=111 f3=66 # r.
-sound s20 voi=1 lead=75                  # b
-sound s21 f2=91 burst=-4 voi=1 lead=75   # d̪
-sound s22 f2=91 burst=-4 vot=16          # t̪
-sound s23 voi=1 lead=75 hold=85 f2=126 f3=121 # dʑ
-sound s24 a3=34 a4=55 a5=22 f2=126 f3=121 hold=70 # dʑ
-sound s25 hold=85 f2=119 f3=116          # tɕ
-sound s26 a2=31 a3=34 a4=34 a5=22 f2=119 f3=116 hold=70 # tɕ
-sound s27 f2=135 f3=112 a3=56 a4=56 voi=1 lead=75 # ɟ
-sound s28 f2=135 f3=112 a3=56 a4=56 vot=32 # c
-sound s29 af=-8                          # β
-sound s30 af=-14                         # ʋ
-sound s31 f2=149 f3=110 a6=28 ab=48      # ð
-sound s32 f2=146 f3=110 a6=28 ab=48      # θ
-sound s33 a4=51 f2=92 f3=87 f4=88        # ʐ
-sound s34 a4=54 f2=87 f3=83 f4=88        # ʂ
-sound s35 a3=34 a4=55 a5=22 f2=126 f3=121 # ʑ
-sound s36 a2=31 a3=34 a4=34 a5=22 f2=119 f3=116 # ɕ
-sound s37 voi=1 af=-5                    # ʝ
-sound s38 f1=73 f3=116                   # ɣ
-sound s39 f2=68 f3=109 f1=118 burst=3 vot=30 # q
-sound s40 fric=52 a3=54 a4=58 a5=44 whisper=30 hold=190 # ɬ
-sound s41 dur=84                         # ɛ
-sound s42 f1=124 f2=92 f3=92 dur=84      # æ
-sound s43 f1=89 f2=86 dur=40             # ɑ
-sound s44 dur=85                         # ɔ
-sound s45 dur=114                        # ʊ
-sound s46 f1=78                          # ʉ
-sound s47 g1=43 g2=166 g3=113 glide=1 dur=72 # ai
-sound s48 f1=124 f2=92 f3=92 g1=61 g2=118 g3=108 glide=1 dur=171 # æi
-sound s49 g1=75 g2=250 g3=117 glide=1    # oi
-sound s50 g1=79 g2=101 g3=105 glide=1    # ei
-sound s51 g1=77 g2=143 g3=137 glide=1    # øi
-sound s52 g1=111 g2=250 g3=116 glide=1 dur=117 # ui
-sound s53 g1=92 g2=117 g3=121 glide=1 dur=117 # yi
-sound s54 g1=46 g2=69 g3=93 glide=1 dur=72 # au
-sound s55 g1=82 g2=106 g3=96 glide=1     # ou
-sound s56 g1=85 g2=45 g3=87 glide=1      # eu
-sound s57 g1=113 g2=46 g3=82 glide=1 dur=117 # iu
-sound s58 f1=124 f2=92 f3=92 g1=62 g2=99 g3=86 glide=1 dur=171 # æy
-sound s59 g1=81 g2=85 g3=84 glide=1      # ey
-sound s60 g1=79 g2=120 g3=108 glide=1    # øy
-sound s61 g1=106 g2=87 g3=79 glide=1 dur=117 # iy
-sound s62 hold=55                        # uo
-sound s63 f1=56 f2=111 f3=84 hold=55     # yø
-sound s64 vot=70 asp=50                  # tʰ
-sound s65 f2=92 f3=77                    # ɹ
-sound s66 voi=1 lead=75 brth=90 f0=-15   # dʰ
-sound s67 whisper=46                     # ʍ
-sound s68 f1=123 f3=114 dur=84           # ɐ
-sound s69 f1=89 f2=86 dur=72             # ɑː
-sound s70 f1=116 dur=85                  # ɒ
-sound s71 f1=112 f2=87 f3=114 dur=84     # ʌ
-sound s72 f3=114 dur=171                 # ɜː
-sound s73 dur=117                        # iː
-sound s74 dur=220                        # ɔː
-sound s75 g1=58 g2=82 g3=93 glide=1 dur=72 # aʊ
-sound s76 g1=94 g2=65 g3=93 glide=1 dur=208 # əʊ
-sound s77 g1=105 g2=129 g3=96 glide=1    # oʊ
-sound s78 g1=56 g2=146 g3=101 glide=1 dur=72 # aɪ
-sound s79 g1=106 g2=89 g3=95 glide=1     # eɪ
-sound s80 g1=73 g2=194 g3=101 glide=1 dur=220 # ɔɪ
-sound s81 f1=89 f2=86 dur=40 nas=100     # ɑ̃
-sound s82 dur=85 nas=100                 # ɔ̃
-sound s83 f1=87 f3=78 dur=126            # ɚ
-sound s84 f1=78 f2=106 f3=114 dur=137    # ᵻ
-sound s85 dur=126                        # ɛɹ
-sound s86 dur=137                        # ɪɹ
-sound s87 dur=185                        # ʊɹ
-sound s88 dur=50                         # aɪɚ
-sound s89 f2=91 f3=79 f4=88 a4=52 a5=42  # ʈ
-sound s90 f2=68 f3=109 f1=118 burst=3    # ɢ
-sound s91 f2=125 f3=90                   # ɱ
-sound s92 f2=56 f3=90                    # ɴ
-sound s93 tap=1 tapms=24 hold=60 f2=115 f3=84 # ɺ
-sound s94 ms=85 whisper=48 f1=125 f2=88  # ħ
-sound s95 ms=80 whisper=30 voi=1 f1=125 f2=86 # ʕ
-sound s96 ms=70 whisper=38 voi=1         # ɦ
-sound s97 f2=92 f3=88                    # ɧ
-sound s98 fric=52 a3=54 a4=58 a5=44      # ɮ
-sound s99 f3=70                          # ɻ
-sound s100 f1=63 f2=126                  # ɰ
-sound s101 f1=56 f2=111 f3=84            # ɥ
-sound s102 f2=87 f3=81                   # ʟ
-sound s103 burst=8 ej=25                 # ʘ
-sound s104 f2=135 f3=112 a3=56 a4=56 burst=8 ej=25 # ǂ
-sound s105 impl=1 voi=1 burst=-8         # ɓ
-sound s106 f2=135 f3=112 a3=56 a4=56 impl=1 voi=1 burst=-8 # ʄ
-sound s107 f2=68 f3=109 f1=118 burst=-8 impl=1 voi=1 # ʛ
-sound s108 f1=83 f2=89 f3=114 dur=137    # ɯ
-sound s109 f1=93 dur=157                 # ɘ
-sound s110 f2=89 f3=107 dur=137          # ɵ
-sound s111 f1=83 f2=90 f3=112 dur=126    # ɤ
-sound s112 f3=114 dur=126                # ɜ
-sound s113 f2=94 f3=107 dur=126          # ɞ
-sound s114 f1=91 f2=114 f3=94 dur=50     # ɶ
-sound s115 f1=90 f3=78 dur=126           # ɝ
+# realization master (engine/packs/master.py): each sound from the IPA master table (ipa/table) through the
+# adapter, as it differs from the template's phone; its comment names the table entries and the provenance of their values
+sound m1 ant=50 f1=95 f2=142 f3=86 tap=1 tapms=31 # ɾ: U+027E; values derived 1, literature 4, measured 1
+sound m2 a2=70 a3=0 a4=50 a5=0 a6=0 f2=102 pre=98 # ʰχ: U+03C7+B:U+02B0#pre; values derived 1, estimated 1, measured 1
+sound m3 hush=1 ms=45                    # ʔ: U+0294; values derived 2
+sound m4 ms=98 whisper=44                # ʰə: U+0068+B:U+02B0#pre; ʰa: U+0068+B:U+02B0#pre; ʰe: U+0068+B:U+02B0#pre; ʰi: U+0068+B:U+02B0#pre; and 2 more; values derived 3
+sound m5 ant=50 f1=143 f2=100 f3=79 tapms=15 tdepth=20 trate=28 # r: U+0072; values derived 2, literature 6, measured 4
+sound m6 hold=150                        # m̩: U+006D+U+0329; n̩: U+006E+U+0329; ŋ̩: U+014B+U+0329; l̩: U+006C+U+0329; values estimated 1, literature 19, measured 4
+sound m7 ant=50 f1=143 f2=100 f3=79 hold=150 tapms=15 tdepth=20 trate=28 # r̩: U+0072+U+0329; values derived 2, estimated 1, literature 6, measured 4
+sound m8 vot=6                           # t: U+0074; tʃ: U+0074; tɕ: U+0074; values derived 3, measured 1
+sound m9 vot=22                          # p: U+0070; values derived 2, literature 1, measured 1
+sound m10 vot=28                         # k: U+006B; values literature 3, measured 1
+sound m11 tdepth=20 trate=19             # ʀ: U+0280; ʙ: U+0299; values derived 2, literature 2, measured 2
+sound m12 ah=-8 ant=50 av=-8 f1=88 f2=161 f3=99 # ʎ: U+028E; values literature 4, measured 2
+sound m13 ah=-3 ant=50 av=-3 f1=109 f2=106 f3=81 # ɭ: U+026D; values literature 4
+sound m14 f2=64                          # ɫ: U+006C+U+0334; values derived 1, literature 4
+sound m15 ms=102 whisper=44              # h: U+0068; values derived 2
+sound m16 ant=50 f1=217 f2=77 f3=93 f4=100 # ɳ: U+0273; values literature 5, measured 1
+sound m17 ant=50 f1=181 f2=95 f3=99 f4=104 # ɲ: U+0272; values literature 5, measured 2
+sound m18 ant=50 f3=62 tap=1 tapms=25    # ɽ: U+027D; values derived 2, estimated 1
+sound m19 lead=70 voi=1                  # b: U+0062; values derived 3, literature 1, measured 2
+sound m20 lead=75 voi=1                  # d: U+0064; dʒ: U+0064; dʑ: U+0064; values derived 3, literature 1, measured 3
+sound m21 f2=93 lead=75 voi=1            # d̪: U+0064+U+032A; values derived 3, estimated 1, literature 1, measured 3
+sound m22 f2=93 vot=6                    # t̪: U+0074+U+032A; values derived 3, estimated 1, measured 1
+sound m23 hold=81 lead=75 voi=1          # dʑ: U+0064+U+0361; values derived 6, estimated 1, literature 1, measured 3
+sound m24 a2=0 a3=42 a4=62 a5=0 a6=0 f4=94 hold=81 # dʑ: U+0291; values estimated 1
+sound m25 hold=69 vot=6                  # tɕ: U+0074+U+0361; values derived 6, estimated 1, measured 1
+sound m26 a2=42 a3=42 a4=62 a5=0 a6=0 f4=94 hold=69 # tɕ: U+0255; values literature 1
+sound m27 ant=50 l2=487 lead=76 lk=59 voi=1 # ɟ: U+025F; values derived 4
+sound m28 ant=50 l2=469 lk=34 vot=34     # c: U+0063; values literature 3
+sound m29 lead=78 voi=1                  # ɡ: U+0261; g: U+0261; values derived 1, literature 3, measured 1
+sound m30 ant=50 l2=216 lk=75            # β: U+03B2; ɸ: U+0278; values estimated 4
+sound m31 ah=-5 ant=50 av=-5 f2=137      # ʋ: U+028B; values literature 2
+sound m32 ant=50 l2=446 lk=53            # ð: U+00F0; θ: U+03B8; values derived 2, literature 4
+sound m33 a2=0 a3=62 a4=42 a5=0 a6=0 f3=122 # ʐ: U+0290; values estimated 1
+sound m34 a2=42 a3=62 a4=42 a5=0 a6=0 f3=117 # ʂ: U+0282; values literature 1
+sound m35 a2=0 a3=42 a4=62 a5=0 a6=0 f4=94 # ʑ: U+0291; dʑ: U+0291; values estimated 1
+sound m36 a2=42 a3=42 a4=62 a5=0 a6=0 f4=94 # ɕ: U+0255; tɕ: U+0255; values literature 1
+sound m37 a2=36 a3=36 a4=56 a5=0 a6=0 f4=121 voi=1 # ʝ: U+029D; values derived 1, estimated 1, literature 1, measured 1
+sound m38 a2=50 a3=70 a4=50 a5=0 a6=0 f3=99 voi=1 # ɣ: U+0263; values derived 1, estimated 1, literature 1, measured 1
+sound m39 ant=50 f1=124 l2=150 lk=78 vot=23 # q: U+0071; values derived 2, estimated 2
+sound m40 a2=0 a3=50 a4=0 a5=30 a6=0 f2=96 f3=102 # ɬ: U+026C; values derived 1, literature 3
+sound m41 a2=70 a3=0 a4=50 a5=0 a6=0 f2=102 # χ: U+03C7; values estimated 1, measured 1
+sound m42 ah=-4 av=-4 f1=121 f2=96 f3=96 # æ: U+00E6; æi: U+00E6; æy: U+00E6; values derived 3, literature 3
+sound m43 f1=92 f2=94 f3=101             # ɑ: U+0251; values derived 3, literature 3
+sound m44 f1=104 f2=86 f3=104            # ʉ: U+0289; values derived 3, literature 3
+sound m45 g1=33 g2=173 g3=116 glide=1    # ai: U+0061+U+0069; values derived 6, literature 6, measured 1
+sound m46 ah=-4 av=-4 f1=121 f2=96 f3=96 g1=48 g2=119 g3=112 glide=1 # æi: U+00E6+U+0069; values derived 6, literature 6
+sound m47 g1=68 g2=293 g3=121 glide=1    # oi: U+006F+U+0069; values derived 6, literature 6
+sound m48 g1=72 g2=100 g3=107 glide=1    # ei: U+0065+U+0069; values derived 6, literature 6
+sound m49 g1=70 g2=147 g3=143 glide=1    # øi: U+00F8+U+0069; values derived 6, literature 6
+sound m50 g1=106 g2=287 g3=121 glide=1   # ui: U+0075+U+0069; values derived 6, literature 6
+sound m51 g1=88 g2=118 g3=126 glide=1    # yi: U+0079+U+0069; values derived 6, literature 6
+sound m52 g1=31 g2=60 g3=96 glide=1      # au: U+0061+U+0075; values derived 6, literature 6, measured 1
+sound m53 g1=64 g2=102 g3=100 glide=1    # ou: U+006F+U+0075; values derived 6, literature 6
+sound m54 g1=68 g2=35 g3=89 glide=1      # eu: U+0065+U+0075; values derived 6, literature 6
+sound m55 g1=94 g2=35 g3=83 glide=1      # iu: U+0069+U+0075; values derived 6, literature 6
+sound m56 ah=-4 av=-4 f1=121 f2=96 f3=96 g1=55 g2=101 g3=88 glide=1 # æy: U+00E6+U+0079; values derived 6, literature 6
+sound m57 g1=81 g2=85 g3=85 glide=1      # ey: U+0065+U+0079; values derived 6, literature 6
+sound m58 g1=79 g2=124 g3=114 glide=1    # øy: U+00F8+U+0079; values derived 6, literature 6
+sound m59 g1=113 g2=85 g3=79 glide=1     # iy: U+0069+U+0079; values derived 6, literature 6
+sound m60 g1=156 g2=98 g3=100 glide=1    # uo: U+0075+U+006F; values derived 6, literature 6
+sound m61 g1=140 g2=100 g3=93 glide=1    # ie: U+0069+U+0065; values derived 6, literature 6
+sound m62 g1=127 g2=80 g3=88 glide=1     # yø: U+0079+U+00F8; values derived 6, literature 6
+sound m63 vot=70                         # tʰ: U+0074+U+02B0; values derived 4, measured 1
+sound m64 ant=50 f1=105 f2=97 f3=85 f4=93 # ɹ: U+0279; əɹ: U+0279; ʌɹ: U+0279; ɑːɹ: U+0279; and 5 more; values literature 4, measured 1
+sound m65 brth=70 lead=75 voi=1          # dʱ: U+0064+U+02B1; values derived 3, literature 3, measured 3
+sound m66 ms=64 whisper=44               # zʰ: U+0068+U+02B0; values derived 3
+sound m67 ant=50 f2=90 voi=0 whisper=44  # ʍ: U+028D; values derived 2, estimated 1
+sound m68 f1=95 f2=108 f3=100            # ɐ: U+0250; values derived 3, literature 3
+sound m69 dur=128 f1=92 f2=94 f3=101     # ɑː: U+0251+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 115 against 90 without the mark
+sound m70 ah=-2 av=-2 f1=106 f2=105 f3=105 # ɒ: U+0252; values derived 3, literature 3
+sound m71 f1=79 f2=93 f3=98              # ʌ: U+028C; ʌɹ: U+028C; values derived 3, literature 3
+sound m72 dur=203 f1=94 f2=84 f3=97      # ɜː: U+025C+U+02D0; values derived 5, literature 4; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 85 ms
+sound m73 dur=116                        # iː: U+0069+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 87 against 75 without the mark
+sound m74 dur=115                        # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 115 against 100 without the mark
+sound m75 dur=120                        # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 120 against 100 without the mark
+sound m76 dur=125                        # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 125 against 100 without the mark
+sound m77 dur=124                        # uː: U+0075+U+02D0; eː: U+0065+U+02D0; values derived 8, literature 6; language: ː, eSpeak NG's own lengths for it, 105 against 85 without the mark
+sound m78 g1=93 g2=58 g3=96 glide=1      # əʊ: U+0259+U+028A; values derived 9, literature 3
+sound m79 g1=108 g2=127 g3=100 glide=1   # oʊ: U+006F+U+028A; values derived 6, literature 6
+sound m80 g1=103 g2=93 g3=104 glide=1    # eɪ: U+0065+U+026A; values derived 6, literature 6
+sound m81 g1=67 g2=222 g3=112 glide=1    # ɔɪ: U+0254+U+026A; values derived 6, literature 6
+sound m82 g1=122 g2=74 g3=93 glide=1     # eə: U+0065+U+0259; values derived 9, literature 3
+sound m83 g1=170 g2=74 g3=86 glide=1     # iə: U+0069+U+0259; values derived 9, literature 3
+sound m84 g1=107 g2=172 g3=104 glide=1   # ʊə: U+028A+U+0259; values derived 9, literature 3
+sound m85 g1=48 g2=161 g3=112 glide=1    # aɪə: U+0061+U+026A; values derived 6, literature 6, measured 1
+sound m86 g1=52 g2=75 g3=96 glide=1      # aʊə: U+0061+U+028A; values derived 6, literature 6, measured 1
+sound m87 dur=129                        # oː: U+006F+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 110 against 85 without the mark
+sound m88 dur=345 f1=92 f2=94 f3=101     # ɑː: U+0251+U+02D0; ɑːɹ: U+0251+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 50 ms
+sound m89 dur=144                        # iː: U+0069+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 120 ms
+sound m90 dur=314                        # ɔː: U+0254+U+02D0; ɔːɹ: U+0254+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 55 ms
+sound m91 dur=138                        # uː: U+0075+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 125 ms
+sound m92 dur=128                        # oː: U+006F+U+02D0; eː: U+0065+U+02D0; values derived 8, literature 6; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 135 ms
+sound m93 f1=92 f2=94 f3=101 nas=70      # ɑ̃: U+0251+U+0303; values derived 3, estimated 2, literature 3
+sound m94 nas=70                         # ɔ̃: U+0254+U+0303; values derived 3, estimated 2, literature 3
+sound m95 f3=77                          # ə˞: U+0259+U+02DE; aɪə˞: U+0259+U+02DE; values derived 6, literature 1
+sound m96 f1=94 f2=68 f3=93              # ɨ: U+0268; values derived 3, literature 3
+sound m97 ant=50 f3=72 l2=380 lk=72 vot=10 # ʈ: U+0288; values derived 2, estimated 1, literature 1, measured 1
+sound m98 ant=50 f3=69 l2=368 lead=75 lk=80 voi=1 # ɖ: U+0256; values derived 4, estimated 1, measured 2
+sound m99 ant=50 f1=122 l2=150 lead=78 lk=78 voi=1 # ɢ: U+0262; values derived 2, estimated 3, measured 1
+sound m100 ant=50 f1=158 f2=181 f3=99 f4=101 # ɱ: U+0271; values literature 5, measured 1
+sound m101 ant=50 f1=171 f2=63 f3=103    # ɴ: U+0274; values estimated 3, measured 3
+sound m102 tap=1 tapms=18                # ⱱ: U+2C71; values derived 1, estimated 1, measured 1
+sound m103 tap=1 tapms=25                # ɺ: U+027A; values derived 1, estimated 1
+sound m104 f2=134 ms=105 whisper=48      # ħ: U+0127; values derived 1, literature 3, measured 1
+sound m105 f2=142 ms=105 voi=1 whisper=30 # ʕ: U+0295; values derived 2, literature 3, measured 1
+sound m106 ms=102 voi=1 whisper=38       # ɦ: U+0266; values derived 2, estimated 1
+sound m107 a2=62 a3=42 a4=42 a5=0 a6=0 f2=111 # ɧ: U+0267; values estimated 1
+sound m108 a2=0 a3=50 a4=30 a5=30 a6=0 f3=102 # ɮ: U+026E; values estimated 1
+sound m109 ah=-4 ant=50 av=-4 f1=112 f2=114 f3=88 f4=84 # ɻ: U+027B; values literature 4, measured 4
+sound m110 ant=50 f1=92 f2=77 f3=94      # ɰ: U+0270; values estimated 3, measured 2
+sound m111 ant=50 f1=60 f2=184 f3=99     # ɥ: U+0265; values estimated 3
+sound m112 ah=-4 ant=50 av=-4 f1=110 f2=110 f3=86 # ʟ: U+029F; values estimated 3
+sound m113 a2=70 a3=30 a4=0 a5=0 a6=0 ab=0 bgain=24 burstms=23 ej=2 vot=32 # ʘ: U+0298; values derived 1, estimated 12, measured 1
+sound m114 a2=20 a3=50 a4=60 a5=30 a6=10 bgain=13 burstms=22 ej=2 hold=130 vot=2 # ǀ: U+01C0; values derived 2, estimated 10, literature 1, measured 2
+sound m115 a2=80 a3=0 a4=0 a5=0 a6=0 bgain=28 burst=10 burstms=5 ej=1 f2=55 vot=2 # ǃ: U+01C3; values derived 3, estimated 10, literature 1, measured 2
+sound m116 a2=50 a3=55 a4=0 a5=0 a6=0 bgain=15 burst=10 burstms=5 ej=2 vot=0 # ǂ: U+01C2; values derived 2, estimated 10, literature 1, measured 2
+sound m117 a2=50 a3=60 a4=30 a5=0 a6=0 bgain=15 burst=10 burstms=16 ej=2 vot=17 # ǁ: U+01C1; values derived 4, estimated 8, literature 1, measured 2
+sound m118 ant=50 hold=75 impl=12 l2=215 lk=82 # ɓ: U+0253; values derived 1, estimated 4
+sound m119 ant=50 hold=90 impl=9 l2=428 lk=80 # ɗ: U+0257; values derived 1, estimated 4
+sound m120 ant=50 hold=75 impl=6 l2=487 lk=59 # ʄ: U+0284; values derived 1, estimated 4, measured 1
+sound m121 ant=50 hold=90 impl=7 l2=252 lk=88 # ɠ: U+0260; values derived 1, estimated 4, measured 1
+sound m122 ant=50 hold=85 impl=9 l2=150 lk=78 # ʛ: U+029B; values derived 1, estimated 4
+sound m123 f1=97 f2=65 f3=88             # ɯ: U+026F; values derived 3, literature 3
+sound m124 f1=81 f2=94 f3=105            # ɘ: U+0258; values derived 3, estimated 3
+sound m125 f1=103 f2=83 f3=119           # ɵ: U+0275; values derived 3, literature 3
+sound m126 ah=-4 av=-4 f1=116 f2=108 f3=109 # ɤ: U+0264; values derived 3, literature 3
+sound m127 f1=94 f2=84 f3=97             # ɜ: U+025C; values derived 3, literature 4
+sound m128 f1=97 f2=95 f3=107            # ɞ: U+025E; values derived 4, estimated 2
+sound m129 ah=-4 av=-4 f1=125 f2=102 f3=122 # ɶ: U+0276; values derived 3, literature 3
+sound m130 f1=94 f2=84 f3=74             # ɜ˞: U+025C+U+02DE; values derived 3, literature 5
+sound m131 f2=108                        # ä: U+0061+U+0308; values derived 3, estimated 1, literature 3, measured 1
 
 # eSpeak NG phoneme table smj
 @smj::           -                       # ː  (not met)
 @smj:@           @                       # ə
 @smj:@-          @                       # ə  (not met)
-@smj:*           l=s1                    # ɾ  (not met)
-@smj:#X1         x=s2                    # ʰχ  (not met)
-@smj:?           <q=s3                   # ʔ  (not met)
+@smj:*           l=m1                    # ɾ  (not met)
+@smj:#X1         x=m2                    # ʰχ  (not met)
+@smj:?           <q=m3                   # ʔ  (not met)
 @smj:-           -                       # -  (not met)
-@smj:#@          @                       # ʰə  (not met)
-@smj:#a          a=s4                    # ʰa  (not met)
-@smj:#e          e=s5                    # ʰe  (not met)
-@smj:#i          i=s6                    # ʰi  (not met)
-@smj:#o          o=s5                    # ʰo  (not met)
-@smj:#u          u=s7                    # ʰu  (not met)
-@smj:r           l=s8                    # r
-@smj:a           a=s4                    # a
-@smj:e           e=s5                    # e
-@smj:i           i=s6                    # i
+@smj:#@          <h=m4 @                 # ʰə  (not met)
+@smj:#a          <h=m4 a                 # ʰa  (not met)
+@smj:#e          <h=m4 e                 # ʰe  (not met)
+@smj:#i          <h=m4 i                 # ʰi  (not met)
+@smj:#o          <h=m4 o                 # ʰo  (not met)
+@smj:#u          <h=m4 u                 # ʰu  (not met)
+@smj:r           l=m5                    # r
+@smj:a           a                       # a
+@smj:e           e                       # e
+@smj:i           i                       # i
 @smj:;           -                       # ʲ
-@smj:o           o=s5                    # o
-@smj:u           u=s7                    # u
-@smj:m-          m                       # m̩  (not met)
-@smj:n-          n                       # n̩  (not met)
-@smj:N-          G                       # ŋ̩  (not met)
-@smj:r-          l=s8                    # r̩  (not met)
-@smj:l-          l                       # l̩  (not met)
-@smj:t           t=s9                    # t
-@smj:p           p=s10                   # p
-@smj:k           k=s11                   # k
+@smj:o           o                       # o
+@smj:u           u                       # u
+@smj:m-          m=m6                    # m̩  (not met)
+@smj:n-          n=m6                    # n̩  (not met)
+@smj:N-          G=m6                    # ŋ̩  (not met)
+@smj:r-          l=m7                    # r̩  (not met)
+@smj:l-          l=m6                    # l̩  (not met)
+@smj:t           t=m8                    # t
+@smj:p           p=m9                    # p
+@smj:k           k=m10                   # k
 @smj:n           n                       # n
-@smj:R           l=s8                    # r
-@smj:R2          l=s8                    # r  (not met)
-@smj:R3          l=s8                    # r  (not met)
-@smj:r"          r=s12                   # ʀ  (not met)
+@smj:R           l=m5                    # r
+@smj:R2          l=m5                    # r  (not met)
+@smj:R3          l=m5                    # r  (not met)
+@smj:r"          r=m11                   # ʀ  (not met)
 @smj:l           l                       # l
 @smj:j           j                       # j
 @smj:w           w                       # w  (not met)
-@smj:l^          l=s13                   # ʎ  (not met)
-@smj:l.          l=s14                   # ɭ  (not met)
-@smj:L           l=s15                   # ɫ  (not met)
-@smj:h           <h=s16                  # h
+@smj:l^          l=m12                   # ʎ  (not met)
+@smj:l.          l=m13                   # ɭ  (not met)
+@smj:L           l=m14                   # ɫ  (not met)
+@smj:h           <h=m15                  # h
 @smj:m           m                       # m
-@smj:n.          n=s17                   # ɳ  (not met)
-@smj:n^          n=s18                   # ɲ  (not met)
+@smj:n.          n=m16                   # ɳ  (not met)
+@smj:n^          n=m17                   # ɲ  (not met)
 @smj:N           G                       # ŋ
-@smj:**          l=s1                    # ɾ  (not met)
-@smj:r.          l=s19                   # r.  (not met)
-@smj:b           b=s20                   # b
-@smj:d           d=s20                   # d
-@smj:d[          d=s21                   # d̪  (not met)
-@smj:t[          t=s22                   # t̪  (not met)
+@smj:**          l=m1                    # ɾ  (not met)
+@smj:r.          l=m18                   # r.  (not met)
+@smj:b           b=m19                   # b
+@smj:d           d=m20                   # d
+@smj:d[          d=m21                   # d̪  (not met)
+@smj:t[          t=m22                   # t̪  (not met)
 @smj:dZ          J                       # dʒ
 @smj:tS          C                       # tʃ
-@smj:dZ;         d=s23 Z=s24             # dʑ  (not met)
-@smj:tS;         t=s25 S=s26             # tɕ  (not met)
-@smj:J           d=s27                   # ɟ
-@smj:c           t=s28                   # c
-@smj:g           g=s20                   # ɡ
-@smj:B           v=s29                   # β  (not met)
+@smj:dZ;         d=m23 Z=m24             # dʑ  (not met)
+@smj:tS;         t=m25 S=m26             # tɕ  (not met)
+@smj:J           g=m27                   # ɟ
+@smj:c           k=m28                   # c
+@smj:g           g=m29                   # ɡ
+@smj:B           v=m30                   # β  (not met)
 @smj:f           f                       # f
 @smj:v           v                       # v
-@smj:v#          v=s30                   # ʋ  (not met)
-@smj:D           v=s31                   # ð  (not met)
-@smj:T           f=s32                   # θ  (not met)
+@smj:v#          w=m31                   # ʋ  (not met)
+@smj:D           v=m32                   # ð  (not met)
+@smj:T           f=m32                   # θ  (not met)
 @smj:z           z                       # z  (not met)
 @smj:s           s                       # s
 @smj:Z           Z                       # ʒ  (not met)
 @smj:S           S                       # ʃ
-@smj:z.          Z=s33                   # ʐ  (not met)
-@smj:s.          S=s34                   # ʂ  (not met)
-@smj:z;          Z=s35                   # ʑ  (not met)
-@smj:s;          S=s34                   # ʂ
-@smj:Z;          Z=s35                   # ʑ  (not met)
-@smj:S;          S=s36                   # ɕ  (not met)
-@smj:J^          X=s37                   # ʝ  (not met)
+@smj:z.          Z=m33                   # ʐ  (not met)
+@smj:s.          S=m34                   # ʂ  (not met)
+@smj:z;          Z=m35                   # ʑ  (not met)
+@smj:s;          S=m34                   # ʂ
+@smj:Z;          Z=m35                   # ʑ  (not met)
+@smj:S;          S=m36                   # ɕ  (not met)
+@smj:J^          X=m37                   # ʝ  (not met)
 @smj:C           X                       # ç  (not met)
-@smj:Q           r=s38                   # ɣ  (not met)
+@smj:Q           x=m38                   # ɣ  (not met)
 @smj:x           x                       # x  (not met)
-@smj:Q^          r=s38                   # ɣ^  (not met)
+@smj:Q^          x=m38                   # ɣ^  (not met)
 @smj:Q"          r                       # ʁ  (not met)
-@smj:q           k=s39                   # q  (not met)
-@smj:l#          l=s40                   # ɬ  (not met)
-@smj:X           x=s2                    # χ  (not met)
+@smj:q           k=m39                   # q  (not met)
+@smj:l#          s=m40                   # ɬ  (not met)
+@smj:X           x=m41                   # χ  (not met)
 @smj:I           I                       # ɪ
-@smj:E           E=s41                   # ɛ
-@smj:&           E=s42                   # æ  (not met)
-@smj:a2          a=s4                    # a  (not met)
-@smj:A           a=s43                   # ɑ
-@smj:O           O=s44                   # ɔ
-@smj:Y           oe=s5                   # ø  (not met)
-@smj:u1          u=s7                    # u  (not met)
-@smj:U           U=s45                   # ʊ
-@smj:u-          Y=s46                   # ʉ
-@smj:y           y=s6                    # y
-@smj:W           OE=s41                  # œ  (not met)
-@smj:ai          a=s47                   # ai  (not met)
-@smj:&i          E=s48                   # æi  (not met)
-@smj:oi          o=s49                   # oi  (not met)
-@smj:ei          e=s50                   # ei  (not met)
-@smj:Yi          oe=s51                  # øi  (not met)
-@smj:ui          u=s52                   # ui  (not met)
-@smj:yi          y=s53                   # yi  (not met)
-@smj:au          a=s54                   # au  (not met)
-@smj:ou          o=s55                   # ou  (not met)
-@smj:eu          e=s56                   # eu
-@smj:iu          i=s57                   # iu  (not met)
-@smj:&y          E=s58                   # æy  (not met)
-@smj:ey          e=s59                   # ey  (not met)
-@smj:Yy          oe=s60                  # øy  (not met)
-@smj:iy          i=s61                   # iy  (not met)
-@smj:uo          w=s62 o=s5              # uo
-@smj:ie          j=s62 e=s5              # ie  (not met)
-@smj:yY          j=s63 oe=s5             # yø  (not met)
-@smj:P           f                       # Φ
+@smj:E           E                       # ɛ
+@smj:&           E=m42                   # æ  (not met)
+@smj:a2          a                       # a  (not met)
+@smj:A           A=m43                   # ɑ
+@smj:O           O                       # ɔ
+@smj:Y           oe                      # ø  (not met)
+@smj:u1          u                       # u  (not met)
+@smj:U           U                       # ʊ
+@smj:u-          y=m44                   # ʉ
+@smj:y           y                       # y
+@smj:W           OE                      # œ  (not met)
+@smj:ai          a=m45                   # ai  (not met)
+@smj:&i          E=m46                   # æi  (not met)
+@smj:oi          o=m47                   # oi  (not met)
+@smj:ei          e=m48                   # ei  (not met)
+@smj:Yi          oe=m49                  # øi  (not met)
+@smj:ui          u=m50                   # ui  (not met)
+@smj:yi          y=m51                   # yi  (not met)
+@smj:au          a=m52                   # au  (not met)
+@smj:ou          o=m53                   # ou  (not met)
+@smj:eu          e=m54                   # eu
+@smj:iu          i=m55                   # iu  (not met)
+@smj:&y          E=m56                   # æy  (not met)
+@smj:ey          e=m57                   # ey  (not met)
+@smj:Yy          oe=m58                  # øy  (not met)
+@smj:iy          i=m59                   # iy  (not met)
+@smj:uo          u=m60                   # uo
+@smj:ie          i=m61                   # ie  (not met)
+@smj:yY          y=m62                   # yø  (not met)
+@smj:P           f=m30                   # Φ
 @smj:s2          s                       # s  (not met)
 
 # eSpeak NG phoneme table en
 @en::            -                       # ː  (not met)
 @en:@            @                       # ə
 @en:@-           @                       # ə  (not met)
-@en:*            l=s1                    # ɾ  (not met)
-@en:#X1          x=s2                    # ʰχ  (not met)
-@en:?            <q=s3                   # ʔ  (not met)
+@en:*            l=m1                    # ɾ  (not met)
+@en:#X1          x=m2                    # ʰχ  (not met)
+@en:?            <q=m3                   # ʔ  (not met)
 @en:-            -                       # -  (not met)
-@en:t#           t=s64                   # tʰ  (not met)
-@en:#@           @                       # ʰə  (not met)
-@en:#a           a=s4                    # ʰa  (not met)
-@en:#e           e=s5                    # ʰe  (not met)
-@en:#i           i=s6                    # ʰi  (not met)
-@en:#o           o=s5                    # ʰo  (not met)
-@en:#u           u=s7                    # ʰu  (not met)
-@en:r            r=s65                   # ɹ
-@en:a            a=s4                    # a
-@en:e            e=s5                    # e  (not met)
-@en:i            i=s6                    # i  (not met)
+@en:t#           t=m63                   # tʰ  (not met)
+@en:#@           <h=m4 @                 # ʰə  (not met)
+@en:#a           <h=m4 a                 # ʰa  (not met)
+@en:#e           <h=m4 e                 # ʰe  (not met)
+@en:#i           <h=m4 i                 # ʰi  (not met)
+@en:#o           <h=m4 o                 # ʰo  (not met)
+@en:#u           <h=m4 u                 # ʰu  (not met)
+@en:r            r=m64                   # ɹ
+@en:a            a                       # a
+@en:e            e                       # e  (not met)
+@en:i            i                       # i  (not met)
 @en:;            -                       # ʲ  (not met)
-@en:o            o=s5                    # o  (not met)
-@en:u            u=s7                    # u  (not met)
-@en:m-           m                       # m̩  (not met)
-@en:n-           n                       # n̩  (not met)
-@en:N-           G                       # ŋ̩  (not met)
-@en:r-           r=s65                   # ɹ  (not met)
-@en:l-           l                       # l̩  (not met)
-@en:t            t=s9                    # t
-@en:p            p=s10                   # p  (not met)
-@en:k            k=s11                   # k
+@en:o            o                       # o  (not met)
+@en:u            u                       # u  (not met)
+@en:m-           m=m6                    # m̩  (not met)
+@en:n-           n=m6                    # n̩  (not met)
+@en:N-           G=m6                    # ŋ̩  (not met)
+@en:r-           r=m64                   # ɹ  (not met)
+@en:l-           l=m6                    # l̩  (not met)
+@en:t            t=m8                    # t
+@en:p            p=m9                    # p  (not met)
+@en:k            k=m10                   # k
 @en:n            n                       # n
-@en:R            l=s8                    # r  (not met)
-@en:R2           l=s8                    # r  (not met)
-@en:R3           l=s8                    # r  (not met)
-@en:r"           r=s12                   # ʀ  (not met)
+@en:R            l=m5                    # r  (not met)
+@en:R2           l=m5                    # r  (not met)
+@en:R3           l=m5                    # r  (not met)
+@en:r"           r=m11                   # ʀ  (not met)
 @en:l            l                       # l  (not met)
 @en:j            j                       # j
 @en:w            w                       # w  (not met)
-@en:l^           l=s13                   # ʎ  (not met)
-@en:l.           l=s14                   # ɭ  (not met)
-@en:L            l=s15                   # ɫ  (not met)
-@en:h            <h=s16                  # h  (not met)
+@en:l^           l=m12                   # ʎ  (not met)
+@en:l.           l=m13                   # ɭ  (not met)
+@en:L            l=m14                   # ɫ  (not met)
+@en:h            <h=m15                  # h  (not met)
 @en:m            m                       # m
-@en:n.           n=s17                   # ɳ  (not met)
-@en:n^           n=s18                   # ɲ  (not met)
+@en:n.           n=m16                   # ɳ  (not met)
+@en:n^           n=m17                   # ɲ  (not met)
 @en:N            G                       # ŋ  (not met)
-@en:**           l=s1                    # ɾ  (not met)
-@en:r.           l=s19                   # r.  (not met)
-@en:b            b=s20                   # b  (not met)
-@en:d            d=s20                   # d
-@en:d[           d=s21                   # d̪  (not met)
-@en:t[           t=s22                   # t̪  (not met)
+@en:**           l=m1                    # ɾ  (not met)
+@en:r.           l=m18                   # r.  (not met)
+@en:b            b=m19                   # b  (not met)
+@en:d            d=m20                   # d
+@en:d[           d=m21                   # d̪  (not met)
+@en:t[           t=m22                   # t̪  (not met)
 @en:dZ           J                       # dʒ  (not met)
 @en:tS           C                       # tʃ  (not met)
-@en:dZ;          d=s23 Z=s24             # dʑ  (not met)
-@en:tS;          t=s25 S=s26             # tɕ  (not met)
-@en:J            d=s27                   # ɟ  (not met)
-@en:c            t=s28                   # c  (not met)
-@en:g            g=s20                   # ɡ
-@en:B            v=s29                   # β  (not met)
+@en:dZ;          d=m23 Z=m24             # dʑ  (not met)
+@en:tS;          t=m25 S=m26             # tɕ  (not met)
+@en:J            g=m27                   # ɟ  (not met)
+@en:c            k=m28                   # c  (not met)
+@en:g            g=m29                   # ɡ
+@en:B            v=m30                   # β  (not met)
 @en:f            f                       # f
 @en:v            v                       # v  (not met)
-@en:v#           v=s30                   # ʋ  (not met)
-@en:D            v=s31                   # ð  (not met)
-@en:T            f=s32                   # θ  (not met)
+@en:v#           w=m31                   # ʋ  (not met)
+@en:D            v=m32                   # ð  (not met)
+@en:T            f=m32                   # θ  (not met)
 @en:z            z                       # z  (not met)
 @en:s            s                       # s
 @en:Z            Z                       # ʒ  (not met)
 @en:S            S                       # ʃ  (not met)
-@en:z.           Z=s33                   # ʐ  (not met)
-@en:s.           S=s34                   # ʂ  (not met)
-@en:z;           Z=s35                   # ʑ  (not met)
-@en:s;           S=s34                   # ʂ  (not met)
-@en:Z;           Z=s35                   # ʑ  (not met)
-@en:S;           S=s36                   # ɕ  (not met)
-@en:J^           X=s37                   # ʝ  (not met)
+@en:z.           Z=m33                   # ʐ  (not met)
+@en:s.           S=m34                   # ʂ  (not met)
+@en:z;           Z=m35                   # ʑ  (not met)
+@en:s;           S=m34                   # ʂ  (not met)
+@en:Z;           Z=m35                   # ʑ  (not met)
+@en:S;           S=m36                   # ɕ  (not met)
+@en:J^           X=m37                   # ʝ  (not met)
 @en:C            X                       # ç  (not met)
-@en:Q            r=s38                   # ɣ  (not met)
+@en:Q            x=m38                   # ɣ  (not met)
 @en:x            x                       # x  (not met)
-@en:Q^           r=s38                   # ɣ^  (not met)
+@en:Q^           x=m38                   # ɣ^  (not met)
 @en:Q"           r                       # ʁ  (not met)
-@en:q            k=s39                   # q  (not met)
-@en:l#           l=s40                   # ɬ  (not met)
-@en:X            x=s2                    # χ  (not met)
-@en:t2           t=s9                    # t  (not met)
-@en:d#           d=s66                   # dʰ  (not met)
-@en:z#           z                       # zʰ  (not met)
+@en:q            k=m39                   # q  (not met)
+@en:l#           s=m40                   # ɬ  (not met)
+@en:X            x=m41                   # χ  (not met)
+@en:t2           t=m8                    # t  (not met)
+@en:d#           d=m65                   # dʰ  (not met)  [read: breathy]
+@en:z#           z <h=m66                # zʰ  (not met)
 @en:3            @                       # ə
 @en:I2           I                       # ɪ  (not met)
-@en:w#           w=s67                   # ʍ  (not met)
+@en:w#           w=m67                   # ʍ  (not met)
 @en:@2           @                       # ə  (not met)
 @en:@5           @                       # ə  (not met)
-@en:U            U=s45                   # ʊ  (not met)
+@en:U            U                       # ʊ  (not met)
 @en:@L           @ l                     # əl
-@en:a#           OE=s68                  # ɐ  (not met)
-@en:a2           a=s4                    # a  (not met)
-@en:aa           a=s4                    # a  (not met)
-@en:A:           a=s69                   # ɑː  (not met)
-@en:E            E=s41                   # ɛ  (not met)
-@en:E#           E=s41                   # ɛ  (not met)
-@en:E2           E=s41                   # ɛ  (not met)
+@en:a#           A=m68                   # ɐ  (not met)
+@en:a2           a                       # a  (not met)
+@en:aa           a                       # a  (not met)
+@en:A:           A=m69                   # ɑː  (not met)
+@en:E            E                       # ɛ  (not met)
+@en:E#           E                       # ɛ  (not met)
+@en:E2           E                       # ɛ  (not met)
 @en:I            I                       # ɪ
 @en:I#           I                       # ɪ  (not met)
 @en:I2#          I                       # ɪ  (not met)
-@en:0            O=s70                   # ɒ
-@en:0#           O=s70                   # ɒ  (not met)
-@en:02           O=s70                   # ɒ  (not met)
-@en:O2           O=s44                   # ɔ  (not met)
-@en:V            OE=s71                  # ʌ  (not met)
-@en:A@           a=s69                   # ɑː  (not met)
-@en:A#           a=s43                   # ɑ  (not met)
-@en:3:           OE=s72                  # ɜː  (not met)
-@en:i:           i=s73                   # iː
-@en:O:           O=s74                   # ɔː  (not met)
-@en:O            O=s44                   # ɔ  (not met)
-@en:O@           O=s74                   # ɔː  (not met)
-@en:o@           O=s74                   # ɔː  (not met)
-@en:u:           u=s73                   # uː
-@en:aU           a=s75                   # aʊ  (not met)
-@en:oU           @=s76                   # əʊ  (not met)
-@en:oU#          o=s77                   # oʊ  (not met)
-@en:aI           a=s78                   # aɪ  (not met)
-@en:eI           e=s79                   # eɪ  (not met)
-@en:OI           O=s80                   # ɔɪ  (not met)
-@en:e@           j=s62 @                 # eə  (not met)
-@en:i@           j=s62 @                 # iə  (not met)
-@en:i@3          j=s62 @                 # iə  (not met)
-@en:U@           w=s62 @                 # ʊə  (not met)
-@en:aI@          a=s4 j=s62 j=s62        # aɪə
-@en:aI3          a=s78                   # aɪ  (not met)
-@en:aU@          a=s4 w=s62 j=s62        # aʊə  (not met)
-@en:IR           @ r=s65                 # əɹ  (not met)
-@en:VR           OE=s71 r=s65            # ʌɹ  (not met)
-@en:o:           o                       # oː  (not met)
-@en:A~           a=s81                   # ɑ̃  (not met)
-@en:O~           O=s82                   # ɔ̃  (not met)
-@en:e:           e                       # eː  (not met)
-@en:e#           e=s5                    # e  (not met)
-@en:a#2          a=s4                    # a  (not met)
+@en:0            O=m70                   # ɒ
+@en:0#           O=m70                   # ɒ  (not met)
+@en:02           O=m70                   # ɒ  (not met)
+@en:O2           O                       # ɔ  (not met)
+@en:V            A=m71                   # ʌ  (not met)
+@en:A@           A=m69                   # ɑː  (not met)
+@en:A#           A=m43                   # ɑ  (not met)
+@en:3:           E=m72                   # ɜː  (not met)
+@en:i:           i=m73                   # iː
+@en:O:           O=m74                   # ɔː  (not met)
+@en:O            O                       # ɔ  (not met)
+@en:O@           O=m75                   # ɔː  (not met)
+@en:o@           O=m76                   # ɔː  (not met)
+@en:u:           u=m77                   # uː
+@en:aU           aw                      # aʊ  (not met)
+@en:oU           @=m78                   # əʊ  (not met)
+@en:oU#          o=m79                   # oʊ  (not met)
+@en:aI           aj                      # aɪ  (not met)
+@en:eI           e=m80                   # eɪ  (not met)
+@en:OI           O=m81                   # ɔɪ  (not met)
+@en:e@           e=m82                   # eə  (not met)
+@en:i@           i=m83                   # iə  (not met)
+@en:i@3          i=m83                   # iə  (not met)
+@en:U@           U=m84                   # ʊə  (not met)
+@en:aI@          a=m85 @                 # aɪə
+@en:aI3          aj                      # aɪ  (not met)
+@en:aU@          a=m86 @                 # aʊə  (not met)
+@en:IR           @ r=m64                 # əɹ  (not met)
+@en:VR           A=m71 r=m64             # ʌɹ  (not met)
+@en:o:           o=m87                   # oː  (not met)
+@en:A~           a~                      # ɑ̃  (not met)
+@en:O~           o~                      # ɔ̃  (not met)
+@en:e:           e=m77                   # eː  (not met)
+@en:e#           e                       # e  (not met)
+@en:a#2          a                       # a  (not met)
 @en:@#           @                       # ə  (not met)
 
 # by IPA: this language's sounds in words eSpeak NG reads in another
 ː                -
 ə                @
-ɾ                l=s1
-ʰχ               x=s2
-ʔ                <q=s3
+ɾ                l=m1
+ʰχ               x=m2
+ʔ                <q=m3
 -                -
-ʰə               @
-ʰa               a=s4
-ʰe               e=s5
-ʰi               i=s6
-ʰo               o=s5
-ʰu               u=s7
-r                l=s8
-a                a=s4
-e                e=s5
-i                i=s6
+ʰə               <h=m4 @
+ʰa               <h=m4 a
+ʰe               <h=m4 e
+ʰi               <h=m4 i
+ʰo               <h=m4 o
+ʰu               <h=m4 u
+r                l=m5
+a                a
+e                e
+i                i
 ʲ                -
-o                o=s5
-u                u=s7
-m̩               m
-n̩               n
-ŋ̩               G
-r̩               l=s8
-l̩               l
-t                t=s9
-p                p=s10
-k                k=s11
+o                o
+u                u
+m̩               m=m6
+n̩               n=m6
+ŋ̩               G=m6
+r̩               l=m7
+l̩               l=m6
+t                t=m8
+p                p=m9
+k                k=m10
 n                n
-ʀ                r=s12
+ʀ                r=m11
 l                l
 j                j
 w                w
-ʎ                l=s13
-ɭ                l=s14
-ɫ                l=s15
-h                <h=s16
+ʎ                l=m12
+ɭ                l=m13
+ɫ                l=m14
+h                <h=m15
 m                m
-ɳ                n=s17
-ɲ                n=s18
+ɳ                n=m16
+ɲ                n=m17
 ŋ                G
-r.               l=s19
-b                b=s20
-d                d=s20
-d̪               d=s21
-t̪               t=s22
-dʒ               J
-tʃ               C
-dʑ               d=s23 Z=s24
-tɕ               t=s25 S=s26
-ɟ                d=s27
-c                t=s28
-ɡ                g=s20
-β                v=s29
+r.               l=m18
+b                b=m19
+d                d=m20
+d̪               d=m21
+t̪               t=m22
+dʒ               d=m20 Z
+tʃ               t=m8 S
+dʑ               d=m20 Z=m35
+tɕ               t=m8 S=m36
+ɟ                g=m27
+c                k=m28
+ɡ                g=m29
+β                v=m30
 f                f
 v                v
-ʋ                v=s30
-ð                v=s31
-θ                f=s32
+ʋ                w=m31
+ð                v=m32
+θ                f=m32
 z                z
 s                s
 ʒ                Z
 ʃ                S
-ʐ                Z=s33
-ʂ                S=s34
-ʑ                Z=s35
-ɕ                S=s36
-ʝ                X=s37
+ʐ                Z=m33
+ʂ                S=m34
+ʑ                Z=m35
+ɕ                S=m36
+ʝ                X=m37
 ç                X
-ɣ                r=s38
+ɣ                x=m38
 x                x
-ɣ^               r=s38
+ɣ^               x=m38
 ʁ                r
-q                k=s39
-ɬ                l=s40
-χ                x=s2
+q                k=m39
+ɬ                s=m40
+χ                x=m41
 ɪ                I
-ɛ                E=s41
-æ                E=s42
-ɑ                a=s43
-ɔ                O=s44
-ø                oe=s5
-ʊ                U=s45
-ʉ                Y=s46
-y                y=s6
-œ                OE=s41
-ai               a=s47
-æi               E=s48
-oi               o=s49
-ei               e=s50
-øi               oe=s51
-ui               u=s52
-yi               y=s53
-au               a=s54
-ou               o=s55
-eu               e=s56
-iu               i=s57
-æy               E=s58
-ey               e=s59
-øy               oe=s60
-iy               i=s61
-uo               w=s62 o=s5
-ie               j=s62 e=s5
-yø               j=s63 oe=s5
-Φ                f
-tʰ               t=s64
-ɹ                r=s65
-dʰ               d=s66
-zʰ               z
-ʍ                w=s67
+ɛ                E
+æ                E=m42
+ɑ                A=m43
+ɔ                O
+ø                oe
+ʊ                U
+ʉ                y=m44
+y                y
+œ                OE
+ai               a i
+æi               E=m42 i
+oi               o i
+ei               e i
+øi               oe i
+ui               u i
+yi               y i
+au               a u
+ou               o u
+eu               e u
+iu               i u
+æy               E=m42 y
+ey               e y
+øy               oe y
+iy               i y
+uo               u o
+ie               i e
+yø               y oe
+Φ                f=m30
+tʰ               t=m63
+ɹ                r=m64
+dʰ               d=m65                   # [read: breathy]
+zʰ               z <h=m66
+ʍ                w=m67
 əl               @ l
-ɐ                OE=s68
-ɑː               a=s69
-ɒ                O=s70
-ʌ                OE=s71
-ɜː               OE=s72
-iː               i=s73
-ɔː               O=s74
-uː               u=s73
-aʊ               a=s75
-əʊ               @=s76
-oʊ               o=s77
-aɪ               a=s78
-eɪ               e=s79
-ɔɪ               O=s80
-eə               j=s62 @
-iə               j=s62 @
-ʊə               w=s62 @
-aɪə              a=s4 j=s62 j=s62
-aʊə              a=s4 w=s62 j=s62
-əɹ               @ r=s65
-ʌɹ               OE=s71 r=s65
-oː               o
-ɑ̃               a=s81
-ɔ̃               O=s82
-eː               e
+ɐ                A=m68
+ɑː               A=m88
+ɒ                O=m70
+ʌ                A=m71
+ɜː               E=m72
+iː               i=m89
+ɔː               O=m90
+uː               u=m91
+aʊ               a U
+əʊ               @ U
+oʊ               o U
+aɪ               a I
+eɪ               e I
+ɔɪ               O I
+eə               e @
+iə               i @
+ʊə               U @
+aɪə              a I @
+aʊə              a U @
+əɹ               @ r=m64
+ʌɹ               A=m71 r=m64
+oː               o=m92
+ɑ̃               A=m93
+ɔ̃               O=m94
+eː               e=m92
 
 # by IPA: English, for the English words a text has in it
-ɚ                OE=s83
-ᵻ                Y=s84
-ɑːɹ              a=s69 r=s65
-ɔːɹ              O=s74 r=s65
-ɛɹ               E=s85 r=s65
-ɪɹ               I=s86 r=s65
-ʊɹ               U=s87 r=s65
-aɪɚ              a=s88 j=s62 j=s62
-aɪʊɹ             a=s88 I=s86 U=s87 r=s65
+ɚ                @=m95                   # [read: rhotic]
+ᵻ                I=m96
+ɑːɹ              A=m88 r=m64
+ɔːɹ              O=m90 r=m64
+ɛɹ               E r=m64
+ɪɹ               I r=m64
+ʊɹ               U r=m64
+aɪɚ              a I @=m95               # [read: rhotic]
+aɪʊɹ             a I U r=m64
 
 # by IPA: every letter of it, so that anything can be taken apart
-ʈ                t=s89
-ɖ                d=s89
-g                g
-ɢ                g=s90
-ɱ                m=s91
-ɴ                G=s92
-ʙ                v
-ⱱ                b
-ɽ                l=s19
-ɺ                l=s93
-ɸ                f
-ħ                <h=s94
-ʕ                <h=s95
-ɦ                <h=s96
-ɧ                x=s97
-ɮ                l=s98
-ɻ                r=s99
-ɰ                w=s100
-ɥ                j=s101
-ʟ                l=s102
-ʘ                p=s103
-ǀ                t=s103
-ǃ                t=s103
-ǂ                t=s104
-ǁ                t=s103
-ɓ                b=s105
-ɗ                d=s105
-ʄ                d=s106
-ɠ                g=s105
-ʛ                g=s107
-ɨ                Y=s84
-ɯ                Y=s108
-ʏ                Y=s86
-ɘ                @=s109
-ɵ                Y=s110
-ɤ                OE=s111
-ɜ                OE=s112
-ɞ                OE=s113
-ɶ                a=s114
-ɝ                OE=s115
-ä                a=s88
+ʈ                t=m97
+ɖ                d=m98
+g                g=m29
+ɢ                g=m99
+ɱ                m=m100
+ɴ                G=m101
+ʙ                w=m11
+ⱱ                w=m102
+ɽ                l=m18
+ɺ                l=m103
+ɸ                f=m30
+ħ                <h=m104
+ʕ                <h=m105
+ɦ                <h=m106
+ɧ                S=m107
+ɮ                z=m108
+ɻ                r=m109
+ɰ                j=m110
+ɥ                w=m111
+ʟ                l=m112
+ʘ                p=m113
+ǀ                t=m114
+ǃ                t=m115
+ǂ                t=m116
+ǁ                t=m117
+ɓ                b=m118
+ɗ                d=m119
+ʄ                g=m120
+ɠ                g=m121
+ʛ                g=m122
+ɨ                I=m96
+ɯ                I=m123
+ʏ                Y
+ɘ                E=m124
+ɵ                Y=m125
+ɤ                U=m126
+ɜ                E=m127
+ɞ                OE=m128
+ɶ                OE=m129
+ɝ                E=m130                  # [read: rhotic]
+ä                a=m131

@@ -29,6 +29,7 @@ differently and the table realises alike are kept apart: the later keeps its leg
 `kept-apart`, or, when that is the same too, the merge is reported as a problem. What the adapter
 could not realise as specified is listed per line (`deviations`), never dropped.
 """
+import math
 import os
 import re
 import sys
@@ -178,25 +179,26 @@ def _table_for(base, template):
 def _realize(base, template):
     k = ('r', base, template)
     if k not in _memo:
-        _memo[k] = A.realize(_table_for(base, template)[0], base, template)
+        _memo[k] = A.realize(_table_for(base, template)[0], base, template, phonemic=True)
     return _memo[k]
 
 
 def _compose(base, mods, template):
     k = ('c', base, tuple(mods), template)
     if k not in _memo:
-        _memo[k] = A.compose(_table_for(base, template)[0], base, list(mods), template)
+        _memo[k] = A.compose(_table_for(base, template)[0], base, list(mods), template, phonemic=True)
     return _memo[k]
 
 
 def _hz(sid, template):
     k = ('h', sid, template)
     if k not in _memo:
-        _memo[k] = A.realised_hz(_table_for(sid, template)[0], sid, template)
+        _memo[k] = A.realised_hz(_table_for(sid, template)[0], sid, template, phonemic=True)
     return _memo[k]
 
 
 ASPIRATED, PREASPIRATED, H = 'U+02B0', 'B:U+02B0#pre', 'U+0068'
+LENGTH = 'U+02D0'
 
 
 def _breath(mod, base, template):
@@ -222,7 +224,9 @@ def _part(base, mods, template):
         raise MasterError('%s on %s: %s' % (table().sounds[base]['ipa'], template, e))
     dev = list(r['unrealised']) + list(c['lost'])
     why = _table_for(base, template)[1]
-    if why:
+    if r.get('own'):
+        dev.append("phonemic: %s, the template's own phone for %s (D98)" % (r['carrier'], table().sounds[base]['ipa']))
+    elif why:
         dev.append(why)
     if r['distance'] and not c['keys']:
         dev.append('carrier %s stands in unmoved, %s feature steps from %s' % (
@@ -332,6 +336,16 @@ def realize_ipa(ipa, is_vowel, template):
         res = realize_ipa(ipa_syllabic(text), is_vowel, template)
         return dict(res, readings=used + ['syllabic'])
     cls = [('T' if 'tied' in s else 'V' if s['features']['class'] == 'vowel' else 'C') for s in segs]
+    whole = A.whole_phone(template, text) if is_vowel and (len(segs) > 1 or segs[0].get('mods')) else None
+    if whole:
+        # a diphthong or a nasal vowel the template has as one phone of its own (adapter.PHONEMIC_WHOLE, D98)
+        sids = []
+        for sg in segs:
+            sids += [x for x in [sg['base']] + list(sg.get('mods') or []) if x not in sids]
+        res = dict(parts=[(whole, {}, sids, ["phonemic: %s, the template's own phone for the whole of %s (D98)" % (whole, text)])],
+                   text=text, notes=notes)
+        _memo[k] = res
+        return dict(res, readings=used)
     parts = []
     if is_vowel and cls.count('V') >= 2 and all(c == 'V' for c in cls):
         # a diphthong: the first vowel gliding to the second's formants; a third vowel (a triphthong)
@@ -380,6 +394,158 @@ def realize_ipa(ipa, is_vowel, template):
     return dict(res, readings=used)
 
 
+# ---- the language's own (D98): what the phonemic reading takes from the language, not from the letter --------
+PROFILES = os.path.join(ENGINE, 'profiles')
+LANGUAGE_FACTS = os.path.join(HERE, 'phonemic.toml')
+
+
+def language(tag):
+    """The language's own measures and facts: its profile (engine/profiles/<tag>.json, or the nearest tag
+    above it: en-us-nyc, en-us, en) and engine/packs/phonemic.toml. -> dict(vot={letter: ms}, vot_source,
+    aspirating, aspirating_source, profile)."""
+    import json
+    k = ('lang', tag)
+    if k in _memo:
+        return _memo[k]
+    out = dict(vot={}, vot_source=None, vf={}, vf_source=None, aspirating=False, aspirating_source=None, profile=None,
+               long_vowels=None)
+    parts = tag.split('-')
+    for i in range(len(parts), 0, -1):
+        path = os.path.join(PROFILES, '-'.join(parts[:i]) + '.json')
+        if os.path.exists(path):
+            with open(path, encoding='utf-8') as f:
+                prof = json.load(f)
+            vo = prof.get('voice_onset_time_ms') or {}
+            if vo.get('values'):
+                import unicodedata
+                out['vot'] = {unicodedata.normalize('NFC', a): float(b) for a, b in vo['values'].items()
+                              if isinstance(b, (int, float))}
+                out['vot_source'] = 'engine/profiles/%s.json: %s' % ('-'.join(parts[:i]), vo.get('source', ''))
+            vf = prof.get('vowel_formants') or {}
+            if vf.get('values'):
+                import unicodedata
+                out['vf'] = {unicodedata.normalize('NFC', a): b for a, b in vf['values'].items()
+                             if isinstance(b, (list, tuple)) and len(b) >= 2 and b[0] and b[1]}
+                out['vf_source'] = 'engine/profiles/%s.json: %s (%s)' % ('-'.join(parts[:i]), vf.get('source', ''),
+                                                                      vf.get('speaker', ''))
+            lv = (prof.get('length') or {}).get('vowel')
+            out['long_vowels'] = lv if isinstance(lv, bool) else None
+            out['profile'] = '-'.join(parts[:i])
+            break
+    if os.path.exists(LANGUAGE_FACTS):
+        sys.path.insert(0, HERE)
+        import tomlio
+        facts = tomlio.load(LANGUAGE_FACTS)
+        asp = facts.get('aspirating') or {}
+        for i in range(len(parts), 0, -1):
+            a = asp.get('-'.join(parts[:i]))
+            if a is not None:
+                out['aspirating'] = bool(a.get('plain_stops_aspirated'))
+                out['aspirating_source'] = 'engine/packs/phonemic.toml: %s%s' % (a.get('source'), (
+                    ' [confidence: %s, Q60]' % a['confidence']) if a.get('confidence') else '')
+                break
+    _memo[k] = out
+    return out
+
+
+def short_ms(template):
+    """A template's short vowel: the lower quartile of its single vowels' lengths (the chassis's `ms`; a
+    German module's short vowels are 50 to 85 ms, its long ones 120 to 175)."""
+    k = ('short', template)
+    if k not in _memo:
+        ch = A.chassis(template)
+        ms = sorted(ch[p]['ms'] for p, g in A.module_phones(template).items()
+                    if g.get('class') == 'vowel' and p in ch and ch[p].get('ms') and ch[p]['ms'] < 400)
+        _memo[k] = ms[len(ms) // 4]
+    return _memo[k]
+
+
+def vowel_length(keys, dev, phone, lang, template, espeak=None):
+    """The length mark ː on a vowel, read phonemically (D98). The table's ː makes a vowel 2.3 times as long
+    as a short one (Finnish, Japanese); composed on the module's own phone it was 2.3 times that phone, which
+    may already be long (English iː on the American module's i: 230 per cent). In a language whose profile says
+    vowel length is not contrastive, eSpeak NG's ː spells a tense vowel and the phone keeps its own length;
+    otherwise the long vowel is the table's ratio times the template's short vowel (short_ms), and never
+    shorter than the phone. Where eSpeak NG's table has the vowel without the mark too (`espeak`: the two lengths
+    it gives them), the long one is as much longer than the phone as eSpeak NG makes it (Czech aː 2.4 times a,
+    Hungarian 1.5 to 2, English 1.1 to 1.5): the language's own, before either rule above."""
+    t = table()
+    ratio = t.sounds[LENGTH]['transform']['vowel']['duration']['inherent_ms']['scale']
+    base = keys.get('dur', 100) / ratio
+    own = A.chassis(template)[phone]['ms']
+    keys = dict(keys)
+    if espeak:
+        want = espeak[1] / float(espeak[0])
+        why = "language: ː, eSpeak NG's own lengths for it, %d against %d without the mark" % (espeak[1], espeak[0])
+    elif lang['long_vowels'] is False:
+        want = 1.0
+        why = "language: ː, vowel length is not contrastive in the language (its profile): the phone's own length"
+    else:
+        want = max(1.0, ratio * short_ms(template) / own)
+        why = "language: ː, %.1f x the template's short vowel (%d ms) against the phone's %d ms" % (ratio, short_ms(template), own)
+    keys['dur'] = int(round(base * want))
+    if keys['dur'] == 100:
+        del keys['dur']
+    return keys, list(dev) + [why]
+
+
+def language_layer(parts, lang, template, espeak_length=None):
+    """A plain voiceless stop's voice onset time as the language has it: its profile's value (a measure of
+    the language), or, in a language whose plain stops are aspirated (phonemic.toml) on a template whose own
+    stop is aspirated, the template's own; else the IPA's (the table's, an unaspirated stop). -> parts, notes."""
+    t = table()
+    out, notes = [], []
+    for phone, keys, used, dev in parts:
+        e = t.sounds[used[0]]
+        f = e.get('features') or {}
+        if (f.get('class') == 'consonant' and f.get('stricture') == 'closure' and not f.get('nasal')
+                and f.get('voicing') == 'voiceless'
+                and f.get('airstream', 'pulmonic') == 'pulmonic' and 'vot' in keys
+                and not any(m in used for m in ('U+02BC',))):
+            aspirated = ASPIRATED in used
+            letter = e['ipa'] + ('ʰ' if aspirated else '')
+            keys = dict(keys)
+            dev = list(dev)
+            if letter not in lang['vot'] and '̪' not in letter:
+                # a profile that writes the dental stop (Hindi's t̪ʰ) for eSpeak NG's t
+                dental = e['ipa'] + '̪' + ('ʰ' if aspirated else '')
+                letter = dental if dental in lang['vot'] else letter
+            if letter in lang['vot']:
+                keys['vot'] = int(round(lang['vot'][letter]))
+                dev.append("language: vot %d ms from %s" % (keys['vot'], lang['vot_source']))
+            elif lang['aspirating'] and not aspirated:
+                own = (A.chassis(template).get(phone) or {})
+                if max(own.get('vot') or 0, own.get('vot_initial') or 0) >= 40:
+                    del keys['vot']
+                    dev.append("language: vot the template's own %s, the language's plain stops being aspirated (%s)" % (
+                        lang['aspirating_source'], phone))
+        whole = any("own phone for the whole of" in d for d in dev)
+        if whole:
+            pass
+        elif f.get('class') == 'vowel' and LENGTH in used and not phone.startswith('<'):
+            keys, dev = vowel_length(keys, dev, phone, lang, template, espeak_length)
+        if f.get('class') == 'vowel' and lang['vf'] and not phone.startswith('<') and not whole:
+            # the language's own vowel, measured (its profile): F1 to F3 against the carrier's, the level held
+            # as the adapter holds it when formants move
+            long_ = LENGTH in used
+            base = e['ipa']
+            found = [x for x in ([base + 'ː', base] if long_ else [base, base + 'ː']) if x in lang['vf']]
+            ch = A.chassis(template).get(phone)
+            if found and ch:
+                hz = lang['vf'][found[0]]
+                keys = {k: v for k, v in keys.items() if not re.fullmatch(r'f[1-3]|av|ah', k)}
+                for i, x in enumerate(hz[:3]):
+                    if x:
+                        keys['f%d' % (i + 1)] = int(round(100.0 * x * keys.get('f%d' % (i + 1), 100) / 100.0 / ch['f'][i]))
+                rise = A.level_rise(ch, keys)
+                if rise >= 1.0:
+                    keys['av'] = keys['ah'] = -int(math.ceil(rise))
+                dev = list(dev) + ["language: %s F1 to F3 the language's own vowel %s, %s Hz from %s" % (e['ipa'], found[0], '/'.join(
+                    str(int(x)) for x in hz[:3] if x), lang['vf_source'])]
+        out.append((phone, keys, used, dev))
+    return out
+
+
 def ipa_syllabic(text):
     return text + '̩'
 
@@ -426,12 +592,33 @@ def realize(flat):
     kinds = master.get('kind') or {}
     fallback = master.get('fallback') or {}
     lines = flat['sounds']['line']
+    lang = language(tag)
+    lengths = master.get('length') or {}
+
+    by_ipa = {}
+    for nm, ip in sorted(ipas.items()):
+        by_ipa.setdefault((nm.split(':')[0], EP.normalise(ip)), []).append(nm)
+
+    def partner_length(name):
+        """(eSpeak NG's length of the same vowel without its length mark, its own): `@t:a:` beside `@t:a`, or the
+        phoneme of the same table whose IPA is this one's without ː (`@en:A:` ɑː beside `@en:A#` ɑ). None where
+        there is none, or where eSpeak NG gives the two one length (the template's rule then decides)."""
+        ip = EP.normalise(ipas.get(name, ''))
+        if name not in lengths or 'ː' not in ip:
+            return None
+        cands = [c for c in by_ipa.get((name.split(':')[0], ip.replace('ː', '')), []) if c in lengths]
+        cands.sort(key=lambda c: c != name[:-1])
+        if not cands or lengths[cands[0]] == lengths[name]:
+            return None
+        return lengths[cands[0]], lengths[name]
     legacy_sounds = {x['id']: x for x in lines if x['kind'] == 'sound'}
     defs, users = {}, {}          # keys text -> id; id -> [(IPA, entries)] of every line that names it
     rows = []
     out = []
 
-    def sound_id(keys, text, used):
+    lang_notes = {}                # id -> the language's own values behind it (D98: named on the line, R2)
+
+    def sound_id(keys, text, used, dev=()):
         kt = _keys_text(keys)
         if kt not in defs:
             defs[kt] = 'm%d' % (len(defs) + 1)
@@ -439,6 +626,9 @@ def realize(flat):
         u = (text, tuple(used))
         if u not in users[defs[kt]]:
             users[defs[kt]].append(u)
+        for d in dev:
+            if d.startswith('language: ') and d not in lang_notes.setdefault(defs[kt], []):
+                lang_notes[defs[kt]].append(d)
         return defs[kt]
 
     def note_of(sid):
@@ -448,7 +638,8 @@ def realize(flat):
         if len(us) > 4:
             names.append('and %d more' % (len(us) - 4))
         prov = provenance(sorted(set(x for _, used in us for x in used)))
-        return '%s; values %s' % ('; '.join(names), ', '.join('%s %d' % kv for kv in sorted(prov.items())) or 'none')
+        own = ''.join('; %s' % d for d in lang_notes.get(sid, []))
+        return '%s; values %s%s' % ('; '.join(names), ', '.join('%s %d' % kv for kv in sorted(prov.items())) or 'none', own)
 
     def legacy(x, why, mark):
         rows.append(dict(key=x['name'], ipa=None, kind=mark, why=why, legacy=x['to'], to=x['to'], deviations=[]))
@@ -494,11 +685,11 @@ def realize(flat):
                 out.append(x)
             continue
         said, sids, devs = [], [], []
-        for phone, keys, used, dev in res['parts']:
+        for phone, keys, used, dev in language_layer(res['parts'], lang, template, partner_length(name)):
             sids += [s for s in used if s not in sids]
             devs += dev
             if keys:
-                said.append('%s=%s' % (phone, sound_id(keys, res['text'], used)))
+                said.append('%s=%s' % (phone, sound_id(keys, res['text'], used, dev)))
             else:
                 said.append(phone)
         to = ' '.join(said)
@@ -529,14 +720,18 @@ def realize(flat):
                 continue
             first = next(iter(seen.values()))
             seen[c] = row
-            if row['legacy'] != first['legacy'] and row['legacy'] != to:
+            # the later keeps its legacy line; where that is what both come out as, the earlier keeps its own
+            # (Vietnamese a, a:: a:'s old line is the plain a, a's the short one: D98)
+            keep_row = row if row['legacy'] != to else first if first['legacy'] != to and first['kind'] != 'kept-apart' else None
+            if row['legacy'] != first['legacy'] and keep_row is not None:
+                other = first if keep_row is row else row
                 why = 'kept apart from %s (%s): eSpeak NG writes %s and %s, which come out alike on %s' % (
-                    first['key'], first['raw'], row['raw'], first['raw'], template)
-                i = [j for j, y in enumerate(out) if y['kind'] == 'map' and y['name'] == row['key']][0]
-                old = dict(out[i], to=row['legacy'], note=[y for y in lines if y['kind'] == 'map'
-                                                           and y['name'] == row['key']][0].get('note', ''))
+                    other['key'], other['raw'], keep_row['raw'], other['raw'], template)
+                i = [j for j, y in enumerate(out) if y['kind'] == 'map' and y['name'] == keep_row['key']][0]
+                old = dict(out[i], to=keep_row['legacy'], note=[y for y in lines if y['kind'] == 'map'
+                                                                and y['name'] == keep_row['key']][0].get('note', ''))
                 out[i] = dict(old, note=('%s  [kept-apart: %s]' % (old['note'], why)).strip())
-                row.update(kind='kept-apart', why=why, to=row['legacy'])
+                keep_row.update(kind='kept-apart', why=why, to=keep_row['legacy'])
             else:
                 problems.append('%s (%s) and %s (%s) come out alike (%s), in the legacy lines as well' % (
                     first['key'], first['ipa'], row['key'], row['ipa'], to))

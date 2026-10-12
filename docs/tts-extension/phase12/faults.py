@@ -33,7 +33,8 @@ def main(argv):
     for r in status:
         if r.get('kind') != 'espeak':
             continue
-        flat = L.resolve(r['tag'])[0]
+        # the switched packs: packs/, or a scratch root (P12_PACK_ROOT, to_master.py --out) while packs/ is 1.3.0's
+        flat = L.resolve(r['tag'], os.environ.get('P12_PACK_ROOT'))[0]
         if (flat.get('engine') or {}).get('realization') != 'master':
             continue
         keys = list((flat.get('master') or {}).get('ipa', {}))

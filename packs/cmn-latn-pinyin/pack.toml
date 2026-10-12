@@ -14,6 +14,7 @@ sources = ["eSpeak NG voice sit/cmn-Latn-pinyin"]
 note = "imported from languages/cmn-latn-pinyin; a spelling of Mandarin (Hanyu Pinyin in Latin letters), not a variety: kind language (OPEN_QUESTIONS.md Q41, DECISIONS.md D91)"
 
 [engine]
+realization = "master"
 reader = "espeak:sit/cmn-Latn-pinyin"
 
 [ini._top]
@@ -177,3 +178,17 @@ line = [
   { kind = "comment", text = "# OpenEVV phoneme map: Chinese (Mandarin, latin as Pinyin) (eSpeak NG voice sit/cmn-Latn-pinyin), said with openevv's German.", key = "c1" },
   { kind = "comment", text = "# by IPA, for phonemes from any other table", key = "c11" },
 ]
+
+# ---- the master path: written by engine/packs/to_master.py; run it again rather than editing ----
+[master]
+note = "switched to the IPA master table's sounds on 2026-10-12 (Phase 11, playbook R21); realization = \"legacy\" goes back"
+
+[master.ipa]
+
+[master.kind]
+
+[master.reading]
+
+[master.fallback]
+
+[master.length]

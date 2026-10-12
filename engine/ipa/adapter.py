@@ -40,13 +40,24 @@ BASE_OF = {'dedx': 'dede', 'esex': 'eses', 'itix': 'itit', 'engx': 'engb', 'esux
 MAX_FORMANT_HZ = 5000      # F6 of DESIGN.md: the synthesiser places no formant above this
 
 
+_CACHE = {}
+
+
 def chassis(template):
-    with open(os.path.join(CHASSIS, template + '.json'), encoding='utf-8') as f:
-        return json.load(f)['phones']
+    if ('ch', template) not in _CACHE:
+        with open(os.path.join(CHASSIS, template + '.json'), encoding='utf-8') as f:
+            _CACHE[('ch', template)] = json.load(f)['phones']
+    return _CACHE[('ch', template)]
 
 
 def module_phones(template):
     """{module phone: feature bundle}, for the phones whose IPA is one segment."""
+    if ('mp', template) not in _CACHE:
+        _CACHE[('mp', template)] = _module_phones(template)
+    return _CACHE[('mp', template)]
+
+
+def _module_phones(template):
     import espeak_phonemes as EP
     tm = EP.TEMPLATES[BASE_OF.get(template, template)]
     t = R.table()
@@ -162,7 +173,145 @@ def _v(x):
     return x['v'] if isinstance(x, dict) else x
 
 
-def realize(t, sid, template, carrier_meas=None):
+# The phonemic reading (D98): the master path realises a language's phoneme, which eSpeak NG writes in broad
+# IPA (its /a/, /t/, /n/ are the language's, not the chart's corners). A letter the template has as a phone of
+# its own is said as that phone: the table's continuous targets (formants, loci, the noise's peak, an inherent
+# length, the level hold that follows a formant move) are one speaker's or one language's measure of the
+# letter and are not laid on it; what makes the letter that letter and not another is kept: its voicing
+# through the closure (Q55) and the IPA's voice onset time of a plain stop (the master path decides per
+# language whether the language's plain stops are aspirated). A letter the template lacks is made on its
+# carrier from the table as before, but without the table's inherent length (a citation length from one
+# study; the template's own timing is kept). IPA typed directly, the proofs and ipa/realized keep the
+# table's values: they do not take this reading.
+PHONEMIC_KEEP = {'voi', 'lead', 'vot'}
+
+# Phones the modules have that espeak_phonemes does not name, each measured in engine/accent/chassis: the
+# allophones of the module's own language (the old generator's EXTRA_CONS names them; the chassis bears the
+# names out: Italian r 60 ms and R 95 ms, Spanish r 50 and R 85, a tap and a trill; Spanish B D G with an
+# approximant's F1; American English F 45 ms, its flap). Only the phonemic reading looks them up. The American
+# English module's l is dark (F2 806 Hz) but is the module's l, English /l/: not relabelled.
+PHONEMIC_EXTRA = {
+    'itix': {'G': 'ŋ', 'r': 'ɾ', 'R': 'r'},
+    'esex': {'B': 'β', 'D': 'ð', 'G': 'ɣ'},
+    'esux': {'B': 'β', 'D': 'ð', 'G': 'ɣ'},
+    'frfx': {'?': 'ʔ'},
+    'enux': {'?': 'ʔ', 'F': 'ɾ'},
+    'engx': {'L': 'ɫ'},
+}
+# Phones of more than one segment the modules have, measured in the chassis, each taken whole by the phonemic
+# reading for a phoneme whose IPA is exactly it (master.realize_ipa): the English modules' diphthongs (the
+# chassis's glides: the American e 434/1898 to 366/2078 Hz, o 507/1099 to 420/893, Y 702/1434 to 422/1914, W
+# 692/1280 to 490/795, O 470/1040 to 406/1840; the British o starts central, 500/1366), the German ones (aj
+# 708/1446 to 420/1900, aw 674/1154 to 400/940, oj 550/900 to 350/1900) and the nasal vowels of the French
+# and German modules (the chassis's nasal zero `fnz`).
+PHONEMIC_WHOLE = {
+    'enux': {'e': 'eɪ', 'o': 'oʊ', 'Y': 'aɪ', 'W': 'aʊ', 'O': 'ɔɪ'},
+    'engx': {'e': 'eɪ', 'o': 'əʊ', 'Y': 'aɪ', 'W': 'aʊ', 'O': 'ɔɪ'},
+    'dedx': {'aj': 'aɪ', 'aw': 'aʊ', 'oj': 'ɔʏ', 'a~': 'ɑ̃', 'E~': 'ɛ̃', 'o~': 'ɔ̃', 'oe~': 'œ̃'},
+    'frfx': {'a~': 'ɑ̃', 'E~': 'ɛ̃', 'o~': 'ɔ̃', 'oe~': 'œ̃'},
+}
+
+
+def whole_phone(template, text):
+    """The template's own phone whose IPA is the whole of `text` (a diphthong, a nasal vowel), or None."""
+    import espeak_phonemes as EP
+    want = EP.normalise(text)
+    measured = chassis(template)
+    for p, ipa in sorted(PHONEMIC_WHOLE.get(template, {}).items()):
+        if EP.normalise(ipa) == want and p in measured:
+            return p
+    return None
+
+
+# Whether a template's own phone of the letter is taken before a carrier the table chose for that template
+# (carrier_on, Q53: made so that IPA typed directly meets the table's targets; the phonemic reading wants the
+# language's sound, which the module's own trill or tap is). Phase 12 measures both (D98).
+PHONEMIC_OWN_FIRST = os.environ.get('EVV_P12_OWN_FIRST', '1') == '1'
+
+
+def _ipa_phonemic(template):
+    return dict(_ipa_of(template), **PHONEMIC_EXTRA.get(template, {}))
+
+
+def own_phone(template, e, car=None):
+    """The template's own phone for the entry's letter (same IPA, measured), or None: the carrier if it is
+    one, else the first measured phone of that IPA."""
+    here = _ipa_phonemic(template)
+    measured = chassis(template)
+    if car and here.get(car) == e['ipa'] and car in measured:
+        return car
+    mine = [p for p in sorted(here) if here[p] == e['ipa'] and p in measured]
+    return mine[0] if mine else None
+
+
+def phonemic_carrier(t, e, template):
+    """(phone, own?) for the phonemic reading: a carrier chosen for this template (carrier_on, Q53) is
+    kept; else the template's own phone of the letter; else the carrier as realize chooses it."""
+    ov = (e.get('realization') or {}).get('openevv') or {}
+    if (ov.get('carrier_on') or {}).get(template) and not PHONEMIC_OWN_FIRST:
+        return None, False
+    if ov.get('carrier', '').startswith('<') or e.get('kind') != 'base':
+        return None, False
+    p = own_phone(template, e)
+    return p, p is not None
+
+
+def phonemic_formants(e):
+    """A vowel's formants for the phonemic reading: `phonemic_formants` (the median of what the entry cites,
+    engine/ipa/phonemic_values.py) where the entry has them, else its `formants`."""
+    spec = e.get('spec') or {}
+    return spec.get('phonemic_formants') or spec.get('formants') or {}
+
+
+def nearest_vowel(t, e, template):
+    """The template's vowel nearest the entry's F1 and F2 (log distance), for a vowel it does not have:
+    measured formants, not feature steps (the steps tie ɛ between e and a)."""
+    fm = phonemic_formants(e)
+    if 'F1' not in fm or 'F2' not in fm:
+        return None
+    f1, f2 = _v(fm['F1']), _v(fm['F2'])
+    ch = chassis(template)
+    phones = module_phones(template)
+    rnd = T.full_bundle(t, e['features']).get('rounding')
+    # the lips are not a formant the carrier can be moved to: a vowel of the other rounding costs as much as
+    # formants 40 per cent away (ʌ goes to the German module's a, not its œ; y on the Spanish one to i, not u)
+    cands = [(math.hypot(math.log(f1 / ch[p]['f'][0]), math.log(f2 / ch[p]['f'][1]))
+              + ROUNDING_COST * (T.full_bundle(t, g).get('rounding') != rnd), p)
+             for p, g in phones.items() if g.get('class') == 'vowel' and p in ch]
+    return min(cands)[1] if cands else None
+
+
+ROUNDING_COST = math.log(1.4)
+
+
+def realize(t, sid, template, carrier_meas=None, phonemic=False):
+    """The entry realised on the template; phonemic: the master path's reading of a language's phoneme
+    (PHONEMIC_KEEP above, D98)."""
+    if phonemic:
+        e = t.sounds[sid]
+        p, own = phonemic_carrier(t, e, template)
+        if own:
+            r = realize(t, sid, template, carrier_meas)
+            keys = {k: v for k, v in r['keys'].items() if k in PHONEMIC_KEEP}
+            dropped = sorted(k for k in r['keys'] if k not in PHONEMIC_KEEP)
+            rules = ['phonemic: %s is %s\'s own phone for %s; the table\'s %s not laid on it (D98)' % (
+                p, template, e['ipa'], ', '.join(dropped) or 'targets')] + [
+                x for x in r['rules'] if x.split(' ', 1)[0] in PHONEMIC_KEEP]
+            return dict(keys=keys, carrier=p, distance=0, unrealised=[], rules=rules, peak_key=None, own=True)
+        vowel = e['features'].get('class') == 'vowel'
+        force = nearest_vowel(t, e, template) if vowel else None
+        r = _realize(t, sid, template, carrier_meas, force=force, formants=phonemic_formants(e) if vowel else None)
+        keys = dict(r['keys'])
+        for k in ('hold', 'dur'):
+            if k in keys and k not in ((e.get('realization') or {}).get('openevv') or {}).get('keys', {}):
+                del keys[k]
+        rules = [x for x in r['rules'] if x.split(' ', 1)[0] not in ('hold', 'dur')] + [
+            'phonemic: the table\'s inherent length not laid on the carrier %s (D98)' % r['carrier']]
+        return dict(r, keys=keys, rules=rules, own=False)
+    return _realize(t, sid, template, carrier_meas)
+
+
+def _realize(t, sid, template, carrier_meas=None, force=None, formants=None):
     """{'keys': {key: value}, 'carrier': phone, 'distance': cost, 'unrealised': [...], 'rules': [...]}.
 
     carrier_meas: what the carrier measured when rendered (the loop passes it), for targets the
@@ -172,7 +321,11 @@ def realize(t, sid, template, carrier_meas=None):
     no chassis, so only times and the engine's own keys apply to it."""
     e = t.sounds[sid]
     spec = e.get('spec') or {}
+    if formants:
+        spec = dict(spec, formants=formants)
     car, dist = carrier(t, e, template)
+    if force:
+        car, dist = force, distance(t, T.full_bundle(t, e['features']), T.full_bundle(t, module_phones(template)[force]))
     named = ((e.get('realization') or {}).get('openevv') or {}).get('carrier')
     # the template's own phone for the letter (Q53): the construction made on dedx is not laid on it
     own_phone = bool(named) and not named.startswith('<') and template != REFERENCE and carrier_on(t, e, template)['own']
@@ -306,7 +459,7 @@ def realize(t, sid, template, carrier_meas=None):
             # strike and a click's slap (T-percussive, D78): targets the sweep measures, met
             # through the entry's own engine keys (realization.openevv.keys)
             rules.append('%s: measured targets, realised by the engine keys below' % k)
-    known = {'formants', 'locus', 'locus_slope', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap',
+    known = {'formants', 'phonemic_formants', 'locus', 'locus_slope', 'bandwidths', 'glide', 'noise', 'duration', 'vot_ms', 'tap',
              'nasal', 'trill', 'burst', 'closure', 'strike', 'slap'}
     for k in spec:
         if k not in known:
@@ -647,10 +800,10 @@ def merge(keys, ops, exact=False, base_hz=None):
     return ({k: v if exact else int(round(v)) for k, v in out.items()}, lost)
 
 
-def compose(t, base_sid, mod_sids, template, carrier_meas=None):
+def compose(t, base_sid, mod_sids, template, carrier_meas=None, phonemic=False):
     """The adapter's own composition: the base realised unrounded, each modifier applied, rounded
     once at the end (the front-end rounds the base and each op first: they may differ by 1)."""
-    r = realize(t, base_sid, template, carrier_meas)
+    r = realize(t, base_sid, template, carrier_meas, phonemic=phonemic)
     keys = dict(r['keys'])
     cls = t.sounds[base_sid]['features']['class']
     lost = []
@@ -660,15 +813,15 @@ def compose(t, base_sid, mod_sids, template, carrier_meas=None):
         if ops is None:
             lost.append('%s has no transform for a %s' % (t.sounds[m]['ipa'], cls))
             continue
-        hz = realised_hz(t, base_sid, template) if cls == 'vowel' else None
+        hz = realised_hz(t, base_sid, template, phonemic=phonemic) if cls == 'vowel' else None
         keys, l2 = merge(keys, ops, exact=True, base_hz={'f%d' % (i + 1): x for i, x in enumerate(hz or [])})
         lost += l2
     return dict(keys={k: int(round(v + 1e-9)) for k, v in keys.items()}, carrier=r['carrier'], lost=lost)
 
 
-def realised_hz(t, sid, template):
+def realised_hz(t, sid, template, phonemic=False):
     """A vowel's F1 to F3 as its line realises it: the carrier's chassis times the entry's ratios."""
-    r = realize(t, sid, template)
+    r = realize(t, sid, template, phonemic=phonemic)
     ch = chassis(template).get(r['carrier'])
     if not ch or r['carrier'].startswith('<'):
         return None

@@ -17,7 +17,7 @@ generator wrote, kept as data; M4 of DESIGN.md 11.3 turns them into master-table
     [sounds] / [phonemes]   line = [...] the records of sounds.map / phonemes.map (engine/packs/packfmt.py)
     [sample]    text
     [[override]]  a sound's target moved, every value with its provenance (engine/packs/overrides.py)
-    [master]    for realization = "master": ipa, kind, reading, fallback, note (engine/packs/master.py)
+    [master]    for realization = "master": ipa, kind, reading, fallback, length, note (engine/packs/master.py)
     remove      a list of dotted keys to delete from what the parent gave
     remove_overrides  a list of sounds whose inherited override is dropped
 
@@ -47,8 +47,9 @@ TOP = {"pack", "meta", "engine", "files", "ini", "sounds", "phonemes", "sample",
        "remove_overrides", "master"}
 # realization = "master" (engine/packs/master.py, written by engine/packs/to_master.py): each eSpeak NG
 # phoneme's IPA as its table states it, v or c where its table says vowel or not, the reading used where
-# eSpeak NG's own phoneme file says more than its IPA, and the phonemes kept on their legacy lines (a fault)
-MASTER_KEYS = {"ipa", "kind", "reading", "fallback", "note"}
+# eSpeak NG's own phoneme file says more than its IPA, the phonemes kept on their legacy lines (a fault), and
+# each vowel phoneme's length as eSpeak NG's table gives it (its std_length, a number: the phonemic reading of ː, D98)
+MASTER_KEYS = {"ipa", "kind", "reading", "fallback", "note", "length"}
 PACK_KEYS = {"tag", "name", "kind", "extends", "format"}
 META_KEYS = {"variety", "region", "speaker_group", "sources", "recordings", "date", "licence", "status", "note"}
 ENGINE_KEYS = {"reader", "template", "realization"}
@@ -174,9 +175,11 @@ def read_pack(tag, root=None):
     m = d.get("master", {})
     if set(m) - MASTER_KEYS:
         raise PackError("%s: unknown [master] keys %s" % (where, sorted(set(m) - MASTER_KEYS)))
-    for k in MASTER_KEYS - {"note"}:
+    for k in MASTER_KEYS - {"note", "length"}:
         if not all(isinstance(v, str) for v in (m.get(k) or {}).values()):
             raise PackError("%s: [master.%s] maps a phoneme to a string" % (where, k))
+    if not all(isinstance(v, int) and not isinstance(v, bool) for v in (m.get("length") or {}).values()):
+        raise PackError("%s: [master.length] maps a phoneme to a whole number" % where)
     if set(d.get("sample", {})) - {"text"}:
         raise PackError("%s: [sample] holds only text" % where)
     for sec, t in d.get("ini", {}).items():

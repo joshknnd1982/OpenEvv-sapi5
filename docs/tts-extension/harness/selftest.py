@@ -156,9 +156,19 @@ def test_engine(quick):
     for tag, text in (('hi', 'टमाटर ठंडा'), ('sw', 'Habari ya asubuhi.')) if not quick else (('hi', 'टमाटर'),):
         fe = E.frontend(E.pack(tag), text)
         r = E.render(tag, [('host', 'text', text), ('anno', 'annotated', fe)], jobs=2)
-        same = r[0]['frames'].shape == r[1]['frames'].shape and (r[0]['frames'] == r[1]['frames']).all()
-        check('annotated path = product frames: %s' % tag, same, 'identical frames',
-              'identical' if same else 'differ')
+        a, b = r[0]['frames'], r[1]['frames']
+        same = a.shape == b.shape and (a == b).all()
+        # the host warms up differently in its annotated mode, and a level hold (`av`, the master path's, D98) ramps
+        # from where the warm-up left it: the voice level may differ for the case's first 60 ms, nothing else (Q63)
+        near = a.shape == b.shape
+        if near and not same:
+            t = np.cumsum(a[:, 0])
+            diff = a != b
+            av = E.P['av']
+            near = not diff[:, [i for i in range(a.shape[1]) if i != av]].any() and not diff[t > 60, av].any()
+        check('annotated path = product frames: %s' % tag, same or near, 'identical frames (the voice level may differ '
+              'for 60 ms after the warm-up)', 'identical' if same else 'identical but av at the start, at most %d dB' % int(
+                  np.abs(a[:, E.P['av']] - b[:, E.P['av']]).max()) if near else 'differ')
     # every render checks frames against sound itself; this records the spread
     cases = [('enus', 'text', 'Hello there.'), ('dede', 'module', '`[.1ta.0ta]'), ('hi', 'ipa', 'ʈəˈmaːʈər')]
     gaps = []
@@ -171,14 +181,22 @@ def test_engine(quick):
     r = E.render('dede', [('runs', 'module', '`[.1ta.0sa]')], jobs=1)[0]
     names = [p['name'] for p in r['phones']]
     check('run labels (dede `[.1ta.0sa])', names == ['t', 'a', 's', 'a', '#'], 't a s a #', ' '.join(names))
-    # the golden regression fails on drift: Hindi /t/ rendered with its sound changed (s12, vot
-    # 15 -> 60 ms, through an override map) against the recorded case; and passes unchanged
+    # the golden regression fails on drift: Hindi /t/ rendered with its sound changed (vot 60 ms, through an
+    # override map of the sound line its map gives /t/) against the recorded case; and passes unchanged
     import golden
     if os.path.exists(golden.golden_path('hi')):
         gold = golden.read_golden('hi')
         gold['cases'] = {'s|t': gold['cases']['s|t']}
         verdicts = []
-        for label, ov in (('unchanged', None), ('s12 vot=60', ['s12 f2=91 burst=-4 vot=60'])):
+        with open(E.pack('hi').sounds_map, encoding='utf-8') as f:
+            sounds = {}
+            for line in f:
+                w = line.split('#')[0].split()
+                if len(w) >= 2 and w[0] == 'sound':
+                    sounds[w[1]] = [x for x in w[2:] if not x.startswith('vot=')]
+                elif len(w) >= 2 and w[0] == '@hi:t' and '=' in w[1]:
+                    t_sid = w[1].partition('=')[2]
+        for label, ov in (('unchanged', None), ('/t/ vot=60', ['%s %s' % (t_sid, ' '.join(sounds.get(t_sid, []) + ['vot=60']))])):
             mp = E.override_map(E.pack('hi'), ov, os.path.join(E.WORK, 'hi')) if ov else None
             r = E.render('hi', [('s|t', 'espeak', "'ata")], jobs=1, map_path=mp, work=os.path.join(E.WORK, 'drift'))[0]
             now = dict(cases={'s|t': golden.measure_case(r, 'dede')}, errors={})

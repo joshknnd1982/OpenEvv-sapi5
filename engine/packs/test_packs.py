@@ -417,6 +417,82 @@ class Templates(unittest.TestCase):
         self.assertIn("trate", r["keys"])
 
 
+class Phonemic(unittest.TestCase):
+    """The master path's phonemic reading of a language's phonemes (Phase 12 continued, D98)."""
+
+    def setUp(self):
+        sys.path.insert(0, os.path.join(os.path.dirname(HERE), "ipa"))
+        import adapter as A
+        import master as M
+        import table as T
+        self.A, self.M, self.t = A, M, T.load()
+        self.by = self.t.by_ipa()
+
+    def ph(self, ipa, template):
+        return self.A.realize(self.t, self.by[ipa], template, phonemic=True)
+
+    def test_a_letter_the_template_has_is_its_own_phone_with_no_target_laid_on_it(self):
+        for ipa, tm, phone in (("a", "itix", "a"), ("n", "itix", "n"), ("i", "dedx", "i"), ("s", "enux", "s")):
+            r = self.ph(ipa, tm)
+            self.assertEqual((r["carrier"], r["keys"]), (phone, {}), (ipa, tm))
+
+    def test_ipa_typed_directly_keeps_the_tables_values(self):
+        # the cardinal [a] of the table, as the proofs and ipa/realized have it
+        self.assertIn("f1", self.A.realize(self.t, self.by["a"], "dedx")["keys"])
+        self.assertNotIn("f1", self.ph("a", "dedx")["keys"])
+
+    def test_what_makes_the_letter_that_letter_is_kept(self):
+        # Q55: a voiced stop is voiced through its closure on every template; a plain stop's onset is the IPA's
+        r = self.ph("b", "itix")
+        self.assertEqual((r["keys"].get("voi"), r["keys"].get("lead")), (1, 70))
+        self.assertEqual(self.ph("t", "enux")["keys"], {"vot": 15})
+
+    def test_the_modules_allophones_are_their_own(self):
+        for ipa, tm, phone in (("β", "esex", "B"), ("ɾ", "enux", "F"), ("ɾ", "itix", "r"), ("r", "esex", "R")):
+            self.assertEqual(self.ph(ipa, tm)["carrier"], phone, (ipa, tm))
+
+    def test_a_vowel_the_template_lacks_is_carried_by_the_nearest_by_formants_and_rounding(self):
+        self.assertEqual(self.ph("ɛ", "esex")["carrier"], "e")      # the feature steps tied it with a
+        self.assertEqual(self.ph("ʌ", "dedx")["carrier"], "A")      # not the rounded OE
+        # moved towards the vowel as languages have it (phonemic_formants), not the cardinal corner
+        r = self.ph("ɛ", "esex")
+        self.assertLess(r["keys"]["f2"], 110)
+
+    def test_a_diphthong_or_nasal_vowel_the_template_has_is_said_whole(self):
+        for ipa, tm, phone in (("eɪ", "enux", "e"), ("aɪ", "dedx", "aj"), ("ɑ̃", "frfx", "a~")):
+            parts = self.M.realize_ipa(ipa, True, tm)["parts"]
+            self.assertEqual([(p, k) for p, k, _, _ in parts], [(phone, {})], (ipa, tm))
+
+    def test_the_languages_own_stop_onsets(self):
+        def vot(tag, tm, ipa="t"):
+            parts = self.M.language_layer(self.M.realize_ipa(ipa, False, tm)["parts"], self.M.language(tag), tm)
+            return parts[0][1].get("vot")
+        self.assertEqual(vot("en-us-nyc", "enux"), 70)      # its profile (Lisker and Abramson)
+        self.assertIsNone(vot("sv", "dedx"))                 # aspirating (phonemic.toml): the module's own
+        # neither: the IPA's plain [t], as the table realises it on dedx (its measured trim: the key that gives 15 ms)
+        self.assertEqual(vot("sl", "dedx"), self.A.realize(self.t, self.by["t"], "dedx")["keys"]["vot"])
+
+    def test_the_length_mark_is_read_as_the_language_has_it(self):
+        def dur(tag, tm, espeak=None):
+            keys = {"dur": 230}
+            return self.M.vowel_length(keys, [], "i", self.M.language(tag), tm, espeak)[0].get("dur")
+        self.assertIsNone(dur("en-us-nyc", "enux"))           # not contrastive: the tense vowel's own length
+        self.assertEqual(dur("cs", "dedx", (50, 130)), 260)   # eSpeak NG's own lengths
+        self.assertEqual(dur("fi", "dedx"), 144)              # 2.3 x the template's short vowel, 75 ms, of i's 120
+
+    def test_a_line_with_the_languages_own_value_names_its_source(self):
+        # R2: Russian t's 20 ms is Ringen and Kulikov's (its profile), not the table's; the line's comment says so
+        flat = self.M.realize(L.resolve("ru")[0])[0]
+        notes = [x["note"] for x in flat["sounds"]["line"] if x["kind"] == "sound" and x["keys"].get("vot") == "20"]
+        self.assertTrue(notes and all("Ringen & Kulikov 2012" in n for n in notes), notes)
+
+    def test_a_phonemes_line_takes_its_own_ipa_not_a_variants(self):
+        import to_master as TM
+        tables = TM.dump_tables()
+        self.assertEqual(tables["en"]["r"]["ipa"], "ɹ")      # not r/ (written r from its name)
+        self.assertEqual(tables["ca"]["r"]["ipa"], "ɾ")
+
+
 class RoundTrip(unittest.TestCase):
     def test_each_line_kind_survives_in_both_map_formats(self):
         sounds = ("# a comment\n\ntemplate dedx\naccent f0=own range=90\nwhwords first wie wat\nsays C t S\n"

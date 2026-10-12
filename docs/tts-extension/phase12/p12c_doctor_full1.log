@@ -1,0 +1,26 @@
+doctor: C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5, full, stage C:\Users\joshk\OpenEvvBuild-ttsext\stage-dev
+PASS  env        Python 3.10.11 at C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe; stage C:\Users\joshk\OpenEvvBuild-ttsext\stage-dev
+FAIL  harness    FAILED: golden passes unchanged, fails on drift (hi /t/ vot)  (docs\tts-extension\harness\selftest.py --quick, 2 s)
+                 FAIL annotated path = product frames: hi            expected identical frames             measured differ
+                 FAIL golden passes unchanged, fails on drift (hi /t/ vot) expected pass, then FAIL              measured pass, then pass
+                 FAILED: annotated path = product frames: hi
+                 FAILED: golden passes unchanged, fails on drift (hi /t/ vot)
+PASS  packs      Ran 42 tests in 36.463s  (engine\packs\test_packs.py, 37 s)
+PASS  packs      check: every file identical to languages/  (engine\packs\build_packs.py check, 31 s)
+PASS  master     master check: 150 packs at realization "master"; every one builds, no phoneme silent  (engine\packs\to_master.py --check, 46 s)
+PASS  validate   validate: 22 packs, 22 accepted, 0 rejected  (engine\packs\validate_packs.py, 12 s)
+PASS  validate   validate: 1 packs, 1 accepted, 0 rejected  (engine\packs\validate_packs.py fi-x-evvtrial, 0 s)
+PASS  validate   validate: 6 packs, 6 accepted, 0 rejected  (engine\packs\validate_packs.py ca-va-x-evvdemo, 3 s)
+PASS  validate   validate selftest: 16 of 16 pass  (engine\packs\validate_packs.py --selftest, 0 s)
+PASS  validate   normalize selftest: 3 of 3 pass  (engine\authenticity\normalize.py --selftest, 0 s)
+PASS  validate   ingest selftest: pass  (engine\review\ingest_feedback.py --selftest, 0 s)
+PASS  table      table: 394 entries (composed 245, created 77, mapped 72); 0 problems; 439 estimated values queued for verification  (engine\ipa\table.py, 0 s)
+PASS  table      validator: the table accepted; 30 planted faults, 30 refused  (engine\ipa\table.py --selftest, 1 s)
+PASS  coverage   coverage: 175 of 175 checklist entries done (mapped 67, composed 53, created 55); MISSING 0, BLOCKED 0; rendered and measured 175 (proof passed 175); approximate 6  (engine\ipa\coverage.py --quiet, 3 s)
+PASS  coverage   state against proof: every entry that is not MISSING has a passing proof
+PASS  coverage   proof against map: every proof of a done entry was made on the map as it stands
+PASS  estimated  439 estimated values in the table, 439 queued in Q15 (written 2026-10-11)
+PASS  docs       check: pass (0 problems)  (engine\check_readme.py, 0 s)
+PASS  docs       check: pass (unclassified 0, stale rules 0, MIT claimed over another's file 0, missing headers 0)  (engine\check_licences.py --headers, 2 s)
+PASS  golden     golden: 156 packs, 29397 cases, 0 FAILED, 0 changed within tolerance, 857 s  (docs\tts-extension\harness\golden.py, 858 s)
+doctor: 20 checks, 19 passed, 0 warnings, 1 FAILED (harness), 998 s

@@ -4,6 +4,17 @@ Status level and failure-layer triage for every language, dialect and accent (pl
 
 Levels: 1 `draft` · 2 `engine-verified` (the harness shows the engine realizes the requested parameters) · 3 `reference-verified` (realized values fall within reference ranges) · 4 `intelligibility-verified` (speech-recognition round trip passes, where a recognizer supports the language) · 5 `native-validated` (a named native speaker or expert signed off the review packet). Only level 5 may be called "authentic".
 
+## Phase 12 (2026-10-12): every language read by eSpeak NG on the new sounds; the table below regenerated on them
+
+- **What changed**: the 146 packs read by eSpeak NG are at `realization = "master"` (the IPA master table through the phonemic reading, `DECISIONS.md` D98; the human's answer to Q62). The table below was regenerated (`report.py`, 2026-10-12) on `golden/`, now recorded on the new sounds, with a fresh ASR run (`results/asr.json`, 106 scored). The ten native languages and the seven templates did not change. Per language, before and after: `IPA_SWITCH_REPORT.md`.
+- **Levels now**: **1 draft 1** (qu), **2 engine-verified 152**, **3 none**, **4 intelligibility-verified 3** (enus, en-us-nyc, pt), **5 none**; nothing is called authentic. The Phase 9 figures below were the old sounds'.
+- **A level that dropped: pt-br 4 → 2.** Check B 21 of 27 against 22 (the mark is 80 per cent): the vowel ɔ's F2 measured 1171 Hz, 33 Hz above escudero2009's range; its profile asks 927 and the Spanish template's o comes out about 25 per cent above that in this case. Its recognition is better than before (CER 0.059 → 0.041).
+- **Levels that rose: cmn and cmn-latn-pinyin 1 → 2**: check A now passes (Q48's failure was on the old lines).
+- **Check B**: pass 3 (enus 34/38, en-us-nyc 78/94, pt 20/24), fail 4 (dede 16/25, eses 6/14, ca-va 21/29, pt-br 21/27), too few references 145, no reference 4.
+- **Check A**: 155 of 156; qu fails on its ejectives as it did on the old lines (Q61).
+- **Phonemes still on their old sounds (R21d), 15, each with its reason in `IPA_SWITCH_REPORT.md`**: 6 fallbacks by fault (French `#cFR` in fr-be, fr-ch and ht, map line and letter line: an IPA with a capital F that the table cannot read) and 9 kept apart so as not to merge two phonemes (Mandarin `i[` in cmn, cmn-latn-pinyin and ar, whose map has Mandarin's lines; Cantonese `ng` in yue and yue-latn-jyutping; Burmese `ng`; Marathi and Gujarati `i:`; Vietnamese `a`).
+- **Recognition**: over the 96 languages scored, the median CER change against the old sounds is about zero (52 better, 44 worse); worse by more than 0.10: yue, my, sd (above 0.98 before), ms, el, cy (`IPA_SWITCH_REPORT.md`). Review packets for the ten that changed most are in `review_packets/` (D82: native review).
+
 ## Phase 9 (2026-10-11): the completion review; the table below regenerated on the staged golden
 
 - **The table below was regenerated** (`report.py`, 2026-10-11) on the staged modules' golden (`golden-staged/`, 29,237 cases, the modules Phase 10 would ship) with a fresh ASR run on the same stage and the reference lookup of D93. Levels now: **1 draft 3** (cmn, cmn-latn-pinyin, qu), **2 engine-verified 148**, **3 none**, **4 intelligibility-verified 4** (enus, en-us-nyc, pt, pt-br), **5 none**. Nothing is called authentic; nothing below level 5 is confirmed authentic.
@@ -52,165 +63,165 @@ None yet.
 
 <!-- STATUS BEGIN (written by harness/report.py) -->
 
-Measured 2026-10-11 by `harness/report.py`. Preset 1 (adult male), 64-bit, 11025 Hz. Levels: 1 draft: 3, 2 engine-verified: 149, 4 intelligibility-verified: 4. Check A = engine fidelity (A1 frames, A2 sound vs frames), check B = against cited reference ranges, ASR = Whisper large-v3 character error rate. Pass marks: A2 >= 90 %, B >= 80 %, CER <= 0.15. A failure layer is a first-pass label, not a diagnosis.
+Measured 2026-10-12 by `harness/report.py`. Preset 1 (adult male), 64-bit, 11025 Hz. Levels: 1 draft: 1, 2 engine-verified: 152, 4 intelligibility-verified: 3. Check A = engine fidelity (A1 frames, A2 sound vs frames), check B = against cited reference ranges, ASR = Whisper large-v3 character error rate. Pass marks: A2 >= 90 %, B >= 80 %, CER <= 0.15. A failure layer is a first-pass label, not a diagnosis.
 
 | Tag | Language | Kind | Level | Check A (A0 substituted / A1 silent / A2) | No phone of its own | Check B | ASR | Failure layer |
 |---|---|---|---|---|---|---|---|---|
-| ab | Abkhaz | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (2/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| af | Afrikaans | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.17 WER 0.52 | unknown |
-| am | Amharic | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 1.32 WER 1.26 | unknown |
+| ab | Abkhaz | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| af | Afrikaans | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.16 WER 0.50 | unknown |
+| am | Amharic | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 1.31 WER 1.32 | unknown |
 | an | Aragonese | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| ar | Arabic | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (6/10 in range) | CER 0.65 WER 1.00 | unknown |
-| as | Assamese | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 0.95 WER 1.03 | unknown |
-| az | Azerbaijani | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.49 WER 0.83 | unknown |
-| ba | Bashkir | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.99 WER 1.22 | unknown |
-| be | Belarusian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.24 WER 0.76 | unknown |
-| bg | Bulgarian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (7/10 in range) | CER 0.25 WER 0.63 | unknown |
-| bn | Bengali | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (2/4 in range) | CER 0.40 WER 0.88 | unknown |
-| bpy | Bishnupriya Manipuri | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| bs | Bosnian | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (2/4 in range) | CER 0.26 WER 0.70 | unknown |
-| ca | Catalan | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.26 WER 0.49 | unknown |
-| ca-ba | Catalan (Balearic) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.26 WER 0.51 | unknown |
-| ca-nw | Catalan (North-western) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.18 WER 0.34 | unknown |
-| ca-va | Catalan (Valencian) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | FAIL 21/29 | CER 0.16 WER 0.33 | phoneme values |
-| chr | Cherokee | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| cmn | Chinese (Mandarin, latin as English) | espeak | 1 draft | FAIL (0 / 0 / 84 %) | 4 | too few references (0/10 in range) | CER 0.85 | phoneme values |
-| cmn-latn-pinyin | Chinese (Mandarin, latin as Pinyin) | espeak | 1 draft | FAIL (0 / 0 / 84 %) | 2 | too few references (0/5 in range) | ASR unavailable (Whisper writes another script; references not converted yet) | phoneme values |
-| crh | Crimean Tatar | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| cs | Czech | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.18 WER 0.42 | unknown |
-| cv | Chuvash | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| cy | Welsh | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (2/5 in range) | CER 0.76 WER 1.10 | unknown |
-| da | Danish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 5 | too few references (4/5 in range) | CER 0.35 WER 0.72 | unknown |
+| ar | Arabic | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (6/10 in range) | CER 0.55 WER 0.89 | unknown |
+| as | Assamese | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | CER 1.02 WER 1.10 | unknown |
+| az | Azerbaijani | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.48 WER 0.87 | unknown |
+| ba | Bashkir | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 1.00 WER 1.04 | unknown |
+| be | Belarusian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.26 WER 0.81 | unknown |
+| bg | Bulgarian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (8/10 in range) | CER 0.18 WER 0.50 | unknown |
+| bn | Bengali | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (2/4 in range) | CER 0.45 WER 0.90 | unknown |
+| bpy | Bishnupriya Manipuri | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| bs | Bosnian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (1/4 in range) | CER 0.16 WER 0.52 | unknown |
+| ca | Catalan | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.34 WER 0.71 | unknown |
+| ca-ba | Catalan (Balearic) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.32 WER 0.62 | unknown |
+| ca-nw | Catalan (North-western) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.17 WER 0.35 | unknown |
+| ca-va | Catalan (Valencian) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | FAIL 21/29 | CER 0.17 WER 0.34 | phoneme values |
+| chr | Cherokee | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| cmn | Chinese (Mandarin, latin as English) | espeak | 2 engine-verified | pass (0 / 0 / 96 %) | 4 | too few references (4/10 in range) | CER 0.77 | stress-or-tone |
+| cmn-latn-pinyin | Chinese (Mandarin, latin as Pinyin) | espeak | 2 engine-verified | pass (0 / 0 / 96 %) | 2 | too few references (2/5 in range) | ASR unavailable (Whisper writes another script; references not converted yet) |  |
+| crh | Crimean Tatar | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| cs | Czech | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.19 WER 0.52 | unknown |
+| cv | Chuvash | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| cy | Welsh | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 0.89 WER 1.22 | unknown |
+| da | Danish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 5 | too few references (3/5 in range) | CER 0.38 WER 0.75 | unknown |
 | dede | German | native | 2 engine-verified | pass (0 / 0 / 98 %) | 11 | FAIL 16/25 | CER 0.03 WER 0.10 | phoneme values |
-| el | Greek | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.70 WER 0.88 | unknown |
-| en-029 | English (Caribbean) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (2/5 in range) | CER 0.04 WER 0.08 |  |
-| en-gb-scotland | English (Scotland) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (2/5 in range) | CER 0.06 WER 0.14 |  |
-| en-gb-x-gbclan | English (Lancaster) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (2/5 in range) | CER 0.02 WER 0.07 |  |
-| en-gb-x-gbcwmd | English (West Midlands) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (3/5 in range) | CER 0.02 WER 0.07 |  |
-| en-gb-x-rp | English (Received Pronunciation) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (2/5 in range) | CER 0.03 WER 0.07 |  |
-| en-shaw | English (Shavian alphabet) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 10 | too few references (4/10 in range) | ASR unavailable (no CC0 / CC BY sentence set has this language) |  |
-| en-us-nyc | English (America, New York City) | espeak | 4 intelligibility-verified | pass (0 / 0 / 100 %) | 6 | pass 82/94 | CER 0.01 WER 0.04 |  |
+| el | Greek | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.82 WER 1.00 | unknown |
+| en-029 | English (Caribbean) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 0.06 WER 0.12 |  |
+| en-gb-scotland | English (Scotland) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 0.05 WER 0.11 |  |
+| en-gb-x-gbclan | English (Lancaster) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 0.04 WER 0.10 |  |
+| en-gb-x-gbcwmd | English (West Midlands) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.05 WER 0.12 |  |
+| en-gb-x-rp | English (Received Pronunciation) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 0.06 WER 0.10 |  |
+| en-shaw | English (Shavian alphabet) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (4/10 in range) | ASR unavailable (no CC0 / CC BY sentence set has this language) |  |
+| en-us-nyc | English (America, New York City) | espeak | 4 intelligibility-verified | pass (0 / 0 / 100 %) | 6 | pass 78/94 | CER 0.04 WER 0.09 |  |
 | engb | British English | native | 2 engine-verified | pass (0 / 0 / 100 %) | 39 | too few references (1/5 in range) | CER 0.00 WER 0.02 |  |
 | enus | US English | native | 4 intelligibility-verified | pass (0 / 0 / 100 %) | 15 | pass 34/38 | CER 0.01 WER 0.03 |  |
 | eo | Esperanto | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | eses | Castilian Spanish | native | 2 engine-verified | pass (0 / 0 / 96 %) | 30 | FAIL 6/14 | CER 0.04 WER 0.15 | phoneme values |
 | esus | Latin American Spanish | native | 2 engine-verified | pass (0 / 0 / 97 %) | 7 | too few references (1/4 in range) | CER 0.03 WER 0.10 |  |
-| et | Estonian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.23 WER 0.78 | unknown |
-| eu | Basque | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/7 in range) | CER 0.15 WER 0.69 | unknown |
-| fa | Persian | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 4 | too few references (6/10 in range) | CER 0.45 WER 1.00 | unknown |
-| fa-latn | Persian (Pinglish) | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (3/5 in range) | ASR unavailable (no CC0 / CC BY sentence set has this language) |  |
-| fi | Finnish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.49 WER 0.87 | unknown |
-| fo | Faroese | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (4/5 in range) | CER 0.54 WER 1.10 | unknown |
-| fr-be | French (Belgium) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (7/12 in range) | CER 0.17 WER 0.42 | unknown |
-| fr-ch | French (Switzerland) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (7/12 in range) | CER 0.17 WER 0.42 | unknown |
+| et | Estonian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.25 WER 0.78 | unknown |
+| eu | Basque | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/7 in range) | CER 0.15 WER 0.58 |  |
+| fa | Persian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (8/10 in range) | CER 0.43 WER 1.00 | unknown |
+| fa-latn | Persian (Pinglish) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (no CC0 / CC BY sentence set has this language) |  |
+| fi | Finnish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.29 WER 0.81 | unknown |
+| fo | Faroese | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | CER 0.56 WER 1.07 | unknown |
+| fr-be | French (Belgium) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (7/12 in range) | CER 0.15 WER 0.31 | unknown |
+| fr-ch | French (Switzerland) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (7/12 in range) | CER 0.15 WER 0.31 | unknown |
 | frca | Canadian French | native | 2 engine-verified | pass (0 / 0 / 99 %) | 12 | no reference | CER 0.11 WER 0.30 |  |
 | frfr | French | native | 2 engine-verified | pass (0 / 0 / 100 %) | 30 | too few references (0/4 in range) | CER 0.09 WER 0.25 |  |
-| ga | Gaelic (Irish) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 8 | too few references (4/10 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| gd | Gaelic (Scottish) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 5 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| ga | Gaelic (Irish) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (4/10 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| gd | Gaelic (Scottish) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | gn | Guarani | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | grc | Greek (Ancient) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| gu | Gujarati | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 0.44 WER 0.86 | unknown |
+| gu | Gujarati | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | CER 0.49 WER 0.93 | unknown |
 | hak | Hakka Chinese | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (6/10 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| haw | Hawaiian | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (3/5 in range) | CER 0.42 WER 0.89 | unknown |
-| he | Hebrew | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (6/10 in range) | CER 0.65 WER 1.26 | unknown |
-| hi | Hindi | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 0.31 WER 0.70 | unknown |
-| hr | Croatian | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (2/4 in range) | CER 0.08 WER 0.32 |  |
-| ht | Haitian Creole | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (4/7 in range) | CER 0.27 WER 0.83 | unknown |
-| hu | Hungarian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.21 WER 0.64 | unknown |
-| hy | Armenian (East Armenia) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.15 WER 0.84 |  |
-| hyw | Armenian (West Armenia) | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (4/5 in range) | CER 0.32 WER 0.85 | unknown |
+| haw | Hawaiian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.33 WER 0.89 | unknown |
+| he | Hebrew | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (6/10 in range) | CER 0.64 WER 1.25 | unknown |
+| hi | Hindi | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (4/5 in range) | CER 0.39 WER 0.73 | unknown |
+| hr | Croatian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (1/4 in range) | CER 0.09 WER 0.29 |  |
+| ht | Haitian Creole | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (4/7 in range) | CER 0.31 WER 0.91 | unknown |
+| hu | Hungarian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.20 WER 0.58 | unknown |
+| hy | Armenian (East Armenia) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.15 WER 0.88 |  |
+| hyw | Armenian (West Armenia) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.32 WER 0.88 | unknown |
 | ia | Interlingua | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| id | Indonesian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.10 WER 0.20 |  |
+| id | Indonesian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.11 WER 0.20 |  |
 | io | Ido | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| is | Icelandic | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.59 WER 1.37 | unknown |
+| is | Icelandic | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.47 WER 1.08 | unknown |
 | itit | Italian | native | 2 engine-verified | pass (0 / 0 / 94 %) | 9 | too few references (1/4 in range) | CER 0.01 WER 0.05 |  |
 | jajp | Japanese | native | 2 engine-verified | pass (0 / 0 / 100 %) | 27 | no reference | CER 0.15 | stress-or-tone |
 | jbo | Lojban | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| ka | Georgian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.31 WER 1.07 | unknown |
-| kaa | Karakalpak | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| kk | Kazakh | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 0.35 WER 0.92 | unknown |
+| ka | Georgian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.28 WER 1.06 | unknown |
+| kaa | Karakalpak | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| kk | Kazakh | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 0.42 WER 0.98 | unknown |
 | kl | Greenlandic | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| kn | Kannada | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 5 | too few references (7/10 in range) | CER 0.35 WER 1.03 | unknown |
-| ko | Korean | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.46 WER 0.84 | unknown |
-| kok | Konkani | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| ku | Kurdish | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| kn | Kannada | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 5 | too few references (7/10 in range) | CER 0.35 WER 1.00 | unknown |
+| ko | Korean | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.40 WER 0.84 | unknown |
+| kok | Konkani | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| ku | Kurdish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | ky | Kyrgyz | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| la | Latin | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.11 WER 0.45 |  |
-| lb | Luxembourgish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/4 in range) | CER 0.54 WER 1.00 | unknown |
+| la | Latin | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.13 WER 0.53 |  |
+| lb | Luxembourgish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/4 in range) | CER 0.47 WER 0.95 | unknown |
 | lfn | Lingua Franca Nova | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| lij | Ligurian | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (2/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| lt | Lithuanian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (8/10 in range) | CER 0.35 WER 0.88 | unknown |
-| ltg | Latgalian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| lv | Latvian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.38 WER 0.82 | unknown |
-| mi | Māori | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (3/5 in range) | CER 0.33 WER 0.81 | unknown |
-| mk | Macedonian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.16 WER 0.58 | unknown |
-| ml | Malayalam | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (3/5 in range) | CER 0.93 WER 1.43 | unknown |
-| mn | Mongolian | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (3/5 in range) | CER 0.45 WER 1.08 | unknown |
-| mn-f | Ankhmaa | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (3/5 in range) | CER 0.45 WER 1.08 | unknown |
-| mr | Marathi | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 0.55 WER 1.00 | unknown |
-| ms | Malay | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.15 WER 0.32 |  |
-| mt | Maltese | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.45 WER 1.05 | unknown |
+| lij | Ligurian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| lt | Lithuanian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 6 | too few references (6/10 in range) | CER 0.25 WER 0.73 | unknown |
+| ltg | Latgalian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| lv | Latvian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.33 WER 0.74 | unknown |
+| mi | Māori | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.27 WER 0.70 | unknown |
+| mk | Macedonian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.16 WER 0.53 | unknown |
+| ml | Malayalam | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (4/5 in range) | CER 0.99 WER 1.91 | unknown |
+| mn | Mongolian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.47 WER 1.15 | unknown |
+| mn-f | Ankhmaa | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.50 WER 1.17 | unknown |
+| mr | Marathi | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | CER 0.51 WER 1.05 | unknown |
+| ms | Malay | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.30 WER 0.43 | unknown |
+| mt | Maltese | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.46 WER 1.15 | unknown |
 | mto | Totontepec Mixe | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | no reference | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| my | Myanmar (Burmese) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 0.99 | stress-or-tone |
-| nb | Norwegian Bokmål | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (8/10 in range) | CER 0.31 WER 0.68 | unknown |
+| my | Myanmar (Burmese) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 1.10 | stress-or-tone |
+| nb | Norwegian Bokmål | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (6/10 in range) | CER 0.28 WER 0.62 | unknown |
 | nci | Nahuatl (Classical) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| ne | Nepali | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 0.41 WER 0.98 | unknown |
-| nl | Dutch | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.20 WER 0.49 | unknown |
-| nl-be | Dutch (Southern Standard, Flanders) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.29 WER 0.60 | unknown |
-| nog | Nogai | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (9/12 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| om | Oromo | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| ne | Nepali | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | CER 0.49 WER 1.04 | unknown |
+| nl | Dutch | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.20 WER 0.47 | unknown |
+| nl-be | Dutch (Southern Standard, Flanders) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.22 WER 0.58 | unknown |
+| nog | Nogai | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (10/12 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| om | Oromo | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | or | Oriya | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (2/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| pa | Punjabi | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (3/5 in range) | CER 0.59 WER 1.28 | stress-or-tone |
+| pa | Punjabi | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (4/5 in range) | CER 0.60 WER 1.16 | stress-or-tone |
 | pap | Papiamento | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | pdc | Pennsylvania Dutch (Lancaster) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | pdc-x-lehigh | Pennsylvania Dutch (Lehigh) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | pdc-x-midwest | Pennsylvania Dutch (Midwest) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | piqd | Klingon | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | plpl | Polish (experimental) | native | 2 engine-verified | pass (0 / 0 / 98 %) | 11 | no reference | CER 0.08 WER 0.29 |  |
-| ps | Pashto | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.61 WER 1.10 | unknown |
-| ps-x-northwest | Pashto (Northwestern) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.59 WER 1.10 | unknown |
-| ps-x-southeast | Pashto (Southeastern) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.61 WER 1.12 | unknown |
-| ps-x-yusufzai | Pashto (Yusufzai) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.61 WER 1.08 | unknown |
-| pt | Portuguese (Portugal) | espeak | 4 intelligibility-verified | pass (0 / 0 / 100 %) | 2 | pass 20/24 | CER 0.06 WER 0.14 |  |
-| pt-br | Portuguese (Brazil) | espeak | 4 intelligibility-verified | pass (0 / 0 / 100 %) | 2 | pass 22/27 | CER 0.06 WER 0.13 |  |
+| ps | Pashto | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.59 WER 1.03 | unknown |
+| ps-x-northwest | Pashto (Northwestern) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.59 WER 1.03 | unknown |
+| ps-x-southeast | Pashto (Southeastern) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.59 WER 1.03 | unknown |
+| ps-x-yusufzai | Pashto (Yusufzai) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.60 WER 1.04 | unknown |
+| pt | Portuguese (Portugal) | espeak | 4 intelligibility-verified | pass (0 / 0 / 100 %) | 2 | pass 20/24 | CER 0.10 WER 0.21 |  |
+| pt-br | Portuguese (Brazil) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | FAIL 21/27 | CER 0.04 WER 0.10 | phoneme values |
 | py | Pyash | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
 | qdb | Lang Belta | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| qu | Quechua | espeak | 1 draft | FAIL (0 / 3 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) | phoneme values |
+| qu | Quechua | espeak | 1 draft | FAIL (0 / 2 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) | phoneme values |
 | quc | K'iche' | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (6/10 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| qya | Quenya | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| ro | Romanian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.13 WER 0.35 |  |
-| ru | Russian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (10/12 in range) | CER 0.18 WER 0.47 | unknown |
-| ru-cl | Russian (Classic) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (10/12 in range) | CER 0.24 WER 0.52 | unknown |
-| ru-lv | Russian (Latvia) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (10/12 in range) | CER 0.18 WER 0.41 | unknown |
+| qya | Quenya | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| ro | Romanian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | CER 0.16 WER 0.41 | unknown |
+| ru | Russian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (9/12 in range) | CER 0.15 WER 0.36 | unknown |
+| ru-cl | Russian (Classic) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (9/12 in range) | CER 0.13 WER 0.29 |  |
+| ru-lv | Russian (Latvia) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (9/12 in range) | CER 0.15 WER 0.41 |  |
 | rup | Aromanian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/4 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| sd | Sindhi | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 1.07 WER 1.43 | unknown |
-| shn | Shan (Tai Yai) | espeak | 2 engine-verified | pass (0 / 0 / 96 %) | 4 | too few references (4/10 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| si | Sinhala | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (3/5 in range) | CER 1.31 WER 1.52 | unknown |
+| sd | Sindhi | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | CER 1.18 WER 1.43 | unknown |
+| shn | Shan (Tai Yai) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (4/10 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| si | Sinhala | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 1.22 WER 1.41 | unknown |
 | sjn | Sindarin | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| sk | Slovak | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.28 WER 0.62 | unknown |
-| sl | Slovenian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.09 WER 0.25 |  |
-| smj | Lule Saami | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (6/10 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| sq | Albanian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (1/4 in range) | CER 0.18 WER 0.51 | unknown |
-| sr | Serbian | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (2/4 in range) | CER 0.17 WER 0.43 | unknown |
-| sv | Swedish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (6/10 in range) | CER 0.27 WER 0.74 | unknown |
-| sw | Swahili | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.20 WER 0.75 | unknown |
-| ta | Tamil | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 5 | too few references (8/10 in range) | CER 0.51 WER 1.09 | unknown |
-| te | Telugu | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 0.45 WER 1.13 | unknown |
-| th | Thai | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 1.12 | unknown |
-| ti | Tigrinya | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| tk | Turkmen | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.50 WER 1.16 | unknown |
+| sk | Slovak | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.19 WER 0.44 | unknown |
+| sl | Slovenian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.07 WER 0.19 |  |
+| smj | Lule Saami | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (8/10 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| sq | Albanian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (1/4 in range) | CER 0.17 WER 0.47 | unknown |
+| sr | Serbian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (1/4 in range) | CER 0.17 WER 0.43 | unknown |
+| sv | Swedish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (6/10 in range) | CER 0.18 WER 0.48 | unknown |
+| sw | Swahili | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.19 WER 0.75 | unknown |
+| ta | Tamil | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 5 | too few references (6/10 in range) | CER 0.49 WER 0.97 | unknown |
+| te | Telugu | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (3/5 in range) | CER 0.45 WER 1.10 | unknown |
+| th | Thai | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 1.21 | unknown |
+| ti | Tigrinya | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
+| tk | Turkmen | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.49 WER 1.33 | unknown |
 | tn | Setswana | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| tr | Turkish | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (4/5 in range) | CER 0.46 WER 0.84 | unknown |
-| tt | Tatar | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.62 WER 1.31 | unknown |
+| tr | Turkish | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.47 WER 0.79 | unknown |
+| tt | Tatar | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.48 WER 1.18 | unknown |
 | ug | Uyghur | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| uk | Ukrainian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.25 WER 0.60 | unknown |
-| ur | Urdu | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 3 | too few references (4/5 in range) | CER 0.58 WER 0.87 | unknown |
-| uz | Uzbek | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 0.47 WER 1.11 | unknown |
-| vi | Vietnamese (Northern) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 1.36 WER 1.40 | stress-or-tone |
-| vi-vn-x-central | Vietnamese (Central) | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (2/5 in range) | CER 1.41 WER 1.48 | stress-or-tone |
-| vi-vn-x-south | Vietnamese (Southern) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 1.67 WER 1.62 | stress-or-tone |
+| uk | Ukrainian | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.10 WER 0.42 |  |
+| ur | Urdu | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 3 | too few references (4/5 in range) | CER 0.51 WER 0.79 | unknown |
+| uz | Uzbek | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/5 in range) | CER 0.53 WER 1.14 | unknown |
+| vi | Vietnamese (Northern) | espeak | 2 engine-verified | pass (0 / 0 / 99 %) | 2 | too few references (3/5 in range) | CER 1.32 WER 1.30 | stress-or-tone |
+| vi-vn-x-central | Vietnamese (Central) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (2/5 in range) | CER 1.47 WER 1.49 | stress-or-tone |
+| vi-vn-x-south | Vietnamese (Southern) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (3/5 in range) | CER 1.47 WER 1.47 | stress-or-tone |
 | xex | xextan-test | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (4/6 in range) | ASR unavailable (Whisper large-v3 has no language for this tag) |  |
-| yue | Chinese (Cantonese) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (2/10 in range) | CER 1.06 | stress-or-tone |
+| yue | Chinese (Cantonese) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 4 | too few references (2/10 in range) | CER 1.57 | stress-or-tone |
 | yue-latn-jyutping | Chinese (Cantonese, latin as Jyutping) | espeak | 2 engine-verified | pass (0 / 0 / 100 %) | 2 | too few references (1/5 in range) | ASR unavailable (Whisper writes another script; references not converted yet) |  |
 
 <!-- STATUS END -->

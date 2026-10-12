@@ -3,12 +3,15 @@
 """Phase 12: docs/tts-extension/IPA_SWITCH_REPORT.md, one row a language, before and after the switch.
 
     python docs/tts-extension/phase12/switch_report.py <to_master report.json> [--after STATUS] [--out FILE]
+                                                       [--previous STATUS] [--note FILE]
 
 Before: phase12/before/status.json (report.py's record of 1.3.0's languages on the staged golden, the one
 LANGUAGE_STATUS.md showed when Phase 12 began). After: harness/results/status.json as report.py wrote it
 on golden-ipa/ (EVV_GOLDEN) with this phase's asr.py. The to_master report gives each pack's counts and
 its fallbacks with their reasons (R21f). At the top, plainly: the languages whose CER rose by more than
 0.10 (the human's guard answer was to ship them anyway; at Q59 they chose to stop) and every level that dropped.
+--previous STATUS adds a column with an earlier switch's CER (D97's, phase12/ipa_status.json); --note FILE is the
+paragraph said under the title in place of D97's (the state of the switch when the report was written).
 """
 import json
 import os
@@ -49,6 +52,8 @@ def main(argv):
     after_path = argv[argv.index('--after') + 1] if '--after' in argv else os.path.join(DOCS, 'harness', 'results', 'status.json')
     out = argv[argv.index('--out') + 1] if '--out' in argv else os.path.join(DOCS, 'IPA_SWITCH_REPORT.md')
     before = {r['tag']: r for r in load(os.path.join(HERE, 'before', 'status.json'))}
+    prev = {r['tag']: r for r in load(argv[argv.index('--previous') + 1])} if '--previous' in argv else None
+    note = open(argv[argv.index('--note') + 1], encoding='utf-8').read().strip() if '--note' in argv else None
     after = {r['tag']: r for r in load(after_path)}
     packs = {p['tag']: p for p in (rep['packs'] if isinstance(rep, dict) and 'packs' in rep else rep)}
     rows, rose, dropped, fell, tot = [], [], [], [], {}
@@ -68,10 +73,12 @@ def main(argv):
         lb, la = b.get('level'), a.get('level')
         if lb is not None and la is not None and la < lb:
             dropped.append((tag, lb, la))
-        rows.append('| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
+        rows.append('| %s | %s | %s | %s | %s | %s | %s%s | %s | %s | %s | %s | %s |' % (
             tag, a.get('name') or b.get('name', ''), p['template'],
             '%d%s' % (len(fb), (': ' + ', '.join('`%s`' % r['key'] for r in fb)) if fb else ''),
-            len(ka), '-' if cb is None else '%.3f' % cb, '-' if ca is None else '%.3f' % ca,
+            len(ka), '-' if cb is None else '%.3f' % cb,
+            ('-' if cer(prev.get(tag)) is None else '%.3f' % cer(prev.get(tag))) + ' | ' if prev is not None else '',
+            '-' if ca is None else '%.3f' % ca,
             '-' if d is None else '%+.3f' % d, a_text(b), a_text(a), '%s / %s' % (b_text(b), b_text(a)),
             '%s / %s' % (lb if lb is not None else '-', la if la is not None else '-')) +
             ' %s |' % (a.get('failure_layer') or '-'))
@@ -83,11 +90,11 @@ def main(argv):
              '(`phase12/before/status.json`, the staged golden); after: the switched packs on the same modules (`golden-ipa/`, '
              'this phase\'s `asr.py`). Written by `docs/tts-extension/phase12/switch_report.py`; nothing here was judged by ear.'
              % len(packs), '',
-             '**Measured, not shipped.** Shown these numbers, the human chose to stop and investigate (Q59, 2026-10-11): '
+             note or ('**Measured, not shipped.** Shown these numbers, the human chose to stop and investigate (Q59, 2026-10-11): '
              '`languages/`, `packs/`, `golden/` and `golden-staged/` stay as release 1.3.0 has them, and a new session finds '
              'and fixes the causes before the switch is measured again. The largest cause found so far is in the master path '
              'itself: a language\'s plain vowel said as the table\'s cardinal vowel (D97, Q59). The after-figures are '
-             '`phase12/ipa_status.json` and `phase12/ipa_asr.json`.', '',
+             '`phase12/ipa_status.json` and `phase12/ipa_asr.json`.'), '',
              '## Plainly', '']
     lines.append('**Recognition worse by more than 0.10 CER (%d languages; the human\'s guard answer was to ship them anyway; at Q59 they chose to stop and investigate):** %s.' % (
         len(rose), ', '.join('%s %.3f -> %.3f' % (t, x, y) for t, x, y, _ in sorted(rose, key=lambda r: -r[3])) or 'none'))
@@ -100,8 +107,9 @@ def main(argv):
     ds = [(cer(after.get(t)) - cer(before.get(t))) for t in packs if cer(after.get(t)) is not None and cer(before.get(t)) is not None]
     if ds:
         ds.sort()
+        med = (ds[(len(ds) - 1) // 2] + ds[len(ds) // 2]) / 2.0
         lines.append('**CER over the %d languages Whisper scores:** median change %+.3f, mean %+.3f; worse in %d, better in %d.' % (
-            len(ds), ds[len(ds) // 2], sum(ds) / len(ds), sum(1 for x in ds if x > 0), sum(1 for x in ds if x < 0)))
+            len(ds), med, sum(ds) / len(ds), sum(1 for x in ds if x > 0), sum(1 for x in ds if x < 0)))
         lines.append('')
     lines.append('**Where the sounds came from (R21f, `to_master.py --all`):** %s.' % ', '.join(
         '%s %d' % kv for kv in sorted(tot.items())))
@@ -110,9 +118,9 @@ def main(argv):
               'report. Kept apart: phonemes kept on their old line so as not to merge with another (D96). Check A: pass or FAIL, the '
               'formant and F0 checks met / made. Check B: against reference ranges. Level: before / after (`report.py`; nothing above '
               '4 without a native signature).', '',
-              '| Tag | Language | Template | Fallbacks | Kept apart | CER 1.3.0 | CER now | Change | Check A before | Check A after | '
-              'Check B before / after | Level before / after | Failure layer |',
-              '|---|---|---|---|---|---|---|---|---|---|---|---|---|'] + scored
+              '| Tag | Language | Template | Fallbacks | Kept apart | CER 1.3.0 | %sCER now | Change | Check A before | Check A after | '
+              'Check B before / after | Level before / after | Failure layer |' % ('CER D97 | ' if prev is not None else ''),
+              '|---|---|---|---|---|---|---|---|---|---|---|---|---|' + ('---|' if prev is not None else '')] + scored
     reasons = []
     for tag in sorted(packs):
         for r in packs[tag]['rows']:

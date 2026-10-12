@@ -51,8 +51,18 @@ BLOCK = '# ---- the master path: written by engine/packs/to_master.py; run it ag
 
 
 def dump_tables(frontend=FRONTEND, data=FE_DATA):
+    """{table: {name: phoneme}}. eSpeak NG writes a phoneme's name without its variant (`r/`, `l/2` are written
+    r, l: WritePhMnemonic), and the front-end finds a phoneme's map line by that name, so the variants share
+    their phoneme's line. The line's IPA is the phoneme's own, the lowest code of the name (a table that
+    redefines a phoneme keeps its code; a variant gets a later one), never a variant's, whose IPA eSpeak NG
+    writes from its name where its source gives none (`r/` as r beside `r` as ɹ; D98)."""
     r = subprocess.run([frontend, '--data', data, '--dump-phonemes'], capture_output=True, check=True)
-    return {t['table']: {p['mnemonic']: p for p in t['phonemes']} for t in json.loads(r.stdout.decode('utf-8'))}
+    out = {}
+    for t in json.loads(r.stdout.decode('utf-8')):
+        d = out.setdefault(t['table'], {})
+        for p in sorted(t['phonemes'], key=lambda p: p['code']):
+            d.setdefault(p['mnemonic'], p)
+    return out
 
 
 def phsource_features(folder):
@@ -100,8 +110,9 @@ HUMAN_READINGS = {'@ab:p_': ('pʼ', 'the human\'s answer to Q54 (2026-10-11): re
 
 
 def master_block(flat, tables, phs):
-    """-> {ipa, kind, reading} for every eSpeak NG phoneme the pack's sound map names."""
-    ipa, kind, reading = {}, {}, {}
+    """-> {ipa, kind, reading, length} for every eSpeak NG phoneme the pack's sound map names (length: a vowel's
+    std_length in eSpeak NG's table, for the phonemic reading of ː, D98)."""
+    ipa, kind, reading, length = {}, {}, {}, {}
     for x in flat.get('sounds', {}).get('line', []):
         if x['kind'] != 'map' or not x['name'].startswith('@'):
             continue
@@ -111,6 +122,8 @@ def master_block(flat, tables, phs):
             raise L.PackError('pack %r: %s is not in eSpeak NG\'s phoneme table %s' % (flat['pack']['tag'], x['name'], tn))
         ipa[x['name']] = ph['ipa']
         kind[x['name']] = 'v' if ph['type'] == 2 else 'c'
+        if ph['type'] == 2 and ph.get('length'):
+            length[x['name']] = int(ph['length'])
         src = phs.get(tn, {}).get(mn)
         if x['name'] in HUMAN_READINGS:
             ipa[x['name']], reading[x['name']] = HUMAN_READINGS[x['name']]
@@ -118,16 +131,16 @@ def master_block(flat, tables, phs):
             ipa[x['name']] = ph['ipa'] + M.EJECTIVE
             reading[x['name']] = ('eSpeak NG\'s phoneme file gives %s:%s the feature ejc (ejective) and the IPA %s: '
                                   'read %s' % (tn, mn, ph['ipa'], ipa[x['name']]))
-    return dict(ipa=ipa, kind=kind, reading=reading)
+    return dict(ipa=ipa, kind=kind, reading=reading, length=length)
 
 
 def block_text(m, today):
     out = ['', BLOCK, '[master]', 'note = %s' % tomlio._str('switched to the IPA master table\'s sounds on %s (Phase 11, '
                                                              'playbook R21); realization = "legacy" goes back' % today)]
-    for sec in ('ipa', 'kind', 'reading', 'fallback'):
+    for sec in ('ipa', 'kind', 'reading', 'fallback', 'length'):
         d = m.get(sec) or {}
         out += ['', '[master.%s]' % sec]
-        out += ['%s = %s' % (tomlio._key(k), tomlio._str(v)) for k, v in sorted(d.items())]
+        out += ['%s = %s' % (tomlio._key(k), v if sec == 'length' else tomlio._str(v)) for k, v in sorted(d.items())]
     return '\n'.join(out) + '\n'
 
 

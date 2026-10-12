@@ -27,6 +27,21 @@ worked examples below were run **before** this switch, on legacy packs; their nu
 printed then. If `engine\packs\to_master.py` does not exist yet, stop and ask (R21g): do not write
 legacy `sound` lines instead.
 
+**How the master path reads a language's phonemes (the phonemic reading, D98).** eSpeak NG writes a
+language's phonemes in broad IPA: its /a/ is the language's open vowel, not the chart's cardinal [a].
+So a phoneme whose IPA the template has as a phone of its own (a vowel, a consonant, an allophone such as
+the Spanish module's β ð ɣ, a diphthong or nasal vowel the module has whole) is said as that phone,
+and the table's measured targets are not laid on it; what makes the letter that letter is kept (the
+voicing of b d ɡ, the IPA's unaspirated p t k). A sound the template lacks is made from the table on
+its nearest phone (a vowel towards `phonemic_formants`, the typical value of the vowel the table
+cites). Then the language's own data: the stop onsets and vowel formants in its profile
+(`engine/profiles/<tag>.json`), whether it aspirates plain p t k (`engine/packs/phonemic.toml`, every
+line with its source), and eSpeak NG's own length for a vowel with ː against the one without. So the
+place to improve how one language sounds is its profile (a measured value with its source; the human's
+answer to Q64: this is how R21 applies to a language's own measures, and the built map names the source
+on each line it sets), and the place to improve a sound for every language is the table. IPA typed directly (`say_ipa`, the proofs)
+keeps the table's own values.
+
 The same steps as slash commands (Claude Code, this repository): `/add-language`, `/add-dialect`,
 `/add-accent`, `/improve-language`, `/diagnose-language`, `/create-missing-sound`
 (`.claude/skills/`). Each ends with an independent review by the `tts-reviewer` agent.

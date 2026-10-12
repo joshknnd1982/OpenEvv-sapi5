@@ -25,400 +25,406 @@ says T t s
 
 # the sounds of the language that the module has not, each as it differs from the phone
 # that stands for it: formants and lengths in per cent, times in milliseconds
-sound s1 tap=1 tapms=24 hold=60 f1=122 f2=111 f3=77 # ɾ
-sound s2 f2=88                           # ʰχ
-sound s3 ms=50 hush=1                    # ʔ
-sound s4 dur=40                          # ʰa
-sound s5 dur=53                          # ʰe
-sound s6 dur=56                          # ʰi
-sound s7 f1=122 f2=121 dur=53            # ʰo
-sound s8 f1=132 dur=57                   # ʰu
-sound s9 tap=3 tapms=18 f2=109 f3=77     # r
-sound s10 vot=15                         # t
-sound s11 vot=10                         # p
-sound s12 vot=25                         # k
-sound s13 tap=3 tapms=18 f2=85 f3=112    # ʀ
-sound s14 f2=159                         # ʎ
-sound s15 f2=111 f3=71                   # ɭ
-sound s16 f2=71 f3=91                    # ɫ
-sound s17 ms=70 whisper=44               # h
-sound s18 f3=80                          # ɳ
-sound s19 f2=136 f3=109                  # ɲ
-sound s20 tap=1 tapms=24 hold=60 f2=111 f3=66 # r.
-sound s21 voi=1 lead=85                  # b
-sound s22 voi=1 lead=80                  # d
-sound s23 f2=91 burst=-4 voi=1 lead=80   # d̪
-sound s24 f2=91 burst=-4 vot=15          # t̪
-sound s25 voi=1 lead=80 hold=85 f2=126 f3=121 # dʑ
-sound s26 a3=34 a4=55 a5=22 f2=126 f3=121 hold=70 # dʑ
-sound s27 hold=85 f2=119 f3=116          # tɕ
-sound s28 a2=31 a3=34 a4=34 a5=22 f2=119 f3=116 hold=70 # tɕ
-sound s29 f2=135 f3=112 a3=56 a4=56 voi=1 lead=75 # ɟ
-sound s30 f2=135 f3=112 a3=56 a4=56 vot=32 # c
-sound s31 voi=1 lead=75                  # ɡ
-sound s32 af=-8                          # β
-sound s33 af=-14                         # ʋ
-sound s34 f2=149 f3=110 a6=28 ab=48      # ð
-sound s35 f2=146 f3=110 a6=28 ab=48      # θ
-sound s36 a4=51 f2=92 f3=87 f4=88        # ʐ
-sound s37 a4=54 f2=87 f3=83 f4=88        # ʂ
-sound s38 a3=34 a4=55 a5=22 f2=126 f3=121 # ʑ
-sound s39 a2=31 a3=34 a4=34 a5=22 f2=119 f3=116 # ɕ
-sound s40 voi=1 af=-5                    # ʝ
-sound s41 f1=73 f3=116                   # ɣ
-sound s42 f2=68 f3=109 f1=118 burst=3 vot=30 # q
-sound s43 fric=52 a3=54 a4=58 a5=44 whisper=30 hold=190 # ɬ
-sound s44 f3=90                          # ɪ
-sound s45 f2=89 f3=107                   # ɵ
-sound s46 dur=84                         # ɛ
-sound s47 f1=90 dur=85                   # ɔ
-sound s48 f1=90 dur=220                  # ɔː
-sound s49 dur=72                         # aː
-sound s50 f1=116 f2=114 dur=85           # ɑ
-sound s51 f1=116 f2=114 dur=85 nas=100   # ɑ̃
-sound s52 f1=90 dur=85 nas=100           # ɔ̃
-sound s53 f1=114 f3=109                  # øː
-sound s54 f1=122 f2=121                  # oː
-sound s55 g1=81 g2=95 g3=96 glide=1      # ɛɪ
-sound s56 g1=61 g2=123 g3=102 glide=1 dur=171 # œy
-sound s57 f1=76 f2=94 g1=55 g2=81 g3=93 glide=1 dur=72 # ʌʊ
-sound s58 g1=110 g2=52 g3=86 glide=1     # eʊ
-sound s59 f1=56 f2=111 f3=84 hold=55     # yʊ
-sound s60 dur=114                        # yʊ
-sound s61 vot=70 asp=50                  # tʰ
-sound s62 f2=92 f3=77                    # ɹ
-sound s63 voi=1 lead=75 brth=90 f0=-15   # dʰ
-sound s64 whisper=46                     # ʍ
-sound s65 dur=185                        # ʊ
-sound s66 dur=157                        # əl
-sound s67 f1=123 f3=114 dur=126          # ɐ
-sound s68 f1=89 f2=86 dur=72             # ɑː
-sound s69 f1=116 dur=150                 # ɒ
-sound s70 f1=112 f2=87 f3=114 dur=126    # ʌ
-sound s71 f3=114 dur=171                 # ɜː
-sound s72 dur=117                        # iː
-sound s73 g1=58 g2=82 g3=93 glide=1 dur=72 # aʊ
-sound s74 g1=94 g2=65 g3=93 glide=1 dur=208 # əʊ
-sound s75 g1=105 g2=129 g3=96 glide=1    # oʊ
-sound s76 g1=56 g2=146 g3=101 glide=1 dur=72 # aɪ
-sound s77 g1=106 g2=89 g3=95 glide=1     # eɪ
-sound s78 g1=73 g2=194 g3=101 glide=1 dur=220 # ɔɪ
-sound s79 hold=55                        # eə
-sound s80 dur=50                         # aɪə
-sound s81 f1=124 f2=92 f3=92 dur=126     # æ
-sound s82 f1=87 f3=78 dur=126            # ɚ
-sound s83 f1=78 f2=106 f3=114 dur=137    # ᵻ
-sound s84 dur=220                        # ɔːɹ
-sound s85 dur=126                        # ɛɹ
-sound s86 dur=137                        # ɪɹ
-sound s87 f2=91 f3=79 f4=88 a4=52 a5=42  # ʈ
-sound s88 f2=68 f3=109 f1=118 burst=3    # ɢ
-sound s89 f2=125 f3=90                   # ɱ
-sound s90 f2=56 f3=90                    # ɴ
-sound s91 tap=1 tapms=24 hold=60 f2=115 f3=84 # ɺ
-sound s92 ms=85 whisper=48 f1=125 f2=88  # ħ
-sound s93 ms=80 whisper=30 voi=1 f1=125 f2=86 # ʕ
-sound s94 ms=70 whisper=38 voi=1         # ɦ
-sound s95 f2=92 f3=88                    # ɧ
-sound s96 fric=52 a3=54 a4=58 a5=44      # ɮ
-sound s97 f3=70                          # ɻ
-sound s98 f1=63 f2=126                   # ɰ
-sound s99 f1=56 f2=111 f3=84             # ɥ
-sound s100 f2=87 f3=81                   # ʟ
-sound s101 burst=8 ej=25                 # ʘ
-sound s102 f2=135 f3=112 a3=56 a4=56 burst=8 ej=25 # ǂ
-sound s103 impl=1 voi=1 burst=-8         # ɓ
-sound s104 f2=135 f3=112 a3=56 a4=56 impl=1 voi=1 burst=-8 # ʄ
-sound s105 f2=68 f3=109 f1=118 burst=-8 impl=1 voi=1 # ʛ
-sound s106 f1=78 dur=137                 # ʉ
-sound s107 f1=83 f2=89 f3=114 dur=137    # ɯ
-sound s108 dur=80                        # ø
-sound s109 f1=93 dur=157                 # ɘ
-sound s110 f1=83 f2=90 f3=112 dur=126    # ɤ
-sound s111 f3=114 dur=126                # ɜ
-sound s112 f2=94 f3=107 dur=126          # ɞ
-sound s113 f1=91 f2=114 f3=94 dur=50     # ɶ
-sound s114 f1=90 f3=78 dur=126           # ɝ
+# realization master (engine/packs/master.py): each sound from the IPA master table (ipa/table) through the
+# adapter, as it differs from the template's phone; its comment names the table entries and the provenance of their values
+sound m1 ant=50 f1=95 f2=142 f3=86 tap=1 tapms=31 # ɾ: U+027E; values derived 1, literature 4, measured 1
+sound m2 a2=70 a3=0 a4=50 a5=0 a6=0 f2=102 pre=98 # ʰχ: U+03C7+B:U+02B0#pre; values derived 1, estimated 1, measured 1
+sound m3 hush=1 ms=45                    # ʔ: U+0294; values derived 2
+sound m4 ms=98 whisper=44                # ʰə: U+0068+B:U+02B0#pre; ʰa: U+0068+B:U+02B0#pre; ʰe: U+0068+B:U+02B0#pre; ʰi: U+0068+B:U+02B0#pre; and 2 more; values derived 3
+sound m5 ah=-2 av=-2 f1=99 f2=104 f3=103 # ʰa: U+0061; a: U+0061; aː: U+0061+U+02D0; aʊ: U+0061; and 6 more; values derived 5, estimated 1, literature 3, measured 1; language: a F1 to F3 the language's own vowel aː, 795/1301/2565 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words); language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 175 ms
+sound m6 f1=110 f2=94 f3=95              # ʰe: U+0065; e: U+0065; eʊ: U+0065; eɪ: U+0065; and 1 more; values derived 3, literature 3; language: e F1 to F3 the language's own vowel eː, 407/2017/2554 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m7 ah=-3 av=-3 f1=111 f2=103 f3=95 # ʰi: U+0069; i: U+0069; iə: U+0069; values derived 3, literature 3; language: i F1 to F3 the language's own vowel i, 294/2208/2766 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m8 ah=-5 av=-5 f1=125 f2=124 f3=103 # ʰo: U+006F; o: U+006F; oʊ: U+006F; values derived 3, literature 3; language: o F1 to F3 the language's own vowel oː, 487/911/2481 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m9 ah=-6 av=-6 f1=136 f2=108 f3=97 # ʰu: U+0075; u: U+0075; values derived 3, literature 3; language: u F1 to F3 the language's own vowel u, 339/810/2323 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m10 ant=50 f1=143 f2=100 f3=79 tapms=15 tdepth=20 trate=28 # r: U+0072; values derived 2, literature 6, measured 4
+sound m11 hold=150                       # m̩: U+006D+U+0329; n̩: U+006E+U+0329; ŋ̩: U+014B+U+0329; l̩: U+006C+U+0329; values estimated 1, literature 19, measured 4
+sound m12 ant=50 f1=143 f2=100 f3=79 hold=150 tapms=15 tdepth=20 trate=28 # r̩: U+0072+U+0329; values derived 2, estimated 1, literature 6, measured 4
+sound m13 vot=15                         # t: U+0074; tʃ: U+0074; tɕ: U+0074; values derived 3, measured 1; language: vot 15 ms from engine/profiles/nl.json: Lisker and Abramson 1964 (one speaker, isolated words)
+sound m14 vot=10                         # p: U+0070; values derived 2, literature 1, measured 1; language: vot 10 ms from engine/profiles/nl.json: Lisker and Abramson 1964 (one speaker, isolated words)
+sound m15 vot=25                         # k: U+006B; values literature 3, measured 1; language: vot 25 ms from engine/profiles/nl.json: Lisker and Abramson 1964 (one speaker, isolated words)
+sound m16 tdepth=20 trate=19             # ʀ: U+0280; ʙ: U+0299; values derived 2, literature 2, measured 2
+sound m17 ah=-8 ant=50 av=-8 f1=88 f2=161 f3=99 # ʎ: U+028E; values literature 4, measured 2
+sound m18 ah=-3 ant=50 av=-3 f1=109 f2=106 f3=81 # ɭ: U+026D; values literature 4
+sound m19 f2=64                          # ɫ: U+006C+U+0334; values derived 1, literature 4
+sound m20 ms=102 whisper=44              # h: U+0068; values derived 2
+sound m21 ant=50 f1=217 f2=77 f3=93 f4=100 # ɳ: U+0273; values literature 5, measured 1
+sound m22 ant=50 f1=181 f2=95 f3=99 f4=104 # ɲ: U+0272; values literature 5, measured 2
+sound m23 ant=50 f3=62 tap=1 tapms=25    # ɽ: U+027D; values derived 2, estimated 1
+sound m24 lead=70 voi=1                  # b: U+0062; values derived 3, literature 1, measured 2
+sound m25 lead=75 voi=1                  # d: U+0064; dʒ: U+0064; dʑ: U+0064; values derived 3, literature 1, measured 3
+sound m26 f2=93 lead=75 voi=1            # d̪: U+0064+U+032A; values derived 3, estimated 1, literature 1, measured 3
+sound m27 f2=93 vot=15                   # t̪: U+0074+U+032A; values derived 3, estimated 1, measured 1; language: vot 15 ms from engine/profiles/nl.json: Lisker and Abramson 1964 (one speaker, isolated words)
+sound m28 hold=81 lead=75 voi=1          # dʑ: U+0064+U+0361; values derived 6, estimated 1, literature 1, measured 3
+sound m29 a2=0 a3=42 a4=62 a5=0 a6=0 f4=94 hold=81 # dʑ: U+0291; values estimated 1
+sound m30 hold=69 vot=15                 # tɕ: U+0074+U+0361; values derived 6, estimated 1, measured 1; language: vot 15 ms from engine/profiles/nl.json: Lisker and Abramson 1964 (one speaker, isolated words)
+sound m31 a2=42 a3=42 a4=62 a5=0 a6=0 f4=94 hold=69 # tɕ: U+0255; values literature 1
+sound m32 ant=50 l2=487 lead=76 lk=59 voi=1 # ɟ: U+025F; values derived 4
+sound m33 ant=50 l2=469 lk=34 vot=34     # c: U+0063; values literature 3
+sound m34 lead=78 voi=1                  # ɡ: U+0261; g: U+0261; values derived 1, literature 3, measured 1
+sound m35 ant=50 l2=216 lk=75            # β: U+03B2; ɸ: U+0278; values estimated 4
+sound m36 ah=-5 ant=50 av=-5 f2=137      # ʋ: U+028B; values literature 2
+sound m37 ant=50 l2=446 lk=53            # ð: U+00F0; θ: U+03B8; values derived 2, literature 4
+sound m38 a2=0 a3=62 a4=42 a5=0 a6=0 f3=122 # ʐ: U+0290; values estimated 1
+sound m39 a2=42 a3=62 a4=42 a5=0 a6=0 f3=117 # ʂ: U+0282; values literature 1
+sound m40 a2=0 a3=42 a4=62 a5=0 a6=0 f4=94 # ʑ: U+0291; dʑ: U+0291; values estimated 1
+sound m41 a2=42 a3=42 a4=62 a5=0 a6=0 f4=94 # ɕ: U+0255; tɕ: U+0255; values literature 1
+sound m42 a2=36 a3=36 a4=56 a5=0 a6=0 f4=121 voi=1 # ʝ: U+029D; values derived 1, estimated 1, literature 1, measured 1
+sound m43 a2=50 a3=70 a4=50 a5=0 a6=0 f3=99 voi=1 # ɣ: U+0263; values derived 1, estimated 1, literature 1, measured 1
+sound m44 ant=50 f1=124 l2=150 lk=78 vot=23 # q: U+0071; values derived 2, estimated 2
+sound m45 a2=0 a3=50 a4=0 a5=30 a6=0 f2=96 f3=102 # ɬ: U+026C; values derived 1, literature 3
+sound m46 a2=70 a3=0 a4=50 a5=0 a6=0 f2=102 # χ: U+03C7; values estimated 1, measured 1
+sound m47 f1=102 f2=100 f3=92            # ɪ: U+026A; ɛɪ: U+026A; aɪ: U+026A; eɪ: U+026A; and 5 more; values derived 3, literature 3; language: ɪ F1 to F3 the language's own vowel ɪ, 388/2003/2571 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m48 f1=102 f2=95 f3=96             # y: U+0079; œy: U+0079; yʊ: U+0079; values derived 3, literature 3; language: y F1 to F3 the language's own vowel y, 305/1730/2208 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m49 f1=103 f2=83 f3=119            # ɵ: U+0275; values derived 3, literature 3
+sound m50 ah=-2 av=-2 f1=106 f2=96 f3=95 # ɛ: U+025B; ɛɪ: U+025B; ɛɹ: U+025B; values derived 3, literature 3; language: ɛ F1 to F3 the language's own vowel ɛ, 583/1725/2471 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m51 f1=92 f2=96 f3=108             # ɔ: U+0254; ɔɪ: U+0254; values derived 3, literature 3; language: ɔ F1 to F3 the language's own vowel ɔ, 523/866/2692 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m52 dur=150 f1=92 f2=96 f3=108     # ɔː: U+0254+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 105 against 70 without the mark; language: ɔ F1 to F3 the language's own vowel ɔ, 523/866/2692 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m53 ah=-2 av=-2 dur=140 f1=99 f2=104 f3=103 # aː: U+0061+U+02D0; values derived 5, literature 3, measured 1; language: ː, eSpeak NG's own lengths for it, 105 against 75 without the mark; language: a F1 to F3 the language's own vowel aː, 795/1301/2565 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m54 f1=87 f2=84 f3=105             # ɑ: U+0251; values derived 3, literature 3; language: ɑ F1 to F3 the language's own vowel ɑ, 679/1051/2619 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m55 dur=112 f1=110 f2=94 f3=95     # eː: U+0065+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 95 against 85 without the mark; language: e F1 to F3 the language's own vowel eː, 407/2017/2554 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m56 ah=-4 av=-4 dur=128 f1=117 f2=102 f3=112 # øː: U+00F8+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 135 ms; language: ø F1 to F3 the language's own vowel øː, 443/1497/2260 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m57 ah=-5 av=-5 dur=88 f1=125 f2=124 f3=103 # oː: U+006F+U+02D0; values derived 5, literature 3; language: ː, eSpeak NG's own lengths for it, 75 against 85 without the mark; language: o F1 to F3 the language's own vowel oː, 487/911/2481 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m58 ah=-2 av=-2 f1=106 f2=96 f3=95 g1=69 g2=111 g3=108 glide=1 # ɛɪ: U+025B+U+026A; values derived 6, literature 6; language: ɛ F1 to F3 the language's own vowel ɛ, 583/1725/2471 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m59 g1=56 g2=135 g3=107 glide=1    # œy: U+0153+U+0079; values derived 6, literature 6
+sound m60 f1=79 f2=93 f3=98 g1=54 g2=74 g3=96 glide=1 # ʌʊ: U+028C+U+028A; values derived 6, literature 6
+sound m61 f1=110 f2=94 f3=95 g1=114 g2=43 g3=89 glide=1 # eʊ: U+0065+U+028A; values derived 6, literature 6; language: e F1 to F3 the language's own vowel eː, 407/2017/2554 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m62 f1=102 f2=95 f3=96 g1=140 g2=51 g3=104 glide=1 # yʊ: U+0079+U+028A; values derived 6, literature 6; language: y F1 to F3 the language's own vowel y, 305/1730/2208 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m63 dur=314 f1=92 f2=96 f3=108     # ɔː: U+0254+U+02D0; ɔːɹ: U+0254+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 55 ms; language: ɔ F1 to F3 the language's own vowel ɔ, 523/866/2692 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m64 f1=87 f2=84 f3=105 nas=70      # ɑ̃: U+0251+U+0303; values derived 3, estimated 2, literature 3; language: ɑ F1 to F3 the language's own vowel ɑ, 679/1051/2619 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m65 f1=92 f2=96 f3=108 nas=70      # ɔ̃: U+0254+U+0303; values derived 3, estimated 2, literature 3; language: ɔ F1 to F3 the language's own vowel ɔ, 523/866/2692 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m66 dur=128 f1=110 f2=94 f3=95     # eː: U+0065+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 135 ms; language: e F1 to F3 the language's own vowel eː, 407/2017/2554 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m67 ah=-5 av=-5 dur=128 f1=125 f2=124 f3=103 # oː: U+006F+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 135 ms; language: o F1 to F3 the language's own vowel oː, 487/911/2481 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m68 f1=79 f2=93 f3=98              # ʌʊ: U+028C; ʌ: U+028C; ʌɹ: U+028C; values derived 3, literature 3
+sound m69 vot=70                         # tʰ: U+0074+U+02B0; values derived 4, measured 1
+sound m70 ant=50 f1=105 f2=97 f3=85 f4=93 # ɹ: U+0279; əɹ: U+0279; ʌɹ: U+0279; ɑːɹ: U+0279; and 5 more; values literature 4, measured 1
+sound m71 brth=70 lead=75 voi=1          # dʱ: U+0064+U+02B1; values derived 3, literature 3, measured 3
+sound m72 ms=64 whisper=44               # zʰ: U+0068+U+02B0; values derived 3
+sound m73 ant=50 f2=90 voi=0 whisper=44  # ʍ: U+028D; values derived 2, estimated 1
+sound m74 f1=95 f2=108 f3=100            # ɐ: U+0250; values derived 3, literature 3
+sound m75 dur=345 f1=87 f2=84 f3=105     # ɑː: U+0251+U+02D0; ɑːɹ: U+0251+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 50 ms; language: ɑ F1 to F3 the language's own vowel ɑ, 679/1051/2619 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m76 ah=-2 av=-2 f1=106 f2=105 f3=105 # ɒ: U+0252; values derived 3, literature 3
+sound m77 dur=203 f1=94 f2=84 f3=97      # ɜː: U+025C+U+02D0; values derived 5, literature 4; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 85 ms
+sound m78 ah=-3 av=-3 dur=144 f1=111 f2=103 f3=95 # iː: U+0069+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 120 ms; language: i F1 to F3 the language's own vowel i, 294/2208/2766 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m79 ah=-6 av=-6 dur=138 f1=136 f2=108 f3=97 # uː: U+0075+U+02D0; values derived 5, literature 3; language: ː, 2.3 x the template's short vowel (75 ms) against the phone's 125 ms; language: u F1 to F3 the language's own vowel u, 339/810/2323 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m80 ah=-4 av=-4 f1=121 f2=96 f3=96 # æ: U+00E6; values derived 3, literature 3
+sound m81 f3=77                          # ə˞: U+0259+U+02DE; aɪə˞: U+0259+U+02DE; values derived 6, literature 1
+sound m82 f1=94 f2=68 f3=93              # ɨ: U+0268; values derived 3, literature 3
+sound m83 ant=50 f3=72 l2=380 lk=72 vot=10 # ʈ: U+0288; values derived 2, estimated 1, literature 1, measured 1
+sound m84 ant=50 f3=69 l2=368 lead=75 lk=80 voi=1 # ɖ: U+0256; values derived 4, estimated 1, measured 2
+sound m85 ant=50 f1=122 l2=150 lead=78 lk=78 voi=1 # ɢ: U+0262; values derived 2, estimated 3, measured 1
+sound m86 ant=50 f1=158 f2=181 f3=99 f4=101 # ɱ: U+0271; values literature 5, measured 1
+sound m87 ant=50 f1=171 f2=63 f3=103     # ɴ: U+0274; values estimated 3, measured 3
+sound m88 tap=1 tapms=18                 # ⱱ: U+2C71; values derived 1, estimated 1, measured 1
+sound m89 tap=1 tapms=25                 # ɺ: U+027A; values derived 1, estimated 1
+sound m90 f2=134 ms=105 whisper=48       # ħ: U+0127; values derived 1, literature 3, measured 1
+sound m91 f2=142 ms=105 voi=1 whisper=30 # ʕ: U+0295; values derived 2, literature 3, measured 1
+sound m92 ms=102 voi=1 whisper=38        # ɦ: U+0266; values derived 2, estimated 1
+sound m93 a2=62 a3=42 a4=42 a5=0 a6=0 f2=111 # ɧ: U+0267; values estimated 1
+sound m94 a2=0 a3=50 a4=30 a5=30 a6=0 f3=102 # ɮ: U+026E; values estimated 1
+sound m95 ah=-4 ant=50 av=-4 f1=112 f2=114 f3=88 f4=84 # ɻ: U+027B; values literature 4, measured 4
+sound m96 ant=50 f1=92 f2=77 f3=94       # ɰ: U+0270; values estimated 3, measured 2
+sound m97 ant=50 f1=60 f2=184 f3=99      # ɥ: U+0265; values estimated 3
+sound m98 ah=-4 ant=50 av=-4 f1=110 f2=110 f3=86 # ʟ: U+029F; values estimated 3
+sound m99 a2=70 a3=30 a4=0 a5=0 a6=0 ab=0 bgain=24 burstms=23 ej=2 vot=32 # ʘ: U+0298; values derived 1, estimated 12, measured 1
+sound m100 a2=20 a3=50 a4=60 a5=30 a6=10 bgain=13 burstms=22 ej=2 hold=130 vot=2 # ǀ: U+01C0; values derived 2, estimated 10, literature 1, measured 2
+sound m101 a2=80 a3=0 a4=0 a5=0 a6=0 bgain=28 burst=10 burstms=5 ej=1 f2=55 vot=2 # ǃ: U+01C3; values derived 3, estimated 10, literature 1, measured 2
+sound m102 a2=50 a3=55 a4=0 a5=0 a6=0 bgain=15 burst=10 burstms=5 ej=2 vot=0 # ǂ: U+01C2; values derived 2, estimated 10, literature 1, measured 2
+sound m103 a2=50 a3=60 a4=30 a5=0 a6=0 bgain=15 burst=10 burstms=16 ej=2 vot=17 # ǁ: U+01C1; values derived 4, estimated 8, literature 1, measured 2
+sound m104 ant=50 hold=75 impl=12 l2=215 lk=82 # ɓ: U+0253; values derived 1, estimated 4
+sound m105 ant=50 hold=90 impl=9 l2=428 lk=80 # ɗ: U+0257; values derived 1, estimated 4
+sound m106 ant=50 hold=75 impl=6 l2=487 lk=59 # ʄ: U+0284; values derived 1, estimated 4, measured 1
+sound m107 ant=50 hold=90 impl=7 l2=252 lk=88 # ɠ: U+0260; values derived 1, estimated 4, measured 1
+sound m108 ant=50 hold=85 impl=9 l2=150 lk=78 # ʛ: U+029B; values derived 1, estimated 4
+sound m109 f1=104 f2=86 f3=104           # ʉ: U+0289; values derived 3, literature 3
+sound m110 f1=97 f2=65 f3=88             # ɯ: U+026F; values derived 3, literature 3
+sound m111 ah=-3 av=-3 f1=110 f2=101 f3=112 # ʏ: U+028F; values derived 3, literature 3; language: ʏ F1 to F3 the language's own vowel ʏ, 438/1498/2354 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m112 ah=-4 av=-4 f1=117 f2=102 f3=112 # ø: U+00F8; values derived 3, literature 3; language: ø F1 to F3 the language's own vowel øː, 443/1497/2260 Hz from engine/profiles/nl.json: Pols, Tromp and Plomp 1973 (means recomputed from the per-speaker data distributed with Praat) (mean of 50 adult male speakers from the Netherlands, vowels in h-vowel-t words)
+sound m113 f1=81 f2=94 f3=105            # ɘ: U+0258; values derived 3, estimated 3
+sound m114 ah=-4 av=-4 f1=116 f2=108 f3=109 # ɤ: U+0264; values derived 3, literature 3
+sound m115 f1=94 f2=84 f3=97             # ɜ: U+025C; values derived 3, literature 4
+sound m116 f1=97 f2=95 f3=107            # ɞ: U+025E; values derived 4, estimated 2
+sound m117 ah=-4 av=-4 f1=125 f2=102 f3=122 # ɶ: U+0276; values derived 3, literature 3
+sound m118 f1=94 f2=84 f3=74             # ɜ˞: U+025C+U+02DE; values derived 3, literature 5
 
 # eSpeak NG phoneme table nl
 @nl::            -                       # ː  (not met)
 @nl:@            @                       # ə
 @nl:@-           @                       # ə  (not met)
-@nl:*            l=s1                    # ɾ  (not met)
-@nl:#X1          x=s2                    # ʰχ  (not met)
-@nl:?            <q=s3                   # ʔ  (not met)
+@nl:*            l=m1                    # ɾ  (not met)
+@nl:#X1          x=m2                    # ʰχ  (not met)
+@nl:?            <q=m3                   # ʔ  (not met)
 @nl:-            -                       # -  (not met)
-@nl:#@           @                       # ʰə  (not met)
-@nl:#a           a=s4                    # ʰa  (not met)
-@nl:#e           e=s5                    # ʰe  (not met)
-@nl:#i           i=s6                    # ʰi  (not met)
-@nl:#o           o=s7                    # ʰo  (not met)
-@nl:#u           u=s8                    # ʰu  (not met)
-@nl:r            l=s9                    # r
-@nl:a            a=s4                    # a  (not met)
-@nl:e            e=s5                    # e  (not met)
-@nl:i            i=s6                    # i  (not met)
+@nl:#@           <h=m4 @                 # ʰə  (not met)
+@nl:#a           <h=m4 a=m5              # ʰa  (not met)
+@nl:#e           <h=m4 e=m6              # ʰe  (not met)
+@nl:#i           <h=m4 i=m7              # ʰi  (not met)
+@nl:#o           <h=m4 o=m8              # ʰo  (not met)
+@nl:#u           <h=m4 u=m9              # ʰu  (not met)
+@nl:r            l=m10                   # r
+@nl:a            a=m5                    # a  (not met)
+@nl:e            e=m6                    # e  (not met)
+@nl:i            i=m7                    # i  (not met)
 @nl:;            -                       # ʲ  (not met)
-@nl:o            o=s7                    # o  (not met)
-@nl:u            u=s8                    # u
-@nl:m-           m                       # m̩  (not met)
-@nl:n-           n                       # n̩  (not met)
-@nl:N-           G                       # ŋ̩  (not met)
-@nl:r-           l=s9                    # r̩  (not met)
-@nl:l-           l                       # l̩  (not met)
-@nl:t            t=s10                   # t
-@nl:p            p=s11                   # p
-@nl:k            k=s12                   # k
+@nl:o            o=m8                    # o  (not met)
+@nl:u            u=m9                    # u
+@nl:m-           m=m11                   # m̩  (not met)
+@nl:n-           n=m11                   # n̩  (not met)
+@nl:N-           G=m11                   # ŋ̩  (not met)
+@nl:r-           l=m12                   # r̩  (not met)
+@nl:l-           l=m11                   # l̩  (not met)
+@nl:t            t=m13                   # t
+@nl:p            p=m14                   # p
+@nl:k            k=m15                   # k
 @nl:n            n                       # n
-@nl:R            l=s9                    # r  (not met)
-@nl:R2           l=s9                    # r  (not met)
-@nl:R3           l=s9                    # r  (not met)
-@nl:r"           r=s13                   # ʀ  (not met)
+@nl:R            l=m10                   # r  (not met)
+@nl:R2           l=m10                   # r  (not met)
+@nl:R3           l=m10                   # r  (not met)
+@nl:r"           r=m16                   # ʀ  (not met)
 @nl:l            l                       # l
 @nl:j            j                       # j
 @nl:w            w                       # w  (not met)
-@nl:l^           l=s14                   # ʎ  (not met)
-@nl:l.           l=s15                   # ɭ  (not met)
-@nl:L            l=s16                   # ɫ  (not met)
-@nl:h            <h=s17                  # h
+@nl:l^           l=m17                   # ʎ  (not met)
+@nl:l.           l=m18                   # ɭ  (not met)
+@nl:L            l=m19                   # ɫ  (not met)
+@nl:h            <h=m20                  # h
 @nl:m            m                       # m
-@nl:n.           n=s18                   # ɳ  (not met)
-@nl:n^           n=s19                   # ɲ  (not met)
+@nl:n.           n=m21                   # ɳ  (not met)
+@nl:n^           n=m22                   # ɲ  (not met)
 @nl:N            G                       # ŋ  (not met)
-@nl:**           l=s1                    # ɾ  (not met)
-@nl:r.           l=s20                   # r.  (not met)
-@nl:b            b=s21                   # b
-@nl:d            d=s22                   # d
-@nl:d[           d=s23                   # d̪  (not met)
-@nl:t[           t=s24                   # t̪  (not met)
+@nl:**           l=m1                    # ɾ  (not met)
+@nl:r.           l=m23                   # r.  (not met)
+@nl:b            b=m24                   # b
+@nl:d            d=m25                   # d
+@nl:d[           d=m26                   # d̪  (not met)
+@nl:t[           t=m27                   # t̪  (not met)
 @nl:dZ           J                       # dʒ  (not met)
 @nl:tS           C                       # tʃ  (not met)
-@nl:dZ;          d=s25 Z=s26             # dʑ  (not met)
-@nl:tS;          t=s27 S=s28             # tɕ  (not met)
-@nl:J            d=s29                   # ɟ  (not met)
-@nl:c            t=s30                   # c  (not met)
-@nl:g            g=s31                   # ɡ  (not met)
-@nl:B            v=s32                   # β  (not met)
+@nl:dZ;          d=m28 Z=m29             # dʑ  (not met)
+@nl:tS;          t=m30 S=m31             # tɕ  (not met)
+@nl:J            g=m32                   # ɟ  (not met)
+@nl:c            k=m33                   # c  (not met)
+@nl:g            g=m34                   # ɡ  (not met)
+@nl:B            v=m35                   # β  (not met)
 @nl:f            f                       # f
 @nl:v            v                       # v
-@nl:v#           v=s33                   # ʋ
-@nl:D            v=s34                   # ð  (not met)
-@nl:T            f=s35                   # θ  (not met)
+@nl:v#           w=m36                   # ʋ
+@nl:D            v=m37                   # ð  (not met)
+@nl:T            f=m37                   # θ  (not met)
 @nl:z            z                       # z
 @nl:s            s                       # s
 @nl:Z            Z                       # ʒ  (not met)
 @nl:S            S                       # ʃ  (not met)
-@nl:z.           Z=s36                   # ʐ  (not met)
-@nl:s.           S=s37                   # ʂ  (not met)
-@nl:z;           Z=s38                   # ʑ  (not met)
-@nl:s;           S=s37                   # ʂ  (not met)
-@nl:Z;           Z=s38                   # ʑ  (not met)
-@nl:S;           S=s39                   # ɕ  (not met)
-@nl:J^           X=s40                   # ʝ  (not met)
+@nl:z.           Z=m38                   # ʐ  (not met)
+@nl:s.           S=m39                   # ʂ  (not met)
+@nl:z;           Z=m40                   # ʑ  (not met)
+@nl:s;           S=m39                   # ʂ  (not met)
+@nl:Z;           Z=m40                   # ʑ  (not met)
+@nl:S;           S=m41                   # ɕ  (not met)
+@nl:J^           X=m42                   # ʝ  (not met)
 @nl:C            X                       # ç  (not met)
-@nl:Q            r=s41                   # ɣ
+@nl:Q            x=m43                   # ɣ
 @nl:x            x                       # x
-@nl:Q^           r=s41                   # ɣ^  (not met)
+@nl:Q^           x=m43                   # ɣ^  (not met)
 @nl:Q"           r                       # ʁ  (not met)
-@nl:q            k=s42                   # q  (not met)
-@nl:l#           l=s43                   # ɬ  (not met)
-@nl:X            x=s2                    # χ  (not met)
-@nl:I            I=s44                   # ɪ
-@nl:y            y=s6                    # y  (not met)
-@nl:8            Y=s45                   # ɵ  (not met)
-@nl:E            E=s46                   # ɛ
-@nl:E2           E=s46                   # ɛ  (not met)
-@nl:O            O=s47                   # ɔ
-@nl:O:           O=s48                   # ɔː  (not met)
-@nl:a:           a=s49                   # aː
-@nl:A            O=s50                   # ɑ
-@nl:A~           O=s51                   # ɑ̃  (not met)
-@nl:O~           O=s52                   # ɔ̃  (not met)
-@nl:e:           e                       # eː
-@nl:e#           e=s5                    # e  (not met)
-@nl:Y:           oe=s53                  # øː  (not met)
-@nl:o:           o=s54                   # oː
-@nl:EI           E:=s55                  # ɛɪ
-@nl:Wy           OE=s56                  # œy  (not met)
-@nl:VU           a=s57                   # ʌʊ  (not met)
-@nl:eU           e=s58                   # eʊ  (not met)
-@nl:yU           j=s59 U=s60             # yʊ  (not met)
+@nl:q            k=m44                   # q  (not met)
+@nl:l#           s=m45                   # ɬ  (not met)
+@nl:X            x=m46                   # χ  (not met)
+@nl:I            I=m47                   # ɪ
+@nl:y            y=m48                   # y  (not met)
+@nl:8            Y=m49                   # ɵ  (not met)
+@nl:E            E=m50                   # ɛ
+@nl:E2           E=m50                   # ɛ  (not met)
+@nl:O            O=m51                   # ɔ
+@nl:O:           O=m52                   # ɔː  (not met)
+@nl:a:           a=m53                   # aː
+@nl:A            A=m54                   # ɑ
+@nl:A~           a~                      # ɑ̃  (not met)
+@nl:O~           o~                      # ɔ̃  (not met)
+@nl:e:           e=m55                   # eː
+@nl:e#           e=m6                    # e  (not met)
+@nl:Y:           oe=m56                  # øː  (not met)
+@nl:o:           o=m57                   # oː
+@nl:EI           E=m58                   # ɛɪ
+@nl:Wy           OE=m59                  # œy  (not met)
+@nl:VU           A=m60                   # ʌʊ  (not met)
+@nl:eU           e=m61                   # eʊ  (not met)
+@nl:yU           y=m62                   # yʊ  (not met)
 
 # by IPA: this language's sounds in words eSpeak NG reads in another
 ː                -
 ə                @
-ɾ                l=s1
-ʰχ               x=s2
-ʔ                <q=s3
+ɾ                l=m1
+ʰχ               x=m2
+ʔ                <q=m3
 -                -
-ʰə               @
-ʰa               a=s4
-ʰe               e=s5
-ʰi               i=s6
-ʰo               o=s7
-ʰu               u=s8
-r                l=s9
-a                a=s4
-e                e=s5
-i                i=s6
+ʰə               <h=m4 @
+ʰa               <h=m4 a=m5
+ʰe               <h=m4 e=m6
+ʰi               <h=m4 i=m7
+ʰo               <h=m4 o=m8
+ʰu               <h=m4 u=m9
+r                l=m10
+a                a=m5
+e                e=m6
+i                i=m7
 ʲ                -
-o                o=s7
-u                u=s8
-m̩               m
-n̩               n
-ŋ̩               G
-r̩               l=s9
-l̩               l
-t                t=s10
-p                p=s11
-k                k=s12
+o                o=m8
+u                u=m9
+m̩               m=m11
+n̩               n=m11
+ŋ̩               G=m11
+r̩               l=m12
+l̩               l=m11
+t                t=m13
+p                p=m14
+k                k=m15
 n                n
-ʀ                r=s13
+ʀ                r=m16
 l                l
 j                j
 w                w
-ʎ                l=s14
-ɭ                l=s15
-ɫ                l=s16
-h                <h=s17
+ʎ                l=m17
+ɭ                l=m18
+ɫ                l=m19
+h                <h=m20
 m                m
-ɳ                n=s18
-ɲ                n=s19
+ɳ                n=m21
+ɲ                n=m22
 ŋ                G
-r.               l=s20
-b                b=s21
-d                d=s22
-d̪               d=s23
-t̪               t=s24
-dʒ               J
-tʃ               C
-dʑ               d=s25 Z=s26
-tɕ               t=s27 S=s28
-ɟ                d=s29
-c                t=s30
-ɡ                g=s31
-β                v=s32
+r.               l=m23
+b                b=m24
+d                d=m25
+d̪               d=m26
+t̪               t=m27
+dʒ               d=m25 Z
+tʃ               t=m13 S
+dʑ               d=m25 Z=m40
+tɕ               t=m13 S=m41
+ɟ                g=m32
+c                k=m33
+ɡ                g=m34
+β                v=m35
 f                f
 v                v
-ʋ                v=s33
-ð                v=s34
-θ                f=s35
+ʋ                w=m36
+ð                v=m37
+θ                f=m37
 z                z
 s                s
 ʒ                Z
 ʃ                S
-ʐ                Z=s36
-ʂ                S=s37
-ʑ                Z=s38
-ɕ                S=s39
-ʝ                X=s40
+ʐ                Z=m38
+ʂ                S=m39
+ʑ                Z=m40
+ɕ                S=m41
+ʝ                X=m42
 ç                X
-ɣ                r=s41
+ɣ                x=m43
 x                x
-ɣ^               r=s41
+ɣ^               x=m43
 ʁ                r
-q                k=s42
-ɬ                l=s43
-χ                x=s2
-ɪ                I=s44
-y                y=s6
-ɵ                Y=s45
-ɛ                E=s46
-ɔ                O=s47
-ɔː               O=s48
-aː               a=s49
-ɑ                O=s50
-ɑ̃               O=s51
-ɔ̃               O=s52
-eː               e
-øː               oe=s53
-oː               o=s54
-ɛɪ               E:=s55
-œy               OE=s56
-ʌʊ               a=s57
-eʊ               e=s58
-yʊ               j=s59 U=s60
+q                k=m44
+ɬ                s=m45
+χ                x=m46
+ɪ                I=m47
+y                y=m48
+ɵ                Y=m49
+ɛ                E=m50
+ɔ                O=m51
+ɔː               O=m63
+aː               a=m5
+ɑ                A=m54
+ɑ̃               A=m64
+ɔ̃               O=m65
+eː               e=m66
+øː               oe=m56
+oː               o=m67
+ɛɪ               E=m50 I=m47
+œy               OE y=m48
+ʌʊ               A=m68 U
+eʊ               e=m6 U
+yʊ               y=m48 U
 
 # by IPA: English, for the English words a text has in it
-tʰ               t=s61
-ɹ                r=s62
-dʰ               d=s63
-zʰ               z
-ʍ                w=s64
-ʊ                U=s65
-əl               @=s66 l
-ɐ                OE=s67
-ɑː               a=s68
-ɒ                O=s69
-ʌ                OE=s70
-ɜː               OE=s71
-iː               i=s72
-uː               u=s72
-aʊ               a=s73
-əʊ               @=s74
-oʊ               o=s75
-aɪ               a=s76
-eɪ               e=s77
-ɔɪ               O=s78
-eə               j=s79 @=s66
-iə               j=s79 @=s66
-ʊə               w=s79 @=s66
-aɪə              a=s80 j=s79 j=s79
-aʊə              a=s80 w=s79 j=s79
-əɹ               @=s66 r=s62
-ʌɹ               OE=s70 r=s62
-æ                E=s81
-ɚ                OE=s82
-ᵻ                Y=s83
-ɑːɹ              a=s68 r=s62
-ɔːɹ              O=s84 r=s62
-ɛɹ               E=s85 r=s62
-ɪɹ               I=s86 r=s62
-ʊɹ               U=s65 r=s62
-aɪɚ              a=s80 j=s79 j=s79
-aɪʊɹ             a=s80 I=s86 U=s65 r=s62
+tʰ               t=m69
+ɹ                r=m70
+dʰ               d=m71                   # [read: breathy]
+zʰ               z <h=m72
+ʍ                w=m73
+ʊ                U
+əl               @ l
+ɐ                A=m74
+ɑː               A=m75
+ɒ                O=m76
+ʌ                A=m68
+ɜː               E=m77
+iː               i=m78
+uː               u=m79
+aʊ               a=m5 U
+əʊ               @ U
+oʊ               o=m8 U
+aɪ               a=m5 I=m47
+eɪ               e=m6 I=m47
+ɔɪ               O=m51 I=m47
+eə               e=m6 @
+iə               i=m7 @
+ʊə               U @
+aɪə              a=m5 I=m47 @
+aʊə              a=m5 U @
+əɹ               @ r=m70
+ʌɹ               A=m68 r=m70
+æ                E=m80
+ɚ                @=m81                   # [read: rhotic]
+ᵻ                I=m82
+ɑːɹ              A=m75 r=m70
+ɔːɹ              O=m63 r=m70
+ɛɹ               E=m50 r=m70
+ɪɹ               I=m47 r=m70
+ʊɹ               U r=m70
+aɪɚ              a=m5 I=m47 @=m81        # [read: rhotic]
+aɪʊɹ             a=m5 I=m47 U r=m70
 
 # by IPA: every letter of it, so that anything can be taken apart
-ʈ                t=s87
-ɖ                d=s87
-g                g
-ɢ                g=s88
-ɱ                m=s89
-ɴ                G=s90
-ʙ                v
-ⱱ                b
-ɽ                l=s20
-ɺ                l=s91
-ɸ                f
-ħ                <h=s92
-ʕ                <h=s93
-ɦ                <h=s94
-ɧ                x=s95
-ɮ                l=s96
-ɻ                r=s97
-ɰ                w=s98
-ɥ                j=s99
-ʟ                l=s100
-ʘ                p=s101
-ǀ                t=s101
-ǃ                t=s101
-ǂ                t=s102
-ǁ                t=s101
-ɓ                b=s103
-ɗ                d=s103
-ʄ                d=s104
-ɠ                g=s103
-ʛ                g=s105
-ɨ                Y=s83
-ʉ                Y=s106
-ɯ                Y=s107
-ʏ                Y=s86
-ø                oe=s108
-ɘ                @=s109
-ɤ                OE=s110
-œ                OE=s85
-ɜ                OE=s111
-ɞ                OE=s112
-ɶ                a=s113
-ɝ                OE=s114
-ä                a=s80
+ʈ                t=m83
+ɖ                d=m84
+g                g=m34
+ɢ                g=m85
+ɱ                m=m86
+ɴ                G=m87
+ʙ                w=m16
+ⱱ                w=m88
+ɽ                l=m23
+ɺ                l=m89
+ɸ                f=m35
+ħ                <h=m90
+ʕ                <h=m91
+ɦ                <h=m92
+ɧ                S=m93
+ɮ                z=m94
+ɻ                r=m95
+ɰ                j=m96
+ɥ                w=m97
+ʟ                l=m98
+ʘ                p=m99
+ǀ                t=m100
+ǃ                t=m101
+ǂ                t=m102
+ǁ                t=m103
+ɓ                b=m104
+ɗ                d=m105
+ʄ                g=m106
+ɠ                g=m107
+ʛ                g=m108
+ɨ                I=m82
+ʉ                y=m109
+ɯ                I=m110
+ʏ                Y=m111
+ø                oe=m112
+ɘ                E=m113
+ɤ                U=m114
+œ                OE
+ɜ                E=m115
+ɞ                OE=m116
+ɶ                OE=m117
+ɝ                E=m118                  # [read: rhotic]
+ä                a=m5
