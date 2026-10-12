@@ -69,10 +69,15 @@ def main():
                 ov = dict(ov, carrier=json.load(f).get('said_as', {}).get('carrier'))
         why ='none of the seven IBM modules read for the checklist has %s as a phone of its own (DESIGN.md 4.1); ' \
               'said on the reference template as `%s` moved by its specification' % (e['ipa'], ov.get('carrier') or 'its nearest phone')
-        prov = ', '.join('%s %d' % kv for kv in sorted(tags(e.get('spec') or {}, collections.Counter()).items()))
+        values = e.get('spec') or {}
+        if e.get('kind') == 'modifier':
+            # a created mark (ʱ, Q52): no phone of its own; its transform is composed on the letter it marks
+            why = 'the table had no mark for it; a mark, not a phone: its transform (ipa/table) is composed on the letter '                   'it marks, on every template'
+            values = dict(values, transform=e.get('transform') or {})
+        prov = ', '.join('%s %d' % kv for kv in sorted(tags(values, collections.Counter()).items()))
         proof = (e.get('tests') or {}).get('proof') or ''
         status = 'level %s%s' % (e.get('level'), ', approximate: ' + e['deviation'] if e.get('approximate') else '')
-        est = tags(e.get('spec') or {}, collections.Counter()).get('estimated', 0)
+        est = tags(values, collections.Counter()).get('estimated', 0)
         out.append('| %s | %s | %s | %s | %s | `ipa/table/%s` [sound."%s"] | %s | `%s` | %s | %d | %s |' % (
             known[sid], sid, e['ipa'], ' '.join(e['codepoints']), why, t.where[sid], sid, prov or '-', proof, status,
             1 + len(((e.get('realization') or {}).get('openevv') or {}).get('trim', {})),

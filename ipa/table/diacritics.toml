@@ -119,6 +119,35 @@ bases = ["U+0074", "U+0070", "U+006B"]
 shift = [{ measure = "vot_long_ms", sign = 1 }]
 proof = "ipa/proofs/U+02B0.json"
 
+[sound."U+02B1"]
+ipa = "ʱ"
+codepoints = ["U+02B1"]
+name = "breathy-voiced release (voiced aspiration, murmured release): a voiced stop released into breathy voice before the vowel's modal voice (not a chart diacritic: the chart writes b̤; Q52)"
+section = "diacritics"
+tier = "C"
+kind = "modifier"
+edit = { consonant = { aspiration = "breathy" } }
+placement = "after"
+state = "created"
+level = 2
+approximate = true
+deviation = "the voice's low pitch at the vowel's start after the release (F0 at release 120 Hz against 154 Hz after a plain voiced stop, about -4.3 semitones, kagaya_hirose1975 Table II, 1 M) is not made: the layer's `f0` has no effect where the accent layer drives the pitch, as it does in every pack (evv_accent.c, key-inert); the breathy release and the voicing are made. Queued for the native review (Q56)"
+plan = { decision = "new sound under the USP (Q52, D97): the table had no breathy release, and the master path read eSpeak NG's Hindi bʰ dʰ ɡʰ as breathy voice through the stop (̤)", end_state = "created", uses = ["X4", "X7"], builds = [] }
+
+[sound."U+02B1".spec]
+
+[sound."U+02B1".transform.consonant]
+# voiced through the closure, then breathy voice after the release (the low pitch after it is not made: deviation)
+voicing = { voiced = { set = 1, tag = "literature", ref = "kagaya_hirose1975", note = "Table II p. 37: Hindi voiced aspirated stops, voicing through the closure (closure 80 ms, range 50-110), 1 M speaker, 12 tokens in /tʰikiCi/; East Bengali alike (mikuteit2005, Fig. 1)" } }
+release = { breathy_ms = { set = 70, tag = "literature", ref = "kagaya_hirose1975", note = "Table II p. 37: duration of aspiration of the voiced aspirated stops 70 ms (range 40-80), Hindi, 1 M, medial. Other measures of the breathy stretch differ by what they count: 39 ms burst to regular pulses (mikuteit2005, East Bengali, 3 speakers, geminates); 131 ms burst to clear F2 (berkson2012, Marathi, word-initial, 6 speakers); one Hindi token's breathy part 105 ms (schiefer_kotten1983)" } }
+
+[sound."U+02B1".tests]
+checks = ["T-shift"]
+bases = ["U+0062", "U+0064", "U+0261"]
+shift = [{ measure = "rel_hf_db", sign = -1 }]
+# the release's energy above 3 kHz against below 1 kHz (the 30 ms after the burst): a breathy voice's steeper tilt
+proof = "ipa/proofs/U+02B1.json"
+
 [sound."U+0339"]
 ipa = "̹"
 codepoints = ["U+0339"]

@@ -1,0 +1,66 @@
+==== round 1: hi nl-be ab
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\packs\to_master.py hi nl-be ab --out C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\packs --faults C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\faults.json --report C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\to_master_round1.json
+hi (dedx): table 105, composed 110, created 88, fallback 0, kept apart 0, said as nothing 6; 154 sound lines (0 legacy lines kept)
+    changed against the legacy lines: 301 of 309 (carrier changed 85); largest formant move +149%: @hi:n- F1 245 -> 610 Hz on n (n̩)
+    lines with a deviation the adapter could not realise: 17; readings: 13; problems: 0
+nl-be (dedx): table 105, composed 87, created 77, fallback 0, kept apart 0, said as nothing 6; 139 sound lines (0 legacy lines kept)
+    changed against the legacy lines: 267 of 275 (carrier changed 78); largest formant move +149%: @nl:n- F1 245 -> 610 Hz on n (n̩)
+    lines with a deviation the adapter could not realise: 17; readings: 4; problems: 0
+ab (dedx): table 82, composed 93, created 81, fallback 0, kept apart 0, said as nothing 3; 168 sound lines (0 legacy lines kept)
+    changed against the legacy lines: 255 of 259 (carrier changed 86); largest formant move +149%: @ab:n F1 245 -> 610 Hz on n (n)
+    lines with a deviation the adapter could not realise: 25; readings: 12; problems: 0
+to_master: 3 packs: table 292, composed 290, created 246, fallback 0, kept apart 0, said as nothing 15; problems 0; refused 0
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\packs\build_packs.py build C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\stage\languages --root C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\packs hi nl-be ab
+hi                     language.ini e8982b2100, sounds.map 2efd445751, phonemes.map 53bed102db, sample.txt 9ffa4ee263
+nl-be                  language.ini a84e55e5a4, sounds.map 328244af5e, phonemes.map 0e1a237be6, sample.txt 321baf57be
+ab                     language.ini b8367ec214, sounds.map 6d11c66ddf, phonemes.map 531cf855f5, sample.txt 97124b7fc5
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\golden.py --record --golden C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\golden hi nl-be ab
+modules: staged in C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\stage, else shipped; golden: ..\..\..\..\..\..\..\OpenEvvBuild-ttsext\p12-q55\golden
+ab       117 cases  0 errors  0 not covered   37.4 s
+nl-be    154 cases  0 errors  0 not covered   46.7 s
+hi       189 cases  0 errors  0 not covered   54.3 s
+recorded 3 packs in 55 s; 0 not recorded
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py hi --golden C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\after_hi.json
+hi (Hindi): 189 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 680, silent 0; formant and F0 checks 1012 of 1023
+    f|H: A F0 measured None, frames 124.0
+    f|h: A F0 measured None, frames 124.0
+    s|?: A F0 measured 108.09, frames 121.375
+    s|c#: A F0 measured None, frames 110.61666666666667
+    v|E~: E F1 measured 356.78, frames 525.0
+    v|O~: O F1 measured 316.54, frames 452.0
+    v|V~: O F1 measured 365.93, frames 499.0
+    v|i: A F0 measured None, frames 113.7
+    v|i:: i F0 measured None, frames 110.1125
+    v|i~: A F0 measured None, frames 113.7
+check B: too few references (3/5 in range); references for 0 vowels; 3 needed
+ASR: CER 0.31 WER 0.70
+phonemes with no phone of their own: 3 f|H f|h s|?
+level: 2 engine-verified; failure layer: unknown
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py nl-be --golden C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\after_nl-be.json
+nl-be (Dutch (Southern Standard, Flanders)): 154 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 579, silent 0; formant and F0 checks 877 of 889
+    l|j: A F0 measured None, frames 113.8
+    v|O~: O F1 measured 334.15, frames 452.0
+    v|e: e F0 measured None, frames 126.4625
+    v|i: i F0 measured None, frames 126.2
+    x|?: A F0 measured 135.84, frames 117.6875
+    x|S;: A F0 measured None, frames 118.8125
+    x|Z;: A F0 measured None, frames 118.875
+    x|dZ: A F0 measured None, frames 118.9
+    x|s.: A F0 measured None, frames 118.8125
+    x|s;: A F0 measured None, frames 118.8125
+check B: too few references (1/5 in range); references for 0 vowels; 3 needed
+ASR: CER 0.29 WER 0.60
+phonemes with no phone of their own: 2 f|h s|?
+level: 2 engine-verified; failure layer: unknown
+> C:\Users\joshk\OpenEvvBuild-ttsext\venv\Scripts\python.exe C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\docs\tts-extension\harness\check_language.py ab --golden C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\golden --json C:\Users\joshk\OpenEvvBuild-ttsext\p12-q55\after_ab.json
+ab (Abkhaz): 117 golden cases; module dedx
+check A: pass; substituted 0; phones meant to sound 441, silent 0; formant and F0 checks 622 of 625
+    s|k: A F0 measured None, frames 107.32000000000001
+    s|kj: A F0 measured None, frames 107.32000000000001
+    s|kw: A F0 measured None, frames 107.32000000000001
+check B: too few references (1/4 in range); references for 0 vowels; 3 needed
+ASR: ASR unavailable (Whisper large-v3 has no language for this tag)
+phonemes with no phone of their own: 2 f|h f|hw
+level: 2 engine-verified; failure layer: none

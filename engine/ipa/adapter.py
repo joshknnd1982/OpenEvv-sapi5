@@ -91,6 +91,9 @@ def distance(t, a, b):
 def carrier(t, entry, template):
     own = ((entry.get('realization') or {}).get('openevv') or {}).get('carrier')
     f = T.full_bundle(t, entry['features'])
+    if own and template != REFERENCE and not own.startswith('<'):
+        ch = carrier_on(t, entry, template)
+        return ch['phone'], ch['distance']
     if own:
         # a phone the layer makes beside a vowel is made for the entry; a module phone named by
         # the entry is still that phone, as far from the letter as its features say
@@ -100,6 +103,59 @@ def carrier(t, entry, template):
     best = min(((distance(t, f, T.full_bundle(t, g)), name) for name, g in module_phones(template).items()
                 if name in measured))
     return best[1], best[0]
+
+
+# The template the table's carriers and engine keys were chosen and proved on (Phase 4)
+REFERENCE = 'dedx'
+
+
+def _ipa_of(template):
+    import espeak_phonemes as EP
+    tm = EP.TEMPLATES[BASE_OF.get(template, template)]
+    return {name: EP.normalise(ipa) for name, ipa in list(tm.vowels.items()) + list(tm.consonants.items())}
+
+
+def carrier_on(t, entry, template):
+    """An entry whose carrier was chosen on the reference template (`carrier`, a dedx phone), on
+    another template (Q53, D97). A phone's name is the module's own and need not mean the same
+    sound on every template (`r` is ʁ on dedx, ɹ on engx, ɾ on esex, r on itix; `x` is a velar
+    fricative on dedx and ə on engx), so:
+      0. the entry's choice for this template (`carrier_on.<template>`), if it states one;
+      1. the template's own phone for the entry's letter, measured: that phone, and the entry's
+         construction (its engine keys, a tap's or a trill's closures) is not laid on it: `own`;
+      2. the named carrier, where the template has it, measured, as the same sound (same IPA);
+      3. else the measured phone nearest the entry by features, of its voicing where the template
+         has one (adapter's own rule for an entry with no carrier), the construction laid on it.
+    -> dict(phone, distance, own, rule)."""
+    ov = (entry.get('realization') or {}).get('openevv') or {}
+    named = ov['carrier']
+    measured = chassis(template)
+    chosen = (ov.get('carrier_on') or {}).get(template)
+    f = T.full_bundle(t, entry['features'])
+    phones = module_phones(template)
+    if chosen:
+        if chosen not in measured:
+            raise ValueError('%s: carrier_on.%s names %s, which %s has no measurement of' % (
+                entry['ipa'], template, chosen, template))
+        return dict(phone=chosen, distance=distance(t, f, T.full_bundle(t, phones[chosen])) if chosen in phones else 0,
+                    own=False, rule='the entry\'s choice for %s (carrier_on)' % template)
+    here = _ipa_of(template)
+    mine = [p for p in sorted(here) if here[p] == entry['ipa'] and p in measured]
+    if mine:
+        return dict(phone=mine[0], distance=0, own=True, rule='%s has its own %s (%s): the entry\'s construction on '
+                    '%s is not laid on it' % (template, entry['ipa'], mine[0], named))
+    ref = _ipa_of(REFERENCE).get(named)
+    if named in measured and ref is not None and here.get(named) == ref:
+        return dict(phone=named, distance=distance(t, f, T.full_bundle(t, phones[named])) if named in phones else 0,
+                    own=False, rule='%s is %s on %s as on %s' % (named, ref, template, REFERENCE))
+    cands = [(distance(t, f, T.full_bundle(t, g)), name) for name, g in phones.items() if name in measured]
+    same = [c for c in cands if phones[c[1]].get('voicing') == f.get('voicing')
+            and phones[c[1]].get('class') == f.get('class')]
+    best = min(same or cands)
+    return dict(phone=best[1], distance=best[0], own=False,
+                rule='%s means %s on %s, not %s: the measured phone of its voicing nearest %s by features (%s, %d '
+                     'steps) carries it, with its construction' % (named, here.get(named, 'nothing measured'), template, ref,
+                                                                  entry['ipa'], here[best[1]], best[0]))
 
 
 def _v(x):
@@ -117,6 +173,11 @@ def realize(t, sid, template, carrier_meas=None):
     e = t.sounds[sid]
     spec = e.get('spec') or {}
     car, dist = carrier(t, e, template)
+    named = ((e.get('realization') or {}).get('openevv') or {}).get('carrier')
+    # the template's own phone for the letter (Q53): the construction made on dedx is not laid on it
+    own_phone = bool(named) and not named.startswith('<') and template != REFERENCE and carrier_on(t, e, template)['own']
+    if own_phone:
+        rules_own = ['carrier %s: %s' % (car, carrier_on(t, e, template)['rule'])]
     layer = car.startswith('<')
     ch = None if layer else chassis(template).get(car)
     if ch is None and not layer:
@@ -215,14 +276,14 @@ def realize(t, sid, template, carrier_meas=None):
     if vot is not None:
         keys['vot'] = int(round(_v(vot)))
         rules.append('vot = %s ms' % _v(vot))
-    tap = spec.get('tap') or {}
+    tap = {} if own_phone else spec.get('tap') or {}
     if 'closures' in tap:
         keys['tap'] = int(_v(tap['closures']))
         rules.append('tap = %s closures' % _v(tap['closures']))
     if 'closed_ms' in tap:
         keys['tapms'] = int(round(_v(tap['closed_ms'])))
         rules.append('tapms = %s ms' % _v(tap['closed_ms']))
-    trill = spec.get('trill') or {}
+    trill = {} if own_phone else spec.get('trill') or {}
     if 'rate_hz' in trill:
         # C11: closures at a stated rate, the count as the sound's length allows
         keys['trate'] = int(round(_v(trill['rate_hz'])))
@@ -251,7 +312,9 @@ def realize(t, sid, template, carrier_meas=None):
         if k not in known:
             unrealised.append('%s: the adapter has no key for it yet' % k)
     ov = (e.get('realization') or {}).get('openevv') or {}
-    for k, v in (ov.get('keys') or {}).items():
+    if own_phone:
+        rules += rules_own
+    for k, v in ({} if own_phone else ov.get('keys') or {}).items():
         keys[k] = int(_v(v))
         rules.append('%s = %s (an engine key, %s)' % (k, _v(v), v.get('tag') if isinstance(v, dict) else ''))
     for tr in (ov.get('trim') or {}).get(template, []):
@@ -259,6 +322,15 @@ def realize(t, sid, template, carrier_meas=None):
         keys[tr['key']] = int(round(keys[tr['key']] * tr['v'] / 100.0)) if tr.get('scale') else int(tr['v'])
         rules.append('trim %s %s (%s)' % (tr['key'], tr['v'], tr.get('tag')))
     f = e['features']
+    if not layer and cls == 'consonant' and template != REFERENCE and 'voi' not in keys \
+            and f.get('voicing') in ('voiced', 'voiceless'):
+        # a template without the letter's voicing partner carries it on the other (χ on frfx's voiced ʁ,
+        # ʁ on esux's voiceless x): the letter's own voicing is set, so that the pair stays two sounds
+        # (D97). On the reference template every carrier's voicing was proved (T-voicing).
+        cv = (module_phones(template).get(car) or {}).get('voicing')
+        if cv in ('voiced', 'voiceless') and cv != f['voicing']:
+            keys['voi'] = 1 if f['voicing'] == 'voiced' else 0
+            rules.append('voi = %d: the carrier %s is %s, the letter %s' % (keys['voi'], car, cv, f['voicing']))
     if not layer and cls == 'consonant' and ('locus' in spec or 'formants' in spec) and keys_peak is None \
             and (any(keys.get('f%d' % i, 100) != 100 for i in (1, 2, 3, 4)) or 'lk' in keys) and 'ant' not in keys:
         # the sound before ends at this one's formants: the accent layer otherwise moves only the
@@ -402,13 +474,16 @@ OPS.update({('release.fricated_F2', 'set'): ('frelf2', '='), ('release.fricated_
 # tenths of one in the layer's `jit')
 OPS.update({('voicing.over_whisper', 'set'): ('vmark', '='), ('noise.raised_db', 'set'): ('rfric', '='),
             ('phonation.jitter_pct', 'set'): ('jit', '=')})
+# a voiced stop's breathy release (Q52, D97: ʱ): breathy voice after the release for so long (the layer's
+# `brth', ms), and where the voice's pitch begins in the vowel after it (`f0', tenths of a semitone)
+OPS.update({('release.breathy_ms', 'set'): ('brth', '='), ('pitch.onset_st', 'set'): ('f0', '=')})
 VOICE_SCALE_KEYS = {'frelf2', 'frelf3'}
 # the table's jitter is the jitter measured (pulse_jitter_pct, as the literature's is); the layer's `jit' moves
 # each 5 ms frame's pitch by up to so many tenths of a per cent, and a period that starts in the same frame as
 # the one before has its pitch, so about two and a half times the measured jitter is asked for (D87,
 # docs/tts-extension/harness/results/calib_jit_d87.txt, calib_jit.py on dedx: jit 0 measured 0.88 per cent,
 # 60 2.30, 80 3.16, 100 3.81 on [a e ɛ]; not a straight line below 40, where 20 adds 0.1)
-KEY_UNIT = {'pst': 10.0, 'jit': 25.0}
+KEY_UNIT = {'pst': 10.0, 'jit': 25.0, 'f0': 10.0}
 # a consonant's length is `hold', a vowel's `dur'
 CLASS_KEY = {('consonant', 'dur'): 'hold'}
 RATIO_KEYS = {'f1', 'f2', 'f3', 'f4', 'dur', 'hold', 'b1', 'b2', 'b3', 'b4'}      # absent: the carrier's own, 100
@@ -826,8 +901,19 @@ def write(t, template, quiet=False):
                   'syllabic usyl']
     os.makedirs(os.path.join(ROOT, 'ipa', 'realized'), exist_ok=True)
     path = os.path.join(ROOT, 'ipa', 'realized', template + '.map')
-    with open(path, 'w', encoding='utf-8', newline='\n') as f:
-        f.write('\n'.join(lines) + '\n')
+    text = '\n'.join(lines) + '\n'
+    for attempt in range(6):
+        # the sweep writes this file once an entry; a folder kept in sync by OneDrive can hold it for a
+        # moment (Phase 12: OSError 22 after 591 s of a full sweep), so a failed write is tried again
+        try:
+            with open(path, 'w', encoding='utf-8', newline='\n') as f:
+                f.write(text)
+            break
+        except OSError:
+            if attempt == 5:
+                raise
+            import time
+            time.sleep(1.0 + attempt)
     if not quiet:
         print('%s: %d letters realised, %d targets not realised, %d carriers standing in unmoved' % (
             os.path.relpath(path, ROOT), n, unrealised, bare))

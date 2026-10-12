@@ -45,11 +45,11 @@ sound ua78e a2=0 a3=50 a4=0 a5=30 a6=0 ant=50 f3=92 hold=145    # B:U+A78E voice
 ꞎ            s=ua78e
 sound u0061 ah=-6 av=-6 f1=127 f2=125 f3=110    # U+0061 open front unrounded vowel
 a            A=u0061
-sound u0062 ant=50 l2=215 lk=82    # U+0062 voiced bilabial plosive
+sound u0062 ant=50 l2=215 lead=70 lk=82 voi=1    # U+0062 voiced bilabial plosive
 b            b=u0062
 sound u0063 ant=50 l2=469 lk=34 vot=34    # U+0063 voiceless palatal plosive
 c            k=u0063
-sound u0064 ant=50 l2=428 lk=80    # U+0064 voiced dental or alveolar plosive
+sound u0064 ant=50 l2=428 lead=75 lk=80 voi=1    # U+0064 voiced dental or alveolar plosive
 d            d=u0064
 sound u0065 ah=-10 av=-10 f1=113 f2=118 f3=109    # U+0065 close-mid front unrounded vowel
 e            e=u0065
@@ -131,7 +131,7 @@ sound u0254 f1=94 f2=89 f3=106    # U+0254 open-mid back rounded vowel
 ɔ            O=u0254
 sound u0255 a2=42 a3=42 a4=62 a5=0 a6=0 f4=94    # U+0255 voiceless alveolo-palatal fricative
 ɕ            S=u0255
-sound u0256 ant=50 f3=69 l2=368 lk=80    # U+0256 voiced retroflex plosive
+sound u0256 ant=50 f3=69 l2=368 lead=75 lk=80 voi=1    # U+0256 voiced retroflex plosive
 ɖ            d=u0256
 sound u0257 ant=50 hold=90 impl=9 l2=428 lk=80    # U+0257 voiced dental/alveolar implosive (chart label: Dental/alveolar)
 ɗ            d=u0257
@@ -145,13 +145,13 @@ sound u025c ah=-3 av=-3 dur=205 f1=125 f2=87 f3=99    # U+025C open-mid central 
 ɜ            @=u025c
 sound u025e f1=116 f2=80 f3=92    # U+025E open-mid central rounded vowel
 ɞ            @=u025e
-sound u025f ant=50 l2=487 lk=59    # U+025F voiced palatal plosive
+sound u025f ant=50 l2=487 lead=76 lk=59 voi=1    # U+025F voiced palatal plosive
 ɟ            g=u025f
 sound u0260 ant=50 hold=90 impl=7 l2=252 lk=88    # U+0260 voiced velar implosive (chart label: Velar)
 ɠ            g=u0260
-sound u0261 ant=50 l2=252 lk=88    # U+0261 voiced velar plosive
+sound u0261 ant=50 l2=252 lead=78 lk=88 voi=1    # U+0261 voiced velar plosive
 ɡ            g=u0261
-sound u0262 ant=50 f1=122 l2=150 lk=78    # U+0262 voiced uvular plosive
+sound u0262 ant=50 f1=122 l2=150 lead=78 lk=78 voi=1    # U+0262 voiced uvular plosive
 ɢ            g=u0262
 sound u0263 a2=50 a3=70 a4=50 a5=0 a6=0 f3=99 hold=68 voi=1    # U+0263 voiced velar fricative
 ɣ            x=u0263
@@ -273,12 +273,12 @@ t͜ʃ          C
 sound u93dcd560a2 ant=50 hold=40 l2=263 lk=86 noburst=1 vot=0    # U+006B, part 1 of k͡p
 sound u65d3e6ec41 ant=50 hold=70 l2=216 lk=75 vot=22    # U+0070, part 2 of k͡p
 k͜p          k=u93dcd560a2 p=u65d3e6ec41
-sound u1f03dedb4a ant=50 hold=40 l2=252 lk=88 noburst=1    # U+0261, part 1 of ɡ͡b
-sound udd0ba12375 ant=50 f2=86 hold=60 l2=215 lk=82    # U+0062, part 2 of ɡ͡b
+sound u1f03dedb4a ant=50 hold=40 l2=252 lead=78 lk=88 noburst=1 voi=1    # U+0261, part 1 of ɡ͡b
+sound udd0ba12375 ant=50 f2=86 hold=60 l2=215 lead=70 lk=82 voi=1    # U+0062, part 2 of ɡ͡b
 ɡ͜b          g=u1f03dedb4a b=udd0ba12375
 
 # affricates made as a stop released into the fricative, one sound each (͜ U+035C, D84)
-sound u7d96036898 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60 ant=50 frel=55 frelaf=58 frelav=-13 l2=428 lk=80    # d͡ð, d released into ᶿ
+sound u7d96036898 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60 ant=50 frel=55 frelaf=58 frelav=-13 l2=428 lead=75 lk=80 voi=1    # d͡ð, d released into ᶿ
 d͜ð          d=u7d96036898
 sound u27675b42d5 a2=0 a3=0 a4=0 a5=0 a6=0 ab=60 ant=50 frel=75 frelaf=58 frelav=-10 l2=417 lk=69 vot=6    # t͡θ, t released into ᶿ
 t͜θ          t=u27675b42d5
@@ -302,7 +302,7 @@ sound u02a9 a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=153 na
 ʩ            G=u02a9
 sound u02a9_032c a2=60 ant=50 f1=158 f2=72 f3=103 f4=106 fgain=15 fric=60 hold=117 nas=70    # B:U+02A9+U+032C voiced velopharyngeal fricative = ŋ͌
 ʩ̬           G=u02a9_032c
-sound u1df02 ant=50 f1=122 f2=94 l2=150 lk=78    # B:U+1DF02 upper-pharyngeal plosive (voiced plosive in the up = ɢ̠
+sound u1df02 ant=50 f1=122 f2=94 l2=150 lead=78 lk=78 voi=1    # B:U+1DF02 upper-pharyngeal plosive (voiced plosive in the up = ɢ̠
 𝼂            g=u1df02
 sound u1df05 a2=0 a3=50 a4=0 a5=30 a6=0 ant=50 f3=92 hold=145 vmark=1 voi=1 vot=0    # B:U+1DF05 voiced retroflex lateral fricative (ɭ̝ in IPA) = ꞎ̬
 𝼅            s=u1df05
@@ -458,6 +458,7 @@ letter 𝼂 c place=10 stricture=closure airstream=pulmonic nasal=false lateral=
 letter 𝼅 c place=6 stricture=friction airstream=pulmonic nasal=false lateral=true sibilant=false place2=none voicing=voiced release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 letter ꞯ c place=10 stricture=closure airstream=pulmonic nasal=false lateral=false sibilant=false place2=none voicing=voiceless release=plain place_mark=none aspiration=none fricated_release=none tongue_part=unspecified
 mod ʰ c vot+64    # U+02B0
+mod ʱ c voi=1 brth=70    # U+02B1
 mod ʲ c f2*143    # U+02B2
 mod ʷ c f2*85    # U+02B7
 mod ʼ c vot+90 burstms=10 bgain=10 ej=100    # U+02BC

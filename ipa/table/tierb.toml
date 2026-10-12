@@ -287,6 +287,7 @@ proof = "ipa/proofs/B_U+0279+U+033A.json"
 
 [sound."B:U+0279+U+033A".realization.openevv]
 carrier = "r"
+trim.engx = [{ key = "f3", v = 94.5, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/B_U+0279+U+033A.json" }]
 
 [sound."B:U+0279+U+0308"]
 ipa = "ɹ̈"
@@ -314,6 +315,7 @@ proof = "ipa/proofs/B_U+0279+U+0308.json"
 
 [sound."B:U+0279+U+0308".realization.openevv]
 carrier = "r"
+trim.engx = [{ key = "f3", v = 94.3, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/B_U+0279+U+0308.json" }]
 
 [sound."B:U+0073+U+033B"]
 ipa = "s̻"
@@ -535,6 +537,8 @@ proof = "ipa/proofs/B_U+1DF06.json"
 # the module's ç with its noise peak moved down to a lateral's
 carrier = "X"
 keys = { ant = { v = 50, tag = "derived", rule = "the adapter's own ant (ANT_MS, D64), which it withholds from a fricative whose noise moves a formant: here the noise is on F3 at the F3 locus, and F2 is the palatal place's own locus, so the bend is towards the place (as ꞎ's, D68)" } }
+trim.esex = [{ key = "f3", v = 92.5, scale = true, tag = "measured", proof = "ipa/proofs/templates/esex/B_U+1DF06.json" }, { key = "f4", v = 88.8, scale = true, tag = "measured", proof = "ipa/proofs/templates/esex/B_U+1DF06.json" }]
+trim.esux = [{ key = "f3", v = 92.5, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/B_U+1DF06.json" }, { key = "f4", v = 88.8, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/B_U+1DF06.json" }]
 trim.dedx = [{ key = "l2", v = 90.5, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF06.json" }]
 
 [sound."B:U+1DF04"]
@@ -564,6 +568,9 @@ proof = "ipa/proofs/B_U+1DF04.json"
 
 [sound."B:U+1DF04".realization.openevv]
 carrier = "x"
+trim.engx = [{ key = "f2", v = 94.3, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/B_U+1DF04.json" }]
+trim.enux = [{ key = "f2", v = 94.2, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/B_U+1DF04.json" }]
+trim.esux = [{ key = "f3", v = 93.2, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/B_U+1DF04.json" }]
 trim.dedx = [{ key = "f2", v = 109.6, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF04.json" }]
 
 [sound."B:U+1DF06+U+032C"]
@@ -2580,6 +2587,10 @@ proof = "ipa/proofs/B_U+1DF07.json"
 [sound."B:U+1DF07".realization.openevv]
 carrier = "G"
 keys = { lmur = { v = 1, tag = "derived", rule = "its formant ratios are ŋ's murmur, said over its own stretch only: the place it gives the vowels beside it (the vowels' own formants, a slope of 1) is not moved by them (the layer's `lmur`, D75)" } }
+trim.engx = [{ key = "f1", v = 134.0, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/B_U+1DF07.json" }, { key = "f2", v = 86.9, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/B_U+1DF07.json" }, { key = "f3", v = 93.6, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/B_U+1DF07.json" }]
+trim.enux = [{ key = "f1", v = 135.1, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/B_U+1DF07.json" }, { key = "f2", v = 87.3, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/B_U+1DF07.json" }, { key = "f3", v = 93.6, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/B_U+1DF07.json" }]
+trim.esex = [{ key = "f1", v = 133.6, scale = true, tag = "measured", proof = "ipa/proofs/templates/esex/B_U+1DF07.json" }, { key = "f3", v = 94.0, scale = true, tag = "measured", proof = "ipa/proofs/templates/esex/B_U+1DF07.json" }]
+trim.esux = [{ key = "f1", v = 134.6, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/B_U+1DF07.json" }, { key = "f3", v = 94.0, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/B_U+1DF07.json" }]
 trim.dedx = [{ key = "f1", v = 133.4, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF07.json" }, { key = "f2", v = 110.8, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF07.json" }, { key = "f3", v = 112.4, scale = true, tag = "measured", proof = "ipa/proofs/B_U+1DF07.json" }]
 
 [sound."B:U+02AA"]
@@ -2720,7 +2731,11 @@ proof = "ipa/proofs/B_U+1DF00.json"
 [sound."B:U+1DF00".realization.openevv]
 # ʩ's sound (its line) on ŋ's carrier, with ʀ's trill (C11)
 carrier = "G"
+# per template (Q53, D97): the construction is laid on a velar nasal (dedx G); the templates without G take their own velar nasal ng, itix its palatal nasal N (no velar nasal measured)
+carrier_on = { esex = "ng", esux = "ng", frfx = "ng", itix = "N" }
 keys = { f1 = { v = 158, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f2 = { v = 72, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f3 = { v = 103, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, f4 = { v = 106, tag = "derived", rule = "as ŋ's line (ipa/realized/dedx.map: f1=158 f2=72 f3=103 f4=106, its murmur moved to the table's ŋ): the snort's closure is ʩ's, and nothing measured gives a snort's own formants" }, ant = { v = 50, tag = "derived", rule = "as ŋ's line" }, fric = { v = 60, tag = "derived", rule = "͌'s (its line): the friction's level" }, a2 = { v = 60, tag = "derived", rule = "͌'s: its noise on F2" }, nas = { v = 70, tag = "derived", rule = "͌'s: the port open" }, fgain = { v = 15, tag = "derived", rule = "͌'s: the friction over a voice (D77)" }, tdepth = { v = 20, tag = "derived", rule = "ʀ's (its line): the trill's depth" }, trate = { v = 19, tag = "derived", rule = "ʀ's realised rate (its line, trimmed to meet 23.2 Hz, measured, ipa/proofs/U+0280.json)" }, voi = { v = 0, tag = "derived", rule = "̊'s (its line): the voice taken out" }, whisper = { v = 44, tag = "derived", rule = "̊'s: breath for the voice" }, hold = { v = 153, tag = "derived", rule = "ʩ's (its line): ŋ's length lengthened as ̊ lengthens a consonant" } }
+trim.engx = [{ key = "trate", v = 21.6, scale = false, tag = "measured", proof = "ipa/proofs/templates/engx/B_U+1DF00.json" }]
+trim.frfx = [{ key = "trate", v = 21.7, scale = false, tag = "measured", proof = "ipa/proofs/templates/frfx/B_U+1DF00.json" }]
 
 [sound."B:U+1DF00+U+032C"]
 ipa = "𝼀̬"

@@ -50,6 +50,12 @@ checks = ["T-stop"]
 contrast = [{ with = "U+0070", measure = "voiced_frac", sign = 1 }, { with = "U+0070", measure = "vot_ms", sign = -1 }]
 proof = "ipa/proofs/U+0062.json"
 
+[sound."U+0062".realization.openevv]
+# voiced through the closure, and the voice begun before the release after a silence (Q55, D97)
+keys = { voi = { v = 1, tag = "derived", rule = "a voiced plosive (the IPA chart: vocal folds vibrating) is voiced through its closure: ringen_kulikov Table (11), Russian lenis stops between vowels, 97.5 per cent of tokens voiced through the whole closure (14 speakers, 8 M, 6 F); Q55, D97" }, lead = { v = 70, tag = "literature", ref = "ringen_kulikov", note = "Table (9): lenis /b/ utterance-initial, mean -70 ms (SD 29), Russian, 14 speakers (8 M, 6 F), words read in a list. Other languages (through ringen_kulikov and martinez_belda_padilla2021, quoting Lisker and Abramson 1964): Dutch -85, Hungarian -90, Puerto Rican Spanish -138 ms; the engine key is the voice's start before the release after a silence" } }
+trim.engx = [{ key = "l2", v = 104.1, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/U+0062.json" }]
+trim.enux = [{ key = "l2", v = 135.0, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/U+0062.json" }]
+
 [sound."U+0074"]
 ipa = "t"
 codepoints = ["U+0074"]
@@ -96,6 +102,13 @@ locus_slope = { F2 = { v = 0.795, tag = "derived", rule = "mean of the two male 
 checks = ["T-stop"]
 contrast = [{ with = "U+0074", measure = "voiced_frac", sign = 1 }, { with = "U+0074", measure = "vot_ms", sign = -1 }]
 proof = "ipa/proofs/U+0064.json"
+
+[sound."U+0064".realization.openevv]
+# voiced through the closure, and the voice begun before the release after a silence (Q55, D97)
+keys = { voi = { v = 1, tag = "derived", rule = "a voiced plosive (the IPA chart: vocal folds vibrating) is voiced through its closure: ringen_kulikov Table (11), Russian lenis stops between vowels, 97.5 per cent of tokens voiced through the whole closure (14 speakers, 8 M, 6 F); Q55, D97" }, lead = { v = 75, tag = "literature", ref = "ringen_kulikov", note = "Table (9): lenis /d/ utterance-initial, mean -75 ms (SD 29), Russian, 14 speakers (8 M, 6 F). Through the same quotations of Lisker and Abramson 1964: Dutch -80, Hungarian -87, Puerto Rican Spanish -110 ms" } }
+trim.enux = [{ key = "l2", v = 90.8, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/U+0064.json" }]
+trim.esex = [{ key = "l2", v = 87.4, scale = true, tag = "measured", proof = "ipa/proofs/templates/esex/U+0064.json" }]
+trim.esux = [{ key = "l2", v = 73.8, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/U+0064.json" }]
 
 [sound."U+0288"]
 ipa = "ʈ"
@@ -145,6 +158,12 @@ checks = ["T-stop", "T-contrast"]
 contrast = [{ with = "U+0064", measure = "edge_F3", sign = -1 }, { with = "U+0288", measure = "voiced_frac", sign = 1 }]
 proof = "ipa/proofs/U+0256.json"
 
+[sound."U+0256".realization.openevv]
+# voiced through the closure, and the voice begun before the release after a silence (Q55, D97)
+keys = { voi = { v = 1, tag = "derived", rule = "a voiced plosive (the IPA chart: vocal folds vibrating) is voiced through its closure: ringen_kulikov Table (11), Russian lenis stops between vowels, 97.5 per cent of tokens voiced through the whole closure (14 speakers, 8 M, 6 F); Q55, D97" }, lead = { v = 75, tag = "derived", rule = "d's lead (ringen_kulikov, -75 ms): no lead of a voiced retroflex stop was found; a coronal stop's" } }
+trim.esex = [{ key = "l2", v = 85.4, scale = true, tag = "measured", proof = "ipa/proofs/templates/esex/U+0256.json" }]
+trim.esux = [{ key = "l2", v = 71.3, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/U+0256.json" }]
+
 [sound."U+0063"]
 ipa = "c"
 codepoints = ["U+0063"]
@@ -189,6 +208,10 @@ locus_slope = { F2 = { v = 0.59, tag = "derived", rule = "mean of the two male s
 checks = ["T-stop", "T-contrast"]
 contrast = [{ with = "U+0063", measure = "voiced_frac", sign = 1 }, { with = "U+0261", measure = "edge_F2", sign = 1 }]
 proof = "ipa/proofs/U+025F.json"
+
+[sound."U+025F".realization.openevv]
+# voiced through the closure, and the voice begun before the release after a silence (Q55, D97)
+keys = { voi = { v = 1, tag = "derived", rule = "a voiced plosive (the IPA chart: vocal folds vibrating) is voiced through its closure: ringen_kulikov Table (11), Russian lenis stops between vowels, 97.5 per cent of tokens voiced through the whole closure (14 speakers, 8 M, 6 F); Q55, D97" }, lead = { v = 76, tag = "derived", rule = "the mean of d's and ɡ's leads (ringen_kulikov: (75 + 78) / 2, rounded down): no lead of a voiced palatal stop was found; it lies between them in place" } }
 
 [sound."U+006B"]
 ipa = "k"
@@ -237,6 +260,11 @@ checks = ["T-stop"]
 contrast = [{ with = "U+006B", measure = "voiced_frac", sign = 1 }, { with = "U+006B", measure = "vot_ms", sign = -1 }]
 proof = "ipa/proofs/U+0261.json"
 
+[sound."U+0261".realization.openevv]
+# voiced through the closure, and the voice begun before the release after a silence (Q55, D97)
+keys = { voi = { v = 1, tag = "derived", rule = "a voiced plosive (the IPA chart: vocal folds vibrating) is voiced through its closure: ringen_kulikov Table (11), Russian lenis stops between vowels, 97.5 per cent of tokens voiced through the whole closure (14 speakers, 8 M, 6 F); Q55, D97" }, lead = { v = 78, tag = "literature", ref = "ringen_kulikov", note = "Table (9): lenis /g/ utterance-initial, mean -78 ms (SD 26), Russian, 14 speakers (8 M, 6 F). Velar leads are shorter in other languages for aerodynamic reasons (nathan_faber1995; Hungarian -58 ms through Lisker and Abramson 1964; Alicante Spanish -26 ms in dialogue, martinez_belda_padilla2021): the one study with all three places from one set of speakers is used, as for p t k (stoakes2013)" } }
+trim.frfx = [{ key = "l2", v = 79.0, scale = true, tag = "measured", proof = "ipa/proofs/templates/frfx/U+0261.json" }]
+
 [sound."U+0071"]
 ipa = "q"
 codepoints = ["U+0071"]
@@ -281,6 +309,11 @@ locus_slope = { F2 = { v = 0.778, tag = "estimated", note = "Set equal to q's (0
 checks = ["T-stop", "T-contrast"]
 contrast = [{ with = "U+0071", measure = "voiced_frac", sign = 1 }, { with = "U+0261", measure = "edge_F2", sign = -1, approximate = { min = 18.3, rule = "the least difference the harness tells when both sounds are said in the same contexts (1.5 per cent of ɡ's 1220 Hz, at least 15 Hz: the same-context minimum of contrast_ok), as approximate, never as met (D65, D66)" } }, { with = "U+0261", measure = "edge_F1", sign = 1 }]
 proof = "ipa/proofs/U+0262.json"
+
+[sound."U+0262".realization.openevv]
+# voiced through the closure, and the voice begun before the release after a silence (Q55, D97)
+keys = { voi = { v = 1, tag = "derived", rule = "a voiced plosive (the IPA chart: vocal folds vibrating) is voiced through its closure: ringen_kulikov Table (11), Russian lenis stops between vowels, 97.5 per cent of tokens voiced through the whole closure (14 speakers, 8 M, 6 F); Q55, D97" }, lead = { v = 78, tag = "derived", rule = "ɡ's lead (ringen_kulikov, -78 ms): no lead of a voiced uvular stop was found; the nearest place measured" } }
+trim.frfx = [{ key = "l2", v = 81.7, scale = true, tag = "measured", proof = "ipa/proofs/templates/frfx/U+0262.json" }]
 
 [sound."U+0294"]
 ipa = "ʔ"
@@ -429,6 +462,7 @@ proof = "ipa/proofs/U+0272.json"
 # a palatal nasal is an n with the tongue further back (engine/accent/sounds.py MADE_OF), not the velar nasal its formants resemble
 carrier = "n"
 trim.dedx = [{ key = "f1", v = 131.4, scale = true, tag = "measured", proof = "ipa/proofs/U+0272.json" }]
+trim.itix = [{ key = "f1", v = 127.2, scale = true, tag = "measured", proof = "ipa/proofs/templates/itix/U+0272.json" }]
 
 [sound."U+014B"]
 ipa = "ŋ"
@@ -530,8 +564,12 @@ proof = "ipa/proofs/U+0072.json"
 [sound."U+0072".realization.openevv]
 # an alveolar trill is a voiced alveolar sonorant closed and opened at its rate: the module's alveolar sonorant l, modulated (C11)
 carrier = "l"
+# per template (Q53, D97): the template's own trill (esex and esux R/r, itix r) measured short of the table's targets (Phase 12, ipa/proofs/templates/: r 225 ms long with no trill rate measurable, ɾ with no closure found); the construction proved on dedx (l, the layer's closures) is used on them too
+carrier_on = { esex = "l", esux = "l", itix = "l" }
 keys = { tdepth = { v = 20, tag = "derived", rule = "a closure takes the level down about as far as the module's own tap does (measured on the development stage: 18 dB at tdepth 20)" } }
+trim.enux = [{ key = "f2", v = 84.9, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/U+0072.json" }]
 trim.dedx = [{ key = "f1", v = 116.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0072.json" }, { key = "hold", v = 130.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0072.json" }]
+trim.esux = [{ key = "f1", v = 115.0, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/U+0072.json" }]
 
 [sound."U+0280"]
 ipa = "ʀ"
@@ -557,6 +595,8 @@ proof = "ipa/proofs/U+0280.json"
 [sound."U+0280".realization.openevv]
 # a uvular trill: the module's uvular approximant, modulated (C11)
 carrier = "r"
+# per template (Q53, D97): engx and enux have no uvular sound; their r, the alveolar approximant ɹ, is modulated as dedx's ʁ is; esex and esux take G, the module's voiced velar continuant (measured af 60), the nearest place to uvular they have
+carrier_on = { engx = "r", enux = "r", esex = "G", esux = "G" }
 keys = { tdepth = { v = 20, tag = "derived", rule = "as for r" } }
 trim.dedx = [{ key = "hold", v = 169.0, scale = true, tag = "measured", proof = "ipa/proofs/U+0280.json" }, { key = "trate", v = 19.0, scale = false, tag = "measured", proof = "ipa/proofs/U+0280.json" }]
 
@@ -611,6 +651,9 @@ proof = "ipa/proofs/U+027E.json"
 [sound."U+027E".realization.openevv]
 # an alveolar tap: the module's alveolar sonorant l with one brief closure
 carrier = "l"
+# per template (Q53, D97): the template's own tap (esex and esux R/r, itix r) measured short of the table's targets (Phase 12, ipa/proofs/templates/: r 225 ms long with no trill rate measurable, ɾ with no closure found); the construction proved on dedx (l, the layer's closures) is used on them too
+carrier_on = { esex = "l", esux = "l" }
+trim.enux = [{ key = "f2", v = 77.1, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/U+027E.json" }]
 
 [sound."U+027D"]
 ipa = "ɽ"
@@ -986,6 +1029,10 @@ duration = { inherent_ms = { v = 125, tag = "literature", ref = "nirgianaki_icgl
 checks = ["T-fric"]
 proof = "ipa/proofs/U+0078.json"
 
+[sound."U+0078".realization.openevv]
+trim.esex = [{ key = "f3", v = 92.6, scale = true, tag = "measured", proof = "ipa/proofs/templates/esex/U+0078.json" }]
+trim.esux = [{ key = "f3", v = 92.6, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/U+0078.json" }]
+
 [sound."U+0263"]
 ipa = "ɣ"
 codepoints = ["U+0263"]
@@ -1011,6 +1058,8 @@ proof = "ipa/proofs/U+0263.json"
 [sound."U+0263".realization.openevv]
 # a voiced velar fricative: the module's x voiced
 carrier = "x"
+# per template (Q53, D97): esex and esux have their own voiced velar continuant G (Spanish's ɣ between vowels, measured af 60), which eSpeak NG's phoneme table does not list by IPA
+carrier_on = { esex = "G", esux = "G" }
 keys = { voi = { v = 1, tag = "derived", rule = "voiced through" } }
 trim.dedx = [{ key = "f3", v = 112.7, scale = true, tag = "measured", proof = "ipa/proofs/U+0263.json" }]
 
@@ -1035,6 +1084,9 @@ checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+0078", measure = "peak_hz", sign = -1 }, { with = "U+0078", measure = "edge_F1", sign = 1 }]
 proof = "ipa/proofs/U+03C7.json"
 
+[sound."U+03C7".realization.openevv]
+trim.esux = [{ key = "f2", v = 92.5, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/U+03C7.json" }]
+
 [sound."U+0281"]
 ipa = "ʁ"
 codepoints = ["U+0281"]
@@ -1055,6 +1107,11 @@ noise = { peak_hz = { v = 1300, tag = "estimated", note = "Set equal to the χ e
 checks = ["T-fric", "T-contrast"]
 contrast = [{ with = "U+03C7", measure = "voiced_frac", sign = 1 }]
 proof = "ipa/proofs/U+0281.json"
+
+[sound."U+0281".realization.openevv]
+trim.engx = [{ key = "f2", v = 83.5, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/U+0281.json" }]
+trim.enux = [{ key = "f2", v = 92.5, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/U+0281.json" }]
+trim.esux = [{ key = "f2", v = 92.5, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/U+0281.json" }]
 
 [sound."U+0127"]
 ipa = "ħ"
@@ -1261,6 +1318,7 @@ proof = "ipa/proofs/U+0279.json"
 [sound."U+0279".realization.openevv]
 # an alveolar approximant: the module's only central sonorant with a low F3 (its uvular approximant, F3 2100 Hz) is the nearest to move from
 carrier = "r"
+trim.engx = [{ key = "f3", v = 94.3, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/U+0279.json" }]
 
 [sound."U+027B"]
 ipa = "ɻ"
@@ -1286,6 +1344,10 @@ proof = "ipa/proofs/U+027B.json"
 [sound."U+027B".realization.openevv]
 # as ɹ
 carrier = "r"
+trim.engx = [{ key = "f3", v = 94.0, scale = true, tag = "measured", proof = "ipa/proofs/templates/engx/U+027B.json" }]
+trim.esex = [{ key = "f1", v = 120.7, scale = true, tag = "measured", proof = "ipa/proofs/templates/esex/U+027B.json" }]
+trim.esux = [{ key = "f1", v = 119.4, scale = true, tag = "measured", proof = "ipa/proofs/templates/esux/U+027B.json" }]
+trim.itix = [{ key = "f1", v = 139.7, scale = true, tag = "measured", proof = "ipa/proofs/templates/itix/U+027B.json" }]
 
 [sound."U+006A"]
 ipa = "j"
@@ -1400,6 +1462,7 @@ proof = "ipa/proofs/U+028E.json"
 [sound."U+028E".realization.openevv]
 # a palatal lateral: the module's lateral, its F2 raised (a lateral, not the glide j)
 carrier = "l"
+trim.enux = [{ key = "f1", v = 81.4, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/U+028E.json" }, { key = "f2", v = 79.4, scale = true, tag = "measured", proof = "ipa/proofs/templates/enux/U+028E.json" }]
 
 [sound."U+029F"]
 ipa = "ʟ"

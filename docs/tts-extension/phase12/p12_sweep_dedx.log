@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\ipa\sweep.py", line 1866, in <module>
+    sys.exit(main())
+  File "C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\ipa\sweep.py", line 1845, in main
+    res = run(t, ids, a.template, a.pack, a.apply, a.rounds)
+  File "C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\ipa\sweep.py", line 1623, in run
+    results[sid] = prove_entry(t, sid, template, pack, rounds if e['kind'] == 'base' else 1)
+  File "C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\ipa\sweep.py", line 1580, in prove_entry
+    res = say_entry(t, sid, template, pack)
+  File "C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\ipa\sweep.py", line 1437, in say_entry
+    AD.write(t, template, quiet=True)
+  File "C:\Users\joshk\OneDrive\dev\espeakproject\OpenEvv-sapi5\engine\ipa\adapter.py", line 895, in write
+    unrealised += lost_n
+OSError: [Errno 22] Invalid argument: 'C:\\Users\\joshk\\OneDrive\\dev\\espeakproject\\OpenEvv-sapi5\\ipa\\realized\\dedx.map'
+sweep exit: 1 after 591 s

@@ -372,6 +372,51 @@ class Master(unittest.TestCase):
             with self.assertRaisesRegex(L.PackError, what):
                 TM.convert(tag, tables, {}, {}, "2026-01-01", dry=True)
 
+class Templates(unittest.TestCase):
+    """The table on every template, not only dedx (Phase 12, D97: Q53's carriers, the voicing rule)."""
+    TEMPLATES = ("dedx", "engx", "enux", "esex", "esux", "frfx", "itix")
+
+    def setUp(self):
+        sys.path.insert(0, os.path.join(os.path.dirname(HERE), "ipa"))
+        import adapter as A
+        import table as T
+        self.A, self.t = A, T.load()
+
+    def test_no_consonant_is_carried_by_a_vowel_or_by_a_phone_the_template_lacks(self):
+        # a phone's name is the module's own: `x` is a velar fricative on dedx and ə on engx (Q53)
+        for tm in self.TEMPLATES:
+            phones, measured = self.A.module_phones(tm), self.A.chassis(tm)
+            for sid, e in self.t.sounds.items():
+                if e.get("kind") != "base" or e["features"].get("class") != "consonant":
+                    continue
+                car = self.A.realize(self.t, sid, tm)["carrier"]
+                if car.startswith("<"):
+                    continue
+                self.assertIn(car, measured, (tm, e["ipa"], car))
+                self.assertNotEqual((phones.get(car) or {}).get("class"), "vowel", (tm, e["ipa"], car))
+
+    def test_a_voiceless_and_a_voiced_fricative_are_two_sounds_on_every_template(self):
+        by = self.t.by_ipa()
+        for tm in self.TEMPLATES:
+            for a, b in (("χ", "ʁ"), ("x", "ɣ"), ("ç", "ʝ"), ("s", "z"), ("f", "v")):
+                ra, rb = (self.A.realize(self.t, by[c], tm) for c in (a, b))
+                self.assertNotEqual((ra["carrier"], ra["keys"]), (rb["carrier"], rb["keys"]), (tm, a, b))
+
+    def test_a_template_with_its_own_phone_for_the_letter_says_it_with_it_and_lays_no_construction_on_it(self):
+        # ʝ is dedx's ç (X) voiced by an engine key; esex has its own ʝ (Y)
+        r = self.A.realize(self.t, self.t.by_ipa()["ʝ"], "esex")
+        self.assertEqual(r["carrier"], "Y")
+        self.assertNotIn("voi", r["keys"])
+        self.assertEqual(self.A.realize(self.t, self.t.by_ipa()["ʝ"], "dedx")["carrier"], "X")
+
+    def test_a_choice_the_table_states_for_a_template_is_kept(self):
+        # r on itix: its own trill measured short of the table's targets, so the table names l there
+        # (carrier_on, Phase 12) and the trill is the layer's, as on dedx
+        r = self.A.realize(self.t, self.t.by_ipa()["r"], "itix")
+        self.assertEqual(r["carrier"], "l")
+        self.assertIn("trate", r["keys"])
+
+
 class RoundTrip(unittest.TestCase):
     def test_each_line_kind_survives_in_both_map_formats(self):
         sounds = ("# a comment\n\ntemplate dedx\naccent f0=own range=90\nwhwords first wie wat\nsays C t S\n"

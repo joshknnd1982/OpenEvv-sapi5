@@ -1,0 +1,14 @@
+Phase 12: r and ɾ on esex, esux, itix re-proved with carrier_on = l (the dedx construction), corrections already saved; read-only run (no --save-trims)
+esex  U+0072   r   PASS A0:ok A1:ok A2:ok B3:ok B2:ok  F1_50_hz=405 F2_50_hz=1228 F3_50_hz=2299 edge_F2=1372 edge_F3=2454 mod_rate_hz=28 duration_ms=80
+esex  U+027E   ɾ   PASS A0:ok A1:ok A2:ok B3:ok B2:ok  F1_50_hz=318 F2_50_hz=1724 F3_50_hz=2515 edge_F2=1786 edge_F3=2613 duration_ms=55
+esex  U+0064   d   PASS A0:ok A1:ok A2:ok B3:ok B2:ok  edge_F2=1636 edge_F3=2689 duration_ms=70  (partner, not counted)
+esex: 2 entries, 2 passed every check, 0 not yet (and 1 partners said beside them); proofs in ipa/proofs/templates/esex/
+esux  U+0072   r   PASS A0:ok A1:ok A2:ok B3:ok B2:ok  F1_50_hz=465 F2_50_hz=1225 F3_50_hz=2291 edge_F2=1454 edge_F3=2459 mod_rate_hz=30 duration_ms=80
+esux  U+027E   ɾ   PASS A0:ok A1:ok A2:ok B3:ok B2:ok  F1_50_hz=317 F2_50_hz=1707 F3_50_hz=2502 edge_F2=1881 edge_F3=2602 duration_ms=55
+esux  U+0064   d   PASS A0:ok A1:ok A2:ok B3:ok B2:ok  edge_F2=1617 edge_F3=2632 duration_ms=70  (partner, not counted)
+esux: 2 entries, 2 passed every check, 0 not yet (and 1 partners said beside them); proofs in ipa/proofs/templates/esux/
+itix  U+0072   r   PASS A0:ok A1:ok A2:ok B3:ok B2:ok  F1_50_hz=426 F2_50_hz=1228 F3_50_hz=2304 edge_F2=1360 edge_F3=2431 mod_rate_hz=26 duration_ms=80
+itix  U+027E   ɾ   fail A0:ok A1:ok A2:ok B3:FAIL B2:ok  F1_50_hz=321 F2_50_hz=1738 F3_50_hz=2523 edge_F2=1813 edge_F3=2596 duration_ms=45  [tap_closed_ms 0.0≠31.2]
+itix  U+0064   d   fail A0:ok A1:FAIL A2:ok B3:ok B2:ok  edge_F2=1584 edge_F3=2667 mod_rate_hz=129 duration_ms=70  [i_i: no closure or burst found]  (partner, not counted)
+itix: 2 entries, 1 passed every check, 1 not yet (and 1 partners said beside them); proofs in ipa/proofs/templates/itix/
+prove_templates: 6 entries over 3 templates, 5 passed every check, 1 not yet

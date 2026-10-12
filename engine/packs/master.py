@@ -59,8 +59,8 @@ READINGS = (
            'letter by letter (cmn, yue, my)'),
     ('h', 'an h after a stop or an affricate is its aspiration ʰ: eSpeak NG\'s mnemonic h, as in ph th kh ch '
           '(cmn, hak, shn)'),
-    ('breathy', 'ʰ after a voiced stop or affricate (eSpeak NG\'s Hindi bʰ dʰ ɡʰ, the voiced aspirates) is breathy '
-                'voice: the table\'s ̤ (the IPA writes them bʱ or b̤; the table has no breathy-release mark ʱ yet)'),
+    ('breathy', 'ʰ after a voiced stop or affricate (eSpeak NG\'s Hindi bʰ dʰ ɡʰ, the voiced aspirates) is a breathy-'
+                'voiced release: the table\'s ʱ (Q52, D97; the IPA writes them bʱ or b̤)'),
     ('apical', 'i̪ is eSpeak NG\'s apical vowel of Mandarin after s ts tsʰ, a syllabic coronal approximant '
                '(kong2024: coronal constriction, lowered dorsum, retracted root): said as ɨ, the chart vowel nearest '
                'it, approximate'),
@@ -109,7 +109,7 @@ def read_ipa(ipa, is_vowel=None):
         if s[-2] in STOPS or (len(s) >= 3 and s[-3] in STOPS):
             s = s[:-1] + 'ʰ'
             used.append('h')
-    b = re.sub('([bdɡgɖɟɢ][zʒʐʑ]?)\u02b0', '\\1\u0324', s)
+    b = re.sub('([bdɡgɖɟɢ][zʒʐʑ]?)\u02b0', '\\1\u02b1', s)
     if b != s:
         s = b
         used.append('breathy')
@@ -159,21 +159,19 @@ def provenance(sids):
 
 
 def _table_for(base, template):
-    """The table, or, when the entry names a carrier this template has no measurement of (a dedx phone
-    on esex), the table with that entry's choice left out: the nearest measured phone carries it."""
+    """The table, and, when the entry names a carrier chosen on dedx and this template carries it
+    otherwise (Q53: its own phone for the letter, or the phone nearest the dedx carrier), what was
+    chosen and why (adapter.carrier_on), said in the line's deviations."""
     k = ('t', base, template)
     if k not in _memo:
         t = table()
         e = t.sounds[base]
         own = ((e.get('realization') or {}).get('openevv') or {}).get('carrier')
         _memo[k] = (t, None)
-        if own and not own.startswith('<') and own not in A.chassis(template):
-            import copy
-            e2 = copy.deepcopy(e)
-            del e2['realization']['openevv']['carrier']
-            t2 = T.Table(t.features, dict(t.sounds, **{base: e2}), t.sources, t.where)
-            _memo[k] = (t2, 'the entry names the carrier %s, which %s has no measurement of: the nearest measured '
-                            'phone carries it, with the entry\'s engine keys as they were set for %s' % (own, template, own))
+        if own and not own.startswith('<') and template != A.REFERENCE:
+            ch = A.carrier_on(t, e, template)
+            if ch['phone'] != own or ch['own']:
+                _memo[k] = (t, 'carrier %s on %s: %s' % (ch['phone'], template, ch['rule']))
     return _memo[k]
 
 

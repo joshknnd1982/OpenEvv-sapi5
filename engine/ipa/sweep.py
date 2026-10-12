@@ -993,6 +993,14 @@ def check_b3(e, s):
         # the signal, so this is checked in the frames the engine made at the consonant (the
         # synthesiser realising them is check A2's business); the signal's evidence is B2's edges
         got = s.get('req_%s_hz' % k)
+        f = e['features']
+        if k == 'F1' and f.get('stricture') == 'closure' and f.get('voicing') == 'voiced' and not f.get('nasal'):
+            # a voiced closure's frames are the layer's voice bar, F1 at 250 Hz or under (Q30), whatever
+            # the line asks (Q55, D97: the table's voiced plosives are voiced through the closure): its
+            # F1 locus is read where the vowel after begins, the median over the contexts
+            firsts = sorted(a for a, _, _ in s.get('next_req_F1_pairs') or [])
+            if firsts:
+                got = firsts[len(firsts) // 2]
         out['locus %s (frames)' % k] = dict(target=v(x), measured=got,
                                             within=got is not None and abs(got - v(x)) <= 0.08 * v(x))
     # An entry marked approximate (its deviation stated, R7) may hold a missed target to a stated
@@ -1531,12 +1539,13 @@ def corrections(res, trims):
             # by the ratio, damped as the other corrections are (D83: 𝼆's onsets 9 to 13 per cent
             # high, a locus of 2270 Hz reached for 1981)
             eff = sorted((a - tg['slope'] * o) / (1.0 - tg['slope']) for a, o in tg['measured'] if o)
-            if eff:
+            # (a locus reached below nought is no ratio to move a key by: Phase 12 met one on esex)
+            if eff and eff[len(eff) // 2] > 0:
                 key = 'l' + k.split()[1][1]
                 out[key] = out.get(key, 100.0) * (tg['locus'] / eff[len(eff) // 2]) ** 0.7
                 any_ = True
             continue
-        if tg['within'] or not tg['measured'] or k not in TRIM_KEYS:
+        if tg['within'] or not tg['measured'] or k not in TRIM_KEYS or not isinstance(tg['measured'], (int, float))                 or tg['measured'] <= 0 or tg['target'] <= 0:
             continue
         f = (tg['target'] / tg['measured']) ** 0.7   # damped: a measure that jumps must not flip the key
         for key in ([res['said_as'].get('peak_key')] if k == 'peak_hz' and res['said_as'].get('peak_key')

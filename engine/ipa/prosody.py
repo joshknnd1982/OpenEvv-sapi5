@@ -225,19 +225,32 @@ def stop_span(x, rate, phones, frames, iv1, iv2):
     hop = max(1, int(round(rate / 1000.0)))
     db = 10 * np.log10(np.array([np.mean(hp[i * hop:(i + 1) * hop] ** 2) for i in range(len(hp) // hop)]) + 1e-12)
     floor = float(np.sort(db)[:max(1, len(db) // 5)].mean())
-    releases, low = 0, 0
-    for d in db:
+    tt = E.frame_times(frames)
+    # a closure the layer voices (Q55, D97: the table's b d ɡ) is not quiet: its voice bar (AV under 40,
+    # F1 at 250 Hz or under, no friction or breath, before the first friction: the sweep's rule, Q30)
+    af_at = next((tt[j] for j in range(len(tt)) if a <= tt[j] < b and frames[j, E.P['af']] > 0), b)
+    bar = [j for j in range(len(tt)) if a <= tt[j] < af_at and frames[j, E.P['af']] == 0 and frames[j, E.P['ah']] == 0
+           and 30 <= frames[j, E.P['av']] < 40 and frames[j, E.P['f1']] <= 250]
+    releases, low, start = 0, 0, 0
+    if bar:
+        # its pulses reach 12 dB over the quietest of it above 1.5 kHz, and the frames make no release
+        # inside it (no friction): releases are counted from the bar's end, the bar itself the closure
+        start, low = max(0, int(tt[bar[-1]] + frames[bar[-1], 0] - a) - 5), 5
+    for d in db[start:]:
         if d < floor + 6:
             low += 1
         elif d >= floor + 12 and low >= 5:
             releases += 1
             low = 0
-    tt = E.frame_times(frames)
     von = next((tt[j] for j in range(len(tt)) if phones[iv2]['start_ms'] <= tt[j] < phones[iv2]['end_ms']
                 and frames[j, E.P['av']] > 0), phones[iv2]['start_ms'])
     f_prev = A.formants(x, rate, a - 12.0, win_ms=20.0)
     f_next = A.formants(x, rate, von + 12.0, win_ms=20.0)
-    return dict(ms=b - a, closure_ms=st.get('closure_ms'), vot_ms=st.get('vot_ms'), releases=releases,
+    closure = st.get('closure_ms')
+    if bar:
+        # and its closure is read in the frames, as long as they hold the bar
+        closure = float(sum(frames[j, 0] for j in bar))
+    return dict(ms=b - a, closure_ms=closure, vot_ms=st.get('vot_ms'), releases=releases,
                 prev_F2=f_prev[1][0] if len(f_prev) >= 2 else None, next_F2=f_next[1][0] if len(f_next) >= 2 else None)
 
 
